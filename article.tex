@@ -55,18 +55,6 @@
 \Plaintitle{TrueSkill Through Time: the Python Package}
 \Shorttitle{TrueSkill Through Time: the \proglang{Python} Package}
 
-%% - \Abstract{} almost as usual
-\Abstract{
-  Abstract
-}
-
-%% \Keywords{JSS, style guide, comma-separated, not capitalized, \proglang{R}} with LaTeX markup, at least one required
-%% - \Plainkeywords{JSS, style guide, comma-separated, not capitalized, R} without LaTeX markup (if necessary)
-%% - Should be comma-separated and in sentence case.
-
-\Keywords{, \proglang{Python}}
-\Plainkeywords{Python}
-
 %% - \Address{} of at least one author
 %% - May contain multiple affiliations for each author
 %%   (in extra lines, separated by \emph{and}\\).
@@ -104,39 +92,130 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%% - \Abstract{} almost as usual
+\Abstract{
+ \pkg{ttt} package is a \proglang{Python} implementation of TrueSkill Through Time (TTT), an enhancement of TrueSkill algorithm, widely used by the video game industry for skill estimation.
+ TTT is a probabilistic model for general pairwise-comparison.
+ A nice feature is the use of a single graphical model for the entire history of events.
+ The posterior distribution is computed based on an efficient variationl algorithm, known as expectation propagation.
+ As a result, the inference procedure requires only a few linear-time iterations over the data.
+ This algorithm outperforms competing estimations in terms of model evidence, and scales to millions of parameters.
+ We offer an easy to use interface, compatible with the current \code{trueskill} package for \proglang{Python}.  
+}
+
+%% \Keywords{JSS, style guide, comma-separated, not capitalized, \proglang{R}} with LaTeX markup, at least one required
+%% - \Plainkeywords{JSS, style guide, comma-separated, not capitalized, R} without LaTeX markup (if necessary)
+%% - Should be comma-separated and in sentence case.
+
+\Keywords{TrueSkill, ranking, skill, education, sports, games, Bayesian inference, \proglang{Python}}
+\Plainkeywords{TrueSkill, ranking, skill, education, sports, games,  Bayesian inference, Python}
+
 \begin{document}
 
 
 %% -- Introduction -------------------------------------------------------------
 
-%% - In principle "as usual".
 %% - But should typically have some discussion of both _software_ and _methods_.
 %% - Use \proglang{}, \pkg{}, and \code{} markup throughout the manuscript.
 %% - If such markup is in (sub)section titles, a plain text version has to be
 %%   added as well.
 %% - All software mentioned should be properly \cite-d.
 %% - All abbreviations should be introduced.
-%% - Unless the expansions of abbreviations are proper names (like "Journal
-%%   of Statistical Software" above) they should be in sentence case (like
-%%   "generalized linear models" below).
+%% - Unless the expansions of abbreviations are proper names (like "Journal of Statistical Software" above) they should be in sentence case (like "generalized linear models" below).
 
 \section[Introduction: Count data regression in R]{Introduction: } \label{sec:intro}
 
-\begin{leftbar}
-The introduction is in principle ``as usual''. However, it should usually embed both the implemented \emph{methods} and the \emph{software} into the respective relevant literature.
-For the latter both competing and complementary software should be discussed (within the same software environment and beyond), bringing
-out relative (dis)advantages. All software mentioned should be properly
-\verb|\cite{}|d. (See also Appendix~\ref{app:bibtex} for more details on
-\textsc{Bib}{\TeX}.)
+TrueSkill Through Time (TTT) is a probabilistic model for general pairwise comparison.
 
-For writing about software JSS requires authors to use the markup
-\verb|\proglang{}| (programming languages and large programmable systems),
-\verb|\pkg{}| (software packages), \verb|\code{}| (functions, commands,
-arguments, etc.).
-If there is such markup in (sub)section titles (as above), a plain text version has to be provided in the {\LaTeX} command as well.
-Below we also illustrate how abbrevations should be introduced and citation commands can be employed.
-See the {\LaTeX} code for more details.
-\end{leftbar}
+The most commonly definition of skill, used in educational and sports contexts, rely on the agents' chance to solve a problem or to win against a competitor.
+It is worth noting this is esentially a pairwise comparition and not an absolute value of individuals.
+
+Models for pairwise comparisons have been studied for almost a century.
+Thurstone \cite{thurstone1927-psychophysicalAnalysis,thurstone1927-comparativeJugement} propose the first and basic generative model, and show how to infer a hidden perception relative to a reference stimulus and a discriminal process.
+
+
+
+\cite{glickman2013-zermelo1928}
+
+This model is equivalent to Elo. The skill is the stimulus, and the performance is the perception, normal distributed around the hidden value.
+
+
+
+
+
+Probability Theory provides us with a consistent mathematical framework  for quantifying the uncertainty of our beliefs, and to update them optimally given a model and the data~\cite{bishop2006-patternRecognitionMachineLearning}.
+
+
+
+
+
+
+
+
+\cite{herbrich2006-trueskill}
+
+\cite{dangauthier2008-trueskillThroughTime}
+
+\cite{coulom2008-wholeHistoryRating}
+
+\cite{maystre2019-pairwise}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 %% -- Manuscript ---------------------------------------------------------------
@@ -239,11 +318,648 @@ Luego, para calcular una marginal cualquiera,
 g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 \end{equation}
 
-\subsection{Propiedades}\label{sec:propiedades}
+
+ 
+\subsection{Solucion exacta}
+
+
+%\section{Prior predictive y evidencia}
+
+La evidencia es otro nombre para el Prior predictive.
+%
+\begin{equation*}
+\underbrace{P(\text{Belief}|\text{Data})}_{\text{\scriptsize Posterior}} = \frac{\overbrace{P(\text{Data}|\text{Belief})}^{\text{\scriptsize Likelihood}} \overbrace{P(\text{Belief})}^{\text{\scriptsize Prior}} }{\underbrace{P(\text{Data})}_{\hfrac{\hfrac{\text{\scriptsize Evidence or}}{\text{\scriptsize Average likelihood}}}{\text{\scriptsize Prior Predictive}} } }
+\end{equation*}
+
+ 
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+\subsection{Full TrueSkill}
+
+\begin{center}
+\tikz{ %        
+        \node[factor, xshift=-4cm] (fta) {} ;
+        \node[const, right=of fta] (nfta) {$f_{t_0}$}; %
+        \node[latent, below=of fta,yshift=-0.5cm] (ta) {$t_0$} ; %
+        
+        \node[factor] (ftb) {} ;
+        \node[const, right=of ftb] (nftb) {$f_{t_1}$}; %
+        \node[latent, below=of ftb,yshift=-0.5cm] (tb) {$t_1$} ; %
+        
+        \node[factor, xshift=4cm] (ftc) {} ;
+        \node[const, right=of ftc] (nftc) {$f_{t_2}$}; %        
+        \node[latent, below=of ftc,yshift=-0.5cm] (tc) {$t_2$} ; %
+        
+        \node[factor, below=of tb, xshift=-2cm] (fd1) {} ;
+        \node[const, left=of fd1] (nfd1) {$f_{d_0}$}; %        
+        \node[latent, below=of fd1,yshift=-0.5cm] (d1) {$d_{0}$} ; %
+        \node[factor, below=of d1,yshift=-0.5cm] (fr1) {} ;
+        
+        \node[factor, below=of tb, xshift=2cm] (fd2) {} ;
+        \node[const, above=of fd2] (nfd2) {$f_{d_{1}}$}; %        
+        \node[latent, below=of fd2,yshift=-0.5cm] (d2) {$d_{1}$} ; %
+        \node[factor, below=of d2,yshift=-0.5cm] (fr2) {} ;
+        
+        \edge[-] {ta} {fta,fd1}
+        \edge[-] {tb} {ftb,fd1,fd2}
+        \edge[-] {tc} {ftc,fd2}
+        \edge[-] {d1} {fd1,fr1}
+        \edge[-] {d2} {fd2,fr2}
+        
+        
+        \path[draw, -latex, fill=black!50,sloped] (fd1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \ \ \ \textbf{3:} \emph{looseLikelihood}$(t_1)$} (tb);
+        
+        \path[draw, -latex, fill=black!50,sloped] (fd2) edge[bend left,draw=black!50] node[midway,below,color=black!75] {\scriptsize \textbf{6:} \emph{winLikelihood}$(t_1)$} (tb);
+        
+        \path[draw, -latex, fill=black!50,sloped] (ftb) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{prior}$(t_1)$} (tb);
+        
+        
+        \path[draw, -latex, fill=black!50,sloped] (fr1) edge[bend left,draw=black!50] node[midway,above,color=black!75, rotate=180] {\scriptsize \textbf{2:} \emph{likelihood}$(d_{0})$} (d1);
+        \path[draw, -latex, fill=black!50,sloped] (fd1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \textbf{1:} \emph{prior}$(d_{0})$} (d1);
+        
+        \path[draw, -latex, fill=black!50,sloped] (fr2) edge[bend left,draw=black!50] node[midway,above,color=black!75, rotate=180] {\scriptsize \textbf{5:} \emph{likelihood}$(d_{0})$} (d2);
+        \path[draw, -latex, fill=black!50,sloped] (fd2) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \textbf{4:} \emph{prior}$(d_{0})$} (d2);
+        
+        
+} 
+\end{center}
+
+\begin{equation}
+ p(t_e) = \emph{prior}(t_e) \cdot \emph{looseLikelihood}(t_e) \cdot \emph{winLikelihood}(t_e)
+\end{equation}
+
+\begin{equation}
+ p(d_i) = \emph{prior}(d_i) \cdot \emph{likelihood}(d_i)
+\end{equation}
+
+There is a mutual dependency between the team performance (difference) marginals, $p(d_i)$.
+That makes impossible to perform a one shot inference.
+The basic idea is to update repeatedly forward and backward all messages in the shortest path between any two marginals $p(d_i)$ until convergence.
+The messages that are not yet defined, for example the \emph{winLikelihood}$(t_1)$ in the first forward pass, must be replace it by a neutral form, like a unit scalar or a Gaussian distribution with infinite variance.
+If the messages have already been defined, then use the last available definition.
+
+\paragraph{$\bm{\emph{prior}(d_i)}$:}
+
+\begin{equation}
+ \begin{split}
+  \emph{prior}(d_{i}) = \iint \mathbb{I}(d_{i} = t_i - t_{i+1} ) \cdot \emph{prior}(t_i) \cdot \emph{prior}(t_{i+1}) \cdot \emph{winLikelihood}(t_{i+1}) \, dt_idt_{i+1} 
+ \end{split}
+\end{equation}
+
+
+\paragraph{$\bm{\widehat{\emph{likelihood}}(d_i)}$:}
+
+\begin{equation}
+\widehat{p}(d_i) = \emph{prior}(d_i) \, \widehat{\emph{likelihood}}(d_i)
+\end{equation}
+
+Following the expectation propagation algorithm, we approximate the \emph{likelihood}$(d_i)$ by approximating the marginal $p(d_i)$ via moment matching, resulting in $\widehat{p}(d_i)$ a Gaussian with the same mean and variance as $p(d_i)$.
+\begin{equation}
+\begin{split}
+ \widehat{p}(d_i) & = \emph{approx}(p(d_i)) = \emph{approx}(\emph{prior}(d_i) \cdot \emph{likelihood}(d_i)) 
+ \end{split}
+\end{equation}
+
+Then, 
+\begin{equation}
+\begin{split}
+\widehat{\emph{likelihood}}(d_i) &= \frac{\emph{approx}(\emph{prior}(d_i) \cdot \emph{likelihood}(d_i))}{ \emph{prior}(d_i)}
+\end{split}
+\end{equation}
+
+\paragraph{\emph{looseLikelihood}$\bm{(t_{i+1})}$:}
+
+\begin{equation}
+ \begin{split}
+  \emph{looseLikelihood}(t_{i+1}) = \int \mathbb{I}(d_i>0) \emph{prior}(t_i) \widehat{\emph{likelihood}}(d_i)
+ \end{split}
+\end{equation}
+
+
+\paragraph{\emph{winLikelihood}$\bm{(t_{i})}$:}
+\begin{equation}
+ \begin{split}
+  \emph{winLikelihood}(t_{i}) = \int \mathbb{I}(d_i>0) \emph{prior}(t_{i+1}) \widehat{\emph{likelihood}}(d_i)
+ \end{split}
+\end{equation}
+
+
+
+
+\subsection{TrueSkill through Time (TTT)}
+
+Consider a game in which $N$ players $\{1, \dots, N\}$ are compete over a period of $T$ time steps or temporal batch (e.g. day, week, month, year).
+Denote the series of games outcomes between two players $i$ and $j$ within a temporal batch $t$ by $\vm{y}^t_{ij}(k)$, where $k \in \{1,\dots,K^t_{ij}\}$, with $K^t_{ij}$ the number of games outcomes available for that pair of players in that temporal batch.
+
+
+\begin{itemize}
+ \item Inference within a temporal batch (day, week, month) depends on the random order chosen for the update. However the results should be independent of the order of games within the temporal batch.
+ \item Information across temporal batch is only propagated forward in time, so we can not propagate information backwards.
+\end{itemize}
+
+
+The neighbor factor graph of a temporal skill variable $s_i^t$, is
+
+\begin{center}
+\tikz{ %        
+        \node[latent] (s0) {$s_i^{t-1}$} ; %
+        
+        \node[factor, right=of s0,xshift=1cm ] (fs1) {} ;
+        \node[const, above=of fs1] (nfs1) {$f_{s_i^{t}}$}; %
+        
+        \node[latent, right=of fs1, xshift=1.25cm] (s1) {$s_i^t$} ; %
+        
+        \node[factor, right=of s1, xshift=1.25cm ] (fs2) {} ;
+        \node[const, above=of fs2] (nfs2) {$f_{s_i^{t+1}}$}; %
+        
+        \node[latent, right=of fs2,xshift=1cm] (s2) {$s_i^{t+1}$} ; %
+        
+        \node[factor, below=of s1,xshift=-1.4cm,yshift=-1cm] (fp0) {} ;
+        \node[const, right=of fp0] (nfp0) {$f_{p_i^{t}(1)}$}; %
+        
+        \node[factor, color=white, below=of s1] (fp1) {} ;
+        %\node[const, right=of fp1] (nfp1) {$f_{p_i^{t}(2)}$}; %
+        
+        \node[factor, below=of s1,xshift=1.4cm,yshift=-1cm] (fp2) {} ;
+        \node[const, left=of fp2] (nfp2) {$f_{p_i^{t}(k)}$}; %
+        
+        \node[latent, below=of fp0] (p0) {\footnotesize$p_i^{t}(1)$} ; %
+        %\node[latent, below=of fp1] (p1) {\footnotesize$p_i^{t}(2)$} ; %
+        \node[latent, below=of fp2] (p2) {\footnotesize$p_i^{t}(k)$} ; %
+        
+        %\draw[bend right=90] (fs1) arc (s1) node[midway,above]{label};
+        %\draw[bend left,->]  (fs1) to node [auto] {Link} (s1);
+        \edge[-] {s1} {fp0,fp1,fp2};
+        \edge[-] {fp0} {p0};
+        %\edge[-] {fp1} {p1};
+        \edge[-] {fp2} {p2};
+        \edge[-] {fs1} {s0,s1};
+        \edge[-] {fs2} {s1,s2};
+        %\edge[bend right] {s0} {fs1};
+        \path[draw, -latex, fill=black!50] (s0) edge[bend right,draw=black!50] node[midway,below,color=black!75] {\scriptsize \emph{posterior}$(t-1)$} (fs1);
+        \path[draw, -latex, fill=black!50] (fs1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{prior}$(t)$} (s1);
+        \path[draw, -latex, fill=black!50] (s2) edge[bend left,draw=black!50] node[midway,below,color=black!75] {\scriptsize \emph{\ \ inversePosterior}$(t+1)$} (fs2);
+        \path[draw, -latex, fill=black!50] (fs2) edge[bend right,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{inversePrior}$(t)$} (s1);
+        \path[draw, -latex, fill=black!50,sloped] (fp0) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{likelihood}$(t,k)$} (s1);
+        \path[draw, -latex, fill=black!50,sloped] (s1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{\ \ withinPrior}$(t,k)$} (fp2);
+} 
+\end{center}
+
+The arrows represents messages computed by the sum-product algorithm.
+The names were selected for the sole purpose of simplifying the notation.
+By the sum-product algorithm we know that the marginal distribution any variable is the product of the messages the variable receives from its neighbors,
+
+\begin{equation}
+ p(s^t) = \prod_{h \in n(s^t)} m_{h \rightarrow s^t}(s^t)
+\end{equation}
+
+Replaced the messages by the selected names, this distribution can be expressed as, 
+
+\begin{equation}
+ p(s_i^t) = \emph{prior}_i(t) \cdot \emph{inversePrior}_i(t) \cdot \prod_{k=1}^{K_i^t} \emph{likelihood}_i(t,k)
+\end{equation}
+
+There is a mutual dependency between forward and backward messages that make imposible a one shot inference iteration.
+The basic idea is to update repeatedly forward and backward until convergence, making sure that the effect of the previous update is removed before the new effect is added.
+The messages that are not yet defined, for example the inverse prior in the first forward pass, are replace it with by a neutral form like a unit scalar or a Gaussian distribution with infinite variance.
+
+\vspace{0.3cm}
+
+\paragraph{\emph{posterior}$\bm{_i(t-1)}$:}
+
+\begin{equation}
+\begin{split}
+  \emph{posterior}_i(t-1)&= m_{s_i^{t-1}\rightarrow f_{s_i^t}}(s_i^{t-1}) \\ 
+ &= \emph{prior}_i(t-1) \cdot \prod_{k=1}^{K_i^{t-1}} \emph{likelihood}_i(t-1,k)\\
+ &= p(s_i^{t-1}) \, \emph{inversePrior}_i(t-1)^{-1}
+ \end{split}
+\end{equation}
+
+ 
+ \paragraph{\emph{prior}$_i\bm{(t)}$:}
+ 
+ \begin{equation}
+ \begin{split}
+  \emph{prior}_i(t) &= m_{f_{s_i^t} \rightarrow s_i^t}(s_i^t) \\
+  &= \int f_{s^t} \cdot \emph{posterior}_i(t-1) \, ds_i^{t-1}
+  \end{split}
+ \end{equation}
+
+ \paragraph{\emph{likelihood}$_i\bm{(t,k)}$:}
+ 
+ \begin{equation}
+ \begin{split}
+  \emph{likelihood}_i(t,k) &= m_{f_{p^{t}(k)} \rightarrow s^t}(s^t) \\
+  &= \emph{trueSkillVariationalLikelihood}_i(t,k)
+  \end{split}
+ \end{equation}
+ 
+ \paragraph{\emph{withinPrior}$_i\bm{(t,k)}$:}
+
+ 
+ \begin{equation}
+ \begin{split}
+ \emph{withinPrior}_i(t,k) &= m_{s_i^t \rightarrow f_{p_i^t(k)}}(s_i^t)  \\
+ &= \emph{prior}_i(t) \cdot \emph{inversePrior}_i(t) \cdot \prod_{q=1, q\neq k}^{K_i^t} \emph{likelihood}_i(t,q) \\
+ &= p(s_i^t) \cdot \emph{likelihood}_i(t,k)^{-1}
+  \end{split}
+ \end{equation}
+ 
+ \paragraph{\emph{inversePrior}$\bm{_i(t)}$: }
+ 
+ \begin{equation}
+ \begin{split}
+ \emph{inversePrior}_i(t) &= m_{f_{s_i^{t+1}} \rightarrow s_i^t}(s_i^t) \\
+ &= \int f_{s_i^{t+1}} \cdot \emph{inversePosterior}_i(t+1) \, ds_i^{t+1}
+ \end{split}
+ \end{equation}
+  
+  \paragraph{\emph{inversePosterior}$\bm{_i(t+1)}$: }
+  
+ \begin{equation}
+ \begin{split}
+ \emph{inversePosterior}_i(t+1) &= m_{s_i^{t+1} \rightarrow f_{s_i^{t+1}}}(s_i^{t+1}) \\
+ &= \emph{inversePrior}_i(t+1) \cdot \prod_{k=1}^{K_i^{t+1}} \emph{likelihood}_i(t+1,k) \\
+ &= p(s_i^{t+1}) \cdot \emph{prior}_i(t+1)^{-1}
+ \end{split}
+ \end{equation}
+
+\subsubsection{Convergence}
+
+\paragraph{Temporal batch} Within a temporal batch $t$, we go through the games outcomes $\vm{y}^t$ several times until convergence.
+The update for a game outcome $y^t_i(k)$ is performed by the same way as original TrueSkill using as prior the \emph{withinPrior}$_i(t,k)$ and saving the \emph{likelihood}$_i(t,k)$.
+
+\paragraph{Forward-Backward Propagation}
+At each forward pass we store each forward message, i.e. \emph{prior}$_i(t+1)$.
+And at each backward pass we compute the backward message, i.e. \emph{inversePrior}$_i(t-1)$.
+This messages, together with the last stored \emph{likelihood}$_i(t,k)$, will be used to compute each \emph{withinPrior}$_i(t,k)$ at the temporal batch.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{leftbar}
+Note that around the \verb|{equation}| above there should be no spaces (avoided
+in the {\LaTeX} code by \verb|%| lines) so that ``normal'' spacing is used and
+not a new paragraph started.
+\end{leftbar}
+
+
+\begin{leftbar}
+As the synopsis above is a code listing that is not meant to be executed,
+one can use either the dedicated \verb|{Code}| environment or a simple
+\verb|{verbatim}| environment for this. Again, spaces before and after should be
+avoided.
+
+Finally, there might be a reference to a \verb|{table}| such as
+Table~\ref{tab:overview}. Usually, these are placed at the top of the page
+(\verb|[t!]|), centered (\verb|\centering|), with a caption below the table,
+column headers and captions in sentence style, and if possible avoiding vertical
+lines.
+\end{leftbar}
+
+% \begin{table}[t!]
+% \centering
+% \begin{tabular}{lllp{7.4cm}}
+% \hline
+% Type           & Distribution & Method   & Description \\ \hline
+% GLM            & Poisson      & ML       & Poisson regression: classical GLM,
+%                                            estimated by maximum likelihood (ML) \\
+% \end{tabular}
+% \caption{\label{tab:overview} Overview of various count regression models. The
+% table is usually placed at the top of the page (\texttt{[t!]}), centered
+% (\texttt{centering}), has a caption below the table, column headers and captions
+% are in sentence style, and if possible vertical lines should be avoided.}
+% \end{table}
+% 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%% -- Illustrations ------------------------------------------------------------
+
+%% - Virtually all JSS manuscripts list source code along with the generated
+%%   output. The style files provide dedicated environments for this.
+%% - In R, the environments {Sinput} and {Soutput} - as produced by Sweave() or
+%%   or knitr using the render_sweave() hook - are used (without the need to
+%%   load Sweave.sty).
+%% - Equivalently, {CodeInput} and {CodeOutput} can be used.
+%% - The code input should use "the usual" command prompt in the respective
+%%   software system.
+%% - For R code, the prompt "R> " should be used with "+  " as the
+%%   continuation prompt.
+%% - Comments within the code chunks should be avoided - these should be made
+%%   within the regular LaTeX text.
+
+\section{Illustrations} \label{sec:illustrations}
+
+%
+\begin{CodeChunk}
+\begin{CodeInput}
+R> data("quine", package = "MASS")
+\end{CodeInput}
+\end{CodeChunk}
+
+\begin{leftbar}
+For code input and output, the style files provide dedicated environments.
+Either the ``agnostic'' \verb|{CodeInput}| and \verb|{CodeOutput}| can be used
+or, equivalently, the environments \verb|{Sinput}| and \verb|{Soutput}| as
+produced by \fct{Sweave} or \pkg{knitr} when using the \code{render_sweave()}
+hook. Please make sure that all code is properly spaced, e.g., using
+\code{y = a + b * x} and \emph{not} \code{y=a+b*x}. Moreover, code input should
+use ``the usual'' command prompt in the respective software system. For
+\proglang{R} code, the prompt \code{"R> "} should be used with \code{"+  "} as
+the continuation prompt. Generally, comments within the code chunks should be
+avoided -- and made in the regular {\LaTeX} text instead. Finally, empty lines
+before and after code input/output should be avoided (see above).
+\end{leftbar}
+
+\begin{figure}[t!]
+\centering
+\includegraphics{jsslogo}
+\caption{\label{fig:quine} Frequency distribution for number of days absent
+from school.}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%% -- Summary/conclusions/discussion -------------------------------------------
+
+\section{Summary and discussion} \label{sec:summary}
+
+\begin{leftbar}
+As usual \dots
+\end{leftbar}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%% -- Optional special unnumbered sections -------------------------------------
+
+\section*{Computational details}
+
+\begin{leftbar}
+If necessary or useful, information about certain computational details
+such as version numbers, operating systems, or compilers could be included
+in an unnumbered section. Also, auxiliary packages (say, for visualizations,
+maps, tables, \dots) that are not cited in the main text can be credited here.
+\end{leftbar}
+
+The results in this paper were obtained using
+\proglang{R}~3.4.1 with the
+\pkg{MASS}~7.3.47 package. \proglang{R} itself
+and all packages used are available from the Comprehensive
+\proglang{R} Archive Network (CRAN) at
+\url{https://CRAN.R-project.org/}.
+
+
+\section*{Acknowledgments}
+
+\begin{leftbar}
+All acknowledgments (note the AE spelling) should be collected in this
+unnumbered section before the references. It may contain the usual information
+about funding and feedback from colleagues/reviewers/etc. Furthermore,
+information such as relative contributions of the authors may be added here
+(if any).
+\end{leftbar}
+
+
+%% -- Bibliography -------------------------------------------------------------
+%% - References need to be provided in a .bib BibTeX database.
+%% - All references should be made with \cite, \citet, \citep, \citealp etc.
+%%   (and never hard-coded). See the FAQ for details.
+%% - JSS-specific markup (\proglang, \pkg, \code) should be used in the .bib.
+%% - Titles in the .bib should be in title case.
+%% - DOIs should be included where available.
+
+\bibliography{article}
+
+
+%% -- Appendix (if any) --------------------------------------------------------
+%% - After the bibliography with page break.
+%% - With proper section titles and _not_ just "Appendix".
+
+\newpage
+
+\begin{appendix}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+
+\section{Propiedades}\label{sec:propiedades}
 
 Las siguientes tres propiedades, junto con las reglas del \emph{sum-product algorithm}, es lo \'unico que se necesita para calcular la posterior anal\'itica del modelo bayesiano.
 
-\subsubsection*{Multiplicacion de normales}  
+\subsection*{Multiplicacion de normales}  
 \begin{equation}\label{eq:multiplicacion_normales}
 \begin{split}
  \int_{-\infty}^{\infty} N(x|\mu_x,\sigma_x^2)N(x|\mu_y,\sigma_y^2) \, dx  &  \overset{*}{=} \int_{-\infty}^{\infty}  \underbrace{N(\mu_x|\mu_y,\sigma_x^2+\sigma_y^2)}_{\text{constante}} N(x|\mu_{*},\sigma_{*}^2) dx \\
@@ -254,7 +970,7 @@ Las siguientes tres propiedades, junto con las reglas del \emph{sum-product algo
 
 Donde la igualdad destacada ($\overset{*}{=}$) se demuestra en la secci\'on~\ref{multiplicacion_normales} anexa.
 
-\subsubsection*{Integrales con funci\'on indicadora}
+\subsection*{Integrales con funci\'on indicadora}
 \begin{equation}\label{eq:integral_con_indicadora} 
 \begin{split}
  \int_{-\infty}^{\infty}  \int_{-\infty}^{\infty}  \mathbb{I}(x=h(y,z)) f(x) g(y)\, dx\, dy &=  \int_{-\infty}^{\infty} \int_{h(y,z)}^{h(y,z)} f(h(y,z)) g(y)\, dx\, dy\\
@@ -263,24 +979,24 @@ Donde la igualdad destacada ($\overset{*}{=}$) se demuestra en la secci\'on~\ref
 \end{split}
 \end{equation}
 
-\subsubsection*{Simetr\'ia de normales}
+\subsection*{Simetr\'ia de normales}
 \begin{equation}\label{eq:simetria}
  N(x|\mu,\sigma^2) = N(\mu|x,\sigma^2) = N(-\mu|-x,\sigma^2) = N(-x|-\mu,\sigma^2) 
 \end{equation}
 
-\subsubsection*{Derivada de la acumulada normal}
+\subsection*{Derivada de la acumulada normal}
 \begin{equation}\label{eq:phi_norm}
  \frac{\partial}{\partial x} \Phi(x|\mu,\sigma^2) = N(x|\mu,\sigma^2)
 \end{equation}
 
-\subsubsection*{Distribuci\'on normal estandarizada}
+\subsection*{Distribuci\'on normal estandarizada}
 \begin{equation}\label{eq:estandarizar}
  X \sim N(\mu,\sigma^2) \Rightarrow \frac{X-\mu}{\sigma} \sim N(0,1)
 \end{equation}
 
 
 
-\subsection{Ejemplo 2 vs 2}
+\section{Ejemplo 2 vs 2}
 
 \begin{figure}[t!]
   \centering
@@ -290,7 +1006,7 @@ Donde la igualdad destacada ($\overset{*}{=}$) se demuestra en la secci\'on~\ref
 \end{figure}
 
 
-\subsubsection{Mensajes descendentes}
+\subsection{Mensajes descendentes}
 
 \paragraph{$\bm{m_{f_s \rightarrow s}(s)}:$}
 
@@ -414,20 +1130,6 @@ m_{d \rightarrow f_r}(d) & \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_
  & = \Phi(\frac{\delta}{\vartheta})
 \end{split}
 \end{equation}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -672,14 +1374,6 @@ m_{f_{p_3} \rightarrow s_3}(s_3) & \overset{\hfrac{\text{eq}}{\ref{eq:m_fp_s3}}}
   \label{posterior_perdedor}
 \end{figure}
 
-\section{Prior predictive y evidencia}
-
-La evidencia es otro nombre para el Prior predictive.
-
-\begin{equation*}
-\underbrace{P(\text{Belief}|\text{Data})}_{\text{\scriptsize Posterior}} = \frac{\overbrace{P(\text{Data}|\text{Belief})}^{\text{\scriptsize Likelihood}} \overbrace{P(\text{Belief})}^{\text{\scriptsize Prior}} }{\underbrace{P(\text{Data})}_{\hfrac{\hfrac{\text{\scriptsize Evidence or}}{\text{\scriptsize Average likelihood}}}{\text{\scriptsize Prior Predictive}} } }
-\end{equation*}
-
  \begin{figure}[t!]
 \centering
   \begin{subfigure}[t]{0.48\textwidth}
@@ -702,6 +1396,7 @@ La evidencia es otro nombre para el Prior predictive.
  \end{equation}
 
  
+
  
  
  
@@ -727,20 +1422,19 @@ La evidencia es otro nombre para el Prior predictive.
  
  
  
+
  
- 
-\section{Aproximacion de la posterior (DRAFT)}
+ \subsection{Aproximacion de la posterior (DRAFT)}
 
 La probabilidad de una diferencia cuando se conoce el resultado (Eq.~\ref{eq:p_d}) es una Normal truncada.
-
+%
 \begin{equation}\label{eq:p_d}
 \begin{split}
  P(d_1) & \overset{\hfrac{\text{eq}}{\ref{eq:marginal}}}{=}   \prod_{h \in n(d_1)} m_{h \rightarrow d_1} \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{=} m_{f_{d_1} \rightarrow d_1}(d_1) \, m_{f_r \rightarrow d_1}(d_1) \overset{\hfrac{\text{eq}}{\ref{eq:m_fr_d}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_d_fd}}}{=}}  m_{f_{d_1} \rightarrow d_1}(d_1) \, m_{d_1 \rightarrow f_{d_1}}(d_1)  \\
  & = N(d_1|\delta,\vartheta) \mathbb{I}(d_1 > 0)
 \end{split}
 \end{equation}
-
-
+%
 Para tener una posterior normal lo que se hace es un buscar la normal que m\'as se aproxima a esta normal truncada
 
 \vspace{0.3cm}
@@ -878,504 +1572,35 @@ m_{f_{t_b} \rightarrow p_3}(p_3) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=
 \end{split}
 \end{equation}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\newpage
-\section{Posterior exacta multiequipos}
-
-Para calcular la posterior exacta de un equipo $a$ en una partida multiequipos, se puede considerar un factor graph en el que el equipo $a$ es el centro, de modo de poder enviar los mensajes de forma directa.
-
-\begin{figure}[t!]
-  \centering
-  \scalebox{.75}{\input{modelos/trueskill_factorGraph_versionGeneral_multiequiposExacta.tex}}
-  \caption{\small Grafo de factorizaci\'on del modelo \texttt{TrueSkill} alternativo, en el que el equipo un focal $a$ se encuentra en el centro.}
-  \label{modelo_trueskill_2vs2}
-\end{figure}
-
-
-
-\paragraph{$\bm{m_{t_a \rightarrow f_{t_a}}(t_a)}:$}
-
-\begin{equation}\label{eq:m_ta_ft}
-\begin{split}
- m_{t_a \rightarrow f_{t_a}}(t_a) \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(t_a) \setminus  \{f_{t_a} \}} m_{g \rightarrow t_a} (t_a)  \overset{\hfrac{\text{eq}}{\ref{eq:m_fd_ta}}}{=} \Phi(t_a|\mu_b,\sigma_b^2) \overset{\hfrac{\mu_b}{\sigma_b}}{=} \Phi \Big(t_a| \sum_{i \in A_b} \mu_i , \sum_{i \in A_b} \beta^2 + \sigma_i^2 \Big) 
-\end{split}
-\end{equation}
-
-\section{Full TrueSkill}
-
-\begin{center}
-\tikz{ %        
-        \node[factor, xshift=-4cm] (fta) {} ;
-        \node[const, right=of fta] (nfta) {$f_{t_0}$}; %
-        \node[latent, below=of fta,yshift=-0.5cm] (ta) {$t_0$} ; %
-        
-        \node[factor] (ftb) {} ;
-        \node[const, right=of ftb] (nftb) {$f_{t_1}$}; %
-        \node[latent, below=of ftb,yshift=-0.5cm] (tb) {$t_1$} ; %
-        
-        \node[factor, xshift=4cm] (ftc) {} ;
-        \node[const, right=of ftc] (nftc) {$f_{t_2}$}; %        
-        \node[latent, below=of ftc,yshift=-0.5cm] (tc) {$t_2$} ; %
-        
-        \node[factor, below=of tb, xshift=-2cm] (fd1) {} ;
-        \node[const, left=of fd1] (nfd1) {$f_{d_0}$}; %        
-        \node[latent, below=of fd1,yshift=-0.5cm] (d1) {$d_{0}$} ; %
-        \node[factor, below=of d1,yshift=-0.5cm] (fr1) {} ;
-        
-        \node[factor, below=of tb, xshift=2cm] (fd2) {} ;
-        \node[const, above=of fd2] (nfd2) {$f_{d_{1}}$}; %        
-        \node[latent, below=of fd2,yshift=-0.5cm] (d2) {$d_{1}$} ; %
-        \node[factor, below=of d2,yshift=-0.5cm] (fr2) {} ;
-        
-        \edge[-] {ta} {fta,fd1}
-        \edge[-] {tb} {ftb,fd1,fd2}
-        \edge[-] {tc} {ftc,fd2}
-        \edge[-] {d1} {fd1,fr1}
-        \edge[-] {d2} {fd2,fr2}
-        
-        
-        \path[draw, -latex, fill=black!50,sloped] (fd1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \ \ \ \textbf{3:} \emph{looseLikelihood}$(t_1)$} (tb);
-        
-        \path[draw, -latex, fill=black!50,sloped] (fd2) edge[bend left,draw=black!50] node[midway,below,color=black!75] {\scriptsize \textbf{6:} \emph{winLikelihood}$(t_1)$} (tb);
-        
-        \path[draw, -latex, fill=black!50,sloped] (ftb) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{prior}$(t_1)$} (tb);
-        
-        
-        \path[draw, -latex, fill=black!50,sloped] (fr1) edge[bend left,draw=black!50] node[midway,above,color=black!75, rotate=180] {\scriptsize \textbf{2:} \emph{likelihood}$(d_{0})$} (d1);
-        \path[draw, -latex, fill=black!50,sloped] (fd1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \textbf{1:} \emph{prior}$(d_{0})$} (d1);
-        
-        \path[draw, -latex, fill=black!50,sloped] (fr2) edge[bend left,draw=black!50] node[midway,above,color=black!75, rotate=180] {\scriptsize \textbf{5:} \emph{likelihood}$(d_{0})$} (d2);
-        \path[draw, -latex, fill=black!50,sloped] (fd2) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \textbf{4:} \emph{prior}$(d_{0})$} (d2);
-        
-        
-} 
-\end{center}
-
-\begin{equation}
- p(t_e) = \emph{prior}(t_e) \cdot \emph{looseLikelihood}(t_e) \cdot \emph{winLikelihood}(t_e)
-\end{equation}
-
-\begin{equation}
- p(d_i) = \emph{prior}(d_i) \cdot \emph{likelihood}(d_i)
-\end{equation}
-
-There is a mutual dependency between the team performance (difference) marginals, $p(d_i)$.
-That makes impossible to perform a one shot inference.
-The basic idea is to update repeatedly forward and backward all messages in the shortest path between any two marginals $p(d_i)$ until convergence.
-The messages that are not yet defined, for example the \emph{winLikelihood}$(t_1)$ in the first forward pass, must be replace it by a neutral form, like a unit scalar or a Gaussian distribution with infinite variance.
-If the messages have already been defined, then use the last available definition.
-
-\paragraph{$\bm{\emph{prior}(d_i)}$:}
-
-\begin{equation}
- \begin{split}
-  \emph{prior}(d_{i}) = \iint \mathbb{I}(d_{i} = t_i - t_{i+1} ) \cdot \emph{prior}(t_i) \cdot \emph{prior}(t_{i+1}) \cdot \emph{winLikelihood}(t_{i+1}) \, dt_idt_{i+1} 
- \end{split}
-\end{equation}
-
-
-\paragraph{$\bm{\widehat{\emph{likelihood}}(d_i)}$:}
-
-\begin{equation}
-\widehat{p}(d_i) = \emph{prior}(d_i) \, \widehat{\emph{likelihood}}(d_i)
-\end{equation}
-
-Following the expectation propagation algorithm, we approximate the \emph{likelihood}$(d_i)$ by approximating the marginal $p(d_i)$ via moment matching, resulting in $\widehat{p}(d_i)$ a Gaussian with the same mean and variance as $p(d_i)$.
-\begin{equation}
-\begin{split}
- \widehat{p}(d_i) & = \emph{approx}(p(d_i)) = \emph{approx}(\emph{prior}(d_i) \cdot \emph{likelihood}(d_i)) 
- \end{split}
-\end{equation}
-
-Then, 
-\begin{equation}
-\begin{split}
-\widehat{\emph{likelihood}}(d_i) &= \frac{\emph{approx}(\emph{prior}(d_i) \cdot \emph{likelihood}(d_i))}{ \emph{prior}(d_i)}
-\end{split}
-\end{equation}
-
-\paragraph{\emph{looseLikelihood}$\bm(t_{i+1})$:}
-
-\begin{equation}
- \begin{split}
-  \emph{looseLikelihood}(t_{i+1}) = \int \mathbb{I}(d_i>0) \emph{prior}(t_i) \widehat{\emph{likelihood}}(d_i)
- \end{split}
-\end{equation}
-
-
-\paragraph{\emph{winLikelihood}$\bm(t_{i})$:}
-
-\begin{equation}
- \begin{split}
-  \emph{winLikelihood}(t_{i}) = \int \mathbb{I}(d_i>0) \emph{prior}(t_{i+1}) \widehat{\emph{likelihood}}(d_i)
- \end{split}
-\end{equation}
-
-
-
-
-\section{TrueSkill through Time (TTT)}
-
-Consider a game in which $N$ players $\{1, \dots, N\}$ are compete over a period of $T$ time steps or temporal batch (e.g. day, week, month, year).
-Denote the series of games outcomes between two players $i$ and $j$ within a temporal batch $t$ by $\vm{y}^t_{ij}(k)$, where $k \in \{1,\dots,K^t_{ij}\}$, with $K^t_{ij}$ the number of games outcomes available for that pair of players in that temporal batch.
-
-\begin{mdframed}[backgroundcolor=black!15]
- Note that the following conclusions are based on the idea that original TrueSkill \emph{porceeds through the years (temporal batch) in order, but (within a temporal batch) goes through games outcome in random order}.
- This is not true. 
- Original TrueSkill algorithm does not need any temporal batch for inference.
- So neither goes through games outcome in random order within a year or any other temporal batch.
- By contrast, original TrueSkill sorts games before the inference stage by their game date.
- Sometime it is true, specially in in online game, that we can find users who play more than one game at the same time.
- In this cases it is not clear how to sort those games.
- However, this situation never holds more than a few hours.
- The unsorted games are an exception rather than a rule in original TrueSkill.
- \textbf{So why the authors of TTT adopt temporal batching, unnecessary for the orginal TrueSkill?}
- \textbf{There is a hidden reason for adopting temporal batching, only necessary for TTT?}
- There is no problem if we add new features to an algorithm.
- But in this case, the adoption of this new feature is badly justified.
-\end{mdframed}
-
-\begin{itemize}
- \item Inference within a temporal batch (day, week, month) depends on the random order chosen for the update. However the results should be independent of the order of games within the temporal batch.
- \item Information across temporal batch is only propagated forward in time, so we can not propagate information backwards.
-\end{itemize}
-
-\begin{mdframed}[backgroundcolor=black!15] 
- What happens if we define very small and very large temporal batch. 
- For example consider the follow three games in temporal order: A beats B, then B beats C and finally C beats A.
- If we define \textbf{short temporal batch} such that only cover one game at a time, then there will be no within convergence step for which the results of inference should be independent of the order of games.
- If we define \textbf{long temporal batch} such that cover all games, then there will be no time steps to propagate information backwards.
-\end{mdframed}
-
-The neighbor factor graph of a temporal skill variable $s_i^t$, is
-
-\begin{center}
-\tikz{ %        
-        \node[latent] (s0) {$s_i^{t-1}$} ; %
-        
-        \node[factor, right=of s0,xshift=1cm ] (fs1) {} ;
-        \node[const, above=of fs1] (nfs1) {$f_{s_i^{t}}$}; %
-        
-        \node[latent, right=of fs1, xshift=1.25cm] (s1) {$s_i^t$} ; %
-        
-        \node[factor, right=of s1, xshift=1.25cm ] (fs2) {} ;
-        \node[const, above=of fs2] (nfs2) {$f_{s_i^{t+1}}$}; %
-        
-        \node[latent, right=of fs2,xshift=1cm] (s2) {$s_i^{t+1}$} ; %
-        
-        \node[factor, below=of s1,xshift=-1.4cm,yshift=-1cm] (fp0) {} ;
-        \node[const, right=of fp0] (nfp0) {$f_{p_i^{t}(1)}$}; %
-        
-        \node[factor, color=white, below=of s1] (fp1) {} ;
-        %\node[const, right=of fp1] (nfp1) {$f_{p_i^{t}(2)}$}; %
-        
-        \node[factor, below=of s1,xshift=1.4cm,yshift=-1cm] (fp2) {} ;
-        \node[const, left=of fp2] (nfp2) {$f_{p_i^{t}(k)}$}; %
-        
-        \node[latent, below=of fp0] (p0) {\footnotesize$p_i^{t}(1)$} ; %
-        %\node[latent, below=of fp1] (p1) {\footnotesize$p_i^{t}(2)$} ; %
-        \node[latent, below=of fp2] (p2) {\footnotesize$p_i^{t}(k)$} ; %
-        
-        %\draw[bend right=90] (fs1) arc (s1) node[midway,above]{label};
-        %\draw[bend left,->]  (fs1) to node [auto] {Link} (s1);
-        \edge[-] {s1} {fp0,fp1,fp2};
-        \edge[-] {fp0} {p0};
-        %\edge[-] {fp1} {p1};
-        \edge[-] {fp2} {p2};
-        \edge[-] {fs1} {s0,s1};
-        \edge[-] {fs2} {s1,s2};
-        %\edge[bend right] {s0} {fs1};
-        \path[draw, -latex, fill=black!50] (s0) edge[bend right,draw=black!50] node[midway,below,color=black!75] {\scriptsize \emph{posterior}$(t-1)$} (fs1);
-        \path[draw, -latex, fill=black!50] (fs1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{prior}$(t)$} (s1);
-        \path[draw, -latex, fill=black!50] (s2) edge[bend left,draw=black!50] node[midway,below,color=black!75] {\scriptsize \emph{\ \ inversePosterior}$(t+1)$} (fs2);
-        \path[draw, -latex, fill=black!50] (fs2) edge[bend right,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{inversePrior}$(t)$} (s1);
-        \path[draw, -latex, fill=black!50,sloped] (fp0) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{likelihood}$(t,k)$} (s1);
-        \path[draw, -latex, fill=black!50,sloped] (s1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{\ \ withinPrior}$(t,k)$} (fp2);
-} 
-\end{center}
-
-The arrows represents messages computed by the sum-product algorithm.
-The names were selected for the sole purpose of simplifying the notation.
-By the sum-product algorithm we know that the marginal distribution any variable is the product of the messages the variable receives from its neighbors,
-
-\begin{equation}
- p(s^t) = \prod_{h \in n(s^t)} m_{h \rightarrow s^t}(s^t)
-\end{equation}
-
-Replaced the messages by the selected names, this distribution can be expressed as, 
-
-\begin{equation}
- p(s_i^t) = \emph{prior}_i(t) \cdot \emph{inversePrior}_i(t) \cdot \prod_{k=1}^{K_i^t} \emph{likelihood}_i(t,k)
-\end{equation}
-
-There is a mutual dependency between forward and backward messages that make imposible a one shot inference iteration.
-The basic idea is to update repeatedly forward and backward until convergence, making sure that the effect of the previous update is removed before the new effect is added.
-The messages that are not yet defined, for example the inverse prior in the first forward pass, are replace it with by a neutral form like a unit scalar or a Gaussian distribution with infinite variance.
-
-\vspace{0.3cm}
-
-\paragraph{\emph{posterior}$\bm{_i(t-1)}$:}
-
-\begin{equation}
-\begin{split}
-  \emph{posterior}_i(t-1)&= m_{s_i^{t-1}\rightarrow f_{s_i^t}}(s_i^{t-1}) \\ 
- &= \emph{prior}_i(t-1) \cdot \prod_{k=1}^{K_i^{t-1}} \emph{likelihood}_i(t-1,k)\\
- &= p(s_i^{t-1}) \, \emph{inversePrior}_i(t-1)^{-1}
- \end{split}
-\end{equation}
-
  
- \paragraph{\emph{prior}$_i\bm{(t)}$:}
  
- \begin{equation}
- \begin{split}
-  \emph{prior}_i(t) &= m_{f_{s_i^t} \rightarrow s_i^t}(s_i^t) \\
-  &= \int f_{s^t} \cdot \emph{posterior}_i(t-1) \, ds_i^{t-1}
-  \end{split}
- \end{equation}
-
- \paragraph{\emph{likelihood}$_i\bm{(t,k)}$:}
  
- \begin{equation}
- \begin{split}
-  \emph{likelihood}_i(t,k) &= m_{f_{p^{t}(k)} \rightarrow s^t}(s^t) \\
-  &= \emph{trueSkillVariationalLikelihood}_i(t,k)
-  \end{split}
- \end{equation}
  
- \paragraph{\emph{withinPrior}$_i\bm{(t,k)}$:}
-
  
- \begin{equation}
- \begin{split}
- \emph{withinPrior}_i(t,k) &= m_{s_i^t \rightarrow f_{p_i^t(k)}}(s_i^t)  \\
- &= \emph{prior}_i(t) \cdot \emph{inversePrior}_i(t) \cdot \prod_{q=1, q\neq k}^{K_i^t} \emph{likelihood}_i(t,q) \\
- &= p(s_i^t) \cdot \emph{likelihood}_i(t,k)^{-1}
-  \end{split}
- \end{equation}
  
- \paragraph{\emph{inversePrior}$\bm{_i(t)}$: }
  
- \begin{equation}
- \begin{split}
- \emph{inversePrior}_i(t) &= m_{f_{s_i^{t+1}} \rightarrow s_i^t}(s_i^t) \\
- &= \int f_{s_i^{t+1}} \cdot \emph{inversePosterior}_i(t+1) \, ds_i^{t+1}
- \end{split}
- \end{equation}
-  
-  \paragraph{\emph{inversePosterior}$\bm{_i(t+1)}$: }
-  
- \begin{equation}
- \begin{split}
- \emph{inversePosterior}_i(t+1) &= m_{s_i^{t+1} \rightarrow f_{s_i^{t+1}}}(s_i^{t+1}) \\
- &= \emph{inversePrior}_i(t+1) \cdot \prod_{k=1}^{K_i^{t+1}} \emph{likelihood}_i(t+1,k) \\
- &= p(s_i^{t+1}) \cdot \emph{prior}_i(t+1)^{-1}
- \end{split}
- \end{equation}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
-\subsection{Convergence}
-
-\paragraph{Temporal batch} Within a temporal batch $t$, we go through the games outcomes $\vm{y}^t$ several times until convergence.
-The update for a game outcome $y^t_i(k)$ is performed by the same way as original TrueSkill using as prior the \emph{withinPrior}$_i(t,k)$ and saving the \emph{likelihood}$_i(t,k)$.
-
-\paragraph{Forward-Backward Propagation}
-At each forward pass we store each forward message, i.e. \emph{prior}$_i(t+1)$.
-And at each backward pass we compute the backward message, i.e. \emph{inversePrior}$_i(t-1)$.
-This messages, together with the last stored \emph{likelihood}$_i(t,k)$, will be used to compute each \emph{withinPrior}$_i(t,k)$ at the temporal batch.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\begin{leftbar}
-Note that around the \verb|{equation}| above there should be no spaces (avoided
-in the {\LaTeX} code by \verb|%| lines) so that ``normal'' spacing is used and
-not a new paragraph started.
-\end{leftbar}
-
-
-\begin{leftbar}
-As the synopsis above is a code listing that is not meant to be executed,
-one can use either the dedicated \verb|{Code}| environment or a simple
-\verb|{verbatim}| environment for this. Again, spaces before and after should be
-avoided.
-
-Finally, there might be a reference to a \verb|{table}| such as
-Table~\ref{tab:overview}. Usually, these are placed at the top of the page
-(\verb|[t!]|), centered (\verb|\centering|), with a caption below the table,
-column headers and captions in sentence style, and if possible avoiding vertical
-lines.
-\end{leftbar}
-
-\begin{table}[t!]
-\centering
-\begin{tabular}{lllp{7.4cm}}
-\hline
-Type           & Distribution & Method   & Description \\ \hline
-GLM            & Poisson      & ML       & Poisson regression: classical GLM,
-                                           estimated by maximum likelihood (ML) \\
-\end{tabular}
-\caption{\label{tab:overview} Overview of various count regression models. The
-table is usually placed at the top of the page (\texttt{[t!]}), centered
-(\texttt{centering}), has a caption below the table, column headers and captions
-are in sentence style, and if possible vertical lines should be avoided.}
-\end{table}
-
-
-%% -- Illustrations ------------------------------------------------------------
-
-%% - Virtually all JSS manuscripts list source code along with the generated
-%%   output. The style files provide dedicated environments for this.
-%% - In R, the environments {Sinput} and {Soutput} - as produced by Sweave() or
-%%   or knitr using the render_sweave() hook - are used (without the need to
-%%   load Sweave.sty).
-%% - Equivalently, {CodeInput} and {CodeOutput} can be used.
-%% - The code input should use "the usual" command prompt in the respective
-%%   software system.
-%% - For R code, the prompt "R> " should be used with "+  " as the
-%%   continuation prompt.
-%% - Comments within the code chunks should be avoided - these should be made
-%%   within the regular LaTeX text.
-
-\section{Illustrations} \label{sec:illustrations}
-
-%
-\begin{CodeChunk}
-\begin{CodeInput}
-R> data("quine", package = "MASS")
-\end{CodeInput}
-\end{CodeChunk}
-
-\begin{leftbar}
-For code input and output, the style files provide dedicated environments.
-Either the ``agnostic'' \verb|{CodeInput}| and \verb|{CodeOutput}| can be used
-or, equivalently, the environments \verb|{Sinput}| and \verb|{Soutput}| as
-produced by \fct{Sweave} or \pkg{knitr} when using the \code{render_sweave()}
-hook. Please make sure that all code is properly spaced, e.g., using
-\code{y = a + b * x} and \emph{not} \code{y=a+b*x}. Moreover, code input should
-use ``the usual'' command prompt in the respective software system. For
-\proglang{R} code, the prompt \code{"R> "} should be used with \code{"+  "} as
-the continuation prompt. Generally, comments within the code chunks should be
-avoided -- and made in the regular {\LaTeX} text instead. Finally, empty lines
-before and after code input/output should be avoided (see above).
-\end{leftbar}
-
-\begin{figure}[t!]
-\centering
-\includegraphics{jsslogo}
-\caption{\label{fig:quine} Frequency distribution for number of days absent
-from school.}
-\end{figure}
-
-%% -- Summary/conclusions/discussion -------------------------------------------
-
-\section{Summary and discussion} \label{sec:summary}
-
-\begin{leftbar}
-As usual \dots
-\end{leftbar}
-
-
-%% -- Optional special unnumbered sections -------------------------------------
-
-\section*{Computational details}
-
-\begin{leftbar}
-If necessary or useful, information about certain computational details
-such as version numbers, operating systems, or compilers could be included
-in an unnumbered section. Also, auxiliary packages (say, for visualizations,
-maps, tables, \dots) that are not cited in the main text can be credited here.
-\end{leftbar}
-
-The results in this paper were obtained using
-\proglang{R}~3.4.1 with the
-\pkg{MASS}~7.3.47 package. \proglang{R} itself
-and all packages used are available from the Comprehensive
-\proglang{R} Archive Network (CRAN) at
-\url{https://CRAN.R-project.org/}.
-
-
-\section*{Acknowledgments}
-
-\begin{leftbar}
-All acknowledgments (note the AE spelling) should be collected in this
-unnumbered section before the references. It may contain the usual information
-about funding and feedback from colleagues/reviewers/etc. Furthermore,
-information such as relative contributions of the authors may be added here
-(if any).
-\end{leftbar}
-
-
-%% -- Bibliography -------------------------------------------------------------
-%% - References need to be provided in a .bib BibTeX database.
-%% - All references should be made with \cite, \citet, \citep, \citealp etc.
-%%   (and never hard-coded). See the FAQ for details.
-%% - JSS-specific markup (\proglang, \pkg, \code) should be used in the .bib.
-%% - Titles in the .bib should be in title case.
-%% - DOIs should be included where available.
-
-%\bibliography{refs}
-\bibliography{../../../licar/bibliografia/Gaming/gaming.bib}
-
-
-%% -- Appendix (if any) --------------------------------------------------------
-%% - After the bibliography with page break.
-%% - With proper section titles and _not_ just "Appendix".
-
-\newpage
-
-\begin{appendix}
-
-\newpage
 \section{Propiedades de las funciones de densidad Normales}
 
 \subsection{Multiplicacion de normales}\label{multiplicacion_normales}
