@@ -23,6 +23,24 @@
 \newcommand{\N}{\mathcal{N}}
 \newcommand\hfrac[2]{\genfrac{}{}{0pt}{}{#1}{#2}} %\frac{}{} sin la linea del medio
 
+\usepackage{listings}
+\lstset{
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=true,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4
+}
+
 
 %% -- LaTeX packages and custom commands ---------------------------------------
 
@@ -196,6 +214,11 @@ Probability Theory provides us with a consistent mathematical framework  for qua
 
 
 
+\begin{algorithm}[H]
+  \caption{Posterior for Linear Regression Model}
+  \label{alg:posterior_for_linear_regression_model}
+  \lstinputlisting{code/ejemplo.py}
+\end{algorithm}
 
 
 
