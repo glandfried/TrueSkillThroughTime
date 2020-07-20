@@ -1,14 +1,12 @@
 import pandas as pd
 import sys
 from collections import defaultdict
-sys.path.append('path/TTT')
+sys.path.append('pathTTT/')
 import TTT as th
 
 # Import data
-path = '/home/mati/Storage/Tesis/Paper/Example1.csv'
+path = 'PathCSV/Example1.csv'
 df = pd.read_csv(path)
-# Define result as needed
-df["Result"] = df.Result.map(lambda x: [1,0] if x == 1 else [0,1])
 # Define the enviroment
 env = th.TrueSkill()
 player = {}
