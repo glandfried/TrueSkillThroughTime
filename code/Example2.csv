@@ -1,0 +1,16 @@
+Id,Player1,Player2,Result
+101,'matt64','Chuk',1
+102,'matt64','David',1
+103,'ggg','matt64',0
+104,'Chuk','David',0
+105,'ggg','TheProffesor',0
+106,'ggg','matt64',1
+107,'Chuk','TheProffesor',0
+108,'Chuk','NaT',1
+109,'David','TheProffesor',1
+110,'David','Chuk',0
+111,'TheProffesor','Chuk',0
+112,'Mona','matt64',1
+113,'TiNi','David',1
+113,'Chuk','matt64',1
+115,'ggg','matt64',1

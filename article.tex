@@ -16,7 +16,12 @@
 %\usepackage{quoting}
 \usepackage{mathtools}	
 \usepackage{tikz}
+\usepackage{csvsimple}
 \usepackage{listings}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
 \input{tikzlibrarybayesnet.code.tex}
 
 \newcommand{\vm}[1]{\mathbf{#1}}
@@ -768,10 +773,8 @@ the model of interest is specified, and code snippets are provided. In addition 
 \textbf{TTT}, the libraries collections, dateutil and mathematics(Gaussian) are also required.
 
 \subsection{Example 1: Trueskill 1vs1}
+\lstinputlisting{./code/Example1.py}
 
-\begin{lstlisting}
-	\lstinputlisting{./code/Example0.py}
-\end{lstlisting}
 \subsection{Example 2: Trueskill dataset}
 \begin{table}[]
 	\centering
@@ -799,8 +802,10 @@ the model of interest is specified, and code snippets are provided. In addition 
 	\caption{}
 	\label{tab:my-table}
 \end{table}
-\subsection{Example 3: Trueskill True Time}
 
+\lstinputlisting{./code/Example2.py}
+\subsection{Example 3: Trueskill True Time}
+\lstinputlisting{./code/Example3.py}
 \begin{figure}[t!]
 \centering
 \includegraphics{jsslogo}
