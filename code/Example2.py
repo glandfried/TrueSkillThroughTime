@@ -1,6 +1,5 @@
 import pandas as pd
 import sys
-from collections import defaultdict
 sys.path.append('pathTTT/')
 import TTT as th
 
@@ -21,10 +20,11 @@ for i in df.index:
     p2_key = str(df.loc[i].Player2)
     prior_1 = player.get(p1_key, globalPrior)
     prior_2 = player.get(p2_key, globalPrior)
-    t1 = [prior_1]
-    t2 = [prior_2]
+    t1 = [prior_1.foret(1)]  # add noise to prior
+    t2 = [prior_2.foret(1)]
     result = df.loc[i].Result
-    game = env.Game([t1,t2], result)
+    game = env.Game([t1, t2], result)
     t1_post, t2_post = game.posterior
-    player[p1_key]= t1_post[0]
-    player[p2_key]= t2_post[0]
+    player[p1_key] = t1_post[0]
+    player[p2_key] = t2_post[0]
+print(player)
