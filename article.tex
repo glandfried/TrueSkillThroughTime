@@ -3,7 +3,6 @@
 
 \usepackage{caption}
 \usepackage{subcaption}
-
 \usepackage{amsmath} %para escribir funci\'on partida , matrices
 \usepackage{amsthm} %para numerar definciones y teoremas
 \usepackage{amsfonts} % \mathbb{N} -> conjunto de los n\'umeros naturales
@@ -174,66 +173,126 @@
 
 \section[Introduction: Count data regression in R]{Introduction: } \label{sec:intro}
 
-TrueSkill Through Time (TTT) is a probabilistic model for general pairwise comparison.
-
-The most commonly definition of skill, used in educational and sports contexts, rely on the agents' chance to solve a problem or to win against a competitor.
-It is worth noting this is esentially a pairwise comparition and not an absolute value of individuals.
-
-Models for pairwise comparisons have been studied for almost a century.
-Thurstone \cite{thurstone1927-psychophysicalAnalysis,thurstone1927-comparativeJugement} propose the first and basic generative model, and show how to infer a hidden perception relative to a reference stimulus and a discriminal process.
-
-
-
-\cite{glickman2013-zermelo1928}
-
-This model is equivalent to Elo. The skill is the stimulus, and the performance is the perception, normal distributed around the hidden value.
-
-
-
-
-
-Probability Theory provides us with a consistent mathematical framework  for quantifying the uncertainty of our beliefs, and to update them optimally given a model and the data~\cite{bishop2006-patternRecognitionMachineLearning}.
+Knowing people's abilities is crucial in the area of education and sports among others.
+Since it is a complex variable, it is generally impossible to measure it directly (aka hidden variable).
+In practice, the best we can do is estimate it from its most direct observable consequences.
+The most widely used sources of information in education and sports are the results of problem solving and competition between opponents, respectively.
+The naive solution, frequency of positive results, is not a good indicator essentially because it also depends on the difficulty of the challenges.
+For that reason, all conventional models are underpinned by pairwise comparisons.
+Since the first generative models, proposed almost a century ago~\cite{glickman2013-zermelo1928}, it is assumed that the probability of observing a positive result, $r=1$, depends on the \emph{difference in strength} between the agent and their target, $d_{ab} = s_a - s_b$.
+% 
+\begin{equation}\label{eq:pairwise-comparisions}
+p(\,r=1 \,|\, d_{ab}\,)
+\end{equation}
+% elo1961-uscf
+After the seminal works of \cite{thurstone1927-comparativeJugement} and \cite{zermelo1929-translation}, the field was revitalized 25 years later by the publications of \cite{bradley1952-pairedComparisions} and \cite{mosteller1951-remarks}.
+The most widely used skill estimators today are those proposed by~\cite{elo1961-uscf},~\cite{glikman_gliko_2}, \cite{herbrich2006-trueskill}, and some of the Item-Response Theory variants compiled by~\cite{vanDerLinden2016-handbookIRT_1} and~\cite{fox2010-bayesianIRT}.
+%\cite{elo1978-pastPresent}
+Interestingly, they all share the same underlying generative model.
+The main difference between them may be the choice of one of two similar cumulative probability distributions, the cumulative Gaussian or the logistic function, to define equation~\ref{eq:pairwise-comparisions}.
 
 
 
+La otra diferencia entre es m\'etodo para resolver el modelo probabilísitico.
+
+
+
+% 
+% %La diferencia m\'as importante entre todas las propuestas son dos: a) la distribuci\'on de probabilidad del resultado; b) m\'etodo para resolver el modelo probabilísitico.
+% 
+% \
+% 
+% The use of probabilty to represent uncertainty, however, is not an
+% ad-hoc choice.
+% Cox~\cite{cox} showed that if numerical values are used to represent degrees of belief, then a simple set of axioms encoding ``common sense'' that leads uniquely to a set of rules for manipulating degrees of belief that are equivalent to the sum and product rules of probability.
+% 
+% 
+
+
+
+\subsection{TrueSkill}
+
+\begin{figure}[t!]
+\centering \small
+     \begin{subfigure}[c]{0.45\textwidth}
+      \tikz{         
+    \node[det, fill=black!10] (r) {$r_{ij}$} ; 
+    \node[const, left=of r, xshift=-1.25cm] (r_name) {\small Resultado observado}; 
+    \node[const, right=of r] (dr) {\normalsize $ r_{ij} = (d_{ij}>0)$}; 
+
+    \node[latent, above=of r, yshift=-0.45cm] (d) {$d_{ij}$} ; %
+    \node[const, right=of d] (dd) {\normalsize $ d_{ij}=p_i-p_j$}; 
+    \node[const, left=of d, xshift=-1.55cm] (d_name) {\small Diferencia oculta};
+    
+    \node[latent, above=of d, xshift=-0.8cm, yshift=-0.45cm] (p1) {$p_i$} ; %
+    \node[latent, above=of d, xshift=0.8cm, yshift=-0.45cm] (p2) {$p_j$} ; %
+    \node[const, left=of p1, xshift=-0.55cm] (p_name) {\small Rendimiento oculto}; 
+
+    \node[latent, above=of p1,yshift=-0.45cm] (s1) {$s_i$} ; %
+    \node[latent, above=of p2,yshift=-0.45cm] (s2) {$s_j$} ; %
+        
+    \node[const, right=of p2] (dp2) {\normalsize $p \sim \N(s,\beta^2)$};
+
+    \node[const, left=of s1, xshift=-.85cm] (s_name) {\small Habilidad oculta}; 
+    
+    \edge {d} {r};
+    \edge {p1,p2} {d};
+    \edge {s1} {p1};
+    \edge {s2} {p2};
+    \node[invisible, right=of p2, xshift=4.35cm] (s-dist) {};
+}
+     \end{subfigure}
+     %\caption{Modelo causal que vincula resultados observables ($r$) con habilidades ocultas ($s$) a trav\'es de rendimientos aleatorios ocultos ($p$). Los c\'irculos representan variables continuas, los cuadrados variables discretas. Las variables observables se pintan de gris y las variable ocultas se dejan en blanco. Las flechas representan relaciones causales y las funciones definen esas relaci\'on causales. El rendimiento aleatorio est\'a centrado en la verdadera habilidad con ruido $\beta$, $\N(s,\beta^2)$. El jugador que tuvo mayor rendimiento es el ganador.}
+\label{modelo}
+\end{figure}
+
+% The main idea of the Elo system is to model the probability of an outcome game based on players' skill $s_i$, $s_j$.
+% The model assumes that, in each game, the players exhibit a performance, a hidden random variable normally distributed, $p_i\sim N(s_i , \beta^2)$, centered at their unknown true skill value with some constant noise.
+% It is assumed that the player who exhibits the greater performance is the winner.
+% Under these assumptions, we can infer in each game who had the highest performance by observing the game outcome (win/lose).
+% Then, the probability that player $i$ wins is $P(p_i>p_j \mid s_i, s_j) = P(p_i - p_j > 0 \mid s_i, s_j)$.
 
 
 
 
-
-\cite{herbrich2006-trueskill}
-
-\cite{dangauthier2008-trueskillThroughTime}
-
-\cite{herbrich2006-trueskill}
-
-\cite{coulom2008-wholeHistoryRating}
-
-\cite{herbrich2006-trueskill}
-
-\cite{maystre2019-pairwise}
-
-\cite{herbrich2006-trueskill}
-
-
-
-
-
-
-\begin{algorithm}[H]
-  \caption{Posterior for Linear Regression Model}
-  \label{alg:posterior_for_linear_regression_model}
-  \lstinputlisting{code/ejemplo.py}
-\end{algorithm}
-
-
-
-
-
-
-
-
-
+% 
+% 
+% 
+% \cite{dangauthier2008-trueskillThroughTime}
+% 
+% \cite{coulom2008-wholeHistoryRating}
+% 
+% \cite{maystre2019-pairwise}
+% 
+% 
+% 
+% 
+% TrueSkill Through Time (TTT) optar por la distribuci\'on normal y ofrece una soluci\'on \'optima.
+% Ambas propuestas pueden representarse con el siguiente modelo causal.
+% 
+% 
+% 
+% 
+% % 
+% % 
+% % It is worth noting this is esentially a pairwise comparition and not an absolute value of individuals.
+% % 
+% % Models for pairwise comparisons have been studied for almost a century.
+% % Thurstone \cite{thurstone1927-psychophysicalAnalysis,thurstone1927-comparativeJugement} propose the first and basic generative model, and show how to infer a hidden perception relative to a reference stimulus and a discriminal process.
+% % 
+% % 
+% % 
+% % \cite{glickman2013-zermelo1928}
+% % 
+% % This model is equivalent to Elo. The skill is the stimulus, and the performance is the perception, normal distributed around the hidden value.
+% % 
+% % 
+% % 
+% % 
+% % 
+% % Probability Theory provides us with a consistent mathematical framework  for quantifying the uncertainty of our beliefs, and to update them optimally given a model and the data~\cite{bishop2006-patternRecognitionMachineLearning}.
+% % 
+% 
 
 
 
@@ -265,6 +324,8 @@ Probability Theory provides us with a consistent mathematical framework  for qua
 \section{Models and software} \label{sec:computoAnilitico}
 
 
+
+
 Para calcular la posterior utilizamos un algoritmo gen\'erico de pasaje de mensajes para \emph{factor graphs} llamado \emph{sum-product algorithm}~\cite{kschischang2001-factorGraphsAndTheSumProductAlgorithm}.
 Permite resolver funciones marginales eficientemente mediante el uso de la forma en la cual la funci\'on global se factoriza en el producto de funciones locales simples, cada una dependiente de una subconjunto de variables.
 
@@ -274,6 +335,28 @@ Un \emph{factor graph} es una grafo bipartito, (relaciones entre nodos variable 
 Los ejes del factor graph representan la relaci\'on matem\'atica ``nodo $v$ es argumento de nodo $f$''.
 La estructura del grafo codifica la factorizaci\'on de la funci\'on global.
 Pero adem\'as, cuando un grafo de factorizaci\'on (\emph{factor graph}) no contiene ciclos, el grafo codifica tambi\'en las expresiones aritm\'eticas mediante las cuales se puede computar las marginales asociadas a la funci\'on global.
+
+\paragraph{The Sum-Product Update Rule} El mensaje enviado desde un v\'ertice $v$ a trav\'es de un eje $e$ es el producto de la funci\'on local de $v$ (funci\'on indicadora si $v$ es un nodo variable) con todos los mensajes recibidos en $v$ a trav\'es de ejes \emph{distintos} de $e$, integrados para la variable asociada con $e$.
+
+\vspace{0.3cm}
+
+Sea $m_{x \rightarrow f}(x)$ el mensaje enviado por el nodo variable $x$ al nodo factor $f$, y $m_{f \rightarrow x}(x)$ el mensaje enviado por un nodo factor $f$ a un nodo variable $x$.
+Sea $n(v)$ el conjunto de nodos vecinos al nodo $v$.
+Luego, los mensajes pueden ser expresados del siguiente modo.
+\begin{equation}\label{eq:m_v_f} 
+m_{x \rightarrow f}(x) = \prod_{h \in n(x) \setminus \{f\} } m_{h \rightarrow x}(x)
+\end{equation}
+\begin{equation}\label{eq:m_f_v}  
+m_{f \rightarrow x}(x) = \int \cdots \int \Big( f(\bm{x}) \prod_{h \in n(f) \setminus \{x\} } m_{h \rightarrow f}(h) \Big) \,  d\bm{x}_{\setminus x}
+\end{equation}
+
+donde $\bm{x} = \text{arg}(f)$ es el conjunto de argumentos de la funci\'on $f$. 
+Luego, para calcular una marginal cualquiera,
+\begin{equation}\label{eq:marginal}
+g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
+\end{equation}
+
+
 
 En el caso de \texttt{TrueSkill},
 la funci\'on representada por el factor graph es la distribuci\'on
@@ -330,28 +413,6 @@ conjunta $p(\bm{s},\bm{p},\bm{t}|\bm{o},A)$ (Fig.
   \caption{\small Grafo bipartito de la factorizaci\'on (\emph{factor graph}) del modelo \texttt{Trueskill}}
   \label{factorGraph_trueskill}
 \end{figure}
-
-\paragraph{The Sum-Product Update Rule} El mensaje enviado desde un v\'ertice $v$ a trav\'es de un eje $e$ es el producto de la funci\'on local de $v$ (funci\'on indicadora si $v$ es un nodo variable) con todos los mensajes recibidos en $v$ a trav\'es de ejes \emph{distintos} de $e$, integrados para la variable asociada con $e$.
-
-\vspace{0.3cm}
-
-Sea $m_{x \rightarrow f}(x)$ el mensaje enviado por el nodo variable $x$ al nodo factor $f$, y $m_{f \rightarrow x}(x)$ el mensaje enviado por un nodo factor $f$ a un nodo variable $x$.
-Sea $n(v)$ el conjunto de nodos vecinos al nodo $v$.
-Luego, los mensajes pueden ser expresados del siguiente modo.
-\begin{equation}\label{eq:m_v_f}
-m_{x \rightarrow f}(x) = \prod_{h \in n(x) \setminus \{f\} } m_{h \rightarrow x}(x)
-\end{equation}
-\begin{equation}\label{eq:m_f_v}
-m_{f \rightarrow x}(x) = \int \cdots \int \Big( f(\bm{x}) \prod_{h \in n(f) \setminus \{x\} } m_{h \rightarrow f}(h) \Big) \,  d\bm{x}_{\setminus x}
-\end{equation}
-
-donde $\bm{x} = \text{arg}(f)$ es el conjunto de argumentos de la funci\'on $f$.
-Luego, para calcular una marginal cualquiera,
-\begin{equation}\label{eq:marginal}
-g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
-\end{equation}
-
-
 
 \subsection{Solucion exacta}
 
