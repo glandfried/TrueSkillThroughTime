@@ -1,5 +1,16 @@
 \documentclass[article]{jss}
 
+\newif\ifen
+\newif\ifes
+\newcommand{\en}[1]{\ifen#1\fi}
+\newcommand{\es}[1]{\ifes#1\fi}
+\entrue
+\usepackage[utf8]{inputenc}
+
+%\newcommand{\jan}{%
+%  \en{January}%
+%  \es{Enero}
+%}
 
 \usepackage{caption}
 \usepackage{subcaption}
@@ -141,6 +152,7 @@
 
 
 %% - \Abstract{} almost as usual
+\en{
 \Abstract{
  \pkg{ttt} package is a \proglang{Python} implementation of TrueSkill Through Time (TTT), an enhancement of TrueSkill algorithm, widely used by the video game industry for skill estimation.
  TTT is a probabilistic model for general pairwise-comparison.
@@ -149,6 +161,12 @@
  As a result, the inference procedure requires only a few linear-time iterations over the data.
  This algorithm outperforms competing estimations in terms of model evidence, and scales to millions of parameters.
  We offer an easy to use interface, compatible with the current \code{trueskill} package for \proglang{Python}.
+}
+}
+
+\es{
+\Abstract{ Traducir
+}
 }
 
 %% \Keywords{JSS, style guide, comma-separated, not capitalized, \proglang{R}} with LaTeX markup, at least one required
@@ -173,38 +191,77 @@
 
 \section[Introduction: Count data regression in R]{Introduction: } \label{sec:intro}
 
-Knowing people's abilities is crucial in the area of education and sports among others.
-Since it is a complex variable, it is generally impossible to measure it directly (aka hidden variable).
-In practice, the best we can do is estimate it from its most direct observable consequences.
-The most widely used sources of information in education and sports are the results of problem solving and competition between opponents, respectively.
-The naive solution, frequency of positive results, is not a good indicator essentially because it also depends on the difficulty of the challenges.
-For that reason, all conventional models are underpinned by pairwise comparisons.
-Since the first generative models, proposed almost a century ago~\cite{glickman2013-zermelo1928}, it is assumed that the probability of observing a positive result, $r=1$, depends on the \emph{difference in strength} between the agent and their target, $d_{ab} = s_a - s_b$.
-% 
-\begin{equation}\label{eq:pairwise-comparisions}
+\en{Knowing people's abilities is crucial in the area of education and sports, among others.}
+\es{Conocer las habilidades de las personas es crucial en el \'area de la educaci\'on y los deportes, entre otros.}
+%
+\en{Since it is a complex variable, it is generally impossible to measure it directly (aka hidden variable).}
+\es{Al ser una variable compleja, generalmente es imposible medirla directamente (aka variable oculta).}
+%
+\en{In practice, the best we can do is estimate it from its most direct observable consequences.}
+\es{En la práctica, lo mejor que podemos hacer es estimarla a partir de sus consecuencias observables m\'as directas.}
+%
+\en{The most widely used sources of information in education and sports are the outcomes of problem solving and competition between opponents, respectively.}
+\es{Las fuentes de información más utilizadas en educación y deportes provienen del producto de resolución de problemas y de competencia entre oponentes, respectivamente.}
+%
+\en{The naive solution, frequency of positive results, is not a good indicator essentially because it also depends on the difficulty of the challenges.}
+\es{La solución ingenua, frecuencia de resultados positivos, no es un buen indicador fundamentalmente porque depende también de la dificultad de los desafíos.}
+%
+\en{For that reason, all conventional models are underpinned by pairwise comparisons.}
+\es{Por esa razón, todos los modelos convencionales se basan en \emph{pairwise comparisons}.}
+%
+\en{Since the first generative models, proposed almost a century ago~\cite{glickman2013-zermelo1928}, it is assumed that the probability of observing a positive result, $r=1$, depends on the \emph{difference in strength} between the agent and their target, $d_{ab} = s_a - s_b$.}
+\es{Ya los primeros modelos generativos, propuestos hace casi un siglo~\cite{glickman2013-zermelo1928}, suponen que la probabilidad de observar un resultado positivo, $r=1$, depende de la \emph{diferencia de escala} entre el agente y su objetivo, $d_{ab} = s_a - s_b$.}
+% NO TOCAR: no debe haber espacio entre ecuacion y texto
+\begin{equation}\label{eq:pairwise-comparision}
 p(\,r=1 \,|\, d_{ab}\,)
 \end{equation}
-% elo1961-uscf
-After the seminal works of \cite{thurstone1927-comparativeJugement} and \cite{zermelo1929-translation}, the field was revitalized 25 years later by the publications of \cite{bradley1952-pairedComparisions} and \cite{mosteller1951-remarks}.
-The most widely used skill estimators today are those proposed by~\cite{elo1961-uscf},~\cite{glikman_gliko_2}, \cite{herbrich2006-trueskill}, and some of the Item-Response Theory variants compiled by~\cite{vanDerLinden2016-handbookIRT_1} and~\cite{fox2010-bayesianIRT}.
-%\cite{elo1978-pastPresent}
-Interestingly, they all share the same underlying generative model.
-The main difference between them may be the choice of one of two similar cumulative probability distributions, the cumulative Gaussian or the logistic function, to define equation~\ref{eq:pairwise-comparisions}.
+% NO TOCAR: no debe haber espacio entre ecuacion y texto
+\en{After the seminal works of~\cite{thurstone1927-comparativeJugement} and~\cite{zermelo1929-translation}, the field was revitalized 25 years later by the publications of~\cite{bradley1952-pairedComparisions} and~\cite{mosteller1951-remarks}.}
+\es{Luego de los trabajos fundamentales de~\cite{thurstone1927-comparativeJugement} y~\cite{zermelo1929-translation}, el campo revitalizó 25 años después gracias a las publicaciones de \cite{bradley1952-pairedComparisions} y~\cite{mosteller1951-remarks}.}
+%
+\en{The most widely used skill estimators today are those proposed by~\cite{elo1961-uscf},~\cite{glikman_gliko_2},~\cite{herbrich2006-trueskill}, and some of the Item-Response Theory variants compiled by~\cite{vanDerLinden2016-handbookIRT_1} and~\cite{fox2010-bayesianIRT}.}
+\es{Los estimadores de habilidades más utilizados en la actualidad son los propuestos por~\cite{elo1961-uscf},~\cite{glikman_gliko_2},~\cite{herbrich2006-trueskill}, y algunas de las variantes de la\emph{Item-Response Theory} recopiladas por~\cite{vanDerLinden2016-handbookIRT_1} y~\cite{fox2010-bayesianIRT}.}
+%
+\en{Remarkably, they all share the same underlying generative model.}
+\es{Notablemente, todos comparten el mismo modelo generativo subyacente.}
+%
+\en{In respect to their representations, the main difference is limited to the choice of one of two very similar cumulative probability distributions to define the equation~\ref{eq:pairwise-comparision}: the logistic function or the cumulative Gaussian one.}
+\es{Respecto de su representación, la principal diferencia se limita a la elección de una de dos distribuciones de probabilidad acumulativa, muy similares entre sí, para definir la ecuación~\ref{eq: pairwise-comparision}: la función logística o la Gaussiana acumulativa.}
+%
+\en{The most substantive differences are methodological differences: alternative methods for solving the shared probabilistic model.}
+\es{Las diferencias sustantivas son diferencias metologógicas: métodos alternativos para resolución de el modelo probabilístico.}
+
+% Cambio de parrafo.
+
+\en{A breakthrough took place with the methodology developed by~\cite{elo1961-uscf} for the US Chess Federation (USCF), which is still used by the International Chess Federation (FIDE).}
+\es{Un gran avance produjo la metodolog\'ia desarrollada por~\cite{elo1961-uscf} para la Federación de Ajedrez de los Estados Unidos (USCF), adoptada hasta el día de hoy por la Federación Internacional De Ajedrez (FIDE).}
+%
+\en{Figure~\ref{fig:generative_model} provides a graphical representation of the generative model, which details the causal relationship that hidden skills ($s$) have on the observable results ($r$), through the random difference ($d$) of hidden performances ($p$).}
+\es{La Figura~\ref{fig:generative_model} ofrece una representación gráfica del modelo generativo, en la que se detalla la relación causal que las habilidades ocultas ($s$) tienen sobre los resultados observables ($r$), a través de la diferencia aleatorias ($d$) de rendimientos ocultos ($p$).}
+%
+\en{The performance that agents exhibit in each event is assumed to be random, centered around the real unknown skill $\N(s,\beta^2)$.}
+\es{El desempeño que exhiben los agentes en cada evento se supone aleatorio, centrado en torno a la verdadera habilidad desconocida, $\N(s,\beta^2)$.}
+%
+\en{According to the model, the results are a direct consequence of the hidden returns.}
+\es{Según el modelo, los resultados son consecuencias directa de los rendimientos ocultos.}
+%
+\en{Therefore, by observing a positive result we can infer, given the hypotheses, that the hidden performance of the agent in that event was indeed superior to that of his opponent.}
+\es{Por eso, al observar un resultado positivo podemos inferir, dadas las hipótesis, que rendimiento oculto del agente en ese evento fue efectivamente superior al de su oponente.}
+%
+
+% The model assumes that, in each game, the players exhibit a performance, a hidden random variable normally distributed, $p_i\sim N(s_i , \beta^2)$, centered at their unknown true skill value with some constant noise.
+% Under these assumptions, we can infer in each game who had the highest performance by observing the game outcome (win/lose).
+% Then, the probability that player $i$ wins is $P(p_i>p_j \mid s_i, s_j) = P(p_i - p_j > 0 \mid s_i, s_j)$.
 
 
 
-La otra diferencia entre es m\'etodo para resolver el modelo probabilísitico.
 
 
 
-% 
-% %La diferencia m\'as importante entre todas las propuestas son dos: a) la distribuci\'on de probabilidad del resultado; b) m\'etodo para resolver el modelo probabilísitico.
-% 
-% \
-% 
-% The use of probabilty to represent uncertainty, however, is not an
-% ad-hoc choice.
-% Cox~\cite{cox} showed that if numerical values are used to represent degrees of belief, then a simple set of axioms encoding ``common sense'' that leads uniquely to a set of rules for manipulating degrees of belief that are equivalent to the sum and product rules of probability.
+\en{Probability Theory provides us with a consistent mathematical framework  for quantifying the uncertainty of our beliefs, and to update them optimally given a model and the data~\cite{bishop2006-patternRecognitionMachineLearning}.}
+\en{The use of probabilty to represent uncertainty, however, is not an ad-hoc choice.}
+\en{Cox~\cite{cox} showed that if numerical values are used to represent degrees of belief, then a simple set of axioms encoding ``common sense'' that leads uniquely to a set of rules for manipulating degrees of belief that are equivalent to the sum and product rules of probability.}
+
 % 
 % 
 
@@ -242,16 +299,15 @@ La otra diferencia entre es m\'etodo para resolver el modelo probabilísitico.
     \node[invisible, right=of p2, xshift=4.35cm] (s-dist) {};
 }
      \end{subfigure}
-     %\caption{Modelo causal que vincula resultados observables ($r$) con habilidades ocultas ($s$) a trav\'es de rendimientos aleatorios ocultos ($p$). Los c\'irculos representan variables continuas, los cuadrados variables discretas. Las variables observables se pintan de gris y las variable ocultas se dejan en blanco. Las flechas representan relaciones causales y las funciones definen esas relaci\'on causales. El rendimiento aleatorio est\'a centrado en la verdadera habilidad con ruido $\beta$, $\N(s,\beta^2)$. El jugador que tuvo mayor rendimiento es el ganador.}
+     \caption{
+    \es{Modelo generativo de resultados observables ($r$) a partir de habilidades ocultas ($s$), a trav\'es de la diferencia ($d$) de rendimientos aleatorios ocultos ($p$).}
+    \es{Los c\'irculos representan variables continuas, los cuadrados variables discretas.}
+    \es{Las variables observables se pintan de gris y las variable ocultas se dejan en blanco.}
+    \es{Las flechas representan relaciones causales y las funciones definen esas relaci\'on causales.}
+    }
+    \label{fig:generative_model}
 \label{modelo}
 \end{figure}
-
-% The main idea of the Elo system is to model the probability of an outcome game based on players' skill $s_i$, $s_j$.
-% The model assumes that, in each game, the players exhibit a performance, a hidden random variable normally distributed, $p_i\sim N(s_i , \beta^2)$, centered at their unknown true skill value with some constant noise.
-% It is assumed that the player who exhibits the greater performance is the winner.
-% Under these assumptions, we can infer in each game who had the highest performance by observing the game outcome (win/lose).
-% Then, the probability that player $i$ wins is $P(p_i>p_j \mid s_i, s_j) = P(p_i - p_j > 0 \mid s_i, s_j)$.
-
 
 
 
@@ -268,31 +324,6 @@ La otra diferencia entre es m\'etodo para resolver el modelo probabilísitico.
 % 
 % 
 % TrueSkill Through Time (TTT) optar por la distribuci\'on normal y ofrece una soluci\'on \'optima.
-% Ambas propuestas pueden representarse con el siguiente modelo causal.
-% 
-% 
-% 
-% 
-% % 
-% % 
-% % It is worth noting this is esentially a pairwise comparition and not an absolute value of individuals.
-% % 
-% % Models for pairwise comparisons have been studied for almost a century.
-% % Thurstone \cite{thurstone1927-psychophysicalAnalysis,thurstone1927-comparativeJugement} propose the first and basic generative model, and show how to infer a hidden perception relative to a reference stimulus and a discriminal process.
-% % 
-% % 
-% % 
-% % \cite{glickman2013-zermelo1928}
-% % 
-% % This model is equivalent to Elo. The skill is the stimulus, and the performance is the perception, normal distributed around the hidden value.
-% % 
-% % 
-% % 
-% % 
-% % 
-% % Probability Theory provides us with a consistent mathematical framework  for quantifying the uncertainty of our beliefs, and to update them optimally given a model and the data~\cite{bishop2006-patternRecognitionMachineLearning}.
-% % 
-% 
 
 
 

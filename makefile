@@ -1,16 +1,25 @@
 all: compile
 
-compile: clean pdfclean article.pdf 
+compile: clean pdfclean article-es.pdf article-en.pdf
 
-article.pdf:
+article-es.pdf:
+	sed -i 's/\\entrue/\\estrue/g' article.tex
 	pdflatex article.tex
 	bibtex article.aux
 	pdflatex article.tex
 	pdflatex article.tex
+	mv article.pdf article-es.pdf
 
+article-en.pdf:
+	sed -i 's/\\estrue/\\entrue/g' article.tex
+	pdflatex article.tex
+	bibtex article.aux
+	pdflatex article.tex
+	pdflatex article.tex
+	cp article.pdf article-en.pdf
 
 pdfclean:
-	- rm -f article.pdf
+	- rm -f article*.pdf
 
 clean:
 	- rm -f *.log
