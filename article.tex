@@ -29,6 +29,7 @@
 \usepackage{csvsimple}
 \usepackage{listings}
 \usepackage{hyperref}
+\usepackage{todonotes}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
@@ -209,11 +210,11 @@
 \en{For that reason, all conventional models are underpinned by pairwise comparisons.}
 \es{Por esa razón, todos los modelos convencionales se basan en \emph{pairwise comparisons}.}
 %
-\en{Since the first generative models, proposed almost a century ago~\cite{glickman2013-zermelo1928}, it is assumed that the probability of observing a positive result, $r=1$, depends on the \emph{difference in strength} between the agent and their target, $d_{ab} = s_a - s_b$.}
-\es{Ya los primeros modelos generativos, propuestos hace casi un siglo~\cite{glickman2013-zermelo1928}, suponen que la probabilidad de observar un resultado positivo, $r=1$, depende de la \emph{diferencia de escala} entre el agente y su objetivo, $d_{ab} = s_a - s_b$.}
+\en{Since the first generative models, proposed almost a century ago~\cite{glickman2013-zermelo1928}, it is assumed that the probability of observing a positive result, $r=1$, depends on the \emph{difference in strength} between the agent and their target, $d_{ij} = s_i - s_j$.}
+\es{Ya los primeros modelos generativos, propuestos hace casi un siglo~\cite{glickman2013-zermelo1928}, suponen que la probabilidad de observar un resultado positivo, $r=1$, depende de la \emph{diferencia de escala} entre el agente y su objetivo, $d_{ij} = s_i - s_j$.}
 % NO TOCAR: no debe haber espacio entre ecuacion y texto
 \begin{equation}\label{eq:pairwise-comparision}
-p(\,r=1 \,|\, d_{ab}\,)
+p(\,r=1 \,|\, d_{ij}\,)
 \end{equation}
 % NO TOCAR: no debe haber espacio entre ecuacion y texto
 \en{After the seminal works of~\cite{thurstone1927-comparativeJugement} and~\cite{zermelo1929-translation}, the field was revitalized 25 years later by the publications of~\cite{bradley1952-pairedComparisions} and~\cite{mosteller1951-remarks}.}
@@ -233,82 +234,113 @@ p(\,r=1 \,|\, d_{ab}\,)
 
 % Cambio de parrafo.
 
+\begin{figure}[t!]
+\centering \small
+    \tikz{         
+    \node[det, fill=black!10] (r) {$r_{ij}$} ; 
+    \node[const, left=of r, xshift=-1.35cm] (r_name) {\small \en{Result}\es{Resultado}:}; 
+    \node[const, right=of r] (dr) {\normalsize $ r_{ij} = (d_{ij}>0)$}; 
+
+    \node[latent, above=of r, yshift=-0.45cm] (d) {$d_{ij}$} ; %
+    \node[const, right=of d] (dd) {\normalsize $ d_{ij}=p_i-p_j$}; 
+    \node[const, left=of d, xshift=-1.35cm] (d_name) {\small \en{Difference}\es{Diferencia}:};
+    
+    \node[latent, above=of d, xshift=-0.8cm, yshift=-0.45cm] (p1) {$p_i$} ; %
+    \node[latent, above=of d, xshift=0.8cm, yshift=-0.45cm] (p2) {$p_j$} ; %
+    \node[const, left=of p1, xshift=-0.55cm] (p_name) {\small \en{Performance}\es{Rendimiento}:}; 
+
+    \node[accion, above=of p1,yshift=0.3cm] (s1) {} ; %
+    \node[const, right=of s1] (ds1) {$s_i$};
+    \node[accion, above=of p2,yshift=0.3cm] (s2) {} ; %
+    \node[const, right=of s2] (ds2) {$s_j$};
+    
+    \node[const, right=of p2] (dp2) {\normalsize $p \sim \N(s,\beta^2)$};
+
+    \node[const, left=of s1, xshift=-.85cm] (s_name) {\small \en{Skill}\es{Habilidad}:}; 
+    
+    \edge {d} {r};
+    \edge {p1,p2} {d};
+    \edge {s1} {p1};
+    \edge {s2} {p2};
+    %\node[invisible, right=of p2, xshift=4.35cm] (s-dist) {};
+}
+     \caption{
+     \en{Generative graphical model representing the joint probability distribution, in which hidden skills ($s$) cause the observable results ($r$) through a random difference ($d$) of hidden performances ($p$).}
+    \es{Modelo gráfico generativo que representa la distribución de probabilidad conjunta, en la que las habilidades ocultas ($s$) causan los resultados observables ($r$) a través de una diferencia aleatoria ($d$) de las actuaciones ocultas ($p$).}
+    %
+    \en{--.}
+    \es{Las variables observables se pintan de gris y las variable ocultas se dejan en blanco.}
+    %
+    \en{--.}
+    \es{Las flechas representan relaciones causales y las funciones definen esas relaci\'on causales.}
+    %
+    \en{--.}
+    \es{Los puntos negros representan valores constantes.}
+    %
+    \en{--.}
+    \es{Los c\'irculos y cuadrados representan variables aleatorias continuas y discretas respectivamente.}   
+    }
+    \label{fig:generative_model}
+\label{modelo}
+\end{figure}
+
+% Cambio de parrafo
+
 \en{A breakthrough took place with the methodology developed by~\cite{elo1961-uscf} for the US Chess Federation (USCF), which is still used by the International Chess Federation (FIDE).}
 \es{Un gran avance produjo la metodolog\'ia desarrollada por~\cite{elo1961-uscf} para la Federación de Ajedrez de los Estados Unidos (USCF), adoptada hasta el día de hoy por la Federación Internacional De Ajedrez (FIDE).}
 %
 \en{Figure~\ref{fig:generative_model} provides a graphical representation of the generative model, which details the causal relationship that hidden skills ($s$) have on the observable results ($r$), through the random difference ($d$) of hidden performances ($p$).}
 \es{La Figura~\ref{fig:generative_model} ofrece una representación gráfica del modelo generativo, en la que se detalla la relación causal que las habilidades ocultas ($s$) tienen sobre los resultados observables ($r$), a través de la diferencia aleatorias ($d$) de rendimientos ocultos ($p$).}
 %
-\en{The performance that agents exhibit in each event is assumed to be random, centered around the real unknown skill $\N(s,\beta^2)$.}
+\en{The performance that agents exhibit in each event is assumed to be random, centered around the real unknown skill $\N(p\,|\,s,\beta^2)$.}
 \es{El desempeño que exhiben los agentes en cada evento se supone aleatorio, centrado en torno a la verdadera habilidad desconocida, $\N(s,\beta^2)$.}
 %
-\en{According to the model, the results are a direct consequence of the hidden returns.}
+\en{According to the model, the results are a direct consequence of the hidden performances.}
 \es{Según el modelo, los resultados son consecuencias directa de los rendimientos ocultos.}
 %
-\en{Therefore, by observing a positive result we can infer, given the hypotheses, that the hidden performance of the agent in that event was indeed superior to that of his opponent.}
-\es{Por eso, al observar un resultado positivo podemos inferir, dadas las hipótesis, que rendimiento oculto del agente en ese evento fue efectivamente superior al de su oponente.}
+\en{By observing a result we can deduce, given the hypotheses, the order of the hidden performances that actually occurred in that event, and its a priori probability.}
+\es{Al observar un resultado podemos deducir, dadas las hipótesis, el orden de los rendimientos ocultos que en efecto ocurrió en ese evento, y su probabilidad a priori.}
 %
+\en{Elo's methodological solution for estimating skills from results is extremely simple and astute: update the current estimate based on our surprise.}
+\es{La solución metodológica de Elo para estimar habilidades a partir de resultados es extremadamente sencilla y astuta: actualizar la estimación actual en función de nuestra sorpresa.}
+%
+\begin{equation}
+ \Delta = \underbrace{y_{ij}}_{\hfrac{\text{Direction}}{\text{(Sign)}}}\underbrace{\left(1-p(\,r_{ij}\,|\,s_i,s_j\,)\right)}_{\hfrac{\text{Magnitud}}{\text{(Surprise)}}}
+\end{equation}
+%
+\en{Unlikely results would indicate that the current estimates are not entirely correct and should be updated to a greater extent than if they had occurred as expected.}
+\es{Los resultados poco probables indicarían que las estimaciones actuales no son del todo correctas y deberían actualizarse en mayor medida que si hubieran ocurrido como se esperaba.}
+%
+\begin{equation}\label{eq:elo_update}
+ s_i^{\text{new}} = s_i^{\text{old}} + \Delta
+\end{equation}
+%
+\en{This solution can recover the relative scale of the agents, starting from arbitrary initial values.}
+\es{Esta solución puede recuperar la escala relativa de los agentes, partiendo de de valores iniciales arbitrarios.}
+%
+\en{However, it does have some major weaknesses.}
+\es{Sin embargo, tiene algunas debilidades importantes.}
+%
+\en{Because of the lack of a notion of uncertainty about the estimates, what one agent loses in equation~\ref{eq:elo_update} is acquired by the other.}
+\es{Debido a la falta de una noción de incertidumbre sobre las estimaciones, lo que un agente pierde en la ecuación~\ref{eq:elo_update} lo adquiere el otro.}
+%
+\en{As new estimates tend to generate high surprise, their presence can abruptly modify estimates that had already converged correctly.}
+\es{Como las estimación nuevas tienden a generan alta sorpresa, su presencia puede modificar bruscamente estimaciones que ya habían convergido correctamente.}
+%
+\en{The ad-hoc solution proceeds by filtering the impact of $\Delta$ as a function of the times an agent was seen, which breaks the symmetry of equation~\ref{eq:elo_update}.}
+\es{La solución ad-hoc procede filtrando el impacto de $\Delta$ en función de las veces que un agente fue visto, lo que rompe la simetría de la ecuación~\ref{eq:elo_update}.}
 
-% The model assumes that, in each game, the players exhibit a performance, a hidden random variable normally distributed, $p_i\sim N(s_i , \beta^2)$, centered at their unknown true skill value with some constant noise.
-% Under these assumptions, we can infer in each game who had the highest performance by observing the game outcome (win/lose).
-% Then, the probability that player $i$ wins is $P(p_i>p_j \mid s_i, s_j) = P(p_i - p_j > 0 \mid s_i, s_j)$.
+% Cambio de parrafo
 
 
-
-
-
-
-\en{Probability Theory provides us with a consistent mathematical framework  for quantifying the uncertainty of our beliefs, and to update them optimally given a model and the data~\cite{bishop2006-patternRecognitionMachineLearning}.}
+\en{Probability Theory provides us with a consistent framework for quantifying the uncertainty of our beliefs, and to update them optimally given a model and the data~\cite{bishop2006-patternRecognitionMachineLearning}.}
+\es{--.}
+%
 \en{The use of probabilty to represent uncertainty, however, is not an ad-hoc choice.}
+\es{--.}
+%
 \en{Cox~\cite{cox} showed that if numerical values are used to represent degrees of belief, then a simple set of axioms encoding ``common sense'' that leads uniquely to a set of rules for manipulating degrees of belief that are equivalent to the sum and product rules of probability.}
-
-% 
-% 
-
-
-
-\subsection{TrueSkill}
-
-\begin{figure}[t!]
-\centering \small
-     \begin{subfigure}[c]{0.45\textwidth}
-      \tikz{         
-    \node[det, fill=black!10] (r) {$r_{ij}$} ; 
-    \node[const, left=of r, xshift=-1.25cm] (r_name) {\small Resultado observado}; 
-    \node[const, right=of r] (dr) {\normalsize $ r_{ij} = (d_{ij}>0)$}; 
-
-    \node[latent, above=of r, yshift=-0.45cm] (d) {$d_{ij}$} ; %
-    \node[const, right=of d] (dd) {\normalsize $ d_{ij}=p_i-p_j$}; 
-    \node[const, left=of d, xshift=-1.55cm] (d_name) {\small Diferencia oculta};
-    
-    \node[latent, above=of d, xshift=-0.8cm, yshift=-0.45cm] (p1) {$p_i$} ; %
-    \node[latent, above=of d, xshift=0.8cm, yshift=-0.45cm] (p2) {$p_j$} ; %
-    \node[const, left=of p1, xshift=-0.55cm] (p_name) {\small Rendimiento oculto}; 
-
-    \node[latent, above=of p1,yshift=-0.45cm] (s1) {$s_i$} ; %
-    \node[latent, above=of p2,yshift=-0.45cm] (s2) {$s_j$} ; %
-        
-    \node[const, right=of p2] (dp2) {\normalsize $p \sim \N(s,\beta^2)$};
-
-    \node[const, left=of s1, xshift=-.85cm] (s_name) {\small Habilidad oculta}; 
-    
-    \edge {d} {r};
-    \edge {p1,p2} {d};
-    \edge {s1} {p1};
-    \edge {s2} {p2};
-    \node[invisible, right=of p2, xshift=4.35cm] (s-dist) {};
-}
-     \end{subfigure}
-     \caption{
-    \es{Modelo generativo de resultados observables ($r$) a partir de habilidades ocultas ($s$), a trav\'es de la diferencia ($d$) de rendimientos aleatorios ocultos ($p$).}
-    \es{Los c\'irculos representan variables continuas, los cuadrados variables discretas.}
-    \es{Las variables observables se pintan de gris y las variable ocultas se dejan en blanco.}
-    \es{Las flechas representan relaciones causales y las funciones definen esas relaci\'on causales.}
-    }
-    \label{fig:generative_model}
-\label{modelo}
-\end{figure}
-
+\es{--.}
 
 
 % 
@@ -355,6 +387,49 @@ p(\,r=1 \,|\, d_{ab}\,)
 \section{Models and software} \label{sec:computoAnilitico}
 
 
+%
+\en{It can be shown [SE DEMOSTRARA EN LA SECCIÓN SIGUIENTE], based on Gaussians properties, that the difference of performance $d_{ij}$ is also normally distributed, centered at the skill difference point with double variance.}
+\es{}
+%
+\begin{equation}
+ p( \, d_{ij} \,|\,  s_i, s_j\, ) = \N(\, d_{ij} \,|\, s_i - s_j \, , \, 2\beta^2 \,)
+\end{equation}
+%
+\en{This reduces the problem of computing the probability of the game outcome to a single-dimension problem related to the performance difference.}
+\es{This reduces the problem of computing the probability of the game outcome to a single-dimension problem related to the performance difference.}
+%
+\en{Let the result of a game $r_{ij} = \mathbb{I}(d_{ij}>0)$.
+The probability of winning, $r_{ij} = 1$, can be computed as:}
+\es{}
+%
+\begin{equation}
+p(\,r_{ij}=1\,|\,d_{ij}\,) = p(\,d_{ij} > 0 \,|\, s_i, s_j\,) = \Phi \left(\frac{s_i - s_j}{\sqrt{2}\beta} \right)
+\end{equation}
+%
+where $\Phi$ is the cumulative distribution function of the standard normal distribution, $\N(0, 1)$.
+
+
+
+
+% \begin{figure}[ht!]
+% \centering
+% \includegraphics[width=.49\linewidth]{Imagenes/Fig6}
+% \caption{\small Joint probability of the performance of two players $i$, $j$ under the assumption of $s_i> s_j$ and independence. All lines parallel to the diagonal $ p_i = p_j $ represent ``difference of performances'' isobars $d_{ij} = p_i - p_j$.}
+% \label{probaOfWin_2D}
+% \end{figure}
+
+% \begin{figure}[ht!]
+% \centering
+% \includegraphics[width=.49\linewidth]{Imagenes/Fig7}
+% \caption{\small The probability of the outcome of a game under the assumptions of the Elo rating system with $s_i> s_j$. The area under the curve in the positive interval ($d_{ij}>0$) is the winning probability for the player $i$, and the area under the curve in the negative interval is the winning probability of player $j$.}
+% \label{probaOfWin}
+% \end{figure}
+
+
+
+
+
+--------------------
 
 
 Para calcular la posterior utilizamos un algoritmo gen\'erico de pasaje de mensajes para \emph{factor graphs} llamado \emph{sum-product algorithm}~\cite{kschischang2001-factorGraphsAndTheSumProductAlgorithm}.
@@ -582,7 +657,7 @@ Then,
 
 \subsection{TrueSkill through Time (TTT)}
 
-\todo[inline]{Poner un primer parrafo que le de algo de hilo a la historia}
+%\todo[inline]{Poner un primer parrafo que le de algo de hilo a la historia}
 
 Consider a game in which $N$ players $\{1, \dots, N\}$ are compete over a period of $T$ time steps or temporal batch (e.g. day, week, month, year).
 Denote the series of games outcomes between two players $i$ and $j$ within a temporal batch $t$ by $\vm{y}^t_{ij}(k)$, where $k \in \{1,\dots,K^t_{ij}\}$, with $K^t_{ij}$ the number of games outcomes available for that pair of players in that temporal batch.
