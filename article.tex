@@ -194,12 +194,12 @@
 
 \en{Knowing people's abilities is crucial in the area of education and sports, among others.}
 \es{Conocer las habilidades de las personas es crucial en el \'area de la educaci\'on y los deportes, entre otros.}
-\todo[inline]{Poner un poco m\'as de venta de la importancia, el inter\'es y el potencial uso de saber la habilidad de alguien}
+\todo[inline]{M\'as de venta de la importancia, inter\'es y potencial uso de saber la habilidad de alguien}
 %
 \en{Since it is a complex variable, it is generally impossible to measure it directly (aka hidden variable).}
 \es{Al ser una variable compleja, generalmente es imposible medirla directamente (aka variable oculta).}
 %
-\en{In practice, the best we can do is estimate it from its most direct observable consequences.}
+\en{In practice, the best we can do is estimate it from its direct observable consequences.}
 \es{En la pr\'actica, lo mejor que podemos hacer es estimarla a partir de sus consecuencias observables m\'as directas.}
 %
 \en{The most widely used sources of information in education and sports are the outcomes of problem solving and competition between opponents, respectively.}
@@ -211,18 +211,13 @@
 \en{For that reason, all conventional models are underpinned by pairwise comparisons.}
 \es{Por esa raz\'on, todos los modelos convencionales se basan en \emph{pairwise comparisons}.}
 %
-\en{Since the first generative models, proposed almost a century ago~\cite{glickman2013-zermelo1928}, it is assumed that the probability of observing a positive result, $r=1$, depends on the \emph{difference in strength} between the agent and their target, $d_{ij} = s_i - s_j$.}
-\es{Ya los primeros modelos generativos, propuestos hace casi un siglo~\cite{glickman2013-zermelo1928}, suponen que la probabilidad de observar un resultado positivo, $r=1$, depende de la \emph{diferencia de escala} entre el agente y su objetivo, $d_{ij} = s_i - s_j$.}
-% NO TOCAR: no debe haber espacio entre ecuacion y texto
-\begin{equation}\label{eq:pairwise-comparision}
-p(\,r=1 \,|\, d_{ij}\,)
-\end{equation}
-% NO TOCAR: no debe haber espacio entre ecuacion y texto
-\en{After the seminal works of~\cite{thurstone1927-comparativeJugement} and~\cite{zermelo1929-translation}, the field was revitalized 25 years later by the publications of~\cite{bradley1952-pairedComparisions} and~\cite{mosteller1951-remarks}.}
-\es{Luego de los trabajos fundamentales de~\cite{thurstone1927-comparativeJugement} y~\cite{zermelo1929-translation}, el campo revitaliz\'o 25 a\~nos despu\'es gracias a las publicaciones de \cite{bradley1952-pairedComparisions} y~\cite{mosteller1951-remarks}.}
+\en{Since the first generative models, proposed almost a century ago by~\cite{thurstone1927-comparativeJugement} and~\cite{zermelo1929-translation}, it is assumed that the probability of observing a positive result depends on the \emph{difference in strength} between the agent and their target, $p(\,r=1 \,|\, d_{ij}\,)$.}
+\es{Ya los primeros modelos generativos, propuestos hace casi un siglo por~\cite{thurstone1927-comparativeJugement} y~\cite{zermelo1929-translation}, suponen que la probabilidad de observar un resultado positivo depende de la \emph{diferencia de escala} entre el agente y su objetivo, $p(\,r=1 \,|\, d_{ij}\,)$.}
+\en{The field was revitalized after 20 years by the publications of~\cite{bradley1952-pairedComparisions} and~\cite{mosteller1951-remarks}.}
+\es{El campo revitaliz\'o 20 a\~nos después gracias a las publicaciones de \cite{bradley1952-pairedComparisions} y~\cite{mosteller1951-remarks}.}
 %
-\en{The most widely used skill estimators today are those proposed by~\cite{elo1961-uscf},~\cite{glikman_gliko_2},~\cite{herbrich2006-trueskill}, and some of the Item-Response Theory variants compiled by~\cite{vanDerLinden2016-handbookIRT_1} and~\cite{fox2010-bayesianIRT}.}
-\es{Los estimadores de habilidades m\'as utilizados en la actualidad son los propuestos por~\cite{elo1961-uscf},~\cite{glikman_gliko_2},~\cite{herbrich2006-trueskill}, y algunas de las variantes de la\emph{Item-Response Theory} recopiladas por~\cite{vanDerLinden2016-handbookIRT_1} y~\cite{fox2010-bayesianIRT}.}
+\en{Nowadays, the most widely used skill estimators are those proposed by~\cite{elo1961-uscf},~\cite{glikman_gliko_2},~\cite{herbrich2006-trueskill}, and some of the Item-Response Theory variants compiled by~\cite{vanDerLinden2016-handbookIRT_1} and~\cite{fox2010-bayesianIRT}.}
+\es{Actualmente, los estimadores de habilidades m\'as utilizados son los propuestos por~\cite{elo1961-uscf},~\cite{glikman_gliko_2},~\cite{herbrich2006-trueskill}, y algunas de las variantes de la\emph{Item-Response Theory} recopiladas por~\cite{vanDerLinden2016-handbookIRT_1} y~\cite{fox2010-bayesianIRT}.}
 %
 \en{Remarkably, they all share the same underlying generative model.}
 \es{Notablemente, todos comparten el mismo modelo generativo subyacente.}
@@ -266,20 +261,23 @@ p(\,r=1 \,|\, d_{ij}\,)
     %\node[invisible, right=of p2, xshift=4.35cm] (s-dist) {};
 }
      \caption{
-     \en{Generative graphical model representing the joint probability distribution, in which hidden skills ($s$) cause the observable results ($r$) through a random difference ($d$) of hidden performances ($p$).}
-    \es{Modelo gr\'afico generativo que representa la distribuci\'on de probabilidad conjunta, en la que las habilidades ocultas ($s$) causan los resultados observables ($r$) a trav\'es de una diferencia aleatoria ($d$) de las actuaciones ocultas ($p$).}
+     \en{Clasical generative model in which hidden skills cause the observable results through the difference of random performances.}
+    \es{Modelo generativo clásico en la que las habilidades ocultas causan los resultados observables a través de la diferencia de rendimientos aleatorios.}
     %
-    \en{--.}
+    \en{The graphical representation defines a joint probability distribution.}
+    \es{La representaci\'on gráfica define una distribuci\'on de probabilidad conjunta.}
+    %
+    \en{Black dots denote constant values.}
+    \es{Los puntos negros denotan valores constantes.}
+    %
+    \en{The big circles and squares indicate continuous and discrete random variables respectively.}
+    \es{Los círculos y cuadrados indican variables aleatorias continuas y discretas respectivamente.} 
+    %
+    \en{Observable variables are painted gray and hidden ones are left blank.}
     \es{Las variables observables se pintan de gris y las variable ocultas se dejan en blanco.}
     %
-    \en{--.}
-    \es{Las flechas representan relaciones causales y las funciones definen esas relaci\'on causales.}
-    %
-    \en{--.}
-    \es{Los puntos negros representan valores constantes.}
-    %
-    \en{--.}
-    \es{Los c\'irculos y cuadrados representan variables aleatorias continuas y discretas respectivamente.}   
+    \en{The arrows represent causal relationships and the functions define them.}
+    \es{Las flechas representan relaciones causales y las funciones las definen.}
     }
     \label{fig:generative_model}
 \label{modelo}
