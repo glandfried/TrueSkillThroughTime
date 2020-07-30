@@ -701,18 +701,24 @@ Then,
 
 %\todo[inline]{Poner un primer parrafo que le de algo de hilo a la historia}
 
-Consider a game in which $N$ players $\{1, \dots, N\}$ are compete over a period of $T$ time steps or temporal batch (e.g. day, week, month, year).
-Denote the series of games outcomes between two players $i$ and $j$ within a temporal batch $t$ by $\vm{y}^t_{ij}(k)$, where $k \in \{1,\dots,K^t_{ij}\}$, with $K^t_{ij}$ the number of games outcomes available for that pair of players in that temporal batch.
+\en{Consider a game in which $N$ players $\{1, \dots, N\}$ are compete over a period of $T$ time steps or temporal batch (e.g. day, week, month, year).}
+\es{Consideremos un juego que invulucra $N$ jugadores $\{1, \dots, N\}$, es completado en pasos o baches temporales $T$ (e.g. dia, semana, mes, años, etc).}
+\en{Denote the series of games outcomes between two players $i$ and $j$ within a temporal batch $t$ by $\vm{y}^t_{ij}(k)$, where $k \in \{1,\dots,K^t_{ij}\}$, with $K^t_{ij}$ the number of games outcomes available for that pair of players in that temporal batch.}
+\es{Denotamos al resultado de un juego entre dos jugadores $i$ y $j$ dentro de un bache temporal $t$ como $\vm{y}^t_{ij}(k)$, donde $k \in \{1,\dots,K^t_{ij}\}$, con $K^t_{ij}$ el numero de resultados de juegos disponibles para ese par de jugadores dentro de ese bache tempraol.
+}
 
-
-\begin{itemize}
+\en{\begin{itemize}
  \item Inference within a temporal batch (day, week, month) depends on the random order chosen for the update. However the results should be independent of the order of games within the temporal batch.
  \item Information across temporal batch is only propagated forward in time, so we can not propagate information backwards.
 \end{itemize}
+}
+\es{\begin{itemize}
+		\item Inferencia entre un bache temporal (día, semana, mes) depende del orden aleatorio elegido para la actualización. De todas formas el resultado deberia ser independiente del orden de los juegos dentro de un bache temporal.
+		\item La información a través de un bache es solo propagado de manera temporal hacia adelante, no pudiendo propagarla en sentido contrario.
+\end{itemize}}
 
-
-The neighbor factor graph of a temporal skill variable $s_i^t$, is
-
+\en{The neighbor factor graph of a temporal skill variable $s_i^t$, is}
+\es{El grafico de factores de una variable de habilidad temporal $s_i^t$, es}
 \begin{center}
 \tikz{ %
         \node[latent] (s0) {$s_i^{t-1}$} ; %
@@ -758,24 +764,28 @@ The neighbor factor graph of a temporal skill variable $s_i^t$, is
 }
 \end{center}
 
-The arrows represents messages computed by the sum-product algorithm.
-The names were selected for the sole purpose of simplifying the notation.
-By the sum-product algorithm we know that the marginal distribution any variable is the product of the messages the variable receives from its neighbors,
-
+\en{The arrows represents messages computed by the sum-product algorithm.}
+\es{Las flechas representan los mensajes computados por el algoritmo de sum-product.}
+\en{The names were selected for the sole purpose of simplifying the notation.}
+\es{Los nombres fueron elegidos solamente para simplificar la notación.}
+\en{By the sum-product algorithm we know that the marginal distribution any variable is the product of the messages the variable receives from its neighbors,}
+\es{Mediante el algoritmo de sum-product, sabemos que la distribución marginal de cualquier variable, es el producto de los mensajes, que esta variable recibe de sus vecinos,}
 \begin{equation}
  p(s^t) = \prod_{h \in n(s^t)} m_{h \rightarrow s^t}(s^t)
 \end{equation}
 
-Replaced the messages by the selected names, this distribution can be expressed as,
-
+\en{Replaced the messages by the selected names, this distribution can be expressed as,}
+\es{Remplazando los mensajes por los nombres seleccionados, esta distribución se puede expresar como,}
 \begin{equation}
  p(s_i^t) = \emph{prior}_i(t) \cdot \emph{inversePrior}_i(t) \cdot \prod_{k=1}^{K_i^t} \emph{likelihood}_i(t,k)
 \end{equation}
 
-There is a mutual dependency between forward and backward messages that make imposible a one shot inference iteration.
-The basic idea is to update repeatedly forward and backward until convergence, making sure that the effect of the previous update is removed before the new effect is added.
-The messages that are not yet defined, for example the inverse prior in the first forward pass, are replace it with by a neutral form like a unit scalar or a Gaussian distribution with infinite variance.
-
+\en{There is a mutual dependency between forward and backward messages that make imposible a one shot inference iteration.}
+\es{Existe una dependencia muta entre los mensajes hacia adelante y hacia atras, haciendo imposible una inferencia de única iteración.}
+\en{The basic idea is to update repeatedly forward and backward until convergence, making sure that the effect of the previous update is removed before the new effect is added.}
+\es{La idea básica es la de actualizar repetidas veces los mensajes hacia adelante y hacia atras hasta su convergencia, asegurándonos que el efecto de la actualización previa sea removida antes de que el nuevo efecto se agregue.}
+\en{The messages that are not yet defined, for example the inverse prior in the first forward pass, are replace it with by a neutral form like a unit scalar or a Gaussian distribution with infinite variance.}
+\es{Los mensajes que no están todavía definidos, por ejemplo el prior inverso en la primer pasada hacia adelante, es remplazado por una forma neutral como un escalar unidad o una distribución gausiana con infinita varianza.}
 \vspace{0.3cm}
 
 \paragraph{\emph{posterior}$\bm{_i(t-1)}$:}
@@ -839,14 +849,18 @@ The messages that are not yet defined, for example the inverse prior in the firs
 
 \subsubsection{Convergence}
 
-\paragraph{Temporal batch} Within a temporal batch $t$, we go through the games outcomes $\vm{y}^t$ several times until convergence.
-The update for a game outcome $y^t_i(k)$ is performed by the same way as original TrueSkill using as prior the \emph{withinPrior}$_i(t,k)$ and saving the \emph{likelihood}$_i(t,k)$.
+\en{\paragraph{Temporal batch} Within a temporal batch $t$, we go through the games outcomes $\vm{y}^t$ several times until convergence.}
+\es{\paragraph{Bache temporal} Dentro de un bache temporal $t$, pasamos por los resultados de los juegos $\vm{y}^t$, varias veces hasta su convergencia.}
+\en{The update for a game outcome $y^t_i(k)$ is performed by the same way as original TrueSkill using as prior the \emph{withinPrior}$_i(t,k)$ and saving the \emph{likelihood}$_i(t,k)$.}
+\es{La actualización para un resultado de un juego $y^t_i(k)$, se realiza de la misma manera que TrueSkill original, usando como priori el \emph{withinPrior}$_i(t,k)$ y guardando el \emph{likelihood}$_i(t,k)$.}
 
 \paragraph{Forward-Backward Propagation}
-At each forward pass we store each forward message, i.e. \emph{prior}$_i(t+1)$.
-And at each backward pass we compute the backward message, i.e. \emph{inversePrior}$_i(t-1)$.
-This messages, together with the last stored \emph{likelihood}$_i(t,k)$, will be used to compute each \emph{withinPrior}$_i(t,k)$ at the temporal batch.
-
+\en{At each forward pass we store each forward message, i.e. \emph{prior}$_i(t+1)$.}
+\es{En cada pasada hacia adelante, guardamos cada mensaje hacia adelante, i.e. \emph{prior}$_i(t+1)$.}
+\en{And at each backward pass we compute the backward message, i.e. \emph{inversePrior}$_i(t-1)$.}
+\es{En cada pasada hacia atrás computamos el mensaje hacia atrás, i.e. \emph{inversePrior}$_i(t-1)$.}
+\en{This messages, together with the last stored \emph{likelihood}$_i(t,k)$, will be used to compute each \emph{withinPrior}$_i(t,k)$ at the temporal batch.}
+\es{Este mensaje, junto con el ultimo \emph{likelihood}$_i(t,k)$ guardado, usaremos para computar cada \emph{withinPrior}$_i(t,k)$ en el bache temporal. }
 
 
 
