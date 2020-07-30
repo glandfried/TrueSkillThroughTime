@@ -192,12 +192,30 @@
 
 \section[Introduction: Count data regression in R]{Introduction: } \label{sec:intro}
 
+%
+\en{What are the skills of the people?}
+\es{¿Cuáles son las habilidades de las personas?}
+%
+\en{How difficult are the challenges they face?}
+\es{¿Cuán difíciles son los desafíos que enfrentan?}
+%
+\en{How are their learning curves over time?}
+\es{¿Cómo son sus curvas de aprendizaje en el tiempo?}
+%
+\en{What is the overall pattern and how variable is it?}
+\es{¿Cuál es el patrón general y cuán variable es?}
+%
 \en{Knowing people's abilities is crucial in the area of education and sports, among others.}
 \es{Conocer las habilidades de las personas es crucial en el \'area de la educaci\'on y los deportes, entre otros.}
-\todo[inline]{M\'as de venta de la importancia, inter\'es y potencial uso de saber la habilidad de alguien}
 %
-\en{Since it is a complex variable, it is generally impossible to measure it directly (aka hidden variable).}
-\es{Al ser una variable compleja, generalmente es imposible medirla directamente (aka variable oculta).}
+\en{In the context of interventions, it makes it possible to avoid exposing agents to imbalanced challenges.}
+\es{En las contexto de intervenciones, permite evitar exponer a los agentes a desafíos desproporcionados.}
+%
+\en{For research purposes, the ratings can be made available to subjects and the general public, stimulating interest and engagement.}
+\es{Con fines de investigación, las calificaciones pueden ponerse a disposición de los sujetos y del público general, estimulando así el interés y la participación.}
+%
+\en{However, since it is a complex variable, it is generally impossible to measure it directly (aka hidden variable).}
+\es{Sin embargo, al ser una variable compleja, generalmente es imposible medirla directamente (aka variable oculta).}
 %
 \en{In practice, the best we can do is estimate it from its direct observable consequences.}
 \es{En la pr\'actica, lo mejor que podemos hacer es estimarla a partir de sus consecuencias observables m\'as directas.}
@@ -211,8 +229,13 @@
 \en{For that reason, all conventional models are underpinned by pairwise comparisons.}
 \es{Por esa raz\'on, todos los modelos convencionales se basan en \emph{pairwise comparisons}.}
 %
-\en{Since the first generative models, proposed almost a century ago by~\cite{thurstone1927-comparativeJugement} and~\cite{zermelo1929-translation}, it is assumed that the probability of observing a positive result depends on the \emph{difference in strength} between the agent and their target, $p(\,r=1 \,|\, d_{ij}\,)$.}
-\es{Ya los primeros modelos generativos, propuestos hace casi un siglo por~\cite{thurstone1927-comparativeJugement} y~\cite{zermelo1929-translation}, suponen que la probabilidad de observar un resultado positivo depende de la \emph{diferencia de escala} entre el agente y su objetivo, $p(\,r=1 \,|\, d_{ij}\,)$.}
+\en{Since the first generative models, proposed almost a century ago by~\cite{thurstone1927-comparativeJugement} and~\cite{zermelo1929-translation}, it is assumed that the probability of an observed result, $r$, depends on the difference in strength, $d$, between the agent and their target.}
+\es{Ya los primeros modelos generativos, propuestos hace casi un siglo por~\cite{thurstone1927-comparativeJugement} y~\cite{zermelo1929-translation}, suponen que la probabilidad de un resultado observado, $r$, depende de la diferencia de escala, $d$, entre el agente y su objetivo.}
+%
+\begin{equation} \label{eq:pairwise-comparision}
+p(\,r \,|\, d_{ij}\,) 
+\end{equation}
+%
 \en{The field was revitalized after 20 years by the publications of~\cite{bradley1952-pairedComparisions} and~\cite{mosteller1951-remarks}.}
 \es{El campo revitaliz\'o 20 a\~nos después gracias a las publicaciones de \cite{bradley1952-pairedComparisions} y~\cite{mosteller1951-remarks}.}
 %
@@ -222,7 +245,7 @@
 \en{Remarkably, they all share the same underlying generative model.}
 \es{Notablemente, todos comparten el mismo modelo generativo subyacente.}
 %
-\en{In respect to their representations, the main difference is limited to the choice of one of two very similar cumulative probability distributions to define the equation~\ref{eq:pairwise-comparision}: the logistic function or the cumulative Gaussian one.}
+\en{The main difference in respect to their representations is limited to the choice of one of two very similar cumulative probability distributions to define the equation~\ref{eq:pairwise-comparision}: the logistic function or the cumulative Gaussian one.}
 \es{Respecto de su representaci\'on, la principal diferencia se limita a la elecci\'on de una de dos distribuciones de probabilidad acumulativa, muy similares entre s\'i, para definir la ecuaci\'on~\ref{eq: pairwise-comparision}: la funci\'on log\'istica o la Gaussiana acumulativa.}
 %
 \en{The most substantive differences are methodological differences: alternative methods for solving the shared probabilistic model.}
@@ -288,24 +311,33 @@
 \en{A breakthrough took place with the methodology developed by~\cite{elo1961-uscf} for the US Chess Federation (USCF), which is still used by the International Chess Federation (FIDE).}
 \es{Un gran avance produjo la metodolog\'ia desarrollada por~\cite{elo1961-uscf} para la Federaci\'on de Ajedrez de los Estados Unidos (USCF), adoptada hasta el d\'ia de hoy por la Federaci\'on Internacional De Ajedrez (FIDE).}
 %
-\en{Figure~\ref{fig:generative_model} provides a graphical representation of the generative model, which details the causal relationship that hidden skills ($s$) have on the observable results ($r$), through the random difference ($d$) of hidden performances ($p$).}
-\es{La Figura~\ref{fig:generative_model} ofrece una representaci\'on gr\'afica del modelo generativo, en la que se detalla la relaci\'on causal que las habilidades ocultas ($s$) tienen sobre los resultados observables ($r$), a trav\'es de la diferencia aleatorias ($d$) de rendimientos ocultos ($p$).}
+\en{Figure~\ref{fig:generative_model} provides a graphical representation in which hidden skill generate observable results.}
+\es{La figura~\ref{fig:generative_model} ofrece una representaci\'on gr\'afica en la que las habilidades ocultas generan los resultados observables.}
 %
-\en{The performance that agents exhibit in each event is assumed to be random, centered around the real unknown skill $\N(p\,|\,s,\beta^2)$.}
-\es{El desempe\~no que exhiben los agentes en cada evento se supone aleatorio, centrado en torno a la verdadera habilidad desconocida, $\N(s,\beta^2)$.}
+\en{The causal relationship is not direct.}
+\es{La relaci\'on causal no es directa.}
 %
-\en{According to the model, the results are a direct consequence of the hidden performances.}
-\es{Según el modelo, los resultados son consecuencias directa de los rendimientos ocultos.}
+\en{Although agents may have a specific skill at any given time ($s$), the performance ($p$) they exhibit in an event depends on an undetermined number of unknown factors, which are modeled as random noise ($\beta$), $\N(p\,|\,s,\beta^2)$.}
+\es{Si bien los agentes pueden tener una habilidad específica en cada momento ($s$), el desempeño ($p$) que exhiben en cada evento depende de una cantidad indeterminada de factores desconocidos, los que se modelan como ruido aleatorio ($\beta$), $\N(p\,|\,s,\beta^2)$.}
+%
+\en{According to the model, the observed results are a direct consequence of the difference of those hidden performances, $d_{ij}=p_i - p_j$.}
+\es{Según el modelo, los resultados son una consecuencias directa de la diferencia de esos rendimientos ocultos, $d_{ij}=p_i - p_j$.}
+%
+\en{An agent gets a positive result when he outperforms his opponent, $r_{ij} = (d_{ij} > 0)$.}
+\es{Un agente obtiene un resultado positivo cuando supera el rendimiento de su adversario, $r_{ij} = (d_{ij} > 0)$.}
 %
 \en{By observing a result we can deduce, given the hypotheses, the order of the hidden performances that actually occurred in that event, and its a priori probability.}
 \es{Al observar un resultado podemos deducir, dadas las hip\'otesis, el orden de los rendimientos ocultos que en efecto ocurri\'o en ese evento, y su probabilidad a priori.}
 %
-\en{Elo's methodological solution for estimating skills from results is extremely simple and astute: update the current estimate based on our surprise.}
-\es{La soluci\'on metodol\'ogica de Elo para estimar habilidades a partir de resultados es extremadamente sencilla y astuta: actualizar la estimaci\'on actual en funci\'on de nuestra sorpresa.}
+\en{Elo's methodological solution extremely simple and astute: update the current estimate based on our surprise.}
+\es{La soluci\'on metodol\'ogica de Elo es extremadamente sencilla y astuta: actualizar la estimaci\'on actual en funci\'on de nuestra sorpresa.}
 %
 \begin{equation}
  \Delta = \underbrace{y_{ij}}_{\hfrac{\text{Direction}}{\text{(Sign)}}}\underbrace{\left(1-p(\,r_{ij}\,|\,s_i,s_j\,)\right)}_{\hfrac{\text{Magnitud}}{\text{(Surprise)}}}
 \end{equation}
+%
+\en{Where $y_{ij}$ is $1$ for winners and $-1$ for losers, and the probability of the observed result given the a priori estimates are derived from Figure~\ref{fig:generative_model}.}
+\es{Donde $y_{ij}$ es $1$ para ganadores y $-1$ para perdedores y la probabilidad del resultado observado dadas las estimaciones a priori se deriva de la figura~\ref{fig:generative_model}. }
 %
 \en{Unlikely results would indicate that the current estimates are not entirely correct and should be updated to a greater extent than if they had occurred as expected.}
 \es{Los resultados poco probables indicar\'ian que las estimaciones actuales no son del todo correctas y deber\'ian actualizarse en mayor medida que si hubieran ocurrido como se esperaba.}
@@ -323,25 +355,36 @@
 \en{Because of the lack of a notion of uncertainty about the estimates, what one agent loses in equation~\ref{eq:elo_update} is acquired by the other.}
 \es{Debido a la falta de una noci\'on de incertidumbre sobre las estimaciones, lo que un agente pierde en la ecuaci\'on~\ref{eq:elo_update} lo adquiere el otro.}
 %
-\en{As new estimates tend to generate high surprise, their presence can abruptly modify estimates that had already converged correctly.}
+\en{As newly estimates tend to generate high surprise, their presence can abruptly modify estimates that had already converged correctly.}
 \es{Como las estimaci\'on nuevas tienden a generan alta sorpresa, su presencia puede modificar bruscamente estimaciones que ya hab\'ian convergido correctamente.}
 %
-\en{The ad-hoc solution proceeds by filtering the impact of $\Delta$ as a function of the times an agent was seen, which breaks the symmetry of equation~\ref{eq:elo_update}.}
-\es{La soluci\'on ad-hoc procede filtrando el impacto de $\Delta$ en funci\'on de las veces que un agente fue visto, lo que rompe la simetr\'ia de la ecuaci\'on~\ref{eq:elo_update}.}
+\en{And ad-hoc solution was proposed to breaks the symmetry of equation~\ref{eq:elo_update}: reduce the impact of $\Delta$ based on how many times the agent was already seen by the system.}
+\es{Una soluci\'on ad-hoc fue propuesta para romper la simetr\'ia de la ecuaci\'on~\ref{eq:elo_update}: reducir el impacto de $\Delta$ en función de las veces que el agente ya fue visto por el sistema.}
+%
+\en{That is the role played by the famous K-factor used by FIDE.}
+\es{Ese es rol que desempeña el famoso K-factor usado por la FIDE.}
+%
 
 % Cambio de parrafo
 
-
-\en{Probability Theory provides us with a consistent framework for quantifying the uncertainty of our beliefs, and to update them optimally given a model and the data~\cite{bishop2006-patternRecognitionMachineLearning}.}
-\es{--.}
+\en{Probability Theory provides us with a consistent framework for quantifying the uncertainty of our beliefs~\cite{bishop2006-PRML}.}
+\es{La Teoría de la Probabilidad nos proporciona un marco consistente para cuantificar la incertidumbre de nuestras creencias~\citep{bishop2006-PRML}.}
 %
-\en{The use of probabilty to represent uncertainty, however, is not an ad-hoc choice.}
-\es{--.}
+\en{The use of probabilty to represent uncertainty is not an ad-hoc choice.}
+\es{El uso de la probabilidad para representar incertidumbre no es una elección ad-hoc.}
 %
-\en{Cox~\cite{cox} showed that if numerical values are used to represent degrees of belief, then a simple set of axioms encoding ``common sense'' that leads uniquely to a set of rules for manipulating degrees of belief that are equivalent to the sum and product rules of probability.}
-\es{--.}
+% \en{Cox~\cite{cox1946-reasonableExpectation} provides a theoretical basis for using probability theory as a general logic under uncertainty.}
+% \es{Cox~\cite{cox1946-reasonableExpectation} proporciona fundamentos teóricos para el uso de la teoría de la probabilidad como lógica general bajo incertidumbre.}
+%
+\en{Any system that represent degrees of belief by a numerical value , consistent with classical deductive logic and a set of axioms encoding commonsense reasoning, must be isomorphic to probability theory~\citep{cox1946-reasonableExpectation,vanHorn2003-guideCoxTheorem}.}
+\es{Cualquier sistema que represente grados de creencia mediante un valor numérico, consistente con la lógica deductiva clásica y un conjunto de axiomas que codifican el razonamiento de sentido común,  derá ser isomórfico a la teoría de la probabilidad.}
+%
+\en{We can answer any questions within this framework through the two elementary rules of probability, the \emph{sum rule} and the \emph{product rule}.}
+\es{Podemos responder cualquier pregunta dentro de este marco a través de las dos reglas elementales de probabilidad, la \emph{regla de la suma} y la \emph{regla del producto}.}
 
 
+% , and to update them optimally given a model and the data
+%
 % 
 % 
 % 
@@ -1111,7 +1154,7 @@ information such as relative contributions of the authors may be added here
 %% - Titles in the .bib should be in title case.
 %% - DOIs should be included where available.
 
-\bibliography{article}
+\bibliography{../../bibliografia/Gaming/gaming}
 
 
 %% -- Appendix (if any) --------------------------------------------------------
