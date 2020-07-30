@@ -370,21 +370,76 @@ p(\,r \,|\, d_{ij}\,)
 \en{Probability Theory provides us with a consistent framework for quantifying the uncertainty of our beliefs~\cite{bishop2006-PRML}.}
 \es{La Teoría de la Probabilidad nos proporciona un marco consistente para cuantificar la incertidumbre de nuestras creencias~\citep{bishop2006-PRML}.}
 %
-\en{The use of probabilty to represent uncertainty is not an ad-hoc choice.}
-\es{El uso de la probabilidad para representar incertidumbre no es una elección ad-hoc.}
+\en{The use of probability theory to handle uncertainty, known as Bayesian inference, is now widely adopted in the area of artificial intelligence and machine learning primarily because it has proved to be a extremely useful tool in practice.}
+\es{El uso de la teoría de la probabilidad para manejar la incertidumbre, conocida como inferencia bayesiana, está hoy adopta de manera generalizada en el ámbito de la inteligencia artificial y el aprendizaje automático fundamentalmente porque ha mostrado ser un instrumento sumamente útil en la práctica.}
 %
-% \en{Cox~\cite{cox1946-reasonableExpectation} provides a theoretical basis for using probability theory as a general logic under uncertainty.}
-% \es{Cox~\cite{cox1946-reasonableExpectation} proporciona fundamentos teóricos para el uso de la teoría de la probabilidad como lógica general bajo incertidumbre.}
+\en{It is not however an ad-hoc choice.}
+\es{No es sin embargo una elección ad-hoc.}
 %
-\en{Any system that represent degrees of belief by a numerical value , consistent with classical deductive logic and a set of axioms encoding commonsense reasoning, must be isomorphic to probability theory~\citep{cox1946-reasonableExpectation,vanHorn2003-guideCoxTheorem}.}
-\es{Cualquier sistema que represente grados de creencia mediante un valor numérico, consistente con la lógica deductiva clásica y un conjunto de axiomas que codifican el razonamiento de sentido común,  derá ser isomórfico a la teoría de la probabilidad.}
+\en{Any system that represent degrees of belief by a numerical value, consistent with classical deductive logic and a set of axioms encoding commonsense reasoning, will necessarily be isomorphic to probability theory~\citep{cox1946-reasonableExpectation,vanHorn2003-guideCoxTheorem}.}
+\es{Cualquier sistema que represente grados de creencia mediante un valor numérico, consistente con la lógica deductiva clásica y un conjunto de axiomas que codifican el razonamiento de sentido común,  será necesariamente isomórfico a la teoría de la probabilidad~\citep{cox1946-reasonableExpectation,vanHorn2003-guideCoxTheorem}.}
 %
-\en{We can answer any questions within this framework through the two elementary rules of probability, the \emph{sum rule} and the \emph{product rule}.}
-\es{Podemos responder cualquier pregunta dentro de este marco a través de las dos reglas elementales de probabilidad, la \emph{regla de la suma} y la \emph{regla del producto}.}
+\en{And all of the probabilistic inference, no matter how complex, can be solved in terms of two simple equations: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
+\es{Y toda inferencia probabilística, no importa cuan compleja ella sea, puede ser resuelta a través de dos simples ecuaciones: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
+%
+\begin{equation} \label{eq:sum_rule}
+ \tag{\en{sum rule}\es{regla de la suma}}
+ p(x) = \sum_{y \in Y} p(x,y)
+\end{equation}
+%
+\en{This means that any marginal distribution, $p(x)$, can be obtained by integrating the joint distribution $p(x,y)$, in this case by summing out all of the $Y$ values.}
+\es{Esto significa que cualquier distribución marginal $p(x)$ puede ser obtenida integrando la distribución conjunta $p(x,y)$, en este caso sumando todos los valores de $Y$.}
+%
+\begin{equation}\label{eq:product_rule}
+\tag{\en{product rule}\es{regla del producto}}
+ p(x,y) = p(x|y) p(y)
+\end{equation}
+%
+\en{Additionally, any joint distribution can be expressed as the product of one-dimensional conditional distributions.}
+\es{Además, cualquier distribución conjunta puede ser expresada como el producto de distribuciones condicionales uni-dimensionles.}
+%
+\en{This rule, together with the symmetry property $p(x,y) = p(y,x)$, we can immediately obtain the~\ref{eq:bayes_theorem},}
+\es{Esta regla, junto con la propiedad de simetría $p(x,y) = p(y,x)$, podemos obtenemos inmediatamente el~\ref{eq:bayes_theorem},}
+%
+\begin{equation}\label{eq:bayes_theorem}
+\tag{\en{Bayes' theorem}\es{Teorema de bayes}}
+ p(y|x) = \frac{p(x|y)p(y)}{p(x)}
+\end{equation}
+%
+\en{The inferential use of Bayes' theorem plays a central role in modern statistical learning techniques.}
+\es{El uso inferencial del teorema de bayes juega un rol central en las técnicas modernas de aprendizaje estadísitico.}
+%
+\en{This formula allows us to optimally update our beliefs about a set of hypotheses, given a model and the data.}
+\es{Esta fórmula nos permite actualizar de forma óptima nuestras creencia sobre ciertas hipótesis, dado un modelo y los datos.}
+%
+\begin{equation}\label{eq:inference}
+ \underbrace{p(\text{\en{Hypotesis}\es{Hipótesis}}|\text{\en{Data}\es{Datos}})}_{\text{Posterior\es{i}}} = \frac{\overbrace{p(\text{\en{Data}\es{Datos}}|\text{\en{Hypotesis}\es{Hipótesis}})}^{\text{\en{Likelihood}\es{Verosimilitud}}}\overbrace{p(\text{\en{Hypotesis}\es{Hipótesis}})}^{\text{Prior\es{i}}}}{\underbrace{p(\text{\en{Data}\es{Datos}})}_{\text{Evidenc\en{e}\es{ia}}}}
+\end{equation}
+%
+\en{Where the role played by the model is left implicit.}
+\es{Donde el lugar que ocupa el modelo queda implícito.}
+%
+
+% Nuevo Párrafo
 
 
-% , and to update them optimally given a model and the data
+\en{In our case, the hypotheses are the ability of the people, the data are the results, and the model is defined by the figure~\ref{fig:generative_model}.}
+\es{En nuestro caso, las hipótesis son las habilidades de las personas, los datos son los resultados y el modelo está definido por la figure~\ref{fig:generative_model}.}
 %
+\en{By defining a probability distribution that represents our a priori beliefs about people's abilities, we can obtain the exact posterioror belief distribution using only the sum and product rules (detalles en~\ref{}).}
+\es{Definiendo una distribución de probabilidad que represenste nuestraa creenccias a priori sobre las habilidad de las personas, podemos obtener la distribución de creencias a posterori exacta usando tan solo las reglas de la suma y el producto (detalles en~\ref{}).}
+%
+\en{}
+\es{En el caso ganador}
+%
+\begin{equation}
+p(s_i|r,s_j) =  
+\end{equation}
+%
+\en{}
+\es{}
+
+
 % 
 % 
 % 
