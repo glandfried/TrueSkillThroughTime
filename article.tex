@@ -23,6 +23,7 @@
 \usepackage{wrapfig} % \begin{wrapfigure} Pone figura al lado del texto
 \usepackage{mdframed}
 \usepackage{algorithm}
+\usepackage{comment}
 %\usepackage{quoting}
 \usepackage{mathtools}
 \usepackage{tikz}
@@ -1028,6 +1029,9 @@ lines.
 \section{Illustrations} \label{sec:illustrations}
 
 %
+\begin{comment}
+
+
 \begin{CodeChunk}
 \begin{CodeInput}
 R> data("quine", package = "MASS")
@@ -1047,22 +1051,34 @@ the continuation prompt. Generally, comments within the code chunks should be
 avoided -- and made in the regular {\LaTeX} text instead. Finally, empty lines
 before and after code input/output should be avoided (see above).
 \end{leftbar}
+\end{comment}
 
 This tutorial will guide you through some of typical \textbf{TTT} package application.
 Familiarity with Python is assumed, so if you are new to Pythom there is plenty of online documentation like the official Python documentation
 page at \href{http://www.python.org/doc/}{\textcolor{blue}{http://www.python.org/doc/}}.
 In addition to the module \textbf{TTT}, the libraries collections, dateutil and mathematics(Gaussian) are also required.
-In this section its show some applications, starting with an example of Trueskill of 1vs1, then an example with a data set, and the last one a first example of Trueskill Through Time.
+In this section its show some applications, starting with an example of TrueSkill of 1vs1, then an example with a data set, and the last one a first example of Trueskill Through Time.
 
-\subsection{Example 1: Trueskill 1vs1}
-The first examples is the most basic one we figure out. Its one of the first examples in the official python package of Trueskill. Our library, its almost four times faster than the official.
+
+\subsection{Example 1: TrueSkill 1vs1}
+The first examples is the most basic one we figure out. Its one of the first examples in the official python package of Trueskill. 
+Our library, its almost four times faster than the official, when computing posteriors.
 
 \lstinputlisting{./code/Example1.py}
 \begin{lstlisting}
 [Out]: Posterior:  TrueSkill.Rating(mu=29.205, sigma=7.194, beta=4.167, noise=0.083) Mean:  29.2052208700336 Variance:  7.194481348831081
 \end{lstlisting}
-\subsection{Example 2: Trueskill dataset}
-For this example  we want to show how trueskill can be used with a data set. To start, we will show the implementation for the users that already are familar with the original trueskill package, then we will show the way that this package its intend to be used. With this way, the use of \textbf{TTT} its trivial. For the first and second case we will use de as input Table \ref{tab:csvExample2}. Its important to de Result input as shown. In this first case we will use the library Pandas, but it can be done with out it, the only important its how to upload the data set and loop with it. For the second case we still using Pandas but only to keep the same way of reading the CSV file that the first one. In this case we dont need to loop manually through the data set.
+
+The time average of this example in a microprocessor i7 babla, its about $4.5$ $10^{-5}$, and for the python package its about $1.9$ $10^{-4}$. About four times faster.
+
+\subsection{Example 2: TrueSkill data-set}
+Another example we want to show how TrueSkill can be used with a data set. 
+To start, we will show the implementation for the users that already are familiar with the original TrueSkill package making an almost same implementation and then we will show the way that this package its intend to be used. 
+With this way, the use of \textbf{TTT} its trivial. 
+For the first and second case we will use as input the Table \ref{tab:csvExample2}. Its important to have the input "Result" as the same format as shown in the table.
+In this first case we will use the library Pandas, but it can be done with out it, the only important its how to upload the data set and loop with it. For the second case we still using Pandas but only to keep the same way of reading the CSV file that the first one. 
+In this case we don't need to loop manually through the data set.
+
 
 \begin{table}[h!]
 	\centering
@@ -1092,18 +1108,30 @@ For this example  we want to show how trueskill can be used with a data set. To 
 \end{table}
 
 \subsubsection{Example 2 old implementation}
-As we can see, the implantation requires a more manual job, by defining dictionary and also adding noise to the priors, like the trueskill algorithm suggest. This default noise can be change to other. The only thing we must do manually its to pass the input in the correct format.
+As we can see, the implantation requires a more manual job, by defining dictionary and also adding noise to the priors, like the TrueSkill algorithm suggest. This default noise can be change to other. 
+The only thing we must do manually its to pass the input in the correct format.
 \lstinputlisting{./code/Example2.py}
+[Out]:Time $7.7$ $10^{-3}$ seconds
 
 \subsubsection{Example 2 new implementation}
 \lstinputlisting{./code/Example2-1.py}
+[Out]:Time $2.8$ $10^{-3}$ seconds
 
 \subsection{Example 3: Trueskill True Time}
-One of the advantage of \textbf{TTT}, its the way that the algorithm pass information to de past to the future and vice versa, getting a more accurate estimation. In addition, it can define a temporal batch were its suppose that in there the order of the games it doesn't matter. For that, we use the next example. Three player, three games, that each one wins one game and lose the other one. So if we do trueskill, the order of how we compute the games will have importance, making at the end three player with three different skill. With \textbf{TTT} this kind of problem its solve.
+One of the advantage of \textbf{TTT}, its the way that the algorithm pass information to the past to the future and vice versa, getting a more accurate estimation. 
+In addition, it can define a temporal batch were its suppose that in there the order of the games it doesn't matter. 
+For that, we use the next example. 
+Three player, three games, that each one wins one game and lose the other one. 
+So if we do TrueSkill, the order of how we compute the games will have importance, making at the end three player with three different skill. 
+With \textbf{TTT} this kind of problem its solve.
 
 \lstinputlisting{./code/Example3.py}
 
-To extend this example to a data set with more games, the only thing that matter is to pass the information in the format show. In first place is the composition of games, that its a list, that contain a list for each game, that it have another list for each team. So its a list of list of list. Then its have a list of list of results, where each element is a list of numbers, representing the result of each team in each game. The next important input its the time batches, as default it will make each game in a 
+To extend this example to a data set with more games, the only thing that matter is to pass the information in the format show. 
+In first place is the composition of games, that its a list, that contain a list for each game, that it have another list for each team. 
+So its a list of list of list. 
+Then its have a list of list of results, where each element is a list of numbers, representing the result of each team in each game. 
+The next important input its the time batches, as default it will make each game in a 
 
 
 
