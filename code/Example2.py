@@ -3,18 +3,14 @@ import sys
 sys.path.append('pathTTT/')
 import TTT as th
 
-# Import data
 path = 'PathCSV/Example1.csv'
 df = pd.read_csv(path)
-# Define the enviroment
 env = th.TrueSkill()
 player = {}
 ptrueskill = {}
-# Default Values
-print("Default mu, sigma, beta", env.mu, env.sigma, env.beta)
+
 # Can define an other Prior
-globalPrior = env.Rating(25, 25/3, 25/6)
-# Loop for all the dataframe
+globalPrior = env.Rating(mu=25, sigma=25/3, beta=25/6)
 for i in df.index:
     p1_key = str(df.loc[i].Player1)
     p2_key = str(df.loc[i].Player2)
