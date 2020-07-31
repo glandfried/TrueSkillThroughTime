@@ -424,25 +424,78 @@ p(\,r \,|\, d_{ij}\,)
 
 % Nuevo P\'arrafo
 
-
-\en{In our case, the hypotheses are the ability of the people, the data are the results, and the model is defined by the figure~\ref{fig:generative_model}.}
-\es{En nuestro caso, las hip\'otesis son las habilidades de las personas, los datos son los resultados y el modelo est\'a definido por la figure~\ref{fig:generative_model}.}
+\en{In our case, the hypotheses are the people's ability, the data is given by the observed results, and the model is defined by the figure~\ref{fig:generative_model}.}
+\es{En nuestro caso, las hipótesis son las habilidades de las personas, los datos son los resultados y el modelo está definido por la figure~\ref{fig:generative_model}.}
 %
-\en{By defining a probability distribution that represents our a priori beliefs about people's abilities, we can obtain the exact posterioror belief distribution using only the sum and product rules (detalles en~\ref{}).}
-\es{Definiendo una distribuci\'on de probabilidad que represenste nuestraa creenccias a priori sobre las habilidad de las personas, podemos obtener la distribuci\'on de creencias a posterori exacta usando tan solo las reglas de la suma y el producto (detalles en~\ref{}).}
+\en{With a probability distribution that represents our prior beliefs about people's abilities, we can obtain the exact posterior belief distribution by the use of the sum and product rules.}
+\es{Con una distribución de probabilidad que represenste nuestras creenccias a priori sobre las habilidad de las personas, podemos obtener la distribución de creencias a posterori exacta usando tan solo las reglas de la suma y el producto.}
 %
 \en{}
 \es{En el caso ganador}
 %
-\begin{equation}
-p(s_i|r,s_j) =  
+\begin{figure}[t!]
+\centering
+\en{\includegraphics[page={1},width=.6\linewidth]{figures/posterior_win}}
+\es{\includegraphics[page={2},width=.6\linewidth]{figures/posterior_win}}
+\caption{
+\en{Exact belief update for the winning case.}
+\es{Actualización de creencias exacta para el caso ganador.}
+%
+\en{The prior is a Gaussian distribution.}
+\es{La distribución a priori es una Gaussiana.}
+%
+\en{The likelihood is a cumulative Gaussian distribution.}
+\es{La verosimilitud es la acumulada de una distribución Gaussiana.}
+%
+\en{The posterior distribution is obtained as the product of the prior and the likelihood.}
+\es{La distribución a posteriori se obtiene como el producto de la distribución a priori y la verosimilitud.}
+%
+\en{Note that the distributions are not on the same scale: the prior integrates 1, while the likelihood goes from 0 to 1.}
+\es{Notar que las distribuciones no están en la misma escala: la distribución a priori integra 1, mientras que la verosimilitud va de 0 a 1.}
+%
+\en{It is interesting to note that likelihood works as a filter for prior beliefs.}
+\es{Es interesante observar que la verosimilitud funciona como filtro de las creencias a priori.}
+%
+\en{In regions of very high skill, where an observed winning result would not generate any surprises, the a posteriori distribution stays next to the prior.}
+\es{En las regiones de habilidad muy alta, donde un resultado ganador observado no generaría ninguna sorpresa, la distribución a posteriori se queda junto al prior.}
+%
+\en{In regions of very low skill, where an observed winning result would be very surprising, the subsequent one loses almost all its density.}
+\es{En las regiones de habilidad muy bajas, donde un resultado observado ganador sería muy sorprendente, la distribución a posteriori pierde casi toda su densidad.}
+%
+\en{It is important to stress that the posterior, although similar, is not a Gaussian.}
+\es{Es importante remarcar que la posterior, aunque se parece, no es una Gaussiana.}
+}
+\label{fig:posterior_win}
+\end{figure}
+%
+\begin{equation} \label{eq:posterior_win}
+\underbrace{p(s_i|r_{ij},s_j)}_{\text{Posterior\es{i}}} \propto \underbrace{\Phi(0 \, | s_i - \mu_j , \, 2\beta^2 + \sigma_j^2)}_{\text{\en{Likelihood}\es{Verosimilitud}}} \,  \underbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}_{\text{Prior\es{i}}} 
 \end{equation}
 %
-\en{}
-\es{}
-
-
+\en{Where $\Phi$ represents the cumulative Gaussian distribution.}
+\es{Donde $\Phi$ representa la distribuci\'on Gaussiana acumulada.}
+%
+%\en{Figure~\ref{fig:posterior_win} shows, in graphical terms, the updating procedure performed in equation~\ref{eq:posterior_win}.}
+%\es{La figura~\ref{fig:posterior_win} muestra, en términos gráficos, el procedimiento de actualización que se realiza en la ecuación~\ref{eq:posterior_win}.}
 % 
+\en{The posterior distribution is obtained as the product of the prior and the likelihood.}
+\es{La distribución a posteriori se obtiene como el producto de la distribución a priori y la verosimilitud.}
+%
+\en{It is interesting to note that likelihood works as a filter for prior beliefs (Figure~\ref{fig:posterior_win}).}
+\es{Es interesante observar que la verosimilitud funciona como filtro de las creencias a priori (figura~\ref{fig:posterior_win}).}
+%
+\en{It is important to stress that the posterior, although similar, is not a Gaussian.}
+\es{Es importante remarcar que la posterior, aunque se parece, no es una Gaussiana.}
+
+
+% Parrafo nuevo
+
+\en{Obtaining the Gaussian that best approximates it would allow us to extend the inference iteratively in time through the use of the posteriors as priors of the following observations.}
+\es{Conseguir la Gaussiana que mejor la aproxima nos permitiría extender la inferencia iterativamente en el tiempo a tavés del uso de las posteriors como priors de las siguientes observaciones.}
+%
+\en{One of the main contributions of~\cite{herbrich2006-trueskill} was to offer an efficient method to find that Gaussian.}
+\es{Uno de los principales aportes de~\cite{herbrich2006-trueskill} fue ofrecer un método eficiente para calcular esa Gaussiana.}
+
 % 
 % 
 % \cite{dangauthier2008-trueskillThroughTime}
@@ -758,13 +811,11 @@ Then,
 
 %\todo[inline]{Poner un primer parrafo que le de algo de hilo a la historia}
 
-\en{Consider a game in which $N$ players $\{1, \dots, N\}$ are compete over a period of $T$ time steps or temporal batch (e.g. day, week, month, year).}
-\es{Consideremos un juego que invulucra $N$ jugadores $\{1, \dots, N\}$, es completado en pasos o baches temporales $T$ (e.g. dia, semana, mes, años, etc).}
-\en{Denote the series of games outcomes between two players $i$ and $j$ within a temporal batch $t$ by $\vm{y}^t_{ij}(k)$, where $k \in \{1,\dots,K^t_{ij}\}$, with $K^t_{ij}$ the number of games outcomes available for that pair of players in that temporal batch.}
-\es{Denotamos al resultado de un juego entre dos jugadores $i$ y $j$ dentro de un bache temporal $t$ como $\vm{y}^t_{ij}(k)$, donde $k \in \{1,\dots,K^t_{ij}\}$, con $K^t_{ij}$ el numero de resultados de juegos disponibles para ese par de jugadores dentro de ese bache tempraol.
-}
+Consider a game in which $N$ players $\{1, \dots, N\}$ are compete over a period of $T$ time steps or temporal batch (e.g. day, week, month, year).
+Denote the series of games outcomes between two players $i$ and $j$ within a temporal batch $t$ by $\vm{y}^t_{ij}(k)$, where $k \in \{1,\dots,K^t_{ij}\}$, with $K^t_{ij}$ the number of games outcomes available for that pair of players in that temporal batch.
 
-\en{\begin{itemize}
+\en{
+\begin{itemize}
  \item Inference within a temporal batch (day, week, month) depends on the random order chosen for the update. However the results should be independent of the order of games within the temporal batch.
  \item Information across temporal batch is only propagated forward in time, so we can not propagate information backwards.
 \end{itemize}
@@ -774,8 +825,9 @@ Then,
 		\item La informaci\'on a trav\'es de un bache es solo propagado de manera temporal hacia adelante, no pudiendo propagarla en sentido contrario.
 \end{itemize}}
 
-\en{The neighbor factor graph of a temporal skill variable $s_i^t$, is}
-\es{El grafico de factores de una variable de habilidad temporal $s_i^t$, es}
+
+The neighbor factor graph of a temporal skill variable $s_i^t$, is
+
 \begin{center}
 \tikz{ %
         \node[latent] (s0) {$s_i^{t-1}$} ; %
@@ -820,6 +872,7 @@ Then,
         \path[draw, -latex, fill=black!50,sloped] (s1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{\ \ withinPrior}$(t,k)$} (fp2);
 }
 \end{center}
+
 
 \en{The arrows represents messages computed by the sum-product algorithm.}
 \es{Las flechas representan los mensajes computados por el algoritmo de sum-product.}
