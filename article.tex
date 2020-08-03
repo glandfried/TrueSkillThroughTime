@@ -1117,14 +1117,22 @@ In this section its show some applications, starting with an example of TrueSkil
 \subsection{Example 1: TrueSkill 1vs1}
 The first examples is the most basic one we figure out. Its one of the first examples in the official python package of Trueskill. 
 Our library, its almost four times faster than the official, when computing posteriors.
-
+% explicar el ejemplo de que esta pasando
+% presentar variables, mapeo entre ejemplo  y teoria
+% sacar linea en blanco, y sacar la linea entre el import y lo otro
 \lstinputlisting{./code/Example1.py}
 \begin{lstlisting}
 [Out]: Posterior:  TrueSkill.Rating(mu=29.205, sigma=7.194, beta=4.167, noise=0.083) Mean:  29.2052208700336 Variance:  7.194481348831081
 \end{lstlisting}
-
+% explicar la info que sale del resutlado
+% no es la varianza es el desvio
+% contar la expresion de result
+%explicar que es Rating, draw prob 0
+% la habilidad del jugador 1 es babla
 The time average of this example in a microprocessor i7 babla, its about $4.5$ $10^{-5}$, and for the python package its about $1.9$ $10^{-4}$. About four times faster.
 
+% sacar esto del tiempo aca y hacerlo en el data set y como escala a medida que agrando el data set, presentarlo en una tabla de tiempos.
+% 3 o 4 resultados
 \subsection{Example 2: TrueSkill data-set}
 Another example we want to show how TrueSkill can be used with a data set. 
 To start, we will show the implementation for the users that already are familiar with the original TrueSkill package making an almost same implementation and then we will show the way that this package its intend to be used. 
@@ -1161,18 +1169,20 @@ In this case we don't need to loop manually through the data set.
 	\label{tab:csvExample2}
 \end{table}
 
-\subsubsection{Example 2 old implementation}
+\subsection{Example 2 old implementation}
 As we can see, the implantation requires a more manual job, by defining dictionary and also adding noise to the priors, like the TrueSkill algorithm suggest. This default noise can be change to other. 
 The only thing we must do manually its to pass the input in the correct format.
 \lstinputlisting{./code/Example2.py}
 [Out]:Time $7.7$ $10^{-3}$ seconds
 
 In this example, we use the method get, so we can use the global prior only for the first game for each player.
-
-\subsubsection{Example 2 new implementation}
+% sacar el sys
+% explicar como usar la salida
+\subsection{Example 2 new implementation}
 \lstinputlisting{./code/Example2-1.py}
 [Out]:Time $2.8$ $10^{-3}$ seconds
-
+% repetir los de que es mas comodo por estar en una linea
+% sacar batch number
 \subsection{Example 3: Trueskill True Time}
 One of the advantage of \textbf{TTT}, its the way that the algorithm pass information to the past to the future and vice versa, getting a more accurate estimation. 
 In addition, it can define a temporal batch were its suppose that in there the order of the games it doesn't matter. 
@@ -1180,9 +1190,13 @@ For that, we use the next example.
 Three player, three games, that each one wins one game and lose the other one. 
 So if we do TrueSkill, the order of how we compute the games will have importance, making at the end three player with three different skill. 
 With \textbf{TTT} this kind of problem its solve.
-
+% sacar como es TTT yaque se comento antes. poder poner como ya se menciono....
 \lstinputlisting{./code/Example3.py}
 
+% aclarar que no hay implementacion de esto, y por que es mejor.
+% y aclarar que pasa si sale con TTT y que saldria si corro trueskill
+% poner el el grafico que corro trueskill
+%cambiar nombre de throguth time por trueskill
 To extend this example to a data set with more games, the only thing that matter is to pass the information in the format show. 
 In first place is the composition of games, that its a list, that contain a list for each game, that it have another list for each team. 
 So its a list of list of list. 
