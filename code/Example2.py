@@ -1,6 +1,4 @@
 import pandas as pd
-import sys
-sys.path.append('pathTTT/')
 import TTT as th
 
 path = 'PathCSV/Example1.csv'
