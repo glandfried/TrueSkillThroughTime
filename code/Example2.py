@@ -16,7 +16,7 @@ for i in df.index:
     prior_2 = player.get(p2_key, globalPrior)
     t1 = [prior_1.forget(1)]  # add noise to prior
     t2 = [prior_2.forget(1)]
-    result = df.loc[i].Result
+    result = [1, 0] if df.loc[i].Result=='[1, 0]' else [0, 1]
     game = env.Game([t1, t2], result)
     t1_post, t2_post = game.posterior
     player[p1_key] = t1_post[0]
