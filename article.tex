@@ -87,9 +87,9 @@
 %% - \title{} in title case
 %% - \Plaintitle{} without LaTeX markup (if any)
 %% - \Shorttitle{} with LaTeX markup (if any), used as running title
-\title{TrueSkill Through Time:\\ the \proglang{Python} and \proglang{R} Packages}
-\Plaintitle{TrueSkill Through Time:\\ the Python and R Packages}
-\Shorttitle{TrueSkill Through Time:\\ the \proglang{Python} and \proglang{R} Packages}
+\title{TrueSkill Through Time: the \proglang{Python} and \proglang{R} Packages}
+\Plaintitle{TrueSkill Through Time: the Python and R Packages}
+\Shorttitle{TrueSkill Through Time: the \proglang{Python} and \proglang{R} Packages}
 
 %% - \Address{} of at least one author
 %% - May contain multiple affiliations for each author
@@ -441,36 +441,36 @@
 \en{Where $\Phi$ represents the cumulative Gaussian distribution.}
 \es{Donde $\Phi$ representa la distribuci\'on Gaussiana acumulada.}
 % 
-\en{A proprotional posterior distribution is obtained by the product of the prior and the likelihood.}
+\en{A proportional posterior distribution is obtained by the product of the prior and the likelihood.}
 \es{Una distribuci\'on proporcional al posterior se obtiene mediante el producto de la distribuci\'on a priori y la verosimilitud.}
 %
 \en{Figure~\ref{fig:posterior_win} shows, in graphical terms, the updating procedure performed in equation~\ref{eq:posterior_win}.}
 \es{La figura~\ref{fig:posterior_win} muestra, en términos gr\'aficos, el procedimiento de actualizaci\'on que se realiza en la ecuaci\'on~\ref{eq:posterior_win}.}
 %
 \begin{figure}[h!]
-\centering
-\en{\includegraphics[page={1},width=.6\linewidth]{figures/posterior_win}}
-\es{\includegraphics[page={2},width=.6\linewidth]{figures/posterior_win}}
-\caption{
-\en{Exact belief update for the winning case.}
-\es{Actualizaci\'on de creencias exacta para el caso ganador.}
-%
-\en{The prior is a Gaussian distribution.}
-\es{La distribuci\'on a priori es una Gaussiana.}
-%
-\en{The likelihood is a cumulative Gaussian distribution.}
-\es{La verosimilitud es la acumulada de una distribuci\'on Gaussiana.}
-%
-\en{The proprotional posterior distribution is obtained as the product of the prior and the likelihood.}
-\es{La distribuci\'on a posteriori proporcional se obtiene como el producto de la distribuci\'on a priori y la verosimilitud.}
-%
-\en{The evidence is equivalent to its integration.}
-\es{La evidencia es equivalente a su integración.}
-%
-\en{Note that the distributions are not on the same scale: the prior integrates 1, while the likelihood goes from 0 to 1.}
-\es{Notar que las distribuciones no est\'an en la misma escala: la distribuci\'on a priori integra 1, mientras que la verosimilitud va de 0 a 1.}
-}
-\label{fig:posterior_win}
+    \centering
+    \en{\includegraphics[page={1},width=.6\linewidth]{figures/posterior_win}}
+    \es{\includegraphics[page={2},width=.6\linewidth]{figures/posterior_win}}
+    \caption{
+    \en{Exact belief update for the winning case.}
+    \es{Actualizaci\'on de creencias exacta para el caso ganador.}
+    %
+    \en{The prior is a Gaussian distribution.}
+    \es{La distribuci\'on a priori es una Gaussiana.}
+    %
+    \en{The likelihood is a cumulative Gaussian distribution.}
+    \es{La verosimilitud es la acumulada de una distribuci\'on Gaussiana.}
+    %
+    \en{The proprotional posterior distribution is obtained as the product of the prior and the likelihood.}
+    \es{La distribuci\'on a posteriori proporcional se obtiene como el producto de la distribuci\'on a priori y la verosimilitud.}
+    %
+    \en{The evidence is equivalent to its integration.}
+    \es{La evidencia es equivalente a su integración.}
+    %
+    \en{Note that the distributions are not on the same scale: the prior integrates 1, while the likelihood goes from 0 to 1.}
+    \es{Notar que las distribuciones no est\'an en la misma escala: la distribuci\'on a priori integra 1, mientras que la verosimilitud va de 0 a 1.}
+    }
+    \label{fig:posterior_win}
 \end{figure}
 %
 \en{It is interesting to note how the likelihood works as a filter for the prior beliefs.}
@@ -481,15 +481,15 @@
 %
 \en{In the regions of very low ability hypothesis, where a winning result would be very surprising, the proportional posterior distribution loses almost all its mass.}
 \es{En las regiones de hipótesis de muy baja habilidad, donde un resultado ganador sería muy sorprendente, la distribución a posteriori proprocional pierde casi toda su masa.}
+%
+\en{It is important to stress that the exact posterior, although similar, is not a Gaussian distribution.}
+\es{Es importante remarcar que la posterior exacta, aunque se parezca, no es una distribución Gaussiana.}
 
 % Parrafo
 
-\textbf{Ahora, como extendemos la inferencia?}
+\textbf{Ahora bien, nosotros necesitamos extender esta inferencia a toda una serie de eventos, de modo tal de estimar curvas de aprendizajes completas.}
 %
-\en{}
-\es{}
-%
-The simplest approach to modelling a sequence of observations is to treat them as independent, corresponding to a set of graph without links between them.
+The simplest approach to modelling a sequence of observations is to treat them as independent, corresponding to a set of graphical models without links between them, as shown in Figure~\ref{fig:filter}.
 %
 \begin{figure}[h!]
   \centering
@@ -526,31 +526,66 @@ The simplest approach to modelling a sequence of observations is to treat them a
   \caption{The \emph{filter} approach to modelling a sequence of observations treat each graphical model as independent, without links.}
   \label{fig:filter}
 \end{figure}
-
-%Parrafo
-
-\textbf{En este approach generalemnte se usa el posterior con el prior}.
 %
-Sin embargo, como la habilidad de las personas cambia en el tiempo, se le agrega algo de incertidumbre.
+En este este abordaje conocido como \emph{filtrado}, las estimaciones a posteriori de un tiempo $t-1$ se usan como prior del tiempo $t$.
 %
-\begin{equation}
- \text{Prior\es{i}}_i^t + \N(0,\gamma^2)= \text{Posterior\es{i}}_i^{t-1}
-\end{equation}
+En nuestro caso, la habilidad de las personas es una variable dinámica que cambia en el tiempo.
 %
-\en{It is important to stress that the exact posterior, although similar, is not a Gaussian distribution.}
-\es{Es importante remarcar que la posterior, aunque se parezca, no es una distribución Gaussiana.}
+Por ese motivo, en cada pasos se agrega incertidumbre alrededor del subsequent prior mediante una distribuci\'on Gaussian centrada en el posterior anterior.
 %
-\en{Obtaining the Gaussian that best approximates it would allow us to extend the inference iteratively in time through the use of the posteriors as priors of the following observations.}
-\es{Conseguir la Gaussiana que mejor la aproxima nos permitir\'ia extender la inferencia iterativamente en el tiempo a tavés del uso de las posteriors como priors de las siguientes observaciones.}
+\begin{equation}\label{eq:dynamic_factor}
+ s_i^t \sim \N(s_i^{t-1}, \gamma^2)
+ \end{equation}
+%
+Utilizar como posterior del tiempo $t-1$ la Gaussiana que mejor la aproxima permitiría que el prior del tiempo $t$, definido en la ecuación~\ref{eq:dynamic_factor}, sea también Gaussiano, lo que permitiría aplicar repetidas veces la actualización de creencias definida en la ecuación~\ref{eq:posterior_win}.
+% 
+% \en{Obtaining the Gaussian that best approximates it would allow us to extend the inference iteratively in time through the use of the posteriors as priors of the following observations.}
+% \es{Conseguir la Gaussiana que mejor la aproxima el posterior e nos permitir\'ia extender la inferencia iterativamente en el tiempo a tavés del uso de las posteriors como priors de las siguientes observaciones.}
 %
 \en{One of the main contributions of~\cite{herbrich2006-trueskill} was to offer an efficient method to find that Gaussian.}
 \es{Uno de los principales aportes de~\cite{herbrich2006-trueskill} fue ofrecer un método eficiente para calcular esa Gaussiana.}
-
 %
-\todo[inline, color=gray!50]{Expectation propagation}
+El método, conocido como \emph{expectation propagation}, permite computar de forma eficiente la Gaussiana que minimiza la diveregencia Kullback-Leibler.
+%
+Los detalles metodológicos se describen en la sección~\ref{}.
 
+% Parrafo
 
-\textbf{TTT}
+\textbf{Porque TrueSkill es mejor que Glicko.}
+%
+Esta solcuión, conocida como TrueSkill, mostró resultados superiores a sus antecesores.
+%
+No solo superó los resultados obetnidos mediante Elo.
+%
+También mejora los resultados obtenidos con el sistema Glicko.
+%
+El sistema Glicko había sido una mejora respecto de Elo gracias a que incorporaba la noción de incertidumbre de la estimación.
+%
+El sistema Glicko utiliza una función logísitica para representar la probabilidad de ganar dado la diferencia de rendimientos de modelo.
+%
+De modo similar a TrueSkill, Glickman ofreció un método para aproximar la posterior mediante una Gasussiana.
+%
+Sin embargo, la metodología propuesta requiere varias aproximaciones intermedias, y no hay garantias de que la distribución alcanzada minimice la divergencia Kullback-Leibler respecto del verdado posterior.
+%
+Una limitación práctica es el requerimiento que hace Glicko de implementar el proceso de inferencia luego de tener una cierta cantidad de observaciones.
+
+% Parrafo
+
+\textbf{Porque TrueSkill es mejor que IRT bayesiano.}
+%
+TRueSkill es meejor que las versions de Item-Response Theory Bayesiana descritas por FOX.
+%
+Estas soluciones implementan metodologías de sampleo que las hacen muy costosas computacionalmente.
+%
+Si bien las metodologías de sampleo tienen la propiedad converger a la distribución exacta con infinito tiempo
+%
+Al ser el posterio parecido a una Gaussiana, la aproximación Gaussiana es lo suficientememnte buena y no tiene costo computacional asoaciado.
+
+% Parrafo
+
+\textbf{Porque el abordaje de filtro es malo.}
+%
+Todas estas solcuiones, TrueSkill, Glicko, BIRT, aplican el abordaje de filtro
 %
 \begin{quotation}
 As a skill rating and matchmaking system TrueSkill operates as a filter as discussed above.
