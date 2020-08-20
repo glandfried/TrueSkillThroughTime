@@ -87,9 +87,9 @@
 %% - \title{} in title case
 %% - \Plaintitle{} without LaTeX markup (if any)
 %% - \Shorttitle{} with LaTeX markup (if any), used as running title
-\title{TrueSkill Through Time: the \proglang{Python} Package}
-\Plaintitle{TrueSkill Through Time: the Python Package}
-\Shorttitle{TrueSkill Through Time: the \proglang{Python} Package}
+\title{TrueSkill Through Time:\\ the \proglang{Python} and \proglang{R} Packages}
+\Plaintitle{TrueSkill Through Time:\\ the Python and R Packages}
+\Shorttitle{TrueSkill Through Time:\\ the \proglang{Python} and \proglang{R} Packages}
 
 %% - \Address{} of at least one author
 %% - May contain multiple affiliations for each author
@@ -175,8 +175,8 @@
 %% - \Plainkeywords{JSS, style guide, comma-separated, not capitalized, R} without LaTeX markup (if necessary)
 %% - Should be comma-separated and in sentence case.
 
-\Keywords{TrueSkill, ranking, skill, education, sports, games, Bayesian inference, \proglang{Python}}
-\Plainkeywords{TrueSkill, ranking, skill, education, sports, games,  Bayesian inference, Python}
+\Keywords{TrueSkill, ranking, skill, education, sports, games, Bayesian inference, \proglang{Python}, \proglang{R}}
+\Plainkeywords{TrueSkill, ranking, skill, education, sports, games,  Bayesian inference, Python, R}
 
 \begin{document}
 \lstset{language=Python}
@@ -193,22 +193,21 @@
 
 \section[Introduction: Count data regression in R]{Introduction: } \label{sec:intro}
 
-\todo[inline]{Me gusta que intentas poner un poco de intro, pero no me parece que quede bien empezar con preguntas}
-%
-\en{What are the skills of the people?}
-\es{¿Cu\'ales son las habilidades de las personas?}
-%   
-\en{How difficult are the challenges they face?}
-\es{¿Cu\'an dif\'iciles son los desaf\'ios que enfrentan?}
-%
-\en{How are their learning curves over time?}
-\es{¿C\'omo son sus curvas de aprendizaje en el tiempo?}
-%
-\en{What is the overall pattern and how variable is it?}
-\es{¿Cu\'al es el patr\'on general y cu\'an variable es?}
-%
-\en{Knowing people's abilities is crucial in the area of education and sports, among others.}
-\es{Conocer las habilidades de las personas es crucial en el \'area de la educaci\'on y los deportes, entre otros.}
+
+% \en{What are the skills of the people?}
+% \es{¿Cu\'ales son las habilidades de las personas?}
+% %   
+% \en{How difficult are the challenges they face?}
+% \es{¿Cu\'an dif\'iciles son los desaf\'ios que enfrentan?}
+% %
+% \en{How are their learning curves over time?}
+% \es{¿C\'omo son sus curvas de aprendizaje en el tiempo?}
+% %
+% \en{What is the overall pattern and how variable is it?}
+% \es{¿Cu\'al es el patr\'on general y cu\'an variable es?}
+% %
+\en{Knowing people's abilities is crucial in the area of education and sports.}
+\es{Conocer las habilidades de las personas es crucial en el \'area de la educaci\'on y los deportes.}
 %
 \en{In the context of interventions, it makes it possible to avoid exposing agents to imbalanced challenges.}
 \es{En las contexto de intervenciones, permite evitar exponer a los agentes a desaf\'ios desproporcionados.}
@@ -231,15 +230,15 @@
 \en{For that reason, all conventional models are underpinned by pairwise comparisons.}
 \es{Por esa raz\'on, todos los modelos convencionales se basan en \emph{pairwise comparisons}.}
 %
-\en{Since the first generative models, proposed almost a century ago by~\cite{thurstone1927-comparativeJugement} and~\cite{zermelo1929-translation}, it is assumed that the probability of an observed result, $r$, depends on the difference in strength, $d$, between the agent and their target.}
-\es{Ya los primeros modelos generativos, propuestos hace casi un siglo por~\cite{thurstone1927-comparativeJugement} y~\cite{zermelo1929-translation}, suponen que la probabilidad de un resultado observado, $r$, depende de la diferencia de escala, $d$, entre el agente y su objetivo.}
-%
-\begin{equation} \label{eq:pairwise-comparision}
-p(\,r \,|\, d_{ij}\,) 
-\end{equation}
+\en{Since the first generative models, proposed almost a century ago by~\cite{thurstone1927-comparativeJugement} and~\cite{zermelo1929-translation}, it is assumed that the probability of an observed result, $r$, depends on the difference in strength, $d$, between the agent and their target, $P(\, r \,|\, d \,)$.}
+\es{Ya los primeros modelos generativos, propuestos hace casi un siglo por~\cite{thurstone1927-comparativeJugement} y~\cite{zermelo1929-translation}, suponen que la probabilidad de un resultado observado, $r$, depende de la diferencia de escala, $d$, entre el agente y su objetivo, $P(\, r \,|\, d \,)$.}
 %
 \en{The field was revitalized after 20 years by the publications of~\cite{bradley1952-pairedComparisions} and~\cite{mosteller1951-remarks}.}
 \es{El campo revitaliz\'o 20 a\~nos despu\'es gracias a las publicaciones de \cite{bradley1952-pairedComparisions} y~\cite{mosteller1951-remarks}.}
+%
+
+% Parrafo
+
 %
 \en{Nowadays, the most widely used skill estimators are those proposed by~\cite{elo1961-uscf},~\cite{glikman_gliko_2},~\cite{herbrich2006-trueskill}, and some of the Item-Response Theory variants compiled by~\cite{vanDerLinden2016-handbookIRT_1} and~\cite{fox2010-bayesianIRT}.}
 \es{Actualmente, los estimadores de habilidades m\'as utilizados son los propuestos por~\cite{elo1961-uscf},~\cite{glikman_gliko_2},~\cite{herbrich2006-trueskill}, y algunas de las variantes de la\emph{Item-Response Theory} recopiladas por~\cite{vanDerLinden2016-handbookIRT_1} y~\cite{fox2010-bayesianIRT}.}
@@ -247,8 +246,8 @@ p(\,r \,|\, d_{ij}\,)
 \en{Remarkably, they all share the same underlying generative model.}
 \es{Notablemente, todos comparten el mismo modelo generativo subyacente.}
 %
-\en{The main difference in respect to their representations is limited to the choice of one of two very similar cumulative probability distributions to define the equation~\ref{eq:pairwise-comparision}: the logistic function or the cumulative Gaussian one.}
-\es{Respecto de su representaci\'on, la principal diferencia se limita a la elecci\'on de una de dos distribuciones de probabilidad acumulativa, muy similares entre s\'i, para definir la ecuaci\'on~\ref{eq:pairwise-comparision}: la funci\'on log\'istica o la Gaussiana acumulativa.}
+\en{The main difference in respect to their representations is limited to the choice between two very similar cumulative probability distributions to define the likelihood $P(\, r \,|\, d \,)$: the logistic or the Gaussian cumulative function.}
+\es{La principal diferencia respecto a sus representación se limita a la elección entre dos distribuciones de probabilidad acumulativas muy similares para definir la verosimilitud $P(\, r \,|\, d \,)$: la función logística o la Gaussiana acumulativa.}
 %
 \en{The most substantive differences are methodological differences: alternative methods for solving the shared probabilistic model.}
 \es{Las diferencias sustantivas son diferencias metodol\'ogicas: m\'etodos alternativos para resoluci\'on de el modelo probabil\'istico.}
@@ -286,23 +285,32 @@ p(\,r \,|\, d_{ij}\,)
     %\node[invisible, right=of p2, xshift=4.35cm] (s-dist) {};
 }
      \caption{
-     \en{Clasical generative model in which hidden skills cause the observable results through the difference of random performances.}
-    \es{Modelo generativo cl\'asico en la que las habilidades ocultas causan los resultados observables a trav\'es de la diferencia de rendimientos aleatorios.}
+     \en{Clasical generative model in which hidden skills cause the observable results mediated by the difference of hidden performances.}
+    \es{Modelo generativo cl\'asico en el que las habilidades ocultas causan los resultados observables a trav\'es de la diferencia de rendimientos ocultos.}
+    %
+    \en{At each event, agents exhibit a random performance around their true skill, $p \sim \N(s,\beta^2)$.}
+    \es{En cada evento, los agentes exhiben una rendimiento aleatorio centrado en su verdadera habilidad, $p \sim \N(s,\beta^2)$.}
+    %
+    \en{The one with the highest performance wins, $r_{ij} = p_i > p_j$.}
+    \es{Gana quien haya obtenido mayor rendimiento, $r_{ij} = p_i > p_j$.}
     %
     \en{The graphical representation defines a joint probability distribution.}
     \es{La representaci\'on gr\'afica define una distribuci\'on de probabilidad conjunta.}
     %
-    \en{Black dots denote constant values.}
-    \es{Los puntos negros denotan valores constantes.}
+    \en{By observing a result we can deduce what happened to the hidden variables, and update our hypotheses.}
+    \es{Al observar un resultado podemos deducir lo que ocurrió con las variables ocultas, y actulizar nuestras hipótesis.}
     %
-    \en{The big circles and squares indicate continuous and discrete random variables respectively.}
-    \es{Los c\'irculos y cuadrados indican variables aleatorias continuas y discretas respectivamente.} 
-    %
-    \en{Observable variables are painted gray and hidden ones are left blank.}
-    \es{Las variables observables se pintan de gris y las variable ocultas se dejan en blanco.}
-    %
-    \en{The arrows represent causal relationships and the functions define them.}
-    \es{Las flechas representan relaciones causales y las funciones las definen.}
+%     \en{Black dots denote constant values.}
+%     \es{Los puntos negros denotan valores constantes.}
+%     %
+%     \en{The big circles and squares indicate continuous and discrete random variables respectively.}
+%     \es{Los c\'irculos y cuadrados indican variables aleatorias continuas y discretas respectivamente.} 
+%     %
+%     \en{Observable variables are painted gray and hidden ones are left blank.}
+%     \es{Las variables observables se pintan de gris y las variable ocultas se dejan en blanco.}
+%     %
+%     \en{The arrows represent causal relationships and the functions define them.}
+%     \es{Las flechas representan relaciones causales y las funciones las definen.}
     }
     \label{fig:generative_model}
 \label{modelo}
@@ -319,14 +327,14 @@ p(\,r \,|\, d_{ij}\,)
 \en{The causal relationship is not direct.}
 \es{La relaci\'on causal no es directa.}
 %
-\en{Although agents may have a specific skill at any given time ($s$), the performance ($p$) they exhibit in an event depends on an undetermined number of unknown factors, which are modeled as random noise ($\beta$), $\N(p\,|\,s,\beta^2)$.}
-\es{Si bien los agentes pueden tener una habilidad espec\'ifica en cada momento ($s$), el desempe\~no ($p$) que exhiben en cada evento depende de una cantidad indeterminada de factores desconocidos, los que se modelan como ruido aleatorio ($\beta$), $\N(p\,|\,s,\beta^2)$.}
+\en{Although agents may have a specific skill ($s$), the performance ($p$) they exhibit in an event depends on an undetermined number of unknown factors, which are modeled with a noise ($\beta$), $\N(p\,|\,s,\beta^2)$.}
+\es{Si bien los agentes tienen una habilidad ($s$), el desempe\~no ($p$) que exhiben en cada evento depende de una cantidad indeterminada de factores desconocidos, que se modelan con un ruido ($\beta$), $\N(p\,|\,s,\beta^2)$.}
 %
-\en{According to the model, the observed results are a direct consequence of the difference of those hidden performances, $d_{ij}=p_i - p_j$.}
-\es{Según el modelo, los resultados son una consecuencias directa de la diferencia de esos rendimientos ocultos, $d_{ij}=p_i - p_j$.}
+\en{The observed results are a direct consequence of the difference of those hidden performances, $d_{ij}=p_i - p_j$.}
+\es{Los resultados son una consecuencias directa de la diferencia de esos rendimientos ocultos, $d_{ij}=p_i - p_j$.}
 %
-\en{An agent gets a positive result when he outperforms his opponent, $r_{ij} = (d_{ij} > 0)$.}
-\es{Un agente obtiene un resultado positivo cuando supera el rendimiento de su adversario, $r_{ij} = (d_{ij} > 0)$.}
+\en{The one with the highest performance wins, $r_{ij} = (d_{ij} > 0)$.}
+\es{Gana quien haya obtenido mayor rendimiento, $r_{ij} = (d_{ij} > 0)$.}
 %
 \en{By observing a result we can deduce, given the hypotheses, the order of the hidden performances that actually occurred in that event, and its a priori probability.}
 \es{Al observar un resultado podemos deducir, dadas las hip\'otesis, el orden de los rendimientos ocultos que en efecto ocurri\'o en ese evento, y su probabilidad a priori.}
@@ -335,7 +343,7 @@ p(\,r \,|\, d_{ij}\,)
 \es{La soluci\'on metodol\'ogica de Elo es extremadamente sencilla y astuta: actualizar la estimaci\'on actual en funci\'on de nuestra sorpresa.}
 %
 \begin{equation}
- \Delta = \underbrace{y_{ij}}_{\hfrac{\text{Direction}}{\text{(Sign)}}}\underbrace{\left(1-p(\,r_{ij}\,|\,s_i,s_j\,)\right)}_{\hfrac{\text{Magnitud}}{\text{(Surprise)}}}
+ \Delta_i = \underbrace{y_{ij}}_{\hfrac{\text{Direction}}{\text{(Sign)}}}\underbrace{\left(1-P(\,r_{ij}\,|\,s_i,s_j\,)\right)}_{\hfrac{\text{Magnitud}}{\text{(Surprise)}}}
 \end{equation}
 %
 \en{Where $y_{ij}$ is $1$ for winners and $-1$ for losers, and the probability of the observed result given the a priori estimates are derived from Figure~\ref{fig:generative_model}.}
@@ -345,7 +353,7 @@ p(\,r \,|\, d_{ij}\,)
 \es{Los resultados poco probables indicar\'ian que las estimaciones actuales no son del todo correctas y deber\'ian actualizarse en mayor medida que si hubieran ocurrido como se esperaba.}
 %
 \begin{equation}\label{eq:elo_update}
- s_i^{\text{new}} = s_i^{\text{old}} + \Delta
+ s_i^{\text{new}} = s_i^{\text{old}} + \Delta_i
 \end{equation}
 %
 \en{This solution can recover the relative scale of the agents, starting from arbitrary initial values.}
@@ -363,9 +371,8 @@ p(\,r \,|\, d_{ij}\,)
 \en{And ad-hoc solution was proposed to breaks the symmetry of equation~\ref{eq:elo_update}: reduce the impact of $\Delta$ based on how many times the agent was already seen by the system.}
 \es{Una soluci\'on ad-hoc fue propuesta para romper la simetr\'ia de la ecuaci\'on~\ref{eq:elo_update}: reducir el impacto de $\Delta$ en funci\'on de las veces que el agente ya fue visto por el sistema.}
 %
-\en{That is the role played by the famous K-factor used by FIDE.}
-\es{Ese es rol que desempe\~na el famoso K-factor usado por la FIDE.}
-%
+\en{That is the role played by the K-factor used by the FIDE,  $s_i^{\text{new}} = s_i^{\text{old}} + \Delta_i K_i$.}
+\es{Ese es rol que desempe\~na el K-factor usado por la FIDE, $s_i^{\text{new}} = s_i^{\text{old}} + \Delta_i K_i$.}
 
 % Cambio de parrafo
 
@@ -381,14 +388,12 @@ p(\,r \,|\, d_{ij}\,)
 \en{Any system that represent degrees of belief by a numerical value, consistent with classical deductive logic and a set of axioms encoding commonsense reasoning, will necessarily be isomorphic to probability theory~\citep{cox1946-reasonableExpectation,vanHorn2003-guideCoxTheorem}.}
 \es{Cualquier sistema que represente grados de creencia mediante un valor num\'erico, consistente con la l\'ogica deductiva cl\'asica y un conjunto de axiomas que codifican el razonamiento de sentido común,  ser\'a necesariamente isom\'orfico a la teor\'ia de la probabilidad~\citep{cox1946-reasonableExpectation,vanHorn2003-guideCoxTheorem}.}
 %
-\en{And all of the probabilistic inference, no matter how complex, can be solved in terms of two simple equations: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
-\es{Y toda inferencia probabil\'istica, no importa cuan compleja ella sea, puede ser resuelta a trav\'es de dos simples ecuaciones: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
-%
-XXX Detalle, en la jerga casi seguro que usan la p minuscula para distribuciones de variables continuas y la P mayuscula para discreta, como aca estmaos con una suma quizas convenga la P. Si es una boludes lo que dije borrar.
+\en{All of the probabilistic inference, no matter how complex, can be solved in terms of two simple equations: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
+\es{Toda inferencia probabil\'istica, no importa cuan compleja ella sea, puede ser resuelta a trav\'es de dos simples ecuaciones: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
 
 \begin{equation} \label{eq:sum_rule}
  \tag{\en{sum rule}\es{regla de la suma}}
- p(x) = \sum_{y \in Y} p(x,y)
+ P(x) = \sum_{y \in Y} P(x,y) \ \ \ \ \ \text{or} \ \ \ \ \ p(x) = \int p(x,y) \, dy
 \end{equation}
 %
 \en{This means that any marginal distribution, $p(x)$, can be obtained by integrating the joint distribution $p(x,y)$, in this case by summing out all of the $Y$ values.}
@@ -413,29 +418,36 @@ XXX Detalle, en la jerga casi seguro que usan la p minuscula para distribuciones
 \en{The inferential use of Bayes' theorem plays a central role in modern statistical learning techniques.}
 \es{El uso inferencial del teorema de bayes juega un rol central en las t\'ecnicas modernas de aprendizaje estad\'isitico.}
 %
-\en{This formula allows us to optimally update our beliefs about a set of hypotheses, given a model and the data.}
-\es{Esta expresi\'on nos permite actualizar de forma \'optima nuestras creencia sobre ciertas hip\'otesis, dado un modelo y los datos.}
+\en{This formula allows us to optimally update our beliefs about space hypotheses, given a model and the data.}
+\es{Esta expresi\'on nos permite actualizar de forma \'optima nuestras creencia sobre el espacio de hip\'otesis, dado un modelo y los datos.}
 %
 \begin{equation}\label{eq:inference}
- \underbrace{p(\text{\en{Hypotesis}\es{Hip\'otesis}}|\text{\en{Data}\es{Datos}})}_{\text{Posterior\es{i}}} = \frac{\overbrace{p(\text{\en{Data}\es{Datos}}|\text{\en{Hypotesis}\es{Hip\'otesis}})}^{\text{\en{Likelihood}\es{Verosimilitud}}}\overbrace{p(\text{\en{Hypotesis}\es{Hip\'otesis}})}^{\text{Prior\es{i}}}}{\underbrace{p(\text{\en{Data}\es{Datos}})}_{\text{Evidenc\en{e}\es{ia}}}}
+ \underbrace{p(\overbrace{\text{\en{Skills}\es{Habilidades}}}^{\text{\en{Hidden}\es{Oculta}}}|\overbrace{\text{\en{Result}\es{Resultado}}}^{\text{\en{Observed}\es{Observado}}}, \text{\en{Model}\es{Modelo}})}_{\text{Posterior\es{i}}} = \frac{\overbrace{P(\,\text{\en{Result}\es{Resultado}}\,|\,\text{\en{Skills}\es{Habilidades}}\,,\text{\en{Model}\es{Modelo}})}^{\text{\en{Likelihood}\es{Verosimilitud}}}\overbrace{p(\text{\en{Skills}\es{Habilidades}})}^{\text{Prior\es{i}}}}{\underbrace{P(\text{\en{Result}\es{Resultado}}\,|\,\text{\en{Model}\es{Modelo}})}_{\text{Evidenc\en{e}\es{ia}}}}
 \end{equation}
 %
-\en{where the role played by the model is left implicit.}
-\es{donde el lugar que ocupa el modelo queda impl\'icito.}
+\en{Where the hypotheses are the hidden skills, the data is given by the observed results, and the model is defined by the figure~\ref{fig:generative_model}.}
+\es{Donde las hip\'otesis son las habilidades ocultas, los datos son los resultados y el modelo est\'a definido por la figure~\ref{fig:generative_model}.}
 %
-
-% Nuevo P\'arrafo
-
-\en{In our case, the hypotheses are the people's ability, the data is given by the observed results, and the model is defined by the figure~\ref{fig:generative_model}.}
-\es{En nuestro caso, las hip\'otesis son las habilidades de las personas, los datos son los resultados y el modelo est\'a definido por la figure~\ref{fig:generative_model}.}
+\en{The probability distributions that represent our previous beliefs about people's abilities can be updated by the use of the sum and product rules.}
+\es{Las distribuciones de probabilidad que representen nuestras creencias previas sobre las habilidades de las personas se pueden actualizar mediante el uso de las reglas de la suma y el producto.}
 %
-\en{With a probability distribution that represents our prior beliefs about people's abilities, we can obtain the exact posterior belief distribution by the use of the sum and product rules.}
-\es{Con una distribuci\'on de probabilidad que represente nuestras creencias a priori sobre las habilidad de las personas, podemos obtener la distribuci\'on de creencias a posterori exacta usando tan solo las reglas de la suma y el producto.}
+\en{Using a Gaussian prior, let's see the exact belief update for the winning case,}
+\es{Usando un prior Gaussiano, veamos la actualizaci\'on de creencias exacta para el caso ganador,}
 %
-\en{}
-\es{En el caso ganador}
+\begin{equation} \label{eq:posterior_win}
+\underbrace{p(s_i|r_{ij},s_j)}_{\text{Posterior\es{i}}} \propto \underbrace{\Phi(0 \, | s_i - \mu_j , \, 2\beta^2 + \sigma_j^2)}_{\text{\en{Likelihood}\es{Verosimilitud}}} \,  \underbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}_{\text{Prior\es{i}}} 
+\end{equation}
 %
-\begin{figure}[t!]
+\en{Where $\Phi$ represents the cumulative Gaussian distribution.}
+\es{Donde $\Phi$ representa la distribuci\'on Gaussiana acumulada.}
+% 
+\en{A proprotional posterior distribution is obtained by the product of the prior and the likelihood.}
+\es{Una distribuci\'on proporcional al posterior se obtiene mediante el producto de la distribuci\'on a priori y la verosimilitud.}
+%
+\en{Figure~\ref{fig:posterior_win} shows, in graphical terms, the updating procedure performed in equation~\ref{eq:posterior_win}.}
+\es{La figura~\ref{fig:posterior_win} muestra, en términos gr\'aficos, el procedimiento de actualizaci\'on que se realiza en la ecuaci\'on~\ref{eq:posterior_win}.}
+%
+\begin{figure}[h!]
 \centering
 \en{\includegraphics[page={1},width=.6\linewidth]{figures/posterior_win}}
 \es{\includegraphics[page={2},width=.6\linewidth]{figures/posterior_win}}
@@ -449,54 +461,163 @@ XXX Detalle, en la jerga casi seguro que usan la p minuscula para distribuciones
 \en{The likelihood is a cumulative Gaussian distribution.}
 \es{La verosimilitud es la acumulada de una distribuci\'on Gaussiana.}
 %
-\en{The posterior distribution is obtained as the product of the prior and the likelihood.}
-\es{La distribuci\'on a posteriori se obtiene como el producto de la distribuci\'on a priori y la verosimilitud.}
+\en{The proprotional posterior distribution is obtained as the product of the prior and the likelihood.}
+\es{La distribuci\'on a posteriori proporcional se obtiene como el producto de la distribuci\'on a priori y la verosimilitud.}
+%
+\en{The evidence is equivalent to its integration.}
+\es{La evidencia es equivalente a su integración.}
 %
 \en{Note that the distributions are not on the same scale: the prior integrates 1, while the likelihood goes from 0 to 1.}
 \es{Notar que las distribuciones no est\'an en la misma escala: la distribuci\'on a priori integra 1, mientras que la verosimilitud va de 0 a 1.}
-%
-\en{It is interesting to note that likelihood works as a filter for prior beliefs.}
-\es{Es interesante observar que la verosimilitud funciona como filtro de las creencias a priori.}
-%
-\en{In regions of very high skill, where an observed winning result would not generate any surprises, the a posteriori distribution stays next to the prior.}
-\es{En las regiones de habilidad muy alta, donde un resultado ganador observado no generar\'ia ninguna sorpresa, la distribuci\'on a posteriori se queda junto al prior.}
-%
-\en{In regions of very low skill, where an observed winning result would be very surprising, the subsequent one loses almost all its density.}
-\es{En las regiones de habilidad muy bajas, donde un resultado observado ganador ser\'ia muy sorprendente, la distribuci\'on a posteriori pierde casi toda su densidad.}
-%
-\en{It is important to stress that the posterior, although similar, is not a Gaussian.}
-\es{Es importante remarcar que la posterior, aunque se parece, no es una Gaussiana.}
 }
 \label{fig:posterior_win}
 \end{figure}
 %
-\begin{equation} \label{eq:posterior_win}
-\underbrace{p(s_i|r_{ij},s_j)}_{\text{Posterior\es{i}}} \propto \underbrace{\Phi(0 \, | s_i - \mu_j , \, 2\beta^2 + \sigma_j^2)}_{\text{\en{Likelihood}\es{Verosimilitud}}} \,  \underbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}_{\text{Prior\es{i}}} 
+\en{It is interesting to note how the likelihood works as a filter for the prior beliefs.}
+\es{Es interesante notar cómo la verosimilitud funciona como filtro de las creencias a priori.}
+%
+\en{In the regions of very high ability hypothesis, where a winning result would not generate any surprise, the proportional posterior distribution remains unaltered with respect to the prior.}
+\es{En las regiones de hipótesis de muy alta habilidad, donde un resultado ganador no generaría sorpresa alguna, la distribución a posteriori proporcional no sufre alteración respecto del prior.}
+%
+\en{In the regions of very low ability hypothesis, where a winning result would be very surprising, the proportional posterior distribution loses almost all its mass.}
+\es{En las regiones de hipótesis de muy baja habilidad, donde un resultado ganador sería muy sorprendente, la distribución a posteriori proprocional pierde casi toda su masa.}
+
+% Parrafo
+
+\textbf{Ahora, como extendemos la inferencia?}
+%
+\en{}
+\es{}
+%
+The simplest approach to modelling a sequence of observations is to treat them as independent, corresponding to a set of graph without links between them.
+%
+\begin{figure}[h!]
+  \centering
+  \scalebox{.9}{
+    \tikz{ %
+      \node[latent] (s1) {} ;
+      \node[const, above=of s1 ] (ns1) {$s_i^1$} ;
+      \node[latent, below=of s1] (p1) {};
+      \node[const, right=of p1 ] (np1) {$p_i^1$} ;
+      
+      \node[latent, right=of s1] (s2) {} ;
+      \node[const, above=of s2 ] (ns2) {$s_i^2$} ;
+      \node[latent, below=of s2] (p2) {};
+      \node[const, right=of p2 ] (np2) {$p_i^2$} ;
+      
+      \node[const, right=of s2, xshift=0.5cm] (s3) {\ $\dots$} ;
+
+      \node[latent, right=of s3, xshift=-0.4cm] (s1n) {} ;
+      \node[const, above=of s1n ] (ns1n) {$s_i^{n-1}$} ;
+      \node[latent, below=of s1n] (p1n) {};
+      \node[const, right=of p1n ] (np1n) {$p_i^{n-1}$} ;
+      
+      \node[latent, right=of s1n] (sn) {} ;
+      \node[const, above=of sn ] (nsn) {$s_i^n$} ;
+      \node[latent, below=of sn] (pn) {};
+      \node[const, right=of pn ] (npn) {$p_i^n$} ;
+      
+      \edge {s1} {p1};
+      \edge {s2} {p2};
+      \edge {s1n} {p1n};
+      \edge {sn} {pn};
+      }  
+  }
+  \caption{The \emph{filter} approach to modelling a sequence of observations treat each graphical model as independent, without links.}
+  \label{fig:filter}
+\end{figure}
+
+%Parrafo
+
+\textbf{En este approach generalemnte se usa el posterior con el prior}.
+%
+Sin embargo, como la habilidad de las personas cambia en el tiempo, se le agrega algo de incertidumbre.
+%
+\begin{equation}
+ \text{Prior\es{i}}_i^t + \N(0,\gamma^2)= \text{Posterior\es{i}}_i^{t-1}
 \end{equation}
 %
-\en{Where $\Phi$ represents the cumulative Gaussian distribution.}
-\es{Donde $\Phi$ representa la distribuci\'on Gaussiana acumulada.}
+\en{It is important to stress that the exact posterior, although similar, is not a Gaussian distribution.}
+\es{Es importante remarcar que la posterior, aunque se parezca, no es una distribución Gaussiana.}
 %
-%\en{Figure~\ref{fig:posterior_win} shows, in graphical terms, the updating procedure performed in equation~\ref{eq:posterior_win}.}
-%\es{La figura~\ref{fig:posterior_win} muestra, en términos gr\'aficos, el procedimiento de actualizaci\'on que se realiza en la ecuaci\'on~\ref{eq:posterior_win}.}
-% 
-\en{The posterior distribution is obtained as the product of the prior and the likelihood.}
-\es{La distribuci\'on a posteriori se obtiene como el producto de la distribuci\'on a priori y la verosimilitud.}
-%
-\en{It is interesting to note that likelihood works as a filter for prior beliefs (Figure~\ref{fig:posterior_win}).}
-\es{Es interesante observar que la verosimilitud funciona como filtro de las creencias a priori (figura~\ref{fig:posterior_win}).}
-%
-\en{It is important to stress that the posterior, although similar, is not a Gaussian.}
-\es{Es importante remarcar que la posterior, aunque se parece, no es una Gaussiana.}
-
-
-% Parrafo nuevo
-
 \en{Obtaining the Gaussian that best approximates it would allow us to extend the inference iteratively in time through the use of the posteriors as priors of the following observations.}
 \es{Conseguir la Gaussiana que mejor la aproxima nos permitir\'ia extender la inferencia iterativamente en el tiempo a tavés del uso de las posteriors como priors de las siguientes observaciones.}
 %
 \en{One of the main contributions of~\cite{herbrich2006-trueskill} was to offer an efficient method to find that Gaussian.}
 \es{Uno de los principales aportes de~\cite{herbrich2006-trueskill} fue ofrecer un método eficiente para calcular esa Gaussiana.}
+
+%
+\todo[inline, color=gray!50]{Expectation propagation}
+
+
+\textbf{TTT}
+%
+\begin{quotation}
+As a skill rating and matchmaking system TrueSkill operates as a filter as discussed above.
+However, due to its fully probabilistic formulation it is possible to extend Trueskill to perform smoothing on a time series of player skills.
+\end{quotation}
+%
+\begin{figure}[h!]
+  \centering
+  \scalebox{.9}{
+    \tikz{ %
+      \node[latent] (s1) {} ;
+      \node[const, above=of s1 ] (ns1) {$s_i^1$} ;
+      \node[latent, below=of s1] (p1) {};
+      \node[const, right=of p1 ] (np1) {$p_i^1$} ;
+      
+      \node[latent, right=of s1] (s2) {} ;
+      \node[const, above=of s2 ] (ns2) {$s_i^2$} ;
+      \node[latent, below=of s2] (p2) {};
+      \node[const, right=of p2 ] (np2) {$p_i^2$} ;
+      
+      \node[const, right=of s2, xshift=0.5cm] (s3) {\ $\dots$} ;
+
+      \node[latent, right=of s3, xshift=-0.4cm] (s1n) {} ;
+      \node[const, above=of s1n ] (ns1n) {$s_i^{n-1}$} ;
+      \node[latent, below=of s1n] (p1n) {};
+      \node[const, right=of p1n ] (np1n) {$p_i^{n-1}$} ;
+      
+      \node[latent, right=of s1n] (sn) {} ;
+      \node[const, above=of sn ] (nsn) {$s_i^n$} ;
+      \node[latent, below=of sn] (pn) {};
+      \node[const, right=of pn ] (npn) {$p_i^n$} ;
+      
+      \edge {s1} {p1,s2};
+      \edge {s2} {p2,s3};
+      \edge {s3} {s1n};
+      \edge {s1n} {p1n, sn};
+      \edge {sn} {pn};
+      }  
+  }
+  \caption{The \emph{smoothing} approach treat the sequential data as a unique Markov chain of latent variables. This graphical structure forms the foundation both for the hidden Markov model and for linear dynamical systems.}
+  \label{fig:smoothing}
+\end{figure}
+
+
+
+\begin{quotation}
+Although such models are tractable, they are also severely limited. We can obtain a more general framework, while still retaining tractability, by the introduction of latent variables, leading to \emph{state space models}.
+%
+Here we focus on one important state space models known as \emph{linear dynamical systems} in which the latent variables are Gaussian.
+%
+In order to motivate the concept of linear dynamical systems, let us consider the following simple problem, which often arises in practical settings.
+Suppose we wish to measure the value of an unknown quantity z using a noisy sensor that returns a observation x representing the value of z plus zero-mean Gaussian noise.
+our estimate for z by taking lots of measurements and averaging them,
+%
+Now let’s make the situation more complicated by assuming that we wish to measure a quantity z that is changing over time.
+We can take regular measurements of $x$ so that at some point in time we have obtained $x_1 , \dots , x_N$ and we wish to find the corresponding values $z_1 , \dots , z_N$.
+If we simply average the measurements, we will introduce a source of error.
+%
+Intuitively, we could imagine doing a bit better as follows. To estimate the value of $z_N$, we take only the most recent few measurements, say $x_{N −L} , \dots , x_N$ and just average these.
+Perhaps we could do even better if we take a weighted average, in which more recent measurements make a greater contribution than less recent ones.
+Although this sort of intuitive argument seems plausible, it does not tell us how to form a weighted average, and any sort of hand-crafted weighing is hardly likely to be optimal
+%
+Fortunately, we can address problems such as this much more systematically by defining a probabilistic model that captures the time evolution and measurement processes and then applying the inference and learning methods developed in earlier chapters.
+Here we shall focus on a widely used model known as a linear dynamical system.
+
+\end{quotation}
+
 
 % 
 % 
@@ -1071,34 +1192,28 @@ The neighbor factor graph of a temporal skill variable $s_i^t$, is
 
 
 
-
-
-
-
-
-
-
-
-
-\begin{leftbar}
-Note that around the \verb|{equation}| above there should be no spaces (avoided
-in the {\LaTeX} code by \verb|%| lines) so that ``normal'' spacing is used and
-not a new paragraph started.
-\end{leftbar}
-
-
-\begin{leftbar}
-As the synopsis above is a code listing that is not meant to be executed,
-one can use either the dedicated \verb|{Code}| environment or a simple
-\verb|{verbatim}| environment for this. Again, spaces before and after should be
-avoided.
-
-Finally, there might be a reference to a \verb|{table}| such as
-Table~\ref{tab:overview}. Usually, these are placed at the top of the page
-(\verb|[t!]|), centered (\verb|\centering|), with a caption below the table,
-column headers and captions in sentence style, and if possible avoiding vertical
-lines.
-\end{leftbar}
+% 
+% 
+% 
+% \begin{leftbar}
+% Note that around the \verb|{equation}| above there should be no spaces (avoided
+% in the {\LaTeX} code by \verb|%| lines) so that ``normal'' spacing is used and
+% not a new paragraph started.
+% \end{leftbar}
+% 
+% 
+% \begin{leftbar}
+% As the synopsis above is a code listing that is not meant to be executed,
+% one can use either the dedicated \verb|{Code}| environment or a simple
+% \verb|{verbatim}| environment for this. Again, spaces before and after should be
+% avoided.
+% 
+% Finally, there might be a reference to a \verb|{table}| such as
+% Table~\ref{tab:overview}. Usually, these are placed at the top of the page
+% (\verb|[t!]|), centered (\verb|\centering|), with a caption below the table,
+% column headers and captions in sentence style, and if possible avoiding vertical
+% lines.
+% \end{leftbar}
 
 % \begin{table}[t!]
 % \centering

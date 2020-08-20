@@ -59,9 +59,13 @@ ejes <- function(en=T){
   axis(side=2, labels=NA,cex.axis=0.6,tck=0.015)
   axis(side=1, labels=NA,cex.axis=0.6,tck=0.015)
   axis(lwd=0,side=1, at=0, labels=0,cex.axis=1.25,line=-0.3)
-  axis(lwd=0,side=1, at=mu[1], labels=expression(mu[a]),cex.axis=1.25,line=-0.85,tck=0.015)
+  axis(lwd=0,side=1, at=mu[1], labels=expression(mu[i]),cex.axis=1.25,line=-0.85,tck=0.015)
   abline(v=mu[1],lty=3)
-  mtext(text= expression(Skill[a]),side =1,line=2,cex=1.75)
+  if(en){
+    mtext(text= expression(Skill[i]),side =1,line=2,cex=1.75)
+  }else{
+    mtext(text= expression(Habilidad[i]),side =1,line=2,cex=1.75)
+  }
   if(en){
     mtext(text ="Density" ,side =2,line=1,cex=1.75)
   }else{
@@ -89,8 +93,8 @@ legend(mu1_grilla[12*length(mu1_grilla)%/%20],0.95,lty = c(2,1,4),lwd=c(2,2,2),
        legend = c("Prior","Likelihood",expression("Posterior"%prop%"") ),bty = "n",cex = 1.5)
 
 
-points(mu[1],sorpresa_de_ganar(mu[1],mu,sigma),pch=19,cex=1.5)
-points(max_post,posterior2[index_max],cex=1.5)
+#points(mu[1],sorpresa_de_ganar(mu[1],mu,sigma),pch=19,cex=1.5)
+#points(max_post,posterior2[index_max],cex=1.5)
 
 
 yy <- c(posterior2,rep(0,length(mu1_grilla)))
@@ -119,8 +123,8 @@ legend(mu1_grilla[12*length(mu1_grilla)%/%20],0.95,lty = c(2,1,4),lwd=c(2,2,2),
        legend = c("Priori","Verosimilitud",expression("Posteriori"%prop%"") ),bty = "n",cex = 1.5)
 
 
-points(mu[1],sorpresa_de_ganar(mu[1],mu,sigma),pch=19,cex=1.5)
-points(max_post,posterior2[index_max],cex=1.5)
+#points(mu[1],sorpresa_de_ganar(mu[1],mu,sigma),pch=19,cex=1.5)
+#points(max_post,posterior2[index_max],cex=1.5)
 
 
 yy <- c(posterior2,rep(0,length(mu1_grilla)))
