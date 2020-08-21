@@ -487,7 +487,15 @@
 
 % Parrafo
 
-\textbf{Ahora bien, nosotros necesitamos extender esta inferencia a toda una serie de eventos, de modo tal de estimar curvas de aprendizajes completas.}
+\textbf{Abordaje de Filtro}
+
+El aprendizaje es un proceso temporal.
+%
+Sin embargo el modelo causal (figura~\ref{modelo}) presentado en la introducci\'on no incorpora esta noci\'on.
+%
+Solo vincula los resultados de una partida con las habilidades a priori de sus participantes.
+%
+Un modelo causal temporal ad-hoc puede ser visto como una lista ordenada de modelos causales simples.
 %
 The simplest approach to modelling a sequence of observations is to treat them as independent, corresponding to a set of graphical models without links between them, as shown in Figure~\ref{fig:filter}.
 %
@@ -523,39 +531,66 @@ The simplest approach to modelling a sequence of observations is to treat them a
       \edge {sn} {pn};
       }  
   }
-  \caption{The \emph{filter} approach to modelling a sequence of observations treat each graphical model as independent, without links.}
+  \caption{Un modelo causal temporal ad-hoc puede ser visto como una lista ordenada de modelos causales simples.
+  The \emph{filter} approach to modelling a sequence of observations treat each graphical model as independent, without links.}
   \label{fig:filter}
 \end{figure}
 %
-En este este abordaje conocido como \emph{filtrado}, las estimaciones a posteriori de un tiempo $t-1$ se usan como prior del tiempo $t$.
+Aunque se asume que los modelos gráficos son independientes, el abordaje conocido como \emph{filtrado} usar como prior del tiempo $t$ las estimaciones a posteriori del tiempo $t-1$.
+%
+Si entendemos la verosimilitud como un filtro del prior, las estimaciones en un tiempo $t$ son el resultado de la acumulación de todos los filtros anterios.
+%
+\begin{equation}
+ \text{Posterior}^t \propto \text{Likelihood}^t (\overbrace{\text{Likelihood}^{t-1} (\dots (\underbrace{\text{Likelihood}^{1} \text{Prior}^1}_{\propto\ \text{Posterior}^1} ))}^{\propto \ \text{Posterior}^{t-1}} )
+\end{equation}
+%
+De esta forma la información propoga del pasado hacia al futuro como la acumulación de filtros.
+
+% Parrafo
+
+\textbf{Abordaje de Filtro en sistemas dinámicos}
 %
 En nuestro caso, la habilidad de las personas es una variable dinámica que cambia en el tiempo.
 %
-Por ese motivo, en cada pasos se agrega incertidumbre alrededor del subsequent prior mediante una distribuci\'on Gaussian centrada en el posterior anterior.
+Para modelar este comportamiento, en cada pasos se agrega incertidumbre alrededor del subsequent prior mediante una distribuci\'on Gaussian centrada en el posterior anterior.
 %
 \begin{equation}\label{eq:dynamic_factor}
  s_i^t \sim \N(s_i^{t-1}, \gamma^2)
  \end{equation}
 %
-Utilizar como posterior del tiempo $t-1$ la Gaussiana que mejor la aproxima permitiría que el prior del tiempo $t$, definido en la ecuación~\ref{eq:dynamic_factor}, sea también Gaussiano, lo que permitiría aplicar repetidas veces la actualización de creencias definida en la ecuación~\ref{eq:posterior_win}.
+Habíamos visto que el posterior exacto no era Gasussiano, el prior con del sigueinte tiempo así definido tampoco va a ser Gaussiano.
+%
+Esto impediría usar el la ecuación~\ref{} para actualizar nuevamente.
+%
+Sin embargo, si pudieramos utilizar como posterior del tiempo $t-1$ la Gaussiana que mejor la aproxima, esto haría que el prior del tiempo $t$, definido en la ecuación~\ref{eq:dynamic_factor}, sea también Gaussiano, lo que permitiría aplicar repetidas veces la actualización de creencias definida en la ecuación~\ref{eq:posterior_win}.
 % 
 % \en{Obtaining the Gaussian that best approximates it would allow us to extend the inference iteratively in time through the use of the posteriors as priors of the following observations.}
 % \es{Conseguir la Gaussiana que mejor la aproxima el posterior e nos permitir\'ia extender la inferencia iterativamente en el tiempo a tavés del uso de las posteriors como priors de las siguientes observaciones.}
-%
 \en{One of the main contributions of~\cite{herbrich2006-trueskill} was to offer an efficient method to find that Gaussian.}
 \es{Uno de los principales aportes de~\cite{herbrich2006-trueskill} fue ofrecer un método eficiente para calcular esa Gaussiana.}
+
+
+%Parrafo
+
+\textbf{Solución TrueSkill: filtro dinámico aproximado}
 %
-El método, conocido como \emph{expectation propagation}, permite computar de forma eficiente la Gaussiana que minimiza la diveregencia Kullback-Leibler.
+En el año 2006~\cite{herbrich2006-trueskill} publicaron una de las mejores solución metodológica de estimación de habildiad basada en modelo gráfico de la Figura 1.
+%
+Aplicaron un método eficiente, conocido como \emph{expectation propagation}, para computar de forma eficiente la Gaussiana que mejor aproxima a la posterior exacta en términoms de diveregencia Kullback-Leibler.
 %
 Los detalles metodológicos se describen en la sección~\ref{}.
+%
+Este avance técnico permitió aplicar un enfoque de filtro dinámico sobre una secuencia de datos.
+%
+Esta solcuión, conocida como TrueSkill, mostró resultados superiores a sus antecesores.
+%
+Superó los resultados obetnidos mediante Elo en varios sentidos.
+%
+Además de ofrecer una noción de incertidumbre de estimación, se observó que las estimaciones convergían al verdadero valor con menos cantidad de datos.
 
 % Parrafo
 
 \textbf{Porque TrueSkill es mejor que Glicko.}
-%
-Esta solcuión, conocida como TrueSkill, mostró resultados superiores a sus antecesores.
-%
-No solo superó los resultados obetnidos mediante Elo.
 %
 También mejora los resultados obtenidos con el sistema Glicko.
 %
@@ -583,14 +618,33 @@ Al ser el posterio parecido a una Gaussiana, la aproximación Gaussiana es lo su
 
 % Parrafo
 
-\textbf{Porque el abordaje de filtro es malo.}
+\textbf{Debilidades del abordaje de filtro y solucion completa}
 %
 Todas estas solcuiones, TrueSkill, Glicko, BIRT, aplican el abordaje de filtro
 %
-\begin{quotation}
-As a skill rating and matchmaking system TrueSkill operates as a filter as discussed above.
-However, due to its fully probabilistic formulation it is possible to extend Trueskill to perform smoothing on a time series of player skills.
-\end{quotation}
+La representación imperfecta del problema temporal del abordaje de filtrado, de cosiderar el modelo causal temporal como una lista ordenada de modelos causales simples, tiene asociada una serie de debilidades.
+%
+En términos generales, el estimador original puede sufrir desacoplamientos ``temporales'' y ``espaciales''.
+%
+Para entenderlos es importante notar que los resultados de las partidas (o exámenes) dependen solo de la diferencia de habilidades y no de su valor absoluto.
+%
+Según la naturaleza del sistema, de los ritmos de aprendizaje, de la existencia de cohortes, pueden generarse procesos inflacionarios (o deflacionarios), donde la diferencia relativa de habilidad entre estimaciones contemporáneas es correcta, pero donde el valor absoluto se desliza en el tiempo en direcciones arbitrarias.
+%
+En el caso espacial, según la conectividad del sistema, pueden generase comunidades separadas para las cuales las diferencias de habilidades a su interior están bien calculadas, pero donde los valores absolutos no son comparables entre sí.
+%
+Un caso menos extremo, pero igualmente problemático son las conectividades tı́picas de las eliminatorias deportivas, en las que un solo punto de contacto al final es el que da toda la conectividad al sistema.
+
+%Parrafo
+
+\textbf{Abordaje completo / principled approach}
+%
+Estos problemas tienen solución si se corrige el modelo causal temporal ad-hoc
+%
+En vez de trabajar con una lista ordenada de modelos causales simples, es conveniente trabajar con un único modelo causal que vincule en un único sistema de inferencia todas las actividades históricas.
+%
+Es difícil imaginar la complejísima estructura que un modelo causal de esas caracteríticas puede adquirir.
+%
+En la figura~\ref{fig:smoothing} se muestran solo los vecinos más próximos de una secuencia de estimaciones.
 %
 \begin{figure}[h!]
   \centering
@@ -625,33 +679,43 @@ However, due to its fully probabilistic formulation it is possible to extend Tru
       \edge {sn} {pn};
       }  
   }
-  \caption{The \emph{smoothing} approach treat the sequential data as a unique Markov chain of latent variables. This graphical structure forms the foundation both for the hidden Markov model and for linear dynamical systems.}
+  \caption{La vecindad más próxima de una secuencia de estimaciones de habilidad $s$ en un modelo causal temporal único.
+  Este tipo de modelos se conocen como \emph{state space models}.  
+  Las relaciones causales entre distribuciones de creencias sucesivas son las que vinculan al conjunto de partidas de esta forma tal que la información histórica pueda propagar hacia todo el sistema.
+  Este abordaje se conoce como \emph{smoothing}.
+  }
   \label{fig:smoothing}
 \end{figure}
+%
+Contar con un único modelo casual que vincule todas las actividades históricas resuelve de raíz los problemas de desacoplamiento antes mencionados gracias a que la información histórica puede propagar hacia todo el sistema.
+%
+Como en cualquier grafo puede ocurrir que surgan más de una componete conexa separadas entre sí.
+%
+Nunca las estimaciones hechas en dos sistemas totalmente desconectados serán
+compatibles.
+%
+Sin embargo, en el momento en que se abre un canal entre dos subsistemas, la información histórica propia a cada uno comienza a fluir rápidamente.
+%
+Se eliminan los inconvenientes relacionados a la conectividad temporal y espacial.
+%
+Y la cantidad de datos que se requiere para estimar las habilidades se reduce significativamente.
+
+% Parrafo
+
+Las estimaciones en el modelo causal único se realizan a través de las únicas dos reglas del razonamiento con incertidumbre: la regla de la suma y la regla del producto.
+%
+Sin embargo, por lo compleja de la estructura del modelo causal es necesario implementar una solución iterativa conocida como expectation propagation.
+%
+Este algoritmo tiene la propiedad de converger a la estimación
+correcta en la menor cantidad de iteraciones posibles.
+%
+Quizás por una dificultad con la que se escriben los papers, la metodología no fue del todo comprendida por los colegas y hoyn odavía o está disponible siquiera en los principales lenguajes de programación.
+%
+Como antropólogo, doctorando en computación, y dedicado a estudiar aprendizaje en comunidades virtuales, he desarrollado una implementación propia, que pongo a disposición de forma libre y abierta.
 
 
 
-\begin{quotation}
-Although such models are tractable, they are also severely limited. We can obtain a more general framework, while still retaining tractability, by the introduction of latent variables, leading to \emph{state space models}.
-%
-Here we focus on one important state space models known as \emph{linear dynamical systems} in which the latent variables are Gaussian.
-%
-In order to motivate the concept of linear dynamical systems, let us consider the following simple problem, which often arises in practical settings.
-Suppose we wish to measure the value of an unknown quantity z using a noisy sensor that returns a observation x representing the value of z plus zero-mean Gaussian noise.
-our estimate for z by taking lots of measurements and averaging them,
-%
-Now let’s make the situation more complicated by assuming that we wish to measure a quantity z that is changing over time.
-We can take regular measurements of $x$ so that at some point in time we have obtained $x_1 , \dots , x_N$ and we wish to find the corresponding values $z_1 , \dots , z_N$.
-If we simply average the measurements, we will introduce a source of error.
-%
-Intuitively, we could imagine doing a bit better as follows. To estimate the value of $z_N$, we take only the most recent few measurements, say $x_{N −L} , \dots , x_N$ and just average these.
-Perhaps we could do even better if we take a weighted average, in which more recent measurements make a greater contribution than less recent ones.
-Although this sort of intuitive argument seems plausible, it does not tell us how to form a weighted average, and any sort of hand-crafted weighing is hardly likely to be optimal
-%
-Fortunately, we can address problems such as this much more systematically by defining a probabilistic model that captures the time evolution and measurement processes and then applying the inference and learning methods developed in earlier chapters.
-Here we shall focus on a widely used model known as a linear dynamical system.
 
-\end{quotation}
 
 
 % 
