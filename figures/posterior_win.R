@@ -62,9 +62,17 @@ ejes <- function(en=T){
   axis(lwd=0,side=1, at=mu[1], labels=expression(mu[i]),cex.axis=1.25,line=-0.85,tck=0.015)
   abline(v=mu[1],lty=3)
   if(en){
-    mtext(text= expression(Skill[i]),side =1,line=2,cex=1.75)
+    axis(lwd=0,side=1, at=10, labels="low skill",cex.axis=1.2,line=-0.85,tck=0.015)
+    axis(lwd=0,side=1, at=40, labels="high skill",cex.axis=1.2,line=-0.85,tck=0.015)
+  }
+  else{
+    axis(lwd=0,side=1, at=10, labels="baja habilidad",cex.axis=1.2,line=-0.85,tck=0.015)
+    axis(lwd=0,side=1, at=40, labels="alta habilidad",cex.axis=1.2,line=-0.85,tck=0.015)
+  }
+  if(en){
+    mtext(text= "Skill hypotheses",side =1,line=2,cex=1.75)
   }else{
-    mtext(text= expression(Habilidad[i]),side =1,line=2,cex=1.75)
+    mtext(text= "Hipótesis de habilidad",side =1,line=2,cex=1.75)
   }
   if(en){
     mtext(text ="Density" ,side =2,line=1,cex=1.75)
@@ -96,6 +104,9 @@ legend(mu1_grilla[12*length(mu1_grilla)%/%20],0.95,lty = c(2,1,4),lwd=c(2,2,2),
 #points(mu[1],sorpresa_de_ganar(mu[1],mu,sigma),pch=19,cex=1.5)
 #points(max_post,posterior2[index_max],cex=1.5)
 
+
+segments(x0=12,x1=12, y0=sorpresa_de_ganar( 12,mu,sigma),y1=1)
+text(10.5,0.6,"Surprise = 1 - likelihood",srt=90, cex=1.33)
 
 yy <- c(posterior2,rep(0,length(mu1_grilla)))
 xx <- c(mu1_grilla,rev(mu1_grilla))      
@@ -130,6 +141,9 @@ legend(mu1_grilla[12*length(mu1_grilla)%/%20],0.95,lty = c(2,1,4),lwd=c(2,2,2),
 yy <- c(posterior2,rep(0,length(mu1_grilla)))
 xx <- c(mu1_grilla,rev(mu1_grilla))      
 polygon(xx,yy,col=rgb(0,0,0,0.3),border=F)
+
+segments(x0=12,x1=12, y0=sorpresa_de_ganar( 12,mu,sigma),y1=1)
+text(10.5,0.6,"Sorpresa = 1 - verosimilitud",srt=90, cex=1.33)
 
 
 text(max_post,0.15,"Evidencia",srt=0, cex=1.75)

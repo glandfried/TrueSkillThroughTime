@@ -171,27 +171,13 @@
 }
 }
 
-%% \Keywords{JSS, style guide, comma-separated, not capitalized, \proglang{R}} with LaTeX markup, at least one required
-%% - \Plainkeywords{JSS, style guide, comma-separated, not capitalized, R} without LaTeX markup (if necessary)
-%% - Should be comma-separated and in sentence case.
-
 \Keywords{TrueSkill, ranking, skill, education, sports, games, Bayesian inference, \proglang{Python}, \proglang{R}}
 \Plainkeywords{TrueSkill, ranking, skill, education, sports, games,  Bayesian inference, Python, R}
 
 \begin{document}
 \lstset{language=Python}
 
-%% -- Introduction -------------------------------------------------------------
-
-%% - But should typically have some discussion of both _software_ and _methods_.
-%% - Use \proglang{}, \pkg{}, and \code{} markup throughout the manuscript.
-%% - If such markup is in (sub)section titles, a plain text version has to be
-%%   added as well.
-%% - All software mentioned should be properly \cite-d.
-%% - All abbreviations should be introduced.
-%% - Unless the expansions of abbreviations are proper names (like "Journal of Statistical Software" above) they should be in sentence case (like "generalized linear models" below).
-
-\section[Introduction: Count data regression in R]{Introduction: } \label{sec:intro}
+\section[Introduction]{Introduction: } \label{sec:intro}
 
 
 % \en{What are the skills of the people?}
@@ -206,20 +192,47 @@
 % \en{What is the overall pattern and how variable is it?}
 % \es{¿Cu\'al es el patr\'on general y cu\'an variable es?}
 % %
-\en{Knowing people's abilities is crucial in the area of education and sports.}
-\es{Conocer las habilidades de las personas es crucial en el \'area de la educaci\'on y los deportes.}
+
+%\en{Human develop complex skills over the course of a lifetime.}
+%\es{Los humanos desarrollan habilidades complejas a lo largo de su vida.}
 %
-\en{In the context of interventions, it makes it possible to avoid exposing agents to imbalanced challenges.}
-\es{En las contexto de intervenciones, permite evitar exponer a los agentes a desaf\'ios desproporcionados.}
+\en{Human adaptation depends on a special integration of biological, cognitive and social processes~\citep{Koster2020}.}
+\es{La adaptación humana depende de una integración especial de los procesos biológicos, cognitivos y sociales~\citep{Koster2020}.}
 %
-\en{For research purposes, the ratings can be made available to subjects and the general public, stimulating interest and engagement.}
-\es{Con fines de investigaci\'on, las calificaciones pueden ponerse a disposici\'on de los sujetos y del p\'ublico general, estimulando as\'i el inter\'es y la participaci\'on.}
+\en{Life histories include a long period of childhood, short intervals between births, and a long post-reproductive life span~\citep{Jones2011}.}
+\es{Las historias de vida incluyen un largo período de infancia, intervalos cortos entre nacimientos, y una prolongada esperanza de vida post-reproductiva~\citep{Jones2011}.}
 %
-\en{However, since it is a complex variable, it is generally impossible to measure it directly (i.e. hidden variable).}
-\es{Sin embargo, al ser una variable compleja, generalmente es imposible medirla directamente (aka variable oculta).}
+\en{The brains develop first followed by the body because this sequence allows a longer period of learning~\citep{GonzalezForero2018}.}
+\es{Los cerebros se desarrollan primero, seguidos por el cuerpo porque esta secuencia permite un período más largo de aprendizaje~\citep{GonzalezForero2018}.}
 %
-\en{In practice, the best we can do is estimate it from its direct observable consequences.}
-\es{En la pr\'actica, lo mejor que podemos hacer es estimarla a partir de sus consecuencias observables m\'as directas.}
+% \en{The human brain is unusually large, however it is not just more ``general intelligence''.}
+% \es{El cerebro humano es inusualmente grande, sin embargo no se trata sólo de más ``inteligencia general''.}
+% %
+% \en{Humans develop a specific cognitive skill for knowledge exchange.}
+% \es{Los humanos desarrollan una habilidad cognitiva específica para el intercambio de conocimientos~\cite{Herrmann2007}.}
+%
+\en{Our cognitive ability to acquire cultural information makes human adaptation a population-based process~\citep{Herrmann2007}.}
+\es{Nuestra capacidad cognitiva para adquirir información cultural hace que la adaptación humana sea un proceso poblacional~\citep{Herrmann2007}.}
+%
+\en{Humans learn things from others, modify and transmit them to the next generation.}
+\es{Los humanos aprendemos cosas de los demás, las modificamos y  transmitimos a la siguiente generación.}
+%
+\en{Therefore, cultural evolution is also affected by demographic characteristics, such as the size and structure of populations.~\cite{derex2020-populationStructure}.}
+\es{Por lo tanto, la evolución cultural también se ve afectada por las características demográficas, como el tamaño y estructura de las poblaciones~\cite{derex2020-populationStructure}.} 
+
+% Parrafo
+
+\en{Knowing people's abilities is crucial in many areas.}
+\es{Conocer las habilidades de las personas es crucial en muchas \'areas.}
+%
+\en{In educational contexts, it makes it possible to avoid exposing agents to imbalanced challenges, stimulating interest and engagement.}
+\es{En contextos educativos, permite evitar exponer a los agentes a desaf\'ios desproporcionados, estimulando as\'i el inter\'es y la participaci\'on.}
+%
+\en{For research purposes, accurate ratings can help to refine and test models of human learning.}
+\es{Con fines de investigación, calificaciones precisas pueden ayudar a refinar y testear modelos de aprendizaje humano.}
+%
+\en{In practice, since skill is a hidden variable, the best we can do is estimate it from its direct observable consequences.}
+\es{En la pr\'actica, dado que la habilidad es una variables oculta, lo mejor que podemos hacer es estimarla a partir de sus consecuencias observables m\'as directas.}
 %
 \en{The most widely used sources of information in education and sports are the outcomes of problem solving and competition between opponents, respectively.}
 \es{Las fuentes de informaci\'on m\'as utilizadas en educaci\'on y deportes provienen del producto de resoluci\'on de problemas y de competencia entre oponentes, respectivamente.}
@@ -227,11 +240,11 @@
 \en{The naive solution, frequency of positive results, is not a good indicator essentially because it also depends on the difficulty of the challenges.}
 \es{La soluci\'on ingenua, frecuencia de resultados positivos, no es un buen indicador fundamentalmente porque depende tambi\'en de la dificultad de los desaf\'ios.}
 %
-\en{For that reason, all conventional models are underpinned by pairwise comparisons.}
-\es{Por esa raz\'on, todos los modelos convencionales se basan en \emph{pairwise comparisons}.}
+\en{For that reason, all solutions rely on pairwise comparisons.}
+\es{Por esa raz\'on, todos las soluciones se basan en comparaciones entre pares.}
 %
-\en{Since the first generative models, proposed almost a century ago by~\cite{thurstone1927-comparativeJugement} and~\cite{zermelo1929-translation}, it is assumed that the probability of an observed result, $r$, depends on the difference in strength, $d$, between the agent and their target, $P(\, r \,|\, d \,)$.}
-\es{Ya los primeros modelos generativos, propuestos hace casi un siglo por~\cite{thurstone1927-comparativeJugement} y~\cite{zermelo1929-translation}, suponen que la probabilidad de un resultado observado, $r$, depende de la diferencia de escala, $d$, entre el agente y su objetivo, $P(\, r \,|\, d \,)$.}
+\en{Since the first generative models, proposed almost a century ago by~\cite{thurstone1927-comparativeJugement} and~\cite{zermelo1929-translation}, it is assumed that the probability of an observed result ,$r$, depends on the difference in performance, $d$, between the agent and their target, $P(\, r_{ij} \,|\, d_{ij} \,)$.}
+\es{Ya los primeros modelos generativos, propuestos hace casi un siglo por~\cite{thurstone1927-comparativeJugement} y~\cite{zermelo1929-translation}, suponen que la probabilidad de un resultado observado, $r$, depende de la diferencia de rendimiento, $d$, entre el agente y su objetivo, $P(\, r_{ij} \,|\, d_{ij} \,)$.}
 %
 \en{The field was revitalized after 20 years by the publications of~\cite{bradley1952-pairedComparisions} and~\cite{mosteller1951-remarks}.}
 \es{El campo revitaliz\'o 20 a\~nos despu\'es gracias a las publicaciones de \cite{bradley1952-pairedComparisions} y~\cite{mosteller1951-remarks}.}
@@ -246,14 +259,12 @@
 \en{Remarkably, they all share the same underlying generative model.}
 \es{Notablemente, todos comparten el mismo modelo generativo subyacente.}
 %
-\en{The main difference in respect to their representations is limited to the choice between two very similar cumulative probability distributions to define the likelihood $P(\, r \,|\, d \,)$: the logistic or the Gaussian cumulative function.}
-\es{La principal diferencia respecto a sus representación se limita a la elección entre dos distribuciones de probabilidad acumulativas muy similares para definir la verosimilitud $P(\, r \,|\, d \,)$: la función logística o la Gaussiana acumulativa.}
+\en{In respect to their representations, the difference between them is limited to the choice of one distributions from the bell-shape family to define the cumulative probability $P(\, d_{ij} > 0 \,)$.}
+\es{Respecto a sus representaciones, la diferencia entre ellas se limita a la elección de una distribución de la familia del funciones \emph{bell-shape} para definir la probabilidad acumulada de $P(\, d_{ij} > 0 \,)$.}
 %
-\en{The most substantive differences are methodological differences: alternative methods for solving the shared probabilistic model.}
-\es{Las diferencias sustantivas son diferencias metodol\'ogicas: m\'etodos alternativos para resoluci\'on de el modelo probabil\'istico.}
-
+\en{The main difference is the methodological one: the procedure used for solving the probabilistic model.}
+\es{La principal diferencia es la metodológica: el procedimiento utilizado para resolver el modelo probabilístico.}
 % Cambio de parrafo.
-
 \begin{figure}[h!]
 \centering \small
     \tikz{         
@@ -376,17 +387,17 @@
 
 % Cambio de parrafo
 
-\en{Probability Theory provides us with a consistent framework for quantifying the uncertainty of our beliefs~\cite{bishop2006-PRML}.}
-\es{La Teor\'ia de la Probabilidad nos proporciona un marco consistente para cuantificar la incertidumbre de nuestras creencias~\citep{bishop2006-PRML}.}
+% \en{Probability Theory provides us with a consistent framework for quantifying the uncertainty of our beliefs~\cite{bishop2006-PRML}.}
+% \es{La Teor\'ia de la Probabilidad nos proporciona un marco consistente para cuantificar la incertidumbre de nuestras creencias~\citep{bishop2006-PRML}.}
+% %
+\en{The use of Probability Theory to handle uncertainty, known as Bayesian inference, was widely adopted because it has proven to be a extremely useful tool in practice.}
+\es{El uso de la Teoría de la Probabilidad para manejar la incertidumbre, conocida como inferencia bayesiana, se adoptó ampliamente porque ha demostrado ser una herramienta extremadamente útil en la práctica.}
 %
-\en{The use of probability theory to handle uncertainty, known as Bayesian inference, is now widely adopted in the area of artificial intelligence and machine learning primarily because it has proved to be a extremely useful tool in practice.}
-\es{El uso de la teor\'ia de la probabilidad para manejar la incertidumbre, conocida como inferencia bayesiana, est\'a hoy adopta de manera generalizada en el \'ambito de la inteligencia artificial y el aprendizaje autom\'atico fundamentalmente porque ha mostrado ser un instrumento sumamente útil en la pr\'actica.}
+\en{However, it is not an ad-hoc choice.}
+\es{Sin embargo, no una elecci\'on ad-hoc.}
 %
-\en{It is not however an ad-hoc choice.}
-\es{No es sin embargo una elecci\'on ad-hoc.}
-%
-\en{Any system that represent degrees of belief by a numerical value, consistent with classical deductive logic and a set of axioms encoding commonsense reasoning, will necessarily be isomorphic to probability theory~\citep{cox1946-reasonableExpectation,vanHorn2003-guideCoxTheorem}.}
-\es{Cualquier sistema que represente grados de creencia mediante un valor num\'erico, consistente con la l\'ogica deductiva cl\'asica y un conjunto de axiomas que codifican el razonamiento de sentido común,  ser\'a necesariamente isom\'orfico a la teor\'ia de la probabilidad~\citep{cox1946-reasonableExpectation,vanHorn2003-guideCoxTheorem}.}
+\en{Any system that represent degrees of belief by a numerical value, consistent with classical deductive logic and a set of axioms encoding commonsense reasoning, will necessarily be isomorphic to Probability Theory~\citep{cox1946-reasonableExpectation,vanHorn2003-guideCoxTheorem}.}
+\es{Cualquier sistema que represente grados de creencia mediante un valor num\'erico, consistente con la l\'ogica deductiva cl\'asica y un conjunto de axiomas que codifican el razonamiento de sentido común,  ser\'a necesariamente isom\'orfico a la Teor\'ia de la Probabilidad~\citep{cox1946-reasonableExpectation,vanHorn2003-guideCoxTheorem}.}
 %
 \en{All of the probabilistic inference, no matter how complex, can be solved in terms of two simple equations: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
 \es{Toda inferencia probabil\'istica, no importa cuan compleja ella sea, puede ser resuelta a trav\'es de dos simples ecuaciones: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
@@ -425,14 +436,14 @@
  \underbrace{p(\overbrace{\text{\en{Skills}\es{Habilidades}}}^{\text{\en{Hidden}\es{Oculta}}}|\overbrace{\text{\en{Result}\es{Resultado}}}^{\text{\en{Observed}\es{Observado}}}, \text{\en{Model}\es{Modelo}})}_{\text{Posterior\es{i}}} = \frac{\overbrace{P(\,\text{\en{Result}\es{Resultado}}\,|\,\text{\en{Skills}\es{Habilidades}}\,,\text{\en{Model}\es{Modelo}})}^{\text{\en{Likelihood}\es{Verosimilitud}}}\overbrace{p(\text{\en{Skills}\es{Habilidades}})}^{\text{Prior\es{i}}}}{\underbrace{P(\text{\en{Result}\es{Resultado}}\,|\,\text{\en{Model}\es{Modelo}})}_{\text{Evidenc\en{e}\es{ia}}}}
 \end{equation}
 %
-\en{Where the hypotheses are the hidden skills, the data is given by the observed results, and the model is defined by the figure~\ref{fig:generative_model}.}
-\es{Donde las hip\'otesis son las habilidades ocultas, los datos son los resultados y el modelo est\'a definido por la figure~\ref{fig:generative_model}.}
+\en{Where the hidden skills are the hypotheses, the observed results is the data, and the model is defined by the figure~\ref{fig:generative_model}.}
+\es{Donde las habilidades ocultas son las hipótesis, el resultado observado es el dato, y el modelo est\'a definido por la figura~\ref{fig:generative_model}.}
 %
-\en{The probability distributions that represent our previous beliefs about people's abilities can be updated by the use of the sum and product rules.}
-\es{Las distribuciones de probabilidad que representen nuestras creencias previas sobre las habilidades de las personas se pueden actualizar mediante el uso de las reglas de la suma y el producto.}
+\en{Given a probability distribution that represent our prior belief, using equation~\ref{eq:inference} we can optimally incorporate the new information into posterior belief.}
+\es{Dadas una distribución de probabilidad a propri que represente nuestras creencias previas, usando la ecuación~\ref{eq:inference} podemos incorporar la nueva información en nuestras creencias a posteriori.}
 %
-\en{Using a Gaussian prior, let's see the exact belief update for the winning case,}
-\es{Usando un prior Gaussiano, veamos la actualizaci\'on de creencias exacta para el caso ganador,}
+\en{Let's see the belief update for the winning case using Gaussian priors,}
+\es{Veamos la actualizaci\'on de creencias para el caso ganador usando Gaussiano como priors,}
 %
 \begin{equation} \label{eq:posterior_win}
 \underbrace{p(s_i|r_{ij},s_j)}_{\text{Posterior\es{i}}} \propto \underbrace{\Phi(0 \, | s_i - \mu_j , \, 2\beta^2 + \sigma_j^2)}_{\text{\en{Likelihood}\es{Verosimilitud}}} \,  \underbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}_{\text{Prior\es{i}}} 
@@ -444,7 +455,13 @@
 \en{A proportional posterior distribution is obtained by the product of the prior and the likelihood.}
 \es{Una distribuci\'on proporcional al posterior se obtiene mediante el producto de la distribuci\'on a priori y la verosimilitud.}
 %
-\en{Figure~\ref{fig:posterior_win} shows, in graphical terms, the updating procedure performed in equation~\ref{eq:posterior_win}.}
+\en{Suprise works as a filter for the prior beliefs.}
+\es{La sorpresa (1-likelihood) la que filtra las creencias a priori.}
+%
+% \en{The mass that the proportional posterior receives from the prior is exactly the magnitude of the likelihood.}
+% \es{La masa que el posterior proporcional recibe del prior es exactamente la magnitud del likelihood.}
+%
+\en{Figure~\ref{fig:posterior_win} shows, in graphical terms, the updating procedure executed in equation~\ref{eq:posterior_win}.}
 \es{La figura~\ref{fig:posterior_win} muestra, en términos gr\'aficos, el procedimiento de actualizaci\'on que se realiza en la ecuaci\'on~\ref{eq:posterior_win}.}
 %
 \begin{figure}[h!]
@@ -452,32 +469,27 @@
     \en{\includegraphics[page={1},width=.6\linewidth]{figures/posterior_win}}
     \es{\includegraphics[page={2},width=.6\linewidth]{figures/posterior_win}}
     \caption{
-    \en{Exact belief update for the winning case.}
-    \es{Actualizaci\'on de creencias exacta para el caso ganador.}
     %
-    \en{The prior is a Gaussian distribution.}
-    \es{La distribuci\'on a priori es una Gaussiana.}
+    \en{Belief update for the winning case.}
+    \es{Actualizaci\'on de creencias para el caso ganador.}
     %
-    \en{The likelihood is a cumulative Gaussian distribution.}
-    \es{La verosimilitud es la acumulada de una distribuci\'on Gaussiana.}
-    %
-    \en{The proprotional posterior distribution is obtained as the product of the prior and the likelihood.}
-    \es{La distribuci\'on a posteriori proporcional se obtiene como el producto de la distribuci\'on a priori y la verosimilitud.}
+    \en{The proportinal posterior distribution is obtained as the product of the prior (Gaussian distribution) and the likelihood (cumulative Gaussian distribution).}
+    \es{La distribuci\'on a posteriori proporcional se obtiene como el producto de la distribuci\'on a priori (distribución Gaussiana) y la verosimilitud (distribución Gaussiana acumulada).}
     %
     \en{The evidence is equivalent to its integration.}
     \es{La evidencia es equivalente a su integración.}
     %
-    \en{Note that the distributions are not on the same scale: the prior integrates 1, while the likelihood goes from 0 to 1.}
+    \en{Note that the distributions are not neccesary on the same scale: the prior integrates 1, while the likelihood goes from 0 to 1.}
     \es{Notar que las distribuciones no est\'an en la misma escala: la distribuci\'on a priori integra 1, mientras que la verosimilitud va de 0 a 1.}
     }
     \label{fig:posterior_win}
 \end{figure}
 %
-\en{It is interesting to note how the likelihood works as a filter for the prior beliefs.}
-\es{Es interesante notar cómo la verosimilitud funciona como filtro de las creencias a priori.}
+\en{The mass that the proportional posterior does not receive from the prior is exactly the magnitude of the surprise (1 - likelihood).}
+\es{La masa que el posterior proporcional no recibe del prior es exactamente la magnitud de la sorpresa (1 - likelihood).}
 %
-\en{In the regions of very high ability hypothesis, where a winning result would not generate any surprise, the proportional posterior distribution remains unaltered with respect to the prior.}
-\es{En las regiones de hipótesis de muy alta habilidad, donde un resultado ganador no generaría sorpresa alguna, la distribución a posteriori proporcional no sufre alteración respecto del prior.}
+\en{In the regions of very high ability hypothesis, where a winning result would generate almost no surprise, the proportional posterior distribution remains unaltered with respect to the prior.}
+\es{En las regiones de hipótesis de muy alta habilidad, donde un resultado ganador no generaría casi sorpresa alguna, la distribución a posteriori proporcional no sufre alteración respecto del prior.}
 %
 \en{In the regions of very low ability hypothesis, where a winning result would be very surprising, the proportional posterior distribution loses almost all its mass.}
 \es{En las regiones de hipótesis de muy baja habilidad, donde un resultado ganador sería muy sorprendente, la distribución a posteriori proprocional pierde casi toda su masa.}
@@ -632,7 +644,7 @@ Según la naturaleza del sistema, de los ritmos de aprendizaje, de la existencia
 %
 En el caso espacial, según la conectividad del sistema, pueden generase comunidades separadas para las cuales las diferencias de habilidades a su interior están bien calculadas, pero donde los valores absolutos no son comparables entre sí.
 %
-Un caso menos extremo, pero igualmente problemático son las conectividades tipicas de las eliminatorias deportivas, en las que un solo punto de contacto al final es el que da toda la conectividad al sistema.
+Un caso menos extremo, pero igualmente problemático son las conectividades típicas de las eliminatorias deportivas, en las que un solo punto de contacto al final es el que da toda la conectividad al sistema.
 
 %Parrafo
 
@@ -1655,6 +1667,7 @@ information such as relative contributions of the authors may be added here
 %% - Titles in the .bib should be in title case.
 %% - DOIs should be included where available.
 
+%\bibliography{article.bib}
 \bibliography{../../bibliografia/Gaming/gaming}
 
 
