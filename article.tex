@@ -4,7 +4,7 @@
 \newif\ifes
 \newcommand{\en}[1]{\ifen#1\fi}
 \newcommand{\es}[1]{\ifes#1\fi}
-\estrue
+\entrue
 \usepackage[utf8]{inputenc}
 
 %\newcommand{\jan}{%
@@ -82,7 +82,7 @@
 \author{Gustavo Landfried \\Universidad de Buenos Aires
    \And Matias Mazzanti \\Universidad de Buenos Aires
    \And Esteban Mocskos \\Universidad de Buenos Aires}
-\Plainauthor{Achim Zeileis, Matias Mazzanti, Esteban Mocskos }
+\Plainauthor{Gustavo Landfried, Matias Mazzanti, Esteban Mocskos }
 
 %% - \title{} in title case
 %% - \Plaintitle{} without LaTeX markup (if any)
@@ -193,17 +193,14 @@
 % \es{¿Cu\'al es el patr\'on general y cu\'an variable es?}
 % %
 
-%\en{Human develop complex skills over the course of a lifetime.}
-%\es{Los humanos desarrollan habilidades complejas a lo largo de su vida.}
-%
 \en{Human adaptation depends on a special integration of biological, cognitive and social processes~\citep{Koster2020}.}
 \es{La adaptación humana depende de una integración especial de los procesos biológicos, cognitivos y sociales~\citep{Koster2020}.}
 %
-\en{Life histories include a long period of childhood, short intervals between births, and a long post-reproductive life span~\citep{Jones2011}.}
-\es{Las historias de vida incluyen un largo período de infancia, intervalos cortos entre nacimientos, y una prolongada esperanza de vida post-reproductiva~\citep{Jones2011}.}
+\en{Our brains develop first followed by the body because this sequence allows a longer period of learning~\citep{GonzalezForero2018}.}
+\es{Nuetros cerebros se desarrollan primero, seguidos por el cuerpo porque esta secuencia permite un período más largo de aprendizaje~\citep{GonzalezForero2018}.}
 %
-\en{The brains develop first followed by the body because this sequence allows a longer period of learning~\citep{GonzalezForero2018}.}
-\es{Los cerebros se desarrollan primero, seguidos por el cuerpo porque esta secuencia permite un período más largo de aprendizaje~\citep{GonzalezForero2018}.}
+\en{Among hominoids, human life histories are distinguished by long periods of juvenile dependency, short intervals between births, and a long post-reproductive life span~\citep{Jones2011}.}
+\es{Entre los hominoides, las historias de vida humanas se distinguen por largos períodos de dependencia juvenil, cortos intervalos entre nacimientos y una larga vida posreproductiva~\citep{Jones2011}.}
 %
 % \en{The human brain is unusually large, however it is not just more ``general intelligence''.}
 % \es{El cerebro humano es inusualmente grande, sin embargo no se trata sólo de más ``inteligencia general''.}
@@ -211,8 +208,8 @@
 % \en{Humans develop a specific cognitive skill for knowledge exchange.}
 % \es{Los humanos desarrollan una habilidad cognitiva específica para el intercambio de conocimientos~\cite{Herrmann2007}.}
 %
-\en{Our cognitive ability to acquire cultural information makes human adaptation a population-based process~\citep{Herrmann2007}.}
-\es{Nuestra capacidad cognitiva para adquirir información cultural hace que la adaptación humana sea un proceso poblacional~\citep{Herrmann2007}.}
+\en{A special cognitive ability to acquire cultural information makes human adaptation a population-based process~\citep{Herrmann2007}.}
+\es{Una capacidad cognitiva especial para adquirir información cultural hace que la adaptación humana sea un proceso poblacional~\citep{Herrmann2007}.}
 %
 \en{Humans learn things from others, modify and transmit them to the next generation.}
 \es{Los humanos aprendemos cosas de los demás, las modificamos y  transmitimos a la siguiente generación.}
@@ -222,6 +219,9 @@
 
 % Parrafo
 
+\en{Human develop complex skills over the course of a lifetime.}
+\es{Los humanos desarrollan habilidades complejas a lo largo de su vida.}
+%
 \en{Knowing people's abilities is crucial in many areas.}
 \es{Conocer las habilidades de las personas es crucial en muchas \'areas.}
 %
@@ -243,7 +243,7 @@
 \en{For that reason, all solutions rely on pairwise comparisons.}
 \es{Por esa raz\'on, todos las soluciones se basan en comparaciones entre pares.}
 %
-\en{Since the first generative models, proposed almost a century ago by~\cite{thurstone1927-comparativeJugement} and~\cite{zermelo1929-translation}, it is assumed that the probability of an observed result ,$r$, depends on the difference in performance, $d$, between the agent and their target, $P(\, r_{ij} \,|\, d_{ij} \,)$.}
+\en{Since the first generative models, proposed almost a century ago by~\cite{thurstone1927-comparativeJugement} and~\cite{zermelo1929-translation}, it is assumed that the probability of an observed result, $r$, depends on the difference in performance, $d$, between the agent and their target, $P(\, r_{ij} \,|\, d_{ij} \,)$.}
 \es{Ya los primeros modelos generativos, propuestos hace casi un siglo por~\cite{thurstone1927-comparativeJugement} y~\cite{zermelo1929-translation}, suponen que la probabilidad de un resultado observado, $r$, depende de la diferencia de rendimiento, $d$, entre el agente y su objetivo, $P(\, r_{ij} \,|\, d_{ij} \,)$.}
 %
 \en{The field was revitalized after 20 years by the publications of~\cite{bradley1952-pairedComparisions} and~\cite{mosteller1951-remarks}.}
@@ -259,11 +259,11 @@
 \en{Remarkably, they all share the same underlying generative model.}
 \es{Notablemente, todos comparten el mismo modelo generativo subyacente.}
 %
-\en{In respect to their representations, the difference between them is limited to the choice of one distributions from the bell-shape family to define the cumulative probability $P(\, d_{ij} > 0 \,)$.}
-\es{Respecto a sus representaciones, la diferencia entre ellas se limita a la elección de una distribución de la familia del funciones \emph{bell-shape} para definir la probabilidad acumulada de $P(\, d_{ij} > 0 \,)$.}
+\en{In respect to their representations, the difference between them is limited to the choice of a bell-shape distribution that define the cumulative probability $P(\, d_{ij} > 0 \,)$.}
+\es{Respecto a sus representaciones, la diferencia entre ellas se limita a la elección de la distribución \emph{bell-shape} que define la probabilidad acumulada de $P(\, d_{ij} > 0 \,)$.}
 %
-\en{The main difference is the methodological one: the procedure used for solving the probabilistic model.}
-\es{La principal diferencia es la metodológica: el procedimiento utilizado para resolver el modelo probabilístico.}
+\en{The main difference is methodological: the procedure for solving the probabilistic model.}
+\es{La principal diferencia es metodológica: el procedimiento para resolver el modelo probabilístico.}
 % Cambio de parrafo.
 \begin{figure}[h!]
 \centering \small
@@ -433,7 +433,7 @@
 \es{Esta expresi\'on nos permite actualizar de forma \'optima nuestras creencia sobre el espacio de hip\'otesis, dado un modelo y los datos.}
 %
 \begin{equation}\label{eq:inference}
- \underbrace{p(\overbrace{\text{\en{Skills}\es{Habilidades}}}^{\text{\en{Hidden}\es{Oculta}}}|\overbrace{\text{\en{Result}\es{Resultado}}}^{\text{\en{Observed}\es{Observado}}}, \text{\en{Model}\es{Modelo}})}_{\text{Posterior\es{i}}} = \frac{\overbrace{P(\,\text{\en{Result}\es{Resultado}}\,|\,\text{\en{Skills}\es{Habilidades}}\,,\text{\en{Model}\es{Modelo}})}^{\text{\en{Likelihood}\es{Verosimilitud}}}\overbrace{p(\text{\en{Skills}\es{Habilidades}})}^{\text{Prior\es{i}}}}{\underbrace{P(\text{\en{Result}\es{Resultado}}\,|\,\text{\en{Model}\es{Modelo}})}_{\text{Evidenc\en{e}\es{ia}}}}
+ \underbrace{p(\overbrace{\text{\en{Skills}\es{Habilidades}}}^{\text{\en{Hidden}\es{Oculta}}}|\overbrace{\text{Result\es{ado}}}^{\text{Observ\en{ed}\es{ado}}}, \text{Model\es{o}})}_{\text{Posterior}} = \frac{\overbrace{P(\,\text{Result\es{ado}}\,|\,\text{\en{Skills}\es{Habilidades}}\,,\text{Model\es{o}})}^{\text{\en{Likelihood}\es{Verosimilitud}}}\overbrace{p(\text{\en{Skills}\es{Habilidades}})}^{\text{Prior}}}{\underbrace{P(\text{Result\es{ado}}\,|\,\text{Model\es{o}})}_{\text{Evidenc\en{e}\es{ia}}}}
 \end{equation}
 %
 \en{Where the hidden skills are the hypotheses, the observed results is the data, and the model is defined by the figure~\ref{fig:generative_model}.}
@@ -446,20 +446,44 @@
 \es{Veamos la actualizaci\'on de creencias para el caso ganador usando Gaussiano como priors,}
 %
 \begin{equation} \label{eq:posterior_win}
-\underbrace{p(s_i|r_{ij},s_j)}_{\text{Posterior\es{i}}} \propto \underbrace{\Phi(0 \, | s_i - \mu_j , \, 2\beta^2 + \sigma_j^2)}_{\text{\en{Likelihood}\es{Verosimilitud}}} \,  \underbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}_{\text{Prior\es{i}}} 
+\underbrace{p(s_i, r_{ij}|s_j)}_{\hfrac{\text{\scriptsize Proportional}}{\text{\scriptsize posterior}}} = \underbrace{\Phi(0 \, | s_i - \mu_j , \, 2\beta^2 + \sigma_j^2)}_{\text{\en{Likelihood}\es{Verosimilitud}}} \,  \underbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}_{\text{Prior}} 
 \end{equation}
 %
-\en{Where $\Phi$ represents the cumulative Gaussian distribution.}
-\es{Donde $\Phi$ representa la distribuci\'on Gaussiana acumulada.}
-% 
-\en{A proportional posterior distribution is obtained by the product of the prior and the likelihood.}
-\es{Una distribuci\'on proporcional al posterior se obtiene mediante el producto de la distribuci\'on a priori y la verosimilitud.}
+\en{Where the symbol $\Phi$ represents a standard cumulative Gaussian distribution.}
+\es{Donde el símbolo $\Phi$ representa la distribuci\'on Gaussiana estandar acumulada.}
 %
-\en{Suprise works as a filter for the prior beliefs.}
-\es{La sorpresa (1-likelihood) la que filtra las creencias a priori.}
+\en{}
+\es{La masa que se le asigna a posteriori a cada hipótesis $s_i$ es proporcional al producto del priori y la verosimilitud.}
 %
-% \en{The mass that the proportional posterior receives from the prior is exactly the magnitude of the likelihood.}
-% \es{La masa que el posterior proporcional recibe del prior es exactamente la magnitud del likelihood.}
+\en{Note that the only free variable is the hypothesis $s_i$.}
+\es{Notar que la única variable libre es la hipótesis $s_i$.}
+%
+\en{}
+\es{Es interesante que la verosimilitud es la acumulada de una Gaussiana centrada en la diferencia entre la hipótesis de habilidad $s_i$ y la estimación media del oponente, con una dispersión que incluye todas las incertidumbres salvo la de la propia hipótesis $s_i$.}
+%
+\en{}
+\es{La verosimilitud es una predicción a priori del resultado observado que se realiza usando todas las hipótesis de habilidad $s_j$ del oponete, y se evalúa en la hipótesis de interés $s_i$.}
+%
+\en{}
+\es{Si hubieramos supuesto a priori que la persona ganadora era muy habil, entonces la predicción del resultado ganador hubiera sido cercana a 1.}
+%
+\en{}
+\es{Y viceversa, ai hubieramos supuesto a priori que la persona que al final resultó ganadora era muy poco habil, entonces no hubiésemos llevado una gran sorpresa porque resultado observado lo habiamos predicho a priori con probabilidad cercana a 0.}
+%
+\en{}
+\es{El posterior proporcional recibe la masa del prior que no filtrada por la verosimilitud.}
+%
+\en{}
+\es{La sorpresa, definida como $1-\text{verosimilitud}$ es la que funciona como filtro del prior.}
+%
+\en{The posterior is just the proportional posterior normalized by the evidence, $p(s_i| r_{ij}, s_j) = \frac{p(s_i, r_{ij}|s_j)}{P(r_{ij})}$}
+\es{El posterior no es más que el posterior proporcional normalizado por la evidencia, $p(s_i| r_{ij}, s_j) = \frac{p(s_i, r_{ij}|s_j)}{P(r_{ij})}$.}
+%
+\en{This result arises from applying the sum and product rule into the probabilistic model of Figure~\ref{fig:generative_model}.}
+\es{Este resultado surge de aplicar las reglas de las suma y el producto sobre el modelo probabilpístico de la figura~\ref{fig:generative_model}.}
+%
+\en{The steps to derive it are detailed in section~\ref{}.}
+\es{Los pasos para derivarlo se detallan en la sección~\ref{}.}
 %
 \en{Figure~\ref{fig:posterior_win} shows, in graphical terms, the updating procedure executed in equation~\ref{eq:posterior_win}.}
 \es{La figura~\ref{fig:posterior_win} muestra, en términos gr\'aficos, el procedimiento de actualizaci\'on que se realiza en la ecuaci\'on~\ref{eq:posterior_win}.}
