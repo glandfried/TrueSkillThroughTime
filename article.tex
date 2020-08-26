@@ -87,9 +87,9 @@
 %% - \title{} in title case
 %% - \Plaintitle{} without LaTeX markup (if any)
 %% - \Shorttitle{} with LaTeX markup (if any), used as running title
-\title{TrueSkill Through Time: the \proglang{Python} and \proglang{R} Packages}
-\Plaintitle{TrueSkill Through Time: the Python and R Packages}
-\Shorttitle{TrueSkill Through Time: the \proglang{Python} and \proglang{R} Packages}
+\title{All the concepts behind TrueSkill Through Time: the \proglang{R}, \proglang{Python} and \proglang{Julia} packages}
+\Plaintitle{All the concepts behind TrueSkill Through Time: the R, Python and Julia packages}
+\Shorttitle{TrueSkill Through Time: the \proglang{R}, \proglang{Python} and \proglang{Julia} packages}
 
 %% - \Address{} of at least one author
 %% - May contain multiple affiliations for each author
@@ -193,7 +193,7 @@
 % \es{¿Cu\'al es el patr\'on general y cu\'an variable es?}
 % %
 
-\en{Human adaptation depends on a special integration of biological, cognitive and social processes~\citep{Koster2020}.}
+\en{Human adaptation depends on a special integration of biological, cognitive and social processes~\citep{_Koster2020}.}
 \es{La adaptación humana depende de una integración especial de los procesos biológicos, cognitivos y sociales~\citep{Koster2020}.}
 %
 \en{Our brains develop first followed by the body because this sequence allows a longer period of learning~\citep{GonzalezForero2018}.}
@@ -222,14 +222,14 @@
 \en{Human develop complex skills over the course of a lifetime.}
 \es{Los humanos desarrollan habilidades complejas a lo largo de su vida.}
 %
-\en{Knowing people's abilities is crucial in many areas.}
-\es{Conocer las habilidades de las personas es crucial en muchas \'areas.}
+\en{Knowing how they change over time is crucial in many areas.}
+\es{Conocer cómo cambian en el tiempo es crucial en muchas \'areas.}
 %
-\en{In educational contexts, it makes it possible to avoid exposing agents to imbalanced challenges, stimulating interest and engagement.}
-\es{En contextos educativos, permite evitar exponer a los agentes a desaf\'ios desproporcionados, estimulando as\'i el inter\'es y la participaci\'on.}
+\en{In educational contexts, accurate ratings can serve to avoid exposing agents to imbalanced challenges, stimulating interest and engagement.}
+\es{En contextos educativos, calificaciones precisas pueden servir para evitar exponer a los agentes a desaf\'ios desproporcionados, estimulando as\'i el inter\'es y la participaci\'on.}
 %
-\en{For research purposes, accurate ratings can help to refine and test models of human learning.}
-\es{Con fines de investigación, calificaciones precisas pueden ayudar a refinar y testear modelos de aprendizaje humano.}
+\en{For research purposes, they can help to refine and test models of human learning.}
+\es{Con fines de investigación, ellas pueden ayudar a refinar y testear modelos de aprendizaje humano.}
 %
 \en{In practice, since skill is a hidden variable, the best we can do is estimate it from its direct observable consequences.}
 \es{En la pr\'actica, dado que la habilidad es una variables oculta, lo mejor que podemos hacer es estimarla a partir de sus consecuencias observables m\'as directas.}
@@ -433,7 +433,7 @@
 \es{Esta expresi\'on nos permite actualizar de forma \'optima nuestras creencia sobre el espacio de hip\'otesis, dado un modelo y los datos.}
 %
 \begin{equation}\label{eq:inference}
- \underbrace{p(\overbrace{\text{\en{Skills}\es{Habilidades}}}^{\text{\en{Hidden}\es{Oculta}}}|\overbrace{\text{Result\es{ado}}}^{\text{Observ\en{ed}\es{ado}}}, \text{Model\es{o}})}_{\text{Posterior}} = \frac{\overbrace{P(\,\text{Result\es{ado}}\,|\,\text{\en{Skills}\es{Habilidades}}\,,\text{Model\es{o}})}^{\text{\en{Likelihood}\es{Verosimilitud}}}\overbrace{p(\text{\en{Skills}\es{Habilidades}})}^{\text{Prior}}}{\underbrace{P(\text{Result\es{ado}}\,|\,\text{Model\es{o}})}_{\text{Evidenc\en{e}\es{ia}}}}
+ \underbrace{p(\overbrace{\text{\en{Skills}\es{Habilidades}}}^{\text{\en{Hidden}\es{Oculta}}}|\overbrace{\text{Result\es{ado}}}^{\text{Observ\en{ed}\es{ado}}}, \text{Model\es{o}})}_{\text{Posterior}} = \frac{\overbrace{P(\,\text{Result\es{ado}}\,|\,\text{\en{Skills}\es{Habilidades}}\,,\text{Model\es{o}})}^{\text{\en{Likelihood}\es{Verosimilitud}}}\overbrace{p(\text{\en{Skills}\es{Habilidades}})}^{\text{Prior}}}{\underbrace{P(\text{Result\es{ado}}\,|\,\text{Model\es{o}})}_{\text{Evidenc\en{e}\es{ia} o\en{r}\es{ predicción a} prior \en{predictive}}}}
 \end{equation}
 %
 \en{Where the hidden skills are the hypotheses, the observed results is the data, and the model is defined by the figure~\ref{fig:generative_model}.}
@@ -442,48 +442,54 @@
 \en{Given a probability distribution that represent our prior belief, using equation~\ref{eq:inference} we can optimally incorporate the new information into posterior belief.}
 \es{Dadas una distribución de probabilidad a propri que represente nuestras creencias previas, usando la ecuación~\ref{eq:inference} podemos incorporar la nueva información en nuestras creencias a posteriori.}
 %
-\en{Let's see the belief update for the winning case using Gaussian priors,}
-\es{Veamos la actualizaci\'on de creencias para el caso ganador usando Gaussiano como priors,}
-%
-\begin{equation} \label{eq:posterior_win}
-\underbrace{p(s_i, r_{ij}|s_j)}_{\hfrac{\text{\scriptsize Proportional}}{\text{\scriptsize posterior}}} = \underbrace{\Phi(0 \, | s_i - \mu_j , \, 2\beta^2 + \sigma_j^2)}_{\text{\en{Likelihood}\es{Verosimilitud}}} \,  \underbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}_{\text{Prior}} 
-\end{equation}
-%
-\en{Where the symbol $\Phi$ represents a standard cumulative Gaussian distribution.}
-\es{Donde el símbolo $\Phi$ representa la distribuci\'on Gaussiana estandar acumulada.}
-%
-\en{}
-\es{La masa que se le asigna a posteriori a cada hipótesis $s_i$ es proporcional al producto del priori y la verosimilitud.}
-%
-\en{Note that the only free variable is the hypothesis $s_i$.}
-\es{Notar que la única variable libre es la hipótesis $s_i$.}
-%
-\en{}
-\es{Es interesante que la verosimilitud es la acumulada de una Gaussiana centrada en la diferencia entre la hipótesis de habilidad $s_i$ y la estimación media del oponente, con una dispersión que incluye todas las incertidumbres salvo la de la propia hipótesis $s_i$.}
-%
-\en{}
-\es{La verosimilitud es una predicción a priori del resultado observado que se realiza usando todas las hipótesis de habilidad $s_j$ del oponete, y se evalúa en la hipótesis de interés $s_i$.}
-%
-\en{}
-\es{Si hubieramos supuesto a priori que la persona ganadora era muy habil, entonces la predicción del resultado ganador hubiera sido cercana a 1.}
-%
-\en{}
-\es{Y viceversa, ai hubieramos supuesto a priori que la persona que al final resultó ganadora era muy poco habil, entonces no hubiésemos llevado una gran sorpresa porque resultado observado lo habiamos predicho a priori con probabilidad cercana a 0.}
-%
-\en{}
-\es{El posterior proporcional recibe la masa del prior que no filtrada por la verosimilitud.}
-%
-\en{}
-\es{La sorpresa, definida como $1-\text{verosimilitud}$ es la que funciona como filtro del prior.}
-%
-\en{The posterior is just the proportional posterior normalized by the evidence, $p(s_i| r_{ij}, s_j) = \frac{p(s_i, r_{ij}|s_j)}{P(r_{ij})}$}
-\es{El posterior no es más que el posterior proporcional normalizado por la evidencia, $p(s_i| r_{ij}, s_j) = \frac{p(s_i, r_{ij}|s_j)}{P(r_{ij})}$.}
+\en{At equation~\ref{eq:posterior_win} we can see the belief update for the winning case using Gaussian priors.}
+\es{En la ecuación podemos ver la actualizaci\'on de creencias para el caso ganador usando Gaussiano como priors.}
 %
 \en{This result arises from applying the sum and product rule into the probabilistic model of Figure~\ref{fig:generative_model}.}
 \es{Este resultado surge de aplicar las reglas de las suma y el producto sobre el modelo probabilpístico de la figura~\ref{fig:generative_model}.}
 %
 \en{The steps to derive it are detailed in section~\ref{}.}
 \es{Los pasos para derivarlo se detallan en la sección~\ref{}.}
+%
+\en{From now on the role of the model is left implicit, according to the notation conventions.}
+\es{A partir de ahora el rol del modelo se deja implícito, de acuerdo con las convenciones de notación.}
+%
+\begin{equation}\label{eq:posterior_win}
+\underbrace{p(s_i, r_{ij}|s_j)}_{\hfrac{\text{\scriptsize Proportional}}{\text{\scriptsize posterior}}} = \underbrace{\Phi(0 \, |  \overbrace{s_i^{\textcolor{white}{2}} - \mu_j}^{\delta(s_i)} , \, \overbrace{2\beta^2 + \sigma_j^2}^{\vartheta_i^2} )}_{\text{\en{Likelihood}\es{Verosimilitud}}} \,  \underbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}_{\text{Prior}} 
+\end{equation}
+%
+\en{Where the proportional posterior is just an unnormalized posterior, $p(s_i| r_{ij}, s_j) = \frac{p(s_i, r_{ij}|s_j)}{P(r_{ij})}$.}
+\es{El posterior no es más que el posterior proporcional normalizado por la evidencia, $p(s_i| r_{ij}, s_j) = \frac{p(s_i, r_{ij}|s_j)}{P(r_{ij})}$.}
+%
+\en{Note that the only free variable is the hypothesis $s_i$.}
+\es{Notar que aquí la única variable libre es la hipótesis $s_i$.}
+%
+\en{The mass that is assigned a posteriori to each hypothesis $s_i$ is proportional to the product of the prior and the likelihood.}
+\es{La masa que se le asigna a posteriori a cada hipótesis $s_i$ es proporcional al producto del priori y la verosimilitud.}
+%
+\en{The symbol $\Phi$ represents a cumulative Gaussian distribution.}
+\es{El símbolo $\Phi$ representa la distribuci\'on Gaussiana acumulada.}
+%
+\en{Therefore, the likelihood is all the mass up to the value 0 of a Gaussian distribution centered on the difference between the skill hypothesis and the opponent's mean estimate, ($\delta(s_i) = s_i - \mu_j$), with a variance that includes all uncertainties except the one of $s_i$, ($\vartheta_i^2$).}
+\es{Por lo tanto, la verosimilitud es toda la masa hasta el 0 de una distribución Gaussiana centrada en la diferencia entre la hipótesis de habilidad $s_i$ y la estimación media del oponente $\mu_j$, ($\delta(s_i)$), con una varianza que incluye todas las incertidumbres salvo la de la propia hipótesis $s_i$, ($\vartheta_i^2$).}
+%
+\en{This is just the a priori prediction of the observed result, made using all the skill hypotheses of the opponent $s_j$, evaluated in the interest hypothesis $s_i$.}
+\es{Esto no es más que la predicción a priori del resultado observado, realizada usando todas las hipótesis de habilidad del oponete $s_j$, evaluada en la hipótesis de interés $s_i$.}
+%
+\en{}
+\es{La sorpresa que no hubiera generado el resultado observado es lo que funciona como filtro del prior.}
+%
+\en{If we had assumed a priori that the winning agent was much more skilled than his opponent, then the prediction of the winning result would have been close to 1.}
+\es{Si hubieramos supuesto a priori que el agente ganador era mucho más habil que su oponente, entonces la predicción del resultado ganador hubiera sido cercana a 1.}
+%
+\en{}
+\es{Y viceversa, si hubieramos supuesto a priori que la persona que al final resultó ganadora era muy poco habil, entonces no hubiésemos llevado una gran sorpresa porque l resultado observado lo hubiramos predicho con probabilidad cercana a 0.}
+%
+\en{}
+\es{La proporción de masa que se filtra para cada hipótesis $s_i$, es equivalente al tamaño de la sorpresa, definida como el complemento de la verosimilitud, $(1-\text{verosimilitud})$}
+%
+\en{}
+\es{El posterior recibe la masa del prior que no fue filtrada por la verosimilitud.}
 %
 \en{Figure~\ref{fig:posterior_win} shows, in graphical terms, the updating procedure executed in equation~\ref{eq:posterior_win}.}
 \es{La figura~\ref{fig:posterior_win} muestra, en términos gr\'aficos, el procedimiento de actualizaci\'on que se realiza en la ecuaci\'on~\ref{eq:posterior_win}.}
@@ -509,15 +515,15 @@
     \label{fig:posterior_win}
 \end{figure}
 %
-\en{The mass that the proportional posterior does not receive from the prior is exactly the magnitude of the surprise (1 - likelihood).}
-\es{La masa que el posterior proporcional no recibe del prior es exactamente la magnitud de la sorpresa (1 - likelihood).}
+% \en{The mass that the proportional posterior does not receive from the prior is exactly the magnitude of the surprise (1 - likelihood).}
+% \es{La masa que el posterior proporcional no recibe del prior es exactamente la magnitud de la sorpresa (1 - likelihood).}
 %
-\en{In the regions of very high ability hypothesis, where a winning result would generate almost no surprise, the proportional posterior distribution remains unaltered with respect to the prior.}
-\es{En las regiones de hipótesis de muy alta habilidad, donde un resultado ganador no generaría casi sorpresa alguna, la distribución a posteriori proporcional no sufre alteración respecto del prior.}
-%
-\en{In the regions of very low ability hypothesis, where a winning result would be very surprising, the proportional posterior distribution loses almost all its mass.}
-\es{En las regiones de hipótesis de muy baja habilidad, donde un resultado ganador sería muy sorprendente, la distribución a posteriori proprocional pierde casi toda su masa.}
-%
+% \en{In the regions of very high ability hypothesis, where a winning result would generate almost no surprise, the proportional posterior distribution remains unaltered with respect to the prior.}
+% \es{En las regiones de hipótesis de muy alta habilidad, donde un resultado ganador no generaría casi sorpresa alguna, la distribución a posteriori proporcional no sufre alteración respecto del prior.}
+% %
+% \en{In the regions of very low ability hypothesis, where a winning result would be very surprising, the proportional posterior distribution loses almost all its mass.}
+% \es{En las regiones de hipótesis de muy baja habilidad, donde un resultado ganador sería muy sorprendente, la distribución a posteriori proprocional pierde casi toda su masa.}
+% %
 \en{It is important to stress that the exact posterior, although similar, is not a Gaussian distribution.}
 \es{Es importante remarcar que la posterior exacta, aunque se parezca, no es una distribución Gaussiana.}
 
