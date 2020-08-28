@@ -504,13 +504,23 @@
 \en{And without a Gaussian distribution we are prevented from using the equation~\ref{eq:posterior_win} iteratively.}
 \es{Y sin distribuciones Gaussianas nos vemos impedidos de usar la ecuación~\ref{eq:posterior_win} iterativamente.}
 %
-\en{However, because of the form that the exact posterior takes, a Gaussian would be a very good approximation.}
-\es{Sin embargo, por la forma que toma el posterior exacto, una Gaussiana sería una muy buena aproximación.}
+\en{This problem can be addressed through sampling techniques, as~\cite{fox2010-bayesianIRT} does to solve the Bayesian Item-Response Theory (BIRT) variants.}
+\es{Este problema puede ser tratado mediante técnicas de sampleo, tal como hace~\cite{fox2010-bayesianIRT} para resolver las variantes Bayesianas de Item-Response Theory (BIRT).}
 %
-\en{One of the main contributions of~\cite{herbrich2006-trueskill} was to offer an efficient method to find the Gaussian that best approximates the exact posterior.}
-\es{Uno de los principales aportes de~\cite{herbrich2006-trueskill} fue ofrecer un método eficiente para calcular la Gaussiana que mejor aproxima a la posterior exacta.}
+\en{Although sampling methodologies have the property of converging to the exact distribution, they demand a high computational cost.}
+\es{Si bien las metodologías de sampleo tienen la propiedad de converger a la distribución exacta, exigen un alto costo computacional.}
 %
-%A diferencia de los métodos de sampleo, muy costosos computacionalmente, los métodos variacionales ofrecen soluciones analíticas aproximadas muy eficientes. 
+\en{Since the shape of the exact posterior can be approximated well enough with a Gaussian, the computational cost can be avoided by implementing deterministic approximation techniques.}
+\es{Dado que la forma del posterior exacto puede ser aproximado suficientemente bien con una Gaussiana, el costo computacional puede ser evitado implementando técnicas de aproximación determinística.}
+%
+\en{The main contribution of the Glicko system~\cite{glikman_gliko_2} was the development of an efficient method to approximate the exact posterior with a Gasussian distribution.}
+\es{El principal aporte del sistema Glicko~\citep{glikman_gliko_2} fue el desarrolló de un método eficiente para aproximar la posterior exacta con una distribución Gasussiana.}
+%
+\en{However, the methodology offers no guarantee that the selected Gaussian is the one that best approximates the exact posterior.}
+\es{Sin embargo, la metodología no ofrece garantías de que la Gaussiana seleccionada sea la que mejor aproxima al posterior exacto.}
+%
+\en{The success of the TrueSkill solution~\citep{herbrich2006-trueskill} is based on the application of an efficient method for calculating the Gaussian that best approximates the exact posterior.}
+\es{El éxito de la solución TrueSkill~\citep{herbrich2006-trueskill} se basa en la aplicación de método eficiente para calcular la Gaussiana que mejor aproxima a la posterior exacta.}
 %
 \en{Methodological details are described in the section~\ref{}.}
 \es{Los detalles metodológicos se describen en la sección~\ref{}.}
@@ -526,8 +536,11 @@
 \en{However, the causal model presented in Figure~\ref{fig:generative_model} assumes that the unknown skill is fixed at a given time.}
 \es{Sin embargo, el modelo causal presentado en la Figura~\ref{fig:generative_model} supone que en un determinado momento la habilidad está fija.}
 %
-\en{The simplest approach treat a sequence of observations as an ordered list of independent causal models, as shown in the Figure~\ref{fig:filter}.}
-\es{El enfoque más sencillo trata las secuencia de observaciones como una lista ordenada de modelos causales indepedientes, como se muestra en la Figura~\ref{fig:filter}.}
+\en{The simplest approach treat a sequence of observations as an ordered list of independent causal models.}
+\es{El enfoque más sencillo trata las secuencia de observaciones como una lista ordenada de modelos causales indepedientes.}
+%
+\en{All the mentioned solutions (TrueSkill, Glicko and BIRT) model the temporal process as shown in the Figure~\ref{fig:filter}.}
+\es{Todas las soluciones mencionadas (TrueSkill, Glicko and BIRT) modelan el proceso temporal como se muestra en la Figura~\ref{fig:filter}.}
 %
 \begin{figure}[h!]
   \centering
@@ -562,8 +575,8 @@
       }  
   }
   \caption{
-  \en{The filter approach treat the sequence of observations as an ordered list of independent events.}
-  \es{El enfoque de filtro considera la secuencia de observaciones como una lista ordenada de eventos independientes.}
+  \en{The approach known as \emph{filtering} treat the sequence of observations as an ordered list of independent events.}
+  \es{El enfoque conocido como \emph{filtering} considera la secuencia de observaciones como una lista ordenada de eventos independientes.}
   %
   \en{Each pair $s_i^t \rightarrow p_i^t$ represents a fragment of the causal model presented in Figure~\ref{fig:generative_model}.}
   \es{Cada par $s_i^t \rightarrow p_i^t$ representa un fragmento del modelo causal presentado en el Figura~\ref{fig:generative_model}.}
@@ -574,71 +587,69 @@
   \label{fig:filter}
 \end{figure}
 %
-\en{Even the graphical model assumes independent events, the \emph{filter approach} uses the posterior estimates at time $t-1$ as prior of time $t$.}
-\es{Aunque el modelo gráfico asume eventos independientes, el \emph{enfoque de filtro} usa las estimaciones a posteriori del tiempo $t-1$ como como prior del tiempo $t$.}
+\en{Even the graphical model assumes independent events, the approach known as \emph{filtering} uses the posterior estimates at time $t-1$ as prior of time $t$.}
+\es{Aunque el modelo gráfico asume eventos independientes, el enfoque conocido como \emph{filtering} usa las estimaciones a posteriori del tiempo $t-1$ como como prior del tiempo $t$.}
 %
 \begin{equation}\label{eq:filter}
  \text{Posterior}^t \propto \text{Likelihood}^t (\overbrace{\text{Likelihood}^{t-1} (\dots (\underbrace{\text{Likelihood}^{1} \text{Prior}^1}_{\ \text{Prior}^2} ))}^{\text{Prior}^{t}} )
 \end{equation}
 %
-\en{If the likelihood are filters for the priors, the estimates made at a time $t$ can be seen as the accumulation of all previous filters.}
-\es{Si la verosimilitud es un filtro para el prior, las estimaciones hechas en el tiempo $t$ pueden ser vistas como la acumulación de todos los filtros anterios.}
+\en{If we consider the likelihood as a filter of the prior, the estimates made at a time $t$ can be seen as the accumulation of all previous filters.}
+\es{Si consideramos a la verosimilitud como un filtro del prior, las estimaciones hechas en el tiempo $t$ pueden ser vistas como la acumulación de todos los filtros anterios.}
 %
 \en{In this way, information from the past propagates to future estimates.}
 \es{De esta forma, la información del pasado propaga hacia las estimaciones futuras.}
 %
-\en{In our case, as skills are dynamic variables it is important to add uncertainty in each step.}
-\es{En nuestro caso, como las habilidades son variables dinámicas es importante agregar incertidumbre en cada paso.}
+\en{In our case, since skills are dynamic variables it is important to add uncertainty in each step.}
+\es{En nuestro caso, debido a que las habilidades son variables dinámicas es importante agregar incertidumbre en cada paso.}
 %
 \begin{equation}\label{eq:dynamic_factor}
  \text{Prior}^t \sim \N(\text{Posterior}^{t-1}, \gamma^2)
  \end{equation}
 %
-La solución variacional de filtro dinámico, conocida como TrueSkill~\cite{herbrich2006-trueskill}, mostró resultados superiores a sus antecesores.
+\en{This solves the dynamic aspect.}
+\es{Esto resuelve el aspecto dinámico.}
 %
-Superó al sistema Glicko, que se había presentado como una mejora respecto de Elo gracias a que incorporaba la noción de incertidumbre de la estimación y ofrecía estimaciones que convergían al verdadero valor con menos cantidad de datos.
-%Sin embargo, el sistema Glicko utiliza una función logísitica para representar la probabilidad de ganar dado la diferencia de rendimientos de modelo.
+\en{However, the imperfect representation of the temporal problem, as a sequence of independent events, introduces a series of problems.}
+\es{Sin embargo, la representación imperfecta del problema temporal, como secuencia de eventos independientes, introduce una serie de problemas.}
 %
-De modo similar a TrueSkill, Glickman ofreció un método para aproximar la posterior mediante una Gasussiana.
+\en{All weaknesses arise from the fact that in the "filtering approach" the information propagates in the system in only one direction.}
+\es{Todas las debilidades surgen por el hecho de que en el "enfoque de filtrado" la información propaga en el sistema en un solo sentido.}
 %
-Sin embargo, la metodología no ofrece garantías de que la distribución aproximada sea la que mejor aproxime a la posterior exacta.
+\en{The most obvious problem is that the beginning of any estimation sequence always has high uncertainty, which makes them useless.}
+\es{El problema más evidente es que el inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre, lo que las hace inservibles.}
 %
-% Además el sistema Glicko requiere una cierta cantidad de observaciones antes de implementar el proceso de inferencia luego de tener .
-% %
-Por otra parte, TrueSkill superó las versions Bayesianas de Item-Response Theory descritas por FOX debido a que resuelven el modelo gr\'afico mediante técnicas de sampleo muy costosas computacionalmente.
+\en{There are, however, a number of less obvious problems to keep in mind. }
+\es{Existe sin embago una serie de problemas menos evidentes muy importantes a tener en mente.}
 %
-%Si bien las metodologías de sampleo tienen la propiedad de converger a la distribución exacta con muestra de tamaño infinito, debido a que el posterior exacto es parecido a una Gaussiana la aproximación Gaussiana es lo suficientememnte buena y no tiene costo computacional asoaciado.
-
-% Parrafo
-
-Todas estas solcuiones, TrueSkill, Glicko, BIRT, aplican el abordaje de filtro.
+\en{In general terms, filtering approach estimates can suffer from ``temporary'' and ``spatial'' decoupling.}
+\en{En términos generales, las estimaciones del enfoque de filtrado pueden sufrir desacoplamientos ``temporales'' y ``espaciales''.}
 %
-Su representación imperfecta del problema temporal tiene asociada una serie de debilidades.
-%asociados con el hecho de que la secuancia de estimaciones van acumulanndo información del pasado, como si la información propagara del pasado al futuro
+\en{To understand them it is important to remember that the observed results depend only on the difference in skills, and not on their absolute value.}
+\es{Para entenderlos es importante recordar que los resultados observados dependen solo de la diferencia de habilidades, y no de su valor absoluto.}
 %
-El problema más evidente es la alta incertidumbre que tienen las primeras estimaciones de la secuencia, lo que impide generalmente tenerlas en cuenta para los análisis.
+\en{It may happen that the relative differences are correct between contemporary estimates but not between estimates separated in time, preventing temporal comparability.}
+\es{Puede ocurrir que las diferencias relativas sean correctas entre estimaciones contemporáneas pero no entre estimaciones separadas en el tiempo, impidiendo la comparabilidad temporal.}
 %
-Sin embargo existe una serie de problemas menos evidentes pero igual de importantes a tener en cuenta. 
-%
-En términos generales, las estimadciones puede sufrir desacoplamientos ``temporales'' y ``espaciales''.
-%
-Para entenderlos es importante notar que los resultados de las partidas (o exámenes) dependen solo de la diferencia de habilidades y no de su valor absoluto.
-%
-Puede ocurrir que entre estimaciones contemporáneas la diferencia relativa sea correcta, pero que en el tiempo el valor absoluto se desliza en direcciones arbitrarias.
-%
-También puede ocurrir al interior de comunidades bien conectadas la diferencia relativa sea correcta, pero que entre comunidades poco conectadas los valores absolutos no son comparables entre sí.
-%
-%Un caso menos extremo, pero igualmente problemático son las conectividades típicas de las eliminatorias deportivas, en las que un solo punto de contacto al final es el que da toda la conectividad al sistema.
+\en{Similarly, it may happen that within well-connected communities the relative difference is correct, but not between poorly connected communities, preventing comparability between communities.}
+\es{De modo similar puede ocurrir que al interior de comunidades bien conectadas la diferencia relativa sea correcta, pero no entre comunidades poco conectadas, impidiendo comparabilidad entre comunidades.}
 
 %Parrafo
 
-Estos problemas se solucionan si en vez de trabajar con una lista ordenada de modelos causales indepedientes, se trabajar con un único modelo causal que vincule en un solo sistema de inferencia todas las actividades históricas.
+\en{We need a better representation of the temporal process: a single causal model that links all historical activities.}
+\es{Necesitamos una mejor representación del proceso temporal: un único modelo causal que vincule todas las actividades históricas. }
 %
-Es difícil imaginar la complejísima estructura que un modelo causal de esas caracteríticas puede adquirir.
+\en{It is difficult to imagine the complex structure that a graphical model of this nature can acquire.}
+\es{Es difícil imaginar la compleja estructura que un modelo gráfico de esta naturaleza puede adquirir.}
 %
-Contar con un único modelo casual que vincule todas las actividades históricas resuelve de raíz los problemas de desacoplamiento antes mencionados gracias a que la información histórica puede propagar hacia todo el sistema.
+\en{Having a single model allows historical information to propagate throughout the system, which definitely solves the decoupling problems mentioned above.}
+\es{Contar con un único modelo permite que la información histórica propage hacia todo el sistema, lo que resuelve defnitivamente los problemas de desacoplamiento antes mencionados.}
 %
-En la figura~\ref{fig:smoothing} se muestran solo los vecinos más próximos de una secuencia de estimaciones.
+\en{This is the approach implemented by TrueSkill Through Time~\citep{dangauthier2008-trueskillThroughTime}.}
+\es{Este es el enfoque implementado por TrueSkill Through Time~\citep{dangauthier2008-trueskillThroughTime}.}
+%
+\en{Figure~\ref{fig:smoothing} shows the closest neighbors of a sequence of estimates.}
+\es{En la figura~\ref{fig:smoothing} se muestra los vecinos más próximos de una secuencia de estimaciones.}
 %
 \begin{figure}[h!]
   \centering
@@ -673,31 +684,45 @@ En la figura~\ref{fig:smoothing} se muestran solo los vecinos más próximos de 
       \edge {sn} {pn};
       }  
   }
-  \caption{La vecindad más próxima de una secuencia de estimaciones de habilidad $s$ en un modelo causal temporal único.
-  Este tipo de modelos se conocen como \emph{state space models}.  
-  Las relaciones causales entre distribuciones de creencias sucesivas son las que vinculan al conjunto de partidas de esta forma tal que la información histórica pueda propagar hacia todo el sistema.
-  Este abordaje se conoce como \emph{smoothing}.
+  \caption{
+  \en{The approach known as \emph{smoothing} represents the entire history of activities through a single causal model.}
+  \es{El abordaje conocido como \emph{smoothing} representa toda la historia de actividades mediante un único modelo causal.}
+  %
+  \en{Only the neighbors of a sequence of estimates are displayed.}
+  \es{Sólo se muestra  los vecinos de una secuencia de estimaciones.}
+   %
+  \en{These types of models are known as \emph{state-space models}.}
+  \es{Este tipo de modelos se conocen como \emph{state space models}.}
   }
   \label{fig:smoothing}
 \end{figure}
 %
-% Como en cualquier grafo puede ocurrir que surgan más de una componete conexa separadas entre sí.
-% %
-% Nunca las estimaciones hechas en dos sistemas totalmente desconectados serán
-% compatibles.
-% %
-% Sin embargo, en el momento en que se abre un canal entre dos subsistemas, la información histórica propia a cada uno comienza a fluir rápidamente.
-% %
-% Se eliminan los inconvenientes relacionados a la conectividad temporal y espacial.
+\en{Inference in this single causal model, as in any other model, is made by the only two rules of reasoning with uncertainty: the rule of addition and the rule of product.}
+\es{La inferencia en este modelo causal único, como en cualquier otro modelo, se realiza mediante la únicas dos reglas del razonamiento con incertidumbre: la regla de la suma y la regla del producto.}
 %
-%Y la cantidad de datos que se requiere para estimar las habilidades se reduce significativamente.
+\en{However, due to the complexity of its structure, it is necessary to implement an iterative solution known as loopy belief propagation.}
+\es{Sin embargo, por lo complejo de su estructura es necesario implementar un algoritmo iterativo eficiente, conocido como \emph{loopy belief propagation}.}
 %
-Las estimaciones en el modelo causal único se realizan a través de las únicas dos reglas del razonamiento con incertidumbre: la regla de la suma y la regla del producto.
+\en{This procedure converge with only a few linear iterations over the data, scaling to millions of observations in a few minutes.}
+\es{Este procedimiento converge con sólo unas pocas iteraciones lineales sobre los datos, escalando a millones de observaciones en pocos minutos.}
 %
-Sin embargo, por lo compleja de la estructura del modelo causal es necesario implementar una solución iterativa conocida como expectation propagation.
+\en{TrueSkill Through Time outperforms TrueSkill, and others competing models, in terms of model evidence.}
+\en{TrueSkill Through Time supera a TrueSkill, y otros modelos alternativos, en términos de evidencia.}
 %
-Este algoritmo tiene la propiedad de converger a la estimación
-correcta en la menor cantidad de iteraciones posibles.
+En la siguiente figura se compara el comportamiento de las estimaciones de TTT y TrueSkill en dos escenarios sintéticos sencillos.
+%
+
+FIGURA:
+%
+Comportamiento de las estimaciones de habilidad utilizando el TrueSkill Through Time, basado en el enfoque \emph{smoothing}, y TrueSkill, basado en el enfoque \emph{filtering}.
+%
+El escenario de la izquierda 3 jugadores con misma habilidad compiten entre sí y se ganan mutuamente, primero A le gana a B, B le gana a C y C le gana a A.
+%
+En el escenario de la derecha, dos comunidades separadas de 3 jugadores, cada una con misma habilidad al interior, pero entre ellos hay 2/3 de probabilidad de ganar se conectan al final.
+
+
+%
+En estos dos ejemplos se puede ver claramente que las estimaciones TTT son mejores que las de TrueSkill.
 %
 Quizás por una dificultad con la que se escriben los papers, la metodología no fue del todo comprendida por los colegas y hoyn odavía o está disponible siquiera en los principales lenguajes de programación.
 %
