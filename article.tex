@@ -712,14 +712,19 @@
 En la siguiente figura se compara el comportamiento de las estimaciones de TTT y TrueSkill en dos escenarios sintéticos sencillos.
 %
 
-FIGURA:
-%
-Comportamiento de las estimaciones de habilidad utilizando el TrueSkill Through Time, basado en el enfoque \emph{smoothing}, y TrueSkill, basado en el enfoque \emph{filtering}.
-%
-El escenario de la izquierda 3 jugadores con misma habilidad compiten entre sí y se ganan mutuamente, primero A le gana a B, B le gana a C y C le gana a A.
-%
-En el escenario de la derecha, dos comunidades separadas de 3 jugadores, cada una con misma habilidad al interior, pero entre ellos hay 2/3 de probabilidad de ganar se conectan al final.
-
+\begin{figure}[h!]
+    \centering
+    \en{\includegraphics[page={1},width=.4\linewidth]{figures/estimates.pdf}
+    \includegraphics[page={2},width=.4\linewidth]{figures/estimates.pdf}}
+    \caption{Comportamiento de las estimaciones de habilidad utilizando el TrueSkill Through Time, basado en el enfoque \emph{smoothing}, y TrueSkill, basado en el enfoque \emph{filtering}.
+    %
+    El escenario de la izquierda 3 jugadores con misma habilidad compiten entre sí y se ganan mutuamente, primero A le gana a B, B le gana a C y C le gana a A.
+    %
+    En el escenario de la derecha, dos comunidades separadas de 3 jugadores, cada una con misma habilidad al interior, pero entre ellos hay 2/3 de probabilidad de ganar se conectan al final.
+    }
+    \label{ejemplos}
+\end{figure}
+    
 
 %
 En estos dos ejemplos se puede ver claramente que las estimaciones TTT son mejores que las de TrueSkill.
