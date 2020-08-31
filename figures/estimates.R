@@ -17,13 +17,13 @@ sds <-  as.matrix(data[,c("sigma_a_ttt","sigma_b_ttt","sigma_c_ttt","sigma_ai_tt
 means <- means - mean(means)
 
 
-plot(means[,"mu_a_ttt"], type="l", axes = F, ann = F, ylim = c( min(means), max(means)  ), lwd=2 )
+plot(means[,"mu_a_ttt"], type="l", axes = F, ann = F, ylim = c( min(means), max(means)  ) )
 points(means[,"mu_a_ttt"],pch=19,cex=0.75)
-lines(means[,"mu_b_ttt"]); points(means[,"mu_b_ttt"],pch=19,cex=0.5)
-lines(means[,"mu_c_ttt"]); points(means[,"mu_c_ttt"],pch=19,cex=0.5)
-lines(means[,"mu_ai_ttt"],lwd=2); points(means[,"mu_ai_ttt"],pch=19,cex=0.75)
-lines(means[,"mu_bi_ttt"]);points(means[,"mu_bi_ttt"],pch=19,cex=0.5)
-lines(means[,"mu_ci_ttt"]);points(means[,"mu_ci_ttt"],pch=19,cex=0.5)
+lines(means[,"mu_b_ttt"]); points(means[,"mu_b_ttt"],pch=19,cex=0.75)
+lines(means[,"mu_c_ttt"]); points(means[,"mu_c_ttt"],pch=19,cex=0.75)
+lines(means[,"mu_ai_ttt"]); points(means[,"mu_ai_ttt"],pch=19,cex=0.75)
+lines(means[,"mu_bi_ttt"]);points(means[,"mu_bi_ttt"],pch=19,cex=0.75)
+lines(means[,"mu_ci_ttt"]);points(means[,"mu_ci_ttt"],pch=19,cex=0.75)
 axis(side=2, labels=NA,at=c(-0.5/2,0.5/2),cex.axis=0.6,tck=0.05, line=0.5,lwd=2)
 axis(lwd=0,side=2, at=0, labels="75% with uncertainty",cex.axis=1.85,line=-0.1)
 
@@ -34,10 +34,10 @@ text(2.6,0,"Scale: 75% probability of winning",cex=2.25)
 
 means_ts <-  as.matrix(data[,c("mu_a_ts","mu_b_ts","mu_c_ts","mu_ai_ts","mu_bi_ts","mu_ci_ts")])
 means_ts <- means_ts - mean(means_ts)
-plot(means_ts[,"mu_a_ts"], type="l", axes = F, ann = F, ylim = c( min(means_ts), max(means_ts)  ), lwd=2 )
+plot(means_ts[,"mu_a_ts"], type="l", axes = F, ann = F, ylim = c( min(means_ts), max(means_ts)  ))
 points(means_ts[,"mu_a_ts"],pch=19,cex=0.75)
-lines(means_ts[,"mu_b_ts"]); points(means_ts[,"mu_b_ts"],pch=19,cex=0.5)
-lines(means_ts[,"mu_c_ts"]); points(means_ts[,"mu_c_ts"],pch=19,cex=0.5)
+lines(means_ts[,"mu_b_ts"]); points(means_ts[,"mu_b_ts"],pch=19,cex=0.75)
+lines(means_ts[,"mu_c_ts"]); points(means_ts[,"mu_c_ts"],pch=19,cex=0.75)
 axis(side=2, labels=NA,at=seq(-1.75,2.25,0.5),cex.axis=0.6,tck=0.05, line=0.5,lwd=2, col="white")
 axis(lwd=0,side=2, at=0.25, labels="75% without uncertainty",cex.axis=1.85,line=-0.1, col.axis="white")
 

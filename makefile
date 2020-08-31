@@ -37,6 +37,9 @@ clean:
 	- rm -f *.snm
 	- rm -f *~
 
+draft:
+	pdftk A=article.pdf cat A1-6 A19 output article.draft.pdf
+
 cite:
 	cite article.tex ../../bibliografia/Gaming/gaming.bib
 
