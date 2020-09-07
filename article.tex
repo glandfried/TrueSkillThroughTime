@@ -690,12 +690,146 @@
   \label{fig:smoothing}
 \end{figure}
 %
-\en{Inference in this single causal model is also made by the only two rules of reasoning with uncertainty: the rule of addition and the rule of product.}
-\es{La inferencia en este modelo causal único también se realiza mediante la únicas dos reglas del razonamiento con incertidumbre: la regla de la suma y la regla del producto.}
+\en{Inference in this single causal model is made by the only two rules of reasoning with uncertainty: the sum and the product rules.}
+\es{La inferencia en este modelo causal único se realiza mediante la únicas dos reglas del razonamiento con incertidumbre: la regla de la suma y del producto.}
 %
-\en{However, due to the complexity of its structure, it is necessary to implement an iterative solution known as loopy belief propagation (details at section~\ref{sec:throguthTime}).}
-\es{Sin embargo, por lo complejo de su estructura es necesario implementar un algoritmo iterativo eficiente, conocido como \emph{loopy belief propagation} (detalles en la sección~\ref{sec:throguthTime}).}
+De ella se deriva las definiciones de los priors y posteriors.
 %
+Para ejemplificar mostramos la soluci\'on más sencilla que no considera el aspecto dinámico, con $\gamma = 0$.
+%
+La forma general y los pasos para derivarla se encuentra en la sección~\ref{sec:throguthTime}.
+%
+\begin{equation}\label{eq:smooth_posterior}
+ \text{Posterior}_i^t = \text{Prior}_i^0 \prod_{k = 1}^T \text{\en{Likelihood}\es{Verosimilitud}}_i^k 
+\end{equation}
+%
+El posterior en un tiempo $t$ es la multiplicación de todas las verosimilitudes: futuras, pasadas y presente.
+%
+El prior en un tiempo $t$ en cambio es la multiplicación de las verosimilitudes, futuras y pasadas, salvo la presente.
+%
+\begin{equation}\label{eq:smooth_prior}
+ \text{Prior}_i^t = \text{Prior}_i^0 \underbrace{\prod_{k = 1}^{t-1} \text{\en{Likelihood}\es{Verosimilitud}}_i^k}_{\text{Past information}} \underbrace{\prod_{k = 1}^{t+1} \text{\en{Likelihood}\es{Verosimilitud}}_i^k}_{\text{Future information}}
+\end{equation}
+%
+A primera vista puede parecer que la única diferencia de las ecuaciones~\ref{eq:smooth_posterior} y~\ref{eq:smooth_prior} respecto de la solución de filtro consiste en agregar al producto las verosimilitudes provenientes del futuro.
+%
+Sin embargo, como consecuencia de considerar a todas las obervaciones en un único modelo generativo, hay una mutua dependencia entre los elementos del sistema.
+%
+La verosimilitud, por ejemplo, es una función que depende del resto de las verosimilitudes.
+\begin{equation}
+ \text{\en{Likelihood}\es{Verosimilitud}}_{ij}^t(\text{Prior}_i^t, \text{Prior}_j^t) 
+\end{equation}
+%
+Hay una mutua dependencia entre las verosimilitudes.
+%
+Para poder calcular una primer verosimilitud, sería necesario definir todos las verosimilitudes con un valor inicial.
+%
+La solución estandar es considerar que el valor inicial de todos los likelihoods es neutro, excluyéndolos del producto mientras no hayan sido calculados todavía.
+%
+Una vez todas fueron calculadas, será necesario reculalcular nuevamente todos las verosimilitudes, debido a que los valores iniciales con los que fueron caclulados han cambiado.
+%
+\en{Por eso, it is necessary to implement an iterative solution known as loopy belief propagation (details at section~\ref{sec:throguthTime}).}
+\es{Por este motivo es necesario implementar un algoritmo iterativo eficiente, conocido como \emph{loopy belief propagation} (detalles en la sección~\ref{sec:throguthTime}).}
+
+% Parrafo
+
+En este punto es razonable preguntarse si los priors de los \emph{state-space} model son priors honestos en el sentido de que desconocen la informacion del dato  para el que son priors.
+% 
+Si bien en la ecuación~\ref{eq:smooth_prior} vimos que el prior efectivamente no se multiplica directamente por el likelihood presente, ¿Será que la información de ese likelihood esta siendo incorporada de manera oculta por el algoritmo iterativo?
+%
+Si esto fuera así, entonces en cada paso de la convergencia debería ocurrir que la sorpresa disminuye.
+%
+Para responder a este pregunta y para entender el funcionamiento general de los state-space models mostramos en la Figura~\ref{fig:smooth_example} una solcución de forma gráfica.
+%
+\begin{figure}[h!]
+  \centering
+  \scalebox{.9}{
+    \tikz{ %
+      \node[latent] (s10) {} ;
+      \node[const, above=of s10, xshift=-0.3cm ] (ns10) {$s_a^0$} ;
+      %
+      \node[latent,  below=of s10,yshift=-1cm] (s11) {} ;
+      \node[const, above=of s11 ,xshift=-0.3cm ] (ns11) {$s_a^1$} ;
+      
+      \node[latent, right=of s11, xshift=3cm] (p11) {} ;
+      \node[const, right=of p11 ] (np11) {$p_a^1$} ;
+      %
+      \node[latent, below=of s11,yshift=-1cm] (s12) {} ;
+      \node[const, above=of s12,xshift=-0.3cm  ] (ns12) {$s_a^2$} ;
+      \node[latent, right=of s12, xshift=3cm] (p12) {} ;
+      \node[const, right=of p12 ] (np12) {$p_a^2$} ;
+      
+      \node[const, right=of np11,xshift=0] (r1) {$\bm{>}$} ;
+      \node[const, above=of r1, yshift=0.3cm] (nr1) {\footnotesize Observed result} ;
+      \node[const, right=of np12,xshift=0] (r2) {$\bm{<}$} ;
+      \node[const, above=of r2, yshift=0.3cm] (nr2) {\footnotesize Observed result} ;
+      
+      \node[latent, left=of s10, xshift=13.4cm] (s20) {} ;
+      \node[const, above=of s20,xshift=0.3cm  ] (ns20) {$s_b^0$} ;
+      \node[latent, below=of s20,yshift=-1cm] (s21) {} ;
+      \node[const, above=of s21,xshift=0.3cm  ] (ns21) {$s_b^1$} ;
+      \node[latent, left=of s21, xshift=-3cm] (p21) {} ;
+      \node[const, left=of p21 ] (np21) {$p_b^1$} ;
+      
+      \node[latent, below=of s21, yshift=-1cm] (s22) {} ;
+      \node[const, above=of s22,xshift=0.3cm  ] (ns22) {$s_b^2$} ;
+      \node[latent, left=of s22, xshift=-3cm] (p22) {} ;
+      \node[const, left=of p22 ] (np22) {$p_b^2$} ;
+      
+      
+      \edge {s10} {s11};
+      \edge {s11} {s12};
+      \edge {s20} {s21};
+      \edge {s21} {s22};
+      \edge {s11} {p11};
+      \edge {s12} {p12};
+      \edge {s21} {p21};
+      \edge {s22} {p22};
+      
+      \node[const, right=of s10, yshift=0.6cm ] (wp10) {\includegraphics[page={13},width=.125\linewidth]{figures/smoothing}} ;
+      \node[const, left=of s20, yshift=0.6cm ] (wp20) {\includegraphics[page={13},width=.125\linewidth]{figures/smoothing}} ;
+      
+      
+      \node[const, left=of s11, yshift=0.6cm ] (post11) {\includegraphics[page={1},width=.125\linewidth]{figures/smoothing}} ;
+      \node[const, right=of s11, yshift=0.6cm ] (wp11) {\includegraphics[page={2},width=.125\linewidth]{figures/smoothing}} ;
+      \node[const, left=of p11, yshift=0.6cm ] (lh11) {\includegraphics[page={3},width=.125\linewidth]{figures/smoothing}} ;
+      
+      \node[const, left=of s12, yshift=0.6cm ] (post12) {\includegraphics[page={4},width=.125\linewidth]{figures/smoothing}} ;
+      \node[const, right=of s12, yshift=0.6cm ] (wp12) {\includegraphics[page={5},width=.125\linewidth]{figures/smoothing}} ;
+      \node[const, left=of p12, yshift=0.6cm ] (lh12) {\includegraphics[page={6},width=.125\linewidth]{figures/smoothing}} ;
+      
+      
+      \node[const, right=of s21, yshift=0.6cm ] (post21) {\includegraphics[page={7},width=.125\linewidth]{figures/smoothing}} ;
+      \node[const, left=of s21, yshift=0.6cm ] (wp21) {\includegraphics[page={8},width=.125\linewidth]{figures/smoothing}} ;
+      \node[const, right=of p21, yshift=0.6cm ] (lh21) {\includegraphics[page={9},width=.125\linewidth]{figures/smoothing}} ;
+      
+      
+      \node[const, right=of s22, yshift=0.6cm ] (post22) {\includegraphics[page={10},width=.125\linewidth]{figures/smoothing}} ;
+      \node[const, left=of s22, yshift=0.6cm ] (wp22) {\includegraphics[page={11},width=.125\linewidth]{figures/smoothing}} ;
+      \node[const, right=of p22, yshift=0.6cm ] (lh22) {\includegraphics[page={12},width=.125\linewidth]{figures/smoothing}} ;
+      
+      \node[const, above=of post11] (npost11) {\scriptsize Posterior} ;
+      \node[const, above=of wp11] (nwp11) {\scriptsize Prior} ;
+      \node[const, above=of lh11] (nlh11) {\scriptsize \en{Likelihood}\es{Verosimilitud}} ;
+      \node[const, above=of post21] (npost21) {\scriptsize Posterior} ;
+      \node[const, above=of wp21] (nwp21) {\scriptsize Prior} ;
+      \node[const, above=of lh21] (nlh21) {\scriptsize \en{Likelihood}\es{Verosimilitud}} ;
+      
+      \node[const, above=of post12] (npost12) {\scriptsize Posterior} ;
+      \node[const, above=of wp12] (nwp12) {\scriptsize Prior} ;
+      \node[const, above=of lh12] (nlh12) {\scriptsize \en{Likelihood}\es{Verosimilitud}} ;
+      \node[const, above=of post22] (npost22) {\scriptsize Posterior} ;
+      \node[const, above=of wp22] (nwp22) {\scriptsize Prior} ;
+      \node[const, above=of lh22] (nlh22) {\scriptsize \en{Likelihood}\es{Verosimilitud}} ;
+      
+      \node[const, above=of wp10,yshift=-0.35cm] (nwp10) {\scriptsize Prior} ;
+      \node[const, above=of wp20,yshift=-0.35cm] (nwp20) {\scriptsize Prior} ;
+      
+      }  
+  }
+  \caption{}
+  \label{fig:smooth_example}
+\end{figure}
 \en{This procedure converge with a few linear iterations over the data, scaling to millions of observations in a few minutes.}
 \es{Este procedimiento converge con unas pocas iteraciones lineales sobre los datos, escalando a millones de observaciones en pocos minutos.}
 %
