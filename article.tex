@@ -161,22 +161,22 @@
  \es{Los humanos desarrollan habilidades complejas a través del tiempo.}
  %
  \en{Knowing how they change is crucial in many areas, such as educational systems and the video game industry.}
- \es{Saber cómo cambian es crucial en muchas áreas, como los sistemas educativos y la industria de los videojuegos.}
+ \es{Saber c\'omo cambian es crucial en muchas \'areas, como los sistemas educativos y la industria de los videojuegos.}
  %
  \en{All widely used skill estimators share the same underlying causal model, but differ in their inferential procedure.}
- \es{Todos los estimadores de habilidad ampliamente utilizados comparten el mismo modelo causal subyacente, pero se diferencian en sus procedimientos metodológicas.}
+ \es{Todos los estimadores de habilidad ampliamente utilizados comparten el mismo modelo causal subyacente, pero se diferencian en sus procedimientos metodol\'ogicas.}
  %
  \en{The success of TrueSkill was based on the application of an efficient algorithm to find the best approximation of the exact posterior.}
- \es{El éxito del TrueSkill se basó en la aplicación de un algoritmo eficiente para encuentrar la mejor aproximación del posterior exacto.}
+ \es{El éxito del TrueSkill se bas\'o en la aplicaci\'on de un algoritmo eficiente para encuentrar la mejor aproximaci\'on del posterior exacto.}
  %
  \en{TrueSkill Through Time is a major enhancement that uses a single generative model for the entire history of activities, rather than a sequence of independent observations, allowing historical information to propagate throughout the system, resulting in better estimates with even less data.}
- \es{TrueSkill Through Time utiliza un único modelo generativo para toda la historia de las actividades, en lugar de una secuencia de observaciones independientes, lo que permite que la información histórica se propague por todo el sistema, lo que da lugar a mejores estimaciones con aún menos datos.}
+ \es{TrueSkill Through Time utiliza un único modelo generativo para toda la historia de las actividades, en lugar de una secuencia de observaciones independientes, lo que permite que la informaci\'on hist\'orica se propague por todo el sistema, lo que da lugar a mejores estimaciones con aún menos datos.}
  %
  \en{The use of an efficient algorithm, that requires only a few linear iterations over the data, allows scaling to millions of observations in few minutes.}
- \es{El uso de un algoritmo eficiente, que requiere sólo unas pocas iteraciones lineales sobre los datos, permite escalar a millones de observaciones en pocos minutos.}
+ \es{El uso de un algoritmo eficiente, que requiere s\'olo unas pocas iteraciones lineales sobre los datos, permite escalar a millones de observaciones en pocos minutos.}
  %
  \en{This paper offer the first packages for \proglang{R}, \proglang{Python} and \proglang{Julia}, together with its scientific documentation.}
- \es{Mediante este artículo ofrecemos los primeros paquetes para \proglang{R}, \proglang{Python} y \proglang{Julia}, junto con su documentación científica.}
+ \es{Mediante este art\'iculo ofrecemos los primeros paquetes para \proglang{R}, \proglang{Python} y \proglang{Julia}, junto con su documentaci\'on cient\'ifica.}
 }
 \Keywords{Life history, skill, learning, education, sports, gaming, inference, \proglang{R}, \proglang{Python}, \proglang{Julia}}
 \Plainkeywords{}
@@ -186,34 +186,36 @@
 
 \section[Introduction]{Introduction: } \label{sec:intro}
 
+\todo[inline]{Te propongo usar la palabra acquire en lugar de develop, va m\'as en sinton\'ia con el discurso posterior}
+
 \en{Human develop complex skills over the course of a lifetime.}
 \es{Los humanos desarrollan habilidades complejas a lo largo de su vida.}
 %
 \en{This is made possible by a special integration of biological, cognitive and social processes~\citep{Koster2020}.}
-\es{Esto es posible gracias a una integración especial de los procesos biológicos, cognitivos y sociales~\citep{Koster2020}.}
+\es{Esto es posible gracias a una integraci\'on especial de los procesos biol\'ogicos, cognitivos y sociales~\citep{Koster2020}.}
 %
 \en{Our brains develop first followed by the body because this sequence allows a longer period of learning~\citep{GonzalezForero2018}.}
-\es{Nuetros cerebros se desarrollan primero, seguidos por el cuerpo porque esta secuencia permite un período más largo de aprendizaje~\citep{GonzalezForero2018}.}
+\es{Nuestros cerebros se desarrollan primero, seguidos por el cuerpo porque esta secuencia permite un per\'iodo m\'as largo de aprendizaje~\citep{GonzalezForero2018}.}
 %
 \en{Human life histories are distinguished by long periods of juvenile dependency, short intervals between births, and long postreproductive life span~\citep{Jones2011}.}
-\es{Las historias de vida humanas se distinguen por largos períodos de dependencia juvenil, cortos intervalos entre nacimientos y una larga vida posreproductiva~\citep{Jones2011}.}
+\es{Las historias de vida humanas se distinguen por largos per\'iodos de dependencia juvenil, cortos intervalos entre nacimientos y una larga vida posreproductiva~\citep{Jones2011}.}
 %
 \en{A special cognitive ability allows humans to learn things from others, and transmit innovations through generations.~\citep{Herrmann2007}.}
-\es{Una capacidad cognitiva especial le permite a los humanos aprender de los demás y transmitir las innovación a través de la generaciones~\citep{Herrmann2007}.}
+\es{Una capacidad cognitiva especial le permite a los humanos aprender de los dem\'as y transmitir las innovaci\'on a través de la generaciones~\citep{Herrmann2007}.}
 %
 \en{As a population-based process, human adaptation is also affected by demographic characteristics, such as the size and structure of populations~\citep{derex2020-populationStructure}.}
-\es{Al ser un proceso poblacional, la adaptación humana también se ve afectada por características demográficas, como el tamaño y estructura de las poblaciones~\citep{derex2020-populationStructure}.} 
+\es{Al ser un proceso poblacional, la adaptaci\'on humana también se ve afectada por caracter\'isticas demogr\'aficas, como el tama\~no y estructura de las poblaciones~\citep{derex2020-populationStructure}.} 
 
 % Parrafo
 
-\en{Knowing how skills change over time is crucial in many areas.}
-\es{Conocer cómo cambian la habilidades de la personas en el tiempo es crucial en muchas \'areas.}
+\en{Understanding the factors impacting in the positive or negative changes of skill could be used to develop new training strategies or adapting the environment to avoid unnecessary tasks.}
+\es{Conocer c\'omo cambian la habilidades de la personas en el tiempo es crucial en muchas \'areas.}
 %
-\en{In educational contexts, accurate ratings can serve to avoid exposing agents to imbalanced challenges, stimulating interest and engagement.}
+\en{For example, in education, accurate ratings can serve to avoid exposing agents to imbalanced challenges, stimulating interest and engagement.}
 \es{En contextos educativos, calificaciones precisas pueden servir para evitar exponer a los agentes a desaf\'ios desproporcionados, estimulando as\'i el inter\'es y la participaci\'on.}
 %
 \en{For research purposes, they can help to refine and test models of human learning.}
-\es{Con fines de investigación, ellas pueden ayudar a refinar y testear modelos de aprendizaje humano.}
+\es{Con fines de investigaci\'on, ellas pueden ayudar a refinar y testear modelos de aprendizaje humano.}
 %
 \en{In practice, since skill is a hidden variable, the best we can do is estimate it from its direct observable consequences.}
 \es{En la pr\'actica, dado que la habilidad es una variables oculta, lo mejor que podemos hacer es estimarla a partir de sus consecuencias observables m\'as directas.}
@@ -227,22 +229,23 @@
 \en{For that reason, all solutions rely on pairwise comparisons.}
 \es{Por esa raz\'on, todos las soluciones se basan en comparaciones entre pares.}
 %
-\en{Since the first generative models, proposed almost a century ago by~\cite{thurstone1927-comparativeJugement} and~\cite{zermelo1929-translation}, it is assumed that the probability of an observed result, $r$, depends on the difference in performance, $d$, between the agent and their target, $P(\, r_{ij} \,|\, d_{ij} \,)$.}
+\en{Since the first generative models, proposed almost a century ago by~\cite{thurstone1927-comparativeJugement} and~\cite{zermelo1929-translation}, it is assumed that the probability of an observed result, $r_{ij}$, depends on the difference in performance, $d_{ij}$, between the agent $i$ and target $j$, $P(\, r_{ij} \,|\, d_{ij} \,)$.}
 \es{Ya los primeros modelos generativos, propuestos hace casi un siglo por~\cite{thurstone1927-comparativeJugement} y~\cite{zermelo1929-translation}, suponen que la probabilidad de un resultado observado, $r$, depende de la diferencia de rendimiento, $d$, entre el agente y su objetivo, $P(\, r_{ij} \,|\, d_{ij} \,)$.}
 %
 \en{The field revitalized 20 years later by the publications of~\cite{bradley1952-pairedComparisions} and~\cite{mosteller1951-remarks}.}
 \es{El campo revitaliz\'o 20 a\~nos despu\'es gracias a las publicaciones de \cite{bradley1952-pairedComparisions} y~\cite{mosteller1951-remarks}.}
 
+\todo[inline]{Hay que decir porque es importante la publicacion de Bradley y Mosteller} 
 % Parrafo
 
 \en{Nowadays, the most widely used skill estimators were proposed by~\cite{elo1961-uscf},~\cite{glikman_gliko_2},~\cite{herbrich2006-trueskill}, and some of the Item-Response Theory variants compiled by~\cite{vanDerLinden2016-handbookIRT_1} and~\cite{fox2010-bayesianIRT}.}
 \es{Actualmente, los estimadores de habilidades m\'as utilizados son los propuestos por~\cite{elo1961-uscf},~\cite{glikman_gliko_2},~\cite{herbrich2006-trueskill}, y algunas de las variantes de la\emph{Item-Response Theory} recopiladas por~\cite{vanDerLinden2016-handbookIRT_1} y~\cite{fox2010-bayesianIRT}.}
 %
 \en{Although they sometimes choose alternative bell-shape distributions to define the cumulative probability $P(\, d_{ij} > 0 \,)$, the underlying generative model is the same.}
-\es{Por más que a veces se usen distintas distribuciones \emph{bell-shape} para definir la probabilidad acumulada $P(\, d_{ij} > 0 \,)$, el modelo generativo subyacente es el mismo.}
+\es{Por m\'as que a veces se usen distintas distribuciones \emph{bell-shape} para definir la probabilidad acumulada $P(\, d_{ij} > 0 \,)$, el modelo generativo subyacente es el mismo.}
 %
 \en{The main difference between them are methodological: the procedure to solve the shared probabilistic model.}
-\es{Las principales diferencias ente ellos son metodológicas: el procedimiento para resolver el modelo probabilístico compartido.}
+\es{Las principales diferencias ente ellos son metodol\'ogicas: el procedimiento para resolver el modelo probabil\'istico compartido.}
 % Cambio de parrafo.
 \begin{figure}[h!]
 \centering \small
@@ -326,7 +329,7 @@
 \end{equation}
 %
 \en{Where $y_{ij}$ is $1$ for winners and $-1$ for losers, and the probability of the observed result given the a priori estimates can be derived from Figure~\ref{fig:generative_model} (details at section~\ref{sec:analyticalSolution}).}
-\es{Donde $y_{ij}$ es $1$ para ganadores y $-1$ para perdedores y la probabilidad del resultado observado dadas las estimaciones a priori se puede derivar de la figura~\ref{fig:generative_model} (detalles en la sección~\ref{sec:analyticalSolution}).}
+\es{Donde $y_{ij}$ es $1$ para ganadores y $-1$ para perdedores y la probabilidad del resultado observado dadas las estimaciones a priori se puede derivar de la figura~\ref{fig:generative_model} (detalles en la secci\'on~\ref{sec:analyticalSolution}).}
 %
 \en{Unlikely results would indicate that the current estimates are not entirely correct and should be updated to a greater extent than if they had occurred as expected.}
 \es{Los resultados poco probables indicar\'ian que las estimaciones actuales no son del todo correctas y deber\'ian actualizarse en mayor medida que si hubieran ocurrido como se esperaba.}
@@ -359,7 +362,7 @@
 % \es{La Teor\'ia de la Probabilidad nos proporciona un marco consistente para cuantificar la incertidumbre de nuestras creencias~\citep{bishop2006-PRML}.}
 % %
 \en{The use of Probability Theory to handle uncertainty, known as Bayesian inference, was widely adopted because it has proven to be a extremely useful tool in practice.}
-\es{El uso de la Teoría de la Probabilidad para manejar la incertidumbre, conocida como inferencia bayesiana, se adoptó ampliamente porque ha demostrado ser una herramienta extremadamente útil en la práctica.}
+\es{El uso de la Teor\'ia de la Probabilidad para manejar la incertidumbre, conocida como inferencia bayesiana, se adopt\'o ampliamente porque ha demostrado ser una herramienta extremadamente útil en la pr\'actica.}
 %
 \en{But this is also a principled choice.}
 \es{Esto no es una elecci\'on ad-hoc.}
@@ -401,51 +404,51 @@
 \es{Esta expresi\'on nos permite actualizar de forma \'optima nuestras creencia sobre las hip\'otesis, dado un modelo y los datos.}
 %
 % \en{Given a probability distribution that represent our prior belief, using equation~\ref{eq:inference} we can optimally incorporate the new information into posterior belief.}
-% \es{Dadas una distribución de probabilidad a propri que represente nuestras creencias previas, usando la ecuación~\ref{eq:inference} podemos incorporar la nueva información en nuestras creencias a posteriori.}
+% \es{Dadas una distribuci\'on de probabilidad a propri que represente nuestras creencias previas, usando la ecuaci\'on~\ref{eq:inference} podemos incorporar la nueva informaci\'on en nuestras creencias a posteriori.}
 %
 \en{In our case we want to update our prior belief about the unknown skill using the observed result and the described causal model.}
 \es{En nuestro caso queremos actualizar nuestra creencia a priori sobre la habilidad desconocida usando el resultado observado y el modelo causal descrito.}
 %
 \begin{equation}\label{eq:inference}
- \underbrace{p(\overbrace{\text{\en{Skills}\es{Habilidades}}}^{\text{\en{Hidden}\es{Oculta}}}|\overbrace{\text{Result\es{ado}}}^{\text{Observ\en{ed}\es{ado}}}, \text{Model\es{o}})}_{\text{Posterior}} = \frac{\overbrace{P(\,\text{Result\es{ado}}\,|\,\text{\en{Skills}\es{Habilidades}}\,,\text{Model\es{o}})}^{\text{\en{Likelihood}\es{Verosimilitud}}}\overbrace{p(\text{\en{Skills}\es{Habilidades}})}^{\text{Prior}}}{\underbrace{P(\text{Result\es{ado}}\,|\,\text{Model\es{o}})}_{\text{Evidenc\en{e}\es{ia} o\en{r}\es{ predicción a} prior \en{prediction}}}}
+ \underbrace{p(\overbrace{\text{\en{Skills}\es{Habilidades}}}^{\text{\en{Hidden}\es{Oculta}}}|\overbrace{\text{Result\es{ado}}}^{\text{Observ\en{ed}\es{ado}}}, \text{Model\es{o}})}_{\text{Posterior}} = \frac{\overbrace{P(\,\text{Result\es{ado}}\,|\,\text{\en{Skills}\es{Habilidades}}\,,\text{Model\es{o}})}^{\text{\en{Likelihood}\es{Verosimilitud}}}\overbrace{p(\text{\en{Skills}\es{Habilidades}})}^{\text{Prior}}}{\underbrace{P(\text{Result\es{ado}}\,|\,\text{Model\es{o}})}_{\text{Evidenc\en{e}\es{ia} o\en{r}\es{ predicci\'on a} prior \en{prediction}}}}
 \end{equation}
 %
 \en{Where the hidden skills are the hypotheses, the observed results is the data, and the model is defined by the figure~\ref{fig:generative_model}.}
-\es{Donde las habilidades ocultas son las hipótesis, el resultado observado es el dato, y el modelo est\'a definido por la figura~\ref{fig:generative_model}.}
+\es{Donde las habilidades ocultas son las hip\'otesis, el resultado observado es el dato, y el modelo est\'a definido por la figura~\ref{fig:generative_model}.}
 %
 \en{In section~\ref{sec:analyticalSolution} we will see in detail how equation~\ref{eq:inference} is solved in general.}
-\es{En la sección~\ref{sec:analyticalSolution} veremos en detalle cómo se resuelve la ecuación~\ref{eq:inference} en general.}
+\es{En la secci\'on~\ref{sec:analyticalSolution} veremos en detalle c\'omo se resuelve la ecuaci\'on~\ref{eq:inference} en general.}
 %
 \en{As an instance, equation~\ref{eq:posterior_win} show the belief update for the winning case using Gaussian priors.}
-\es{A modo de ejemplo, en la ecuación~\ref{eq:posterior_win} se muestra la actualizaci\'on de creencias para el caso ganador usando Gaussiano como priors.}
+\es{A modo de ejemplo, en la ecuaci\'on~\ref{eq:posterior_win} se muestra la actualizaci\'on de creencias para el caso ganador usando Gaussiano como priors.}
 %
 \en{This result arises from applying the sum and product rule into the probabilistic model of Figure~\ref{fig:generative_model}.}
-\es{Este resultado surge de aplicar las reglas de las suma y el producto sobre el modelo probabilpístico de la figura~\ref{fig:generative_model}.}
+\es{Este resultado surge de aplicar las reglas de las suma y el producto sobre el modelo probabilp\'istico de la figura~\ref{fig:generative_model}.}
 %
 \en{From now on the role of the model is left implicit, according to notation conventions.}
-\es{A partir de ahora el rol del modelo se deja implícito, de acuerdo con convenciones de notación.}
+\es{A partir de ahora el rol del modelo se deja impl\'icito, de acuerdo con convenciones de notaci\'on.}
 %
 \begin{equation}\label{eq:posterior_win}
 \underbrace{p(s_i, r_{ij}|s_j)}_{\hfrac{\text{\scriptsize Proportional}}{\text{\scriptsize posterior}}} = \underbrace{\Phi(0 \, |  \overbrace{s_i^{\textcolor{white}{2}} - \mu_j}^{\delta(s_i)} , \, \overbrace{2\beta^2 + \sigma_j^2}^{\vartheta_i^2} )}_{\text{\en{Likelihood}\es{Verosimilitud}}} \,  \underbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}_{\text{Prior}} 
 \end{equation}
 %
 \en{Where the proportional posterior is just an unnormalized posterior, $p(s_i| r_{ij}, s_j) = \frac{p(s_i, r_{ij}|s_j)}{P(r_{ij})}$.}
-\es{El posterior no es más que el posterior proporcional normalizado por la evidencia, $p(s_i| r_{ij}, s_j) = \frac{p(s_i, r_{ij}|s_j)}{P(r_{ij})}$.}
+\es{El posterior no es m\'as que el posterior proporcional normalizado por la evidencia, $p(s_i| r_{ij}, s_j) = \frac{p(s_i, r_{ij}|s_j)}{P(r_{ij})}$.}
 %
 \en{Note that the only free variable is the hypothesis $s_i$.}
-\es{Notar que aquí la única variable libre es la hipótesis $s_i$.}
+\es{Notar que aqu\'i la única variable libre es la hip\'otesis $s_i$.}
 %
 \en{The density assigned a posteriori to each hypothesis $s_i$ is proportional to the product of the prior and the likelihood.}
-\es{La densidad asignada a posteriori a cada hipótesis $s_i$ es proporcional al producto del priori y la verosimilitud.}
+\es{La densidad asignada a posteriori a cada hip\'otesis $s_i$ es proporcional al producto del priori y la verosimilitud.}
 %
 \en{The symbol $\Phi$ represents a cumulative Gaussian distribution.}
-\es{El símbolo $\Phi$ representa la distribuci\'on Gaussiana acumulada.}
+\es{El s\'imbolo $\Phi$ representa la distribuci\'on Gaussiana acumulada.}
 %
 \en{Therefore, the likelihood compute all the density up to the value 0 of a Gaussian distribution centered on the difference between the skill hypothesis and the opponent's mean estimate, ($\delta(s_i) = s_i - \mu_j$), with a variance that includes all uncertainties except the one of $s_i$, ($\vartheta_i^2$).}
-\es{Por lo tanto, la verosimilitud computa toda la masa hasta el 0 de una distribución Gaussiana centrada en la diferencia entre la hipótesis de habilidad $s_i$ y la estimación media del oponente $\mu_j$, ($\delta(s_i)$), con una varianza que incluye todas las incertidumbres salvo la de la propia hipótesis $s_i$, ($\vartheta_i^2$).}
+\es{Por lo tanto, la verosimilitud computa toda la masa hasta el 0 de una distribuci\'on Gaussiana centrada en la diferencia entre la hip\'otesis de habilidad $s_i$ y la estimaci\'on media del oponente $\mu_j$, ($\delta(s_i)$), con una varianza que incluye todas las incertidumbres salvo la de la propia hip\'otesis $s_i$, ($\vartheta_i^2$).}
 %
 \en{This is a prior prediction of the observed result, made using all the skill hypotheses of the opponent, evaluated at the hypothesis $s_i$.}
-\es{Esto es una predicción a priori del resultado observado, realizada usando todas las hipótesis de habilidad del oponete, evaluada en la hipótesis $s_i$.}
+\es{Esto es una predicci\'on a priori del resultado observado, realizada usando todas las hip\'otesis de habilidad del oponete, evaluada en la hip\'otesis $s_i$.}
 %
 \en{Figure~\ref{fig:posterior_win} shows, in graphical terms, the updating procedure executed in equation~\ref{eq:posterior_win}.}
 \es{La figura~\ref{fig:posterior_win} muestra, en términos gr\'aficos, el procedimiento de actualizaci\'on que se realiza en la ecuaci\'on~\ref{eq:posterior_win}.}
@@ -460,13 +463,13 @@
     \es{Actualizaci\'on de creencias para el caso ganador.}
     %
     \en{The proportinal posterior distribution is obtained as the product of the prior (Gaussian distribution) and the likelihood (cumulative Gaussian distribution).}
-    \es{La distribuci\'on a posteriori proporcional se obtiene como el producto de la distribuci\'on a priori (distribución Gaussiana) y la verosimilitud (distribución Gaussiana acumulada).}
+    \es{La distribuci\'on a posteriori proporcional se obtiene como el producto de la distribuci\'on a priori (distribuci\'on Gaussiana) y la verosimilitud (distribuci\'on Gaussiana acumulada).}
     %
     \en{The surprise, defined as the complement of the likelihood, works as a filter for the prior.}
     \es{La sorpresa, definida como el complemento de la verosimilitud, funciona como un filtro para el prior.}
     %
     \en{The evidence is the integration of the posterior.}
-    \es{La evidencia es la integración del posterior.}
+    \es{La evidencia es la integraci\'on del posterior.}
     %
     \en{The distributions are not neccesary on the same scale: the prior integrates 1, while the likelihood goes from 0 to 1.}
     \es{Las distribuciones no est\'an en la misma escala: la distribuci\'on a priori integra 1, mientras que la verosimilitud va de 0 a 1.}
@@ -475,51 +478,51 @@
 \end{figure}
 %
 \en{The surprise of the prior prediction of the observed result works as a filter for the prior.}
-\es{La sorpresa de la predicción a priori del resultado observado funciona como filtro del prior.}
+\es{La sorpresa de la predicci\'on a priori del resultado observado funciona como filtro del prior.}
 %
 \en{The posterior receives the density of the prior no filtered by the likelihood.}
 \es{El posterior recibe la masa del prior no filtrada por la verosimilitud.}
 %
 \en{For each hypothesis $s_i$, the filtered density is exactly proportional to the magnitude of the surprise, defined as the complement of the likelihood.}
-\es{Para cada hipótesis $s_i$, la masa filtrada es exactamente proporcional a la magnitud de la sorpresa, definida como el complemento de la verosimilitud.}
+\es{Para cada hip\'otesis $s_i$, la masa filtrada es exactamente proporcional a la magnitud de la sorpresa, definida como el complemento de la verosimilitud.}
 %
 \en{At the region of very high skill hypotheses, where the winning result would have generated almost no surprise, the posterior receives almost all the density of the prior.}
-\es{En la región de hipótesis de muy alta habilidad, donde el resultado ganador no nos hubiera generado casi ninguna sorpresa, el posterior recibe casi toda la masa del prior.}
+\es{En la regi\'on de hip\'otesis de muy alta habilidad, donde el resultado ganador no nos hubiera generado casi ninguna sorpresa, el posterior recibe casi toda la masa del prior.}
 %
 \en{At the region of very low skill hypotheses, where the winning result would have generated a lot of surprise, the posterior receives almost no density from the prior.}
-\es{En cambio, en la región de hipótesis de muy baja habilidad, donde el resultado habría generado mucha sorpresa, el posterior no recibe casi nada de la masa del prior.}
+\es{En cambio, en la regi\'on de hip\'otesis de muy baja habilidad, donde el resultado habr\'ia generado mucha sorpresa, el posterior no recibe casi nada de la masa del prior.}
 
 % Parrafo
 
 \en{It is important to stress that the posterior, although similar, is not a Gaussian distribution.}
-\es{Es importante remarcar que la posterior, aunque se parezca, no es una distribución Gaussiana.}
+\es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on Gaussiana.}
 %
 \en{And without a Gaussian distribution we are prevented from using the equation~\ref{eq:posterior_win} iteratively.}
-\es{Y sin distribuciones Gaussianas nos vemos impedidos de usar la ecuación~\ref{eq:posterior_win} iterativamente.}
+\es{Y sin distribuciones Gaussianas nos vemos impedidos de usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
 %
 \en{This problem can be addressed through sampling techniques, as~\cite{fox2010-bayesianIRT} does to solve the Bayesian Item-Response Theory (BIRT) variants.}
 \es{Este problema puede ser tratado mediante técnicas de sampleo, tal como hace~\cite{fox2010-bayesianIRT} para resolver las variantes Bayesianas de Item-Response Theory (BIRT).}
 %
 %\en{Although sampling methodologies have the property of converging to the exact distribution, they demand a high computational cost.}
-%\es{Si bien las metodologías de sampleo tienen la propiedad de converger a la distribución exacta, exigen un alto costo computacional.}
+%\es{Si bien las metodolog\'ias de sampleo tienen la propiedad de converger a la distribuci\'on exacta, exigen un alto costo computacional.}
 %
 \en{Since the shape of the exact posterior can be approximated well enough with a Gaussian, the computational cost of the sampling methodologies can be avoided by implementing deterministic approximation techniques.}
-\es{Dado que la forma del posterior exacto puede ser aproximado suficientemente bien con una Gaussiana, el costo computacional de la metodologías de sampleo puede ser evitado implementando técnicas de aproximación determinística.}
+\es{Dado que la forma del posterior exacto puede ser aproximado suficientemente bien con una Gaussiana, el costo computacional de la metodolog\'ias de sampleo puede ser evitado implementando técnicas de aproximaci\'on determin\'istica.}
 %
 \en{The main contribution of the Glicko system~\cite{glikman_gliko_2} was the development of an efficient method to approximate the exact posterior with a Gasussian distribution.}
-\es{El principal aporte del sistema Glicko~\citep{glikman_gliko_2} fue el desarrolló de un método eficiente para aproximar la posterior exacta con una distribución Gasussiana.}
+\es{El principal aporte del sistema Glicko~\citep{glikman_gliko_2} fue el desarroll\'o de un método eficiente para aproximar la posterior exacta con una distribuci\'on Gasussiana.}
 %
 \en{However, the methodology offers no guarantee that the selected Gaussian is the one that best approximates the exact posterior.}
-\es{Sin embargo, la metodología no ofrece garantías de que la Gaussiana seleccionada sea la que mejor aproxima al posterior exacto.}
+\es{Sin embargo, la metodolog\'ia no ofrece garant\'ias de que la Gaussiana seleccionada sea la que mejor aproxima al posterior exacto.}
 %
 \en{The success of the TrueSkill solution~\citep{herbrich2006-trueskill} is based on the application of an efficient method for calculating the Gaussian that best approximates the exact posterior.}
-\es{El éxito de la solución TrueSkill~\citep{herbrich2006-trueskill} se basa en la aplicación de método eficiente para calcular la Gaussiana que mejor aproxima a la posterior exacta.}
+\es{El éxito de la soluci\'on TrueSkill~\citep{herbrich2006-trueskill} se basa en la aplicaci\'on de método eficiente para calcular la Gaussiana que mejor aproxima a la posterior exacta.}
 %
 \en{Methodological details are described in the section~\ref{sec:approximateSolution}.}
-\es{Los detalles metodológicos se describen en la sección~\ref{sec:approximateSolution}.}
+\es{Los detalles metodol\'ogicos se describen en la secci\'on~\ref{sec:approximateSolution}.}
 %
 \en{This technical advance allowed to apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
-\es{Este avance técnico permitió aplicar la ecuación~\ref{eq:posterior_win} sobre una secuencia de observaciones.}
+\es{Este avance técnico permiti\'o aplicar la ecuaci\'on~\ref{eq:posterior_win} sobre una secuencia de observaciones.}
 
 % Parrafo
 
@@ -527,10 +530,10 @@
 \es{El aprendizaje es un proceso temporal.}
 %
 \en{However, the causal model presented in Figure~\ref{fig:generative_model} assumes that the unknown skill is fixed at a given time.}
-\es{Sin embargo, el modelo causal presentado en la Figura~\ref{fig:generative_model} supone que en un determinado momento la habilidad está fija.}
+\es{Sin embargo, el modelo causal presentado en la Figura~\ref{fig:generative_model} supone que en un determinado momento la habilidad est\'a fija.}
 %
 \en{The simplest approach treat a sequence of observations as an ordered list of independent causal models.}
-\es{El enfoque más sencillo trata las secuencia de observaciones como una lista ordenada de modelos causales indepedientes.}
+\es{El enfoque m\'as sencillo trata las secuencia de observaciones como una lista ordenada de modelos causales indepedientes.}
 %
 \en{All the mentioned solutions (TrueSkill, Glicko and BIRT) model the temporal process as shown in the Figure~\ref{fig:filter}.}
 \es{Todas las soluciones mencionadas (TrueSkill, Glicko and BIRT) modelan el proceso temporal como se muestra en la Figura~\ref{fig:filter}.}
@@ -581,36 +584,36 @@
 \end{figure}
 %
 \en{Even the graphical model assumes independent events, the approach known as \emph{filtering} uses the posterior estimates at time $t-1$ as prior of time $t$.}
-\es{Aunque el modelo gráfico asume eventos independientes, el enfoque conocido como \emph{filtering} usa las estimaciones a posteriori del tiempo $t-1$ como como prior del tiempo $t$.}
+\es{Aunque el modelo gr\'afico asume eventos independientes, el enfoque conocido como \emph{filtering} usa las estimaciones a posteriori del tiempo $t-1$ como como prior del tiempo $t$.}
 %
 \begin{equation}\label{eq:filter}
  \text{Posterior}^t \propto \text{Likelihood}^t (\overbrace{\text{Likelihood}^{t-1} (\dots (\underbrace{\text{Likelihood}^{1} \text{Prior}^1}_{\ \text{Prior}^2} ))}^{\text{Prior}^{t}} )
 \end{equation}
 %
 \en{If we consider the likelihood as a filter of the prior, the estimates made at a time $t$ can be seen as the accumulation of all previous filters.}
-\es{Si consideramos a la verosimilitud como un filtro del prior, las estimaciones hechas en el tiempo $t$ pueden ser vistas como la acumulación de todos los filtros anterios.}
+\es{Si consideramos a la verosimilitud como un filtro del prior, las estimaciones hechas en el tiempo $t$ pueden ser vistas como la acumulaci\'on de todos los filtros anterios.}
 %
 \en{In this way, information propagates from past to future estimates.}
-\es{De esta forma, la información propaga del estimaciones pasadas hacia futuras.}
+\es{De esta forma, la informaci\'on propaga del estimaciones pasadas hacia futuras.}
 %
 \en{In our case, since skills are dynamic variables it is important to add uncertainty in each step.}
-\es{En nuestro caso, debido a que las habilidades son variables dinámicas es importante agregar incertidumbre en cada paso.}
+\es{En nuestro caso, debido a que las habilidades son variables din\'amicas es importante agregar incertidumbre en cada paso.}
 %
 \begin{equation}\label{eq:dynamic_factor}
  \text{Prior}^t \sim \N(\text{Posterior}^{t-1}, \gamma^2)
  \end{equation}
 %
 \en{This solves the dynamic aspect.}
-\es{Esto resuelve el aspecto dinámico.}
+\es{Esto resuelve el aspecto din\'amico.}
 %
 \en{However, the imperfect representation of the temporal process, as a sequence of independent events, introduces a series of problems.}
-\es{Sin embargo, la representación imperfecta del proceso temporal, como secuencia de eventos independientes, introduce una serie de problemas.}
+\es{Sin embargo, la representaci\'on imperfecta del proceso temporal, como secuencia de eventos independientes, introduce una serie de problemas.}
 %
 \en{All weaknesses of the filtering approach are due to the fact that information propagates in the system in only one direction.}
-\es{Todas las debilidades del enfoque \emph{filtering} se deben a que la información propaga en el sistema en un solo sentido.}
+\es{Todas las debilidades del enfoque \emph{filtering} se deben a que la informaci\'on propaga en el sistema en un solo sentido.}
 %
 \en{The most obvious consecuence is that the beginning of any sequence of estimations always has high uncertainty, making them useless.}
-\es{El consecuencia más evidente es que el inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre, lo que las hace inservibles.}
+\es{El consecuencia m\'as evidente es que el inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre, lo que las hace inservibles.}
 %
 \en{There are, however, others less obvious problems to keep in mind. }
 \es{Existe sin embago otros problemas menos evidentes a tener en mente.}
@@ -622,7 +625,7 @@
 \es{Para entenderlos es importante recordar que los resultados observados dependen solo de la diferencia de habilidades, y no de su valor absoluto.}
 %
 \en{It may happen that the relative differences are correct between contemporary estimates but not between estimates separated in time, preventing temporal comparability.}
-\es{Puede ocurrir que las diferencias relativas sean correctas entre estimaciones contemporáneas pero no entre estimaciones separadas en el tiempo, impidiendo la comparabilidad temporal.}
+\es{Puede ocurrir que las diferencias relativas sean correctas entre estimaciones contempor\'aneas pero no entre estimaciones separadas en el tiempo, impidiendo la comparabilidad temporal.}
 %
 \en{Similarly, it may happen that within well-connected communities the relative difference are correct, but not between poorly connected communities, preventing comparability between communities.}
 \es{De modo similar puede ocurrir que al interior de comunidades bien conectadas la diferencia relativa sean correctas, pero no entre comunidades poco conectadas, impidiendo comparabilidad entre comunidades.}
@@ -630,19 +633,19 @@
 %Parrafo
 
 \en{We need a better representation of the temporal process: a single causal model that links all historical activities.}
-\es{Necesitamos una mejor representación del proceso temporal: un único modelo causal que vincule todas las actividades históricas. }
+\es{Necesitamos una mejor representaci\'on del proceso temporal: un único modelo causal que vincule todas las actividades hist\'oricas. }
 %
 \en{It is difficult to imagine the complex structure that these types of graphical models acquire.}
-\es{Es difícil imaginar la compleja estructura que adquieren este tipo de modelos gráficos.}
+\es{Es dif\'icil imaginar la compleja estructura que adquieren este tipo de modelos gr\'aficos.}
 %
 \en{Having a single model allows historical information to propagate throughout the system, solving the decoupling problems mentioned above.}
-\es{Contar con un único modelo permite que la información histórica propage hacia todo el sistema, resuelviendo los problemas de desacoplamiento antes mencionados.}
+\es{Contar con un único modelo permite que la informaci\'on hist\'orica propage hacia todo el sistema, resuelviendo los problemas de desacoplamiento antes mencionados.}
 %
 \en{This is the approach implemented by TrueSkill Through Time~\citep{dangauthier2008-trueskillThroughTime}.}
 \es{Este es el enfoque implementado por TrueSkill Through Time~\citep{dangauthier2008-trueskillThroughTime}.}
 %
 \en{Figure~\ref{fig:smoothing} shows the closest neighbors of a sequence of estimates.}
-\es{En la figura~\ref{fig:smoothing} se muestra los vecinos más próximos de una secuencia de estimaciones.}
+\es{En la figura~\ref{fig:smoothing} se muestra los vecinos m\'as pr\'oximos de una secuencia de estimaciones.}
 %
 \begin{figure}[h!]
   \centering
@@ -682,7 +685,7 @@
   \es{El abordaje conocido como \emph{smoothing} representa toda la historia de actividades mediante un único modelo causal.}
   %
   \en{Only the neighbors of a sequence of estimates are displayed.}
-  \es{Sólo se muestra  los vecinos de una secuencia de estimaciones.}
+  \es{S\'olo se muestra  los vecinos de una secuencia de estimaciones.}
    %
   \en{These types of models are known as \emph{state-space models}.}
   \es{Este tipo de modelos se conocen como \emph{state space models}.}
@@ -694,7 +697,7 @@
 \es{La inferencia en este modelo causal único se realiza mediante las dos reglas del razonamiento con incertidumbre: la regla de la suma y del producto.}
 %
 \en{The general solution of the posterior and the prior can be found in section~\ref{sec:throguthTime}.}
-\es{La solución general del posterior y el prior se encuentra en la sección~\ref{sec:throguthTime}.}
+\es{La soluci\'on general del posterior y el prior se encuentra en la secci\'on~\ref{sec:throguthTime}.}
 %
 Para ejemplificar, mostramos la soluci\'on  con $\gamma = 0$.
 % %
@@ -702,43 +705,43 @@ Para ejemplificar, mostramos la soluci\'on  con $\gamma = 0$.
  \text{Posterior}_i^t = \text{Prior}_i^0 \prod_{k = 1}^T \text{\en{Likelihood}\es{Verosimilitud}}_i^k 
 \end{equation}
 %
-El posterior en un tiempo $t$ es la multiplicación de todas las verosimilitudes: futuras, pasadas y presente.
+El posterior en un tiempo $t$ es la multiplicaci\'on de todas las verosimilitudes: futuras, pasadas y presente.
 %
-El prior en un tiempo $t$ en cambio es la multiplicación de las verosimilitudes, futuras y pasadas, salvo la presente.
+El prior en un tiempo $t$ en cambio es la multiplicaci\'on de las verosimilitudes, futuras y pasadas, salvo la presente.
 %
 \begin{equation}\label{eq:smooth_prior}
  \text{Prior}_i^t = \text{Prior}_i^0 \underbrace{\prod_{k = 1}^{t-1} \text{\en{Likelihood}\es{Verosimilitud}}_i^k}_{\text{Past information}} \underbrace{\prod_{k = 1}^{t+1} \text{\en{Likelihood}\es{Verosimilitud}}_i^k}_{\text{Future information}}
 \end{equation}
 %
-A primera vista puede parecer que la única diferencia de las ecuaciones~\ref{eq:smooth_posterior} y~\ref{eq:smooth_prior} respecto de la solución de filtro consiste en agregar al producto las verosimilitudes provenientes del futuro.
+A primera vista puede parecer que la única diferencia de las ecuaciones~\ref{eq:smooth_posterior} y~\ref{eq:smooth_prior} respecto de la soluci\'on de filtro consiste en agregar al producto las verosimilitudes provenientes del futuro.
 %
 Sin embargo, como consecuencia de considerar a todas las obervaciones en un único modelo generativo, hay una mutua dependencia entre los elementos del sistema.
 %
-La verosimilitud, por ejemplo, es una función que depende del resto de las verosimilitudes.
+La verosimilitud, por ejemplo, es una funci\'on que depende del resto de las verosimilitudes.
 \begin{equation}
  \text{\en{Likelihood}\es{Verosimilitud}}_{ij}^t(\text{Prior}_i^t, \text{Prior}_j^t) 
 \end{equation}
 %
 Hay una mutua dependencia entre las verosimilitudes.
 %
-Para poder calcular una primer verosimilitud, sería necesario definir todos las verosimilitudes con un valor inicial.
+Para poder calcular una primer verosimilitud, ser\'ia necesario definir todos las verosimilitudes con un valor inicial.
 %
-La solución estandar es considerar que el valor inicial de todos los likelihoods es neutro, excluyéndolos del producto mientras no hayan sido calculados todavía.
+La soluci\'on estandar es considerar que el valor inicial de todos los likelihoods es neutro, excluyéndolos del producto mientras no hayan sido calculados todav\'ia.
 %
-Una vez todas fueron calculadas, será necesario reculalcular nuevamente todos las verosimilitudes, debido a que los valores iniciales con los que fueron caclulados han cambiado.
+Una vez todas fueron calculadas, ser\'a necesario reculalcular nuevamente todos las verosimilitudes, debido a que los valores iniciales con los que fueron caclulados han cambiado.
 %
 \en{Por eso, it is necessary to implement an iterative solution known as loopy belief propagation (details at section~\ref{sec:throguthTime}).}
-\es{Por este motivo es necesario implementar un algoritmo iterativo eficiente, conocido como \emph{loopy belief propagation} (detalles en la sección~\ref{sec:throguthTime}).}
+\es{Por este motivo es necesario implementar un algoritmo iterativo eficiente, conocido como \emph{loopy belief propagation} (detalles en la secci\'on~\ref{sec:throguthTime}).}
 
 % Parrafo
 
 En este punto es razonable preguntarse si los priors de los \emph{state-space} model son priors honestos en el sentido de que desconocen la informacion del dato  para el que son priors.
 % 
-Si bien en la ecuación~\ref{eq:smooth_prior} vimos que el prior efectivamente no se multiplica directamente por el likelihood presente, ¿Será que la información de ese likelihood esta siendo incorporada de manera oculta por el algoritmo iterativo?
+Si bien en la ecuaci\'on~\ref{eq:smooth_prior} vimos que el prior efectivamente no se multiplica directamente por el likelihood presente, ¿Ser\'a que la informaci\'on de ese likelihood esta siendo incorporada de manera oculta por el algoritmo iterativo?
 %
-Si esto fuera así, entonces en cada paso de la convergencia debería ocurrir que la sorpresa disminuye.
+Si esto fuera as\'i, entonces en cada paso de la convergencia deber\'ia ocurrir que la sorpresa disminuye.
 %
-Para responder a este pregunta y para entender el funcionamiento general de los state-space models mostramos en la Figura~\ref{fig:smooth_example} una solcución de forma gráfica.
+Para responder a este pregunta y para entender el funcionamiento general de los state-space models mostramos en la Figura~\ref{fig:smooth_example} una solcuci\'on de forma gr\'afica.
 %
 \begin{figure}[h!]
   \centering
@@ -854,7 +857,7 @@ Para responder a este pregunta y para entender el funcionamiento general de los 
     \es{El escenario cuenta con dos grupos de tres jugadores cada uno.}
     %
     \en{Inside each group the sequence \emph{A beats B, B beats C and C beats A} is observed twice, giving us 4 estimates per player.}
-    \es{Al interior de cada grupo la secuencia \emph{A le gana a B, B le gana a C y C le gana a A} se observa dos veces, dándonos 4 estimaciones por jugador.}
+    \es{Al interior de cada grupo la secuencia \emph{A le gana a B, B le gana a C y C le gana a A} se observa dos veces, d\'andonos 4 estimaciones por jugador.}
     %
     \en{Then two players, one from each group, compete eight times, one of them wins 75\% of the games.}
     \es{Luego dos jugadores, uno de cada grupo, compiten ocho veces, uno de ellos gana 75\% de las partidas.} 
@@ -863,7 +866,7 @@ Para responder a este pregunta y para entender el funcionamiento general de los 
     \es{Solo se muestran las primeras 4 estimaciones por jugador.}
     %
     \en{TTT quickly recovers the real skill differences.}
-    \es{TTT rápidamente recupera las diferencias de habilidad correcta.}
+    \es{TTT r\'apidamente recupera las diferencias de habilidad correcta.}
     %
     \en{For comparison, the same scale is used in both figures.}
     \es{Para comparar, se utiliza la misma escala en ambas figuras.}    
@@ -875,10 +878,10 @@ Para responder a este pregunta y para entender el funcionamiento general de los 
 \es{TrueSkill Through Time recupera las verdaderas diferencias entre habilidades ocultas incluso al principio de la secuencia.}
 %    
 \en{This methodology has not been available until now in any of the major programming languages.}
-\es{Esta metodología no había estado hasta ahora disponible en ninguno de los principales lenguajes de programación.}
+\es{Esta metodolog\'ia no hab\'ia estado hasta ahora disponible en ninguno de los principales lenguajes de programaci\'on.}
 %
 \en{This paper we make available their packages for \proglang{R}, \proglang{Python} and \proglang{Julia}, together with its scientific documentation.}
-\es{Este artículo poneme a disposición sus paquetes para \proglang{R}, \proglang{Python} y \proglang{Julia}, junto con su documentación científica.}
+\es{Este art\'iculo poneme a disposici\'on sus paquetes para \proglang{R}, \proglang{Python} y \proglang{Julia}, junto con su documentaci\'on cient\'ifica.}
 
 
 \newpage
@@ -1088,8 +1091,8 @@ Intuitivamente sabemos que la probabilidad de empate depende de la diferencia de
 Por eso, cuando hablamos de \textbf{una} probabilidad emp\'irica, en el fondo estamos pensando \textbf{la} probabilidad emp\'irica para una diferencia de habilidad determinada.
 En particular \textbf{la probabilidad de empates para jugadores \emph{si tuviera misma habilidad}}.
 En este punto nos estamos mordiendo la cola, porque estamos construyendo el modelo para estimar habilidades justamente porque no las conocemos.
-En este punto es bueno remarcar que la probabilidad de empate para jugadores de misma habilidad, así como el $\beta$, es un valor en buen medida arbitraro de nuestro modelo.
-Si lo quisieramos estimar, deberíamos proponer una distirbuci\'on de creencias a priori, y actualizarla con nuestro modelo.
+En este punto es bueno remarcar que la probabilidad de empate para jugadores de misma habilidad, as\'i como el $\beta$, es un valor en buen medida arbitraro de nuestro modelo.
+Si lo quisieramos estimar, deber\'iamos proponer una distirbuci\'on de creencias a priori, y actualizarla con nuestro modelo.
 
 \vspace{0.3cm}
 
@@ -1099,7 +1102,7 @@ El \'unico par\'ametro libre en este caso es la cantidad de jugadores en los equ
 \begin{figure}[H]
 \centering
   \includegraphics[page=2,width=0.5\textwidth]{figures/draw.pdf}
-  \caption{Distribuci\'on de probabilidades de diferencias de rendimientos, y área correspondiente a la probabilidad de empate $0.25$}
+  \caption{Distribuci\'on de probabilidades de diferencias de rendimientos, y \'area correspondiente a la probabilidad de empate $0.25$}
   \label{fig:draw}
 \end{figure}
 
@@ -1815,132 +1818,131 @@ information such as relative contributions of the authors may be added here
 %% - Titles in the .bib should be in title case.
 %% - DOIs should be included where available.
 
-%\bibliography{article.bib}
-%\bibliography{../../bibliografia/Gaming/gaming}
-\begin{thebibliography}{18}
-\small
-\newcommand{\enquote}[1]{``#1''}
-\providecommand{\natexlab}[1]{#1}
-\providecommand{\url}[1]{\texttt{#1}}
-\providecommand{\urlprefix}{URL }
-\expandafter\ifx\csname urlstyle\endcsname\relax
-  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
-  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
-  \urlstyle{rm}\Url}\fi
-\providecommand{\eprint}[2][]{\url{#2}}
-
-\bibitem[{Bradley and Terry(1952)}]{bradley1952-pairedComparisions}
-Bradley RA, Terry ME (1952).
-\newblock \enquote{Rank analysis of incomplete block designs: I. The method of
-  paired comparisons.}
-\newblock \emph{Biometrika}, \textbf{39}(3/4), 324--345.
-
-\bibitem[{Cox(1946)}]{cox1946-reasonableExpectation}
-Cox RT (1946).
-\newblock \enquote{Probability, frequency and reasonable expectation.}
-\newblock \emph{American journal of physics}, \textbf{14}(1), 1--13.
-
-\bibitem[{Dangauthier \emph{et~al.}(2008)}]{dangauthier2008-trueskillThroughTime}
-Dangauthier P, Herbrich R, Minka T, Graepel T (2008).
-\newblock \enquote{Trueskill through time: Revisiting the history of chess.}
-\newblock In \emph{Advances in Neural Information Processing Systems}, pp.
-  337--344.
-
-\bibitem[{Derex and Mesoudi(2020)}]{derex2020-populationStructure}
-Derex M, Mesoudi A (2020).
-\newblock \enquote{Cumulative Cultural Evolution within Evolving Population
-  Structures.}
-\newblock \emph{Trends in Cognitive Science}.
-
-\bibitem[{Elo(1961)}]{elo1961-uscf}
-Elo AE (1961).
-\newblock \emph{The USCF rating system}.
-\newblock U.S. Chess Federation publication.
-
-\bibitem[{Fox(2010)}]{fox2010-bayesianIRT}
-Fox JP (2010).
-\newblock \emph{Bayesian item response modeling: Theory and applications}.
-\newblock Springer Science \& Business Media.
-
-\bibitem[{Glickman(2013)}]{glikman_gliko_2}
-Glickman M (2013).
-\newblock \enquote{Example of the Glicko-2 system.}
-\newblock \url{http://www.glicko.net/glicko/glicko2.pdf}.
-\newblock Accessed: 2016-07-12.
-
-\bibitem[{Gonz{\'a}lez-Forero and Gardner(2018)}]{GonzalezForero2018}
-Gonz{\'a}lez-Forero M, Gardner A (2018).
-\newblock \enquote{Inference of ecological and social drivers of human
-  brain-size evolution.}
-\newblock \emph{Nature}, \textbf{557}(7706), 554--557.
-
-\bibitem[{Herbrich \emph{et~al.}(2006)}]{herbrich2006-trueskill}
-Herbrich R, Minka R, Graepel T (2006).
-\newblock \enquote{TrueSkill: A Bayesian Skill Rating System.}
-\newblock In \emph{Advances in Neural Information Processing Systems 19}, pp.
-  569--576. MIT Press, Cambridge, MA.
-
-\bibitem[{Herrmann \emph{et~al.}(2007)}]{Herrmann2007}
-Herrmann E, Call J, Hern{\'a}ndez-Lloreda MV, Hare B, Tomasello M (2007).
-\newblock \enquote{Humans have evolved specialized skills of social cognition:
-  The cultural intelligence hypothesis.}
-\newblock \emph{science}, \textbf{317}(5843), 1360--1366.
-
-\bibitem[{Jones(2011)}]{Jones2011}
-Jones JH (2011).
-\newblock \enquote{Primates and the evolution of long, slow life histories.}
-\newblock \emph{Current Biology}, \textbf{21}(18), R708--R717.
-
-\bibitem[{Koster \emph{et~al.}(2020)}]{Koster2020}
-Koster J, McElreath R, Hill K, Yu D, Shepard G, Van~Vliet N, Gurven M, Trumble
-  B, Bird RB, Bird D, Codding B, Coad L, Pacheco-Cobos L, Winterhalder B, Lupo
-  K, Schmitt D, Sillitoe P, Franzen M, Alvard M, Venkataraman V, Kraft T,
-  Endicott K, Beckerman S, Marks S, Headland T, Pangau-Adam M, Siren A, Kramer
-  K, Greaves R, Reyes-Garc\'i V, Gu\`eze M, Duda R, Fern\'andez-Llamazares A,
-  Gallois S, Napitupulu L, Ellen R, Ziker J, Nielsen M, Ready E, Healey C, Ross
-  C (2020).
-\newblock \enquote{The life history of human foraging: Cross-cultural and
-  individual variation.}
-\newblock \emph{Science Advances}, \textbf{6}(26), eaax9070.
-
-\bibitem[{Kschischang \emph{et~al.}(2001)}]{kschischang2001-factorGraphsAndTheSumProductAlgorithm}
-Kschischang FR, Frey BJ, Loeliger HA (2001).
-\newblock \enquote{Factor graphs and the sum-product algorithm.}
-\newblock \emph{IEEE Transactions on information theory}, \textbf{47}(2),
-  498--519.
-
-\bibitem[{Mosteller(1951)}]{mosteller1951-remarks}
-Mosteller F (1951).
-\newblock \enquote{Remarks on the method of paired comparisons: I, II and III.}
-\newblock \emph{Psychometrika}, \textbf{16}(2).
-
-\bibitem[{Thurstone(1927)}]{thurstone1927-comparativeJugement}
-Thurstone LL (1927).
-\newblock \enquote{A law of comparative judgment.}
-\newblock \emph{Psychological review}, \textbf{34}(4), 273.
-
-\bibitem[{van~der Linden(2016)}]{vanDerLinden2016-handbookIRT_1}
-van~der Linden WJ (2016).
-\newblock \emph{Handbook of Item Response Theory, Volume 1: Models}.
-\newblock Chapman and Hall/CRC.
-
-\bibitem[{Van~Horn(2003)}]{vanHorn2003-guideCoxTheorem}
-Van~Horn KS (2003).
-\newblock \enquote{Constructing a logic of plausible inference: a guide to
-  cox’s theorem.}
-\newblock \emph{International Journal of Approximate Reasoning},
-  \textbf{34}(1), 3--24.
-
-\bibitem[{Zermelo([1929] 2013)}]{zermelo1929-translation}
-Zermelo E ([1929] 2013).
-\newblock \enquote{The calculation of the results of a tournament as a maximum
-  problem in the calculus of probability (translation of 1929 paper).}
-\newblock In HD~Ebbinghaus, A~Kanamori (eds.), \emph{Ernst Zermelo - Collected
-  Works Volume II}. Springer-Verlag Berlin Heidelberg.
-\newblock ISBN 978-3-540-70856-8.
-\newblock \doi{10.1007/978-3-540-70856-8}.
-
-\end{thebibliography}
+\bibliography{../../bibliografia/Gaming/gaming}
+% \begin{thebibliography}{18}
+% \small
+% \newcommand{\enquote}[1]{``#1''}
+% \providecommand{\natexlab}[1]{#1}
+% \providecommand{\url}[1]{\texttt{#1}}
+% \providecommand{\urlprefix}{URL }
+% \expandafter\ifx\csname urlstyle\endcsname\relax
+%   \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+%   \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+%   \urlstyle{rm}\Url}\fi
+% \providecommand{\eprint}[2][]{\url{#2}}
+% 
+% \bibitem[{Bradley and Terry(1952)}]{bradley1952-pairedComparisions}
+% Bradley RA, Terry ME (1952).
+% \newblock \enquote{Rank analysis of incomplete block designs: I. The method of
+%   paired comparisons.}
+% \newblock \emph{Biometrika}, \textbf{39}(3/4), 324--345.
+% 
+% \bibitem[{Cox(1946)}]{cox1946-reasonableExpectation}
+% Cox RT (1946).
+% \newblock \enquote{Probability, frequency and reasonable expectation.}
+% \newblock \emph{American journal of physics}, \textbf{14}(1), 1--13.
+% 
+% \bibitem[{Dangauthier \emph{et~al.}(2008)}]{dangauthier2008-trueskillThroughTime}
+% Dangauthier P, Herbrich R, Minka T, Graepel T (2008).
+% \newblock \enquote{Trueskill through time: Revisiting the history of chess.}
+% \newblock In \emph{Advances in Neural Information Processing Systems}, pp.
+%   337--344.
+% 
+% \bibitem[{Derex and Mesoudi(2020)}]{derex2020-populationStructure}
+% Derex M, Mesoudi A (2020).
+% \newblock \enquote{Cumulative Cultural Evolution within Evolving Population
+%   Structures.}
+% \newblock \emph{Trends in Cognitive Science}.
+% 
+% \bibitem[{Elo(1961)}]{elo1961-uscf}
+% Elo AE (1961).
+% \newblock \emph{The USCF rating system}.
+% \newblock U.S. Chess Federation publication.
+% 
+% \bibitem[{Fox(2010)}]{fox2010-bayesianIRT}
+% Fox JP (2010).
+% \newblock \emph{Bayesian item response modeling: Theory and applications}.
+% \newblock Springer Science \& Business Media.
+% 
+% \bibitem[{Glickman(2013)}]{glikman_gliko_2}
+% Glickman M (2013).
+% \newblock \enquote{Example of the Glicko-2 system.}
+% \newblock \url{http://www.glicko.net/glicko/glicko2.pdf}.
+% \newblock Accessed: 2016-07-12.
+% 
+% \bibitem[{Gonz{\'a}lez-Forero and Gardner(2018)}]{GonzalezForero2018}
+% Gonz{\'a}lez-Forero M, Gardner A (2018).
+% \newblock \enquote{Inference of ecological and social drivers of human
+%   brain-size evolution.}
+% \newblock \emph{Nature}, \textbf{557}(7706), 554--557.
+% 
+% \bibitem[{Herbrich \emph{et~al.}(2006)}]{herbrich2006-trueskill}
+% Herbrich R, Minka R, Graepel T (2006).
+% \newblock \enquote{TrueSkill: A Bayesian Skill Rating System.}
+% \newblock In \emph{Advances in Neural Information Processing Systems 19}, pp.
+%   569--576. MIT Press, Cambridge, MA.
+% 
+% \bibitem[{Herrmann \emph{et~al.}(2007)}]{Herrmann2007}
+% Herrmann E, Call J, Hern{\'a}ndez-Lloreda MV, Hare B, Tomasello M (2007).
+% \newblock \enquote{Humans have evolved specialized skills of social cognition:
+%   The cultural intelligence hypothesis.}
+% \newblock \emph{science}, \textbf{317}(5843), 1360--1366.
+% 
+% \bibitem[{Jones(2011)}]{Jones2011}
+% Jones JH (2011).
+% \newblock \enquote{Primates and the evolution of long, slow life histories.}
+% \newblock \emph{Current Biology}, \textbf{21}(18), R708--R717.
+% 
+% \bibitem[{Koster \emph{et~al.}(2020)}]{Koster2020}
+% Koster J, McElreath R, Hill K, Yu D, Shepard G, Van~Vliet N, Gurven M, Trumble
+%   B, Bird RB, Bird D, Codding B, Coad L, Pacheco-Cobos L, Winterhalder B, Lupo
+%   K, Schmitt D, Sillitoe P, Franzen M, Alvard M, Venkataraman V, Kraft T,
+%   Endicott K, Beckerman S, Marks S, Headland T, Pangau-Adam M, Siren A, Kramer
+%   K, Greaves R, Reyes-Garc\'i V, Gu\`eze M, Duda R, Fern\'andez-Llamazares A,
+%   Gallois S, Napitupulu L, Ellen R, Ziker J, Nielsen M, Ready E, Healey C, Ross
+%   C (2020).
+% \newblock \enquote{The life history of human foraging: Cross-cultural and
+%   individual variation.}
+% \newblock \emph{Science Advances}, \textbf{6}(26), eaax9070.
+% 
+% \bibitem[{Kschischang \emph{et~al.}(2001)}]{kschischang2001-factorGraphsAndTheSumProductAlgorithm}
+% Kschischang FR, Frey BJ, Loeliger HA (2001).
+% \newblock \enquote{Factor graphs and the sum-product algorithm.}
+% \newblock \emph{IEEE Transactions on information theory}, \textbf{47}(2),
+%   498--519.
+% 
+% \bibitem[{Mosteller(1951)}]{mosteller1951-remarks}
+% Mosteller F (1951).
+% \newblock \enquote{Remarks on the method of paired comparisons: I, II and III.}
+% \newblock \emph{Psychometrika}, \textbf{16}(2).
+% 
+% \bibitem[{Thurstone(1927)}]{thurstone1927-comparativeJugement}
+% Thurstone LL (1927).
+% \newblock \enquote{A law of comparative judgment.}
+% \newblock \emph{Psychological review}, \textbf{34}(4), 273.
+% 
+% \bibitem[{van~der Linden(2016)}]{vanDerLinden2016-handbookIRT_1}
+% van~der Linden WJ (2016).
+% \newblock \emph{Handbook of Item Response Theory, Volume 1: Models}.
+% \newblock Chapman and Hall/CRC.
+% 
+% \bibitem[{Van~Horn(2003)}]{vanHorn2003-guideCoxTheorem}
+% Van~Horn KS (2003).
+% \newblock \enquote{Constructing a logic of plausible inference: a guide to
+%   cox’s theorem.}
+% \newblock \emph{International Journal of Approximate Reasoning},
+%   \textbf{34}(1), 3--24.
+% 
+% \bibitem[{Zermelo([1929] 2013)}]{zermelo1929-translation}
+% Zermelo E ([1929] 2013).
+% \newblock \enquote{The calculation of the results of a tournament as a maximum
+%   problem in the calculus of probability (translation of 1929 paper).}
+% \newblock In HD~Ebbinghaus, A~Kanamori (eds.), \emph{Ernst Zermelo - Collected
+%   Works Volume II}. Springer-Verlag Berlin Heidelberg.
+% \newblock ISBN 978-3-540-70856-8.
+% \newblock \doi{10.1007/978-3-540-70856-8}.
+% 
+% \end{thebibliography}
 
 
 
