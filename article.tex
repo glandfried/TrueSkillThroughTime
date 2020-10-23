@@ -1650,31 +1650,35 @@ In this case we don't need to loop manually through the data set.
 	\label{tab:csvExample2}
 \end{table}
 
-\subsection{Example 2 old implementation}
-As we can see, the implantation requires a more manual job, by defining dictionary and also adding noise to the priors, like the TrueSkill algorithm suggest. This default noise can be change to other. 
-The only thing we must do manually its to pass the input in the correct format.
-\lstinputlisting{./code/Example2.py}
-[Out]:Time $7.7$ $10^{-3}$ seconds
-
-In this example, we use the method get, so we can use the global prior only for the first game for each player.
-As the same way of the first example, we are updating the prior of each player with the posterior of each game.
-In this case we are saving this in a dictionary with the name of each player as key.
-Printing at the end this, we will have each player with the latest posterior.
-
-% explicar como usar la salida
-\subsection{Example 2 new implementation}
+% \subsubsection{Existing Implementation}
+% 
+% As we can see, the implantation requires a more manual job, by defining dictionary and also adding noise to the priors, like the TrueSkill algorithm suggest. This default noise can be change to other. 
+% The only thing we must do manually its to pass the input in the correct format.
+% \lstinputlisting{./code/Example2.py}
+% [Out]:Time $7.7$ $10^{-3}$ seconds
+% 
+% In this example, we use the method get, so we can use the global prior only for the first game for each player.
+% As the same way of the first example, we are updating the prior of each player with the posterior of each game.
+% In this case we are saving this in a dictionary with the name of each player as key.
+% Printing at the end this, we will have each player with the latest posterior.
+% 
+% % explicar como usar la salida
+% \subsubsection{Our proposed Implementation}
 \lstinputlisting{./code/Example2-1.py}
 [Out]:Time $2.8$ $10^{-3}$ seconds
+\todo[inline]{No olvidar agregar los prints que muestra este c\'odigo, no solo el Out}
 
-In this new implementation, we create a object of the method \texttt{history}, passing it the game composition, that is a list with a list for each game, and inside one list for each team, and also passing the result of each game.
-REVISAR SI PASE BIEN EL RESULT.
+We create an instance of the class \texttt{history} and use it as parameter for the game composition.
+This object contains the list of game's results.
+
+\todo[inline]{Explicar qu'e es history bien y mostrar un ejemplo}
 Then using the method \texttt{trueskill} in this object, we compute the posteriors. 
 ONLINE NO SERIA TRUE PARA SER CMOMO TRUESKILL?
 For last, we can see the last posterior of each player, calling the method \texttt{posteriors\_players()}
 Like we can see, the new way of implementation its more compact and simple than the original.
 
-
 \subsection{Example 3: Trueskill True Time}
+
 As it was mentioned already, one of the advantage of \textbf{TTT}, its the way that the algorithm pass information to the past to the future and vice versa, getting a more accurate estimation.
 This package is the first implementation of this method, beside the original \texttt{Microsoft} package in \texttt{F\#}, of not free access. CHEQUEAR ESTO
 For that, we use the next example. 
@@ -1700,6 +1704,9 @@ Then its have a list of list of results, where each element is a list of numbers
 The next important input its the time batches, as default it will make each game in a 
 
 
+\subsection{Example 4: Estimating the Evolution of the Skill}
+
+\todo{inline]{poner el ejemplo de seguimiento de la habilidad de un jugador a medida que van pasando los partidos con una funci\'on de evoluci\'on conocida. ejemplo sinte\'etico}
 
 
 
@@ -1709,26 +1716,10 @@ The next important input its the time batches, as default it will make each game
 
 
 
+\subsection{Example 5: Performance Analysis}
 
 
-
-
-
-
-
-\begin{figure}[h!]
-\centering
-\includegraphics{jsslogo}
-\caption{\label{fig:quine} Frequency distribution for number of days absent
-from school.}
-\end{figure}
-
-
-
-
-
-
-
+\todo[inline]{Aca tendremos dos figuras analizando la base de Go: 1) TT original, TT nuestro, TT-R y TT-Julia ; y otra figura con TTT: Python, Julia y R}
 
 
 
