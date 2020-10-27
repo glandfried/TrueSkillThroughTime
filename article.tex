@@ -1087,41 +1087,63 @@ conjunta $p(\bm{s},\bm{p},\bm{t}|\bm{o},A)$ (Fig.
 Las siguientes propiedades, junto con las reglas del \emph{sum-product algorithm}, es lo \'unico que se necesita para calcular la posterior anal\'itica del modelo bayesiano.
 %
 \begin{lstlisting}
-class Gaussian(object):
-    def __init__(self,mu=MU, sigma=SIGMA):
-        self.mu, self.sigma = mu, sigma
-
-g1 = Gaussian() 
+N1, N2 = Gaussian(mu=1, sigma=1), Gaussian(1, 2)  
 \end{lstlisting}
 %
 Esta clase sobre escribe las operaciones de suma, resta, producto y división.
 %
-\begin{equation} \tag{\texttt{g1 * g2}}
- \N(x|\mu_x,\sigma_x^2)\N(x|\mu_y,\sigma_y^2) \propto \N(x|\mu_{*},\sigma_{*}^2)
+\begin{equation} \tag{\texttt{N1 * N2}}
+ \N(x|\mu_1,\sigma_1^2)\N(x|\mu_2,\sigma_2^2) \propto \N(x|\mu_{*},\sigma_{*}^2)
 \end{equation}
 %
-\begin{equation} \tag{\texttt{g1 / g2}}
- \N(x|\mu_x,\sigma_x^2)/\N(x|\mu_y,\sigma_y^2) \propto \N(x|\mu_{\div},\sigma_{\div}^2)
+\begin{equation} \tag{\texttt{N1 / N2}}
+ \N(x|\mu_1,\sigma_1^2)/\N(x|\mu_2,\sigma_2^2) \propto \N(x|\mu_{\div},\sigma_{\div}^2)
 \end{equation} 
 %
 \vspace{-0.2cm}
 %
-\begin{equation} \tag{\texttt{g1 + g2}} \label{eq:suma_normales}
+\begin{equation} \tag{\texttt{N1 + N2}} \label{eq:suma_normales}
 \begin{split}
-\iint \mathbb{I}(t = x + y) \N(x|\mu_x, \sigma_x^2)\N(y|\mu_y, \sigma_y^2) dxdy = \N(t|\mu_x+\mu_y,\sigma_x^2 + \sigma_y^2)
+\iint \mathbb{I}(t = x + y) \N(x|\mu_1, \sigma_1^2)\N(y|\mu_2, \sigma_2^2) dxdy = \N(t|\mu_1+\mu_2,\sigma_1^2 + \sigma_2^2)
 \end{split}
 \end{equation}
 %
 \vspace{-0.4cm}
 %
-\begin{equation} \tag{\texttt{g1 - g2}} \label{eq:resta_normales}
+\begin{equation} \tag{\texttt{N1 - N2}} \label{eq:resta_normales}
 \begin{split}
-\iint \mathbb{I}(t = x - y) \N(x|\mu_x, \sigma_x^2)\N(y|\mu_y, \sigma_y^2) dxdy = \N(t|\mu_x - \mu_y,\sigma_x^2 + \sigma_y^2)
+\iint \mathbb{I}(t = x - y) \N(x|\mu_1, \sigma_1^2)\N(y|\mu_2, \sigma_2^2) dxdy = \N(t|\mu_1 - \mu_2,\sigma_1^2 + \sigma_2^2)
 \end{split}
 \end{equation}
+%
+\begin{equation} \label{eq:normal_de_normal} \tag{\texttt{Gaussian(N1, N2.sigma)}}
+\int \N(y| x, \sigma_y^2) \N(x| \mu_x, \sigma_x^2) dx = \N(y|\mu_x,\sigma_y^2 + \sigma_x^2)   
+\end{equation}
 
-\subsection{Analytical solution} \label{sec:analyticalSolution}
+\subsection{Analytical likelihood} \label{sec:analyticalSolution}
 
+Las partidas con 2 equipos tienen solución analítica.
+Podemos calcular el posterior exacto.
+\todo[inline]{Crear la función, posterior exacto, que devuelva una función parametrizada.}
+
+El posterior exacto sin embargo no pertenece a una distrbución conocida, por lo que se la aproxima mediante la Gaussiana que más se le parece.
+
+
+\begin{lstlisting}
+r1, r2 =  Rating(),  Rating()
+r3, r4 =  Rating(),  Rating()
+team_a = [ r1, r2 ]
+team_b = [ r3, r4 ]
+observed_result = [1,0]
+g = Game(teams = [team_a, team_b], result = observed_result)
+\end{lstlisting}
+%
+\begin{lstlisting}
+[ s1 , s2 ], [ s3 , s4 ] = g.exact_posterior()
+hipotesis = ...
+plt.plot(s1(hipotesis))
+\end{lstlisting}
+%
 \begin{figure}[H]
   \centering
   \scalebox{.75}{\input{modelos/trueskill_factorGraph_2equiops.tex}}
@@ -1129,308 +1151,87 @@ Esta clase sobre escribe las operaciones de suma, resta, producto y división.
   \label{modelo_trueskill_2vs2}
 \end{figure}
 %
-\begin{lstlisting}
-class Rating(object):
-    def __init__(self, mu=MU, sigma=SIGMA, beta=BETA, gamma=GAMMA):
-        self.N = Gaussian(mu,sigma); self.beta = beta; self.gamma = gamma
-
-r1 = Rating()
-\end{lstlisting}
+%\paragraph{Inferencia} Mensajes descendentes
 %
 \begin{equation}\label{eq:m_fs_s} \tag{\texttt{r1.N}}
-\begin{split}
  m_{f_{s_i} \rightarrow s_i}(s_i) = \N(s_i| \mu_i, \sigma_i^2)
-\end{split}
 \end{equation}
 %
 \begin{equation}\label{eq:m_fp_p} \tag{\texttt{r1.performance()}}
+m_{f_{p_i} \rightarrow p_i}(p_i) = \int \N(p_i| s_i, \beta^2) \N(s_i| \mu_i, \sigma_i^2) ds_i = \N(p_i|\mu_i,\beta^2 + \sigma_i^2)
+\end{equation}
+%
+\begin{equation} \label{eq:m_ft_t} \tag{\texttt{performance(team\_e)}}
 \begin{split}
-\N(s,\beta^2) & = \int N(p_i| s_i, \beta^2) N(s_i| \mu_i, \sigma_i^2) ds_i = N(p_i|\mu_i,\beta^2 + \sigma_i^2)
+ m_{f_{t_e} \rightarrow t_e}(t_e) &= \iint \mathbb{I}(t_e = p_i + p_j) \N(p_i|\mu_i,\beta^2 + \sigma_i^2)\N(p_j|\mu_j,\beta^2 + \sigma_j^2) dp_idp_j  \\ &=  \N(t_e|\mu_i+\mu_j,2\beta^2 + \sigma_i^2 + \sigma_j^2)
 \end{split}
 \end{equation}
 %
 \begin{lstlisting}
- class team_variable(object):
-    def __init__(self, prior=Ninf, likelihood_lose=Ninf, likelihood_win=Ninf):
-        self.prior = prior
-        self.likelihood_lose = likelihood_lose
-        self.likelihood_win = likelihood_win
+def performance(team):
+    res = Gaussian(0,0)
+    for rating in team:
+        res += rating.performance()
+    return res
 \end{lstlisting}
 %
-\begin{equation}\label{eq:m_p_ft}
-\begin{split}
- m_{p_i \rightarrow f_{t_e}}(p_i) & \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(p_i) \setminus  \{f_{t_e} \}} m_{g \rightarrow p_i} (p_i) \\
- & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{=} m_{f_{p_i} \rightarrow p_i}(p_i) \overset{\hfrac{\text{eq}}{\ref{eq:m_fp_p}}}{=} N(p_i|\mu_i,\beta^2 + \sigma_i^2)
-\end{split}
-\end{equation}
-
-\paragraph{$\bm{m_{f_t \rightarrow t}(t)}:$}
-
-\begin{equation}
-\begin{split}
- m_{f_{t_e} \rightarrow t_e}(t_e) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{t_e}(\bm{x}) \prod_{h \in n(f_{t_e}) \setminus \{t_e\} } m_{h \rightarrow f_{t_e}}(h) d\bm{x}_{\setminus \{t_e\} }  \\
- & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_p_ft}}}{=}} \int \dots \int \mathbb{I}(t_e = p_i + p_j) N(p_i|\mu_i,\beta^2 + \sigma_i^2)N(p_j|\mu_j,\beta^2 + \sigma_j^2) d\bm{x}_{\setminus \{t_e\} }\\[0.3cm]
- & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \iint \mathbb{I}(t_e = p_i + p_j) N(p_i|\mu_i,\beta^2 + \sigma_i^2)N(p_j|\mu_j,\beta^2 + \sigma_j^2) dp_idp_j \\
- & \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int N(p_i|\mu_i,\beta^2 + \sigma_i^2) N(t_e - p_i|\mu_j,\beta^2 + \sigma_j^2) dp_i   \\
- & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int N(p_i|\mu_i,\beta^2 + \sigma_i^2) N(p_i|t_e - \mu_j,\beta^2 + \sigma_j^2) dp_i \\
- & \overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{=} N(t_e|\mu_i+\mu_j,2\beta^2 + \sigma_i^2 + \sigma_j^2)
-\end{split}
-\end{equation}
-
-\vspace{0.3cm}
-
-General (por inducci\'on)
-\begin{equation}\label{eq:m_ft_t}
- m_{f_{t_e} \rightarrow t_e}(t_e) =  N \Big( t_e | \underbrace{\sum_{i\in A_e } \mu_i}_{\hfrac{\text{Habilidad}}{\text{de equipo}} \ \mu_e}, \underbrace{\sum_{i \in A_e} \beta^2 + \sigma_i^2}_{\hfrac{\text{Varianza}}{\text{de equipo}} \ \sigma_e^2} \Big) = N(t_e | \mu_e, \sigma_e^2)
-\end{equation}
-
-Ver anexo~\ref{suma_normales_induccion}, la secci\'on sobre suma de $n$ normales.
-
-\paragraph{$\bm{m_{t \rightarrow f_d}(t)}:$}
-
-\begin{equation}\label{eq:m_t_fd}
-\begin{split}
-m_{t_e \rightarrow f_{d_{k}}}(d_{k}) & \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(t_e) \setminus  \{f_{d_{k}} \}} m_{g \rightarrow t_e} (t_e) \\[0.3cm]
- & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{=} m_{f_{t_e} \rightarrow t_e}(t_e) \overset{\hfrac{\text{eq}}{\ref{eq:m_ft_t}}}{=} N(t_e| \sum_{i \in A_e} \mu_i, \sum_{i \in A_e} \beta^2 + \sigma_i^2) \overset{\hfrac{\text{eq}}{\ref{eq:m_ft_t}}}{=} N(t_e|\mu_e,\sigma_e^2)
-\end{split}
-\end{equation}
-
-\paragraph{$\bm{m_{f_d \rightarrow d}(d)}:$}
-
-\begin{equation}
- \begin{split}
-  m_{f_{d_1} \rightarrow d_1}(d_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{d_1}(\bm{x}) \prod_{h \in n(f_{d_1}) \setminus \{d_1\} } m_{h \rightarrow f_{d_1}}(h) \, d\bm{x}_{\setminus \{d_1\} }  \\
-  & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_t_fd}}}{=}} \int \int \mathbb{I}(d_1 = t_a - t_b) N(t_a| \mu_a, \sigma_a^2)  N(t_b| \mu_b, \sigma_b^2)  dt_adt_b \\[0.25cm]
-  & \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int N(d_1 + t_b| \mu_a, \sigma_a^2)  N(t_b| \mu_a, \sigma_b^2)  dt_b \\
-  & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int N(t_b| \mu_a - d_1 , \sigma_a^2)  N(t_b| \mu_b, \sigma_b^2)  dt_b \\
-  & \overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{=} N( \mu_a - d_1 | \mu_b, \sigma_a^2 +\sigma_b^2  ) \\
-  & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} N( d_1 | \mu_a - \mu_b, \sigma_a^2 +\sigma_b^2  )
+General (ver anexo~\ref{suma_normales_induccion}).
+%
+\begin{equation*}
+ m_{f_{t_e} \rightarrow t_e}(t_e) =  \N \Big( t_e | \underbrace{\sum_{i\in A_e } \mu_i}_{\hfrac{\text{Habilidad}}{\text{de equipo}} \ \mu_e}, \underbrace{\sum_{i \in A_e} \beta^2 + \sigma_i^2}_{\hfrac{\text{Varianza}}{\text{de equipo}} \ \sigma_e^2} \Big) = \N(t_e | \mu_e, \sigma_e^2)
+\end{equation*}
+%
+\begin{lstlisting}
+difference = performance(team_a) - performance(team_b)  
+\end{lstlisting}
+%
+\begin{equation}\label{eq:m_fd_d} \tag{\texttt{difference}}
+ \begin{split} 
+  m_{f_{d_1} \rightarrow d_1}(d_1) & = \iint \mathbb{I}(d_1 = t_a - t_b) \N(t_a| \mu_a, \sigma_a^2)  \N(t_b| \mu_b, \sigma_b^2)  dt_adt_b \\[0.25cm]
+  & = \N\big( d_1 | \underbrace{\mu_a - \mu_b}_{\hfrac{\text{Differencia}}{\text{esperada:} \ \delta} }, \underbrace{\sigma_a^2 +\sigma_b^2}_{\hfrac{\text{incertidumbre}}{\text{total:} \ \vartheta^2}}  \big) = \N(d_1 | \delta, \, \vartheta^2)
  \end{split}
 \end{equation}
-
-General
-
-\begin{equation} \label{eq:m_fd_d}
- m_{f_{d_1} \rightarrow d_1}(d_1) = N\Bigg(d_1 \ | \ \underbrace{\sum_{i \in A_a} \mu_i - \sum_{i \in A_b} \mu_i}_{\hfrac{\text{Diferencia}}{\text{esperada}} \, (\delta)} \ , \  \underbrace{\sum_{i \in A_a \cup A_b} \beta^2 + \sigma_i^2}_{\hfrac{\text{Varianza}}{\text{total}} \, (\vartheta) } \Bigg) = N(d_1 | \delta, \vartheta)
-\end{equation}
-
-\paragraph{$\bm{m_{d \rightarrow f_r}(r)}:$}
-
-\begin{equation}\label{eq:m_d_fr}
+%
+\begin{lstlisting}
+delta = differencia.mu
+vartheta = differencia.sigma
+evidencia = cdf(delta/vartheta) 
+\end{lstlisting}
+%
+\begin{equation}\label{eq:m_fr_r} \tag{\texttt{evidencia}}
 \begin{split}
-m_{d \rightarrow f_r}(d) & \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(t_e) \setminus  \{f_{d_{k}} \}} m_{g \rightarrow t_e} (t_e) \\[0.3cm]
- & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{=} m_{f_d \rightarrow d}(d) \overset{\hfrac{\text{eq}}{\ref{eq:m_fd_d}}}{=} N(d_1| \delta, \vartheta)
+ m_{f_{r_1} \rightarrow r_1}(r_1) = \int \mathbb{I}(d_1 > 0) \N(d_1 | \delta, \vartheta^2)  dd_1 = \Phi(\frac{\delta}{\vartheta})
 \end{split}
 \end{equation}
-
-\paragraph{$\bm{m_{f_r \rightarrow r}(r)}:$} (Caso ganador)
-
-\begin{equation}\label{eq:m_fr_r}
+%
+Inferencia, caso ganador.
+%
+\begin{equation}\label{eq:m_fd_ta} \tag{\texttt{likelihood\_ta}}
 \begin{split}
- m_{f_{r_1} \rightarrow r_1}(r_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{r_1}(\bm{x}) \prod_{h \in n(f_{r_1}) \setminus \{r_1\} } m_{h \rightarrow f_{r_1}}(h) \, d\bm{x}_{\setminus \{r_1\} }  \\[0.2cm]
- & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_d_fr}}}{=}} \int \mathbb{I}(d_1 > 0) N(d_1 | \delta, \vartheta)  dd_1 \\[0.2cm]
- &  \overset{\hfrac{\text{eq}}{\ref{eq:estandarizar}}}{=} \int \mathbb{I}(d_1 > 0) N( \frac{d_1 - \delta}{\vartheta}) dd_1 \\[0.2cm]
- & = 1 - \Phi(\frac{-\delta}{\vartheta}) \\
- & = \Phi(\frac{\delta}{\vartheta})
+m_{f_{d_1} \rightarrow t_a}(t_a) & = \iint \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0) \N(t_b | \mu_b , \sigma_b^2 ) \, dd_1\,dt_b \\
+& = \int \mathbb{I}( t_a > t_b)  \N(t_b | \mu_b , \sigma_b^2 ) \,dt_b  \\
+& = 1 - \Phi (t_a| -\mu_b, \sigma_b^2) = \Phi (t_a| \mu_b, \sigma_b^2)
 \end{split}
 \end{equation}
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsubsection{Mensajes ascendentes}
-
-\paragraph{$\bm{m_{f_r \rightarrow d}(d)}:$}
-
-\begin{equation}\label{eq:m_fr_d}
+%
+\begin{equation}\label{eq:m_fta_p_inicial} \tag{\texttt{likelihood\_p1}}
 \begin{split}
-m_{f_r \rightarrow d_1}(d_1) & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=}} \mathbb{I}(d_1 > 0)
+m_{f_{t_a} \rightarrow p_1}(p_1)  & = \iint \mathbb{I}( t_a = p_1 + p_2) \, N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (t_a| \mu_b , \sigma_b^2 ) \, dt_a dp_2 \\
+& = \int  \, \N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (p_1 + p_2| \mu_b , \sigma_b^2 ) \, dp_2 \\
+& = 1 - \Phi( p_1 | \underbrace{\mu_2 - \mu_b}_{\delta-\mu_1}, \underbrace{\beta^2 + \sigma_2^2 + \sigma_b^2}_{\vartheta^2 - (\sigma_1^2 + \beta^2)}) 
 \end{split}
 \end{equation}
-
-
-\paragraph{$\bm{m_{d \rightarrow f_d}(d)}:$}
-\begin{equation}\label{eq:m_d_fd}
+%
+\begin{equation}\label{eq:m_fp_s1} \tag{\texttt{likelihood\_s1}}
 \begin{split}
-m_{d_1 \rightarrow f_{d_1}}(d_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(d_1) \setminus  \{f_{d_1} \}} m_{g \rightarrow d_1} (d_1) \\[0.3cm]
- & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{=} m_{f_r \rightarrow d_1}(d_1) \overset{\hfrac{\text{eq}}{\ref{eq:m_fr_d}}}{=} \mathbb{I}(d_1 > 0)
-\end{split}
+m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_1-\delta, \vartheta^2 - (\sigma_1^2 + \beta^2)) \, dp_1 \\[0.1cm]
+& = 1 - \Phi(0 | \underbrace{(s_1 + \mu_2) - (\mu_3 + \mu_4)}_{\hfrac{\text{Diferencia esperada}}{\text{parametrizada en $s_1$}}} \ , \underbrace{\ \ \ \vartheta^2 - \sigma_1^2 \ \ \ }_{\hfrac{\text{Incertidumbre total}}{\text{salvo la de $s_1$}}})\end{split}
 \end{equation}
 
-\paragraph{$\bm{m_{f_{d_1} \rightarrow t_a}(t_a)}:$} (Caso ganador)
-\begin{equation}\label{eq:m_fd_ta}
-\begin{split}
-m_{f_{d_1} \rightarrow t_a}(t_a) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{d_1}(\bm{x}) \prod_{h \in n(f_{d_1}) \setminus \{t_a\} } m_{h \rightarrow f_{d_1}}(h) \, d\bm{x}_{\setminus \{t_a\} }  \\
-&\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_t_fd}}}{=}}  \int \dots \int \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0) N(t_b | \mu_b , \sigma_b^2 )  \, d\bm{x}_{\setminus \{t_a\} } \\[0.1cm]
-& \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \iint \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0) N(t_b | \mu_b , \sigma_b^2 ) \, dd_1\,dt_b \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int \mathbb{I}( t_a > t_b)  N(t_b | \mu_b , \sigma_b^2 ) \,dt_b  \\
-& \overset{\hfrac{\text{fig}}{\ref{fig:m_fd_t}}}{=} \Phi (t_a| \mu_b, \sigma_b^2)  \overset{\hfrac{\mu_b}{\sigma_b}}{=}  \Phi \Big(t_a| \sum_{i \in A_b} \mu_i , \sum_{i \in A_b} \beta^2 + \sigma_i^2 \Big)
-\end{split}
-\end{equation}
+El mensaje $m_{f_{p_1} \rightarrow s_1}(s_1)$ computa la ``probabilidad de ganar parametrizada en la hipótesis $s_1$''.
+Esto es la distribucipon de creencias a priori de un resultado ganador, dada la hipótesis $s_1$, como si conociéramos la verdadera habilidad del jugador.
+En caso de conocer la habilidad, no existe incertidumbre asociacia por lo que hay que eliminarla la incertidumbre total, y en vez de usar la media de la distribuci\'on de creencias para calacular la diferencia esperada usamos la verdadera habilidad.
 
-\paragraph{$\bm{m_{f_{d_1} \rightarrow t_b}(t_b)}:$} (Caso perdedor)
-\begin{equation}\label{eq:m_fd_tb}
-\begin{split}
-m_{f_{d_1} \rightarrow t_b}(t_b) &\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{d_1}(\bm{x}) \prod_{h \in n(f_{d_1}) \setminus \{t_b\} } m_{h \rightarrow f_{d_1}}(h) \, d\bm{x}_{\setminus \{t_a\} }  \\
-&\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_t_fd}}}{=}}  \int \dots \int \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0) N(t_a | \mu_a , \sigma_a^2 )  \, d\bm{x}_{\setminus \{t_b\} } \\[0.1cm]
-&\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \iint \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0)  N(t_a | \mu_a , \sigma_a^2 )  \, dd_1\,dt_a \\
-&\overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int \mathbb{I}( t_a > t_b)   N(t_a | \mu_a , \sigma_a^2 ) \,dt_a \\
-&\overset{\hfrac{\text{fig}}{\ref{fig:m_fd_t}}}{=} 1 - \Phi (t_b| \mu_a , \sigma_a^2 ) \overset{\hfrac{\mu_a}{\sigma_a}}{=} 1 - \Phi \Big(t_b| \sum_{i \in A_a} \mu_i , \sum_{i \in A_a} \beta^2 + \sigma_i^2 \Big)
-\end{split}
-\end{equation}
-
-\begin{figure}[t!]
-\centering
-  \begin{subfigure}[t]{0.48\textwidth}
-  \includegraphics[width=\textwidth]{figures/m_d_ta.pdf}
-  \caption{$m_{f_{d_1} \rightarrow t_a}(t_a)$: (Caso ganador)}
-  \label{fig:m_fd_ta}
-  \end{subfigure}
-  \begin{subfigure}[t]{0.48\textwidth}
-  \includegraphics[width=\textwidth]{figures/m_d_tb.pdf}
-  \caption{$m_{f_{d_1} \rightarrow t_b}(t_b)$: (Caso perdedor)}
-  \label{fig:m_fd_tb}
-  \end{subfigure}
-  \caption{Notar que en el caso ganador, $t_a$ es un valor fijo que entra como par\'ametro en la funci\'on $m_{f_{d_1} \rightarrow t_a}(t_a)$. El caso perdedor es an\'alogo.}
-  \label{fig:m_fd_t}
-\end{figure}
-
-\paragraph{$\bm{m_{t_a \rightarrow f_{t_a}}(t_a)}:$} (Caso ganador)
-
-\begin{equation}\label{eq:m_ta_ft}
-\begin{split}
- m_{t_a \rightarrow f_{t_a}}(t_a) \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(t_a) \setminus  \{f_{t_a} \}} m_{g \rightarrow t_a} (t_a)  \overset{\hfrac{\text{eq}}{\ref{eq:m_fd_ta}}}{=} \Phi(t_a|\mu_b,\sigma_b^2) \overset{\hfrac{\mu_b}{\sigma_b}}{=} \Phi \Big(t_a| \sum_{i \in A_b} \mu_i , \sum_{i \in A_b} \beta^2 + \sigma_i^2 \Big)
-\end{split}
-\end{equation}
-
-\paragraph{$\bm{m_{t_b \rightarrow f_{t_b}}(t_b)}:$} (Caso perdedor)
-\begin{equation}\label{eq:m_tb_ft}
-\begin{split}
- m_{t_b \rightarrow f_{t_b}}(t_b) \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(t_b) \setminus  \{f_{t_b} \}} m_{g \rightarrow t_b} (t_b)  \overset{\hfrac{\text{eq}}{\ref{eq:m_fd_tb}}}{=} 1- \Phi(t_b|\mu_a,\sigma_a^2) \overset{\hfrac{\mu_a}{\sigma_a}}{=} 1 - \Phi \Big(t_b| \sum_{i \in A_a} \mu_i , \sum_{i \in A_a} \beta^2 + \sigma_i^2 \Big)
-\end{split}
-\end{equation}
-
-
-
-\paragraph{$\bm{m_{f_{t_a} \rightarrow p_1}(p_1)}:$} (Caso ganador)
-\begin{equation}\label{eq:m_fta_p_inicial}
-\begin{split}
-m_{f_{t_a} \rightarrow p_1}(p_1)  &\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{t_a}(\bm{x}) \prod_{h \in n(f_{t_a}) \setminus \{p_1\} } m_{h \rightarrow f_{t_a}}(h) \, d\bm{x}_{\setminus \{p_1\} }  \\
-&\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_ta_ft}}}{=}} \int \dots \int \mathbb{I}( t_a = p_1 + p_2) N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (t_a| \mu_b , \sigma_b^2 ) \, d\bm{x}_{\setminus \{p_1\} }\\[0.1cm]
-&\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \iint \mathbb{I}( t_a = p_1 + p_2) \, N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (t_a| \mu_b , \sigma_b^2 ) \, dt_a dp_2 \\
-&\overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int  \, N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (p_1 + p_2| \mu_b , \sigma_b^2 ) \, dp_2 \\
-&\overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int  N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (p_1 | \mu_b - p_2 , \sigma_b^2) \, dp_2 \\
-&= \kappa(p_1)
-\end{split}
-\end{equation}
-
-La derivada de la funci\'on de distribuci\'on acumulada $\Phi(\,)$ es el valor de la densidad de la funci\'on de probabilidad $N(\,)$. Con esta idea en mente, tomamos la derivada de ambos lados de la igualdad:
-
-\begin{equation}\label{eq:ta-p_derivada}
-\begin{split}
-\frac{\partial\kappa(x)}{\partial x} &= \frac{\partial}{\partial x} \int  N(y| \mu_y, \sigma_y^2 ) \,   \Phi (x | \mu_x -y , \sigma_x^2 ) \, dy \\
-&= \int  N(y| \mu_y, \sigma_y^2 ) \, \frac{\partial}{\partial x} \,\Phi (x| \mu_x - y, \sigma_x^2 )  \, dy   \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:phi_norm}}}{=} \int  N(y| \mu_y, \sigma_y^2 ) \, N(x| \mu_x -y , \sigma_x^2)  \, dy  \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int  N(y| \mu_y, \sigma_y^2 ) \, N(y| \mu_x  -x , \sigma_x^2)  \, dy  \\
-&\overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{\underset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}} N(x| \mu_x - \mu_y, \sigma_x^2 + \sigma_y^2)
-\end{split}
-\end{equation}
-
-Luego
-
-\begin{equation}\label{eq:m_fta_p}
- m_{f_{t_a} \rightarrow p_1}(p_1) \overset{\hfrac{\text{eq}}{\ref{eq:m_fta_p_inicial}}}{\underset{\hfrac{\text{eq}}{\ref{eq:ta-p_derivada}}}{=}}  \Phi(p_1| \mu_b - \mu_2, \beta^2 + \sigma_2^2 + \sigma_b^2)  \overset{\hfrac{\mu_b}{\sigma_b}}{=}  \Phi\Big(p_1| \sum_{i \in A_b} \mu_i - \mu_2, \beta^2 + \sigma_2^2 + \sum_{i \in A_b} \beta^2 + \sigma_i^2 \Big)
-\end{equation}
-
-\paragraph{$\bm{m_{f_{t_b} \rightarrow p_3}(p_3)}:$} (Caso perdedor)
-\begin{equation}\label{eq:m_ftb_p}
-\begin{split}
-m_{f_{t_b} \rightarrow p_3}(p_3)&\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{t_a}(\bm{x}) \prod_{h \in n(f_{t_a}) \setminus \{p_1\} } m_{h \rightarrow f_{t_a}}(h) \, d\bm{x}_{\setminus \{p_1\} }  \\
-&\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_tb_ft}}}{=}} \int \dots \int \mathbb{I}( t_b = p_3 + p_4) \, (1-\Phi (t_b| \mu_a , \sigma_a^2 )) \, N(p_4| \mu_4, \beta^2 + \sigma_4^2 ) \, d\bm{x}_{\setminus \{p_3\} }\\[0.1cm]
-&\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \iint \mathbb{I}( t_b = p_3 + p_4) N(p_4| \mu_4, \beta^2 + \sigma_4^2 )  (1 - \Phi (t_b| \mu_a , \sigma_a^2) )\, dt_b dp_4 \\
-&\overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{\underset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}} \int N(p_4| \mu_4, \beta^2 + \sigma_4^2 )  (1 - \Phi (p_3 | \mu_a - p_4 , \sigma_a^2 ) ) \,  dp_4 \\
-& =  \underbrace{\int N(p_4| \mu_4, \beta^2 + \sigma_4^2 )dp_4}_{1}  -  \underbrace{\int N(p_4| \mu_4, \beta^2 + \sigma_4^2 ) \Phi (p_3 | \mu_a - p_4 , \sigma_a^2 ) ) \, dp_4}_{\kappa(p_3)} \\
-&\overset{\hfrac{\text{eq}}{\ref{eq:ta-p_derivada}}}{=} 1 - \Phi(p_3, \mu_a  - \mu_4, \beta^2 + \sigma_4^2 + \sigma_a^2)\\[0.1cm]
-&\overset{\hfrac{\mu_a}{\sigma_a}}{=} 1 - \Phi\Big(p_3, \sum_{i \in A_a} \mu_i  - \mu_4, \beta^2 + \sigma_4^2 + \sum_{i \in A_a} \beta^2 + \sigma_i^2  \Big)
-\end{split}
-\end{equation}
-
-\paragraph{$\bm{m_{p_1 \rightarrow f_{p_1}}(s_1)}:$} (Caso ganador)
-
-\begin{equation}\label{eq:m_p1_fp}
-\begin{split}
- m_{p_1 \rightarrow f_{p_1}}(p_1) \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(p_1) \setminus  \{f_{p_1} \}} m_{g \rightarrow p_1} (p_1)  \overset{\hfrac{\text{eq}}{\ref{eq:m_fta_p}}}{=}  \Phi(p_1| \mu_b - \mu_2, \beta^2 + \sigma_2^2 + \sigma_b^2)
-\end{split}
-\end{equation}
-
-
-\paragraph{$\bm{m_{p_3 \rightarrow f_{p_3}}(s_1)}:$} (Caso perdedor)
-
-\begin{equation}\label{eq:m_p3_fp}
-\begin{split}
- m_{p_3 \rightarrow f_{p_3}}(p_3) \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(p_3) \setminus  \{f_{p_3} \}} m_{g \rightarrow p_3} (p_3)  \overset{\hfrac{\text{eq}}{\ref{eq:m_ftb_p}}}{=}  1 - \Phi(p_3, \mu_a  - \mu_4, \beta^2 + \sigma_4^2 + \sigma_a^2)
-\end{split}
-\end{equation}
-
-\paragraph{$\bm{m_{f_{p_1} \rightarrow s_1}(s_1)}:$} (Caso ganador)
-\begin{equation}\label{eq:m_fp_s1}
-\begin{split}
-m_{f_{p_1} \rightarrow s_1}(s_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{p_1}(\bm{x}) \prod_{h \in n(f_{p_1}) \setminus \{s_1\} } m_{h \rightarrow f_{p_1}}(h) \, d\bm{x}_{\setminus \{s_1\} }  \\
-&\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_p1_fp}}}{=}} \int \dots \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_b - \mu_2, \beta^2 + \sigma_2^2 + \sigma_b^2 ) \, d\bm{x}_{\setminus \{s_1\} }
-\\[0.1cm]
-& \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{\underset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}} \int N(p_1| s_1, \beta^2) \, \Phi(\mu_2| \mu_b -  p_1, \beta^2 + \sigma_2^2 + \sigma_b^2) \, dp_1 \\[0.1cm]
-&\overset{\hfrac{\text{eq}}{\ref{eq:ta-p_derivada}}}{=} \Phi(s_1| \mu_b - \mu_2, 2\beta^2 + \sigma_2^2 + \sigma_b^2)
-\end{split}
-\end{equation}
-
-General (N vs N)
-\begin{equation}\label{eq:m_fp_s1_gral}
-\begin{split}
-m_{f_{p_1} \rightarrow s_1}(s_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_fp_s1}}}{=} \Phi(s_1| \mu_b - \mu_a + \mu_1, \sigma_b^2 +\sigma_a^2 - \sigma_1^2 )  \\
-& \overset{\hfrac{\mu_b}{\sigma_b}}{=} \Phi\Big(s_1| \underbrace{\sum_{i \in A_b} \mu_i - \sum_{i \in A_a} \mu_i }_{-\hfrac{\text{Diferencia}}{\text{esperada}} \, -\delta = \delta } + \mu_1 , \underbrace{\sum_{i \in A_b \cup A_a} \beta^2 + \sigma_i^2}_{\hfrac{\text{Varianza}}{\text{total}} \, \vartheta^2} - \sigma_1^2   \Big) \\
-& \overset{\hfrac{\delta}{\vartheta}}{=} \Phi(s_1|-\delta + \mu_1,\vartheta^2-\sigma_1^2) \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} 1- \Phi(0| \underbrace{\delta - \mu_1 + s_1}_{\hfrac{\text{Diferencia esperada}}{\text{parametrizada}} \, \delta_1(s_1)},\underbrace{\vartheta^2-\sigma_1^2}_{\vartheta_1^2}) \\
-& \overset{\hfrac{\delta_1}{\vartheta_1}}{=} 1- \Phi(0|\delta_1(s_1),\vartheta_1^2) \\
-&\overset{\hfrac{\text{eq}}{\ref{eq:estandarizar}}}{=} 1- \Phi\Big(\frac{0-\delta_1(s_1)}{\vartheta_1}\Big)\\
-&\overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \Phi\Big(\frac{\delta_1(s_1)}{\vartheta_1}\Big)
-\end{split}
-\end{equation}
-
-\textbf{Nota}: el mensaje $m_{f_{p_1} \rightarrow s_1}(s_1)$ computa la ``probabilidad de ganar parametrizada'', esto es la probabilidad de ganar si conoci\'eramos la habilidad del jugador. Si conocemos la habilidad del jugador entonces hay que eliminar la varianza de la distribuci\'on de creencias de la varianza total (lo que hacemos en $\vartheta_1$) y hay que remplazar la media de la distribuci\'on de creencias por la verdadera habilidad en la diferencia esperada (lo que hacemos en $\delta_1(s_1)$).
-
-\paragraph{$\bm{m_{f_{p_3} \rightarrow s_3}(s_3)}:$}
-
-\begin{equation}\label{eq:m_fp_s3}
-\begin{split}
-m_{f_{p_3} \rightarrow s_3}(s_3) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{p_3}(\bm{x}) \prod_{h \in n(f_{p_3}) \setminus \{s_3\} } m_{h \rightarrow f_{p_3}}(h) \, d\bm{x}_{\setminus \{s_3\} }  \\
-&\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_p3_fp}}}{=}} \int \dots \int N(p_3| s_3, \beta^2) (1 - \Phi(p_3, \mu_a  - \mu_4, \beta^2 + \sigma_4^2 + \sigma_a^2)) \, d\bm{x}_{\setminus \{s_3\} }\\
-& \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{\underset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}} \int N(p_3| s_3, \beta^2) (1 - \Phi(\mu_4, \mu_a  - p_3, \beta^2 + \sigma_4^2 + \sigma_a^2)) \, dp_3 \\
-&=\int N(p_3| s_3, \beta^2) \, dp_3 -  \int N(p_3| s_3, \beta^2)  \Phi(\mu_4, \mu_a  - p_3, \beta^2 + \sigma_4^2 + \sigma_a^2) \, dp_3 \\
-&\overset{\hfrac{\text{eq}}{\ref{eq:ta-p_derivada}}}{=} 1 - \Phi\Big(s_3| \mu_a-  \mu_4, 2\beta^2 + \sigma_4^2 + \sigma_a^2 \Big)
-\end{split}
-\end{equation}
-
-General (N vs N)
-
-\begin{equation}
-\begin{split}
-m_{f_{p_3} \rightarrow s_3}(s_3) & \overset{\hfrac{\text{eq}}{\ref{eq:m_fp_s3}}}{=} 1 - \Phi\Big(s_3| \underbrace{\mu_a-\mu_b}_{\delta}+\mu_3, \underbrace{\sigma_a^2 + \sigma_b^2}_{\vartheta^2} - \sigma_3^2 \Big) \\
-& \overset{\hfrac{\delta}{\vartheta}}{=} 1 - \Phi\Big(s_3| \delta +\mu_3, \vartheta^2- \sigma_3^2 \Big) \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \Phi\Big(0| \underbrace{-\delta-\mu_3+s_3}_{\delta_3(s_3)}, \underbrace{\vartheta^2- \sigma_3^2}_{\vartheta_3^2} \Big) \\
-& \overset{\hfrac{\delta_3}{\vartheta_3}}{=} \Phi(0|\delta_3(s_3),\vartheta_3^2)  \overset{\hfrac{\text{eq}}{\ref{eq:estandarizar}}}{=}  \Phi\left(\frac{0-\delta_3(s_3)}{\vartheta_3}\right) \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \Phi\Big(\frac{-\delta_3(s_3)}{\vartheta_3}\Big)
-\end{split}
-\end{equation}
-
-\textbf{Nota}: el mensaje $m_{f_{p_3} \rightarrow s_3}(s_3)$ computa la ``probabilidad de perder parametrizada'' (que es la misma que la probabilidad de ganar de su contrincante). Si conoci\'eramos la habilidad del jugador entonces hay que eliminar la varianza de la distribuci\'on de creencias de la varianza total (lo que hacemos en $\vartheta_3$) y hay que remplazar la media de la distribuci\'on de creencias por la verdadera habilidad en la diferencia esperada (lo que hacemos en $\delta_3(s_3)$).
 
 \subsubsection{Posterior ganador y perdedor}
 \paragraph{Ganador}
@@ -1438,22 +1239,6 @@ m_{f_{p_3} \rightarrow s_3}(s_3) & \overset{\hfrac{\text{eq}}{\ref{eq:m_fp_s3}}}
  p(s_1|o,A) \overset{\hfrac{\text{eq}}{\ref{eq:marginal}}}{=} \prod_{h \in n(x_i)} m_{h \rightarrow x_i} \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_fp_s1_gral}}}{=}}  N(s_1| \mu_1, \sigma_1^2)  \Phi\left(\frac{\delta_1(s_1)}{\vartheta_1}\right)
 \end{equation}
 
-
-\begin{figure}[t!]
-\centering
-  \begin{subfigure}[t]{0.48\textwidth}
-  \includegraphics[page=1,width=\textwidth]{figures/posterior_ganador.pdf}
-  \caption{}
-  \label{posterior_ganador_image}
-  \end{subfigure}
-  \begin{subfigure}[t]{0.48\textwidth}
-  \includegraphics[page=2,width=\textwidth]{figures/posterior_ganador.pdf}
-  \caption{}
-  \label{posterior_ganador_distribution}
-  \end{subfigure}
-  \caption{Posterior ganador}
-  \label{posterior_ganador}
-\end{figure}
 
 \paragraph{Perdedor}
 
