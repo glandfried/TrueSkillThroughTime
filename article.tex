@@ -1296,10 +1296,10 @@ General (ver anexo~\ref{suma_normales_induccion}).
 \end{equation*}
 %
 \begin{lstlisting}[backgroundcolor=\color{all}]
-difference = performance(team_a) - performance(team_b)  
+diff = performance(team_a) - performance(team_b)  
 \end{lstlisting}
 %
-\begin{equation}\label{eq:m_fd_d} \tag{\texttt{difference}}
+\begin{equation}\label{eq:m_fd_d} \tag{\texttt{diff}}
  \begin{split} 
   m_{f_{d_1} \rightarrow d_1}(d_1) & = \iint \mathbb{I}(d_1 = t_a - t_b) \N(t_a| \mu_a, \sigma_a^2)  \N(t_b| \mu_b, \sigma_b^2)  dt_adt_b \\[0.25cm]
   & = \N\big( d_1 | \underbrace{\mu_a - \mu_b}_{\hfrac{\text{Differencia}}{\text{esperada:} \ \delta} }, \underbrace{\sigma_a^2 +\sigma_b^2}_{\hfrac{\text{incertidumbre}}{\text{total:} \ \vartheta^2}}  \big) = \N(d_1 | \delta, \, \vartheta^2)
@@ -1308,21 +1308,21 @@ difference = performance(team_a) - performance(team_b)
 %
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
-delta = differencia.mu
-theta = differencia.sigma
-evidencia = cdf(delta/theta) 
+d = diff.mu
+v = diff.sigma
+evidencia = cdf(diff, 0.0) 
 \end{lstlisting}  
  \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}]
-delta = differencia.mu
-theta = differencia.sigma
-evidencia = cdf(delta/theta) 
+d = diff.mu
+v = diff.sigma
+evidencia = cdf(0,d,v) 
 \end{lstlisting} 
  \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}]
-delta = differencia$mu
-theta = differencia$sigma
-evidencia = cdf(delta/theta) 
+d = diff$mu
+v = diff$sigma
+evidencia = cdf(0,d,v) 
 \end{lstlisting}   
 \end{paracol}
 %
@@ -1403,23 +1403,63 @@ Por eso, para mantener el área de empates constante, es necesario adaptar el ma
  \text{Draw probability} = \Phi(\frac{\epsilon}{\sqrt{n_1+n_2}\beta}) - \Phi(\frac{-\epsilon}{\sqrt{n_1+n_2}\beta})
 \end{equation}
 %
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
+na = length(team_a)
+nb = length(team_b)
+sd = sqrt(na + nb)*BETA
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
+na = len(team_a)
+nb = len(team_b)
+sd = math.sqrt(na + nb)*BETA
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
+na = length(team_a)
+nb = length(team_b)
+sd = sqrt(na + nb)*BETA
+\end{lstlisting}
+\end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
-sd = sqrt(na + nb)*beta
 p_draw = 0.25
 margin = compute_margin(p_draw, sd)
 \end{lstlisting}  
 
 \subsection{Approximate close posterior} \label{sec:analytical_posterior}
-
-La probabilidad de la diferencia de rendimientos de los equipos es una Gasussian truncada (Eq.~\ref{eq:p_d}).
+Veremos ahora cómo se resuelve un posterior aproximado, incorporando además la posibilidad de empate.
 %
-En caso de victoria la diferencia de habilidad solo debe ser positiva
+En esta sección vamos a mostrar la matemática necesaria para resolver la siguiente partida.
+%
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=-0.77 \baselineskip]
+g = Game(teams, result, p_draw)
+\end{lstlisting}  
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}]
+post = posteriors(g)
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}]
+post = g.posteriors()
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}]
+post = g$posteriors()
+\end{lstlisting}
+\end{paracol}
+%
+La necesidad de aproximar el posterior ocurre debido a que la probabilidad de la diferencia de rendimientos de los equipos es una Gasussian truncada (Eq.~\ref{eq:p_d}).
 %
 \begin{equation}\label{eq:p_d}
-p(d_1) = \N(d_1|\delta,\vartheta^2) \mathbb{I}(d_1 > 0)
+p(d_1) =
+\begin{cases}
+\N(d_1|\delta,\vartheta^2) \mathbb{I}(\varepsilon < d_1 < \varepsilon) & \text{tie} \\
+\N(d_1|\delta,\vartheta^2) \mathbb{I}(d_1 > 0) & \text{not tie}
+\end{cases}
 \end{equation}
 %
-Para obtener la posterior Gaussiana lo que se hace es un buscar la que mejor aproxima a esta Gaussiana truncada, para luego propogar los mensajes.
+Para obtener el posterior Gaussiana lo que se hace es un buscar la que mejor aproxima a esta Gaussiana truncada, para luego propogar los mensajes.
 %
 Se sabe~\cite{} que la Gaussiana que mejor aproxima a una Gaussiana truncada $\N(x|\mu,\sigma^2)$ en el intervalo $[a,b]$ tiene como esperanza.
 %
@@ -1428,190 +1468,188 @@ Se sabe~\cite{} que la Gaussiana que mejor aproxima a una Gaussiana truncada $\N
 \end{equation}
 %
 donde $\beta = \frac{b-\mu}{\sigma}$ y $\alpha = \frac{a-\mu}{\sigma}$.
-
+%
 Y la varianza
 %
 \begin{equation}\label{eq:variance_aprox_double}
  V(X| a < X < b) = \sigma^2 \Bigg( 1 + \bigg(\frac{\alpha N(\alpha) - \beta N(\beta) }{\Phi(\beta) - \Phi(\alpha) }\bigg) - \bigg(\frac{N(\alpha) - N(\beta) }{\Phi(\beta) - \Phi(\alpha) }\bigg)^2 \Bigg)
 \end{equation}
 %
-Luego, la Gaussiana que mejor aproxima a $p(d_1)$ en el caso de empate
+Con un \'unico truncamiento, estas funciones se pueden simplificar como
 %
-\begin{equation}\label{eq:p*_d}
- \widehat{p}(d_1) = \N\Bigg(d1 \,  \bigg| \, \underbrace{ E(d_1 | -\varepsilon < d_1 < \varepsilon ) \,}_{\hfrac{\text{\scriptsize Media}}{\text{\scriptsize aproximada}} \, \text{\small $\widehat{\delta}$}} , \,  \underbrace{V(d_1 |  -\varepsilon < d_1 < \varepsilon ) }_{\hfrac{\text{\scriptsize Varianza}}{\text{\scriptsize aproximada}} \,\text{\small $\widehat{\vartheta}^{\,2}$}} \, \Bigg)
-\end{equation}
-%
-Usando  \'unico truncamiento estas funciones se pueden simplificar como sigue
-%
-\begin{equation}\label{eq:mean_aprox_}
-\begin{split}
- E(X| a < X )  & =  \mu + \sigma \frac{\N(\alpha)}{1 - \Phi(\alpha) }
- \end{split}
-\end{equation}
-%
-\begin{equation}\label{eq:variance_aprox_}
-\begin{split}
- V(X| a < X ) & = \sigma^2 \Bigg( 1 + \bigg(\frac{\alpha \N(\alpha)}{1 - \Phi(\alpha) }\bigg) - \bigg(\frac{\N(\alpha)}{1 - \Phi(\alpha) }\bigg)^2 \Bigg) 
- \end{split}
-\end{equation}
+\begin{equation*}
+ E(X| a < X )   =  \mu + \sigma \frac{\N(\alpha)}{1 - \Phi(\alpha) } \ \ , \ \ V(X| a < X )  = \sigma^2 \Bigg( 1 + \bigg(\frac{\alpha \N(\alpha)}{1 - \Phi(\alpha) }\bigg) - \bigg(\frac{\N(\alpha)}{1 - \Phi(\alpha) }\bigg)^2 \Bigg) 
+\end{equation*}
 %
 Luego, la Gaussiana que mejor aproxima a $p(d_1)$ en un caso ganador es
 %
-\begin{equation}\label{eq:p*_d}
- \widehat{p}(d_1) = \N\Bigg(d1 \,  \bigg| \, \underbrace{ E(d_1 | d_1 > -\varepsilon ) \,}_{\hfrac{\text{\scriptsize Media}}{\text{\scriptsize aproximada}} \, \text{\small $\widehat{\delta}$}} , \,  \underbrace{V(d_1 | d_1 > -\varepsilon ) }_{\hfrac{\text{\scriptsize Varianza}}{\text{\scriptsize aproximada}} \,\text{\small $\widehat{\vartheta}^{\,2}$}} \, \Bigg)
+\begin{equation}\label{eq:p*_d} \tag{\texttt{trunc}}
+ \widehat{p}(d) = \N(d | \widehat{\delta}, \widehat{\vartheta}^2) =
+ \begin{cases*}
+ \N\Big(d \,  | \, E(d | -\varepsilon < d < \varepsilon ) , \,  V(d | -\varepsilon < d < \varepsilon ) \, \Big) & \text{tie} \\
+\N\Big(d \,  | \, E(d | d > -\varepsilon ) , \,  V(d | d > -\varepsilon ) \, \Big) & \text{not tie}
+  \end{cases*}
 \end{equation}
 %
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}]
+tie = false
+pd_ = trunc(diff,margin,tie)
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}]
+tie = False
+pd_ = trunc(d,v,margin,tie)
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}]
+tie = F
+pd_ = trunc(d,v,margin,tie)
+\end{lstlisting}
+\end{paracol}
 Dada $\widehat{p}(d_1)$, podemos calcular el mensaje ascendentes aproximado.
-
-\paragraph{$\bm{\widehat{m}_{d \rightarrow f_{d}}(d)}$}
-
-\begin{equation}\label{eq:m^_d_fd}
-\begin{split}
- m_{d_1 \rightarrow f_{d_1}}(d_1) &\overset{\hfrac{\text{eq}}{\ref{eq:p_d}}}{=} \frac{P(d_1)}{m_{f_{d_1} \rightarrow d_1}(d_1)} \\
- &\overset{\hfrac{\text{eq}}{\ref{eq:mean_aprox_}}}{\underset{\hfrac{\text{eq}}{\ref{eq:variance_aprox_}}}{\approx}} \frac{\widehat{P}(d_1)}{m_{f_{d_1} \rightarrow d_1}(d_1)} \\
- & \overset{\hfrac{\text{eq}}{\ref{eq:p*_d}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_fd_d}}}{=}}  \frac{N(d_1 \,  | \,\widehat{\delta} , \, \widehat{\vartheta}^{\,2} )}{N(d_1 | \delta, \vartheta^2)} \\
- &\overset{\hfrac{\text{sec}}{\ref{sec:division_normales}}}{\propto} N(d_1,\delta_{\div},\vartheta_{\div}^2 )
-\end{split}
-\end{equation}
-
-\begin{equation}
- \vartheta_{\div} = \sqrt{\frac{\widehat{\vartheta}^{\,2}\vartheta^2}{(\vartheta^2 - \widehat{\vartheta}^{\,2})}}
-\end{equation}
-
-\begin{equation}
- \delta_{\div} = \frac{(\vartheta^2\widehat{\delta} - \widehat{\vartheta}^{\,2}\delta)}{(\vartheta^2 - \widehat{\vartheta}^{\,2})}
-\end{equation}
-
-\paragraph{$\bm{\widehat{m}_{f_d \rightarrow f_{t_a}}(t_a)}$} (Caso ganador)
-
-\begin{equation}\label{eq:^m_fd_ta}
-\begin{split}
-m_{f_{d_1} \rightarrow t_a}(t_a) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{d_1}(\bm{x}) \prod_{h \in n(f_{d_1}) \setminus \{t_a\} } m_{h \rightarrow f_{d_1}}(h) \, d\bm{x}_{\setminus \{t_a\} }  \\
-&\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m^_d_fd}}}{\approx}}  \int \dots \int \mathbb{I}(d_1 = t_a - t_b) N(d_1 | \delta_{\div}, \vartheta_{\div}^2) N(t_b | \mu_b , \sigma_b^2 )  \, d\bm{x}_{\setminus \{t_a\} } \\[0.1cm]
-\widehat{m}_{f_{d_1} \rightarrow t_a}(t_a)  & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \int \mathbb{I}(d_1 = t_a - t_b) N(d_1 | \delta_{\div}, \vartheta_{\div}^2) N(t_b | \mu_b , \sigma_b^2 )  \, d{d_1} d_{t_b} \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int  N(t_a - t_b | \delta_{\div}, \vartheta_{\div}^2) N(t_b | \mu_b , \sigma_b^2 )  \, d_{t_b} \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int  N( - t_b | \delta_{\div} - t_a, \vartheta_{\div}^2) N(t_b | \mu_b , \sigma_b^2 )  \, d_{t_b} \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int  N( t_b | t_a - \delta_{\div}, \vartheta_{\div}^2) N(t_b | \mu_b , \sigma_b^2 )  \,  d_{t_b} \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{=} N(t_a - \delta_{\div} \, | \, \mu_b \, , \, \vartheta_{\div}^2 + \sigma_b^2) \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} N(t_a \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) \\
-\end{split}
-\end{equation}
-
-
-\paragraph{$\bm{\widehat{m}_{f_d \rightarrow f_{t_b}}(t_b)}$} (Caso perdedor)
-
-\begin{equation}\label{eq:^m_fd_tb}
-\begin{split}
-m_{f_{d_1} \rightarrow t_b}(t_b) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{d_1}(\bm{x}) \prod_{h \in n(f_{d_1}) \setminus \{t_b\} } m_{h \rightarrow f_{d_1}}(h) \, d\bm{x}_{\setminus \{t_b\} }  \\
-&\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m^_d_fd}}}{\approx}}  \int \dots \int \mathbb{I}(d_1 = t_a - t_b) N(d_1 | \delta_{\div}, \vartheta_{\div}^2) N(t_a | \mu_a , \sigma_a^2 )  \, d\bm{x}_{\setminus \{t_a\} } \\[0.1cm]
-\widehat{m}_{f_{d_1} \rightarrow t_b}(t_b)  & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \int \mathbb{I}(d_1 = t_a - t_b) N(d_1 | \delta_{\div}, \vartheta_{\div}^2) N(t_a | \mu_a , \sigma_a^2 )  \, d{d_1} d_{t_a} \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int  N(t_a - t_b | \delta_{\div}, \vartheta_{\div}^2) N(t_a | \mu_a , \sigma_a^2 )  \, d_{t_a} \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int  N( t_a | \delta_{\div} + t_b, \vartheta_{\div}^2) N(t_a | \mu_a , \sigma_a^2 )  \, d_{t_a} \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{=} N(t_b + \delta_{\div} \, | \, \mu_a \, , \, \vartheta_{\div}^2 + \sigma_a^2) \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} N(t_b \, | \, \mu_a - \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_a^2) \\
-\end{split}
-\end{equation}
-
-\paragraph{$\bm{\widehat{m}_{f_{t_a} \rightarrow p_1}(p_1)}$} (Caso ganador)
-
-\begin{equation}\label{eq:^m_fta_p}
-\begin{split}
-m_{f_{t_a} \rightarrow p_1}(p_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{t_a}(\bm{x}) \prod_{h \in n(f_{t_a}) \setminus \{p_1\} } m_{h \rightarrow f_{t_a}}(h) \, d\bm{x}_{\setminus \{p_1\} }  \\
-&\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:^m_fd_ta}}}{\approx}}  \int \dots \int \mathbb{I}(t_a = p_1 + p_2) N(t_a \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) N(p_2 | \mu_2 , \sigma_2^2 + \beta^2)  \, d\bm{x}_{\setminus \{p_1\} } \\[0.1cm]
-\widehat{m}_{f_{t_a} \rightarrow p_1}(p_1)  & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \int \mathbb{I}(t_a = p_1 + p_2) N(t_a \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) N(p_2 | \mu_2 , \sigma_2^2 + \beta^2)  \, d{t_a} d_{p_2} \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int N(p_1 + p_2 \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) N(p_2 | \mu_2 , \sigma_2^2+ \beta^2 )   \, d_{p_2} \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}\int N(p_2 \, | \, \mu_b - p_1 + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) N(p_2 | \mu_2 , \sigma_2^2 + \beta^2)   \, d_{p_2} \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{=} N(\mu_b - p_1 + \delta_{\div} \,|\, \mu_2 \,,\,\vartheta_{\div}^2 + \sigma_b^2 + \sigma_2^2 + \beta^2)   \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}  N( p_1 \,|\,  (\mu_b - \mu_2) + \delta_{\div}  \,,\,\vartheta_{\div}^2 + \sigma_b^2 + \sigma_2^2 + \beta^2)  \\
-\end{split}
-\end{equation}
-
-
-En general
-\begin{equation}
-\begin{split}
-\widehat{m}_{f_{t_a} \rightarrow p_1}(p_1) &= N( p_1 \,|\, (\mu_b  - \sum_{i \in A_a, i\neq1} \mu_i) + \delta_{\div}  \,,\,\vartheta_{\div}^2 + \sigma_b^2 + \sum_{i \in A_a, i\neq1} \sigma_i^2 + \beta^2 ) \\
- & = N( p_1 \,|\, (-\delta + \mu_1) + \delta_{\div}  \,,\,\vartheta_{\div}^2 + (\vartheta^2 - \sigma_1^2 - \beta^2))
-\end{split}
-\end{equation}
-
-
-\paragraph{$\bm{\widehat{m}_{f_{t_b} \rightarrow p_3}(p_3)}$} (Caso perdedor)
-
-\begin{equation}\label{eq:^m_ftb_p}
-\begin{split}
-m_{f_{t_b} \rightarrow p_3}(p_3) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{t_b}(\bm{x}) \prod_{h \in n(f_{t_b}) \setminus \{p_3\} } m_{h \rightarrow f_{t_b}}(h) \, d\bm{x}_{\setminus \{p_3\} }  \\
-&\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:^m_fd_tb}}}{\approx}}  \int \dots \int \mathbb{I}(t_b = p_3 + p_4) N(t_b \, | \, \mu_a - \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_a^2) N(p_4 | \mu_4 , \sigma_4^2 + \beta^2)  \, d\bm{x}_{\setminus \{p_3\} } \\[0.1cm]
-\widehat{m}_{f_{t_b} \rightarrow p_3}(p_3)  & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \int \mathbb{I}(t_b = p_3 + p_4) N(t_b \, | \, \mu_a - \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_a^2) N(p_4 | \mu_4 , \sigma_4^2 + \beta^2) \, d{t_b} d_{p_4} \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int N(p_3 + p_4 \, | \, \mu_a - \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_a^2) N(p_4 | \mu_4 , \sigma_4^2 + \beta^2) \, d_{p_4} \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int N(p_4 \, | \, \mu_a - \delta_{\div} - p_3 \, , \, \vartheta_{\div}^2 + \sigma_a^2) N(p_4 | \mu_4 , \sigma_4^2 + \beta^2) \, d_{p_4} \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{=} N(\mu_a - \delta_{\div} - p_3  \,|\, \mu_4 \, , \, \vartheta_{\div}^2 + \sigma_a^2 + \sigma_4^2 + \beta^2)   \\
-& \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}   N(  p_3  \,|\, (\mu_a - \mu_4)  - \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_a^2 + \sigma_4^2 + \beta^2)  \\
-\end{split}
-\end{equation}
-
-
-
-\subsection{approximate iterative posterior} \label{sec:iterative_posterior}
-
-\subsection{History} \label{sec:history}
-
-\subsection{Structures} \label{sec:estructuras} 
-
-\subsection{History initialization}~\label{sec:trueskill} 
-
-\subsection{History convergence}~\label{sec:throguthTime}
 %
-
-\en{Let the result of a game $r_{ij} = \mathbb{I}(d_{ij}>0)$.
-The probability of winning, $r_{ij} = 1$, can be computed as:}
-\es{}
-%
-\begin{equation}
-p(\,r_{ij}=1\,|\,d_{ij}\,) = p(\,d_{ij} > 0 \,|\, s_i, s_j\,) = \Phi \left(\frac{s_i - s_j}{\sqrt{2}\beta} \right)
+\begin{equation}\label{eq:m^_d_fd} \tag{\texttt{approx\_message}}
+\begin{split}
+ m_{d_1 \rightarrow f_{d_1}}(d_1)   = \frac{p(d_1)}{m_{f_{d_1} \rightarrow d_1}(d_1)} 
+ & \approx \frac{\widehat{p}(d_1)}{m_{f_{d_1} \rightarrow d_1}(d_1)}  \\
+& = \frac{\N(d_1 \,  | \,\widehat{\delta} , \, \widehat{\vartheta}^{\,2} )}{\N(d_1 | \delta, \vartheta^2)} 
+\propto N(d_1,\delta_{\div},\vartheta_{\div}^2 )
+\end{split}
 \end{equation}
 %
-where $\Phi$ is the cumulative distribution function of the standard normal distribution, $\N(0, 1)$.
-
-
-
-
-% \begin{figure}[ht!]
-% \centering
-% \includegraphics[width=.49\linewidth]{Imagenes/Fig6}
-% \caption{\small Joint probability of the performance of two players $i$, $j$ under the assumption of $s_i> s_j$ and independence. All lines parallel to the diagonal $ p_i = p_j $ represent ``difference of performances'' isobars $d_{ij} = p_i - p_j$.}
-% \label{probaOfWin_2D}
-% \end{figure}
-
-% \begin{figure}[ht!]
-% \centering
-% \includegraphics[width=.49\linewidth]{Imagenes/Fig7}
-% \caption{\small The probability of the outcome of a game under the assumptions of the Elo rating system with $s_i> s_j$. The area under the curve in the positive interval ($d_{ij}>0$) is the winning probability for the player $i$, and the area under the curve in the negative interval is the winning probability of player $j$.}
-% \label{probaOfWin}
-% \end{figure}
-
-
-
-
-
---------------------
-
-
-\subsection{Solucion exacta}
-
-
-%\section{Prior predictive y evidencia}
-
-La evidencia es otro nombre para el Prior predictive.
+con $\delta_{\div} = \frac{\widehat{\delta}}{\widehat{\vartheta}^2} - \frac{\delta}{\vartheta^2}$ y $\vartheta_{\div}^2 = (\frac{1}{\widehat{\vartheta}^2} - \frac{1}{\vartheta^2})^{-1}$ 
 %
-\begin{equation*}
-\underbrace{P(\text{Belief}|\text{Data})}_{\text{\scriptsize Posterior}} = \frac{\overbrace{P(\text{Data}|\text{Belief})}^{\text{\scriptsize Likelihood}} \overbrace{P(\text{Belief})}^{\text{\scriptsize Prior}} }{\underbrace{P(\text{Data})}_{\hfrac{\hfrac{\text{\scriptsize Evidence or}}{\text{\scriptsize Average likelihood}}}{\text{\scriptsize Prior Predictive}} } }
-\end{equation*}
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=-0.77 \baselineskip]
+approx_message = pd_/diff
+\end{lstlisting}  
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}]
+d_div = approx_message.mu
+v_div = approx_message.sigma
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}]
+d_div = approx_message.mu
+v_div = approx_message.sigma
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}]
+d_div = approx_message$mu
+v_div = approx_message$sigma
+\end{lstlisting}
+\end{paracol}
+%
+\begin{equation}\label{eq:^m_fd_ta} \tag{\texttt{Lhood\_ta\_approx}}
+\begin{split}
+m_{f_{d_1} \rightarrow t_a}(t_a) & \approx  \iint \mathbb{I}(d_1 = t_a - t_b) \N(d_1 | \delta_{\div}, \vartheta_{\div}^2) \N(t_b | \mu_b , \sigma_b^2 )  \, d{d_1} d_{t_b} \\
+& = \int  \N( t_a-t_b | \delta_{\div}, \vartheta_{\div}^2) \N(t_b | \mu_b , \sigma_b^2 )  \,  d_{t_b} \\
+& = \N(t_a \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) \\
+\end{split}
+\end{equation}
+%
+\begin{equation}\label{eq:^m_fta_p} \tag{\texttt{Lhood\_p1\_approx}}
+\begin{split}
+m_{f_{t_a} \rightarrow p_1}(p_1) &\approx \iint \mathbb{I}(t_a = p_1 + p_2) \N(t_a \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) \N(p_2 | \mu_2 , \sigma_2^2 + \beta^2)  \, d{t_a} d_{p_2} \\
+& = \int \N(p_1 + p_2 \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) \N(p_2 | \mu_2 , \sigma_2^2+ \beta^2 )   \, d_{p_2} \\
+& = \N( p_1 \,|\,  \underbrace{\mu_b - \mu_2}_{\mu_1-\delta} + \delta_{\div}  \,,\,\vartheta_{\div}^2 + \underbrace{\sigma_b^2 + \sigma_2^2 + \beta^2}_{\vartheta^2 - (\sigma_1^2 + \beta^2)})  \\
+\end{split}
+\end{equation}
+%
+\begin{equation}\label{eq:^m_fp_s} \tag{\texttt{Lhood\_s1\_approx}}
+\begin{split}
+m_{f_{p_1} \rightarrow s_1}(s_1) & \approx \int \N(p_1|s_1,\beta^2) \N(p_1| \mu_1 - \delta + \delta_{\div}, \vartheta_{\div}^2 + \vartheta^2 - \sigma_1^2 - \beta^2)dp_1 \\
+& = \N(s_1| \mu_1 - \delta + \delta_{\div}, \vartheta_{\div}^2 + \vartheta^2 - \sigma_1^2)
+\end{split}
+\end{equation}
+%
+\begin{equation}\label{eq:^p_s} \tag{\texttt{posterior\_s1\_approx}}
+ p(s_1) \approx \N(s_1|\mu_1, \sigma_1^2) \N(s_1| \mu_1 - \delta + \delta_{\div}, \vartheta_{\div}^2 + \vartheta^2 - \sigma_1^2)
+\end{equation}
+%
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
+prior1 = r1.N
+mu1 = prior1.mu
+v2, v_div_2 = v^2, v_div^2
+sigma1_2 = prior1.sigma^2
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
+prior1 = r1.N
+mu1 = prior1.mu
+v2, v_div_2 = v**2, v_div**2 
+sigma1_2 = prior1.sigma**2
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
+prior1 = r1$N
+mu1 = prior1$mu
+v2 = v^2; v_div_2 = v_div^2
+sigma1_2 = prior1$sigma^2
+\end{lstlisting}
+\end{paracol}
+\begin{lstlisting}[backgroundcolor=\color{all}]
+Lhood_s1_approx = Gaussian(mu = (mu1 - d + d_div), sigma = sqrt(v_div_2 + v2 - sigma1_2) )
+posterior_s1_approx = prior1 * Lhood_s1_approx
+\end{lstlisting}
 
+\subsection{Multiples temas} \label{sec:iterative_posterior}
 
-\section{Full TrueSkill}
+En esta sección veremos como resolver el posterior aproximado en casos para los cuales tenemos más de dos equipos.
+%
+En estos caso es imposible to perform a one shot inference porque there is a mutual dependency between the probability distribution of difference, $p(d_i)$.
+%
+The basic idea is to update repeatedly forward and backward all messages in the shortest path between any two marginals $p(d_i)$ until convergence.
+%
+The messages that are not yet defined, for example the \emph{winLikelihood}$(t_1)$ in the first forward pass, must be replace it by a neutral form, like a unit scalar or a Gaussian distribution with infinite variance.
+%
+If the messages have already been defined, then use the last available definition.
 
-\begin{center}
+Veamos esto en un caso concreto
+%
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}]
+r1, r2 =  Rating(),  Rating()
+r3, r4 =  Rating(),  Rating()
+team_a = [ r1 ]
+team_b = [ r2, r3 ]
+team_b = [ r4 ]
+teams= [team_a,team_b,team_c]
+result = [1,0,0]
+g = Game(teams,result,p_draw)
+p = posteriors(g)
+\end{lstlisting}
+  \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}]
+r1, r2 =  Rating(),  Rating()
+r3, r4 =  Rating(),  Rating()
+team_a = [ r1 ]
+team_b = [ r2, r3 ]
+team_b = [ r4 ]
+teams= [team_a,team_b,team_c]
+result = [1,0,0]
+g = Game(teams,result,p_draw)
+p = g.posteriors()
+\end{lstlisting}
+   \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}]
+r1 = Rating(); r2 = Rating()
+r3 = Rating(); r4 = Rating()
+teams = list()
+teams$team_a = c(r1)
+teams$team_b = c(r2, r3)
+teams$team_c = c(r4)
+result = c(1,0,0)
+g = Game(teams,result,p_draw)
+p = g$posteriors()
+\end{lstlisting}  
+\end{paracol}
+%
+En términos gráficos 
+\begin{figure}[H]
+  \centering
+  \scalebox{.9}{
 \tikz{ %        
         \node[factor, xshift=-5cm] (fta) {} ;
         \node[const, right=of fta] (nfta) {$f_{t_0}$}; %
@@ -1626,12 +1664,12 @@ La evidencia es otro nombre para el Prior predictive.
         \node[latent, below=of ftc,yshift=-0.5cm] (tc) {$t_2$} ; %
         
         \node[factor, below=of tb, xshift=-3cm] (fd1) {} ;
-        \node[const, left=of fd1] (nfd1) {$f_{d_0}$}; %        
+        %\node[const, left=of fd1] (nfd1) {$f_{d_0}$}; %        
         \node[latent, below=of fd1,yshift=-1cm] (d1) {$d_{0}$} ; %
         \node[factor, below=of d1,yshift=-1cm] (fr1) {} ;
         
         \node[factor, below=of tb, xshift=3cm] (fd2) {} ;
-        \node[const, above=of fd2] (nfd2) {$f_{d_{1}}$}; %        
+        %\node[const, above=of fd2] (nfd2) {$f_{d_{1}}$}; %        
         \node[latent, below=of fd2,yshift=-1cm] (d2) {$d_{1}$} ; %
         \node[factor, below=of d2,yshift=-1cm] (fr2) {} ;
         
@@ -1653,11 +1691,11 @@ La evidencia es otro nombre para el Prior predictive.
         
         \path[draw, -latex, fill=black!50,sloped] (fr1) edge[bend left,draw=black!50] node[midway,above,color=black!75, rotate=180] {\scriptsize \emph{likelihood}$(d_{0})$} (d1);
         
-        \path[draw, -latex, fill=black!50,sloped] (d1) edge[bend right,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{\ \ posterior}$(d_{0})$} (fd1);
+        \path[draw, -latex, fill=black!50,sloped] (d1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \ \ $\widehat{\text{\emph{likelihood}}}(d_0)$} (fd1);
         
-        \path[draw, -latex, fill=black!50,sloped] (fd1) edge[bend right,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{prior}$(d_{0})$} (d1);
+        \path[draw, -latex, fill=black!50,sloped] (fd1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{prior}$(d_{0})$} (d1);
         
-        \path[draw, -latex, fill=black!50,sloped] (tc) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{posterior}$(t_0)$} (ftc);
+        \path[draw, -latex, fill=black!50,sloped] (tc) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize\emph{likelihood}$(t_2)$} (ftc);
         
         
         %\path[draw, -latex, fill=black!50,sloped] (fr2) edge[bend left,draw=black!50] node[midway,above,color=black!75, rotate=180] {\scriptsize \textbf{5:} \emph{likelihood}$(d_{0})$} (d2);
@@ -1666,99 +1704,86 @@ La evidencia es otro nombre para el Prior predictive.
         
         
 } 
-\end{center}
-
-\begin{equation}
- p(t_e) = \emph{prior}(t_e) \cdot \emph{looseLikelihood}(t_e) \cdot \emph{winLikelihood}(t_e)
-\end{equation}
-
-\begin{equation}
- p(d_i) = \emph{prior}(d_i) \cdot \emph{likelihood}(d_i)
-\end{equation}
-
-There is a mutual dependency between the team performance (difference) marginals, $p(d_i)$.
-That makes impossible to perform a one shot inference.
-The basic idea is to update repeatedly forward and backward all messages in the shortest path between any two marginals $p(d_i)$ until convergence.
-The messages that are not yet defined, for example the \emph{winLikelihood}$(t_1)$ in the first forward pass, must be replace it by a neutral form, like a unit scalar or a Gaussian distribution with infinite variance.
-If the messages have already been defined, then use the last available definition.
-
-\paragraph{$\bm{\emph{winPosterior}(t_i)}$:}
-
+}
+\caption{}
+\end{figure}
+%
+\begin{lstlisting}[backgroundcolor=\color{all}]
+prior_a = performance(team_a); prior_b = performance(team_b); prior_c = performance(team_c)
+lose_likelihood_1 = Ninf; win_likelihood_2 = Ninf
+\end{lstlisting}
+%
 \begin{equation}
  \begin{split}
-  \emph{winPosterior}(t_{i}) = \emph{prior}(t_i) \cdot \emph{winLikelihood}(t_i)
+  \emph{losePosterior}(t_{i}) = \emph{prior}(t_i) \cdot \emph{winLikelihood}(t_i)
  \end{split}
 \end{equation}
-
-
-\paragraph{$\bm{\emph{losePosterior}(t_i)}$:}
-
-\begin{equation}
- \begin{split}
-  \emph{losePosterior}(t_{i}) = \emph{prior}(t_i) \cdot \emph{loseLikelihood}(t_i)
- \end{split}
-\end{equation}
-
-
-\paragraph{$\bm{\emph{prior}(d_i)}$:}
-
+%
+\begin{lstlisting}[backgroundcolor=\color{all}]
+lose_posterior_tb = prior_tb * win_likelihood_tb
+\end{lstlisting}
+%
 \begin{equation}
  \begin{split}
   \emph{prior}(d_{i}) = \iint \mathbb{I}(d_{i} = t_i - t_{i+1} ) \cdot winPosterior(t_i) \cdot losePosterior(t_{i+1}) \, dt_idt_{i+1} 
  \end{split}
 \end{equation}
-
-
-\paragraph{$\bm{\widehat{\emph{likelihood}}(d_i)}$:}
-
-\begin{equation}
-\widehat{p}(d_i) = \emph{prior}(d_i) \, \widehat{\emph{likelihood}}(d_i)
-\end{equation}
-
-Following the expectation propagation algorithm, we approximate the \emph{likelihood}$(d_i)$ by approximating the marginal $p(d_i)$ via moment matching, resulting in $\widehat{p}(d_i)$ a Gaussian with the same mean and variance as $p(d_i)$.
-\begin{equation}
-\begin{split}
- \widehat{p}(d_i) & = \emph{approx}(p(d_i)) = \emph{approx}(\emph{prior}(d_i) \cdot \emph{likelihood}(d_i)) 
- \end{split}
-\end{equation}
-
-Then, 
+%
+\begin{lstlisting}[backgroundcolor=\color{all}]
+prior_d1 = prior_ta * lose_posterior_tb
+\end{lstlisting}
+%
 \begin{equation}
 \begin{split}
 \widehat{\emph{likelihood}}(d_i) &= \frac{\emph{approx}(\emph{prior}(d_i) \cdot \emph{likelihood}(d_i))}{ \emph{prior}(d_i)}
 \end{split}
 \end{equation}
+%
+\begin{lstlisting}[backgroundcolor=\color{all}]
+lhood_approx_d1 = trunc()
+\end{lstlisting}
+%
 
-\paragraph{$\bm{\widehat{\emph{posterior}}(d_i)}$:}
 
+------
 
+%
+\begin{equation}
+ \begin{split}
+  \emph{winPosterior}(t_{i}) = \emph{prior}(t_i) \cdot \emph{winLikelihood}(t_i)
+ \end{split}
+\end{equation}
+%
+\begin{lstlisting}[backgroundcolor=\color{all}]
+lose_posterior_1 = prior_c * win_likelihood_1
+\end{lstlisting}
+%
 \begin{equation}
 \begin{split}
 \widehat{\emph{posterior}}(d_i) &= \widehat{\emph{likelihood}}(d_i)
 \end{split}
 \end{equation}
-
-\paragraph{\emph{loseLikelihood}$\bm(t_{i+1})$:}
-
+%
 \begin{equation}
  \begin{split}
   \emph{loseLikelihood}(t_{i+1}) = \iint \mathbb{I}(d_{i} = t_i - t_{i+1} ) \emph{winPosterior}(t_i) \widehat{\emph{posterior}}(d_i) \, dd_idt_{i+1} 
  \end{split}
 \end{equation}
-
-
-\paragraph{\emph{winLikelihood}$\bm(t_{i})$:}
-
+%
 \begin{equation}
  \begin{split}
   \emph{winLikelihood}(t_{i}) = \iint \mathbb{I}(d_{i} = t_i - t_{i+1} ) \emph{losePosterior}(t_{i+1}) \widehat{\emph{posterior}}(d_i) \, dd_idt_{i+1} 
  \end{split}
 \end{equation}
 
+\subsection{History} \label{sec:history}
 
+\subsection{Structures} \label{sec:estructuras} 
 
+\subsection{History initialization}~\label{sec:trueskill} 
 
-
+\subsection{History convergence}~\label{sec:throguthTime}
+%
 \subsection{TrueSkill through Time (TTT)}
 
 %\todo[inline]{Poner un primer parrafo que le de algo de hilo a la historia}

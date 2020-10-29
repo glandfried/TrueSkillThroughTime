@@ -33,18 +33,13 @@ abline(v=0,lty=3)
 base <- rep(0,length(D))
 xx <- c(D[D>=epsilon],rev(D[D>=epsilon]))
 yy <- c(base[D>=epsilon],rev(dnormal[D>=epsilon]) )
-polygon(xx,yy,col=rgb(0,0,0,0.25))
-
+polygon(xx,yy,col=rgb(0.2,0.9,0.2,0.4))
+base <- rep(0,length(D))
 
 base <- rep(0,length(D))
 xx <- c(D[D<=-epsilon],rev(D[D<=-epsilon]))
 yy <- c(base[D<=-epsilon],rev(dnormal[D<=-epsilon]) )
-polygon(xx,yy,col=rgb(0,0,0,0.25))
-
-base <- rep(0,length(D))
-xx <- c(D[D>=epsilon],rev(D[D>=epsilon]))
-yy <- c(base[D>=epsilon],rev(dnormal[D>=epsilon]) )
-polygon(xx,yy,col=rgb(0,0,0,0.25))
+polygon(xx,yy,col=rgb(0.9,0.2,0.2,0.4))
 
 text(-epsilon-1.2,0.025,"Lose",cex=1.75)
 text(0,0.025,"Draw",cex=1.75)
@@ -71,7 +66,7 @@ mtext(text ="Density" ,side =2 ,line=1,cex=1.75)
 base <- rep(0,length(D))
 xx <- c(D[D>=-epsilon & D<=epsilon],rev(D[D>=-epsilon & D<=epsilon]))
 yy <- c(base[D>=-epsilon & D<=epsilon],rev(dnormal[D>=-epsilon & D<=epsilon]) )
-polygon(xx,yy,col=rgb(0,0,0,0.25))
+polygon(xx,yy,col=rgb(0.2,0.6,0.6,0.33))
 
 sigma <- 3
 dnormal <- dnorm(D,mu,sigma)
@@ -80,7 +75,7 @@ epsilon <- abs(qnorm(0.5-draw_proba/2,mean=mu,sd =sigma))
 base <- rep(0,length(D))
 xx <- c(D[D>=-epsilon & D<=epsilon],rev(D[D>=-epsilon & D<=epsilon]))
 yy <- c(base[D>=-epsilon & D<=epsilon],rev(dnormal[D>=-epsilon & D<=epsilon]) )
-polygon(xx,yy,col=rgb(0,0,0,0.25))
+polygon(xx,yy,col=rgb(0.8,0.7,0,0.33))
 
 #######################################
 # end 
