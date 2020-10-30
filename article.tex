@@ -1662,25 +1662,25 @@ En términos gráficos
   \scalebox{.9}{
 \tikz{ %        
         \node[factor, xshift=-5cm] (fta) {} ;
-        \node[const, right=of fta] (nfta) {$f_{t_0}$}; %
-        \node[latent, below=of fta,yshift=-0.5cm] (ta) {$t_0$} ; %
+        \node[const, right=of fta] (nfta) {$f_{t_a}$}; %
+        \node[latent, below=of fta,yshift=-0.5cm] (ta) {$t_a$} ; %
         
         \node[factor] (ftb) {} ;
-        \node[const, right=of ftb] (nftb) {$f_{t_1}$}; %
-        \node[latent, below=of ftb,yshift=-0.5cm] (tb) {$t_1$} ; %
+        \node[const, right=of ftb] (nftb) {$f_{t_b}$}; %
+        \node[latent, below=of ftb,yshift=-0.5cm] (tb) {$t_b$} ; %
         
         \node[factor, xshift=5cm] (ftc) {} ;
-        \node[const, right=of ftc] (nftc) {$f_{t_2}$}; %        
-        \node[latent, below=of ftc,yshift=-0.5cm] (tc) {$t_2$} ; %
+        \node[const, right=of ftc] (nftc) {$f_{t_c}$}; %        
+        \node[latent, below=of ftc,yshift=-0.5cm] (tc) {$t_c$} ; %
         
         \node[factor, below=of tb, xshift=-3cm] (fd1) {} ;
         %\node[const, left=of fd1] (nfd1) {$f_{d_0}$}; %        
-        \node[latent, below=of fd1,yshift=-1cm] (d1) {$d_{0}$} ; %
+        \node[latent, below=of fd1,yshift=-1cm] (d1) {$d_1$} ; %
         \node[factor, below=of d1,yshift=-1cm] (fr1) {} ;
         
         \node[factor, below=of tb, xshift=3cm] (fd2) {} ;
         %\node[const, above=of fd2] (nfd2) {$f_{d_{1}}$}; %        
-        \node[latent, below=of fd2,yshift=-1cm] (d2) {$d_{1}$} ; %
+        \node[latent, below=of fd2,yshift=-1cm] (d2) {$d_2$} ; %
         \node[factor, below=of d2,yshift=-1cm] (fr2) {} ;
         
         \edge[-] {ta} {fta,fd1}
@@ -1689,23 +1689,23 @@ En términos gráficos
         \edge[-] {d1} {fd1,fr1}
         \edge[-] {d2} {fd2,fr2}
         
-        \path[draw, -latex, fill=black!50,sloped] (fd1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize  \emph{loseLikelihood}$(t_1)$} (tb);
+        \path[draw, -latex, fill=black!50,sloped] (fd1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize  \texttt{lhood\_lose\_tb}} (tb);
         
-        \path[draw, -latex, fill=black!50,sloped] (tb) edge[bend left,draw=black!50] node[midway,below,color=black!75] {\scriptsize  \emph{losePosterior}$(t_1)$} (fd1);
+        \path[draw, -latex, fill=black!50,sloped] (tb) edge[bend left,draw=black!50] node[midway,below,color=black!75] {\scriptsize \texttt{ \ posterior\_lose\_tb}} (fd1);
         
-        \path[draw, -latex, fill=black!50,sloped] (fd2) edge[bend right,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{winLikelihood}$(t_1)$} (tb);
+        \path[draw, -latex, fill=black!50,sloped] (fd2) edge[bend right,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{lhood\_win\_tb}} (tb);
         
-        \path[draw, -latex, fill=black!50,sloped] (tb) edge[bend right,draw=black!50] node[midway,below,color=black!75] {\scriptsize \emph{winPosterior}$(t_1)$} (fd2);
+        \path[draw, -latex, fill=black!50,sloped] (tb) edge[bend right,draw=black!50] node[midway,below,color=black!75] {\scriptsize \texttt{posterior\_win\_tb}} (fd2);
         
-        \path[draw, -latex, fill=black!50,sloped] (fta) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{prior}$(t_0)$} (ta);
+        \path[draw, -latex, fill=black!50,sloped] (fta) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{prior\_ta}} (ta);
         
-        \path[draw, -latex, fill=black!50,sloped] (fr1) edge[bend left,draw=black!50] node[midway,above,color=black!75, rotate=180] {\scriptsize \emph{likelihood}$(d_{0})$} (d1);
+        \path[draw, -latex, fill=black!50,sloped] (fr1) edge[bend left,draw=black!50] node[midway,above,color=black!75, rotate=180] {\scriptsize \texttt{lhood\_d1}} (d1);
         
-        \path[draw, -latex, fill=black!50,sloped] (d1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \ \ $\widehat{\text{\emph{likelihood}}}(d_0)$} (fd1);
+        \path[draw, -latex, fill=black!50,sloped] (d1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{lhood\_d1\_approx}} (fd1);
         
-        \path[draw, -latex, fill=black!50,sloped] (fd1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \emph{prior}$(d_{0})$} (d1);
+        \path[draw, -latex, fill=black!50,sloped] (fd1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{prior\_d1}} (d1);
         
-        \path[draw, -latex, fill=black!50,sloped] (tc) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize\emph{likelihood}$(t_2)$} (ftc);
+        \path[draw, -latex, fill=black!50,sloped] (tc) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{lhood\_tc\_approx}} (ftc);
         
         
         %\path[draw, -latex, fill=black!50,sloped] (fr2) edge[bend left,draw=black!50] node[midway,above,color=black!75, rotate=180] {\scriptsize \textbf{5:} \emph{likelihood}$(d_{0})$} (d2);
@@ -1811,21 +1811,7 @@ posterior_s2_approx = prior2 * lhood_s2_approx
 \end{lstlisting}
 
 
-
-
-
-
-
-
 \subsection{History} \label{sec:history}
-
-\subsection{Structures} \label{sec:estructuras} 
-
-\subsection{History initialization}~\label{sec:trueskill} 
-
-\subsection{History convergence}~\label{sec:throguthTime}
-%
-\subsection{TrueSkill through Time (TTT)}
 
 %\todo[inline]{Poner un primer parrafo que le de algo de hilo a la historia}
 
@@ -1916,8 +1902,6 @@ The neighbor factor graph of a temporal skill variable $s_i^t$, is
 \es{Los mensajes que no est\'an todav\'ia definidos, por ejemplo el prior inverso en la primer pasada hacia adelante, es remplazado por una forma neutral como un escalar unidad o una distribuci\'on gausiana con infinita varianza.}
 \vspace{0.3cm}
 
-\paragraph{\emph{posterior}$\bm{_i(t-1)}$:}
-
 \begin{equation}
 \begin{split}
   \emph{posterior}_i(t-1)&= m_{s_i^{t-1}\rightarrow f_{s_i^t}}(s_i^{t-1}) \\
@@ -1926,9 +1910,6 @@ The neighbor factor graph of a temporal skill variable $s_i^t$, is
  \end{split}
 \end{equation}
 
-
- \paragraph{\emph{prior}$_i\bm{(t)}$:}
-
  \begin{equation}
  \begin{split}
   \emph{prior}_i(t) &= m_{f_{s_i^t} \rightarrow s_i^t}(s_i^t) \\
@@ -1936,17 +1917,12 @@ The neighbor factor graph of a temporal skill variable $s_i^t$, is
   \end{split}
  \end{equation}
 
- \paragraph{\emph{likelihood}$_i\bm{(t,k)}$:}
-
  \begin{equation}
  \begin{split}
   \emph{likelihood}_i(t,k) &= m_{f_{p^{t}(k)} \rightarrow s^t}(s^t) \\
   &= \emph{trueSkillVariationalLikelihood}_i(t,k)
   \end{split}
  \end{equation}
-
- \paragraph{\emph{withinPrior}$_i\bm{(t,k)}$:}
-
 
  \begin{equation}
  \begin{split}
@@ -1956,16 +1932,12 @@ The neighbor factor graph of a temporal skill variable $s_i^t$, is
   \end{split}
  \end{equation}
 
- \paragraph{\emph{inversePrior}$\bm{_i(t)}$: }
-
  \begin{equation}
  \begin{split}
  \emph{inversePrior}_i(t) &= m_{f_{s_i^{t+1}} \rightarrow s_i^t}(s_i^t) \\
  &= \int f_{s_i^{t+1}} \cdot \emph{inversePosterior}_i(t+1) \, ds_i^{t+1}
  \end{split}
  \end{equation}
-
-  \paragraph{\emph{inversePosterior}$\bm{_i(t+1)}$: }
 
  \begin{equation}
  \begin{split}
@@ -1975,7 +1947,12 @@ The neighbor factor graph of a temporal skill variable $s_i^t$, is
  \end{split}
  \end{equation}
 
-\subsubsection{Convergence}
+
+\subsection{Structures} \label{sec:estructuras} 
+
+\subsection{History initialization}~\label{sec:trueskill} 
+
+\subsection{History convergence}~\label{sec:throguthTime}
 
 \en{\paragraph{Temporal batch} Within a temporal batch $t$, we go through the games outcomes $\vm{y}^t$ several times until convergence.}
 \es{\paragraph{Bache temporal} Dentro de un bache temporal $t$, pasamos por los resultados de los juegos $\vm{y}^t$, varias veces hasta su convergencia.}
