@@ -1027,31 +1027,103 @@ En la subseción~\ref{TTT} mostramos el algoritmo utilizado para converger las e
 
 \subsection{Sum-product algorithm} \label{sec:sumProductAlgorithm}
 
+\en{}
+\en{El \emph{sum-product algorithm}~\cite{Kschischang2001} aprovecha la estructura del modelo causal involucrado para aplicar eficientemente las únicas dos reglas de inferencia: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}}
 %
 \en{}
-\en{Para calcular la posterior utilizamos un algoritmo gen\'erico de pasaje de mensajes para \emph{factor graphs} llamado \emph{sum-product algorithm}~\cite{Kschischang2001}.}
+\en{Los modelos causales, representados como distribuciones de probabilidad conjunta, pueden factorizarse en el producto de probabilidades condicionales simples.}
 %
 \en{}
-\en{Permite resolver funciones marginales eficientemente mediante el uso de la forma en la cual la funci\'on global se factoriza en el producto de funciones locales simples, cada una dependiente de una subconjunto de variables.}
+\en{Nuestro modelo generativo $p(\bm{s},\bm{p},d,r)$ puede factorizarse como $p(s_1)p(s_2)p(p_1|s_1)p(p_2|s_2)p(d|\bm{p})P(r|d)$.}
 %
 \en{}
-\en{Un \emph{factor graph} es una grafo bipartito, (relaciones entre nodos variable $v$ y nodos factor $f$).
-Los ejes del factor graph representan la relaci\'on matem\'atica ``nodo $v$ es argumento de nodo $f$''.
-La estructura del grafo codifica la factorizaci\'on de la funci\'on global.
-Pero adem\'as, cuando un grafo de factorizaci\'on (\emph{factor graph}) no contiene ciclos, el grafo codifica tambi\'en las expresiones aritm\'eticas mediante las cuales se puede computar las marginales asociadas a la funci\'on global.
+\en{En la figura~\ref{fig:factor_graph} mostramos su representación gr\'afica, conocida como \emph{factor graph}.}
+%
+\begin{figure}[t]
+\centering \small
+    \tikz{         
+%         \node[const, above=of fr] (nfr) {$f_r$}; %
+% 	\node[const, above=of nfr] (dfr) {\large $\mathbb{I}(d >0)$}; %
+    
+    
+    \node[factor] (fr) {} ; 
+    %\node[const, left=of fr, xshift=-1.35cm] (r_name) {\small \en{Result}\es{Resultado}:}; 
+    \node[const, left=of fr] (nfr) {\normalsize $P(r|d)$}; 
+    \node[const, right=of fr] (dfr) {\normalsize \hspace{2.4cm} $P(r|d)=\mathbb{I}(d>0)$}; 
+
+    \node[latent, above=of fr, yshift=-0.6cm] (d) {$d$} ; %
+    \node[const, left=of d, xshift=-1.35cm] (d_name) {\small \en{Difference}\es{Diferencia}:};
+    
+    
+    \node[factor, above=of d,yshift=-0.6cm] (fd) {} ; 
+    \node[const, left=of fd] (nfd) {\normalsize $p(d|\bm{p})$}; 
+    \node[const, right=of fd] (dfd) {\normalsize \hspace{2.4cm} $p(d|\bm{p}) =\mathbb{I}(d=p_1-p_2) \ o \ \delta() $}; 
+    
+    
+    \node[latent, above=of fd, xshift=-0.8cm, yshift=-0.6cm] (p1) {$p_1$} ; %
+    \node[latent, above=of fd, xshift=0.8cm, yshift=-0.6cm] (p2) {$p_2$} ; %
+    \node[const, left=of p1, xshift=-0.55cm] (p_name) {\small \en{Performance}\es{Rendimiento}:}; 
+
+    \node[factor, above=of p1 ,yshift=-0.6cm] (fp1) {} ; 
+    \node[factor, above=of p2 ,yshift=-0.6cm] (fp2) {} ; 
+    
+    \node[latent, above=of fp1,yshift=-0.6cm] (s1) {$s_1$} ; %
+    \node[latent, above=of fp2,yshift=-0.6cm] (s2) {$s_2$} ; %
+    
+    \node[factor, above=of s1 ,yshift=-0.6cm] (fs1) {} ; 
+    \node[factor, above=of s2 ,yshift=-0.6cm] (fs2) {} ; 
+    
+    
+    \node[const, left=of fp1] (nfp1) {\normalsize $p(p_1|s_1)$};
+    \node[const, right=of fp2] (nfp2) {\normalsize $p(p_2|s_2)$};
+    \node[const, right=of fp2] (dfp2) {\normalsize \hspace{1.6cm} $p(p_i|s_i)=\N(p_i|s_i,\beta^2)$};
+
+    \node[const, left=of s1, xshift=-.85cm] (s_name) {\small \en{Skill}\es{Habilidad}:}; 
+    
+    \node[const, left=of fs1] (nfs1) {\normalsize $p(s_1)$};
+    \node[const, right=of fs2] (nfs2) {\normalsize $p(s_2)$};
+    \node[const, right=of fs2] (dfs) {\normalsize \hspace{1.6cm} $p(s_i) = \N(s_i|\mu_i,\sigma_i^2)$};
+
+    
+    \edge[-] {d} {fr};
+    \edge[-] {p1,p2,d} {fd};
+    \edge[-] {fp1} {p1,s1};
+    \edge[-] {fp2} {p2,s2};
+    \edge[-] {fs1} {s1};
+    \edge[-] {fs2} {s2};
+    %\node[invisible, right=of p2, xshift=4.35cm] (s-dist) {};
 }
+     \caption{
+     \en{}
+     \en{Factorizaci\'on gráfica (o \emph{factor graph}) del modelo genertivo (Fig.~\ref{fig:generative_model}).}
+     %
+     \en{}
+     \en{Los cuadrados negros representan factores o funciones $f$, los círculos blancos representan variable $v$, y los ejes representan la relaci\'on matem\'atica ``nodo $v$ es argumento de nodo $f$''.}
+     }
+    \label{fig:factor_graph}
+\label{modelo}
+\end{figure}
 
-\paragraph{The Sum-Product Update Rule} El mensaje enviado desde un v\'ertice $v$ a trav\'es de un eje $e$ es el producto de la funci\'on local de $v$ (funci\'on indicadora si $v$ es un nodo variable) con todos los mensajes recibidos en $v$ a trav\'es de ejes \emph{distintos} de $e$, integrados para la variable asociada con $e$.
-
-\vspace{0.3cm}
-
+\en{}
+\en{Los \emph{factor graph} son grafos bipartitos entre nodos variable $v$ y nodos factor $f$, en el que los ejes representan la relaci\'on matem\'atica ``el factor $f$ tiene como argumento el nodo $v$''.}
+%
+\en{}
+\en{Sobre este tipo de estructuras se  cualquier marginal de la distribución de probabilidad conjunto, como por ejemplo la distribución a posteriori de las habilidades.}
+%
+\en{}
+\en{Los pasos pueden }
+%
+\begin{mdframed}
+El mensaje enviado desde un v\'ertice $v$ a trav\'es de un eje $e$ es el producto de la funci\'on local de $v$ (funci\'on indicadora si $v$ es un nodo variable) con todos los mensajes recibidos en $v$ a trav\'es de ejes \emph{distintos} de $e$, integrados para la variable asociada con $e$.
+\end{mdframed}
+%
 Sea $m_{x \rightarrow f}(x)$ el mensaje enviado por el nodo variable $x$ al nodo factor $f$, y $m_{f \rightarrow x}(x)$ el mensaje enviado por un nodo factor $f$ a un nodo variable $x$.
 Sea $n(v)$ el conjunto de nodos vecinos al nodo $v$.
 Luego, los mensajes pueden ser expresados del siguiente modo.
-\begin{equation}\label{eq:m_v_f} 
+\begin{equation}\label{eq:m_v_f} \tag{\text{product step}}
 m_{x \rightarrow f}(x) = \prod_{h \in n(x) \setminus \{f\} } m_{h \rightarrow x}(x)
 \end{equation}
-\begin{equation}\label{eq:m_f_v}  
+\begin{equation}\label{eq:m_f_v}  \tag{\text{sum step}}
 m_{f \rightarrow x}(x) = \int \cdots \int \Big( f(\bm{x}) \prod_{h \in n(f) \setminus \{x\} } m_{h \rightarrow f}(h) \Big) \,  d\bm{x}_{\setminus x}
 \end{equation}
 
@@ -1066,57 +1138,6 @@ En el caso de \texttt{TrueSkill},
 la funci\'on representada por el factor graph es la distribuci\'on
 conjunta $p(\bm{s},\bm{p},\bm{t}|\bm{o},A)$ (Fig.
 \ref{factorGraph_trueskill}).
-
-\begin{figure}[H]
-  \centering
-  \scalebox{.9}{
-  \tikz{ %
-
-
-        \node[factor] (fr) {} ;
-        \node[const, above=of fr] (nfr) {$f_r$}; %
-	\node[const, above=of nfr] (dfr) {\large $\mathbb{I}(g\,d_{ab}>0)$}; %
-        \node[latent, left=of fr] (d) {$d_j$} ; %
-        \node[factor, left=of d] (fd) {} ;
-        \node[const, above=of fd] (nfd) {$f_d$}; %
-        \node[const, above=of nfd] (dfd) {\large $\mathbb{I}(d_{ab}=t_a - t_b)$}; %
-        \node[const, below=of d,yshift=-0.15cm] (j) {\footnotesize con signo $g:=1 - 2*\mathbb{I}(o_a < o_b) $};
-
-        \node[latent, left=of fd,xshift=-0.9cm] (t) {$t_e$} ; %
-        \node[factor, left=of t] (ft) {} ;
-        \node[const, above=of ft] (nft) {$f_t$}; %
-        \node[const, above=of nft,xshift=0.5cm] (dft) {\large $\mathbb{I}(t_e = \sum_{i \in A_e} p_i)$}; %
-
-        \node[latent, left=of ft] (p) {$p_i$} ; %
-        \node[factor, left=of p] (fp) {} ;
-        \node[const, above=of fp] (nfp) {$f_p$}; %
-        \node[const, above=of nfp] (dfp) {\large $N(p_i;s_i,\beta^2)$}; %
-
-        \node[latent, left=of fp] (s) {$s_i$} ; %
-        \node[factor, left=of s] (fs) {} ;
-        \node[const, above=of fs] (nfs) {$f_s$}; %
-        \node[const, above=of nfs] (dfs) {\large $N(s_i;\mu_i,\sigma^2)$}; %
-
-        \edge[-] {d} {fr};
-	\edge[-] {fd} {d};
-        \edge[-] {fd} {t};
-        \edge[-] {t} {ft};
-        \edge[-] {ft} {p};
-        \edge[-] {p} {fp};
-        \edge[-] {fp} {s};
-        \edge[-] {s} {fs};
-
-        \plate {personas} {(p)(s)(fs)(nfs)(dfp)(dfs)} {$i \in A_e$}; %
-        \node[invisible, below=of ft, yshift=-0.6cm] (inv_below_e) {};
-	\node[invisible, above=of ft, yshift=1.1cm] (inv_above_e) {};
-	\plate {equipos} {(personas) (t)(ft)(dft) (inv_above_e) (inv_below_e)} {$  \text{con $A$ partici\'on de jugadores }$  \hspace{3cm} $0 < e \leq |A|$}; %
-	\node[invisible, below=of fr, yshift=-0.6cm] (inv_below) {};
-	\node[invisible, above=of fr, yshift=1.1cm] (inv_above) {};
-	\plate {comparaciones} {(fd) (dfd) (d) (fr) (dfr) (inv_below) (inv_above)} {$a$ equipo focal \hspace{0.6cm} $0 < b \leq |A| \ , \ a \neq b$};
-        }  }
-  \caption{\small Grafo bipartito de la factorizaci\'on (\emph{factor graph}) del modelo \texttt{Trueskill}}
-  \label{factorGraph_trueskill}
-\end{figure}
 
 \subsection{Propiedades}\label{sec:propiedades}
 
@@ -1200,7 +1221,7 @@ Esta clase sobre escribe las operaciones de suma, resta, producto y división.
 Las partidas con 2 equipos tienen solución exacta.
 %
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
+\begin{lstlisting}[backgroundcolor=\color{julia},frame=rlbt, framexrightmargin=5pt]
 r1, r2 =  Rating(),  Rating()
 r3, r4 =  Rating(),  Rating()
 team_a = [ r1, r2 ]
@@ -1211,7 +1232,7 @@ g = Game(teams, result)
 p = exact_posteriors(g)
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
+\begin{lstlisting}[backgroundcolor=\color{python},frame=rlbt,framexleftmargin=5pt, framexrightmargin=5pt]
 r1, r2 = Rating(), Rating()
 r3, r4 = Rating(), Rating()
 team_a = [ r1, r2 ]
@@ -1222,7 +1243,7 @@ g = Game(teams, result)
 p = g.exact_posteriors()
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
+\begin{lstlisting}[backgroundcolor=\color{r},frame=trlb,framexleftmargin=5pt, framexrightmargin=5pt]
 r1 = Rating(); r2 = Rating()
 r3 = Rating(); r4 = Rating()
 team_a = c(r1, r2)
@@ -1450,22 +1471,23 @@ Veremos ahora cómo se resuelve un posterior aproximado, incorporando además la
 %
 En esta sección vamos a mostrar la matemática necesaria para resolver la siguiente partida.
 %
-\begin{lstlisting}[backgroundcolor=\color{all},belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=-0.77 \baselineskip, frame=lrt]
 g = Game(teams, result, p_draw)
 \end{lstlisting}  
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
+\begin{lstlisting}[backgroundcolor=\color{julia},frame=lrb,framexrightmargin=5pt]
 post = posteriors(g)
 \end{lstlisting}
 \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
+\begin{lstlisting}[backgroundcolor=\color{python},frame=rlb,framexleftmargin=5pt, framexrightmargin=5pt]
 post = g.posteriors()
 \end{lstlisting}
 \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
+\begin{lstlisting}[backgroundcolor=\color{r},frame=rlb, framexleftmargin=5pt]
 post = g$posteriors()
 \end{lstlisting}
 \end{paracol}
+
 %
 La necesidad de aproximar el posterior ocurre debido a que la probabilidad de la diferencia de rendimientos de los equipos es una Gasussian truncada (Eq.~\ref{eq:p_d}).
 %
@@ -1611,6 +1633,58 @@ posterior_s1_approx = prior1 * lhood_s1_approx
 \end{lstlisting}
 
 \subsection{Multiples temas} \label{sec:iterative_posterior}
+
+
+\begin{figure}[H]
+  \centering
+  \scalebox{.9}{
+  \tikz{ %
+
+
+        \node[factor] (fr) {} ;
+        \node[const, above=of fr] (nfr) {$f_r$}; %
+	\node[const, above=of nfr] (dfr) {\large $\mathbb{I}(g\,d_{ab}>0)$}; %
+        \node[latent, left=of fr] (d) {$d_j$} ; %
+        \node[factor, left=of d] (fd) {} ;
+        \node[const, above=of fd] (nfd) {$f_d$}; %
+        \node[const, above=of nfd] (dfd) {\large $\mathbb{I}(d_{ab}=t_a - t_b)$}; %
+        
+        \node[latent, left=of fd,xshift=-0.9cm] (t) {$t_e$} ; %
+        \node[factor, left=of t] (ft) {} ;
+        \node[const, above=of ft] (nft) {$f_t$}; %
+        \node[const, above=of nft,xshift=0.5cm] (dft) {\large $\mathbb{I}(t_e = \sum_{i \in A_e} p_i)$}; %
+
+        \node[latent, left=of ft] (p) {$p_i$} ; %
+        \node[factor, left=of p] (fp) {} ;
+        \node[const, above=of fp] (nfp) {$f_p$}; %
+        \node[const, above=of nfp] (dfp) {\large $N(p_i;s_i,\beta^2)$}; %
+
+        \node[latent, left=of fp] (s) {$s_i$} ; %
+        \node[factor, left=of s] (fs) {} ;
+        \node[const, above=of fs] (nfs) {$f_s$}; %
+        \node[const, above=of nfs] (dfs) {\large $N(s_i;\mu_i,\sigma^2)$}; %
+
+        \edge[-] {d} {fr};
+	\edge[-] {fd} {d};
+        \edge[-] {fd} {t};
+        \edge[-] {t} {ft};
+        \edge[-] {ft} {p};
+        \edge[-] {p} {fp};
+        \edge[-] {fp} {s};
+        \edge[-] {s} {fs};
+
+        \plate {personas} {(p)(s)(fs)(nfs)(dfp)(dfs)} {$i \in A_e$}; %
+        \node[invisible, below=of ft, yshift=-0.6cm] (inv_below_e) {};
+	\node[invisible, above=of ft, yshift=1.1cm] (inv_above_e) {};
+	\plate {equipos} {(personas) (t)(ft)(dft) (inv_above_e) (inv_below_e)} {$  \text{con $A$ partici\'on de jugadores }$  \hspace{3cm} $0 < e \leq |A|$}; %
+	\node[invisible, below=of fr, yshift=-0.6cm] (inv_below) {};
+	\node[invisible, above=of fr, yshift=1.1cm] (inv_above) {};
+	\plate {comparaciones} {(fd) (dfd) (d) (fr) (dfr) (inv_below) (inv_above)} {$a$ equipo focal \hspace{0.6cm} $0 < b \leq |A| \ , \ a \neq b$};
+        }  }
+  \caption{\small Grafo bipartito de la factorizaci\'on (\emph{factor graph}) del modelo \texttt{Trueskill}}
+  \label{factorGraph_trueskill}
+\end{figure}
+
 
 En esta sección veremos como resolver el posterior aproximado en casos para los cuales tenemos más de dos equipos.
 %
