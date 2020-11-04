@@ -900,7 +900,6 @@ Para responder a este pregunta y para entender el funcionamiento general de los 
 % 
 % \cite{maystre2019-pairwise}
 
-\newpage
 
 
 
@@ -1027,18 +1026,60 @@ En la subseción~\ref{TTT} mostramos el algoritmo utilizado para converger las e
 
 \subsection{Sum-product algorithm} \label{sec:sumProductAlgorithm}
 
-\en{}
-\en{El \emph{sum-product algorithm}~\cite{Kschischang2001} aprovecha la estructura del modelo causal involucrado para aplicar eficientemente las únicas dos reglas de inferencia: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}}
+\en{El \emph{sum-product algorithm}~\cite{Kschischang2001} es un procedimiento que aprovecha la estructura del modelo causal para aplicar eficientemente las reglas de inferencia, la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
 %
-\en{}
-\en{Los modelos causales, representados como distribuciones de probabilidad conjunta, pueden factorizarse en el producto de probabilidades condicionales simples.}
+\en{Representados como distribuciones de probabilidad conjunta, los modelos causales pueden factorizarse en el producto de probabilidades condicionales simples.}
 %
-\en{}
-\en{Nuestro modelo generativo $p(\bm{s},\bm{p},d,r)$ puede factorizarse como $p(s_1)p(s_2)p(p_1|s_1)p(p_2|s_2)p(d|\bm{p})P(r|d)$.}
+\en{Nuestro modelo generativo (figura~\ref{fig:generative_model}) puede factorizarse como,}
 %
-\en{}
-\en{En la figura~\ref{fig:factor_graph} mostramos su representación gr\'afica, conocida como \emph{factor graph}.}
+\begin{equation} \label{eq:factorization} \tag{\text{factorization}}
+ p(\bm{s},\bm{p},d,r) = p(s_1)p(s_2)p(p_1|s_1)p(p_2|s_2)p(d|\bm{p})P(r|d)
+\end{equation}
 %
+\en{En la figura~\ref{fig:factor_graph} mostramos graficamente la factorización de nuestro modelo.}
+%
+\en{A este tipo de representaciones gráficas se las conoce como \emph{factor graph}.}
+%
+\en{Los \emph{factor graph} son gráfos bipartitos, compuestos por nodos variables $v$ y nodos funciones (o factores) $f$.}
+%
+\en{Los ejes entre variables y funciones representan la relación matemática ``la variable $v$ es argumento de la función $f$''.}
+%
+\en{Este tipo de estructuras codifican la mínima cantidad de pasos que se requieren para calcular cualquier distribución de probabilidad marginal.}
+%
+\en{En nuestro caso vamos a querer computar dos tipos de marginales, el posteriori de las habilidades $p(s_i|r)$ y la probabilidad a priori del resultado $p(r)$.}
+
+\en{Para calcular una marginal en un \emph{factor graph}, lo que hace el \emph{sum-product algorithm} es enviar mensajes entre nodos vecinos.}
+%
+\en{Hay dos tipos de mensajes: los mensajes que envian los nodos variables a las funciones vecinas ($m_{v \rightarrow f}(v)$); y los mensajes que envian los nodos funciones a las nodos variables vecinos ($m_{f \rightarrow v}(v)$).}
+%
+\en{Los mensajes que envían los nodos variables codifican una parte de la regla del producto.}
+\begin{equation}\label{eq:m_v_f} \tag{\text{product step}}
+m_{v \rightarrow f}(v) = \prod_{h \in n(v) \setminus \{f\} } m_{h \rightarrow v}(v)
+\end{equation}
+%
+\en{Donde $n(v)$ representa el conjunto de vecinos del nodo $v$}.
+%
+\en{En pocas palabras, los mensajes que envían los nodos variables $v$ a un nodo vecino $f$ es simplemente la multiplicación de los mensajes que $v$ recibió del resto de sus vecinos $h \in n(v)$ salvo $f$.}
+%
+\en{Y los mensajes que envían los nodos funciones codifican una parte de la regla de la suma.}
+%
+\begin{equation}\label{eq:m_f_v}  \tag{\text{sum step}}
+m_{f \rightarrow v}(v) = \int \cdots \int \Big( f(\bm{h},v) \prod_{h \in n(f) \setminus \{v\} } m_{h \rightarrow f}(h) \Big) \,  d\bm{h}
+\end{equation}
+%
+\en{Donde $\bm{h} = n(f)\setminus \{v\}$ es el conjunto de todos los vecinos de $f$ salvo $v$, y $f(\bm{h},v)$ represeta la función $f$ evaluada en todos sus argumentos.}
+%
+\en{En pocas palabras, los mensajes que envían los nodos funciones $f$ a un nodo vecino $v$ es simplemente el resultado de integrar la multiplicación de todos los mensajes que $f$ recibe del resto de sus vecinos $\bm{h}$ por si mismo.}
+%
+\en{Los mensajes van generando una composición de operaciones}
+%
+\en{De esta forma, la distribución de probabilidad marginal de una variable $v$ es simplemente la multiplicación de los mensajes que $v$ recibe de sus vecinos}
+%
+\begin{equation}\label{eq:marginal}
+g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
+\end{equation}
+
+
 \begin{figure}[t]
 \centering \small
     \tikz{         
@@ -1094,53 +1135,23 @@ En la subseción~\ref{TTT} mostramos el algoritmo utilizado para converger las e
     %\node[invisible, right=of p2, xshift=4.35cm] (s-dist) {};
 }
      \caption{
-     \en{}
-     \en{Factorizaci\'on gráfica (o \emph{factor graph}) del modelo genertivo (Fig.~\ref{fig:generative_model}).}
+     \en{Factorizaci\'on gráfica del modelo generativo (Fig.~\ref{fig:generative_model}).}
      %
-     \en{}
      \en{Los cuadrados negros representan factores o funciones $f$, los círculos blancos representan variable $v$, y los ejes representan la relaci\'on matem\'atica ``nodo $v$ es argumento de nodo $f$''.}
+     %
      }
     \label{fig:factor_graph}
 \label{modelo}
-\end{figure}
+\end{figure} 
 
-\en{}
-\en{Los \emph{factor graph} son grafos bipartitos entre nodos variable $v$ y nodos factor $f$, en el que los ejes representan la relaci\'on matem\'atica ``el factor $f$ tiene como argumento el nodo $v$''.}
+\subsection{Propiedades matemáticas}\label{sec:propiedades}
+
+\en{La eficiencia de TrueSkill Throguth Time tiene que ver con la posibilidad de resolver las marginales de forma analítica o aproximada.}
 %
-\en{}
-\en{Sobre este tipo de estructuras se  cualquier marginal de la distribución de probabilidad conjunto, como por ejemplo la distribución a posteriori de las habilidades.}
+\en{En esta sección enumeramos las propiedades que necesitamos resolver los mensajes y las marginales de forma analítica y aproximada.}
 %
-\en{}
-\en{Los pasos pueden }
+\en{Invitamos a leer las demostraciones adjuntadas en el material suplementario.}
 %
-\begin{mdframed}
-El mensaje enviado desde un v\'ertice $v$ a trav\'es de un eje $e$ es el producto de la funci\'on local de $v$ (funci\'on indicadora si $v$ es un nodo variable) con todos los mensajes recibidos en $v$ a trav\'es de ejes \emph{distintos} de $e$, integrados para la variable asociada con $e$.
-\end{mdframed}
-%
-Sea $m_{x \rightarrow f}(x)$ el mensaje enviado por el nodo variable $x$ al nodo factor $f$, y $m_{f \rightarrow x}(x)$ el mensaje enviado por un nodo factor $f$ a un nodo variable $x$.
-Sea $n(v)$ el conjunto de nodos vecinos al nodo $v$.
-Luego, los mensajes pueden ser expresados del siguiente modo.
-\begin{equation}\label{eq:m_v_f} \tag{\text{product step}}
-m_{x \rightarrow f}(x) = \prod_{h \in n(x) \setminus \{f\} } m_{h \rightarrow x}(x)
-\end{equation}
-\begin{equation}\label{eq:m_f_v}  \tag{\text{sum step}}
-m_{f \rightarrow x}(x) = \int \cdots \int \Big( f(\bm{x}) \prod_{h \in n(f) \setminus \{x\} } m_{h \rightarrow f}(h) \Big) \,  d\bm{x}_{\setminus x}
-\end{equation}
-
-donde $\bm{x} = \text{arg}(f)$ es el conjunto de argumentos de la funci\'on $f$. 
-Luego, para calcular una marginal cualquiera,
-\begin{equation}\label{eq:marginal}
-g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
-\end{equation}
-
-
-En el caso de \texttt{TrueSkill},
-la funci\'on representada por el factor graph es la distribuci\'on
-conjunta $p(\bm{s},\bm{p},\bm{t}|\bm{o},A)$ (Fig.
-\ref{factorGraph_trueskill}).
-
-\subsection{Propiedades}\label{sec:propiedades}
-
 \begin{equation}\label{eq:propiedad_1} \tag{\text{prop 1}}
 \N(x|\mu_1,\sigma_1^2)\N(x|\mu_2,\sigma_2^2) \overset{\ref{multiplicacion_normales}}{=} \N(\mu_1|\mu_2,\sigma_1^2+\sigma_2^2) \N(x|\mu_{*},\sigma_{*}^2)
 \end{equation}
@@ -1175,18 +1186,19 @@ con $\mu_{\div} = \frac{\mu_1}{\sigma_1^2} - \frac{\mu_2}{\sigma_2^2}$ y $\sigma
 \Phi(0|\mu,\sigma^2) = 1-\Phi(0|-\mu,\sigma^2)
 \end{equation}
 
-
-
-
-Las siguientes propiedades, junto con las reglas del \emph{sum-product algorithm}, es lo \'unico que se necesita para calcular la posterior anal\'itica del modelo bayesiano.
-
 \subsection{Gaussian}\label{sec:Gasussian}
 
+\en{La clase \texttt{Gaussian} es la base de todos los paquetes.}
+%
+\en{Se representa mediante sólo dos parámetros, la media y el desvío estandar.}
+%
+\en{Definimas dos Gaussianas que utilizaremos más adelante.}
+%
 \begin{lstlisting}[backgroundcolor=\color{all}]
-N1 = Gaussian(mu=1., sigma=1.); N2 = N2 =Gaussian(1., 2.)  
+N1 = Gaussian(mu=1., sigma=1.); N2 = Gaussian(1., 2.)  
 \end{lstlisting}
 %
-Esta clase sobre escribe las operaciones de suma, resta, producto y división.
+\en{Esta clase sobreescribe la suma (\texttt{+}), resta (\texttt{-}), producto (\texttt{*}) y división (\texttt{/}) con las principales operaciones requeridas para computar las distribuciones marginales en TrueSkill Throguth Time.}
 %
 \begin{equation} \tag{\texttt{N1 * N2}}
  \N(x|\mu_1,\sigma_1^2)\N(x|\mu_2,\sigma_2^2) \propto \N(x|\mu_{*},\sigma_{*}^2)
@@ -1212,13 +1224,15 @@ Esta clase sobre escribe las operaciones de suma, resta, producto y división.
 \end{split}
 \end{equation}
 %
+\en{A su vez, definimos una constuctor alternativo que representa la siguiente propiedad.}
+%
 \begin{equation} \label{eq:normal_de_normal} \tag{\texttt{Gaussian(N1, N2.sigma)}}
 \int \N(y| x, \sigma_y^2) \N(x| \mu_x, \sigma_x^2) dx = \N(y|\mu_x,\sigma_y^2 + \sigma_x^2)   
 \end{equation}
 
 \subsection{Exact posterior} \label{sec:exactSolution}
-%
-Las partidas con 2 equipos tienen solución exacta.
+
+\en{Las partidas con dos equipos tienen solución exacta y pueden computarse del siguiente modo en \proglang{Julia}, \proglang{Python} y \proglang{R} respectivamente.}
 %
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},frame=rlbt, framexrightmargin=5pt]
@@ -1255,12 +1269,102 @@ p = g$exact_posteriors()
 \end{lstlisting}  
 \end{paracol}
 %
-En términos gráficos, la partida se representa como 
+\en{En esta sección vamos mostrar los pasos matemáticos y computacionales para calcular un posterior exacto (\texttt{exact\_posteriors}) en una partida (\texttt{g}) de dos equipos con dos jugadores (2 vs 2).}
 %
-\begin{figure}[H]
+\en{En presecia de equipos TrueSkill incorpora una variable adicional al modelo que representa el rendimiento del equipo, que se considera es la suma de los rendimientos de sus miembros.}
+%
+\en{En términos gráficos, la partida 2 vs 2 se representa como} 
+%
+\begin{figure}[t!]
   \centering
-  \scalebox{.75}{\input{modelos/trueskill_factorGraph_2equiops.tex}}
-  \caption{\small Grafo bipartito de factorizaci\'on del modelo \texttt{TrueSkill} (Caso 2 vs 2)}
+  \scalebox{.9}{
+  \tikz{
+      
+        \node[factor] (fr) {} ;
+        \node[const, right=of fr] (nfr) {$f_{r}$}; %
+	
+	\node[latent, above=of fr] (d) {$d$} ; %
+        \node[factor, above=of d] (fd) {} ;
+        \node[const, right=of fd] (nfd) {$f_{d}$}; %
+	
+        
+        \node[latent, above=of fd,xshift=-0.75cm] (ta) {$t_a$} ; %
+        \node[factor, left=of ta] (fta) {} ;
+        \node[const, above=of fta] (nfta) {$f_{t_a}$}; %
+        
+        
+        
+        \node[latent, left=of fta,yshift=1cm] (p1) {$p_1$} ; %
+        \node[factor, left=of p1] (fp1) {} ;
+        \node[const, above=of fp1] (nfp1) {$f_{p_1}$}; %
+        
+        \node[latent, left=of fp1] (s1) {$s_1$} ; %
+        \node[factor, left=of s1] (fs1) {} ;
+	\node[const, above=of fs1] (nfs1) {$f_{s_1}$}; %
+     
+        \node[latent, left=of fta,yshift=-1cm] (p2) {$p_2$} ; %
+        \node[factor, left=of p2] (fp2) {} ;
+        \node[const, above=of fp2] (nfp2) {$f_{p_2}$}; %
+        
+        \node[latent, left=of fp2] (s2) {$s_2$} ; %
+        \node[factor, left=of s2] (fs2) {} ;
+	\node[const, above=of fs2] (nfs2) {$f_{s_2}$}; %
+        
+            
+        \node[latent, above=of fd,xshift=0.75cm] (tb) {$t_b$} ; %
+        \node[factor, right=of tb] (ftb) {} ;
+        \node[const, above=of ftb] (nftb) {$f_{t_b}$}; %
+        
+        \node[latent, right=of ftb,yshift=1cm] (p3) {$p_3$} ; %
+        \node[factor, right=of p3] (fp3) {} ;
+        \node[const, above=of fp3] (nfp3) {$f_{p_3}$}; %
+        
+        \node[latent, right=of fp3] (s3) {$s_3$} ; %
+        \node[factor, right=of s3] (fs3) {} ;
+	\node[const, above=of fs3] (nfs3) {$f_{s_3}$}; %
+     
+        \node[latent, right=of ftb,yshift=-1cm] (p4) {$p_4$} ; %
+        \node[factor, right=of p4] (fp4) {} ;
+        \node[const, above=of fp4] (nfp4) {$f_{p_4}$}; %
+        
+        \node[latent, right=of fp4] (s4) {$s_4$} ; %
+        \node[factor, right=of s4] (fs4) {} ;
+	\node[const, above=of fs4] (nfs4) {$f_{s_4}$}; %
+     
+        \edge[-] {fr} {d};
+	\edge[-] {d} {fd};
+	
+        \edge[-] {fd} {ta};
+        \edge[-] {ta} {fta};
+        \edge[-] {fta} {p1};
+        \edge[-] {p1} {fp1};
+        \edge[-] {fp1} {s1};
+        \edge[-] {s1} {fs1};
+        \edge[-] {fta} {p2};
+        \edge[-] {p2} {fp2};
+        \edge[-] {fp2} {s2};
+        \edge[-] {s2} {fs2};
+        	
+	\edge[-] {fd} {tb};
+        \edge[-] {tb} {ftb};
+        \edge[-] {ftb} {p3};
+        \edge[-] {p3} {fp3};
+        \edge[-] {fp3} {s3};
+        \edge[-] {s3} {fs3};
+        \edge[-] {ftb} {p4};
+        \edge[-] {p4} {fp4};
+        \edge[-] {fp4} {s4};
+        \edge[-] {s4} {fs4};
+        
+	
+	\node[const, below=of nfr,xshift=7cm,yshift=-0.5cm] (dfr) { $f_r = \mathbb{I}(d>0)$}; %
+	\node[const, left=of dfr,xshift=-0.5cm] (dfd) {$f_d = \mathbb{I}(d=t_a - t_b)$}; %
+	\node[const, left=of dfd,xshift=-0.5cm] (dft) {$f_{t_e} = \mathbb{I}(t_e = \sum_{i \in A_e} p_i)$}; %
+        \node[const, left=of dft,xshift=-0.5cm] (dfp) {$f_{p_i} = \N(p_i|s_i,\beta^2)$}; %
+        \node[const, left=of dfp,xshift=-0.5cm] (dfs) {$f_{s_i} = \N(s_i|\mu_i,\sigma^2)$}; %
+   }
+   }
+  \caption{\small Factorización gr\'afica de una partida 2 vs 2.}
   \label{modelo_trueskill_2vs2}
 \end{figure}
 %
