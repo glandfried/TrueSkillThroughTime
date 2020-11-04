@@ -1188,17 +1188,17 @@ con $\mu_{\div} = \frac{\mu_1}{\sigma_1^2} - \frac{\mu_2}{\sigma_2^2}$ y $\sigma
 
 \subsection{Gaussian}\label{sec:Gasussian}
 
-\en{La clase \texttt{Gaussian} es la base de todos los paquetes.}
+\en{La clase \texttt{Gaussian()} realiza la mayor parte del cómputo en todos los paquetes.}
 %
-\en{Se representa mediante sólo dos parámetros, la media y el desvío estandar.}
+\en{Se representa mediante dos parámetros, la media y el desvío estandar.}
 %
-\en{Definimas dos Gaussianas que utilizaremos más adelante.}
+\en{Por ejemplo, definamos dos Gaussianas que utilizaremos más adelante.}
 %
 \begin{lstlisting}[backgroundcolor=\color{all}]
 N1 = Gaussian(mu=1., sigma=1.); N2 = Gaussian(1., 2.)  
 \end{lstlisting}
 %
-\en{Esta clase sobreescribe la suma (\texttt{+}), resta (\texttt{-}), producto (\texttt{*}) y división (\texttt{/}) con las principales operaciones requeridas para computar las distribuciones marginales en TrueSkill Throguth Time.}
+\en{Esta clase sobreescribe la suma (\texttt{+}), resta (\texttt{-}), producto (\texttt{*}) y división (\texttt{/}) con las principales propiedades requeridas para computar las distribuciones marginales en el modelo TrueSkill Throguth Time.}
 %
 \begin{equation} \tag{\texttt{N1 * N2}}
  \N(x|\mu_1,\sigma_1^2)\N(x|\mu_2,\sigma_2^2) \propto \N(x|\mu_{*},\sigma_{*}^2)
@@ -1208,7 +1208,7 @@ N1 = Gaussian(mu=1., sigma=1.); N2 = Gaussian(1., 2.)
  \N(x|\mu_1,\sigma_1^2)/\N(x|\mu_2,\sigma_2^2) \propto \N(x|\mu_{\div},\sigma_{\div}^2)
 \end{equation} 
 %
-\vspace{-0.2cm}
+\vspace{-0.3cm}
 %
 \begin{equation} \tag{\texttt{N1 + N2}} \label{eq:suma_normales}
 \begin{split}
@@ -1216,7 +1216,7 @@ N1 = Gaussian(mu=1., sigma=1.); N2 = Gaussian(1., 2.)
 \end{split}
 \end{equation}
 %
-\vspace{-0.4cm}
+\vspace{-0.5cm}
 %
 \begin{equation} \tag{\texttt{N1 - N2}} \label{eq:resta_normales}
 \begin{split}
@@ -1224,58 +1224,88 @@ N1 = Gaussian(mu=1., sigma=1.); N2 = Gaussian(1., 2.)
 \end{split}
 \end{equation}
 %
-\en{A su vez, definimos una constuctor alternativo que representa la siguiente propiedad.}
+\en{A su vez, definimos una constuctor alternativo cuando la media de una distribución Gaussiana es a su vez una Gaussiana, representando la siguiente propiedad.}
 %
 \begin{equation} \label{eq:normal_de_normal} \tag{\texttt{Gaussian(N1, N2.sigma)}}
 \int \N(y| x, \sigma_y^2) \N(x| \mu_x, \sigma_x^2) dx = \N(y|\mu_x,\sigma_y^2 + \sigma_x^2)   
 \end{equation}
 
-\subsection{Exact posterior} \label{sec:exactSolution}
+\subsection{Rating} \label{sec:rating}
 
-\en{Las partidas con dos equipos tienen solución exacta y pueden computarse del siguiente modo en \proglang{Julia}, \proglang{Python} y \proglang{R} respectivamente.}
+\en{La clase \texttt{Rating()} se representa a los agentes.}
+%
+\en{Además de la distribución de creencias a priori, que es una distribución Gaussiana con media (\texttt{mu}) y desvío (\texttt{sigma}), los agentes pueden tener diferentes comportamientos como generar rendimientos con un desvío particular (\texttt{beta}) o tener habilidades con una volatilidad distinta en el tiempo (\texttt{gamma})}
+
+\begin{lstlisting}[backgroundcolor=\color{all}]
+mu = 0.0; sigma = 6.0; beta = 1.0; gamma = 0.0
+r1 = Rating(mu, sigma, beta, gamma); r2 = Rating(mu, sigma, beta, gamma)
+r3 = Rating(mu, sigma, beta, gamma); r4 = Rating(mu, sigma, beta, gamma)
+\end{lstlisting}  
+%
+\en{Por cuestión de eficiencia, el prior de los jugadores se guarda como una Gaussiana.}
+%
+\en{Los otros parámetros del constructor se guardan en atributos con el mismo nombre.}
+%
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}]
+prior1 = r1.N
+beta == r1.beta
+gamma == r1.gamma
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}]
+prior1 = r1.N
+beta == r1.beta
+gamma == r1.gamma
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}]
+prior1 = r1$N
+beta == r1$beta
+gamma == r1$gamma
+\end{lstlisting}
+\end{paracol}
+%
+
+
+\subsection{Two teams and the exact posterior} \label{sec:exactSolution}
+
+\en{Las partidas con dos equipos tienen solución exacta y pueden computarse en \proglang{Julia}, \proglang{Python} y \proglang{R} del siguiente modo respectivamente.}
 %
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},frame=rlbt, framexrightmargin=5pt]
-r1, r2 =  Rating(),  Rating()
-r3, r4 =  Rating(),  Rating()
 team_a = [ r1, r2 ]
 team_b = [ r3, r4 ]
 teams = [team_a, team_b]
 result = [1,0]
 g = Game(teams, result)
-p = exact_posteriors(g)
+lhs = exact_likelihoods(g)
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python},frame=rlbt,framexleftmargin=5pt, framexrightmargin=5pt]
-r1, r2 = Rating(), Rating()
-r3, r4 = Rating(), Rating()
 team_a = [ r1, r2 ]
 team_b = [ r3, r4 ]
 teams = [team_a, team_b]
 result = [1,0]
 g = Game(teams, result)
-p = g.exact_posteriors()
+lhs = g.exact_likelihoods()
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r},frame=trlb,framexleftmargin=5pt, framexrightmargin=5pt]
-r1 = Rating(); r2 = Rating()
-r3 = Rating(); r4 = Rating()
 team_a = c(r1, r2)
 team_b = c(r3, r4)
 teams = list(team_a, team_b)
 result = c(1,0)
 g = Game(teams, result)
-p = g$exact_posteriors()
+lhs = g$exact_likelihoods()
 \end{lstlisting}  
 \end{paracol}
 %
-\en{En esta sección vamos mostrar los pasos matemáticos y computacionales para calcular un posterior exacto (\texttt{exact\_posteriors}) en una partida (\texttt{g}) de dos equipos con dos jugadores (2 vs 2).}
+\en{En esta sección vamos mostrar los pasos para calcular un likelihood exacto (\texttt{exact\_likelihood}) en una partida (\texttt{g}) de dos equipos con dos jugadores.}
 %
-\en{En presecia de equipos TrueSkill incorpora una variable adicional al modelo que representa el rendimiento del equipo, que se considera es la suma de los rendimientos de sus miembros.}
+\en{En la figura~\ref{modelo_trueskill_2vs2} mostramos la factorización gráfica de esta partida.} 
 %
-\en{En términos gráficos, la partida 2 vs 2 se representa como} 
-%
-\begin{figure}[t!]
+\begin{figure}[h!]
   \centering
   \scalebox{.9}{
   \tikz{
@@ -1283,52 +1313,50 @@ p = g$exact_posteriors()
         \node[factor] (fr) {} ;
         \node[const, right=of fr] (nfr) {$f_{r}$}; %
 	
-	\node[latent, above=of fr] (d) {$d$} ; %
-        \node[factor, above=of d] (fd) {} ;
-        \node[const, right=of fd] (nfd) {$f_{d}$}; %
+	\node[latent, above=of fr, yshift=-0.4cm] (d) {$d$} ; %
+        \node[factor, above=of d, yshift=-0.4cm] (fd) {} ;
+        \node[const, above=of fd] (nfd) {$f_{d}$}; %
 	
         
-        \node[latent, above=of fd,xshift=-0.75cm] (ta) {$t_a$} ; %
-        \node[factor, left=of ta] (fta) {} ;
+        \node[latent, left=of fd,xshift=0.4cm] (ta) {$t_a$} ; %
+        \node[factor, left=of ta,xshift=0.4cm] (fta) {} ;
         \node[const, above=of fta] (nfta) {$f_{t_a}$}; %
         
-        
-        
-        \node[latent, left=of fta,yshift=1cm] (p1) {$p_1$} ; %
-        \node[factor, left=of p1] (fp1) {} ;
+        \node[latent, left=of fta,yshift=1cm,xshift=0.4cm] (p1) {$p_1$} ; %
+        \node[factor, left=of p1,xshift=0.4cm] (fp1) {} ;
         \node[const, above=of fp1] (nfp1) {$f_{p_1}$}; %
         
-        \node[latent, left=of fp1] (s1) {$s_1$} ; %
-        \node[factor, left=of s1] (fs1) {} ;
+        \node[latent, left=of fp1,xshift=0.4cm] (s1) {$s_1$} ; %
+        \node[factor, left=of s1,xshift=0.4cm] (fs1) {} ;
 	\node[const, above=of fs1] (nfs1) {$f_{s_1}$}; %
      
-        \node[latent, left=of fta,yshift=-1cm] (p2) {$p_2$} ; %
-        \node[factor, left=of p2] (fp2) {} ;
+        \node[latent, left=of fta,yshift=-1cm,xshift=0.4cm] (p2) {$p_2$} ; %
+        \node[factor, left=of p2,xshift=0.4cm] (fp2) {} ;
         \node[const, above=of fp2] (nfp2) {$f_{p_2}$}; %
         
-        \node[latent, left=of fp2] (s2) {$s_2$} ; %
-        \node[factor, left=of s2] (fs2) {} ;
+        \node[latent, left=of fp2,xshift=0.4cm] (s2) {$s_2$} ; %
+        \node[factor, left=of s2,xshift=0.4cm] (fs2) {} ;
 	\node[const, above=of fs2] (nfs2) {$f_{s_2}$}; %
         
             
-        \node[latent, above=of fd,xshift=0.75cm] (tb) {$t_b$} ; %
-        \node[factor, right=of tb] (ftb) {} ;
+        \node[latent, right=of fd,xshift=-0.4cm] (tb) {$t_b$} ; %
+        \node[factor, right=of tb,xshift=-0.4cm] (ftb) {} ;
         \node[const, above=of ftb] (nftb) {$f_{t_b}$}; %
         
-        \node[latent, right=of ftb,yshift=1cm] (p3) {$p_3$} ; %
-        \node[factor, right=of p3] (fp3) {} ;
+        \node[latent, right=of ftb,yshift=1cm,xshift=-0.4cm] (p3) {$p_3$} ; %
+        \node[factor, right=of p3,xshift=-0.4cm] (fp3) {} ;
         \node[const, above=of fp3] (nfp3) {$f_{p_3}$}; %
         
-        \node[latent, right=of fp3] (s3) {$s_3$} ; %
-        \node[factor, right=of s3] (fs3) {} ;
+        \node[latent, right=of fp3,xshift=-0.4cm] (s3) {$s_3$} ; %
+        \node[factor, right=of s3,xshift=-0.4cm] (fs3) {} ;
 	\node[const, above=of fs3] (nfs3) {$f_{s_3}$}; %
      
-        \node[latent, right=of ftb,yshift=-1cm] (p4) {$p_4$} ; %
-        \node[factor, right=of p4] (fp4) {} ;
+        \node[latent, right=of ftb,yshift=-1cm,xshift=-0.5cm] (p4) {$p_4$} ; %
+        \node[factor, right=of p4,xshift=-0.4cm] (fp4) {} ;
         \node[const, above=of fp4] (nfp4) {$f_{p_4}$}; %
         
-        \node[latent, right=of fp4] (s4) {$s_4$} ; %
-        \node[factor, right=of s4] (fs4) {} ;
+        \node[latent, right=of fp4,xshift=-0.4cm] (s4) {$s_4$} ; %
+        \node[factor, right=of s4,xshift=-0.4cm] (fs4) {} ;
 	\node[const, above=of fs4] (nfs4) {$f_{s_4}$}; %
      
         \edge[-] {fr} {d};
@@ -1364,27 +1392,31 @@ p = g$exact_posteriors()
         \node[const, left=of dfp,xshift=-0.5cm] (dfs) {$f_{s_i} = \N(s_i|\mu_i,\sigma^2)$}; %
    }
    }
-  \caption{\small Factorización gr\'afica de una partida 2 vs 2.}
+  \caption{
+  \en{Factorización gr\'afica de una partida 2 vs 2.}
+  %
+  \en{En presecia de equipos, el modelo TrueSkill incorpora una variable adicional que representa el rendimiento del equipo como la suma de los rendimientos de sus miembros.}
+  }
   \label{modelo_trueskill_2vs2}
 \end{figure}
 %
-\begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
-prior1 = r1.N
-\end{lstlisting}
-\switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
-prior1 = r1.N
-\end{lstlisting}
-\switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
-prior1 = r1$N
-\end{lstlisting}
-\end{paracol}
+\en{Veamos a calcular matemática y computacionalmente las marginales de nuestro interés, el posterior y la evidencia, utilizando el \emph{sum-product algoriithm} y las propiedades arriba mencionadas}
+%
+\en{Empezaremos primero con los mensajes ``descendentes'', desde los prior hasta calcular la evidencia.}
+%
+\en{Luego veremos los mensajes ``ascendentes'' para computar el posterior de un jugador a partir del resultado observado y el prior del resto de los agentes.}
+
+% parrafo
+
+\en{El mensaje del factor $f_{s_i}$ hacia la variable $s_i$ resulta directo, es la propia función del factor.}
 %
 \begin{equation}\label{eq:m_fs_s} \tag{\texttt{prior1}}
  m_{f_{s_i} \rightarrow s_i}(s_i) = \N(s_i| \mu_i, \sigma_i^2)
 \end{equation}
+%
+\en{Recordar que el mensaje que la variable $s_i$ le envía al factor rendimiento $f_{p_i}$, así como cualquier otro mensajes que las variables envian a los factores, es simplemente la multiplicación de lo que reciben del resto de los factores}
+%
+\en{Por resultar de trivial solución, no haremos explícitos este tipo mensajes.}
 %
 \begin{lstlisting}[backgroundcolor=\color{all}]
 performance1 = Gaussian(mu = prior1, sigma = BETA)
