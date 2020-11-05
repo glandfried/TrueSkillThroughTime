@@ -22,6 +22,7 @@
   }%
 }
 
+\usepackage{wrapfig}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{amsmath} %para escribir funci\'on partida , matrices
@@ -1192,11 +1193,28 @@ con $\mu_{\div} = \frac{\mu_1}{\sigma_1^2} - \frac{\mu_2}{\sigma_2^2}$ y $\sigma
 %
 \en{Se representa mediante dos parámetros, la media y el desvío estandar.}
 %
-\en{Por ejemplo, definamos dos Gaussianas que utilizaremos más adelante.}
-%
-\begin{lstlisting}[backgroundcolor=\color{all}]
-N1 = Gaussian(mu=1., sigma=1.); N2 = Gaussian(1., 2.)  
+\begin{lstlisting}[backgroundcolor=\color{all}, belowskip=-0.77 \baselineskip]
+N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)  
 \end{lstlisting}
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}]
+m1 = N1.mu
+v1 = N1.sigma^2
+v2 = N2.sigma^2
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}]
+m1 = N1.mu
+v1 = N1.sigma**2
+v2 = N2.sigma**2
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}]
+m1 = N1$mu
+v1 = N1$sigma^2
+v2 = N2$sigma^2
+\end{lstlisting}
+\end{paracol}
 %
 \en{Esta clase sobreescribe la suma (\texttt{+}), resta (\texttt{-}), producto (\texttt{*}) y división (\texttt{/}) con las principales propiedades requeridas para computar las distribuciones marginales en el modelo TrueSkill Throguth Time.}
 %
@@ -1224,17 +1242,17 @@ N1 = Gaussian(mu=1., sigma=1.); N2 = Gaussian(1., 2.)
 \end{split}
 \end{equation}
 %
-\en{A su vez, definimos una constuctor alternativo cuando la media de una distribución Gaussiana es a su vez una Gaussiana, representando la siguiente propiedad.}
+\en{Por su parte, la siguiente propiedad la computaremos ``a mano''.}
 %
-\begin{equation} \label{eq:normal_de_normal} \tag{\texttt{Gaussian(N1, N2.sigma)}}
+\begin{equation} \label{eq:normal_de_normal} \tag{\texttt{Gaussian(m1, sqrt(v1+v2))}}
 \int \N(y| x, \sigma_y^2) \N(x| \mu_x, \sigma_x^2) dx = \N(y|\mu_x,\sigma_y^2 + \sigma_x^2)   
 \end{equation}
 
 \subsection{Rating} \label{sec:rating}
 
-\en{La clase \texttt{Rating()} se representa a los agentes.}
+\en{La clase \texttt{Rating()} representa a los agentes.}
 %
-\en{Además de la distribución de creencias a priori, que es una distribución Gaussiana con media (\texttt{mu}) y desvío (\texttt{sigma}), los agentes pueden tener diferentes comportamientos como generar rendimientos con un desvío particular (\texttt{beta}) o tener habilidades con una volatilidad distinta en el tiempo (\texttt{gamma})}
+\en{Además de la distribución Gaussiana de creencias a priori, con media (\texttt{mu}) y desvío (\texttt{sigma}), los agentes pueden exhibir comportamientos propios como generar rendimientos con un desvío particular (\texttt{beta}) o que sus habilidades en el tiempo tengan una volatilidad especial (\texttt{gamma}).}
 
 \begin{lstlisting}[backgroundcolor=\color{all}]
 mu = 0.0; sigma = 6.0; beta = 1.0; gamma = 0.0
@@ -1242,68 +1260,92 @@ r1 = Rating(mu, sigma, beta, gamma); r2 = Rating(mu, sigma, beta, gamma)
 r3 = Rating(mu, sigma, beta, gamma); r4 = Rating(mu, sigma, beta, gamma)
 \end{lstlisting}  
 %
-\en{Por cuestión de eficiencia, el prior de los jugadores se guarda como una Gaussiana.}
+\en{Los otros parámetros del constructor se guardan como atributos.}
 %
-\en{Los otros parámetros del constructor se guardan en atributos con el mismo nombre.}
+\en{Por cuestión de eficiencia, el prior Gaussiano se guarda precomputado.}
+%
 %
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
-prior1 = r1.N
+prior = r1.prior
 beta == r1.beta
 gamma == r1.gamma
 \end{lstlisting}
 \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}]
-prior1 = r1.N
+prior = r1.prior
 beta == r1.beta
 gamma == r1.gamma
 \end{lstlisting}
 \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}]
-prior1 = r1$N
+prior = r1$prior
 beta == r1$beta
 gamma == r1$gamma
 \end{lstlisting}
 \end{paracol}
 %
 
+\subsection{Games}
 
-\subsection{Two teams and the exact posterior} \label{sec:exactSolution}
-
-\en{Las partidas con dos equipos tienen solución exacta y pueden computarse en \proglang{Julia}, \proglang{Python} y \proglang{R} del siguiente modo respectivamente.}
+\en{La clase \texttt{Game()} se utiliza para computar los posteriors y la evidencia de modelos causales como los descrito en la figura~\ref{fig:generative_model}.}
+%
+\en{A modo de ejemplo, inicializamos una partida con dos equipos de dos jugadores.}
 %
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia},frame=rlbt, framexrightmargin=5pt]
+\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
 team_a = [ r1, r2 ]
 team_b = [ r3, r4 ]
 teams = [team_a, team_b]
 result = [1,0]
-g = Game(teams, result)
-lhs = exact_likelihoods(g)
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python},frame=rlbt,framexleftmargin=5pt, framexrightmargin=5pt]
+\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
 team_a = [ r1, r2 ]
 team_b = [ r3, r4 ]
 teams = [team_a, team_b]
 result = [1,0]
-g = Game(teams, result)
-lhs = g.exact_likelihoods()
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r},frame=trlb,framexleftmargin=5pt, framexrightmargin=5pt]
+\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
 team_a = c(r1, r2)
 team_b = c(r3, r4)
 teams = list(team_a, team_b)
 result = c(1,0)
+\end{lstlisting}  
+\end{paracol}
+\begin{lstlisting}[backgroundcolor=\color{all}]
 g = Game(teams, result)
-lhs = g$exact_likelihoods()
+\end{lstlisting}
+%
+\en{Sus principales atributos, además de los equipos y el resultado, son los likelihoods Gaussianos y la evidencia.}
+%
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}]
+teams == g.teams
+result == g.result
+lhs = g.likelihoods
+ev = g.evidence
+\end{lstlisting}
+  \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}]
+teams == g.teams
+result == g.result
+lhs = g.likelihoods
+ev = g.evidence
+\end{lstlisting}
+   \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}]
+teams == g$teams
+result == g$result
+lhs = g$likelihoods
+ev = g$evidence
 \end{lstlisting}  
 \end{paracol}
 %
-\en{En esta sección vamos mostrar los pasos para calcular un likelihood exacto (\texttt{exact\_likelihood}) en una partida (\texttt{g}) de dos equipos con dos jugadores.}
-%
-\en{En la figura~\ref{modelo_trueskill_2vs2} mostramos la factorización gráfica de esta partida.} 
+ \en{En presencia de equipos, el resultado observado se modela como consecuencias directa de la diferencia de la suma de los rendimientos de cada equipo, $d = t_a - t_b$.}
+ %
+ \en{En la figura~\ref{modelo_trueskill_2vs2} mostramos su factorización gráfica.} 
 %
 \begin{figure}[h!]
   \centering
@@ -1385,7 +1427,7 @@ lhs = g$exact_likelihoods()
         \edge[-] {s4} {fs4};
         
 	
-	\node[const, below=of nfr,xshift=7cm,yshift=-0.5cm] (dfr) { $f_r = \mathbb{I}(d>0)$}; %
+	\node[const, below=of fr,xshift=7cm,yshift=-0.3cm] (dfr) { $f_r = \mathbb{I}(d>0)$}; %
 	\node[const, left=of dfr,xshift=-0.5cm] (dfd) {$f_d = \mathbb{I}(d=t_a - t_b)$}; %
 	\node[const, left=of dfd,xshift=-0.5cm] (dft) {$f_{t_e} = \mathbb{I}(t_e = \sum_{i \in A_e} p_i)$}; %
         \node[const, left=of dft,xshift=-0.5cm] (dfp) {$f_{p_i} = \N(p_i|s_i,\beta^2)$}; %
@@ -1394,75 +1436,85 @@ lhs = g$exact_likelihoods()
    }
   \caption{
   \en{Factorización gr\'afica de una partida 2 vs 2.}
-  %
-  \en{En presecia de equipos, el modelo TrueSkill incorpora una variable adicional que representa el rendimiento del equipo como la suma de los rendimientos de sus miembros.}
   }
   \label{modelo_trueskill_2vs2}
 \end{figure}
-%
-\en{Veamos a calcular matemática y computacionalmente las marginales de nuestro interés, el posterior y la evidencia, utilizando el \emph{sum-product algoriithm} y las propiedades arriba mencionadas}
-%
-\en{Empezaremos primero con los mensajes ``descendentes'', desde los prior hasta calcular la evidencia.}
-%
-\en{Luego veremos los mensajes ``ascendentes'' para computar el posterior de un jugador a partir del resultado observado y el prior del resto de los agentes.}
 
-% parrafo
+\subsection{Two teams and the exact posterior} \label{sec:exactSolution}
 
-\en{El mensaje del factor $f_{s_i}$ hacia la variable $s_i$ resulta directo, es la propia función del factor.}
+\en{Las partidas con dos equipos tienen solución exacta y los likelihoods exactos pueden computarse en \proglang{Julia}, \proglang{Python} y \proglang{R} mediante el método \texttt{exact\_likelihoods()}.}
 %
-\begin{equation}\label{eq:m_fs_s} \tag{\texttt{prior1}}
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}]
+elhs = exact_likelihoods(g)
+\end{lstlisting}
+  \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}]
+elhs = g.exact_likelihoods()
+\end{lstlisting}
+   \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}]
+elhs = g$exact_likelihoods()
+\end{lstlisting}  
+\end{paracol}
+%
+\en{En esta sección vamos a mostrar los pasos para calcular la evidencia  y un likelihood exacto de una partida con dos equipos de dos jugadores.}
+%
+\en{Empezaremos primero con los mensajes ``descendentes'', desde los priors hasta el resultado, para calcular la evidencia.}
+%
+\en{Luego seguiremos con los mensajes ``ascendentes'' que permiten calcular el posterior de un agente a partir del resultado observado y el prior del resto de los agentes.}
+%
+%\en{Para computar los mensajes utilizaremos solamente el \emph{sum-product algoriithm} y las propiedades arriba mencionadas.}
+
+%
+
+\en{Los mensajes que van de los factores de habilidad $f_{s_i}$ hacia su variable $s_i$ se simplifican, por las reglas del \emph{sum-product algorithm} y la factorización del modelo, al prior.}
+%
+\begin{equation}\label{eq:m_fs_s} \tag{\texttt{prior}}
  m_{f_{s_i} \rightarrow s_i}(s_i) = \N(s_i| \mu_i, \sigma_i^2)
 \end{equation}
 %
-\en{Recordar que el mensaje que la variable $s_i$ le envía al factor rendimiento $f_{p_i}$, así como cualquier otro mensajes que las variables envian a los factores, es simplemente la multiplicación de lo que reciben del resto de los factores}
+\en{Luego, el mensaje que la variable $s_i$ le envía al factor rendimiento $f_{p_i}$ también es el prior.}
 %
-\en{Por resultar de trivial solución, no haremos explícitos este tipo mensajes.}
+\en{Recordar que los mensajes que las envían las variables no son más que la multiplicación de los mensajes que esa variable recibe del resto de los factores.}
 %
-\begin{lstlisting}[backgroundcolor=\color{all}]
-performance1 = Gaussian(mu = prior1, sigma = BETA)
-\end{lstlisting}
+\en{Por ser de trivial solución, no haremos explícitos este tipo de mensajes.}
 %
-\begin{equation}\label{eq:m_fp_p} \tag{\texttt{performance1}}
+\en{Veamos entonces el mensaje que envían los factores rendimiento $f_{p_i}$ a su variable $p_i$.}
+%
+\begin{equation}\label{eq:m_fp_p} \tag{\texttt{performance()}}
 m_{f_{p_i} \rightarrow p_i}(p_i) = \int \N(p_i| s_i, \beta^2) \N(s_i| \mu_i, \sigma_i^2) ds_i = \N(p_i|\mu_i,\beta^2 + \sigma_i^2)
 \end{equation}
 %
-\begin{equation} \label{eq:m_ft_t} \tag{\texttt{performance(team\_e)}}
+\en{Computacionalmente, podemos calcular esto de la siguiente manera.}
+%
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}]
+p1 = performance(r1)
+  ...
+p4 = performance(r4)
+\end{lstlisting}
+  \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}]
+p1 = r1.performance()
+  ...
+p4 = r4.performance()
+\end{lstlisting}
+   \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}]
+p1 = r1$performance()
+  ...
+p4 = r4$performance()
+\end{lstlisting}  
+\end{paracol}
+%
+\en{Luego, el mensaje que envían }
+%
+\begin{equation} \label{eq:m_ft_t} \tag{\texttt{ta = p1 + p2}}
 \begin{split}
  m_{f_{t_e} \rightarrow t_e}(t_e) &= \iint \mathbb{I}(t_e = p_i + p_j) \N(p_i|\mu_i,\beta^2 + \sigma_i^2)\N(p_j|\mu_j,\beta^2 + \sigma_j^2) dp_idp_j  \\ &=  \N(t_e|\mu_i+\mu_j,2\beta^2 + \sigma_i^2 + \sigma_j^2)
 \end{split}
 \end{equation}
-%
-\begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
-function performance(team)
-    p = Gaussian(0.,0.)
-    for r in team
-        p += performance(r)
-    end
-    return p
-end
-\end{lstlisting}  
- \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
-def performance(team):
-    p = Gaussian(0,0)
-    for r in team:
-        p += r.performance()   
-   
-    return p
-
-\end{lstlisting} 
- \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
-performance = function(team){
-    p = Gaussian(0,0)
-    for (r in team){
-       p = p + r$performance()
-    }
-    return p
-}
-\end{lstlisting}  
-\end{paracol}
 %
 General (ver anexo~\ref{suma_normales_induccion}).
 %
@@ -1471,10 +1523,11 @@ General (ver anexo~\ref{suma_normales_induccion}).
 \end{equation*}
 %
 \begin{lstlisting}[backgroundcolor=\color{all}]
-diff = performance(team_a) - performance(team_b)  
+ta = p1 + p2; tb = p3 + p4
+d = ta - tb
 \end{lstlisting}
 %
-\begin{equation}\label{eq:m_fd_d} \tag{\texttt{diff}}
+\begin{equation}\label{eq:m_fd_d} \tag{\texttt{d = ta - tb}}
  \begin{split} 
   m_{f_{d_1} \rightarrow d_1}(d_1) & = \iint \mathbb{I}(d_1 = t_a - t_b) \N(t_a| \mu_a, \sigma_a^2)  \N(t_b| \mu_b, \sigma_b^2)  dt_adt_b \\[0.25cm]
   & = \N\big( d_1 | \underbrace{\mu_a - \mu_b}_{\hfrac{\text{Differencia}}{\text{esperada:} \ \delta} }, \underbrace{\sigma_a^2 +\sigma_b^2}_{\hfrac{\text{incertidumbre}}{\text{total:} \ \vartheta^2}}  \big) = \N(d_1 | \delta, \, \vartheta^2)
@@ -1483,21 +1536,24 @@ diff = performance(team_a) - performance(team_b)
 %
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
-d = diff.mu
-v = diff.sigma
-evidencia = cdf(diff, 0.0) 
+delta = d.mu
+theta = d.sigma
+ev = cdf(d, 0.0)
+evidencia = ev
 \end{lstlisting}  
  \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}]
-d = diff.mu
-v = diff.sigma
-evidencia = cdf(0,d,v) 
+delta = d.mu
+theta = d.sigma
+ev = cdf(0,delta,theta) 
+evidencia = ev
 \end{lstlisting} 
  \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}]
-d = diff$mu
-v = diff$sigma
-evidencia = cdf(0,d,v) 
+delta = d$mu
+theta = d$sigma
+ev = cdf(0,delta,theta) 
+evidencia = ev
 \end{lstlisting}   
 \end{paracol}
 %
@@ -1507,9 +1563,9 @@ evidencia = cdf(0,d,v)
 \end{split}
 \end{equation}
 %
-Inferencia, caso ganador.
+Ahora veamos los mensajes ascendentes para el caso ganador.
 %
-\begin{equation}\label{eq:m_fd_ta} \tag{\texttt{likelihood\_ta}}
+\begin{equation}\label{eq:m_fd_ta} \tag{\texttt{exact\_lhood\_ta}}
 \begin{split}
 m_{f_{d_1} \rightarrow t_a}(t_a) & = \iint \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0) \N(t_b | \mu_b , \sigma_b^2 ) \, dd_1\,dt_b \\
 & = \int \mathbb{I}( t_a > t_b)  \N(t_b | \mu_b , \sigma_b^2 ) \,dt_b  \\
@@ -1517,7 +1573,7 @@ m_{f_{d_1} \rightarrow t_a}(t_a) & = \iint \mathbb{I}(d_1 = t_a - t_b) \mathbb{I
 \end{split}
 \end{equation}
 %
-\begin{equation}\label{eq:m_fta_p_inicial} \tag{\texttt{likelihood\_p1}}
+\begin{equation}\label{eq:m_fta_p_inicial} \tag{\texttt{exact\_lhood\_p1}}
 \begin{split}
 m_{f_{t_a} \rightarrow p_1}(p_1)  & = \iint \mathbb{I}( t_a = p_1 + p_2) \, N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (t_a| \mu_b , \sigma_b^2 ) \, dt_a dp_2 \\
 & = \int  \, \N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (p_1 + p_2| \mu_b , \sigma_b^2 ) \, dp_2 \\
@@ -1525,57 +1581,114 @@ m_{f_{t_a} \rightarrow p_1}(p_1)  & = \iint \mathbb{I}( t_a = p_1 + p_2) \, N(p_
 \end{split}
 \end{equation}
 %
-\begin{equation}\label{eq:m_fp_s1} \tag{\texttt{likelihood\_s1}}
+\begin{equation}\label{eq:m_fp_s1} \tag{\texttt{exact\_lhood\_s1}}
 \begin{split}
 m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_1-\delta, \vartheta^2 - (\sigma_1^2 + \beta^2)) \, dp_1 \\[0.1cm]
-& = 1 - \Phi(0 | \underbrace{(s_1 + \mu_2) - (\mu_3 + \mu_4)}_{\hfrac{\text{Diferencia esperada}}{\text{parametrizada en $s_1$}}} \ , \underbrace{\ \ \ \vartheta^2 - \sigma_1^2 \ \ \ }_{\hfrac{\text{Incertidumbre total}}{\text{salvo la de $s_1$}}})\end{split}
+& = 1 - \Phi(0 | \underbrace{(s_1 + \mu_2) - (\mu_3 + \mu_4)}_{\hfrac{\text{Diferencia esperada}}{\text{parametrizada en $s_1$}}: \ \delta_1(s_1) } \ , \underbrace{\ \ \ \ \vartheta^2 - \sigma_1^2 \ \ \ \ }_{\hfrac{\text{Incertidumbre total}}{\text{salvo la de $s_1$}}: \ \vartheta_1^2})\end{split}
 \end{equation}
+%
+\en{El mensaje $m_{f_{p_1} \rightarrow s_1}(s_1)$ es el likelihood exacto y computa la ``probabilidad de ganar dada la hipótesis $s_1$''.}
+%
+\en{Esto es probabilidad a priori de un resultado ganador si la verdadera habilidad del jugador fuera $s_1$.}
+%
+\en{En caso de conocer la habilidad, no existe incertidumbre asociacia por lo que hay que eliminarla la incertidumbre total.}
+%
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}]
+theta1 = theta^2 - sigma1^2
+theta1 = sqrt(theta1)
+\end{lstlisting}  
+ \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}]
+theta1 = theta**2 - sigma1**2
+theta1 = sqrt(theta1)
+\end{lstlisting} 
+ \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}]
+theta1 = theta^2 - sigma1^2
+theta1 = sqrt(theta1)
+\end{lstlisting}   
+\end{paracol}
+%
+\en{Y en la diferencia esperada $\delta$ remplazamos la media $\mu_1$ del prior por la hipótesis $s_1$.}
+%
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}]
+function exact_lhood(s1)
+  delta1 = delta - mu1 + s1 
+  N= Gaussian(delta1,theta1)
+  return 1-cdf(N,0.0)
+end  
+\end{lstlisting}  
+ \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}]
+def exact_lhood(s1):
+    delta1 = delta - mu1 + s1 
+    res=1-cdf(0,delta1,theta1)
+    return res
 
-El mensaje $m_{f_{p_1} \rightarrow s_1}(s_1)$ computa la ``probabilidad de ganar parametrizada en la hipótesis $s_1$''.
-Esto es la distribucipon de creencias a priori de un resultado ganador, dada la hipótesis $s_1$, como si conociéramos la verdadera habilidad del jugador.
-En caso de conocer la habilidad, no existe incertidumbre asociacia por lo que hay que eliminarla la incertidumbre total, y en vez de usar la media de la distribuci\'on de creencias para calacular la diferencia esperada usamos la verdadera habilidad.
+\end{lstlisting} 
+ \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}]
+exact_lhood = function(s1){
+  delta1 = delta - mu1 + s1 
+  res=1-cdf(0,delta1,theta1)
+  return(res)
+}
+\end{lstlisting}   
+\end{paracol}
 
 \subsection{\en{Draw model}\es{Modelo de empates}} \label{sec:empate}
 
-El modelo inicial de empates propone que las victorias ocurren cuando la diferencia de rendimientos supera un cierto margen, $t_a > t_b + \varepsilon$, y que en caso contrario ocurre un empate $|t_a > t_b| \leq \varepsilon$
+\en{El modelo inicial de empates propone que las victorias ocurren cuando la diferencia de rendimientos supera un cierto margen, $t_a > t_b + \varepsilon$, y que en caso contrario ocurre un empate $|t_a > t_b| \leq \varepsilon$.}
 %
-\begin{figure}[H]
-\centering
-  \includegraphics[width=0.5\textwidth]{figures/draw.pdf}
-  \caption{Modelo empates}
-  \label{fig:draw}
-\end{figure}
+\en{En la figura~\ref{fig:draw_a} se pueden ver las áreas respectivas a cada uno de los posibles resultados de una partida.}
 %
-Para usar este modelo debemos determinar el valor del margen $\varepsilon$
+\en{El paper TrueSkill proponen determinar el valor del margen $\varepsilon$ en función de la ``frecuencia empírica de empates''.}
 %
-En el paper TrueSkill proponen elegirlo en función de la ``frecuencia empírica de empates''.
+\en{Esta popuesta, sin embargo, tiene el problema de que la probabilidad de empates depende de la diferencia de habilidad, que justamente no conocemos.}
 %
-Si embargo, esta popuesta tiene el problema de que la probabilidad de empates depende de la diferencia de habilidad, que a priori no conocemos.
-%
-Una estrategia estandar cuando estamos en presencia de modelos paraméticos es seleccionar el modelo con mejor predicción a priori.
+\en{Una alternativa es usar una estrategia clásica de optimización.}
 %
 \begin{equation*}
 \varepsilon = \underset{\varepsilon}{\text{arg max}} \ p(\text{Data}|\text{Model}_{\varepsilon})
 \end{equation*}
 %
-Las soluciones que seleccionan un valor puntual que maximiza alguna función de costo forman parte del marco frecuentista.
+\en{Esto es, elegir el valor de $\varepsilon$ que maximiza la predicción a priori de los datos.}
 %
-En la sección~\ref{sec:ttt-d} presentamos una solución bayesiana al problema de los empates.
-
-Suponiendo que tenemos la ``probabilidad de empate'' para equipos de misma habilidad, es importante tener en cuenta que el margen $\varepsilon$ igualmente depende de la cantidad de jugadores.
+\en{La estrategia de maximización de funciones de costo forman parte del marco frecuentista.}
 %
-Hay que recordar que los resultado observados dependen de la distribución de diferencias de de rendimientos verdadera, y que cuantos más jugadores hay más varianza tiene esta distribución.
+\en{En la sección~\ref{sec:ttt-d} presentaremos una solución bayesiana al problema de los empates.}
 %
-\begin{figure}[H]
+\begin{figure}[t!]
 \centering
-  \includegraphics[page=2,width=0.5\textwidth]{figures/draw.pdf}
-  \caption{Distribuci\'on de diferencias de rendimientos, y \'area correspondiente a la probabilidad de empate $0.25$}
+\begin{subfigure}[t]{0.48\textwidth}
+ \includegraphics[width=1\textwidth]{figures/draw.pdf} 
+ \caption{Las distintas áreas}
+ \label{fig:draw_a}
+\end{subfigure}
+\begin{subfigure}[t]{0.48\textwidth}
+  \includegraphics[page=2,width=1\textwidth]{figures/draw.pdf}
+  \caption{Área de empate constante}
+ \label{fig:draw_b}
+\end{subfigure}
+  \caption{Modelo de empate.}
   \label{fig:draw}
 \end{figure}
+
+
+\en{En todo caso, suponiendo que podemos definir de la ``probabilidad de empate'' para equipos de misma habilidad, es importante tener en cuenta que el margen $\varepsilon$ igualmente depende de la cantidad de jugadores.}
 %
-Por eso, para mantener el área de empates constante, es necesario adaptar el margen
+\en{Para mantener el área de empates constante, es necesario adaptar el margen}
+%
+\en{Esto es así porque la distribuci\'on de diferencias de rendimientos depende de cuántos jugadores hay en la partida.}
+%
+\en{Hay que tener en cuenta además que los resultado observados es independiente de nuestras creencias, por lo que la \'unica fuente de varianza en la diferencia de rendimiento proviene de los $\beta$.}
+%
+\en{Así es que podemos calcular el margen a partir de la ``probabilidades de empate''.}
+%
 \begin{equation}
- \text{Draw probability} = \Phi(\frac{\epsilon}{\sqrt{n_1+n_2}\beta}) - \Phi(\frac{-\epsilon}{\sqrt{n_1+n_2}\beta})
+ \text{Draw probability} = \Phi(\frac{\varepsilon}{\sqrt{n_1+n_2}\beta}) - \Phi(\frac{-\varepsilon}{\sqrt{n_1+n_2}\beta})
 \end{equation}
 %
 \begin{paracol}{3}
@@ -1603,41 +1716,51 @@ margin = compute_margin(p_draw, sd)
 \end{lstlisting}  
 
 \subsection{Approximate close posterior} \label{sec:analytical_posterior}
-Veremos ahora cómo se resuelve un posterior aproximado, incorporando además la posibilidad de empate.
+
+\en{En la sección~\ref{sec:} hemos visto como encontrar la solución analítica de un posterior.}
 %
-En esta sección vamos a mostrar la matemática necesaria para resolver la siguiente partida.
+\en{A pesar de que gráficamente (figura~\ref{fig:posterior_win}) se parezca a una Gasussiana, su expresión matemática (eq~\ref{eq:posterior_win}) no lo es.}
 %
-\begin{lstlisting}[backgroundcolor=\color{all},belowskip=-0.77 \baselineskip, frame=lrt]
+\en{Hubiera sido ideal obtener un solución exacta Gaussiana, porque eso nos hubiera garantizado que en el tiempo las estimaciones sucesivas serían a su vez Gaussianas.}
+%
+\en{Igualmente, dado que la forma exacta se parece a una Gaussiana, usar una Gaussiana para representar el posterior no parecería ser tan grave en términos de aproximación y en cambio nos permitiría realizar estimaciones sucesivas.}
+
+% Parrafo
+
+\en{Los métodos para aproximar una distribución intratable mediante una una distribución perteneciente a una familia conocida se conocen en inferencia bayesiana como ``variacionales''.}
+%
+\en{En esta sección vamos a mostrar cómo encontrar la distribución Gaussiana que mejor aproxima al posterior exacto, considerando además la posibilidad de empate.}
+%
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=-0.77 \baselineskip]
 g = Game(teams, result, p_draw)
 \end{lstlisting}  
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia},frame=lrb,framexrightmargin=5pt]
+\begin{lstlisting}[backgroundcolor=\color{julia}]
 post = posteriors(g)
 \end{lstlisting}
 \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python},frame=rlb,framexleftmargin=5pt, framexrightmargin=5pt]
+\begin{lstlisting}[backgroundcolor=\color{python}]
 post = g.posteriors()
 \end{lstlisting}
 \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r},frame=rlb, framexleftmargin=5pt]
+\begin{lstlisting}[backgroundcolor=\color{r}]
 post = g$posteriors()
 \end{lstlisting}
 \end{paracol}
-
 %
-La necesidad de aproximar el posterior ocurre debido a que la probabilidad de la diferencia de rendimientos de los equipos es una Gasussian truncada (Eq.~\ref{eq:p_d}).
+\en{La necesidad de aproximar el posterior ocurre debido a que la probabilidad de la diferencia de rendimientos de los equipos es una Gasussian truncada (Eq.~\ref{eq:p_d}).}
 %
 \begin{equation}\label{eq:p_d}
-p(d_1) =
+p(d) =
 \begin{cases}
-\N(d_1|\delta,\vartheta^2) \mathbb{I}(\varepsilon < d_1 < \varepsilon) & \text{tie} \\
-\N(d_1|\delta,\vartheta^2) \mathbb{I}(d_1 > 0) & \text{not tie}
+\N(d|\delta,\vartheta^2) \mathbb{I}(\varepsilon < d < \varepsilon) & \text{tie} \\
+\N(d|\delta,\vartheta^2) \mathbb{I}(d > \varepsilon) & \text{not tie}
 \end{cases}
 \end{equation}
 %
-Para obtener el posterior Gaussiana lo que se hace es un buscar la que mejor aproxima a esta Gaussiana truncada, para luego propogar los mensajes.
+\en{Siguiendo la familia de métodos variacionales conocidos como \emph{expectation propagation}~\ref{minka}, primero buscamos la Gaussiana que mejor aproxima a la Gaussiana truncada, y luego propogamos los mensajes.}
 %
-Se sabe~\cite{} que la Gaussiana que mejor aproxima a una Gaussiana truncada $\N(x|\mu,\sigma^2)$ en el intervalo $[a,b]$ tiene como esperanza.
+\en{Se sabe~\cite{} que la Gaussiana que mejor aproxima a una Gaussiana truncada $\N(x|\mu,\sigma^2)$ en el intervalo $[a,b]$ tiene como esperanza.}
 %
 \begin{equation}\label{eq:mean_aprox_double}
  E(X| a < X < b) = \mu + \sigma \frac{\N(\alpha) - \N(\beta) }{\Phi(\beta) - \Phi(\alpha) }
@@ -1681,12 +1804,12 @@ tie = T; not_tie = F
 \end{lstlisting}
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
-pd_approx = approx(diff, margin, not_tie)
+pd_approx = approx(d, margin, not_tie)
 \end{lstlisting}
 
 Dada $\widehat{p}(d_1)$, podemos calcular el mensaje ascendentes aproximado.
 %
-\begin{equation}\label{eq:m^_d_fd} \tag{\texttt{lhood\_d1\_approx}}
+\begin{equation}\label{eq:m^_d_fd} \tag{\texttt{approx\_lhood\_d1}}
 \begin{split}
  m_{d_1 \rightarrow f_{d_1}}(d_1)   = \frac{p(d_1)}{m_{f_{d_1} \rightarrow d_1}(d_1)} 
  & \approx \frac{\widehat{p}(d_1)}{m_{f_{d_1} \rightarrow d_1}(d_1)}  \\
@@ -1698,12 +1821,12 @@ Dada $\widehat{p}(d_1)$, podemos calcular el mensaje ascendentes aproximado.
 con $\delta_{\div} = \frac{\widehat{\delta}}{\widehat{\vartheta}^2} - \frac{\delta}{\vartheta^2}$ y $\vartheta_{\div}^2 = (\frac{1}{\widehat{\vartheta}^2} - \frac{1}{\vartheta^2})^{-1}$ 
 %
 \begin{lstlisting}[backgroundcolor=\color{all},belowskip=-0.77 \baselineskip]
-lhood_d1_approx = pd_approx/diff
+approx_lhood_d1 = pd_approx/d
 \end{lstlisting}  
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
-d_div = lhood_d1_approx.mu
-v_div = lhood_d1_approx.sigma
+d_div = approx_lhood_d1.mu
+v_div = approx_lhood_d1.sigma
 \end{lstlisting}
 \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}]
