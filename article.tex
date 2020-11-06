@@ -513,12 +513,19 @@
 %
 \en{This problem can be addressed through sampling techniques, as~\cite{fox2010-bayesianIRT} does to solve the Bayesian Item-Response Theory (BIRT) variants.}
 \es{Este problema puede ser tratado mediante técnicas de sampleo, tal como hace~\cite{fox2010-bayesianIRT} para resolver las variantes Bayesianas de Item-Response Theory (BIRT).}
-%
 %\en{Although sampling methodologies have the property of converging to the exact distribution, they demand a high computational cost.}
 %\es{Si bien las metodolog\'ias de sampleo tienen la propiedad de converger a la distribuci\'on exacta, exigen un alto costo computacional.}
 %
-\en{Since the shape of the exact posterior can be approximated well enough with a Gaussian, the computational cost of the sampling methodologies can be avoided by implementing deterministic approximation techniques.}
-\es{Dado que la forma del posterior exacto puede ser aproximado suficientemente bien con una Gaussiana, el costo computacional de la metodolog\'ias de sampleo puede ser evitado implementando técnicas de aproximaci\'on determin\'istica.}
+%\en{Igualmente, dado que la forma exacta se parece a una Gaussiana, usar una Gaussiana para representar el posterior no parecería ser tan grave en términos de aproximación y en cambio nos permitiría realizar estimaciones sucesivas.}
+%
+\en{Since the shape of the exact posterior is similar to a Gaussian, Using a Gaussian to represent the posterior does not seem a bad approximation and instead would allow us to make successive estimates avoiding the computational cost of the sampling methodologies.}
+\es{Dado que la forma del posterior exacto se parece a una Gaussiana, usar una Gaussiana para representar el posterior no parece una mala aproximación y en cambio nos permitiría realizar estimaciones sucesivas evitando el costo computacional de la metodolog\'ias de sampleo.}
+%
+\en{Los métodos para aproximar una distribución intratable mediante una una distribución perteneciente a una familia conocida se conocen en inferencia bayesiana como ``variacionales''.}
+%
+\begin{equation} \tag{\text{Variational solution}}
+ \widehat{p}(s_i| r_{ij}, s_j) = \underset{\widehat{\mu}, \widehat{\sigma}}{\text{ arg max }}  \N(s_i|\widehat{\mu}_i, \widehat{\sigma}_i^2)
+\end{equation}
 %
 \en{The main contribution of the Glicko system~\cite{glikman_gliko_2} was the development of an efficient method to approximate the exact posterior with a Gasussian distribution.}
 \es{El principal aporte del sistema Glicko~\citep{glikman_gliko_2} fue el desarroll\'o de un método eficiente para aproximar la posterior exacta con una distribuci\'on Gasussiana.}
@@ -554,26 +561,26 @@
   \scalebox{.9}{
     \tikz{ %
       \node[latent] (s1) {} ;
-      \node[const, above=of s1 ] (ns1) {$s_i^1$} ;
+      \node[const, above=of s1 ] (ns1) {$s_{i_1}$} ;
       \node[latent, below=of s1] (p1) {};
-      \node[const, right=of p1 ] (np1) {$p_i^1$} ;
+      \node[const, right=of p1 ] (np1) {$p_{i_1}$} ;
       
       \node[latent, right=of s1] (s2) {} ;
-      \node[const, above=of s2 ] (ns2) {$s_i^2$} ;
+      \node[const, above=of s2 ] (ns2) {$s_{i_2}$} ;
       \node[latent, below=of s2] (p2) {};
-      \node[const, right=of p2 ] (np2) {$p_i^2$} ;
+      \node[const, right=of p2 ] (np2) {$p_{i_2}$} ;
       
       \node[const, right=of s2, xshift=0.5cm] (s3) {\ $\dots$} ;
 
       \node[latent, right=of s3, xshift=-0.4cm] (s1n) {} ;
-      \node[const, above=of s1n ] (ns1n) {$s_i^{n-1}$} ;
+      \node[const, above=of s1n ] (ns1n) {$s_{i_{n-1}}$} ;
       \node[latent, below=of s1n] (p1n) {};
-      \node[const, right=of p1n ] (np1n) {$p_i^{n-1}$} ;
+      \node[const, right=of p1n ] (np1n) {$p_{i_{n-1}}$} ;
       
       \node[latent, right=of s1n] (sn) {} ;
-      \node[const, above=of sn ] (nsn) {$s_i^n$} ;
+      \node[const, above=of sn ] (nsn) {$s_{i_n}$} ;
       \node[latent, below=of sn] (pn) {};
-      \node[const, right=of pn ] (npn) {$p_i^n$} ;
+      \node[const, right=of pn ] (npn) {$p_{i_n}$} ;
       
       \edge {s1} {p1};
       \edge {s2} {p2};
@@ -585,8 +592,8 @@
   \en{The approach known as \emph{filtering} treat the sequence of observations as an ordered list of independent events.}
   \es{El enfoque conocido como \emph{filtering} considera la secuencia de observaciones como una lista ordenada de eventos independientes.}
   %
-  \en{Each pair $s_i^t \rightarrow p_i^t$ represents a fragment of the causal model presented in Figure~\ref{fig:generative_model}.}
-  \es{Cada par $s_i^t \rightarrow p_i^t$ representa un fragmento del modelo causal presentado en el Figura~\ref{fig:generative_model}.}
+  \en{Each pair $s_{i_t} \rightarrow p_{i_t}$ represents a fragment of the causal model presented in Figure~\ref{fig:generative_model}.}
+  \es{Cada par $s_{i_t} \rightarrow p_{i_t}$ representa un fragmento del modelo causal presentado en el Figura~\ref{fig:generative_model}.}
   %
   \en{From now on we show $s$ as a hidden variable and not as a constant.}
   \es{A partir de ahora mostramos a $s$ como una variable oculta y no como una constante.}
@@ -598,7 +605,7 @@
 \es{Aunque el modelo gr\'afico asume eventos independientes, el enfoque conocido como \emph{filtering} usa las estimaciones a posteriori del tiempo $t-1$ como como prior del tiempo $t$.}
 %
 \begin{equation}\label{eq:filter}
- \text{Posterior}^t \propto \text{Likelihood}^t (\overbrace{\text{Likelihood}^{t-1} (\dots (\underbrace{\text{Likelihood}^{1} \text{Prior}^1}_{\ \text{Prior}^2} ))}^{\text{Prior}^{t}} )
+ \text{Posterior}_t \propto \text{Likelihood}_t  \overbrace{\text{Likelihood}_{t-1} \dots \underbrace{\text{Likelihood}_{1} \text{Prior}_1}_{\ \text{Prior}_2} }^{\text{Prior}_{t}} 
 \end{equation}
 %
 \en{If we consider the likelihood as a filter of the prior, the estimates made at a time $t$ can be seen as the accumulation of all previous filters.}
@@ -611,7 +618,7 @@
 \es{En nuestro caso, debido a que las habilidades son variables din\'amicas es importante agregar incertidumbre en cada paso.}
 %
 \begin{equation}\label{eq:dynamic_factor}
- \text{Prior}^t \sim \N(\text{Posterior}^{t-1}, \gamma^2)
+ p(s_{i_t}) = \N(s_{i_t} | \widehat{\mu}_{i_{t-1}}, \widehat{\sigma}_{i_{t-1}}^2 + \gamma^2 )
  \end{equation}
 %
 \en{This solves the dynamic aspect.}
@@ -992,35 +999,33 @@ Para responder a este pregunta y para entender el funcionamiento general de los 
 \section{Models and software} 
 
 \en{}
-\en{En esta secci\'on daremos la soluci\'on matem\'atica y computacional al modelo completo de TTT}
+\en{En esta secci\'on daremos la soluci\'on matem\'atica y computacional al modelo completo de TTT.}
 %
-En la sección~\ref{sec:sumProductAlgorithm} introducimos la matemática de un algoritmo genérico que permite computar de forma efficiente distribuciones de probabilidad marginal a partir de distribuciones de probabilidad conjunta.
-%
-En la sección~\ref{sec:propiedades} enumeramos las propiedades matemáticas auxiliares que se requieren en este caso particular para resolver las distribuciones marginales de interés en este caso.
-%
-Afortunadamente, gracias a la distribución de probabilidad elegida para representar el modelo causal~\ref{modelo_elo}, la distribución de creencias a posteriori de la habilidad de los agentes y la predicción a priori del resultado observado (aka evidencia) tienen solución analítica.
-%
-En la subsección~\ref{sec:Gasussian} introducimos la clase Gaussian y la semántica de los operadores aritméticos.
-%
-En la subsección~\ref{sec:posterior_exacto} mostramos cómo se resuelve la evidencia y el posterior exacto.
-%
-En la práctica, para resolver historias de partidas, se remplaza el posterior exacto por la distribución Gaussiana que más se le aproxima.
-%
-En la subsección~\ref{sec:posterior_analitica} mostramos el caso de partidas con 2 equipos, lo que ofrece una gran oportunidad para optimizar el computo debido a que la solución es cerrada. 
-%
-En la subsección~\ref{sec:posterior_iterativo} mostamos el caso de partidas de 3 más equipos, en el que la solución analítica requiere una serie de iteraciones acotadas para alcanzar la convergencia.
-%
-En la sección~\ref{history} mostamos los pasos matemáticos requeridos para resolver el modelo TTT.
-%
-En la subsección~\ref{estructuras} introducimos las estructuras de datos utlizadas para generar la hsitoria.
-%
-En la subsección~\ref{trueskill} realizamos la inicialización de la historia, la que genera un resultado equivalente a trueskill.
-%
-En la subseción~\ref{TTT} mostramos el algoritmo utilizado para converger las estmaciones.
-%
-
-
-
+%\en{En la sección~\ref{sec:sumProductAlgorithm} introduciremos el \emph{sum-product algorithm}, una algoritmo que permite computar de forma efficiente distribuciones de probabilidad marginal a partir de distribuciones de probabilidad conjunta.}
+% %
+% En la sección~\ref{sec:propiedades} enumeramos las propiedades matemáticas auxiliares que se requieren en este caso particular para resolver las distribuciones marginales de interés en este caso.
+% %
+% Afortunadamente, gracias a la distribución de probabilidad elegida para representar el modelo causal~\ref{modelo_elo}, la distribución de creencias a posteriori de la habilidad de los agentes y la predicción a priori del resultado observado (aka evidencia) tienen solución analítica.
+% %
+% En la subsección~\ref{sec:Gasussian} introducimos la clase Gaussian y la semántica de los operadores aritméticos.
+% %
+% En la subsección~\ref{sec:posterior_exacto} mostramos cómo se resuelve la evidencia y el posterior exacto.
+% %
+% En la práctica, para resolver historias de partidas, se remplaza el posterior exacto por la distribución Gaussiana que más se le aproxima.
+% %
+% En la subsección~\ref{sec:posterior_analitica} mostramos el caso de partidas con 2 equipos, lo que ofrece una gran oportunidad para optimizar el computo debido a que la solución es cerrada. 
+% %
+% En la subsección~\ref{sec:posterior_iterativo} mostamos el caso de partidas de 3 más equipos, en el que la solución analítica requiere una serie de iteraciones acotadas para alcanzar la convergencia.
+% %
+% En la sección~\ref{history} mostamos los pasos matemáticos requeridos para resolver el modelo TTT.
+% %
+% En la subsección~\ref{estructuras} introducimos las estructuras de datos utlizadas para generar la hsitoria.
+% %
+% En la subsección~\ref{trueskill} realizamos la inicialización de la historia, la que genera un resultado equivalente a trueskill.
+% %
+% En la subseción~\ref{TTT} mostramos el algoritmo utilizado para converger las estmaciones.
+% %
+% 
 
 \subsection{Sum-product algorithm} \label{sec:sumProductAlgorithm}
 
@@ -1034,9 +1039,9 @@ En la subseción~\ref{TTT} mostramos el algoritmo utilizado para converger las e
  p(\bm{s},\bm{p},d,r) = p(s_1)p(s_2)p(p_1|s_1)p(p_2|s_2)p(d|\bm{p})P(r|d)
 \end{equation}
 %
-\en{En la figura~\ref{fig:factor_graph} mostramos graficamente la factorización de nuestro modelo.}
+\en{En la figura~\ref{fig:factor_graph} mostramos gráficamente la factorización.}
 %
-\en{A este tipo de representaciones gráficas se las conoce como \emph{factor graph}.}
+\en{A este tipo de representaciones se las conoce como \emph{factor graph}.}
 %
 \en{Los \emph{factor graph} son gráfos bipartitos, compuestos por nodos variables $v$ y nodos funciones (o factores) $f$.}
 %
@@ -1046,39 +1051,7 @@ En la subseción~\ref{TTT} mostramos el algoritmo utilizado para converger las e
 %
 \en{En nuestro caso vamos a querer computar dos tipos de marginales, el posteriori de las habilidades $p(s_i|r)$ y la probabilidad a priori del resultado $p(r)$.}
 
-\en{Para calcular una marginal en un \emph{factor graph}, lo que hace el \emph{sum-product algorithm} es enviar mensajes entre nodos vecinos.}
-%
-\en{Hay dos tipos de mensajes: los mensajes que envian los nodos variables a las funciones vecinas ($m_{v \rightarrow f}(v)$); y los mensajes que envian los nodos funciones a las nodos variables vecinos ($m_{f \rightarrow v}(v)$).}
-%
-\en{Los mensajes que envían los nodos variables codifican una parte de la regla del producto.}
-\begin{equation}\label{eq:m_v_f} \tag{\text{product step}}
-m_{v \rightarrow f}(v) = \prod_{h \in n(v) \setminus \{f\} } m_{h \rightarrow v}(v)
-\end{equation}
-%
-\en{Donde $n(v)$ representa el conjunto de vecinos del nodo $v$}.
-%
-\en{En pocas palabras, los mensajes que envían los nodos variables $v$ a un nodo vecino $f$ es simplemente la multiplicación de los mensajes que $v$ recibió del resto de sus vecinos $h \in n(v)$ salvo $f$.}
-%
-\en{Y los mensajes que envían los nodos funciones codifican una parte de la regla de la suma.}
-%
-\begin{equation}\label{eq:m_f_v}  \tag{\text{sum step}}
-m_{f \rightarrow v}(v) = \int \cdots \int \Big( f(\bm{h},v) \prod_{h \in n(f) \setminus \{v\} } m_{h \rightarrow f}(h) \Big) \,  d\bm{h}
-\end{equation}
-%
-\en{Donde $\bm{h} = n(f)\setminus \{v\}$ es el conjunto de todos los vecinos de $f$ salvo $v$, y $f(\bm{h},v)$ represeta la función $f$ evaluada en todos sus argumentos.}
-%
-\en{En pocas palabras, los mensajes que envían los nodos funciones $f$ a un nodo vecino $v$ es simplemente el resultado de integrar la multiplicación de todos los mensajes que $f$ recibe del resto de sus vecinos $\bm{h}$ por si mismo.}
-%
-\en{Los mensajes van generando una composición de operaciones}
-%
-\en{De esta forma, la distribución de probabilidad marginal de una variable $v$ es simplemente la multiplicación de los mensajes que $v$ recibe de sus vecinos}
-%
-\begin{equation}\label{eq:marginal}
-g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
-\end{equation}
-
-
-\begin{figure}[t]
+\begin{figure}[t!]
 \centering \small
     \tikz{         
 %         \node[const, above=of fr] (nfr) {$f_r$}; %
@@ -1135,12 +1108,46 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
      \caption{
      \en{Factorizaci\'on gráfica del modelo generativo (Fig.~\ref{fig:generative_model}).}
      %
-     \en{Los cuadrados negros representan factores o funciones $f$, los círculos blancos representan variable $v$, y los ejes representan la relaci\'on matem\'atica ``nodo $v$ es argumento de nodo $f$''.}
+     \en{Los cuadrados negros representan las funciones, los círculos blancos representan las variable, y los ejes entre ellos representan la relaci\'on matem\'atica ``la variable es argumento de la función''.}
      %
      }
     \label{fig:factor_graph}
 \label{modelo}
 \end{figure} 
+
+
+\en{Para calcular una marginal en un \emph{factor graph}, lo que hace el \emph{sum-product algorithm} es enviar mensajes entre nodos vecinos.}
+%
+\en{Hay dos tipos de mensajes: los mensajes que envian los nodos variables a las funciones vecinas ($m_{v \rightarrow f}(v)$); y los mensajes que envian los nodos funciones a las nodos variables vecinos ($m_{f \rightarrow v}(v)$).}
+%
+\en{Los mensajes que envían los nodos variables codifican una parte de la regla del producto.}
+\begin{equation}\label{eq:m_v_f} \tag{\text{product step}}
+m_{v \rightarrow f}(v) = \prod_{h \in n(v) \setminus \{f\} } m_{h \rightarrow v}(v)
+\end{equation}
+%
+\en{Donde $n(v)$ representa el conjunto de vecinos del nodo $v$}.
+%
+\en{En pocas palabras, los mensajes que envían los nodos variables $v$ a un nodo vecino $f$ es simplemente la multiplicación de los mensajes que $v$ recibió del resto de sus vecinos $h \in n(v)$ salvo $f$.}
+%
+\en{Y los mensajes que envían los nodos funciones codifican una parte de la regla de la suma.}
+%
+\begin{equation}\label{eq:m_f_v}  \tag{\text{sum step}}
+m_{f \rightarrow v}(v) = \int \cdots \int \Big( f(\bm{h},v) \prod_{h \in n(f) \setminus \{v\} } m_{h \rightarrow f}(h) \Big) \,  d\bm{h}
+\end{equation}
+%
+\en{Donde $\bm{h} = n(f)\setminus \{v\}$ es el conjunto de todos los vecinos de $f$ salvo $v$, y $f(\bm{h},v)$ represeta la función $f$ evaluada en todos sus argumentos.}
+%
+\en{En pocas palabras, los mensajes que envían los nodos funciones $f$ a un nodo vecino $v$ es simplemente el resultado de integrar la multiplicación de todos los mensajes que $f$ recibe del resto de sus vecinos $\bm{h}$ por si mismo.}
+%
+\en{Los mensajes van generando una composición de operaciones}
+%
+\en{De esta forma, la distribución de probabilidad marginal de una variable $v$ es simplemente la multiplicación de los mensajes que $v$ recibe de sus vecinos}
+%
+\begin{equation}\label{eq:marginal}
+g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
+\end{equation}
+
+
 
 \subsection{Propiedades matemáticas}\label{sec:propiedades}
 
