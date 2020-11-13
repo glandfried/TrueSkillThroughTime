@@ -511,30 +511,35 @@
 \en{And without a Gaussian distribution we are prevented from using the equation~\ref{eq:posterior_win} iteratively.}
 \es{Y sin distribuciones Gaussianas nos vemos impedidos de usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
 %
-\en{This problem can be addressed through sampling techniques, as~\cite{fox2010-bayesianIRT} does to solve the Bayesian Item-Response Theory (BIRT) variants.}
-\es{Este problema puede ser tratado mediante técnicas de sampleo, tal como hace~\cite{fox2010-bayesianIRT} para resolver las variantes Bayesianas de Item-Response Theory (BIRT).}
+\en{This problem can be addressed through Markov chain, as~\cite{fox2010-bayesianIRT} does to solve the Bayesian Item-Response Theory (BIRT) variants.}
+\es{Este problema puede ser tratado mediante cadenas de Markov, tal como hace~\cite{fox2010-bayesianIRT} para resolver las variantes Bayesianas de Item-Response Theory (BIRT).}
+%
+\en{While sampling methods allow intractable integrals to be solved, the associated computational complexity imposes severe limits on the applications.}
+\es{Si bien las métodos de sampleo permiten resolver cualquier integrales intratables, la complejidad computacional asociada impone severos límites las aplicaciones.}
+%
 %\en{Although sampling methodologies have the property of converging to the exact distribution, they demand a high computational cost.}
 %\es{Si bien las metodolog\'ias de sampleo tienen la propiedad de converger a la distribuci\'on exacta, exigen un alto costo computacional.}
 %
 %\en{Igualmente, dado que la forma exacta se parece a una Gaussiana, usar una Gaussiana para representar el posterior no parecería ser tan grave en términos de aproximación y en cambio nos permitiría realizar estimaciones sucesivas.}
 %
-\en{Since the shape of the exact posterior is similar to a Gaussian, Using a Gaussian to represent the posterior does not seem a bad approximation and instead would allow us to make successive estimates avoiding the computational cost of the sampling methodologies.}
-\es{Dado que la forma del posterior exacto se parece a una Gaussiana, usar una Gaussiana para representar el posterior no parece una mala aproximación y en cambio nos permitiría realizar estimaciones sucesivas evitando el costo computacional de la metodolog\'ias de sampleo.}
+\en{Due the shape of the exact posterior, a Gaussian seem good enough approximation and it would also allow us to make successive estimates avoiding the computational cost of the sampling methodologies.}
+\es{Por la forma del posterior exacto, una Gaussiana parece una aproximación suficientemente buena y nos permitiría además realizar estimaciones sucesivas evitando el costo computacional de la metodolog\'ias de sampleo.}
 %
-\en{Los métodos para aproximar una distribución intratable mediante una una distribución perteneciente a una familia conocida se conocen en inferencia bayesiana como ``variacionales''.}
-%
-\begin{equation} \tag{\text{Variational solution}}
- \widehat{p}(s_i| r_{ij}, s_j) = \underset{\widehat{\mu}, \widehat{\sigma}}{\text{ arg max }}  \N(s_i|\widehat{\mu}_i, \widehat{\sigma}_i^2)
+\begin{equation} \tag{\text{Gaussian approximation}}
+ \underset{\widehat{\mu}, \widehat{\sigma}}{\text{ arg min }} \ \ \text{KL}(\, p(s_i| r_{ij}, s_j) \, || \,  \N(s_i|\widehat{\mu}_i, \widehat{\sigma}_i^2)\, )
 \end{equation}
 %
+\en{This kind of methods, which minimize the Kullback-Leibler divergence between the true and the approximate distribution, allows the Bayesian inference to be a growing field in the main conferences of artificial intelligence.}
+\es{Esta clase de métodos, que minizan la divergencia Kullback-Leibler entre la distribución verdadera y aproximada, permiten hoy que la inferencia Bayesiana sea un campo creciente en las principales conferencia de inteligencia artificial.}
+%
 \en{The main contribution of the Glicko system~\cite{glikman_gliko_2} was the development of an efficient method to approximate the exact posterior with a Gasussian distribution.}
-\es{El principal aporte del sistema Glicko~\citep{glikman_gliko_2} fue el desarroll\'o de un método eficiente para aproximar la posterior exacta con una distribuci\'on Gasussiana.}
+\es{El principal aporte del sistema Glicko~\cite{glikman_gliko_2} fue el desarroll\'o de un método eficiente para aproximar la posterior exacta con una distribuci\'on Gasussiana.}
 %
-\en{However, the methodology offers no guarantee that the selected Gaussian is the one that best approximates the exact posterior.}
-\es{Sin embargo, la metodolog\'ia no ofrece garant\'ias de que la Gaussiana seleccionada sea la que mejor aproxima al posterior exacto.}
+\en{However, this offers no guarantee that the selected Gaussian is the one that best approximates the exact posterior.}
+\es{Sin embargo, esta no ofrece garant\'ias de que la Gaussiana seleccionada sea la que mejor aproxima al posterior exacto.}
 %
-\en{The success of the TrueSkill solution~\citep{herbrich2006-trueskill} is based on the application of an efficient method for calculating the Gaussian that best approximates the exact posterior.}
-\es{El éxito de la soluci\'on TrueSkill~\citep{herbrich2006-trueskill} se basa en la aplicaci\'on de método eficiente para calcular la Gaussiana que mejor aproxima a la posterior exacta.}
+\en{The success of the TrueSkill solution~\citep{Herbrich2007} is based on the application of an efficient method for calculating the Gaussian that best approximates the exact posterior.}
+\es{El éxito de la soluci\'on TrueSkill~\citep{Herbrich2007} se basa en la aplicaci\'on de método eficiente para calcular la Gaussiana que mejor aproxima a la posterior exacta.}
 %
 \en{Methodological details are described in the section~\ref{sec:approximateSolution}.}
 \es{Los detalles metodol\'ogicos se describen en la secci\'on~\ref{sec:approximateSolution}.}
@@ -714,52 +719,51 @@
 \en{Inference in this single causal model is made by the two rules of reasoning with uncertainty: the sum and the product rules.}
 \es{La inferencia en este modelo causal único se realiza mediante las dos reglas del razonamiento con incertidumbre: la regla de la suma y del producto.}
 %
-\en{The general solution of the posterior and the prior can be found in section~\ref{sec:throguthTime}.}
-\es{La soluci\'on general del posterior y el prior se encuentra en la secci\'on~\ref{sec:throguthTime}.}
+\en{The general solution can be found in section~\ref{sec:throguthTime}.}
+\es{La soluci\'on general se encuentra en la secci\'on~\ref{sec:throguthTime}.}
 %
-Para ejemplificar, mostramos la soluci\'on  con $\gamma = 0$.
-% %
-\begin{equation}\label{eq:smooth_posterior}
- \text{Posterior}_i^t = \text{Prior}_i^0 \prod_{k = 1}^T \text{\en{Likelihood}\es{Verosimilitud}}_i^k 
-\end{equation}
+\en{As an instance, we show the solution with $\gamma = 0$.}
+\es{Para ejemplificar, mostramos la soluci\'on con $\gamma = 0$.}
 %
-El posterior en un tiempo $t$ es la multiplicaci\'on de todas las verosimilitudes: futuras, pasadas y presente.
-%
-El prior en un tiempo $t$ en cambio es la multiplicaci\'on de las verosimilitudes, futuras y pasadas, salvo la presente.
+\en{The prior of an event $t$ is the product of all, past, present and future likelihoods.}
+\es{El prior en un evento $t$ es la multiplicaci\'on de todas las verosimilitudes pasadas y futuras.}
 %
 \begin{equation}\label{eq:smooth_prior}
  \text{Prior}_i^t = \text{Prior}_i^0 \underbrace{\prod_{k = 1}^{t-1} \text{\en{Likelihood}\es{Verosimilitud}}_i^k}_{\text{Past information}} \underbrace{\prod_{k = 1}^{t+1} \text{\en{Likelihood}\es{Verosimilitud}}_i^k}_{\text{Future information}}
 \end{equation}
 %
-A primera vista puede parecer que la única diferencia de las ecuaciones~\ref{eq:smooth_posterior} y~\ref{eq:smooth_prior} respecto de la soluci\'on de filtro consiste en agregar al producto las verosimilitudes provenientes del futuro.
-%
-Sin embargo, como consecuencia de considerar a todas las obervaciones en un único modelo generativo, hay una mutua dependencia entre los elementos del sistema.
-%
-La verosimilitud, por ejemplo, es una funci\'on que depende del resto de las verosimilitudes.
-\begin{equation}
- \text{\en{Likelihood}\es{Verosimilitud}}_{ij}^t(\text{Prior}_i^t, \text{Prior}_j^t) 
-\end{equation}
-%
-Hay una mutua dependencia entre las verosimilitudes.
-%
-Para poder calcular una primer verosimilitud, ser\'ia necesario definir todos las verosimilitudes con un valor inicial.
-%
-La soluci\'on estandar es considerar que el valor inicial de todos los likelihoods es neutro, excluyéndolos del producto mientras no hayan sido calculados todav\'ia.
-%
-Una vez todas fueron calculadas, ser\'a necesario reculalcular nuevamente todos las verosimilitudes, debido a que los valores iniciales con los que fueron caclulados han cambiado.
+
+% \begin{equation}\label{eq:smooth_posterior}
+%  \text{Posterior}_{i,t} = \text{Prior}_{i,0} \underbrace{\prod_{k = 1}^{t-1} \text{\en{Likelihood}\es{Verosimilitud}}_{i,k}}_{\text{Past information}} \cdot \underbrace{  \text{\en{Likelihood}\es{Verosimilitud}}_{i,k}}_{\text{Future information}} \cdot \underbrace{\prod_{k = t+1}^{T} \text{\en{Likelihood}\es{Verosimilitud}}_{i,k}}_{\text{Future information}} 
+% \end{equation}
+Considerar todas las observaciones en un único modelo probabilísitico genera una mutua dependencia entre las verosimilitudes, lo que impone la necesidad de propoagar la información por todo el sistema.
 %
 \en{Por eso, it is necessary to implement an iterative solution known as loopy belief propagation (details at section~\ref{sec:throguthTime}).}
-\es{Por este motivo es necesario implementar un algoritmo iterativo eficiente, conocido como \emph{loopy belief propagation} (detalles en la secci\'on~\ref{sec:throguthTime}).}
-
-% Parrafo
-
-En este punto es razonable preguntarse si los priors de los \emph{state-space} model son priors honestos en el sentido de que desconocen la informacion del dato  para el que son priors.
+\es{Esto se logra con un algoritmo iterativo eficiente, conocido como \emph{loopy belief propagation} (detalles en la secci\'on~\ref{sec:throguthTime}).}
+%
+Al empezar, las verosimilitudes que aun no están definidas se inicializan con un valor neutro o simplemente se las excluyé.
+%
+Las verosimilitudes se reculalcular hasta alcanzar convergencia.
+%
+\en{This procedure converge with a few linear iterations over the data, scaling to millions of observations in a few minutes.}
+\es{Este procedimiento converge con unas pocas iteraciones lineales sobre los datos, escalando a millones de observaciones en pocos minutos.}
+%
+\en{TrueSkill Through Time outperforms TrueSkill and others filtering models.}
+\es{TrueSkill Through Time supera a TrueSkill y otros modelos \emph{filtering}.}
+%
+\en{As an example, in section~\ref{sec:} we show the behavior of the estimates in a synthetic data set.}
+\es{A modo de ejemplo, en la secci\'on~\ref{sec:} se muestra el comportamiento de las estimaciones en un conjunto de datos sintéticos.}
+%
+\en{TrueSkill Through Time recovers the true differences between hidden skills even at the beginning of the sequence.}
+\es{TrueSkill Through Time recupera las verdaderas diferencias entre habilidades ocultas incluso al principio de la secuencia.}
+%
+%En este punto es razonable preguntarse si los priors de los \emph{state-space} model son priors honestos en el sentido de que desconocen la informacion del dato  para el que son priors.
 % 
-Si bien en la ecuaci\'on~\ref{eq:smooth_prior} vimos que el prior efectivamente no se multiplica directamente por el likelihood presente, ¿Ser\'a que la informaci\'on de ese likelihood esta siendo incorporada de manera oculta por el algoritmo iterativo?
+%Si bien en la ecuaci\'on~\ref{eq:smooth_prior} vimos que el prior efectivamente no se multiplica directamente por el likelihood presente, ¿Ser\'a que la informaci\'on de ese likelihood esta siendo incorporada de manera oculta por el algoritmo iterativo?
 %
-Si esto fuera as\'i, entonces en cada paso de la convergencia deber\'ia ocurrir que la sorpresa disminuye.
+%Si esto fuera as\'i, entonces en cada paso de la convergencia deber\'ia ocurrir que la sorpresa disminuye.
 %
-Para responder a este pregunta y para entender el funcionamiento general de los state-space models mostramos en la Figura~\ref{fig:smooth_example} una solcuci\'on de forma gr\'afica.
+%Para responder a este pregunta y para entender el funcionamiento general de los state-space models mostramos en la Figura~\ref{fig:smooth_example} una solcuci\'on de forma gr\'afica.
 %
 \begin{figure}[h!]
   \centering
@@ -847,54 +851,17 @@ Para responder a este pregunta y para entender el funcionamiento general de los 
       
       }  
   }
-  \caption{}
+  \caption{
+  Funcionamiento de TrueSkill Throguth Time en una historia que contiene tan solo dos jugadores, $a$ y $b$, y dos partidas.
+  %
+  La primera partida la gana el jugador $a$, $p_{a,1} > p_{b,1}$, y la segunda la gana el jugador $b$, $p_{a,2} < p_{b,2}$.
+  %
+  Notar que con tan solo dos partidas, al final de la convergencia el posterior se centra en 0 para ambos jugadores, indicando que tienen misma habilidad.
+  %
+  }
   \label{fig:smooth_example}
 \end{figure}
-\en{This procedure converge with a few linear iterations over the data, scaling to millions of observations in a few minutes.}
-\es{Este procedimiento converge con unas pocas iteraciones lineales sobre los datos, escalando a millones de observaciones en pocos minutos.}
 %
-\en{TrueSkill Through Time outperforms TrueSkill and others filtering models.}
-\es{TrueSkill Through Time supera a TrueSkill y otros modelos \emph{filtering}.}
-%
-\en{As an example, in section~\ref{sec:} we show the behavior of the estimates in a synthetic data set.}
-\es{A modo de ejemplo, en la secci\'on~\ref{sec:} se muestra el comportamiento de las estimaciones en un conjunto de datos sintéticos.}
-% \begin{figure}[h!]
-%     \centering
-%         \begin{subfigure}[t]{0.44\textwidth}
-%         \ \ \ \includegraphics[page={1}]{figures/estimates.pdf}
-%         \caption{TrueSkill Through Time}
-%         \end{subfigure}
-%         \begin{subfigure}[t]{0.44\textwidth}
-%         \ \ \ \includegraphics[page={2}]{figures/estimates.pdf}
-%         \caption{TrueSkill}
-%         \end{subfigure}
-%     \es{\includegraphics[page={1},width=.4\linewidth]{figures/estimates.pdf}
-%     \includegraphics[page={2},width=.4\linewidth]{figures/estimates.pdf}}
-%     \caption{
-%     \en{The simulated scenario has two groups of three players each.}
-%     \es{El escenario cuenta con dos grupos de tres jugadores cada uno.}
-%     %
-%     \en{Inside each group the sequence \emph{A beats B, B beats C and C beats A} is observed twice, giving us 4 estimates per player.}
-%     \es{Al interior de cada grupo la secuencia \emph{A le gana a B, B le gana a C y C le gana a A} se observa dos veces, d\'andonos 4 estimaciones por jugador.}
-%     %
-%     \en{Then two players, one from each group, compete eight times, one of them wins 75\% of the games.}
-%     \es{Luego dos jugadores, uno de cada grupo, compiten ocho veces, uno de ellos gana 75\% de las partidas.} 
-%     %
-%     \en{Only the first 4 estimates per player are shown.}
-%     \es{Solo se muestran las primeras 4 estimaciones por jugador.}
-%     %
-%     \en{TTT quickly recovers the real skill differences.}
-%     \es{TTT r\'apidamente recupera las diferencias de habilidad correcta.}
-%     %
-%     \en{For comparison, the same scale is used in both figures.}
-%     \es{Para comparar, se utiliza la misma escala en ambas figuras.}    
-%     }
-%     \label{fig:comparition}
-% \end{figure}
-%
-\en{TrueSkill Through Time recovers the true differences between hidden skills even at the beginning of the sequence.}
-\es{TrueSkill Through Time recupera las verdaderas diferencias entre habilidades ocultas incluso al principio de la secuencia.}
-%    
 \en{This methodology has not been available until now in any of the major programming languages.}
 \es{Esta metodolog\'ia no hab\'ia estado hasta ahora disponible en ninguno de los principales lenguajes de programaci\'on.}
 %
