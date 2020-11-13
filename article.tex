@@ -544,74 +544,77 @@
 \en{Methodological details are described in the section~\ref{sec:approximateSolution}.}
 \es{Los detalles metodol\'ogicos se describen en la secci\'on~\ref{sec:approximateSolution}.}
 %
-\en{This technical advance allowed to apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
-\es{Este avance técnico permiti\'o aplicar la ecuaci\'on~\ref{eq:posterior_win} sobre una secuencia de observaciones.}
+% \en{This technical advance allowed to apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
+% \es{Este avance técnico permiti\'o aplicar la ecuaci\'on~\ref{eq:posterior_win} sobre una secuencia de observaciones.}
 
 % Parrafo
 
-\en{Learning is a temporary process.}
-\es{El aprendizaje es un proceso temporal.}
+\en{Learning is a dynamical process.}
+\es{El aprendizaje es un proceso din\'amico.}
 %
-\en{However, the causal model presented in Figure~\ref{fig:generative_model} assumes that the unknown skill is fixed at a given time.}
-\es{Sin embargo, el modelo causal presentado en la Figura~\ref{fig:generative_model} supone que en un determinado momento la habilidad est\'a fija.}
+% \en{However, the causal model presented in Figure~\ref{fig:generative_model} assumes that the unknown skill is fixed at a given time.}
+% \es{Sin embargo, el modelo causal presentado en la Figura~\ref{fig:generative_model} supone que en un determinado momento la habilidad est\'a fija.}
 %
-\en{The simplest approach treat a sequence of observations as an ordered list of independent causal models.}
-\es{El enfoque m\'as sencillo trata las secuencia de observaciones como una lista ordenada de modelos causales indepedientes.}
+\es{El enfoque m\'as sencillo trata las secuencia de observaciones como una lista ordenada de modelos causales independientes.}
 %
-\en{All the mentioned solutions (TrueSkill, Glicko and BIRT) model the temporal process as shown in the Figure~\ref{fig:filter}.}
-\es{Todas las soluciones mencionadas (TrueSkill, Glicko and BIRT) modelan el proceso temporal como se muestra en la Figura~\ref{fig:filter}.}
-%
-\begin{figure}[h!]
-  \centering
-  \scalebox{.9}{
-    \tikz{ %
-      \node[latent] (s1) {} ;
-      \node[const, above=of s1 ] (ns1) {$s_{i_1}$} ;
-      \node[latent, below=of s1] (p1) {};
-      \node[const, right=of p1 ] (np1) {$p_{i_1}$} ;
-      
-      \node[latent, right=of s1] (s2) {} ;
-      \node[const, above=of s2 ] (ns2) {$s_{i_2}$} ;
-      \node[latent, below=of s2] (p2) {};
-      \node[const, right=of p2 ] (np2) {$p_{i_2}$} ;
-      
-      \node[const, right=of s2, xshift=0.5cm] (s3) {\ $\dots$} ;
-
-      \node[latent, right=of s3, xshift=-0.4cm] (s1n) {} ;
-      \node[const, above=of s1n ] (ns1n) {$s_{i_{n-1}}$} ;
-      \node[latent, below=of s1n] (p1n) {};
-      \node[const, right=of p1n ] (np1n) {$p_{i_{n-1}}$} ;
-      
-      \node[latent, right=of s1n] (sn) {} ;
-      \node[const, above=of sn ] (nsn) {$s_{i_n}$} ;
-      \node[latent, below=of sn] (pn) {};
-      \node[const, right=of pn ] (npn) {$p_{i_n}$} ;
-      
-      \edge {s1} {p1};
-      \edge {s2} {p2};
-      \edge {s1n} {p1n};
-      \edge {sn} {pn};
-      }  
-  }
-  \caption{
-  \en{The approach known as \emph{filtering} treat the sequence of observations as an ordered list of independent events.}
-  \es{El enfoque conocido como \emph{filtering} considera la secuencia de observaciones como una lista ordenada de eventos independientes.}
-  %
-  \en{Each pair $s_{i_t} \rightarrow p_{i_t}$ represents a fragment of the causal model presented in Figure~\ref{fig:generative_model}.}
-  \es{Cada par $s_{i_t} \rightarrow p_{i_t}$ representa un fragmento del modelo causal presentado en el Figura~\ref{fig:generative_model}.}
-  %
-  \en{From now on we show $s$ as a hidden variable and not as a constant.}
-  \es{A partir de ahora mostramos a $s$ como una variable oculta y no como una constante.}
-  }
-  \label{fig:filter}
-\end{figure}
-%
-\en{Even the graphical model assumes independent events, the approach known as \emph{filtering} uses the posterior estimates at time $t-1$ as prior of time $t$.}
-\es{Aunque el modelo gr\'afico asume eventos independientes, el enfoque conocido como \emph{filtering} usa las estimaciones a posteriori del tiempo $t-1$ como como prior del tiempo $t$.}
-%
+\en{The adopted approach used by TrueSkill, Glicko, and BIRT is treating the sequence of observations (i.e. games) as an ordered list of events and using the information obtained in one event in the next one:}
 \begin{equation}\label{eq:filter}
- \text{Posterior}_t \propto \text{Likelihood}_t  \overbrace{\text{Likelihood}_{t-1} \dots \underbrace{\text{Likelihood}_{1} \text{Prior}_1}_{\ \text{Prior}_2} }^{\text{Prior}_{t}} 
+ \text{Posterior}_t \propto \text{Likelihood}_t  \overbrace{\text{Likelihood}_{t-1} \dots \text{Likelihood}_{2} \underbrace{\text{Likelihood}_{1} \text{Prior}_1}_{\ \text{Prior}_2} }^{\text{Prior}_{t}} 
 \end{equation}
+
+%
+% \en{All the mentioned solutions (TrueSkill, Glicko and BIRT) model the temporal process as shown in the Figure~\ref{fig:filter}.}
+% \es{Todas las soluciones mencionadas (TrueSkill, Glicko and BIRT) modelan el proceso temporal como se muestra en la Figura~\ref{fig:filter}.}
+% %
+% \begin{figure}[h!]
+%   \centering
+%   \scalebox{.9}{
+%     \tikz{ %
+%       \node[latent] (s1) {} ;
+%       \node[const, above=of s1 ] (ns1) {$s_{i_1}$} ;
+%       \node[latent, below=of s1] (p1) {};
+%       \node[const, right=of p1 ] (np1) {$p_{i_1}$} ;
+%       
+%       \node[latent, right=of s1] (s2) {} ;
+%       \node[const, above=of s2 ] (ns2) {$s_{i_2}$} ;
+%       \node[latent, below=of s2] (p2) {};
+%       \node[const, right=of p2 ] (np2) {$p_{i_2}$} ;
+%       
+%       \node[const, right=of s2, xshift=0.5cm] (s3) {\ $\dots$} ;
+% 
+%       \node[latent, right=of s3, xshift=-0.4cm] (s1n) {} ;
+%       \node[const, above=of s1n ] (ns1n) {$s_{i_{n-1}}$} ;
+%       \node[latent, below=of s1n] (p1n) {};
+%       \node[const, right=of p1n ] (np1n) {$p_{i_{n-1}}$} ;
+%       
+%       \node[latent, right=of s1n] (sn) {} ;
+%       \node[const, above=of sn ] (nsn) {$s_{i_n}$} ;
+%       \node[latent, below=of sn] (pn) {};
+%       \node[const, right=of pn ] (npn) {$p_{i_n}$} ;
+%       
+%       \edge {s1} {p1};
+%       \edge {s2} {p2};
+%       \edge {s1n} {p1n};
+%       \edge {sn} {pn};
+%       }  
+%   }
+%   \caption{
+%   \en{The approach known as \emph{filtering} treat the sequence of observations as an ordered list of independent events.}
+%   \es{El enfoque conocido como \emph{filtering} considera la secuencia de observaciones como una lista ordenada de eventos independientes.}
+%   %
+%   \en{Each pair $s_{i_t} \rightarrow p_{i_t}$ represents a fragment of the causal model presented in Figure~\ref{fig:generative_model}.}
+%   \es{Cada par $s_{i_t} \rightarrow p_{i_t}$ representa un fragmento del modelo causal presentado en el Figura~\ref{fig:generative_model}.}
+%   %
+%   \en{From now on we show $s$ as a hidden variable and not as a constant.}
+%   \es{A partir de ahora mostramos a $s$ como una variable oculta y no como una constante.}
+%   }
+%   \label{fig:filter}
+% \end{figure}
+%
+% \en{Even the graphical model assumes independent events, the approach known as \emph{filtering} uses the posterior estimates at time $t-1$ as prior of time $t$.}
+% \es{Aunque el modelo gr\'afico asume eventos independientes, el enfoque conocido como \emph{filtering} usa las estimaciones a posteriori del tiempo $t-1$ como como prior del tiempo $t$.}
+%
+
 %
 \en{If we consider the likelihood as a filter of the prior, the estimates made at a time $t$ can be seen as the accumulation of all previous filters.}
 \es{Si consideramos a la verosimilitud como un filtro del prior, las estimaciones hechas en el tiempo $t$ pueden ser vistas como la acumulaci\'on de todos los filtros anterios.}
