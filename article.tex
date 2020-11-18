@@ -198,6 +198,7 @@
 \shortcites{Herrmann2007}
 \shortcites{Kschischang2001}
 \shortcites{Herbrich2007}
+\shortcites{Dangauthier2007}
 
 \begin{document}
 \lstset{language=Python}
@@ -548,7 +549,7 @@
 \es{Debido a que las habilidades son variables din\'amicas es importante agregar alguna incertidumbre $\gamma$ en cada paso.}
 %
 \begin{equation}\label{eq:dynamic_factor}
- p(s_{i_t}) = \N(s_{i_t} | \mu_{i_{t-1}}, \sigma_{i_{t-1}}^2 + \gamma^2 )
+ p(s_{i_t}) = \N(s_{i_t} | \widehat{\mu}_{i_{t-1}}, \widehat{\sigma}_{i_{t-1}}^2 + \gamma^2 )
  \end{equation}
  
 \en{The filter approach is very useful, but since its solution does not correspond to any probabilistic model, a set of problems arises.}
@@ -573,8 +574,8 @@
 
 %Parrafo
 
-\en{To solve this problems, we need a better representation of the temporal process: a single causal model that links all historical activities.}
-\es{Para resolver estos problemas, necesitamos una mejor representaci\'on del proceso temporal: un único modelo causal que vincule todas las actividades hist\'oricas. }
+\en{To solve the problems of the filter approach, we need a representation of the temporal process: a single causal model that links all historical activities.}
+\es{Para resolver los problemas del abordaje de filtro, necesitamos una representaci\'on del proceso temporal: un único modelo causal que vincule todas las actividades hist\'oricas. }
 %
 \begin{figure}[h!]
   \centering
@@ -608,116 +609,82 @@
       }  
   }
   \caption{
-  \en{Single causal model for the entire history of events.}
-  \es{ modelo causal para toda la historia de eventos.}
-  %
-  \en{La aplicación de las reglas de la probabilidad sobre esta distribución de probabilidad conjunta de como resultado el approach known as \emph{smoothing} represents the entire history of activities through a single causal model.}
-  \es{La aplicación de las reglas de la probabilidad sobre esta distribución de probabilidad conjunta de como resultado el approach known as \emph{smoothing}.}
+  \en{Schematic representation of a single causal model for the entire history of events.}
+  \es{Representación esquemática de un único modelo causal para toda la historia de eventos.}
   %
   \en{Only the neighbors of a sequence of estimates are displayed.}
-  \es{S\'olo se muestra  los vecinos de una secuencia de estimaciones.}
-   %
+  \es{S\'olo se muestra los vecinos de una secuencia de estimaciones.}
+  %
+  \en{Its probabilistic solution generates the approach known as \emph{smoothing}, in which historical information flows through the whole system.}
+  \es{La solución probabilística da como resultado el abordaje conocido como \emph{smoothing}, en el que la información histórica fluye por todo el sistema.}
+  %
   %\en{These types of models are known as \emph{state-space models}.}
   %\es{Este tipo de modelos se conocen como \emph{state space models}.}
   }
   \label{fig:smoothing}
 \end{figure}
 %
-\en{It is difficult to imagine the complex structure that these types of graphical models acquire.}
-\es{Es dif\'icil imaginar la compleja estructura que adquieren este tipo de modelos gr\'aficos.}
+\en{It is difficult to imagine the complex structure that these types of graphical models can acquire.}
+\es{Es dif\'icil imaginar la compleja estructura que pueden adquerir este tipo de modelos gr\'aficos.}
 %
-\en{Having a single model allows historical information to propagate throughout the system, solving the decoupling problems mentioned above.}
-\es{Contar con un único modelo permite que la informaci\'on hist\'orica propage hacia todo el sistema, resuelviendo los problemas de desacoplamiento antes mencionados.}
-%
-\en{This is the approach implemented by TrueSkill Through Time~\citep{Dangauthier2007}.}
-\es{Este es el enfoque implementado por TrueSkill Through Time~\citep{Dangauthier2007}.}
+\en{Any video game will typically require a network of millions of events.}
+\es{Cualquier videojuego requerirá tipicamente una red de millones de eventos.}
 %
 \en{Figure~\ref{fig:smoothing} shows the closest neighbors of a sequence of estimates.}
 \es{En la figura~\ref{fig:smoothing} se muestra los vecinos m\'as pr\'oximos de una secuencia de estimaciones.}
+
+% Parrafo
+
+\en{This approach, known as \emph{smoothing}, is the one implemented by TrueSkill Through Time~\citep{Dangauthier2007}.}
+\es{Este enfoque, conocido como \emph{smoothing}, es el implementado por TrueSkill Through Time~\citep{Dangauthier2007}.}
 %
-\en{Inference in this single causal model is made by the two rules of reasoning with uncertainty: the sum and the product rules.}
-\es{La inferencia en este modelo causal único se realiza mediante las dos reglas del razonamiento con incertidumbre: la regla de la suma y del producto.}
+\en{By applying the rules of probability to this temporal model, historical information naturally propagate throughout the system, solving the decoupling problems of the filter approach.}
+\es{Al aplicar las reglas de la probabilidad sobre este modelo temporal, la informaci\'on hist\'orica propaga naturalmente hacia todo el sistema, resolviendo los problemas de desacoplamiento del enfoque de filtro.}
 %
-\en{The general solution can be found in section~\ref{sec:throguthTime}.}
-\es{La soluci\'on general se encuentra en la secci\'on~\ref{sec:throguthTime}.}
-%
-\en{As an instance, we show the solution with $\gamma = 0$.}
-\es{Para ejemplificar, mostramos la soluci\'on con $\gamma = 0$.}
-%
-\en{The prior of an event $t$ is the product of all, past, present and future likelihoods.}
-\es{El prior en un evento $t$ es la multiplicaci\'on de todas las verosimilitudes pasadas y futuras.}
+\en{A prior distribution at an event $t$, with $\gamma = 0$, is now the product of all past and future information.}
+\es{La distribución a prior en un evento $t$, con $\gamma = 0$, es ahora la multiplicaci\'on de toda la información pasada y futura.}
 %
 \begin{equation}\label{eq:smooth_prior}
- \text{Prior}_i^t = \text{Prior}_i^0 \underbrace{\prod_{k = 1}^{t-1} \text{\en{Likelihood}\es{Verosimilitud}}_i^k}_{\text{Past information}} \underbrace{\prod_{k = 1}^{t+1} \text{\en{Likelihood}\es{Verosimilitud}}_i^k}_{\text{Future information}}
+ \text{Prior}_{i_t} = \text{Prior}_{i_0} \underbrace{\prod_{k = 1}^{t-1} \text{\en{Likelihood}\es{Verosimilitud}}_{i_k}}_{\text{\en{Past information}\es{Información pasada}}} \underbrace{\prod_{k = t + 1}^{T} \text{\en{Likelihood}\es{Verosimilitud}}_{i_k}}_{\text{\en{Future information}\es{Información futura}}}
 \end{equation}
 %
-
-% \begin{equation}\label{eq:smooth_posterior}
-%  \text{Posterior}_{i,t} = \text{Prior}_{i,0} \underbrace{\prod_{k = 1}^{t-1} \text{\en{Likelihood}\es{Verosimilitud}}_{i,k}}_{\text{Past information}} \cdot \underbrace{  \text{\en{Likelihood}\es{Verosimilitud}}_{i,k}}_{\text{Future information}} \cdot \underbrace{\prod_{k = t+1}^{T} \text{\en{Likelihood}\es{Verosimilitud}}_{i,k}}_{\text{Future information}} 
-% \end{equation}
-Considerar todas las observaciones en un único modelo probabilísitico genera una mutua dependencia entre las verosimilitudes, lo que impone la necesidad de propoagar la información por todo el sistema.
+\en{This generates a mutual dependency between likelihoods, forcing us to implement an eficiente iterative algorithm to solve inference (details at secci\'on~\ref{sec:throguthTime})}
 %
-\en{Por eso, it is necessary to implement an iterative solution known as loopy belief propagation (details at section~\ref{sec:throguthTime}).}
-\es{Esto se logra con un algoritmo iterativo eficiente, conocido como \emph{loopy belief propagation} (detalles en la secci\'on~\ref{sec:throguthTime}).}
+\es{Esto genera una mutua dependencia entre verosimilitudes, obligándonos a implementar un algoritmo para resolver la inferencia (detalles en la secci\'on~\ref{sec:throguthTime}).}
 %
-Al empezar, las verosimilitudes que aun no están definidas se inicializan con un valor neutro o simplemente se las excluyé.
-%
-Las verosimilitudes se reculalcular hasta alcanzar convergencia.
-%
-\en{This procedure converge with a few linear iterations over the data, scaling to millions of observations in a few minutes.}
+\en{The loopy belief propagation is procedure that converge with a few linear iterations over the data, scaling to millions of observations in a few minutes.}
 \es{Este procedimiento converge con unas pocas iteraciones lineales sobre los datos, escalando a millones de observaciones en pocos minutos.}
 %
-\en{TrueSkill Through Time outperforms TrueSkill and others filtering models.}
-\es{TrueSkill Through Time supera a TrueSkill y otros modelos \emph{filtering}.}
+\en{At the beginning, the likelihoods that are not yet defined are initialized with a neutral value or simply excluded.}
+\es{Al empezar, las verosimilitudes que aun no están definidas se inicializan con un valor neutro o simplemente se las excluyé.}
 %
-\en{As an example, in section~\ref{sec:} we show the behavior of the estimates in a synthetic data set.}
-\es{A modo de ejemplo, en la secci\'on~\ref{sec:} se muestra el comportamiento de las estimaciones en un conjunto de datos sintéticos.}
-%
-\en{TrueSkill Through Time recovers the true differences between hidden skills even at the beginning of the sequence.}
-\es{TrueSkill Through Time recupera las verdaderas diferencias entre habilidades ocultas incluso al principio de la secuencia.}
-%
-%En este punto es razonable preguntarse si los priors de los \emph{state-space} model son priors honestos en el sentido de que desconocen la informacion del dato  para el que son priors.
-% 
-%Si bien en la ecuaci\'on~\ref{eq:smooth_prior} vimos que el prior efectivamente no se multiplica directamente por el likelihood presente, ¿Ser\'a que la informaci\'on de ese likelihood esta siendo incorporada de manera oculta por el algoritmo iterativo?
-%
-%Si esto fuera as\'i, entonces en cada paso de la convergencia deber\'ia ocurrir que la sorpresa disminuye.
-%
-%Para responder a este pregunta y para entender el funcionamiento general de los state-space models mostramos en la Figura~\ref{fig:smooth_example} una solcuci\'on de forma gr\'afica.
+\en{In Figure~\ref{fig:smooth_example} we show the behavior of the estimates in a data set with two agents and two events.}
+\es{En la figura~\ref{fig:smooth_example} se muestra el comportamiento de las estimaciones en conjunto de datos de dos agentes y dos eventos.}
 %
 \begin{figure}[h!]
   \centering
   \scalebox{.9}{
     \tikz{ %
-      \node[latent] (s10) {} ;
-      \node[const, above=of s10, xshift=-0.3cm ] (ns10) {$s_a^0$} ;
+      \node[latent] (s10) {$s_{a_0}$} ;
       %
-      \node[latent,  below=of s10,yshift=-1cm] (s11) {} ;
-      \node[const, above=of s11 ,xshift=-0.3cm ] (ns11) {$s_a^1$} ;
+      \node[latent,  below=of s10,yshift=-1cm] (s11) {$s_{a_1}$} ;
       
-      \node[latent, right=of s11, xshift=3cm] (p11) {} ;
-      \node[const, right=of p11 ] (np11) {$p_a^1$} ;
+      \node[latent, right=of s11, xshift=3cm] (p11) {$p_{a_1}$} ;
       %
-      \node[latent, below=of s11,yshift=-1cm] (s12) {} ;
-      \node[const, above=of s12,xshift=-0.3cm  ] (ns12) {$s_a^2$} ;
-      \node[latent, right=of s12, xshift=3cm] (p12) {} ;
-      \node[const, right=of p12 ] (np12) {$p_a^2$} ;
+      \node[latent, below=of s11,yshift=-1cm] (s12) {$s_{a_2}$} ;
+      \node[latent, right=of s12, xshift=3cm] (p12) {$p_{a_2}$} ;
       
-      \node[const, right=of np11,xshift=0] (r1) {$\bm{>}$} ;
-      \node[const, above=of r1, yshift=0.3cm] (nr1) {\footnotesize Observed result} ;
-      \node[const, right=of np12,xshift=0] (r2) {$\bm{<}$} ;
-      \node[const, above=of r2, yshift=0.3cm] (nr2) {\footnotesize Observed result} ;
+      \node[const, right=of p11,xshift=0.5cm] (r1) {$\bm{>}$} ;
+      \node[const, above=of r1, yshift=0.3cm] (nr1) {\footnotesize \ \  Observed result} ;
+      \node[const, right=of p12,xshift=0.5cm] (r2) {$\bm{<}$} ;
+      \node[const, above=of r2, yshift=0.3cm] (nr2) {\footnotesize \ \ Observed result} ;
       
-      \node[latent, left=of s10, xshift=13.4cm] (s20) {} ;
-      \node[const, above=of s20,xshift=0.3cm  ] (ns20) {$s_b^0$} ;
-      \node[latent, below=of s20,yshift=-1cm] (s21) {} ;
-      \node[const, above=of s21,xshift=0.3cm  ] (ns21) {$s_b^1$} ;
-      \node[latent, left=of s21, xshift=-3cm] (p21) {} ;
-      \node[const, left=of p21 ] (np21) {$p_b^1$} ;
+      \node[latent, left=of s10, xshift=13.4cm] (s20) {$s_{b_0}$} ;
+      \node[latent, below=of s20,yshift=-1cm] (s21) {$s_{b_1}$} ;
+      \node[latent, left=of s21, xshift=-3cm] (p21) {$p_{b_1}$} ;
       
-      \node[latent, below=of s21, yshift=-1cm] (s22) {} ;
-      \node[const, above=of s22,xshift=0.3cm  ] (ns22) {$s_b^2$} ;
-      \node[latent, left=of s22, xshift=-3cm] (p22) {} ;
-      \node[const, left=of p22 ] (np22) {$p_b^2$} ;
+      \node[latent, below=of s21, yshift=-1cm] (s22) {$s_{b_2}$} ;
+      \node[latent, left=of s22, xshift=-3cm] (p22) {$p_{b_2}$} ;
       
       
       \edge {s10} {s11};
@@ -771,15 +738,32 @@ Las verosimilitudes se reculalcular hasta alcanzar convergencia.
       }  
   }
   \caption{
-  Funcionamiento de TrueSkill Throguth Time en una historia que contiene tan solo dos jugadores, $a$ y $b$, y dos partidas.
+  \en{Convergence of TrueSkill Throguth Time in a history with only two events and two agents}
+  \es{Convergencia de TrueSkill Throguth Time en una historia con sólo dos eventos y dos agentes.}
   %
-  La primera partida la gana el jugador $a$, $p_{a,1} > p_{b,1}$, y la segunda la gana el jugador $b$, $p_{a,2} < p_{b,2}$.
+  \en{The first game is won by the player $a$, $p_{a_1} > p_{b_1}$, and the second is won by the player $b$, $p_{a_2} < p_{b_2}$.}
+  \es{La primera partida la gana el jugador $a$, $p_{a_1} > p_{b_1}$, y la segunda la gana el jugador $b$, $p_{a_2} < p_{b_2}$.}
   %
-  Notar que con tan solo dos partidas, al final de la convergencia el posterior se centra en 0 para ambos jugadores, indicando que tienen misma habilidad.
+  \en{The brightness of the curves indicates the order of convergence: the darkest are the latest estimates.}
+  \es{La luminosidad de las curvas indican el orden en la convergencia.}
   %
+  \en{The first one (the clearest) corresponds to the TrueSkill solution.}
+  \es{La primera (la más clara) se correponde a la solución TrueSkill.}
+  %
+  \en{The last one (the darkest) corresponds to the TrueSkill Throguth Time solution.}
+  \es{La última (la más oscura) se correponde a la solución TrueSkill Throguth Time.}
   }
   \label{fig:smooth_example}
 \end{figure}
+%
+\en{TrueSkill Through Time recovers the true differences between hidden skills even at the beginning of the sequence.}
+\es{TrueSkill Through Time recupera las verdaderas diferencias entre habilidades ocultas incluso al principio de la secuencia.}
+%
+\en{At the end of the convergence the posterior is centered on 0 for both players, indicating that they have the same skill.}
+\es{Al final de la convergencia el posterior se centra en 0 para ambos jugadores, indicando que tienen misma habilidad.}
+%  
+\en{TrueSkill Through Time outperforms TrueSkill and others filtering models.}
+\es{TrueSkill Through Time supera a TrueSkill y otros modelos \emph{filtering}.}
 %
 \en{This methodology has not been available until now in any of the major programming languages.}
 \es{Esta metodolog\'ia no hab\'ia estado hasta ahora disponible en ninguno de los principales lenguajes de programaci\'on.}
@@ -793,6 +777,14 @@ Las verosimilitudes se reculalcular hasta alcanzar convergencia.
 
 
 
+%En este punto es razonable preguntarse si los priors de los \emph{state-space} model son priors honestos en el sentido de que desconocen la informacion del dato  para el que son priors.
+% 
+%Si bien en la ecuaci\'on~\ref{eq:smooth_prior} vimos que el prior efectivamente no se multiplica directamente por el likelihood presente, ¿Ser\'a que la informaci\'on de ese likelihood esta siendo incorporada de manera oculta por el algoritmo iterativo?
+%
+%Si esto fuera as\'i, entonces en cada paso de la convergencia deber\'ia ocurrir que la sorpresa disminuye.
+%
+%Para responder a este pregunta y para entender el funcionamiento general de los state-space models mostramos en la Figura~\ref{fig:smooth_example} una solcuci\'on de forma gr\'afica.
+%
 
 
 
@@ -873,8 +865,6 @@ Las verosimilitudes se reculalcular hasta alcanzar convergencia.
 
 
 
-
-\newpage
 
 %% -- Manuscript ---------------------------------------------------------------
 %% - When describing longer chunks of code that are _not_ meant for execution
@@ -937,7 +927,7 @@ Las verosimilitudes se reculalcular hasta alcanzar convergencia.
 %
 \en{En nuestro caso vamos a querer computar dos tipos de marginales, el posteriori de las habilidades $p(s_i|r)$ y la probabilidad a priori del resultado $p(r)$.}
 
-\begin{figure}[t!]
+\begin{figure}[h!]
 \centering \small
     \tikz{         
 %         \node[const, above=of fr] (nfr) {$f_r$}; %
