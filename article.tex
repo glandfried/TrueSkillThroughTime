@@ -874,24 +874,47 @@
 
 \section{Models and software} 
 
-\en{}
-\en{En esta secci\'on daremos la soluci\'on matem\'atica y computacional al modelo completo de TTT.}
+\en{Driven by the growth in computing power, researchers have developed over the past five decades thousands of successful machine learning algorithms tailored to specific sets of problems.}
+\es{Impulsado por la creciento en la capacidad de cómputo ocurrida, en las últimas cinco décadas los investigadores han desarrollado miles de algoritmos exitosos de aprendizaje de automático, hechos a medida de conjuntos de problemas específicos.}
 %
-%\en{En la sección~\ref{sec:sumProductAlgorithm} introduciremos el \emph{sum-product algorithm}, una algoritmo que permite computar de forma efficiente distribuciones de probabilidad marginal a partir de distribuciones de probabilidad conjunta.}
-% %
-% En la sección~\ref{sec:propiedades} enumeramos las propiedades matemáticas auxiliares que se requieren en este caso particular para resolver las distribuciones marginales de interés en este caso.
-% %
+\en{In contrast, probabilistic inference offers a generally applicable framework~\citep{Bishop2013}.}
+\es{Por el contrario, la inferencia probabilística ofrece un marco de aplicación general~\citep{Bishop2013}.}
+%
+\en{The assumptions made by standard machine learning algorithms are generally difficult to remember and often difficult to perceive.}
+\es{Las suposiciones hechas por los algoritmos estándar de aprendizaje automático son generalmente difíciles de recordar y a menudo difíciles de percibir.}
+%
+\en{Similarly, the algorithms used vary from application to application, forcing us to learn a variety of methods.}
+\es{Del mismo modo, los algoritmos empleadas varían de aplicación en aplicación, obligándonos a aprender una gran variedad de métodos.}
+%
+\en{Instead of having to transform the problem to fit some standard algorithm, probabilistic inference provides the building blocks to solve any specific problem.}
+\es{En lugar de tener que transformar el problema para que encaje en algún algoritmo estándar, la inferencia probabilística ofrece los bloques de construcción que permiten resolver cualquier problema específico.}
+%
+\en{All the assumptions are made explicit through a generative (or causal) model, which can be intuitively specified in a graphical way.}
+\es{Todos los supuestos se hacen explícitos a través de un modelo generativo (o causal), que puede ser especificado intuitivamente de forma gráfica.}
+%
+\en{Inference, on the other hand, is always solved by applying the rules of probability (the rules of the sum and the product) to the joint probability represented by the model.}
+\es{Y toda inferencia se hace aplicando las reglas de la probabilidad, de la suma y del producto, sobre el modelo representado como probabilidad conjunta.}
+
+% Parrafo
+
+\en{In this section we will explain all the details of the probabilistic framework in the context of the TrueSkill Throguth Time problem.}
+\es{En esta secci\'on explicaremos todos los detalles del marco probabilísitico en el contexto del problema TrueSkill Throguth Time.}
+%
+\en{In the section~\ref{sec:sumProductAlgorithm} we will introduce the \emph{sum-product algorithm}, which allows to efficiently compute any marginal probability distributions from a joint probability distributions.}
+\es{En la sección~\ref{sec:sumProductAlgorithm} introduciremos el \emph{sum-product algorithm}, que permite computar eficientemente cualquier distribuciones de probabilidad marginal a partir de una distribuciones de probabilidad conjunta.}
+%
+\en{In the section~\ref{sec:propiedades} we list the properties that we will need to derive the marginal distributions of interest.}
+\es{En la sección~\ref{sec:propiedades} enumeramos las propiedades que necesitaremos para derivar las distribuciones marginales de interés.}
+%
 % Afortunadamente, gracias a la distribución de probabilidad elegida para representar el modelo causal~\ref{modelo_elo}, la distribución de creencias a posteriori de la habilidad de los agentes y la predicción a priori del resultado observado (aka evidencia) tienen solución analítica.
-% %
-% En la subsección~\ref{sec:Gasussian} introducimos la clase Gaussian y la semántica de los operadores aritméticos.
-% %
-% En la subsección~\ref{sec:posterior_exacto} mostramos cómo se resuelve la evidencia y el posterior exacto.
-% %
-% En la práctica, para resolver historias de partidas, se remplaza el posterior exacto por la distribución Gaussiana que más se le aproxima.
-% %
-% En la subsección~\ref{sec:posterior_analitica} mostramos el caso de partidas con 2 equipos, lo que ofrece una gran oportunidad para optimizar el computo debido a que la solución es cerrada. 
-% %
-% En la subsección~\ref{sec:posterior_iterativo} mostamos el caso de partidas de 3 más equipos, en el que la solución analítica requiere una serie de iteraciones acotadas para alcanzar la convergencia.
+%
+\en{In the section \ref{sec:Gasussian}, \ref{sec:rating} and \ref{sec:game} we introduce the implementation details of the classes \texttt{Gaussian}, \texttt{Rating} and \texttt{Game}.}
+\es{En las secciones \ref{sec:Gasussian}, \ref{sec:rating} y \ref{sec:game} introducimos los detalles de implementación de las clases \texttt{Gaussian}, \texttt{Rating} y \texttt{Game}.}
+%
+\en{In the sections \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate _posterior}, and \ref{sec:iterative_posterior} we show respectively how to solve the prior probability and the exact posterior of an event, we modified the model to include ties, we explain how to approximate the posterior, and we give the general multi-team solution.}
+\es{En las secciones \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate _posterior}, y \ref{sec:iterative_posterior} mostramos respectivamente cómo resolver la probabilidad a priori y el posterior exacto de un evento, modificamos el modelo para que incluya empates, explicamos cómo aproximar el posterior y damos la solución general multi-equipos.}
+%
+FALTA HISTORY
 % %
 % En la sección~\ref{history} mostamos los pasos matemáticos requeridos para resolver el modelo TTT.
 % %
@@ -905,28 +928,31 @@
 
 \subsection{Sum-product algorithm} \label{sec:sumProductAlgorithm}
 
-\en{El \emph{sum-product algorithm}~\cite{Kschischang2001} es un procedimiento que aprovecha la estructura del modelo causal para aplicar eficientemente las reglas de inferencia, la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
+\en{The \emph{sum-product algorithm}~\citep{Kschischang2001} is a general procedure that takes advantage of the structure of the joint probability distribution imposed by the causal model to efficiently apply the rules of probability, the \ref{eq:sum_rule} and the \ref{eq:product_rule}.}
+\es{El \emph{sum-product algorithm}~\citep{Kschischang2001} es un procedimiento general que aprovecha la estructura de la disstribución de probabilidad conjunta que impone el modelo causal para aplicar eficientemente las reglas de la probabilidad, la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
 %
-\en{Representados como distribuciones de probabilidad conjunta, los modelos causales pueden factorizarse en el producto de probabilidades condicionales simples.}
+\en{Represented as joint probability distributions, the models can be factored into the product of simple conditional probabilities.}
+\es{Representados como distribuciones de probabilidad conjunta, los modelos pueden factorizarse en el producto de probabilidades condicionales simples.}
 %
-\en{Nuestro modelo generativo (figura~\ref{fig:generative_model}) puede factorizarse como,}
+\en{Our generative model (Figure~\ref{fig:generative_model}) can be factored as,}
+\es{Nuestro modelo generativo (figura~\ref{fig:generative_model}) puede factorizarse como,}
 %
 \begin{equation} \label{eq:factorization} \tag{\text{factorization}}
  p(\bm{s},\bm{p},d,r) = p(s_1)p(s_2)p(p_1|s_1)p(p_2|s_2)p(d|\bm{p})P(r|d)
 \end{equation}
 %
-\en{En la figura~\ref{fig:factor_graph} mostramos gráficamente la factorización.}
+\en{In the Figure~\ref{fig:factor_graph}, we show its factorization graphically.}
+\es{En la figura~\ref{fig:factor_graph} mostramos gráficamente la factorización.}
 %
-\en{A este tipo de representaciones se las conoce como \emph{factor graph}.}
+\en{These types of representations are known as \emph{factor graph}.}
+\es{A este tipo de representaciones se las conoce como \emph{factor graph}.}
 %
-\en{Los \emph{factor graph} son gráfos bipartitos, compuestos por nodos variables $v$ y nodos funciones (o factores) $f$.}
+\en{The \emph{factor graph} are bipartite graphs, consiting of variable nodes $v$ and function nodes (or factors) $f$.}
+\es{Los \emph{factor graph} son gráfos bipartitos, compuestos por nodos variables $v$ y nodos funciones (o factores) $f$.}
 %
-\en{Los ejes entre variables y funciones representan la relación matemática ``la variable $v$ es argumento de la función $f$''.}
+\en{The edge between variables and functions represent the mathematical relationship ``the variable $v$ is an argument of the function $f$''.}
+\es{Los ejes entre variables y funciones representan la relación matemática ``la variable $v$ es argumento de la función $f$''.}
 %
-\en{Este tipo de estructuras codifican la mínima cantidad de pasos que se requieren para calcular cualquier distribución de probabilidad marginal.}
-%
-\en{En nuestro caso vamos a querer computar dos tipos de marginales, el posteriori de las habilidades $p(s_i|r)$ y la probabilidad a priori del resultado $p(r)$.}
-
 \begin{figure}[h!]
 \centering \small
     \tikz{         
@@ -990,34 +1016,52 @@
     \label{fig:factor_graph}
 \label{modelo}
 \end{figure} 
-
-
-\en{Para calcular una marginal en un \emph{factor graph}, lo que hace el \emph{sum-product algorithm} es enviar mensajes entre nodos vecinos.}
 %
-\en{Hay dos tipos de mensajes: los mensajes que envian los nodos variables a las funciones vecinas ($m_{v \rightarrow f}(v)$); y los mensajes que envian los nodos funciones a las nodos variables vecinos ($m_{f \rightarrow v}(v)$).}
+\en{The structure encodes the minimum number of steps required to calculate any marginal probability distribution.}
+\es{La estructura codifica la mínima cantidad de pasos que se requieren para calcular cualquier distribución de probabilidad marginal.}
 %
-\en{Los mensajes que envían los nodos variables codifican una parte de la regla del producto.}
+\en{In our case we want to compute two marginals, the posterior of the skills $p(s_i|r)$ and the a prior probability of the result $p(r)$.}
+\es{En nuestro caso querermos computar dos marginales, el posterior de las habilidades $p(s_i|r)$ y la probabilidad a priori del resultado $p(r)$.}
+
+% Parrafo
+
+\en{The \emph{sum-product algorithm} is a general way of breaking down the rules of probability as messages that are sent locally between the variables of the \emph{factor graph}.}
+\es{El \emph{sum-product algorithm} es una forma general de descomponer las reglas de la probabilidad como mensajes que se envían localmente las variables del \emph{factor graph}.}
+%
+\en{There are two types of messages: the messages that variable nodes send to their functions neighbors ($m_{v \rightarrow f}(v)$); and the messages that function nodes send to their variable neighbors ($m_{f \rightarrow v}(v)$).}
+\es{Hay dos tipos de mensajes: los mensajes que envian los nodos variables a sus funciones vecinas ($m_{v \rightarrow f}(v)$); y los mensajes que envian los nodos funciones a sus variables vecinas ($m_{f \rightarrow v}(v)$).}
+%
+\en{The messages sent by the variable nodes encode a portion of the product rule.}
+\es{Los mensajes que envían los nodos variables codifican una porción de la regla del producto.}
+%
 \begin{equation}\label{eq:m_v_f} \tag{\text{product step}}
 m_{v \rightarrow f}(v) = \prod_{h \in n(v) \setminus \{f\} } m_{h \rightarrow v}(v)
 \end{equation}
 %
-\en{Donde $n(v)$ representa el conjunto de vecinos del nodo $v$}.
+\en{Where $n(v)$ represents the set of node neighbors of $v$.}
+\es{Donde $n(v)$ representa el conjunto de vecinos del nodo $v$.}
 %
-\en{En pocas palabras, los mensajes que envían los nodos variables $v$ a un nodo vecino $f$ es simplemente la multiplicación de los mensajes que $v$ recibió del resto de sus vecinos $h \in n(v)$ salvo $f$.}
+\en{In short, the messages sent by a $v$ variable is simply the product of the messages that $v$ received from the rest of their neighbors $h \in n(v)$ except $f$.}
+\es{En pocas palabras, los mensajes que envía una variables $v$ es simplemente la multiplicación de los mensajes que recibió del resto de sus vecinos $h \in n(v)$ salvo $f$.}
 %
-\en{Y los mensajes que envían los nodos funciones codifican una parte de la regla de la suma.}
+\en{And the messages sent by the function nodes encode a portion of the sum rule.}
+\es{Y los mensajes que envían los nodos funciones codifican una parte de la regla de la suma.}
 %
 \begin{equation}\label{eq:m_f_v}  \tag{\text{sum step}}
 m_{f \rightarrow v}(v) = \int \cdots \int \Big( f(\bm{h},v) \prod_{h \in n(f) \setminus \{v\} } m_{h \rightarrow f}(h) \Big) \,  d\bm{h}
 \end{equation}
 %
-\en{Donde $\bm{h} = n(f)\setminus \{v\}$ es el conjunto de todos los vecinos de $f$ salvo $v$, y $f(\bm{h},v)$ represeta la función $f$ evaluada en todos sus argumentos.}
+\en{Where $\bm{h} = n(f)\setminus \{v\}$ is the set of all of neighbors of $f$ except $v$, and $f(\bm{h},v)$ represents the function $f$, evaluated in all its arguments.}
+\es{Donde $\bm{h} = n(f)\setminus \{v\}$ es el conjunto de todos los vecinos de $f$ salvo $v$, y $f(\bm{h},v)$ represeta la función $f$, evaluada en todos sus argumentos.}
 %
-\en{En pocas palabras, los mensajes que envían los nodos funciones $f$ a un nodo vecino $v$ es simplemente el resultado de integrar la multiplicación de todos los mensajes que $f$ recibe del resto de sus vecinos $\bm{h}$ por si mismo.}
+\en{In short, the messages sent by a function $f$ to a neighboring variable $v$ is simply the integration over $v$ of the product of itself and all the messages that $f$ receives from the rest of its neighbors $\bm{h}$ except $v$.}
+\es{En pocas palabras, los mensajes que enviado por una función $f$ a una variable vecina $v$ es simplemente la integración sobre $v$ del producto de si mismo con todos los mensajes que $f$ recibe del resto de sus vecinos $\bm{h}$ salvo $v$.}
 %
-\en{Los mensajes van generando una composición de operaciones}
+\en{The composition of messages generates a partial computation.}
+\es{La composición de mensajes va generando un computo parcial.}
 %
-\en{De esta forma, la distribución de probabilidad marginal de una variable $v$ es simplemente la multiplicación de los mensajes que $v$ recibe de sus vecinos}
+\en{Finally, the marginal probability distribution of a $v$ variable is simply the product of the messages that $v$ receives from its neighbors.}
+\es{Finalmente, la distribución de probabilidad marginal de una variable $v$ es simplemente la multiplicación de los mensajes que $v$ recibe de sus vecinos.}
 %
 \begin{equation}\label{eq:marginal}
 g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
@@ -1166,7 +1210,7 @@ gamma == r1$gamma
 \end{paracol}
 %
 
-\subsection{Games}
+\subsection{Games} \label{sec:game}
 
 \en{La clase \texttt{Game()} se utiliza para computar los posteriors y la evidencia de modelos causales como los descrito en la figura~\ref{fig:generative_model}.}
 %
@@ -1595,9 +1639,9 @@ p_draw = 0.25
 margin = compute_margin(p_draw, sd)
 \end{lstlisting}  
 
-\subsection{Approximate close posterior} \label{sec:analytical_posterior}
+\subsection{Approximate close posterior} \label{sec:approximate _posterior}
 
-\en{En la sección~\ref{sec:} hemos visto como encontrar la solución analítica de un posterior.}
+\en{En la sección~\ref{sec:exactSolution} hemos visto como encontrar la solución analítica de un posterior.}
 %
 \en{A pesar de que gráficamente (figura~\ref{fig:posterior_win}) se parezca a una Gasussiana, su expresión matemática (eq~\ref{eq:posterior_win}) no lo es.}
 %
@@ -1771,7 +1815,7 @@ lhood_s1_approx = Gaussian(mu = (mu1 - d + d_div), sigma = sqrt(v_div_2 + v2 - s
 posterior_s1_approx = prior1 * lhood_s1_approx
 \end{lstlisting}
 
-\subsection{Multiples temas} \label{sec:iterative_posterior}
+\subsection{Multiples temas} \label{sec:iterative_posterior} 
 
 
 \begin{figure}[H]
