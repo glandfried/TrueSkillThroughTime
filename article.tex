@@ -41,6 +41,7 @@
 \usepackage{tikz}
 \usepackage{csvsimple}
 \usepackage{listings}
+\renewcommand{\lstlistingname}{Code}% Listing -> Algorithm
 \usepackage{hyperref}
 \usepackage{todonotes}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -937,7 +938,7 @@ FALTA HISTORY
 \en{Our generative model (Figure~\ref{fig:generative_model}) can be factored as,}
 \es{Nuestro modelo generativo (figura~\ref{fig:generative_model}) puede factorizarse como,}
 %
-\begin{equation} \label{eq:factorization} \tag{\text{factorization}}
+\begin{equation} \label{eq:factorization}
  p(\bm{s},\bm{p},d,r) = p(s_1)p(s_2)p(p_1|s_1)p(p_2|s_2)p(d|\bm{p})P(r|d)
 \end{equation}
 %
@@ -947,7 +948,7 @@ FALTA HISTORY
 \en{These types of representations are known as \emph{factor graph}.}
 \es{A este tipo de representaciones se las conoce como \emph{factor graph}.}
 %
-\en{The \emph{factor graph} are bipartite graphs, consiting of variable nodes $v$ and function nodes (or factors) $f$.}
+\en{The \emph{factor graph} are bipartite graphs, consisting of variable nodes $v$ and function nodes (or factors) $f$.}
 \es{Los \emph{factor graph} son gráfos bipartitos, compuestos por nodos variables $v$ y nodos funciones (o factores) $f$.}
 %
 \en{The edge between variables and functions represent the mathematical relationship ``the variable $v$ is an argument of the function $f$''.}
@@ -1054,8 +1055,8 @@ m_{f \rightarrow v}(v) = \int \cdots \int \Big( f(\bm{h},v) \prod_{h \in n(f) \s
 \en{Where $\bm{h} = n(f)\setminus \{v\}$ is the set of all of neighbors of $f$ except $v$, and $f(\bm{h},v)$ represents the function $f$, evaluated in all its arguments.}
 \es{Donde $\bm{h} = n(f)\setminus \{v\}$ es el conjunto de todos los vecinos de $f$ salvo $v$, y $f(\bm{h},v)$ represeta la función $f$, evaluada en todos sus argumentos.}
 %
-\en{In short, the messages sent by a function $f$ to a neighboring variable $v$ is simply the integration over $v$ of the product of itself and all the messages that $f$ receives from the rest of its neighbors $\bm{h}$ except $v$.}
-\es{En pocas palabras, los mensajes que enviado por una función $f$ a una variable vecina $v$ es simplemente la integración sobre $v$ del producto de si mismo con todos los mensajes que $f$ recibe del resto de sus vecinos $\bm{h}$ salvo $v$.}
+\en{In short, the messages sent by a function $f$ to a neighboring variable $v$ is simply the integration over $\bm{h}$ of the product of itself and all the messages that $f$ receives from the rest of its neighbors $\bm{h}$ except $v$.}
+\es{En pocas palabras, los mensajes que enviado por una función $f$ a una variable vecina $v$ es simplemente la integración sobre $\bm{h}$ del producto de si mismo con todos los mensajes que $f$ recibe del resto de sus vecinos $\bm{h}$ salvo $v$.}
 %
 \en{The composition of messages generates a partial computation.}
 \es{La composición de mensajes va generando un computo parcial.}
@@ -1069,13 +1070,21 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 
 
 
-\subsection{Propiedades matemáticas}\label{sec:propiedades}
+\subsection{\en{Mathematical properties and notation}\es{Propiedades matemáticas y notación}}\label{sec:propiedades}
 
-\en{La eficiencia de TrueSkill Throguth Time tiene que ver con la posibilidad de resolver las marginales de forma analítica o aproximada.}
+\en{The efficiency of TrueSkill Throguth Time is due to the fact that margins, whether exact or approximate, are solved analytically.}
+\es{La eficiencia de TrueSkill Throguth Time se debe a que las marginales, sean exactas o aproximadas, se resuelven de forma analítica.}
 %
-\en{En esta sección enumeramos las propiedades que necesitamos resolver los mensajes y las marginales de forma analítica y aproximada.}
+\en{In this section we list the properties that we will use to derive the exact messages that arise from the sum-product algorithm.}
+\es{En esta sección enumeramos las propiedades que usaremos para derivar los mensajes exactos que surgen del \emph{sum-product algorithm}.}
 %
-\en{Invitamos a leer las demostraciones adjuntadas en el material suplementario.}
+\en{Although these properties are widely known, we attach their full demonstrations in the supplemental material.}
+\es{Aunque estas propiedades son ampliamente conocidas, adjuntamos sus demostraciones completas en material suplementario.}
+
+% Parrafo
+
+\en{Let $\N$ be the Gaussian probability distribution, $\Phi$ the cumulative Gaussian distribution, $\mathbb{I}$ the indicator function.}
+\es{Sea $\N$ la ditribución de probabilidad Gaussiana, $\Phi$ la acumulada de una distribucón Gaussiana, $\mathbb{I}$ la función indicadora.}
 %
 \begin{equation}\label{eq:propiedad_1} \tag{\text{prop 1}}
 \N(x|\mu_1,\sigma_1^2)\N(x|\mu_2,\sigma_2^2) \overset{\ref{multiplicacion_normales}}{=} \N(\mu_1|\mu_2,\sigma_1^2+\sigma_2^2) \N(x|\mu_{*},\sigma_{*}^2)
@@ -1110,13 +1119,38 @@ con $\mu_{\div} = \frac{\mu_1}{\sigma_1^2} - \frac{\mu_2}{\sigma_2^2}$ y $\sigma
 \begin{equation}\label{eq:phi_simetria} \tag{\text{prop 7}}
 \Phi(0|\mu,\sigma^2) = 1-\Phi(0|-\mu,\sigma^2)
 \end{equation}
+%
+\en{Because we develop packages in three programming languages, by displaying code we will identify each syntax as follows.}
+\es{Debido a que desarrollamos paquetes en tres lenguajes de programación, al mostrar código identificaremos cada sintaxis del siguiente modo.}
+%
+\begin{lstlisting}[backgroundcolor=\color{all}, belowskip=-0.77 \baselineskip]
+Syntax common to Julia, Python and R
+\end{lstlisting}
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}]
+Julia sintax
+\end{lstlisting}
+  \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}]
+Python sintax
+\end{lstlisting}
+   \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}]
+R syntax
+\end{lstlisting}  
+\end{paracol}
+%
 
 \subsection{Gaussian}\label{sec:Gasussian}
 
-\en{La clase \texttt{Gaussian()} realiza la mayor parte del cómputo en todos los paquetes.}
+\en{The \texttt{Gaussian()} class does most of the computation of the packages.}
+\es{La clase \texttt{Gaussian()} realiza la mayor parte del cómputo en todos los paquetes.}
 %
-\en{Se representa mediante dos parámetros, la media y el desvío estandar.}
+\en{It is represented by two parameters, the mean and the standard deviation.}
+\es{Se representa mediante dos parámetros, la media y el desvío estandar.}
 %
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:N1_N2, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{lstlisting}[backgroundcolor=\color{all}, belowskip=-0.77 \baselineskip]
 N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)  
 \end{lstlisting}
@@ -1140,7 +1174,8 @@ v2 = N2$sigma^2
 \end{lstlisting}
 \end{paracol}
 %
-\en{Esta clase sobreescribe la suma (\texttt{+}), resta (\texttt{-}), producto (\texttt{*}) y división (\texttt{/}) con las principales propiedades requeridas para computar las distribuciones marginales en el modelo TrueSkill Throguth Time.}
+\en{The class overwrites the operators addition (\texttt{+}), subtraction (\texttt{-}), product (\texttt{*}) and division (\texttt{/}) with the main properties required to compute the marginal distributions in the TrueSkill Throguth Time model.}
+\es{La clase sobreescribe los operadores suma (\texttt{+}), resta (\texttt{-}), producto (\texttt{*}) y división (\texttt{/}) con las principales propiedades requeridas para computar las distribuciones marginales en el modelo TrueSkill Throguth Time.}
 %
 \begin{equation} \tag{\texttt{N1 * N2}}
  \N(x|\mu_1,\sigma_1^2)\N(x|\mu_2,\sigma_2^2) \propto \N(x|\mu_{*},\sigma_{*}^2)
@@ -1166,29 +1201,34 @@ v2 = N2$sigma^2
 \end{split}
 \end{equation}
 %
-\en{Por su parte, la siguiente propiedad la computaremos ``a mano''.}
+\en{For its part, the following property will be computed ``by hand''.}
+\es{Por su parte, la siguiente propiedad la computaremos ``a mano''.}
 %
 \begin{equation} \label{eq:normal_de_normal} \tag{\texttt{Gaussian(m1, sqrt(v1+v2))}}
 \int \N(y| x, \sigma_y^2) \N(x| \mu_x, \sigma_x^2) dx = \N(y|\mu_x,\sigma_y^2 + \sigma_x^2)   
 \end{equation}
+%
+\en{Note that the value of \texttt{m1},\texttt{v1},\texttt{v2} has been previously defined.}
+\es{Notar que el valor de \texttt{m1},\texttt{v1},\texttt{v2} a sido definido previamente.}
 
 \subsection{Rating} \label{sec:rating}
 
-\en{La clase \texttt{Rating()} representa a los agentes.}
+\en{The class \texttt{Rating()} is represented by: the mean (\texttt{mu}) and the deviation (\texttt{sigma}) of the prior Gaussian distribution; the performance standard deviation (\texttt{beta}); and the temporal volatility of the skills (\texttt{gamma}).}
+\es{La clase \texttt{Rating()} se representa con cuatro atributos: la media (\texttt{mu}) y el desvío (\texttt{sigma}) de la distribución Gaussiana a priori; el devío de los rendimientos (\texttt{beta}); y la volatilidad temporal de las habilidades (\texttt{gamma}).}
 %
-\en{Además de la distribución Gaussiana de creencias a priori, con media (\texttt{mu}) y desvío (\texttt{sigma}), los agentes pueden exhibir comportamientos propios como generar rendimientos con un desvío particular (\texttt{beta}) o que sus habilidades en el tiempo tengan una volatilidad especial (\texttt{gamma}).}
-
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:rating, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{lstlisting}[backgroundcolor=\color{all}]
 mu = 0.0; sigma = 6.0; beta = 1.0; gamma = 0.0
 r1 = Rating(mu, sigma, beta, gamma); r2 = Rating(mu, sigma, beta, gamma)
 r3 = Rating(mu, sigma, beta, gamma); r4 = Rating(mu, sigma, beta, gamma)
 \end{lstlisting}  
 %
-\en{Los otros parámetros del constructor se guardan como atributos.}
+\en{For efficiency, the prior is stored pre-computed.}
+\es{Por cuestión de eficiencia, el prior Gaussiano se guarda precomputado.}
 %
-\en{Por cuestión de eficiencia, el prior Gaussiano se guarda precomputado.}
-%
-%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:prior, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
 prior = r1.prior
@@ -1212,10 +1252,14 @@ gamma == r1$gamma
 
 \subsection{Games} \label{sec:game}
 
-\en{La clase \texttt{Game()} se utiliza para computar los posteriors y la evidencia de modelos causales como los descrito en la figura~\ref{fig:generative_model}.}
+\en{The class \texttt{Game()} is used to compute the posteriors and the evidence of events such as described in Figure~\ref{fig:generative_model}.}
+\es{La clase \texttt{Game()} se utiliza para computar los posteriors y la evidencia de eventos como los descritos en la figura~\ref{fig:generative_model}.}
 %
-\en{A modo de ejemplo, inicializamos una partida con dos equipos de dos jugadores.}
+\en{As an example, we initialize a game with two teams of two players.}
+\es{A modo de ejemplo, inicializamos una partida con dos equipos de dos jugadores.}
 %
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
 team_a = [ r1, r2 ]
@@ -1242,8 +1286,11 @@ result = c(1,0)
 g = Game(teams, result)
 \end{lstlisting}
 %
-\en{Sus principales atributos, además de los equipos y el resultado, son los likelihoods Gaussianos y la evidencia.}
+\en{Its attributes, besides the \texttt{teams} and the \texttt{result}, are the approximate (Gaussian) \texttt{likelihoods} and the \texttt{evidence}.}
+\es{Sus atributos, además de los \texttt{teams} y el \texttt{result}, son los \texttt{likelihoods} aproximados (Gaussianos) y la \texttt{evidencia}.}
 %
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_attributes, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
 teams == g.teams
@@ -1267,9 +1314,11 @@ ev = g$evidence
 \end{lstlisting}  
 \end{paracol}
 %
- \en{En presencia de equipos, el resultado observado se modela como consecuencias directa de la diferencia de la suma de los rendimientos de cada equipo, $d = t_a - t_b$.}
- %
- \en{En la figura~\ref{modelo_trueskill_2vs2} mostramos su factorización gráfica.} 
+\en{In the presence of teams, the observed result is modeled as a direct consequence of the difference of the team performance, $d = \sum_{i \in A} p_i - \sum_{i \in B} p_i$.}
+\es{En presencia de equipos, el resultado observado se modela como consecuencias directa de la diferencia de los rendimientos de cada equipo, $d = \sum_{i \in a} p_i) - \sum_{i \in b} p_i)$}
+%
+\en{In the figure~\ref{fig:modelo_trueskill_2vs2}, we show its graphical factorization.}
+\es{En la figura~\ref{fig:modelo_trueskill_2vs2} mostramos su factorización gráfica.} 
 %
 \begin{figure}[h!]
   \centering
@@ -1359,15 +1408,22 @@ ev = g$evidence
    }
    }
   \caption{
-  \en{Factorización gr\'afica de una partida 2 vs 2.}
+  \en{Graphical factorization of a 2 vs 2 game.}
+  \es{Factorización gr\'afica de una partida 2 vs 2.}
   }
-  \label{modelo_trueskill_2vs2}
+  \label{fig:modelo_trueskill_2vs2}
 \end{figure}
 
-\subsection{Two teams and the exact posterior} \label{sec:exactSolution}
+\subsection{\en{Exact posterior}\es{Posterior exacta}} \label{sec:exactSolution}
 
-\en{Las partidas con dos equipos tienen solución exacta y los likelihoods exactos pueden computarse en \proglang{Julia}, \proglang{Python} y \proglang{R} mediante el método \texttt{exact\_likelihoods()}.}
+\en{Every game with two teams has an exact solution.}
+\es{Todo partida con dos equipos tiene solución exacta.}
 %
+\en{The exact likelihoods can be computed  \proglang{Julia}, \proglang{Python} y \proglang{R} by the method \texttt{exact\_likelihoods()}.}
+\es{y los likelihoods exactos pueden computarse en \proglang{Julia}, \proglang{Python} y \proglang{R} mediante el método \texttt{exact\_likelihoods()}.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:elhs, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
 elhs = exact_likelihoods(g)
@@ -1382,36 +1438,49 @@ elhs = g$exact_likelihoods()
 \end{lstlisting}  
 \end{paracol}
 %
-\en{En esta sección vamos a mostrar los pasos para calcular la evidencia  y un likelihood exacto de una partida con dos equipos de dos jugadores.}
+\en{In this section we will show the steps to compute the evidence and an exact likelihood of a game with two teams of two players.}
+\es{En esta sección vamos a mostrar los pasos para calcular la evidencia  y un likelihood exacto de una partida con dos equipos de dos jugadores.}
 %
-\en{Empezaremos primero con los mensajes ``descendentes'', desde los priors hasta el resultado, para calcular la evidencia.}
+\en{We will start first with the ``downstream'' messages, from the priors to the result, until compute the evidence.}
+\es{Empezaremos primero con los mensajes ``descendentes'', desde los priors hasta el resultado, para calcular la evidencia.}
 %
-\en{Luego seguiremos con los mensajes ``ascendentes'' que permiten calcular el posterior de un agente a partir del resultado observado y el prior del resto de los agentes.}
+\en{Then we will continue with the ``upward'' messages to compute the posterior of an agent from the observed result and the prior of the rest of the agents.}
+\es{Luego seguiremos con los mensajes ``ascendentes'' que permiten calcular el posterior de un agente a partir del resultado observado y el prior del resto de los agentes.}
 %
-%\en{Para computar los mensajes utilizaremos solamente el \emph{sum-product algoriithm} y las propiedades arriba mencionadas.}
+%\en{To compute the messages we will only use the sum-product algorithm and the properties mentioned above.}
+%\es{Para computar los mensajes utilizaremos solamente el \emph{sum-product algorithm} y las propiedades arriba mencionadas.}
 
 %
 
-\en{Los mensajes que van de los factores de habilidad $f_{s_i}$ hacia su variable $s_i$ se simplifican, por las reglas del \emph{sum-product algorithm} y la factorización del modelo, al prior.}
+\en{Because of the rules of the sum-product algorithm and the factorization of the model, the messages from the skill factors $f_{s_i}$ to their variable $s_i$ are just the prior.}
+\es{Debido a las reglas del algoritmo de suma-producto y a la factorización del modelo, los mensajes de los factores de habilidad $f_{s_i}$ a su variable $s_i$ no son otra cosa más que el prior.}
 %
 \begin{equation}\label{eq:m_fs_s} \tag{\texttt{prior}}
  m_{f_{s_i} \rightarrow s_i}(s_i) = \N(s_i| \mu_i, \sigma_i^2)
 \end{equation}
 %
-\en{Luego, el mensaje que la variable $s_i$ le envía al factor rendimiento $f_{p_i}$ también es el prior.}
+\en{We have already defined the variable \texttt{prior} in the code \ref{lst:prior}.}
+\es{Ya hemos definimos la variable \texttt{prior} en el código~\ref{lst:prior}.}
 %
-\en{Recordar que los mensajes que las envían las variables no son más que la multiplicación de los mensajes que esa variable recibe del resto de los factores.}
+\en{The next message, that the variable $s_i$ sends to the performance factor $f_{p_i}$ will also be the prior.}
+\es{El siguiente mensaje, que la variable $s_i$ le envía al factor rendimiento $f_{p_i}$ también será el prior.}
 %
-\en{Por ser de trivial solución, no haremos explícitos este tipo de mensajes.}
+\en{Remember that the messages that the variables send are just the product of the messages that the variable receives from the rest of its neighboring factors.}
+\es{Recordar que los mensajes que envían las variables es tan solo la multiplicación de los mensajes que esa variable recibe del resto de los factores.}
 %
-\en{Veamos entonces el mensaje que envían los factores rendimiento $f_{p_i}$ a su variable $p_i$.}
+\en{Since they are trivial, we will not make these types of messages explicit.}
+\es{Por ser de trivial solución, no haremos explícitos este tipo de mensajes.}
+%
+\en{Let's see then the message that the performance factors $f_{p_i}$ send to their variable $p_i$.}
+\es{Veamos entonces el mensaje que envían los factores rendimiento $f_{p_i}$ a su variable $p_i$.}
 %
 \begin{equation}\label{eq:m_fp_p} \tag{\texttt{performance()}}
 m_{f_{p_i} \rightarrow p_i}(p_i) = \int \N(p_i| s_i, \beta^2) \N(s_i| \mu_i, \sigma_i^2) ds_i = \N(p_i|\mu_i,\beta^2 + \sigma_i^2)
 \end{equation}
 %
-\en{Computacionalmente, podemos calcular esto de la siguiente manera.}
-%
+%\en{Computacionalmente, podemos calcular esto de la siguiente manera.}
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:performance, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0.5 \baselineskip]
+\end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
 p1 = performance(r1)
@@ -1432,7 +1501,8 @@ p4 = r4$performance()
 \end{lstlisting}  
 \end{paracol}
 %
-\en{Luego, el mensaje que envían }
+\en{Then, the message sent by the team factors $f_{t_e}$ to the team variable $t_e$ are,}
+\es{Luego, el mensaje que envían los factores equipos $f_{t_e}$ a la variable equipo $t_e$ son,}
 %
 \begin{equation} \label{eq:m_ft_t} \tag{\texttt{ta = p1 + p2}}
 \begin{split}
@@ -1440,16 +1510,15 @@ p4 = r4$performance()
 \end{split}
 \end{equation}
 %
-General (ver anexo~\ref{suma_normales_induccion}).
+\en{In general (demo at annex section~\ref{suma_normales_induccion})}
+\es{En general (demostración en sección anexa~\ref{suma_normales_induccion})}.
 %
 \begin{equation*}
  m_{f_{t_e} \rightarrow t_e}(t_e) =  \N \Big( t_e | \underbrace{\sum_{i\in A_e } \mu_i}_{\hfrac{\text{Habilidad}}{\text{de equipo}} \ \mu_e}, \underbrace{\sum_{i \in A_e} \beta^2 + \sigma_i^2}_{\hfrac{\text{Varianza}}{\text{de equipo}} \ \sigma_e^2} \Big) = \N(t_e | \mu_e, \sigma_e^2)
 \end{equation*}
 %
-\begin{lstlisting}[backgroundcolor=\color{all}]
-ta = p1 + p2; tb = p3 + p4
-d = ta - tb
-\end{lstlisting}
+\en{The message sent by the difference factor $f_{d_1}$ to the difference variable $d_1$ are,}
+\es{El mensaje que envía el factor diferencia $f_{d_1}$ a la variable diferencia $d_1$ es,}
 %
 \begin{equation}\label{eq:m_fd_d} \tag{\texttt{d = ta - tb}}
  \begin{split} 
@@ -1457,7 +1526,12 @@ d = ta - tb
   & = \N\big( d_1 | \underbrace{\mu_a - \mu_b}_{\hfrac{\text{Differencia}}{\text{esperada:} \ \delta} }, \underbrace{\sigma_a^2 +\sigma_b^2}_{\hfrac{\text{incertidumbre}}{\text{total:} \ \vartheta^2}}  \big) = \N(d_1 | \delta, \, \vartheta^2)
  \end{split}
 \end{equation}
-%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:difference, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0.5 \baselineskip]
+\end{lstlisting}
+\begin{lstlisting}[backgroundcolor=\color{all}, belowskip=-0.77 \baselineskip]
+ta = p1 + p2; tb = p3 + p4
+d = ta - tb
+\end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
 delta = d.mu
@@ -1486,7 +1560,9 @@ evidencia = ev
  m_{f_{r_1} \rightarrow r_1}(r_1) = \int \mathbb{I}(d_1 > 0) \N(d_1 | \delta, \vartheta^2)  dd_1 = \Phi(\frac{\delta}{\vartheta})
 \end{split}
 \end{equation}
-%
+
+% Parrafo
+
 Ahora veamos los mensajes ascendentes para el caso ganador.
 %
 \begin{equation}\label{eq:m_fd_ta} \tag{\texttt{exact\_lhood\_ta}}
@@ -1511,12 +1587,18 @@ m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_
 & = 1 - \Phi(0 | \underbrace{(s_1 + \mu_2) - (\mu_3 + \mu_4)}_{\hfrac{\text{Diferencia esperada}}{\text{parametrizada en $s_1$}}: \ \delta_1(s_1) } \ , \underbrace{\ \ \ \ \vartheta^2 - \sigma_1^2 \ \ \ \ }_{\hfrac{\text{Incertidumbre total}}{\text{salvo la de $s_1$}}: \ \vartheta_1^2})\end{split}
 \end{equation}
 %
-\en{El mensaje $m_{f_{p_1} \rightarrow s_1}(s_1)$ es el likelihood exacto y computa la ``probabilidad de ganar dada la hipótesis $s_1$''.}
+\en{De la diferencia esperada $\delta$ remplazamos la estimación media $\mu_1$ por la hipótesis $s_1$.}
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:delta_1, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{lstlisting}[backgroundcolor=\color{all}]
+delta1 = delta - mu1 + s1 
+\end{lstlisting}  
 %
-\en{Esto es probabilidad a priori de un resultado ganador si la verdadera habilidad del jugador fuera $s_1$.}
+\en{Assuming that the skill is known, its own uncertainty must be removed from the total uncertainty.}
+\es{Al suponer conocida la habilidad, su propia incertidumbre debe ser removida de la incertidumbre total.}
 %
-\en{En caso de conocer la habilidad, no existe incertidumbre asociacia por lo que hay que eliminarla la incertidumbre total.}
-%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:theta, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
 theta1 = theta^2 - sigma1^2
@@ -1534,15 +1616,19 @@ theta1 = sqrt(theta1)
 \end{lstlisting}   
 \end{paracol}
 %
-\en{Y en la diferencia esperada $\delta$ remplazamos la media $\mu_1$ del prior por la hipótesis $s_1$.}
+\en{This last message, $m_{f_{p_1} \rightarrow s_1}(s_1)$, is the exact likelihood and computes the ``probability of winning given the $s_1$ hypothesis''.}
+\es{Este último mensaje, $m_{f_{p_1} \rightarrow s_1}(s_1)$, es el likelihood exacto y computa la ``probabilidad de ganar dada la hipótesis $s_1$''.}
 %
+\en{In other words, this is the a prior probability of a winning result if the player's true skill was $s_1$.}
+\es{En otras palabras, esto es la probabilidad a priori de un resultado ganador si la verdadera habilidad del jugador fuera $s_1$.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:exact_lhood, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
-function exact_lhood(s1)
   delta1 = delta - mu1 + s1 
   N= Gaussian(delta1,theta1)
   return 1-cdf(N,0.0)
-end  
 \end{lstlisting}  
  \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}]
@@ -1584,7 +1670,7 @@ exact_lhood = function(s1){
 %
 \en{En la sección~\ref{sec:ttt-d} presentaremos una solución bayesiana al problema de los empates.}
 %
-\begin{figure}[t!]
+\begin{figure}[h!]
 \centering
 \begin{subfigure}[t]{0.48\textwidth}
  \includegraphics[width=1\textwidth]{figures/draw.pdf} 
@@ -2672,7 +2758,7 @@ information such as relative contributions of the authors may be added here
 %   \centering
 %   \scalebox{.75}{\input{modelos/trueskill_factorGraph_2equiops.tex}}
 %   \caption{\small Grafo bipartito de factorizaci\'on del modelo \texttt{TrueSkill} (Caso 2 vs 2)}
-%   \label{modelo_trueskill_2vs2}
+%   \label{fig:modelo_trueskill_2vs2}
 % \end{figure}
 % 
 % 
@@ -2683,7 +2769,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:m_fs_s}
 % \begin{split}
 %  m_{f_{s_i} \rightarrow s_i}(s_i) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{s_i}(\bm{x}) \prod_{h \in n(f_{s_i}) \setminus \{s_i\} } m_{h \rightarrow f_{s_i}}(h) d\bm{x}_{\setminus \{s_i\}}  \\
-% & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{=} \int \dots \int N(s_i| \mu_i, \sigma_i^2) d\bm{x}_{\setminus \{s_i\} } \\
+% & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{=} \int \dots \int N(s_i| \mu_i, \sigma_i^2) d\bm{x}_{\setminus \{s_i\} } \\
 % & \underset{*}{\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=}} N(s_i| \mu_i, \sigma_i^2)
 % \end{split}
 % \end{equation}
@@ -2704,7 +2790,7 @@ information such as relative contributions of the authors may be added here
 % \paragraph{$\bm{m_{s \rightarrow f_p}(s)}:$}
 % 
 % \begin{equation}\label{eq:m_s_fp}
-%  m_{s_i \rightarrow f_{p_i}}(s_i) \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(s_i) \setminus  \{f_{p_i} \}} m_{g \rightarrow s_i} (s_i) \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{=} m_{f_{s_i} \rightarrow s_i}(s_i) \overset{\hfrac{\text{eq}}{\ref{eq:m_fs_s}}}{=}   N(s_i| \mu_i, \sigma_i^2)
+%  m_{s_i \rightarrow f_{p_i}}(s_i) \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(s_i) \setminus  \{f_{p_i} \}} m_{g \rightarrow s_i} (s_i) \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{=} m_{f_{s_i} \rightarrow s_i}(s_i) \overset{\hfrac{\text{eq}}{\ref{eq:m_fs_s}}}{=}   N(s_i| \mu_i, \sigma_i^2)
 % \end{equation}
 % 
 % 
@@ -2714,7 +2800,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:m_fp_p}
 % \begin{split}
 %  m_{f_{p_i} \rightarrow p_i}(p_i) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{p_i}(\bm{x}) \prod_{h \in n(f_{p_i}) \setminus \{p_i\} } m_{h \rightarrow f_{p_i}}(h) d\bm{x}_{\setminus \{p_i\} }  \\
-%  & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_s_fp}}}{=}} \int \dots \int N(p_i| s_i, \beta^2) N(s_i| \mu_i, \sigma_i^2) d\bm{x}_{\setminus \{p_i\} } \\[0.3cm]
+%  & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_s_fp}}}{=}} \int \dots \int N(p_i| s_i, \beta^2) N(s_i| \mu_i, \sigma_i^2) d\bm{x}_{\setminus \{p_i\} } \\[0.3cm]
 %  & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int N(p_i| s_i, \beta^2) N(s_i| \mu_i, \sigma_i^2) ds_i \\
 %  & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int N(s_i|p_i, \beta^2) N(s_i| \mu_i, \sigma_i^2) ds_i \\
 % & \overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{=} N(p_i|\mu_i,\beta^2 + \sigma_i^2)
@@ -2726,7 +2812,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:m_p_ft}
 % \begin{split}
 %  m_{p_i \rightarrow f_{t_e}}(p_i) & \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(p_i) \setminus  \{f_{t_e} \}} m_{g \rightarrow p_i} (p_i) \\
-%  & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{=} m_{f_{p_i} \rightarrow p_i}(p_i) \overset{\hfrac{\text{eq}}{\ref{eq:m_fp_p}}}{=} N(p_i|\mu_i,\beta^2 + \sigma_i^2)
+%  & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{=} m_{f_{p_i} \rightarrow p_i}(p_i) \overset{\hfrac{\text{eq}}{\ref{eq:m_fp_p}}}{=} N(p_i|\mu_i,\beta^2 + \sigma_i^2)
 % \end{split}
 % \end{equation}
 % 
@@ -2735,7 +2821,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}
 % \begin{split}
 %  m_{f_{t_e} \rightarrow t_e}(t_e) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{t_e}(\bm{x}) \prod_{h \in n(f_{t_e}) \setminus \{t_e\} } m_{h \rightarrow f_{t_e}}(h) d\bm{x}_{\setminus \{t_e\} }  \\
-%  & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_p_ft}}}{=}} \int \dots \int \mathbb{I}(t_e = p_i + p_j) N(p_i|\mu_i,\beta^2 + \sigma_i^2)N(p_j|\mu_j,\beta^2 + \sigma_j^2) d\bm{x}_{\setminus \{t_e\} }\\[0.3cm]
+%  & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_p_ft}}}{=}} \int \dots \int \mathbb{I}(t_e = p_i + p_j) N(p_i|\mu_i,\beta^2 + \sigma_i^2)N(p_j|\mu_j,\beta^2 + \sigma_j^2) d\bm{x}_{\setminus \{t_e\} }\\[0.3cm]
 %  & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \iint \mathbb{I}(t_e = p_i + p_j) N(p_i|\mu_i,\beta^2 + \sigma_i^2)N(p_j|\mu_j,\beta^2 + \sigma_j^2) dp_idp_j \\
 %  & \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int N(p_i|\mu_i,\beta^2 + \sigma_i^2) N(t_e - p_i|\mu_j,\beta^2 + \sigma_j^2) dp_i   \\
 %  & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int N(p_i|\mu_i,\beta^2 + \sigma_i^2) N(p_i|t_e - \mu_j,\beta^2 + \sigma_j^2) dp_i \\
@@ -2757,7 +2843,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:m_t_fd}
 % \begin{split}
 % m_{t_e \rightarrow f_{d_{k}}}(d_{k}) & \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(t_e) \setminus  \{f_{d_{k}} \}} m_{g \rightarrow t_e} (t_e) \\[0.3cm]
-%  & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{=} m_{f_{t_e} \rightarrow t_e}(t_e) \overset{\hfrac{\text{eq}}{\ref{eq:m_ft_t}}}{=} N(t_e| \sum_{i \in A_e} \mu_i, \sum_{i \in A_e} \beta^2 + \sigma_i^2) \overset{\hfrac{\text{eq}}{\ref{eq:m_ft_t}}}{=} N(t_e|\mu_e,\sigma_e^2)
+%  & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{=} m_{f_{t_e} \rightarrow t_e}(t_e) \overset{\hfrac{\text{eq}}{\ref{eq:m_ft_t}}}{=} N(t_e| \sum_{i \in A_e} \mu_i, \sum_{i \in A_e} \beta^2 + \sigma_i^2) \overset{\hfrac{\text{eq}}{\ref{eq:m_ft_t}}}{=} N(t_e|\mu_e,\sigma_e^2)
 % \end{split}
 % \end{equation}
 % 
@@ -2766,7 +2852,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}
 %  \begin{split}
 %   m_{f_{d_1} \rightarrow d_1}(d_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{d_1}(\bm{x}) \prod_{h \in n(f_{d_1}) \setminus \{d_1\} } m_{h \rightarrow f_{d_1}}(h) \, d\bm{x}_{\setminus \{d_1\} }  \\
-%   & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_t_fd}}}{=}} \int \int \mathbb{I}(d_1 = t_a - t_b) N(t_a| \mu_a, \sigma_a^2)  N(t_b| \mu_b, \sigma_b^2)  dt_adt_b \\[0.25cm]
+%   & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_t_fd}}}{=}} \int \int \mathbb{I}(d_1 = t_a - t_b) N(t_a| \mu_a, \sigma_a^2)  N(t_b| \mu_b, \sigma_b^2)  dt_adt_b \\[0.25cm]
 %   & \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int N(d_1 + t_b| \mu_a, \sigma_a^2)  N(t_b| \mu_a, \sigma_b^2)  dt_b \\
 %   & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int N(t_b| \mu_a - d_1 , \sigma_a^2)  N(t_b| \mu_b, \sigma_b^2)  dt_b \\
 %   & \overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{=} N( \mu_a - d_1 | \mu_b, \sigma_a^2 +\sigma_b^2  ) \\
@@ -2785,7 +2871,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:m_d_fr}
 % \begin{split}
 % m_{d \rightarrow f_r}(d) & \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(t_e) \setminus  \{f_{d_{k}} \}} m_{g \rightarrow t_e} (t_e) \\[0.3cm]
-%  & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{=} m_{f_d \rightarrow d}(d) \overset{\hfrac{\text{eq}}{\ref{eq:m_fd_d}}}{=} N(d_1| \delta, \vartheta)
+%  & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{=} m_{f_d \rightarrow d}(d) \overset{\hfrac{\text{eq}}{\ref{eq:m_fd_d}}}{=} N(d_1| \delta, \vartheta)
 % \end{split}
 % \end{equation}
 % 
@@ -2794,7 +2880,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:m_fr_r}
 % \begin{split}
 %  m_{f_{r_1} \rightarrow r_1}(r_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{r_1}(\bm{x}) \prod_{h \in n(f_{r_1}) \setminus \{r_1\} } m_{h \rightarrow f_{r_1}}(h) \, d\bm{x}_{\setminus \{r_1\} }  \\[0.2cm]
-%  & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_d_fr}}}{=}} \int \mathbb{I}(d_1 > 0) N(d_1 | \delta, \vartheta)  dd_1 \\[0.2cm]
+%  & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_d_fr}}}{=}} \int \mathbb{I}(d_1 > 0) N(d_1 | \delta, \vartheta)  dd_1 \\[0.2cm]
 %  &  \overset{\hfrac{\text{eq}}{\ref{eq:estandarizar}}}{=} \int \mathbb{I}(d_1 > 0) N( \frac{d_1 - \delta}{\vartheta}) dd_1 \\[0.2cm]
 %  & = 1 - \Phi(\frac{-\delta}{\vartheta}) \\
 %  & = \Phi(\frac{\delta}{\vartheta})
@@ -2819,7 +2905,7 @@ information such as relative contributions of the authors may be added here
 % 
 % \begin{equation}\label{eq:m_fr_d}
 % \begin{split}
-% m_{f_r \rightarrow d_1}(d_1) & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=}} \mathbb{I}(d_1 > 0)
+% m_{f_r \rightarrow d_1}(d_1) & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=}} \mathbb{I}(d_1 > 0)
 % \end{split}
 % \end{equation}
 % 
@@ -2828,7 +2914,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:m_d_fd}
 % \begin{split}
 % m_{d_1 \rightarrow f_{d_1}}(d_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(d_1) \setminus  \{f_{d_1} \}} m_{g \rightarrow d_1} (d_1) \\[0.3cm]
-%  & \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{=} m_{f_r \rightarrow d_1}(d_1) \overset{\hfrac{\text{eq}}{\ref{eq:m_fr_d}}}{=} \mathbb{I}(d_1 > 0)
+%  & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{=} m_{f_r \rightarrow d_1}(d_1) \overset{\hfrac{\text{eq}}{\ref{eq:m_fr_d}}}{=} \mathbb{I}(d_1 > 0)
 % \end{split}
 % \end{equation}
 % 
@@ -2836,7 +2922,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:m_fd_ta}
 % \begin{split}
 % m_{f_{d_1} \rightarrow t_a}(t_a) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{d_1}(\bm{x}) \prod_{h \in n(f_{d_1}) \setminus \{t_a\} } m_{h \rightarrow f_{d_1}}(h) \, d\bm{x}_{\setminus \{t_a\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_t_fd}}}{=}}  \int \dots \int \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0) N(t_b | \mu_b , \sigma_b^2 )  \, d\bm{x}_{\setminus \{t_a\} } \\[0.1cm]
+% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_t_fd}}}{=}}  \int \dots \int \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0) N(t_b | \mu_b , \sigma_b^2 )  \, d\bm{x}_{\setminus \{t_a\} } \\[0.1cm]
 % & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \iint \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0) N(t_b | \mu_b , \sigma_b^2 ) \, dd_1\,dt_b \\
 % & \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int \mathbb{I}( t_a > t_b)  N(t_b | \mu_b , \sigma_b^2 ) \,dt_b  \\
 % & \overset{\hfrac{\text{fig}}{\ref{fig:m_fd_t}}}{=} \Phi (t_a| \mu_b, \sigma_b^2)  \overset{\hfrac{\mu_b}{\sigma_b}}{=}  \Phi \Big(t_a| \sum_{i \in A_b} \mu_i , \sum_{i \in A_b} \beta^2 + \sigma_i^2 \Big)
@@ -2847,7 +2933,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:m_fd_tb}
 % \begin{split}
 % m_{f_{d_1} \rightarrow t_b}(t_b) &\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{d_1}(\bm{x}) \prod_{h \in n(f_{d_1}) \setminus \{t_b\} } m_{h \rightarrow f_{d_1}}(h) \, d\bm{x}_{\setminus \{t_a\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_t_fd}}}{=}}  \int \dots \int \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0) N(t_a | \mu_a , \sigma_a^2 )  \, d\bm{x}_{\setminus \{t_b\} } \\[0.1cm]
+% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_t_fd}}}{=}}  \int \dots \int \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0) N(t_a | \mu_a , \sigma_a^2 )  \, d\bm{x}_{\setminus \{t_b\} } \\[0.1cm]
 % &\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \iint \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0)  N(t_a | \mu_a , \sigma_a^2 )  \, dd_1\,dt_a \\
 % &\overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int \mathbb{I}( t_a > t_b)   N(t_a | \mu_a , \sigma_a^2 ) \,dt_a \\
 % &\overset{\hfrac{\text{fig}}{\ref{fig:m_fd_t}}}{=} 1 - \Phi (t_b| \mu_a , \sigma_a^2 ) \overset{\hfrac{\mu_a}{\sigma_a}}{=} 1 - \Phi \Big(t_b| \sum_{i \in A_a} \mu_i , \sum_{i \in A_a} \beta^2 + \sigma_i^2 \Big)
@@ -2891,7 +2977,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:m_fta_p_inicial}
 % \begin{split}
 % m_{f_{t_a} \rightarrow p_1}(p_1)  &\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{t_a}(\bm{x}) \prod_{h \in n(f_{t_a}) \setminus \{p_1\} } m_{h \rightarrow f_{t_a}}(h) \, d\bm{x}_{\setminus \{p_1\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_ta_ft}}}{=}} \int \dots \int \mathbb{I}( t_a = p_1 + p_2) N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (t_a| \mu_b , \sigma_b^2 ) \, d\bm{x}_{\setminus \{p_1\} }\\[0.1cm]
+% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_ta_ft}}}{=}} \int \dots \int \mathbb{I}( t_a = p_1 + p_2) N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (t_a| \mu_b , \sigma_b^2 ) \, d\bm{x}_{\setminus \{p_1\} }\\[0.1cm]
 % &\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \iint \mathbb{I}( t_a = p_1 + p_2) \, N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (t_a| \mu_b , \sigma_b^2 ) \, dt_a dp_2 \\
 % &\overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int  \, N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (p_1 + p_2| \mu_b , \sigma_b^2 ) \, dp_2 \\
 % &\overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int  N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (p_1 | \mu_b - p_2 , \sigma_b^2) \, dp_2 \\
@@ -2921,7 +3007,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:m_ftb_p}
 % \begin{split}
 % m_{f_{t_b} \rightarrow p_3}(p_3)&\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{t_a}(\bm{x}) \prod_{h \in n(f_{t_a}) \setminus \{p_1\} } m_{h \rightarrow f_{t_a}}(h) \, d\bm{x}_{\setminus \{p_1\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_tb_ft}}}{=}} \int \dots \int \mathbb{I}( t_b = p_3 + p_4) \, (1-\Phi (t_b| \mu_a , \sigma_a^2 )) \, N(p_4| \mu_4, \beta^2 + \sigma_4^2 ) \, d\bm{x}_{\setminus \{p_3\} }\\[0.1cm]
+% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_tb_ft}}}{=}} \int \dots \int \mathbb{I}( t_b = p_3 + p_4) \, (1-\Phi (t_b| \mu_a , \sigma_a^2 )) \, N(p_4| \mu_4, \beta^2 + \sigma_4^2 ) \, d\bm{x}_{\setminus \{p_3\} }\\[0.1cm]
 % &\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \iint \mathbb{I}( t_b = p_3 + p_4) N(p_4| \mu_4, \beta^2 + \sigma_4^2 )  (1 - \Phi (t_b| \mu_a , \sigma_a^2) )\, dt_b dp_4 \\
 % &\overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{\underset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}} \int N(p_4| \mu_4, \beta^2 + \sigma_4^2 )  (1 - \Phi (p_3 | \mu_a - p_4 , \sigma_a^2 ) ) \,  dp_4 \\
 % & =  \underbrace{\int N(p_4| \mu_4, \beta^2 + \sigma_4^2 )dp_4}_{1}  -  \underbrace{\int N(p_4| \mu_4, \beta^2 + \sigma_4^2 ) \Phi (p_3 | \mu_a - p_4 , \sigma_a^2 ) ) \, dp_4}_{\kappa(p_3)} \\
@@ -2951,7 +3037,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:m_fp_s1}
 % \begin{split}
 % m_{f_{p_1} \rightarrow s_1}(s_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{p_1}(\bm{x}) \prod_{h \in n(f_{p_1}) \setminus \{s_1\} } m_{h \rightarrow f_{p_1}}(h) \, d\bm{x}_{\setminus \{s_1\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_p1_fp}}}{=}} \int \dots \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_b - \mu_2, \beta^2 + \sigma_2^2 + \sigma_b^2 ) \, d\bm{x}_{\setminus \{s_1\} }
+% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_p1_fp}}}{=}} \int \dots \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_b - \mu_2, \beta^2 + \sigma_2^2 + \sigma_b^2 ) \, d\bm{x}_{\setminus \{s_1\} }
 % \\[0.1cm]
 % & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{\underset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}} \int N(p_1| s_1, \beta^2) \, \Phi(\mu_2| \mu_b -  p_1, \beta^2 + \sigma_2^2 + \sigma_b^2) \, dp_1 \\[0.1cm]
 % &\overset{\hfrac{\text{eq}}{\ref{eq:ta-p_derivada}}}{=} \Phi(s_1| \mu_b - \mu_2, 2\beta^2 + \sigma_2^2 + \sigma_b^2)
@@ -2978,7 +3064,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:m_fp_s3}
 % \begin{split}
 % m_{f_{p_3} \rightarrow s_3}(s_3) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{p_3}(\bm{x}) \prod_{h \in n(f_{p_3}) \setminus \{s_3\} } m_{h \rightarrow f_{p_3}}(h) \, d\bm{x}_{\setminus \{s_3\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_p3_fp}}}{=}} \int \dots \int N(p_3| s_3, \beta^2) (1 - \Phi(p_3, \mu_a  - \mu_4, \beta^2 + \sigma_4^2 + \sigma_a^2)) \, d\bm{x}_{\setminus \{s_3\} }\\
+% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_p3_fp}}}{=}} \int \dots \int N(p_3| s_3, \beta^2) (1 - \Phi(p_3, \mu_a  - \mu_4, \beta^2 + \sigma_4^2 + \sigma_a^2)) \, d\bm{x}_{\setminus \{s_3\} }\\
 % & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{\underset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}} \int N(p_3| s_3, \beta^2) (1 - \Phi(\mu_4, \mu_a  - p_3, \beta^2 + \sigma_4^2 + \sigma_a^2)) \, dp_3 \\
 % &=\int N(p_3| s_3, \beta^2) \, dp_3 -  \int N(p_3| s_3, \beta^2)  \Phi(\mu_4, \mu_a  - p_3, \beta^2 + \sigma_4^2 + \sigma_a^2) \, dp_3 \\
 % &\overset{\hfrac{\text{eq}}{\ref{eq:ta-p_derivada}}}{=} 1 - \Phi\Big(s_3| \mu_a-  \mu_4, 2\beta^2 + \sigma_4^2 + \sigma_a^2 \Big)
@@ -3001,7 +3087,7 @@ information such as relative contributions of the authors may be added here
 % \subsubsection{Posterior ganador y perdedor}
 % \paragraph{Ganador}
 % \begin{equation}\label{eq:posterior_ganador}
-%  p(s_1|o,A) \overset{\hfrac{\text{eq}}{\ref{eq:marginal}}}{=} \prod_{h \in n(x_i)} m_{h \rightarrow x_i} \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_fp_s1_gral}}}{=}}  N(s_1| \mu_1, \sigma_1^2)  \Phi\left(\frac{\delta_1(s_1)}{\vartheta_1}\right)
+%  p(s_1|o,A) \overset{\hfrac{\text{eq}}{\ref{eq:marginal}}}{=} \prod_{h \in n(x_i)} m_{h \rightarrow x_i} \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_fp_s1_gral}}}{=}}  N(s_1| \mu_1, \sigma_1^2)  \Phi\left(\frac{\delta_1(s_1)}{\vartheta_1}\right)
 % \end{equation}
 % 
 % 
@@ -3024,7 +3110,7 @@ information such as relative contributions of the authors may be added here
 % \paragraph{Perdedor}
 % 
 % \begin{equation}\label{eq:posterior_perdedor}
-%  p(s_1|o,A) \overset{\hfrac{\text{eq}}{\ref{eq:marginal}}}{=} \prod_{h \in n(x_i)} m_{h \rightarrow x_i} \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_fp_s1_gral}}}{=}}  N(s_1| \mu_1, \sigma_1^2)  \Phi\left(\frac{-\delta_1(s_1)}{\vartheta_1}\right)
+%  p(s_1|o,A) \overset{\hfrac{\text{eq}}{\ref{eq:marginal}}}{=} \prod_{h \in n(x_i)} m_{h \rightarrow x_i} \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_fp_s1_gral}}}{=}}  N(s_1| \mu_1, \sigma_1^2)  \Phi\left(\frac{-\delta_1(s_1)}{\vartheta_1}\right)
 % \end{equation}
 % 
 % 
@@ -3100,7 +3186,7 @@ information such as relative contributions of the authors may be added here
 % %
 % \begin{equation}\label{eq:p_d}
 % \begin{split}
-%  P(d_1) & \overset{\hfrac{\text{eq}}{\ref{eq:marginal}}}{=}   \prod_{h \in n(d_1)} m_{h \rightarrow d_1} \overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{=} m_{f_{d_1} \rightarrow d_1}(d_1) \, m_{f_r \rightarrow d_1}(d_1) \overset{\hfrac{\text{eq}}{\ref{eq:m_fr_d}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_d_fd}}}{=}}  m_{f_{d_1} \rightarrow d_1}(d_1) \, m_{d_1 \rightarrow f_{d_1}}(d_1)  \\
+%  P(d_1) & \overset{\hfrac{\text{eq}}{\ref{eq:marginal}}}{=}   \prod_{h \in n(d_1)} m_{h \rightarrow d_1} \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{=} m_{f_{d_1} \rightarrow d_1}(d_1) \, m_{f_r \rightarrow d_1}(d_1) \overset{\hfrac{\text{eq}}{\ref{eq:m_fr_d}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_d_fd}}}{=}}  m_{f_{d_1} \rightarrow d_1}(d_1) \, m_{d_1 \rightarrow f_{d_1}}(d_1)  \\
 %  & = N(d_1|\delta,\vartheta) \mathbb{I}(d_1 > 0)
 % \end{split}
 % \end{equation}
@@ -3179,7 +3265,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:^m_fd_ta}
 % \begin{split}
 % m_{f_{d_1} \rightarrow t_a}(t_a) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{d_1}(\bm{x}) \prod_{h \in n(f_{d_1}) \setminus \{t_a\} } m_{h \rightarrow f_{d_1}}(h) \, d\bm{x}_{\setminus \{t_a\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m^_d_fd}}}{\approx}}  \int \dots \int \mathbb{I}(d_1 = t_a - t_b) N(d_1 | \delta_{\div}, \vartheta_{\div}^2) N(t_b | \mu_b , \sigma_b^2 )  \, d\bm{x}_{\setminus \{t_a\} } \\[0.1cm]
+% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m^_d_fd}}}{\approx}}  \int \dots \int \mathbb{I}(d_1 = t_a - t_b) N(d_1 | \delta_{\div}, \vartheta_{\div}^2) N(t_b | \mu_b , \sigma_b^2 )  \, d\bm{x}_{\setminus \{t_a\} } \\[0.1cm]
 % \widehat{m}_{f_{d_1} \rightarrow t_a}(t_a)  & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \int \mathbb{I}(d_1 = t_a - t_b) N(d_1 | \delta_{\div}, \vartheta_{\div}^2) N(t_b | \mu_b , \sigma_b^2 )  \, d{d_1} d_{t_b} \\
 % & \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int  N(t_a - t_b | \delta_{\div}, \vartheta_{\div}^2) N(t_b | \mu_b , \sigma_b^2 )  \, d_{t_b} \\
 % & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int  N( - t_b | \delta_{\div} - t_a, \vartheta_{\div}^2) N(t_b | \mu_b , \sigma_b^2 )  \, d_{t_b} \\
@@ -3195,7 +3281,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:^m_fd_tb}
 % \begin{split}
 % m_{f_{d_1} \rightarrow t_b}(t_b) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{d_1}(\bm{x}) \prod_{h \in n(f_{d_1}) \setminus \{t_b\} } m_{h \rightarrow f_{d_1}}(h) \, d\bm{x}_{\setminus \{t_b\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m^_d_fd}}}{\approx}}  \int \dots \int \mathbb{I}(d_1 = t_a - t_b) N(d_1 | \delta_{\div}, \vartheta_{\div}^2) N(t_a | \mu_a , \sigma_a^2 )  \, d\bm{x}_{\setminus \{t_a\} } \\[0.1cm]
+% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m^_d_fd}}}{\approx}}  \int \dots \int \mathbb{I}(d_1 = t_a - t_b) N(d_1 | \delta_{\div}, \vartheta_{\div}^2) N(t_a | \mu_a , \sigma_a^2 )  \, d\bm{x}_{\setminus \{t_a\} } \\[0.1cm]
 % \widehat{m}_{f_{d_1} \rightarrow t_b}(t_b)  & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \int \mathbb{I}(d_1 = t_a - t_b) N(d_1 | \delta_{\div}, \vartheta_{\div}^2) N(t_a | \mu_a , \sigma_a^2 )  \, d{d_1} d_{t_a} \\
 % & \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int  N(t_a - t_b | \delta_{\div}, \vartheta_{\div}^2) N(t_a | \mu_a , \sigma_a^2 )  \, d_{t_a} \\
 % & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int  N( t_a | \delta_{\div} + t_b, \vartheta_{\div}^2) N(t_a | \mu_a , \sigma_a^2 )  \, d_{t_a} \\
@@ -3209,7 +3295,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:^m_fta_p}
 % \begin{split}
 % m_{f_{t_a} \rightarrow p_1}(p_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{t_a}(\bm{x}) \prod_{h \in n(f_{t_a}) \setminus \{p_1\} } m_{h \rightarrow f_{t_a}}(h) \, d\bm{x}_{\setminus \{p_1\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:^m_fd_ta}}}{\approx}}  \int \dots \int \mathbb{I}(t_a = p_1 + p_2) N(t_a \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) N(p_2 | \mu_2 , \sigma_2^2 + \beta^2)  \, d\bm{x}_{\setminus \{p_1\} } \\[0.1cm]
+% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:^m_fd_ta}}}{\approx}}  \int \dots \int \mathbb{I}(t_a = p_1 + p_2) N(t_a \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) N(p_2 | \mu_2 , \sigma_2^2 + \beta^2)  \, d\bm{x}_{\setminus \{p_1\} } \\[0.1cm]
 % \widehat{m}_{f_{t_a} \rightarrow p_1}(p_1)  & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \int \mathbb{I}(t_a = p_1 + p_2) N(t_a \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) N(p_2 | \mu_2 , \sigma_2^2 + \beta^2)  \, d{t_a} d_{p_2} \\
 % & \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int N(p_1 + p_2 \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) N(p_2 | \mu_2 , \sigma_2^2+ \beta^2 )   \, d_{p_2} \\
 % & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}\int N(p_2 \, | \, \mu_b - p_1 + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) N(p_2 | \mu_2 , \sigma_2^2 + \beta^2)   \, d_{p_2} \\
@@ -3233,7 +3319,7 @@ information such as relative contributions of the authors may be added here
 % \begin{equation}\label{eq:^m_ftb_p}
 % \begin{split}
 % m_{f_{t_b} \rightarrow p_3}(p_3) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{t_b}(\bm{x}) \prod_{h \in n(f_{t_b}) \setminus \{p_3\} } m_{h \rightarrow f_{t_b}}(h) \, d\bm{x}_{\setminus \{p_3\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:^m_fd_tb}}}{\approx}}  \int \dots \int \mathbb{I}(t_b = p_3 + p_4) N(t_b \, | \, \mu_a - \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_a^2) N(p_4 | \mu_4 , \sigma_4^2 + \beta^2)  \, d\bm{x}_{\setminus \{p_3\} } \\[0.1cm]
+% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:^m_fd_tb}}}{\approx}}  \int \dots \int \mathbb{I}(t_b = p_3 + p_4) N(t_b \, | \, \mu_a - \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_a^2) N(p_4 | \mu_4 , \sigma_4^2 + \beta^2)  \, d\bm{x}_{\setminus \{p_3\} } \\[0.1cm]
 % \widehat{m}_{f_{t_b} \rightarrow p_3}(p_3)  & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \int \mathbb{I}(t_b = p_3 + p_4) N(t_b \, | \, \mu_a - \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_a^2) N(p_4 | \mu_4 , \sigma_4^2 + \beta^2) \, d{t_b} d_{p_4} \\
 % & \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int N(p_3 + p_4 \, | \, \mu_a - \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_a^2) N(p_4 | \mu_4 , \sigma_4^2 + \beta^2) \, d_{p_4} \\
 % & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int N(p_4 \, | \, \mu_a - \delta_{\div} - p_3 \, , \, \vartheta_{\div}^2 + \sigma_a^2) N(p_4 | \mu_4 , \sigma_4^2 + \beta^2) \, d_{p_4} \\
