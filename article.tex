@@ -332,7 +332,7 @@
 \en{where $y_{ij}$ is $1$ for winners and $-1$ for losers, and the probability of the observed result given the old estimates can be derived from Fi.~\ref{fig:generative_model} (more details in section~\ref{sec:exactSolution}).}
 \es{Donde $y_{ij}$ es $1$ para ganadores y $-1$ para perdedores y la probabilidad del resultado observado dadas las estimaciones a priori se puede derivar de la figura~\ref{fig:generative_model} (detalles en la secci\'on~\ref{sec:analyticalSolution}).}
 %
-\todo[inlin]{Esteban arreglala un poquito para que sea m\'as simple}
+\todo[inline]{Esteban arreglala un poquito para que sea m\'as simple}
 \en{Unlikely results would indicate that the current estimates are not entirely correct and should be updated to a greater extent than if they had occurred as expected.}
 \es{Los resultados poco probables indicar\'ian que las estimaciones actuales no son del todo correctas y deber\'ian actualizarse en mayor medida que si hubieran ocurrido como se esperaba.}
 %
@@ -1851,6 +1851,9 @@ pd_approx = approx(d, margin, not_tie)
 %
 \en{with}\es{con} $\delta_{\div} = \frac{\widehat{\delta}}{\widehat{\vartheta}^2} - \frac{\delta}{\vartheta^2}$ \en{and}\es{y} $\vartheta_{\div}^2 = (\frac{1}{\widehat{\vartheta}^2} - \frac{1}{\vartheta^2})^{-1}$ 
 %
+\begin{lstlisting}[backgroundcolor=\color
+{white},label=lst:d_div, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{lstlisting}[backgroundcolor=\color{all},belowskip=-0.77 \baselineskip]
 approx_lhood_d1 = pd_approx/d
 \end{lstlisting}  
@@ -1898,6 +1901,9 @@ v_div = lhood_d1_approx$sigma
  \widehat{p}(s_1) = \N(s_1|\mu_1, \sigma_1^2) \N(s_1| \mu_1 - \delta + \delta_{\div}, \vartheta_{\div}^2 + \vartheta^2 - \sigma_1^2)
 \end{equation}
 %
+\begin{lstlisting}[backgroundcolor=\color
+{white},label=lst:lhood_s1_approx, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
 mu1 = prior1.mu
@@ -1922,17 +1928,12 @@ lhood_s1_approx = Gaussian(mu = (mu1 - d + d_div), sigma = sqrt(v_div_2 + v2 - s
 posterior_s1_approx = prior1 * lhood_s1_approx
 \end{lstlisting}
 
-\subsection{Multiples temas} \label{sec:iterative_posterior} 
-%
-\en{In this section we will see how to find the best approximate posterior in cases where we have more than two teams (Figure \ref{fig:factorGraph_trueskill}).}
-\es{En esta sección veremos como encontrar el mejor posterior aproximado en casos en los que tenemos más de dos equipos (figura \ref{fig:factorGraph_trueskill}).}
+\subsection{\en{Multiples temas}\es{Varios equipos}} \label{sec:iterative_posterior} 
 %
 \begin{figure}[h!]
   \centering
   \scalebox{.9}{
   \tikz{ %
-
-
         \node[factor] (fr) {} ;
         \node[const, above=of fr] (nfr) {$f_r$}; %
 	\node[const, above=of nfr] (dfr) {\large $\mathbb{I}(d_i>0)$}; %
@@ -1972,29 +1973,39 @@ posterior_s1_approx = prior1 * lhood_s1_approx
 	\node[invisible, below=of fr, yshift=-0.6cm] (inv_below) {};
 	\node[invisible, above=of fr, yshift=1.1cm] (inv_above) {};
 	\plate {comparaciones} {(fd) (dfd) (d) (fr) (dfr) (inv_below) (inv_above)} {$o:=$\en{ observed order}\es{ orden observado} \hspace{1cm} $1 \leq i < |A|$};
-        }  }
+    }  
+    }
   \caption{
-  \en{Factorization of the multi-team model.}
-  \es{Factorizaci\'on del modelo de multiequipos.}
+  \en{Factorization of the generic multi-team model.}
+  \es{Factorizaci\'on del modelo de multiequipos genérico.}
   %
-  \en{}
-  \es{Los equipos son Sean $n$ agentes $\{1,\dots,n\}$ en un evento con $k$ equipos.}
+  \en{Plates indicate replication.}
+  \es{Las placas indican replicación.}
   %
-  \en{}
-  \es{Los equipos son conjuntos de$A_e$ define con $k$ conjuntos disjuntos no vacíos.}
-  %
-  
-  %
-  \en{}
-  \es{Notar que si tenemos $|A|$ equipos, solo hacemos $|A|-1$ comparaciones $d_i$.}
+  \en{Having $k$ teams, due to the transitivity of the result, it is enough to evaluate $k-1$ differences $d_i$.}
+  \es{Teniendo $k$ equipos, gracias a la transitividad de los resultados, es suficiente evaluar $k-1$ distirbuciones de diferencias $d_i$.}
   }
   \label{fig:factorGraph_trueskill}
 \end{figure}
-
-
-Veamos esto en un caso concreto
 %
-\begin{paracol}{3}
+\en{In this section we will see how to find the best approximate posterior in cases where we have more than two teams.}
+\es{En esta sección veremos como encontrar el mejor posterior aproximado en casos en los que tenemos más de dos equipos.}
+%
+\en{In Figure ~\ref{fig:factorGraph_trueskill} we show the factorization of the general TrueSkill model.}
+\es{En la figura~\ref{fig:factorGraph_trueskill} mostramos la factorización del modelo general de TrueSkill.}
+%
+\en{Let's see how to solve a game with 3 teams.}
+\es{Veamos como se resuelve un caso de 3 equipos.}
+%
+\en{For the users of the package there is no difference regarding the previous case.}
+\es{Para los usuarios del paquete no hay ninguna diferencia respecto del caso anterior.}
+%
+\vspace{-0.6cm}
+\begin{figure}[H]
+\begin{lstlisting}[backgroundcolor=\color
+{white},label=lst:multi_team_game, caption=\relax, belowskip=-1.5 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{subfigure}[t]{0.32\textwidth}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
 team_a = [ r1 ]
 team_b = [ r2, r3 ]
@@ -2003,8 +2014,9 @@ teams= [team_a,team_b,team_c]
 result = [1,0,0]
 g = Game(teams,result,p_draw)
 p = posteriors(g)
-\end{lstlisting}
-  \switchcolumn
+\end{lstlisting} 
+\end{subfigure}
+\begin{subfigure}[t]{0.32\textwidth}
 \begin{lstlisting}[backgroundcolor=\color{python}]
 team_a = [ r1 ]
 team_b = [ r2, r3 ]
@@ -2014,7 +2026,8 @@ result = [1,0,0]
 g = Game(teams,result,p_draw)
 p = g.posteriors()
 \end{lstlisting}
-   \switchcolumn
+\end{subfigure}
+\begin{subfigure}[t]{0.32\textwidth}
 \begin{lstlisting}[backgroundcolor=\color{r}]
 teams = list()
 teams$team_a = c(r1)
@@ -2023,11 +2036,18 @@ teams$team_c = c(r4)
 result = c(1,0,0)
 g = Game(teams,result,p_draw)
 p = g$posteriors()
-\end{lstlisting}  
-\end{paracol}
+\end{lstlisting}   
+\end{subfigure}
+\end{figure}
+\vspace{-0.6cm}
 %
-En términos gráficos 
-\begin{figure}[h!]
+\en{In these cases it is impossible to perform a one-shot inference because of the mutual dependency between the distribution of difference, $p(d_i)$.}
+\es{En estos caso es imposible realizar la inference de una sola pasada por la dependencia mutua entre las distribuciones de diferencia, $p(d_i)$.}
+%
+\en{The basic idea is to update repeatedly forward and backward all messages in the shortest path between any two marginals $p(d_i)$ until convergence, as shown in Figure~\ref{fig:ep_ts}.}
+\es{La idea básica es actualizar repetidamente hacia adelante y hacia atrás todos los mensajes en el camino más corto entre dos marginales $p(d_i)$ hasta la convergencia, como se muestra en la figura~\ref{fig:ep_ts}.}
+%
+\begin{figure}[H]
   \centering
   \scalebox{.9}{
 \tikz{ %        
@@ -2085,30 +2105,31 @@ En términos gráficos
         
 } 
 }
-\caption{}
+\caption{
+ \en{Game with 3 teams.}
+ \es{Partida con 3 equipos.}
+ %
+ \en{The names will be used to explain the inference procedure.}
+ \es{Los nombres se usarán para explicar el procedimiento de actualización.}
+}
+\label{fig:ep_ts}
 \end{figure}
 %
-
-\en{In these cases it is impossible to perform a one-shot inference because of the mutual dependency between the distribution of difference, $p(d_i)$.}
-\es{En estos caso es imposible realizar la inference de una sola pasada por la dependencia mutua entre las distribuciones de diferencia, $p(d_i)$.}
-%
-\en{The basic idea is to update repeatedly forward and backward all messages in the shortest path between any two marginals $p(d_i)$ until convergence.}
-\es{La idea básica es actualizar repetidamente hacia adelante y hacia atrás todos los mensajes en el camino más corto entre dos marginales $p(d_i)$ hasta la convergencia.}
-%
-
-The messages that are not yet defined, for example the \emph{winLikelihood}$(t_1)$ in the first forward pass, must be replace it by a neutral form, like a unit scalar or a Gaussian distribution with infinite variance.
-%
-If the messages have already been defined, then use the last available definition.
-
-
 Primero definimos el prior de los equipos
 %
+\begin{lstlisting}[backgroundcolor=\color
+{white},label=lst:team_prior, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{lstlisting}[backgroundcolor=\color{all}]
 prior_ta= performance(team_a); prior_tb= performance(team_b); prior_tc= performance(team_c)
 \end{lstlisting}
 %
-Luego inicializamos los mensajes indefinidos
+\en{Messages that are not yet defined are initialized with a neutral form, such as a Gaussian distribution with infinite variance.}
+\es{Los mensajes que aún no están definidos se inicializan con una forma neutra, como una distribución gaussiana con varianza infinita.}
 %
+\begin{lstlisting}[backgroundcolor=\color
+{white},label=lst:init_lhood, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
 N_inf = Gaussian(0., Inf)
@@ -2128,9 +2149,8 @@ lhood_lose_tb = N_inf; lhood_win_tb = N_inf
 lhood_lose_tc = N_inf; lhood_win_tc = N_inf
 \end{lstlisting}
 %
-Antes de empezar definimos los margenes.
-%
-En este caso, como en ambas comparaciones hay total de 3 jugadores (un equipo de un jugador y otro equipo con dos jugadores), ambos márgenes coinciden.
+\en{We compute the margins from the draw probability and the number of players in each comparison, $d_i$.}
+\es{Calculamos el los margenes a partir de la probabilidad de empate y la cantidad de jugadores en cada comparación $d_1$.}
 %
 \begin{lstlisting}[backgroundcolor=\color{all}]
 margin = compute_margin(p_draw, sqrt(3)*BETA)
@@ -2139,21 +2159,36 @@ margin = compute_margin(p_draw, sqrt(3)*BETA)
 Then loop until convergence
 %
 \begin{lstlisting}[backgroundcolor=\color{all}]
-# d1
 posterior_win_ta = prior_ta * lhood_lose_ta 
 posterior_lose_tb = prior_tb * lhood_win_tb
 prior_d1 = posterior_win_ta - posterior_lose_tb
 lhood_d1_approx = approx(prior_d1, margin, not_tie) / prior_d1 
+\end{lstlisting}
+
+\begin{lstlisting}[backgroundcolor=\color{all}]
 # tb
-lhood_lose_tb = posterior_win_ta - lhood_d1_approx
+lhood_lose_tb = posterior_win_ta - lhood_d1_approx 
+\end{lstlisting}
+
+
+
+
+\begin{lstlisting}[backgroundcolor=\color{all}]
 # d2
 posterior_win_tb = prior_tb * lhood_lose_tb
 posterior_lose_tc = prior_tc * lhood_win_tc 
 prior_d2 = posterior_win_tb - posterior_lose_tc
 lhood_d2_approx = approx(prior_d2, margin, tie) / prior_d2 
+\end{lstlisting}
+
+\begin{lstlisting}[backgroundcolor=\color{all}]
 # tb
 lhood_win_tb = posterior_lose_tc + lhood_d2_approx
+ 
 \end{lstlisting}
+
+
+
 %
 Alcanzada la convergencia, actualizamos los bordes
 %
