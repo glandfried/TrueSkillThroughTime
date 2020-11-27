@@ -2106,16 +2106,20 @@ p = g$posteriors()
 } 
 }
 \caption{
- \en{Game with 3 teams.}
- \es{Partida con 3 equipos.}
+ \en{Factorization of a game with 3 teams.}
+ \es{Factorización de una partida con 3 equipos.}
  %
- \en{The names will be used to explain the inference procedure.}
- \es{Los nombres se usarán para explicar el procedimiento de actualización.}
+ \en{We only show factors from the teams to the results.}
+ \es{Mostramos sólo factores desde los equipos hasta los resultados.}
+ %
+ \en{The names will be used to explain the iterative procedure known as loopy belief propagation.}
+ \es{Los nombres se usarán para explicar el procedimiento iterativo conocido como \emph{loopy belief propagatiion}.}
 }
 \label{fig:ep_ts}
 \end{figure}
 %
-Primero definimos el prior de los equipos
+\en{First we define the Prior of the teams.}
+\es{Primero definimos el prior de los equipos.}
 %
 \begin{lstlisting}[backgroundcolor=\color
 {white},label=lst:team_prior, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
@@ -2149,63 +2153,94 @@ lhood_lose_tb = N_inf; lhood_win_tb = N_inf
 lhood_lose_tc = N_inf; lhood_win_tc = N_inf
 \end{lstlisting}
 %
-\en{We compute the margins from the draw probability and the number of players in each comparison, $d_i$.}
-\es{Calculamos el los margenes a partir de la probabilidad de empate y la cantidad de jugadores en cada comparación $d_1$.}
+\en{We compute the margins for each comparison, $d_i$.}
+\es{Calculamos el los margenes para cada comparación $d_1$.}
 %
+\begin{lstlisting}[backgroundcolor=\color
+{white},label=lst:margin, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{lstlisting}[backgroundcolor=\color{all}]
 margin = compute_margin(p_draw, sqrt(3)*BETA)
 \end{lstlisting}
 %
-Then loop until convergence
+\en{Let's start the iterative process by computing the messages of one distributions of difference, for example $d_1$.}
+\es{Empezmos el proceso iterativo calculando una de las distribuciones de diferencia, por ejemplo $d_1$.}
 %
+\begin{lstlisting}[backgroundcolor=\color
+{white},label=lst:d1, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{lstlisting}[backgroundcolor=\color{all}]
 posterior_win_ta = prior_ta * lhood_lose_ta 
 posterior_lose_tb = prior_tb * lhood_win_tb
 prior_d1 = posterior_win_ta - posterior_lose_tb
 lhood_d1_approx = approx(prior_d1, margin, not_tie) / prior_d1 
 \end{lstlisting}
-
+%
+\en{The message \texttt{lhood\_d1\_approx} allows us to update the distribution of performance $t_b$.}
+\es{El mensahe \texttt{lhood\_d1\_approx} nos permite actualizar la distribución de rendimietos $t_b$.}
+%
+\begin{lstlisting}[backgroundcolor=\color
+{white},label=lst:tb_lose, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{lstlisting}[backgroundcolor=\color{all}]
-# tb
 lhood_lose_tb = posterior_win_ta - lhood_d1_approx 
 \end{lstlisting}
-
-
-
-
+%
+\en{Then we compute the the messages of the next distribution of differences $d_2$.}
+\es{Luego computamos los mensajes de la siguiente distirbución de diferencia $d_2$.}
+%
+\begin{lstlisting}[backgroundcolor=\color
+{white},label=lst:d2, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{lstlisting}[backgroundcolor=\color{all}]
-# d2
 posterior_win_tb = prior_tb * lhood_lose_tb
 posterior_lose_tc = prior_tc * lhood_win_tc 
 prior_d2 = posterior_win_tb - posterior_lose_tc
 lhood_d2_approx = approx(prior_d2, margin, tie) / prior_d2 
 \end{lstlisting}
-
-\begin{lstlisting}[backgroundcolor=\color{all}]
-# tb
-lhood_win_tb = posterior_lose_tc + lhood_d2_approx
- 
+%
+\en{The message \texttt{lhood\_d2\_approx} allows us to update the distribution of performance $t_b$.}
+\es{El mensaje \texttt{lhood\_d2\_approx} nos permite actualizar la distribución de rendimiento $t_b$.}
+%
+\begin{lstlisting}[backgroundcolor=\color
+{white},label=lst:tb_win, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
-
-
-
-%
-Alcanzada la convergencia, actualizamos los bordes
-%
 \begin{lstlisting}[backgroundcolor=\color{all}]
-# ta
+lhood_win_tb = posterior_lose_tc + lhood_d2_approx
+\end{lstlisting}
+%
+\en{Then, loop code \ref{lst:d1}, \ref{lst:tb_lose}, \ref{lst:d2}, \ref{lst:tb_win} until convergence.}
+\es{Entonces, repite los códigos \ref{lst:d1}, \ref{lst:tb_lose}, \ref{lst:d2}, \ref{lst:tb_win} hasta alcanzar convergencia.}
+%
+\en{Once the iteration is finished, we send the last ascending message to the teams on the sides.}
+\es{Finalizada la iteración, enviamos los últimos mensajes ascendentes a los equipos de los bordes.}
+%
+\begin{lstlisting}[backgroundcolor=\color
+{white},label=lst:te_side, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{lstlisting}[backgroundcolor=\color{all}]
 lhood_win_ta = posterior_lose_tb + lhood_d1_approx
-# tc
 lhood_lose_tc = posterior_win_tb - lhood_d2_approx
 \end{lstlisting}
 %
-Una vez definidos todos los mensajes, computamos los likelihood de cada equipo
+\en{We are now able to compute the likelihood of each team.}
+\es{Ahora estamos en condiciones de computar los likelihood de cada equipo.}
+%
+\begin{lstlisting}[backgroundcolor=\color
+{white},label=lst:lhood_te_approx, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{lstlisting}[backgroundcolor=\color{all}]
 lhood_ta_approx = lhood_lose_ta * lhood_win_ta 
 lhood_tb_approx = lhood_lose_tb * lhood_win_tb
 lhood_tc_approx = lhood_lose_tc * lhood_win_tc
 \end{lstlisting}
-Computamos entonces el posterior del jugador 2
+%
+\en{As an example, we compute the posterior of player 2.}
+\es{A modo de ejemplo, computamos el posterior del jugador 2.}
+%
+\begin{lstlisting}[backgroundcolor=\color
+{white},label=lst:posterior_s2_approx, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
 prior2 = r2.N
@@ -2224,10 +2259,9 @@ ex = prior_tb$exclude(prior2)
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
 team_b_without_s2 = ex
-lhood_s2_approx = lhood_ta_pprox - team_b_without_s2 
+lhood_s2_approx = lhood_ta_approx - team_b_without_s2 
 posterior_s2_approx = prior2 * lhood_s2_approx 
 \end{lstlisting}
-
 
 \subsection{History} \label{sec:history}
 
