@@ -319,20 +319,20 @@
 \en{The one with the highest performance wins, $r_{ij} = (d_{ij} > 0)$.}
 \es{Gana quien haya obtenido mayor rendimiento, $r_{ij} = (d_{ij} > 0)$.}
 %
-\en{Any point estimate, $s_i$ and $s_j$, determines a prediction probability for each possible outcome.}
-\es{Cualquier estimación puntual, $s_i$ y $s_j$, determina una probabilidad de predicción de cada posible resultado.}
+\en{Elo's methodological solution is extremely simple and astute: start with arbitrary estimates and, after seeing new data, update it based on the surprise.}
+\es{La solución metodológica de Elo es extremadamente simple y astuta: empezar con estimaciones arbitrarias, y luego de ver nuevos datos, actualizarlas en base a la sorpresa.}
 %
-\en{Elo's methodological solution is extremely simple and astute: update the current estimate based on our surprise.}
-\es{La soluci\'on metodol\'ogica de Elo es extremadamente sencilla y astuta: actualizar la estimaci\'on actual en funci\'on de nuestra sorpresa.}
+\en{Any pair of previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, induces a prior prediction that, depending on the observed result, generates a certain surprise.}
+\es{Cualquier par de estimaciones previas, $s_{i_\text{old}}$ y $s_{j_\text{old}}$, induce una predicción a priori que, dependiendo del resultado, generan una determinada sorpresa.}
 %
 \begin{equation} \label{eq:elo_delta}
  \Delta_i = \underbrace{y_{ij}}_{\hfrac{\text{\en{Direction}\es{Dirección}}}{\text{(Sign\es{o})}}}\underbrace{\left(1-P(\,r_{ij}\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)\right)}_{\hfrac{\text{Magnitud}}{\text{(\en{Surprise}\es{Sorpresa})}}}
 \end{equation}
 %
-\en{where $y_{ij}$ is $1$ for winners and $-1$ for losers, and the probability of the observed result given the old estimates can be derived from Fi.~\ref{fig:generative_model} (more details in section~\ref{sec:exactSolution}).}
+\en{where $y_{ij}$ is $1$ for winners and $-1$ for losers, and the probability of the observed result given the old estimates can be derived from Fig.~\ref{fig:generative_model} (more details in section~\ref{sec:exactSolution}).}
 \es{Donde $y_{ij}$ es $1$ para ganadores y $-1$ para perdedores y la probabilidad del resultado observado dadas las estimaciones a priori se puede derivar de la figura~\ref{fig:generative_model} (detalles en la secci\'on~\ref{sec:analyticalSolution}).}
 %
-\todo[inline]{Esteban arreglala un poquito para que sea m\'as simple}
+\todo{Esteban arreglala un poquito para que sea m\'as simple}
 \en{Unlikely results would indicate that the current estimates are not entirely correct and should be updated to a greater extent than if they had occurred as expected.}
 \es{Los resultados poco probables indicar\'ian que las estimaciones actuales no son del todo correctas y deber\'ian actualizarse en mayor medida que si hubieran ocurrido como se esperaba.}
 %
@@ -502,7 +502,7 @@
  \widehat{p}(s_i| r_{ij}, s_j) = \underset{q(s_i) = \N(s_i|\mu, \sigma^2)}{\text{ arg min }} \ \ \text{KL}(\, p(s_i| r_{ij}, s_j) \, || \,  q(s_i)\, )
 \end{equation}
 %
-\en{This kind of methods, which minimize the Kullback-Leibler divergence between the true and the approximate distribution, allows to perform Bayesian inference in situations that otherwise would be impossible.}
+\en{This kind of methods, which minimize the AnKullback-Leibler divergence between the true and the approximate distribution, allows to perform Bayesian inference in situations that otherwise would be impossible.}
 \es{Esta clase de métodos, que minizan la divergencia Kullback-Leibler entre la distribución verdadera y aproximada, permiten realizar Inferencia Bayesiana en situaciones que de otra forma no sería posibles.}
 %
 \en{The main contribution of the Glicko system~\cite{glikman_gliko_2} was the development of an efficient method to approximate the exact posterior with a Gasussian distribution.}
@@ -535,11 +535,11 @@
 \es{Para TrueSkill, el posterior calculado en un cada momento es,}
 %
 \begin{equation}\label{eq:filter} %\tag{\text{filtering}}
- \text{Posterior}_t \propto \text{Likelihood}_t  \overbrace{\text{Likelihood}_{t-1} \dots \text{Likelihood}_{2} \underbrace{\text{Likelihood}_{1} \text{Prior}_1}_{\widehat{\text{Posterior}}_{1} \text{ \en{as}\es{como} } \text{Prior}_{2}} }^{\widehat{\text{Posterior}}_{t-1} \text{ \en{as}\es{como} } \text{Prior}_{t}} %= \text{Prior}_1 \prod_{i=1}^t \text{Likelihood}_i 
+ \widehat{\text{Posterior}}_t \propto \widehat{\text{Likelihood}}_t  \overbrace{\widehat{\text{Likelihood}}_{t-1} \dots \widehat{\text{Likelihood}}_{2} \underbrace{\widehat{\text{Likelihood}}_{1} \text{Prior}_1}_{\widehat{\text{Posterior}}_{1} \text{ \en{as}\es{como} } \text{Prior}_{2}} }^{\widehat{\text{Posterior}}_{t-1} \text{ \en{as}\es{como} } \text{Prior}_{t}} %= \text{Prior}_1 \prod_{i=1}^t \text{Likelihood}_i 
 \end{equation}
 
-\en{Where {\footnotesize $\widehat{\text{Posterior}}_i$} represents the approximation made with the equation~\ref{eq:approx} at the $i$-est event.}
-\es{Donde {\footnotesize $\widehat{\text{Posterior}}_i$} representa la aproximación hecha con la ecuaci\'on~\ref{eq:approx} en el $i$-ésimo evento.}
+\en{Where {\footnotesize $\widehat{\text{Posterior}}_i$} and {\footnotesize $\widehat{\text{Likelihood}}_i$} represents the approximations induced by the equation~\ref{eq:approx} at the $i$-est event.}
+\es{Donde {\footnotesize $\widehat{\text{Posterior}}_i$} y {\footnotesize $\widehat{\text{Likelihood}}_i$} representan la aproximaciones inducidas por la ecuaci\'on~\ref{eq:approx} en el $i$-ésimo evento.}
 %
 \en{If we consider the likelihood as a filter of the prior, estimates can be seen as the accumulation of all previous filters.}
 \es{Si consideramos la verosimilitud como un filtro del prior, las estimaciones pueden ser vistas como la acumulaci\'on de todos los filtros anterios.}
@@ -551,7 +551,7 @@
 \es{Debido a que las habilidades son variables din\'amicas es importante agregar alguna incertidumbre $\gamma$ en cada paso.}
 %
 \begin{equation}\label{eq:dynamic_factor}
- p(s_{i_t}) = \N(s_{i_t} | \widehat{\mu}_{i_{t-1}}, \widehat{\sigma}_{i_{t-1}}^2 + \gamma^2 )
+ \widehat{p}(s_{i_t}) = \N(s_{i_t} | \mu_{i_{t-1}}, \sigma_{i_{t-1}}^2 + \gamma^2 )
  \end{equation}
  
 \en{The filter approach is very useful, but since its solution does not correspond to any probabilistic model, a set of problems arises.}
