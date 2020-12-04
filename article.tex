@@ -297,6 +297,8 @@
     \label{fig:generative_model}
 \label{modelo}
 \end{figure}
+\todo[inline]{En el caption de la figura, no hay ninguna funci\'on, te refer\'is a las flecas?}
+
 %
 %
 \en{Figure~\ref{fig:generative_model} provides a graphical representation in which the skill generates observable results.}
@@ -411,13 +413,15 @@ These games can abruptly modify skills that had already been accurately estimate
  \underbrace{p(\overbrace{\text{\en{Skills}\es{Habilidades}}}^{\text{\en{Hidden}\es{Oculta}}}|\overbrace{\text{Result\es{ado}}}^{\text{Observ\en{ed}\es{ado}}}, \text{Model\es{o}})}_{\text{Posterior}} = \frac{\overbrace{P(\,\text{Result\es{ado}}\,|\,\text{\en{Skills}\es{Habilidades}}\,,\text{Model\es{o}})}^{\text{\en{Likelihood}\es{Verosimilitud}}}\overbrace{p(\text{\en{Skills}\es{Habilidades}})}^{\text{Prior}}}{\underbrace{P(\text{Result\es{ado}}\,|\,\text{Model\es{o}})}_{\text{Evidenc\en{e}\es{ia} o\en{r}\es{ predicci\'on a} prior \en{prediction}}}}
 \end{equation}
 %
-\en{Where the hidden skills are the hypotheses, the observed results is the data, and the model is defined by the figure~\ref{fig:generative_model}.}
+\en{where the hidden skills are the hypotheses, the observed results are the data, and the model is defined by the figure~\ref{fig:generative_model}.}
 \es{Donde las habilidades ocultas son las hip\'otesis, el resultado observado es el dato, y el modelo est\'a definido por la figura~\ref{fig:generative_model}.}
+
+\todo[inline]{Falta contar en palabras esta expresi\'on, as\'i tirada no va. Tambi\'en me parece que habr\'ia que dar las nociones operacionales (c\'omo haces para usar esto como introducci\'on}
 %
 \en{In section~\ref{sec:exactSolution} we will see in detail how equation~\ref{eq:event_inference} is solved in general.}
 \es{En la secci\'on~\ref{sec:exactSolution} veremos en detalle c\'omo la ecuaci\'on~\ref{eq:event_inference} se resuelve en general.}
 %
-\en{As an instance, equation~\ref{eq:posterior_win} show the belief update for a winning case, using Gaussian priors.}
+\en{As an instance, equation~\ref{eq:posterior_win} shows the belief update for a winning case, using Gaussian priors.}
 \es{A modo de ejemplo, en la ecuaci\'on~\ref{eq:posterior_win} se muestra la actualizaci\'on de creencias para un caso ganador, usando priors Gaussianos.}
 %
 \en{This formula arises by applying the sum and product rule over the probabilistic model (Fig.~\ref{fig:generative_model}).}
