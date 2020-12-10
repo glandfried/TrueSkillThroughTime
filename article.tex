@@ -200,6 +200,8 @@
 \shortcites{Kschischang2001}
 \shortcites{Herbrich2007}
 \shortcites{Dangauthier2007}
+\shortcites{jaynes2003-bookProbabilityTheory}
+\shortcites{VanHorn2003}
 
 \begin{document}
 %\lstset{language=Python}
@@ -218,33 +220,32 @@
 
 %
 
-\en{Knowing how individual skills change over time and relating this changes with their possible causes is essential in sports and educational contexts.}
-\es{Conocer el cambios en las habilidades individuales a lo largo del tiempo es esencial en los contextos deportivos y educativos.}
+\en{Knowing how individual skills change over time is essential in sports and educational contexts.}
+\es{Conocer c\'omo cambian las habilidades individuales a lo largo del tiempo es esencial para en contextos deportivos y educativos.}
 %
-\en{However they are hidden variables, which means that the best we can do is estimating them based on their direct observable consequences: the outcome of problem solving and competitions.}
-\es{Sin embargo ellas son variables ocultas, por lo que en la pr\'actica lo mejor que podemos hacer es estimarla a partir de sus consecuencias observables directas: el producto de resoluci\'on de problemas y competencias.}
+\en{Since they are hidden variables, the best we can do is estimate them based on their direct observable consequences: the outcome of problem solving and competitions.}
+\es{Dado que son variables ocultas, lo mejor que podemos hacer es estimarlas a partir de sus consecuencias observables directas: el producto de resoluci\'on de problemas y competencias.}
 %
-\en{One naive solution is keeping track of positive results frequency, but this is not an informative measure because it depends also on the difficulty of the challenges.}
-\es{La soluci\'on ingenua, frecuencia de resultados positivos, no es un m\'etrica informativa porque depende tambi\'en de la dificultad de los desaf\'ios.}
+\en{Considering the frequency of positive results as an indicator of the ability of individuals is a misconception, mainly because its value also depends on the difficulty of the challenges.}
+\es{Considerar la frecuencia de resultados positivos como indicador de la habilidad de los individuos es un error de concepto, fundamentalmente porque su valor depende tambi\'en de la dificultad de los desaf\'ios.}
 %
-\en{For this reason, the estimation of skill is based on pairwise comparisons.}
-\es{Por esta raz\'on, toda soluci\'on exitosa conocida se basa en comparaciones por pares.}
+\en{For this reason, all widely used skill estimators are based on pairwise comparisons.}
+\es{Por esta raz\'on, todos los estimadores de habilidad ampliamente usados se basa en comparaciones por pares.}
 %
-\en{Since the first generative models, proposed almost a century ago by~\cite{Thurstone1927} and~\cite{zermelo1929-translation}, it is assumed that the probability of an observed result, $r_{ij}$, depends on the difference in performance, $d_{ij}$, between the agent $i$ and target $j$, which is expressed with the expression $P(\, r_{ij} \,|\, d_{ij} \,)$.}
-\es{Ya los primeros modelos generativos, propuestos hace casi un siglo por~\cite{Thurstone1927} y~\cite{zermelo1929-translation}, suponen que la probabilidad de un resultado observado, $r$, depende de la diferencia de rendimiento, $d$, entre el agente y su objetivo, $P(\, r_{ij} \,|\, d_{ij} \,)$.}
+\en{Since the first generative models, proposed almost a century ago by~\cite{Thurstone1927} and~\cite{zermelo1929-translation}, it is assumed that the probability of an observed result, $r$, depends on the performance, $p$, of the agent $i$ and their opponent $j$, expressed as $P(\, r \,|\, p_i, \, p_j \,)$.}
+\es{Desde los primeros modelos generativos, propuestos hace casi un siglo por~\cite{Thurstone1927} y~\cite{zermelo1929-translation}, se supone que la probabilidad de un resultado observado, $r$, depende del rendimiento, $p$, del agente $i$ y de su oponente $j$, expresada como $P(\, r \,|\, p_i, \, p_j \,)$.}
 %
 \en{The field continued to progress with the work of~\cite{Bradley1952} and~\cite{Mosteller1951a,Mosteller1951b,Mosteller1951c}.}
 \es{El campo sigui\'o progresando con los trabajos de \cite{Bradley1952} y~\cite{Mosteller1951a,Mosteller1951b,Mosteller1951c}.}
 % 
-\en{A breakthrough took place with the methodology developed for the US Chess Federation (USCF) by~\cite{Elo2008}, which is still used by the International Chess Federation (FIDE).}
-\es{Un gran avance produjo la metodolog\'ia desarrollada para la Federaci\'on de Ajedrez de los Estados Unidos (USCF) por~\cite{Elo2008}, adoptada hasta el d\'ia de hoy por la Federaci\'on Internacional de Ajedrez (FIDE).}
+\en{A breakthrough took place with the methodology developed by~\cite{Elo2008} for the US Chess Federation (USCF), which is still used by the International Chess Federation (FIDE).}
+\es{Un gran avance produjo la metodolog\'ia desarrollada por~\cite{Elo2008} para la Federaci\'on de Ajedrez de los Estados Unidos (USCF), adoptada hasta el d\'ia de hoy por la Federaci\'on Internacional de Ajedrez (FIDE).}
 
 % Parrafo
 
-\en{The most widely used skill estimators nowadays are based on variations of the probabilistic model proposed by Elo~\citep{Glickman1999,Herbrich2007,VanDerLinden2016,Fox2010}.}
-\es{Los estimadores de habilidades m\'as utilizados en la actualidad comparten alguna variante del modelo probabilístico propuesto por el Elo~\cite{Glickman1999, Herbrich2007, VanDerLinden2016, Fox2010}.}
+\en{All currently widely used skill estimators share some variant of the probabilistic model proposed by the Elo~\citep{Glickman1999,Herbrich2007,VanDerLinden2016,Fox2010}.}
+\es{Todos los estimadores de habilidad ampliamente utilizados actualmente comparten alguna variante del modelo probabilístico propuesto por el Elo~\cite{Glickman1999, Herbrich2007, VanDerLinden2016, Fox2010}.}
 %
-
 \begin{figure}[h!]
 \centering \small
     \tikz{         
@@ -296,95 +297,94 @@
 \end{figure}
 %
 %
-\en{Figure~\ref{fig:generative_model} provides a graphical representation in which the skill generates observable results.}
-\es{La figura~\ref{fig:generative_model} ofrece una representaci\'on gr\'afica en la que las habilidades generan los resultados observables.}
+\en{Figure~\ref{fig:generative_model} provides a graphical representation in which skills generates the observable result.}
+\es{La figura~\ref{fig:generative_model} ofrece una representaci\'on gr\'afica en la que las habilidades generan el resultado observable.}
 %
-% \en{The causal relationship is not direct.}
-% \es{La relaci\'on causal no es directa.}
-% %
-\en{The performance depends on an undetermined number of unknown factors, which are modeled as a constant noise, $\N(p\,|\,s,\beta^2)$.}
-\es{El desempe\~no depende de una cantidad indeterminada de factores desconocidos, que se modelan con un ruido constante, $\N(p\,|\,s,\beta^2)$.}
+\en{The model assumes that the result is a direct consequence of the performances, which vary between events around the true skill with some constant noise,  $\N(p\,|\,s,\beta^2)$.}
+\es{El modelo supone que el resultado es consecuencia directa de los rendimientos, que varían entre eventos alrededor de la verdadera habilidad con cierto ruido constante, $\N(p\,|\,s,\beta^2)$.}
 %
-\en{Then, the observed result is a direct consequence of the difference of the performance of each agent in a particular event (i.e. game), $d_{ij}=p_i - p_j$.}
-\es{Luego, el resultado observado es consecuencias directa de la diferencia de esos rendimientos ocultos, $d_{ij}=p_i - p_j$.}
+% \en{Then, the observed result is a direct consequence of the difference of the performance of each agent in a particular event (i.e. game), $d_{ij}=p_i - p_j$.}
 %
-\en{The one with the highest performance wins, $r_{ij} = (d_{ij} > 0)$.}
-\es{Gana quien haya obtenido mayor rendimiento, $r_{ij} = (d_{ij} > 0)$.}
+\en{The one with the highest performance wins, $r = (p_i > p_j)$.}
+\es{Gana quien haya obtenido mayor rendimiento, $r = (p_i > p_j)$.}
 
-\en{Elo's methodological solution is extremely simple and astute: start with arbitrary estimates and, after seeing new data, update it based on the surprise generated by the result (i.e a weak player beats a top one).}
-\es{La soluci\'on metodol\'ogica de Elo es extremadamente simple y astuta: empezar con estimaciones arbitrarias, y luego de ver nuevos datos, actualizarlas en base a la sorpresa.}
+% Parrafo
+
+\en{Elo's methodological solution is simple and astute: update the previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, based on the surprise, i.e. the complement of the prediction of the observed result.}
+\es{La soluci\'on metodol\'ogica de Elo es simple y astuta: actualizar las estimaciones previas, $s_{i_\text{old}}$ y $s_{j_\text{old}}$, en base a la sorpresa, i.e. el complemento de la predicci\'on del resultado observado.}
 %
-\en{The prior prediction induced by the previous estimates $s_{i_\text{old}}$ and $s_{j_\text{old}}$, defines the generated surprise:}
-\es{Cualquier par de estimaciones previas, $s_{i_\text{old}}$ y $s_{j_\text{old}}$, induce una predicci\'on a priori que, dependiendo del resultado, generan una determinada sorpresa.}
+%empezar con estimaciones arbitrarias
 %
 \begin{equation} \label{eq:elo_delta}
- \Delta_i = \underbrace{y_{ij}}_{\hfrac{\text{\en{Direction}\es{Direcci\'on}}}{\text{(Sign\es{o})}}}\underbrace{\left(1-P(\,r_{ij}\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)\right)}_{\hfrac{\text{Magnitud}}{\text{(\en{Surprise}\es{Sorpresa})}}}
+ \Delta = \underbrace{\left(1-P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)\right)}_{\text{\en{Surprise}\es{Sorpresa}}}
 \end{equation}
 %
-\en{where $\Delta_i$ is the generated surprise, $y_{ij}$ is $1$ if agent $i$ wins and $-1$ in the other case, and the magnitude of the surprise is related with how probable is the obtained outcome (see Fig.~\ref{fig:generative_model}). 
-If the result of the event is the \emph{expected} one, then the generated surprise will be low (more details in section~\ref{sec:exactSolution}). 
-On the contrary, when an unexpected outcome is found, then the surprise will be high.}
-\es{Donde $y_{ij}$ es $1$ para ganadores y $-1$ para perdedores y la probabilidad del resultado observado dadas las estimaciones a priori se puede derivar de la figura~\ref{fig:generative_model} (detalles en la secci\'on~\ref{sec:analyticalSolution}).}
-
-The surprise is used to update the current skill estimations of each player:
+\en{Where the probability arises from instantiating the previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, in the generative model (details in section~\ref{sec:exactSolution}).}
+\es{Donde la probabilidad surge de instanciar las estimaciones previas en el modelo generativo (detalles en la sección~\ref{sec:exactSolution}).}
+%
+\en{The idea is that the surprise, $\Delta$, is related to the quality of the previous estimates and therefore serves to update them.}
+\es{La idea es que la sorpresa, $\Delta$, está relacionada con la calidad de las estimaciones previas y por lo tanto sirvan para actualizarlas. }
+%
+\en{Unexpected results would indicate that current estimates are not entirely correct and should be updated to a greater extent than if they had occurred as expected.}
+\es{Los resultados inesperados indicar\'ian que las estimaciones actuales no son del todo correctas y deber\'ian actualizarse en mayor medida que si hubieran ocurrido como se esperaba.}
+%
 \begin{equation}\label{eq:elo_update}
- s_{i_\text{new}} = s_{i_\text{old}} + \Delta_i
+ s_{\text{winner}_\text{new}} = s_{\text{winner}_\text{old}} + \Delta \ \ \ \ \ s_{\text{loser}_\text{new}} = s_{\text{loser}_\text{old}} - \Delta 
 \end{equation}
-where $s_{i_\text{new}}$ is the updated skill, $s_{i_\text{old}}$ is the previous estimation, and $\Delta_i$ is the generated surprise. 
-A similar update rule is followed for the agent $j$ using the surprise $\Delta_i$ with the opposite sign.
-
-\en{An unlikely result generates a great surprise and, thus, a higher update in the player skill. On the contrary, when the expected result is found, the generated surprise is low and the change on the estimated skill is also low.}
-\es{Los resultados poco probables indicar\'ian que las estimaciones actuales no son del todo correctas y deber\'ian actualizarse en mayor medida que si hubieran ocurrido como se esperaba.}
 %
-
+\en{Where the surprise, $\Delta$, acts as a correction factor for both previous estimates.}
+\es{Donde la sopresa, $\Delta$, act\'ua como factor de correcci\'on para ambas estimaciones previas.}
+%
 \en{This procedure can recover the relative scale of the agents, starting from arbitrary initial values.}
 \es{Esta soluci\'on puede recuperar la escala relativa de los agentes, partiendo de de valores iniciales arbitrarios.}
 %
 \en{However, it does have a major weaknesses.}
 \es{Sin embargo, tiene algunas debilidades importantes.}
 %
-\en{The update rule shown in equation~\ref{eq:elo_update} is symmetric: what one agent loses is obtained by the opponent.}
-\es{Debido a la falta de una noci\'on de incertidumbre sobre las estimaciones, lo que un agente pierde en la ecuaci\'on~\ref{eq:elo_update} lo adquiere el otro.}
+\en{The update rule (Eq.~\ref{eq:elo_update}) is symmetric, so what one agent wins is lost by the other.}
+\es{La regla de actualizaci\'on (Eq.~\ref{eq:elo_update}) es sim\'etrica, as\'i que lo que un agente gana lo pierde el otro.}
 %
-\en{As you cannot have an accurate estimation of new players (an arbitrary fixed value is used for all the new players), the first games tend to generate high surprises. 
-These games can abruptly modify skills that had already been accurately estimated.}
-\es{Como las estimaci\'on nuevas tienden a generan alta sorpresa, su presencia puede modificar bruscamente estimaciones que ya hab\'ian convergido correctamente.}
+\en{Because new agents start with arbitrary estimates (the same initial value for any individual), they tend to generate high surprise and abruptly modify estimates that had already converged correctly.}
+\es{Debido a que a los agentes nuevos comienzan con estimaciones arbitrarias (el mismo valor inicial para cualquier individuo), ellas tienden a generan alta sorpresa y a modificar bruscamente estimaciones que ya habían convergido correctamente.}
 %
-\en{To break this symmetry in equation~\ref{eq:elo_update}, an ad-hoc solution was proposed: reducing the impact of the generated surprise $\Delta_i$ based on the number of times the agent has participated previously.}
-\es{Para romper la simetr\'ia de la ecuaci\'on~\ref{eq:elo_update}, una soluci\'on ad-hoc fue propuesta: reducir el impacto de $\Delta$ en funci\'on de las veces que el agente ha sido visto por el sistema.}
+\en{The weak point of the methodological solution proposed by Elo is the lack of a notion of uncertainty.}
+\es{El punto débil de la solución metodológica propuesta por Elo es la falta de una noción de incertidumbre.}
 %
-\en{This is the role played by the K-factor used by FIDE,  $s_{i_\text{new}} = s_{i_\text{old}} + \Delta_i K_i$.}
-\es{Ese es rol que desempe\~na el K-factor usado por la FIDE, $s_{i_\text{new}} = s_{i_\text{old}} + \Delta_i K_i$.}
+\en{To solve this problem, an ad-hoc solution was proposed: reducing the impact of the surprise, $\Delta$, based on the number of times the agent has participated.}
+\es{Para resolver este problema, una soluci\'on ad-hoc fue propuesta: reducir el impacto de la sorpresa, $\Delta$, en funci\'on de la cantidad de veces que el agente ha participado.}
+%
+\en{This is the role played by the K-factor used by FIDE,  $\Delta_i = \Delta \cdot K_i$.}
+\es{Ese es rol que desempe\~na el K-factor usado por la FIDE, $\Delta_i = \Delta \cdot K_i$.}
 
 % Cambio de parrafo
 
-%\en{Probability Theory provides us with a consistent framework for quantifying the uncertainty of our beliefs~\citep{bishop2006-PRML}.}
-%\es{La Teor\'ia de la Probabilidad nos proporciona un marco consistente para cuantificar la incertidumbre de nuestras creencias~\citep{bishop2006-PRML}.}
+\en{Instead of selecting a single value as an estimate, we would like to quantify the ``relative certainty'' associated with each of the skill hypotheses.}
+\es{En vez seleccionar un único valor como estimación, quisiéramos cuantificar la ``certidumbre relativa'' asociada a cada una de las hipótesis de habilidad.}
 %
-\en{The use of Probability Theory to handle epistemic uncertainty, known as Bayesian inference, was widely adopted because it has proven to be an extremely useful tool in practice~\citep{bishop2006-PRML}.}
-\es{El uso de la Teor\'ia de la Probabilidad para manejar la incertidumbre epist\'emica, conocida como inferencia bayesiana, se adopt\'o ampliamente porque ha demostrado ser una herramienta extremadamente útil en la pr\'actica~\citep{bishop2006-PRML}.}
+\en{The use of probability theory to handle this type of uncertainty (or beliefs), known as Bayesian inference, has been widely adopted not only because it has been shown to be a successful tool in practice~\citep{bishop2006-PRML}, but also because its rules have been proven to be the only ones that guarantee consistent reasoning~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
+\es{El uso de la teor\'ia de la probabilidad para tratar este tipo de incertidumbre (o creencias), conocida como inferencia Bayesiana, se ha adoptado ampliamente no sólo porque ha mostrado ser una herramienta exitosa en la práctica \citep{bishop2006-PRML}, sino también porque se ha demostrado que sus reglas son las únicas que garantizan un razonamiento consistente~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
 %
-\en{The rules of probability are the only ones that guarantee consistent reasoning in the presence of one dimensional epistemic uncertainty~\citep{Cox1946, VanHorn2003}.}
-\es{Las reglas de la probabilidad son las únicas que garantizan un razonamiento consistente en presencia de incertidumbre epist\'emica unidimensional~\citep{Cox1946, VanHorn2003}.}
+\en{All inference, no matter how complex, can be solved in terms of this two simple equations: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
+\es{Toda inferencia, no importa cuan compleja ella sea, puede ser resuelta a trav\'es de estas dos simples ecuaciones: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
 %
-\en{All of the probabilistic inference, no matter how complex, can be solved in terms of two simple equations: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
-\es{Toda inferencia probabil\'istica, no importa cuan compleja ella sea, puede ser resuelta a trav\'es de dos simples ecuaciones: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
-
 \begin{equation} \label{eq:sum_rule}
  \tag{\en{sum rule}\es{regla de la suma}}
  P(x) = \sum_{y} P(x,y) \ \ \ \ \ \text{or} \ \ \ \ \ p(x) = \int p(x,y) \, dy
 \end{equation}
 %
-\en{This means that any marginal distribution can be obtained by integrating or summing up the joint distribution over $y$.}
-\es{Esto significa que cualquier distribuci\'on marginal se puede obtener integrando o sumando la distribuci\'on conjunta sobre $y$.}
+\en{Where $ P (\cdot) $ and $ p (\cdot) $ represent discrete and continuous probabilities distributions respectively.}
+\es{Donde $P(\cdot)$ y $p(\cdot)$ representan distribuciones de probabilidad discretas y continuas respectivamente.}
+%
+\en{The \ref{eq:sum_rule} state that any marginal distribution can be obtained by integrating, or summing up, the joint distribution.}
+\es{La \ref{eq:sum_rule} afirma que cualquier distribuci\'on marginal se puede obtener integrando o sumando la distribuci\'on conjunta.}
 %
 \begin{equation}\label{eq:product_rule}
 \tag{\en{product rule}\es{regla del producto}}
  p(x,y) = p(x|y) p(y)
 \end{equation}
 %
-\en{Additionally, any joint distribution can be expressed as the product of one-dimensional conditional distributions.}
-\es{Adem\'as, cualquier distribuci\'on conjunta puede ser expresada como el producto de distribuciones condicionales uni-dimensionles.}
+\en{Additionally, the \ref{eq:product_rule} state that any joint distribution can be expressed as the product of one-dimensional conditional distributions.}
+\es{Adem\'as, la \ref{eq:product_rule} se\~nala que cualquier distribuci\'on conjunta puede ser expresada como el producto de distribuciones condicionales uni-dimensionles.}
 %
 \en{From these rules, jointly with the symmetry property $p(x,y) = p(y,x)$, we can immediately obtain the~\ref{eq:bayes_theorem}:}
 \es{De estas reglas, junto con la propiedad de simetr\'ia $p(x,y) = p(y,x)$, podemos obtenemos inmediatamente el~\ref{eq:bayes_theorem},}
@@ -394,55 +394,66 @@ These games can abruptly modify skills that had already been accurately estimate
  p(y|x) = \frac{p(x|y)p(y)}{p(x)}
 \end{equation}
 %
-\en{The inferential use of Bayes' theorem plays a central role in modern statistical learning techniques.}
-\es{El uso inferencial del teorema de bayes juega un rol central en las t\'ecnicas modernas de aprendizaje estad\'isitico.}
+% \en{The inferential use of Bayes' theorem plays a central role in modern statistical learning techniques.}
+% \es{El uso inferencial del teorema de bayes juega un rol central en las t\'ecnicas modernas de aprendizaje estad\'isitico.}
 %
-\en{This expression allows us to optimally update our beliefs about the hypotheses, given a model and the data.}
-\es{Esta expresi\'on nos permite actualizar de forma \'optima nuestras creencia sobre las hip\'otesis, dado un modelo y los datos.}
+\en{The \ref{eq:bayes_theorem} allows to optimally update our beliefs about the hypotheses, given a model and the data.}
+\es{El \ref{eq:bayes_theorem} permite actualizar de forma \'optima las creencia sobre las hip\'otesis, dado un modelo y los datos.}
 %
-
-\en{To reduce the epistemic uncertainty about the hidden skill, using the information provided by the observed result and the described causal model, we need to solve the following equation.}
-\es{Para reducir la incertidumbre epist\'emica sobre la habilidad oculta, usando la informaci\'on que nos ofrece el resultado observado y el modelo causal descrito, necesitamos resolver la siguiente ecuaci\'on.}
+\en{In our case, to reduce the uncertainty about the hidden skill using the information provided by the observed result and the described causal model, we need to solve the following equation.}
+\es{En nuestro caso, para reducir la incertidumbre sobre la habilidad oculta usando la informaci\'on que nos ofrece el resultado observado y el modelo causal descrito, necesitamos resolver la siguiente ecuaci\'on.}
 %
 \begin{equation}\label{eq:event_inference} 
  \underbrace{p(\overbrace{\text{\en{Skills}\es{Habilidades}}}^{\text{\en{Hidden}\es{Oculta}}}|\overbrace{\text{Result\es{ado}}}^{\text{Observ\en{ed}\es{ado}}}, \text{Model\es{o}})}_{\text{Posterior}} = \frac{\overbrace{P(\,\text{Result\es{ado}}\,|\,\text{\en{Skills}\es{Habilidades}}\,,\text{Model\es{o}})}^{\text{\en{Likelihood}\es{Verosimilitud}}}\overbrace{p(\text{\en{Skills}\es{Habilidades}})}^{\text{Prior}}}{\underbrace{P(\text{Result\es{ado}}\,|\,\text{Model\es{o}})}_{\text{Evidenc\en{e}\es{ia} o\en{r}\es{ predicci\'on a} prior \en{prediction}}}}
 \end{equation}
 %
-\en{where the hidden skills are the hypotheses, the observed results are the data, and the model is defined by the figure~\ref{fig:generative_model}.}
+\en{Where the hidden skills are the hypotheses, the observed results are the data, and the model is defined by the figure~\ref{fig:generative_model}.}
 \es{Donde las habilidades ocultas son las hip\'otesis, el resultado observado es el dato, y el modelo est\'a definido por la figura~\ref{fig:generative_model}.}
+%
+\en{The only free variable is the skill hypothesis}
+\es{La única variable libre es la hip\'otesis de habilidad.}
+%
+\en{The prior represents the previous uncertainty, and the posterior is the updated uncertainty after incorporating the information provided by the data.}
+\es{El prior representa la incertidumbre previa, y el posterior es la incertidumbre actualizada luego de incorporar la información provista por el dato.}
+%
+\en{Note that the likelihood and the evidence are both probabilities of the observed result, so they can be seen as predictions.}
+\es{Notar que la verosimilitud como la evidencia son probabilidades del resultado observado, por lo que pueden ser vistas como predicciones.}
+%
+\en{Since the results are discrete variables, those probabilities are written with capital letters.}
+\es{Como los resultados son variables discretas, esas probabilidad se escribe con letras mayúsculas.}
+%
+\en{Evidence, for its part, is a prediction made with all the prior hypotheses, so its value does not change when different hypotheses are evaluated.}
+\es{La evidencia, por su parte, es una predicción hecha con todas las hipótesis a priori, por lo que no cambia su valor cuando se evaluan diferentes hipótesis.}
+%
+\en{Therefore, the only factor that updates our beliefs is the likelihood.}
+\es{Es decir, el único factor que actualización nuestras creencias es la verosimilitud.}
+%
+\en{The posterior uncertainty of each hypothesis is proportional to the product of their prior uncertainty and their likelihood.}
+\es{La incertidumbre a posteriori de cada hip\'otesis es proporcional al producto de su incertidumbre a priori y su verosimilitud.}
 
-\todo[inline]{Falta contar en palabras esta expresi\'on, as\'i tirada no va. Tambi\'en me parece que habr\'ia que dar las nociones operacionales (c\'omo haces para usar esto como introducci\'on}
-%
-\en{In section~\ref{sec:exactSolution} we will see in detail how equation~\ref{eq:event_inference} is solved in general.}
-\es{En la secci\'on~\ref{sec:exactSolution} veremos en detalle c\'omo la ecuaci\'on~\ref{eq:event_inference} se resuelve en general.}
-%
+% Parrafo
+
 \en{As an instance, equation~\ref{eq:posterior_win} shows the belief update for a winning case, using Gaussian priors.}
 \es{A modo de ejemplo, en la ecuaci\'on~\ref{eq:posterior_win} se muestra la actualizaci\'on de creencias para un caso ganador, usando priors Gaussianos.}
 %
-\en{This formula arises by applying the sum and product rule over the probabilistic model (Fig.~\ref{fig:generative_model}).}
-\es{Esta f\'ormula surge de aplicar las reglas de las suma y el producto sobre el modelo probabil\'istico de la figura~\ref{fig:generative_model}.}
+\en{In section~\ref{sec:exactSolution} we will see in detail how equation~\ref{eq:event_inference} arises by applying the sum and product rule over the probabilistic model.}
+\es{En la secci\'on~\ref{sec:exactSolution} veremos en detalle c\'omo la ecuaci\'on~\ref{eq:event_inference} surge de aplicar las reglas de las suma y el producto sobre el modelo probabil\'istico.}
 %
 \en{From now on the role of the model will be left implicit, according to notation conventions.}
 \es{A partir de ahora el rol del modelo se dejrá impl\'icito, de acuerdo con convenciones de notaci\'on.}
 %
 \begin{equation}\label{eq:posterior_win}
-\underbrace{p(s_i, r_{ij}|s_j)}_{\hfrac{\text{\scriptsize Proportional}}{\text{\scriptsize posterior}}} = \underbrace{1-\Phi(0 \, |  \overbrace{s_i^{\textcolor{white}{2}} - \mu_j}^{\delta(s_i)} , \, \overbrace{2\beta^2 + \sigma_j^2}^{\vartheta_i^2} )}_{\text{\en{Likelihood}\es{Verosimilitud}}} \,  \underbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}_{\text{Prior}} 
+\underbrace{p(s_i , \, r \, | \, s_j\, )}_{\hfrac{\text{\scriptsize Proportional}}{\text{\scriptsize posterior}}} = \underbrace{1-\Phi(0 \, |  \overbrace{s_i^{\textcolor{white}{2}} - \mu_j}^{\hfrac{\text{\en{Expected}\es{Diferencia}}}{\text{\en{difference}\es{esperada}}}} , \, \overbrace{2\beta^2 + \sigma_j^2}^{\hfrac{\text{\en{Total}\es{Incertidumbre}}}{\text{\en{uncertainty}\es{total}}}} )}_{\text{\en{Likelihood}\es{Verosimilitud}}} \,  \underbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}_{\text{Prior}} 
 \end{equation}
 %
-\en{Where the proportional posterior is just the unnormalized posterior, $p(s_i| r_{ij}, s_j) = \frac{p(s_i, r_{ij}|s_j)}{P(r_{ij})}$.}
-\es{El posterior no es m\'as que el posterior proporcional normalizado por la evidencia, $p(s_i| r_{ij}, s_j) = \frac{p(s_i, r_{ij}|s_j)}{P(r_{ij})}$.}
+\en{Where the proportional posterior is just the unnormalized posterior, $p(s_i| r, s_j) = \frac{p(s_i, r|s_j)}{P(r)}$, and the likelihood is the cumulative density of all positive values of a Gaussian distribution centered at the difference between the hypothesis $s_i$ and the opponent's mean estimate $\mu_j$, with a variance that includes all uncertainties except the one of $s_i$.}
+\es{El posterior no es m\'as que el posterior proporcional normalizado por la evidencia, $p(s_i| r, s_j) = \frac{p(s_i, r|s_j)}{P(r)}$, y la verosimilitud es la densidad acumulada de los valores positivos de una distribuci\'on Gaussiana centrada en la diferencia entre la hip\'otesis $s_i$ y la estimaci\'on media del oponente $\mu_j$, $\delta(s_i)$, con una varianza que incluye todas las incertidumbres salvo la de la propia hip\'otesis $s_i$, $\vartheta_i^2$. }
 %
-\en{The only free variable is the hypothesis $s_i$.}
-\es{La única variable libre es la hip\'otesis $s_i$.}
+\en{In other words, the likelihood is just the prior prediction of the observed winning result, made with all the skill opponent's hypotheses, and assuming true the skill hypothesis of the agent we are evaluating.}
+\es{En otras palabras, la verosimilitud no es más que la predicci\'on a priori del resultado observado ganador, realizada con todas las hip\'otesis de habilidad del oponete, y suponiendo verdadera la hipótesis de habilidad del agente que estamos evaluando.}
 %
-\en{The posterior uncertainty of each hypothesis $s_i$ is proportional to the product of their prior uncertainty and thier likelihood.}
-\es{La incertidumbre a posteriori de cada hip\'otesis $s_i$ es proporcional al producto de su incertidumbre a priori y su verosimilitud.}
-%
-\en{Note that the likelihood is just the prior prediction of the observed winning result, made with all the skill opponent's hypotheses, assuming $s_i$ as the true skill of the agent.}
-\es{Notar que la verosimilitud no es más que la predicci\'on a priori del resultado observado ganador, realizada con todas las hip\'otesis de habilidad del oponete, suponiendo $s_i$ como la verdadera del agente.}
-%
-\en{That is what computes the cumulative density of all positive values of a Gaussian distribution centered at the difference between the hypothesis $s_i$ and the opponent's mean estimate $\mu_j$, $\delta(s_i)$, with a variance that includes all uncertainties except the one of $s_i$, $\vartheta_i^2$.}
-\es{Esto lo que computa la densidad acumulada de los valores positivos de una distribuci\'on Gaussiana centrada en la diferencia entre la hip\'otesis $s_i$ y la estimaci\'on media del oponente $\mu_j$, $\delta(s_i)$, con una varianza que incluye todas las incertidumbres salvo la de la propia hip\'otesis $s_i$, $\vartheta_i^2$.}
+% \en{For each hypothesis $s_i$, the filtered density is exactly proportional to the magnitude of the surprise, defined as the complement of the likelihood.}
+% \es{Para cada hip\'otesis $s_i$, la masa filtrada es exactamente proporcional a la magnitud de la sorpresa, definida como el complemento de la verosimilitud.}
 %
 \en{Figure~\ref{fig:posterior_win} shows, in graphical terms, the updating procedure executed in equation~\ref{eq:posterior_win}.}
 \es{La figura~\ref{fig:posterior_win} muestra, en t\'erminos gr\'aficos, el procedimiento de actualizaci\'on que se realiza en la ecuaci\'on~\ref{eq:posterior_win}.}
@@ -473,15 +484,12 @@ These games can abruptly modify skills that had already been accurately estimate
 %
 \en{The posterior receives the density of the prior no filtered by the likelihood.}
 \es{El posterior recibe la masa del prior no filtrada por la verosimilitud.}
-% %
-% \en{For each hypothesis $s_i$, the filtered density is exactly proportional to the magnitude of the surprise, defined as the complement of the likelihood.}
-% \es{Para cada hip\'otesis $s_i$, la masa filtrada es exactamente proporcional a la magnitud de la sorpresa, definida como el complemento de la verosimilitud.}
 %
-\en{At the region of very high skill hypotheses, where the winning result would have generated almost no surprise, the posterior receives almost all the density of the prior.}
-\es{En la regi\'on de hip\'otesis de muy alta habilidad, donde el resultado ganador no nos hubiera generado casi ninguna sorpresa, el posterior recibe casi toda la masa del prior.}
+\en{At the region of very high skill hypotheses, where the winning result would have generated almost no surprise ($\lim_{s_i \to \infty}P(r|s_i) = 1$), the posterior receives almost all the density of the prior.}
+\es{En la regi\'on de hip\'otesis de muy alta habilidad, donde el resultado ganador no nos hubiera generado casi ninguna sorpresa ($\lim_{s_i \to \infty}P(r|s_i) = 1$), el posterior recibe casi toda la masa del prior.}
 %
-\en{At the region of very low skill hypotheses, where the winning result would have generated a lot of surprise, the posterior receives almost no density from the prior.}
-\es{En cambio, en la regi\'on de hip\'otesis de muy baja habilidad, donde el resultado habr\'ia generado mucha sorpresa, el posterior no recibe casi nada de la masa del prior.}
+\en{At the region of very low skill hypotheses, where the winning result would have generated a lot of surprise ($\lim_{s_i \to -\infty}P(r|s_i) = 0$), the posterior receives almost no density from the prior.}
+\es{En cambio, en la regi\'on de hip\'otesis de muy baja habilidad, donde el resultado habr\'ia generado mucha sorpresa ($\lim_{s_i \to -\infty}P(r|s_i) = 0$), el posterior no recibe casi nada de la masa del prior.}
 
 % Parrafo
 
