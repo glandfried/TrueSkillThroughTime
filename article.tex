@@ -497,14 +497,7 @@
 \es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on Gaussiana, lo que nos impedirá usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
 %
 \en{But due the shape of the exact posterior, a Gaussian seem to be a good enough approximation, allowing us to avoid the computational cost of the sampling methodologies.}
-\es{Por la forma del posterior exacto, una Gaussiana parece una aproximaci\'on suficientemente buena, que nos permitiría evitar el costo computacional de la metodolog\'ias de sampleo.}
-%
-\begin{equation} \label{eq:approx} 
- \widehat{p}(s_i| r_{ij}, s_j) = \underset{q(s_i) = \N(s_i|\mu, \sigma^2)}{\text{ arg min }} \ \ \text{KL}(\, p(s_i| r_{ij}, s_j) \, || \,  q(s_i)\, )
-\end{equation}
-%
-\en{This kind of methods, which minimize the AnKullback-Leibler divergence between the true and the approximate distribution, allows to perform Bayesian inference in situations that otherwise would be impossible.}
-\es{Esta clase de m\'etodos, que minizan la divergencia Kullback-Leibler entre la distribuci\'on verdadera y aproximada, permiten realizar Inferencia Bayesiana en situaciones que de otra forma no sería posibles.}
+\es{Por la forma del posterior exacto, una Gaussiana parece una aproximaci\'on suficientemente buena, que nos permitiría evitar el costo computacional de las metodolog\'ias de sampleo.}
 %
 \en{The main contribution of the Glicko system~\cite{glikman_gliko_2} was the development of an efficient method to approximate the exact posterior with a Gasussian distribution.}
 \es{El principal aporte del sistema Glicko~\cite{glikman_gliko_2} fue el desarroll\'o de un m\'etodo eficiente para aproximar la posterior exacta con una distribuci\'on Gasussiana.}
@@ -512,38 +505,39 @@
 \en{However, this offers no guarantee that the selected Gaussian is the one that best approximates the exact posterior.}
 \es{Sin embargo, esta no ofrece garant\'ias de que la Gaussiana seleccionada sea la que mejor aproxima al posterior exacto.}
 %
-\en{The success of the TrueSkill solution~\citep{Herbrich2007} is based on the application of an efficient method for calculating the Gaussian that best approximates the exact posterior.}
-\es{El \'exito de la soluci\'on TrueSkill~\citep{Herbrich2007} se basa en la aplicaci\'on de m\'etodo eficiente para calcular la Gaussiana que mejor aproxima a la posterior exacta.}
+\en{The success of the TrueSkill solution~\citep{Herbrich2007} is based on the application of an efficient method for computing the Gaussian that best approximates the exact posterior (section~\ref{sec:approximate_posterior}).}
+\es{El \'exito de la soluci\'on TrueSkill~\citep{Herbrich2007} se basa en la aplicaci\'on de m\'etodo eficiente para calcular la Gaussiana que mejor aproxima a la posterior exacta (secci\'on~\ref{sec:approximate_posterior}).}
 %
-\en{Methodological details are described in the section~\ref{sec:analytical_posterior}.}
-\es{Los detalles metodol\'ogicos se describen en la secci\'on~\ref{sec:analytical_posterior}.}
+\begin{equation} \label{eq:approx} 
+ \widehat{p}(s_i| r, s_j) = \underset{\mu, \sigma}{\text{ arg min }} \ \ \text{KL}(\, p(s_i| r, s_j) \, || \,  \N(s_i|\mu, \sigma^2) \, )
+\end{equation}
 %
-% \en{This technical advance allowed to apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
-% \es{Este avance t\'ecnico permiti\'o aplicar la ecuaci\'on~\ref{eq:posterior_win} sobre una secuencia de observaciones.}
-
+\en{This kind of methods, which minimize the Kullback-Leibler divergence between the true and the approximate distribution, allows to perform Bayesian inference in situations that otherwise would be impossible.}
+\es{Esta clase de m\'etodos, que minizan la divergencia Kullback-Leibler entre la distribuci\'on verdadera y aproximada, permiten realizar Inferencia Bayesiana en situaciones que de otra forma no sería posibles.}
+%
+\en{In our case, in which we want to know how skills change over time, this technique allow us to apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
+\es{En nuestro caso, en el que queremos conocer cómo cambian las habilidades a través del tiempo, está técnica nos permite aplicar la ecuación~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
+%
 % Parrafo
-
-\en{Learning is a dynamical process.}
-\es{El aprendizaje es un proceso din\'amico.}
 %
-\en{The approach adopted by TrueSkill, Glicko, and BIRT to treat a sequence of observations, known as \emph{filtering}, uses the posterior as the prior for the next event.}
-\es{El enfoque adoptado por TrueSkill, Glicko y BIRT para tratar una secuencia de observaciones, conocido como \emph{filtering}, usan el posterior como prior del siguiente evento.}
+%\en{Learning is a dynamical process.}
+%\es{El aprendizaje es un proceso din\'amico.}
 %
-% \en{Because each prior is now Gaussian, we can reapply the equation~\ref{eq:posterior_win} to calculate the exact posterior and i}
-% \es{Gracias a que en cada paso usamos el posterior aproximado como prior podemos aplicar la ecuaci\'on~\ref{eq:posterior_win} para calcular el posterior exacto y su \ref{eq:approx}.}
+\en{The approach adopted by TrueSkill, Glicko, and BIRT to treat the dynamical process, known as \emph{filtering}, uses the posterior as the prior for the next event.}
+\es{El enfoque adoptado por TrueSkill, Glicko y BIRT para tratar el proceso din\'amico, conocido como \emph{filtering}, usa el posterior como prior del siguiente evento.}
 %
-\en{For TrueSkill, the posterior calculated at any given time is,}
-\es{Para TrueSkill, el posterior calculado en un cada momento es,}
+\en{Then, the posterior calculated by TrueSkill at any given time is,}
+\es{Luego, el posterior calculado por TrueSkill en un momento es,}
 %
 \begin{equation}\label{eq:filter} %\tag{\text{filtering}}
  \widehat{\text{Posterior}}_t \propto \widehat{\text{Likelihood}}_t  \overbrace{\widehat{\text{Likelihood}}_{t-1} \dots \widehat{\text{Likelihood}}_{2} \underbrace{\widehat{\text{Likelihood}}_{1} \text{Prior}_1}_{\widehat{\text{Posterior}}_{1} \text{ \en{as}\es{como} } \text{Prior}_{2}} }^{\widehat{\text{Posterior}}_{t-1} \text{ \en{as}\es{como} } \text{Prior}_{t}} %= \text{Prior}_1 \prod_{i=1}^t \text{Likelihood}_i 
 \end{equation}
-
+%
 \en{Where {\footnotesize $\widehat{\text{Posterior}}_i$} and {\footnotesize $\widehat{\text{Likelihood}}_i$} represents the approximations induced by the equation~\ref{eq:approx} at the $i$-est event.}
 \es{Donde {\footnotesize $\widehat{\text{Posterior}}_i$} y {\footnotesize $\widehat{\text{Likelihood}}_i$} representan la aproximaciones inducidas por la ecuaci\'on~\ref{eq:approx} en el $i$-\'esimo evento.}
 %
-\en{If we consider the likelihood as a filter of the prior, estimates can be seen as the accumulation of all previous filters.}
-\es{Si consideramos la verosimilitud como un filtro del prior, las estimaciones pueden ser vistas como la acumulaci\'on de todos los filtros anterios.}
+\en{If we consider the likelihood as a filter of the prior, each posterior can be seen as an accumulation of all previous filters.}
+\es{Si consideramos la verosimilitud como un filtro del prior, cada posterior puede ser visto como una acumulaci\'on de todos los filtros anterios.}
 %
 \en{In this way, information propagates from past to future estimates.}
 \es{De esta forma, la informaci\'on propaga del estimaciones pasadas hacia futuras.}
@@ -554,31 +548,38 @@
 \begin{equation}\label{eq:dynamic_factor}
  \widehat{p}(s_{i_t}) = \N(s_{i_t} | \mu_{i_{t-1}}, \sigma_{i_{t-1}}^2 + \gamma^2 )
  \end{equation}
- 
-\en{The filter approach is very useful, but since its solution does not correspond to any probabilistic model, a set of problems arises.}
-\es{El enfoque de filtrado es muy útil, pero como su soluci\'on no se  corresponde a ningún modelo probabilístico, surge un conjunto de problemas.}
+ %
+\en{Because the filtering approach does not arise from any probabilistic model, it suffers from a number of problems.}
+\es{Debido a que el enfoque de filtrado no se surge de ningún modelo probabilístico, sufre de un serie de problemas.}
+% %
+\en{Thay weaknesses are related to the fact that the information propagates in only one direction through the system.}
+\es{Sus debilidades están relacionadas con el hecho de que la informaci\'on propaga en un solo sentido por el sistema.}
 %
-\en{Its weaknesses are due to the fact that information propagates in only one direction througth the system.}
-\es{Sus debilidades se deben a que la informaci\'on propaga en un solo sentido por el sistema.}
+\en{The beginning of any sequence of estimates always has high uncertainty.}
+%, making them useless
+\es{El inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre.}
+% , lo que las hace inservibles
+\en{But it also suffer from ``temporary'' and ``spatial'' decoupling.}
+\es{Pero también sufre de desacoplamientos ``temporales'' y ``espaciales''.}
 %
-\en{For example, the beginning of any sequence of estimates always has high uncertainty, making them useless.}
-\es{Por ejemplo, el inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre, lo que las hace inservibles.}
-%
-\en{But their estimates suffer others less obvious problems, like ``temporary'' and ``spatial'' decoupling. }
-\es{Pero sus estimaciones sufren de otros problemas menos evidentes, como los desacoplamientos ``temporales'' y ``espaciales''.}
-%
-%Since the results depend only on the difference in skills, and not on their absolute value, i
-\en{It may happen that the relative differences are correct between contemporary estimates but not between estimates separated in time, preventing temporal comparability.}
-%Dabido a que los resultados dependen s\'olo de la diferencia de habilidades, y no de su valor absoluto, p
-\es{Puede ocurrir que las diferencias relativas sean correctas entre estimaciones contempor\'aneas pero no entre estimaciones separadas en el tiempo, impidiendo la comparabilidad temporal.}
-%
-\en{Similarly, it may happen that within well-connected communities the relative difference are correct, but not between poorly connected communities, preventing comparability between communities.}
-\es{De modo similar puede ocurrir que al interior de comunidades bien conectadas la diferencia relativa sean correctas, pero no entre comunidades poco conectadas, impidiendo comparabilidad entre comunidades.}
+\en{Although the relative differences between contemporary estimates within well-connected communities may be correct, estimates separated in time and between poorly connected communities are often incorrect.}
+% preventing comparability over time and between communities.
+\es{A pesar de que la diferencia relativa entre estimaciones contempor\'aneas al interior de comunidades bien conectadas puedan ser correctas, las estimaciones separadas en el tiempo y entre comunidades poco conectadas suelen ser incorrectas.}
+% impidiendo así la comparabilidad temporal y entre comunidades.
 
-%Parrafo
+% Parrafo
 
-\en{To solve the problems of the filter approach, we need a representation of the temporal process: a single causal model that links all historical activities.}
-\es{Para resolver los problemas del abordaje de filtro, necesitamos una representaci\'on del proceso temporal: un único modelo causal que vincule todas las actividades hist\'oricas. }
+\en{In order to obtain good initial estimates and ensure temporal and spatial comparability we need a causal model of the temporal process that links all historical activities.}
+\es{A fin de obtener buenas estimaciones iniciales y garantizar comparbilidad temporal y espacial, necesitamos un modelo causal del proceso temporal que vincule todas las actividades hist\'oricas.}
+%
+\en{This approach, known as \emph{smoothing}, is the one implemented by TrueSkill Through Time~\citep{Dangauthier2007}.}
+\es{Este enfoque, conocido como \emph{smoothing}, es el implementado por TrueSkill Through Time~\citep{Dangauthier2007}.}
+%
+\en{It is difficult to imagine the complex structure that these types of models can acquire, any video game will typically require a network of millions of events.}
+\es{Es dif\'icil imaginar la compleja estructura que pueden adquerir este tipo de modelos gr\'aficos, cualquier videojuego requerirá tipicamente una red de millones de eventos.}
+%
+\en{Figure~\ref{fig:smoothing} shows the closest neighbors of a sequence of estimates.}
+\es{En la figura~\ref{fig:smoothing} se muestra los vecinos m\'as pr\'oximos de una secuencia de estimaciones.}
 %
 \begin{figure}[h!]
   \centering
@@ -618,31 +619,17 @@
   \en{Only the neighbors of a sequence of estimates are displayed.}
   \es{S\'olo se muestra los vecinos de una secuencia de estimaciones.}
   %
-  \en{Its probabilistic solution generates the approach known as \emph{smoothing}, in which historical information flows through the whole system.}
-  \es{La soluci\'on probabilística da como resultado el abordaje conocido como \emph{smoothing}, en el que la informaci\'on hist\'orica fluye por todo el sistema.}
-  %
-  %\en{These types of models are known as \emph{state-space models}.}
-  %\es{Este tipo de modelos se conocen como \emph{state space models}.}
+%   \en{Its probabilistic solution generates the approach known as \emph{smoothing}, in which historical information flows through the whole system.}
+%   \es{La soluci\'on probabilística da como resultado el abordaje conocido como \emph{smoothing}, en el que la informaci\'on hist\'orica fluye por todo el sistema.}
+%   %
+%   %\en{These types of models are known as \emph{state-space models}.}
+%   %\es{Este tipo de modelos se conocen como \emph{state space models}.}
   }
   \label{fig:smoothing}
 \end{figure}
 %
-\en{It is difficult to imagine the complex structure that these types of graphical models can acquire.}
-\es{Es dif\'icil imaginar la compleja estructura que pueden adquerir este tipo de modelos gr\'aficos.}
-%
-\en{Any video game will typically require a network of millions of events.}
-\es{Cualquier videojuego requerirá tipicamente una red de millones de eventos.}
-%
-\en{Figure~\ref{fig:smoothing} shows the closest neighbors of a sequence of estimates.}
-\es{En la figura~\ref{fig:smoothing} se muestra los vecinos m\'as pr\'oximos de una secuencia de estimaciones.}
-
-% Parrafo
-
-\en{This approach, known as \emph{smoothing}, is the one implemented by TrueSkill Through Time~\citep{Dangauthier2007}.}
-\es{Este enfoque, conocido como \emph{smoothing}, es el implementado por TrueSkill Through Time~\citep{Dangauthier2007}.}
-%
-\en{By applying the rules of probability to this temporal model, historical information naturally propagate throughout the system, solving the decoupling problems of the filter approach.}
-\es{Al aplicar las reglas de la probabilidad sobre este modelo temporal, la informaci\'on hist\'orica propaga naturalmente hacia todo el sistema, resolviendo los problemas de desacoplamiento del enfoque de filtro.}
+\en{By applying the rules of probability to this temporal model, historical information naturally propagate throughout the system, solving the problems of the filtering approach.}
+\es{Al aplicar las reglas de la probabilidad sobre este modelo temporal, la informaci\'on hist\'orica propaga naturalmente hacia todo el sistema, resolviendo los problemas del enfoque de filtro.}
 %
 \en{A prior distribution at an event $t$, with $\gamma = 0$, is now the product of all past and future information.}
 \es{La distribuci\'on a prior en un evento $t$, con $\gamma = 0$, es ahora la multiplicaci\'on de toda la informaci\'on pasada y futura.}
@@ -915,8 +902,8 @@
 \en{In the section \ref{sec:Gasussian}, \ref{sec:rating} and \ref{sec:game} we introduce the implementation details of the classes \texttt{Gaussian}, \texttt{Rating} and \texttt{Game}.}
 \es{En las secciones \ref{sec:Gasussian}, \ref{sec:rating} y \ref{sec:game} introducimos los detalles de implementaci\'on de las clases \texttt{Gaussian}, \texttt{Rating} y \texttt{Game}.}
 %
-\en{In the sections \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate _posterior}, and \ref{sec:iterative_posterior} we show respectively how to solve the prior probability and the exact posterior of an event, we modified the model to include ties, we explain how to approximate the posterior, and we give the general multi-team solution.}
-\es{En las secciones \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate _posterior}, y \ref{sec:iterative_posterior} mostramos respectivamente c\'omo resolver la probabilidad a priori y el posterior exacto de un evento, modificamos el modelo para que incluya empates, explicamos c\'omo aproximar el posterior y damos la soluci\'on general multi-equipos.}
+\en{In the sections \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate_posterior}, and \ref{sec:iterative_posterior} we show respectively how to solve the prior probability and the exact posterior of an event, we modified the model to include ties, we explain how to approximate the posterior, and we give the general multi-team solution.}
+\es{En las secciones \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate_posterior}, y \ref{sec:iterative_posterior} mostramos respectivamente c\'omo resolver la probabilidad a priori y el posterior exacto de un evento, modificamos el modelo para que incluya empates, explicamos c\'omo aproximar el posterior y damos la soluci\'on general multi-equipos.}
 %
 FALTA HISTORY
 % %
@@ -1721,7 +1708,7 @@ margin = compute_margin(p_draw, sd)
 % \varepsilon = \underset{\varepsilon}{\text{arg max}} \ p(\text{Data}|\text{Model}_{\varepsilon})
 % \end{equation*}
 % %
-\subsection{\en{Optimal approximation of the exact posterior}\es{Aproximaci\'on \'optima del posterior exacto}} \label{sec:approximate _posterior}
+\subsection{\en{Optimal approximation of the exact posterior}\es{Aproximaci\'on \'optima del posterior exacto}} \label{sec:approximate_posterior}
 
 \en{In the section~\ref{sec:exactSolution} we have seen how to find the exact posterior.}
 \es{En la secci\'on~\ref{sec:exactSolution} hemos visto que el posterior exacta, si bien se parece a un Gaussiano, no lo es, .}
