@@ -211,7 +211,7 @@
 \en{Humans develop complex skills because of an special integration of biological, cognitive and social processes~\citep{Koster2020}.}
 \es{Los humanos desarrollan habilidades complejas gracias a una integraci\'on especial de los procesos biol\'ogicos, cognitivos y sociales~\citep{Koster2020}.}
 \en{Our exceptional cognitive ability to imitate, combined with human long periods of juvenile dependency and postreproductive life span, allows us to learn things from others and transmit innovations through generations~\citep{Richerson2020}.}
-\es{Nuestra extraordinaria capacidad para imitar, combinada con los largos períodos de aprendizaje juvenil y vida posreproductiva, permite a los humanos aprender de los dem\'as y transmitir las innovaci\'on a trav\'es de la generaciones~\citep{citar}.}
+\es{Nuestra extraordinaria capacidad para imitar, combinada con los largos per\'iodos de aprendizaje juvenil y vida posreproductiva, permite a los humanos aprender de los dem\'as y transmitir las innovaci\'on a trav\'es de la generaciones~\citep{citar}.}
 %
 \en{As a population-based process, human adaptation is also affected by demographic characteristics, such as the size and structure of populations~\citep{Derex2020}.}
 \es{Al ser un proceso poblacional, la adaptaci\'on humana tambi\'en se ve afectada por caracter\'isticas demogr\'aficas, como el tama\~no y estructura de las poblaciones~\citep{Derex2020}.} 
@@ -223,10 +223,10 @@
 \en{Knowing how individual skills change over time is essential in sports and educational contexts.}
 \es{Conocer c\'omo cambian las habilidades individuales a lo largo del tiempo es esencial para en contextos deportivos y educativos.}
 %
-\en{Since they are hidden variables, the best we can do is estimate them based on their direct observable consequences: the outcome of problem solving and competitions.}
+\en{Since they are hidden variables, the best we can do is to estimate them based on their direct observable consequences: the outcome of problem solving and competitions.}
 \es{Dado que son variables ocultas, lo mejor que podemos hacer es estimarlas a partir de sus consecuencias observables directas: el producto de resoluci\'on de problemas y competencias.}
 %
-\en{Considering the frequency of positive results as an indicator of the ability of individuals is a misconception, mainly because its value also depends on the difficulty of the challenges.}
+\en{Only considering the frequency of positive results as an indicator of the individuals' ability could lead to wrong approximations, mainly because the outcome also depends on the difficulty of the challenge.}
 \es{Considerar la frecuencia de resultados positivos como indicador de la habilidad de los individuos es un error de concepto, fundamentalmente porque su valor depende tambi\'en de la dificultad de los desaf\'ios.}
 %
 \en{For this reason, all widely used skill estimators are based on pairwise comparisons.}
@@ -235,26 +235,27 @@
 \en{Since the first generative models, proposed almost a century ago by~\cite{Thurstone1927} and~\cite{zermelo1929-translation}, it is assumed that the probability of an observed result, $r$, depends on the performance, $p$, of the agent $i$ and their opponent $j$, expressed as $P(\, r \,|\, p_i, \, p_j \,)$.}
 \es{Desde los primeros modelos generativos, propuestos hace casi un siglo por~\cite{Thurstone1927} y~\cite{zermelo1929-translation}, se supone que la probabilidad de un resultado observado, $r$, depende del rendimiento, $p$, del agente $i$ y de su oponente $j$, expresada como $P(\, r \,|\, p_i, \, p_j \,)$.}
 %
-\en{The field continued to progress with the work of~\cite{Bradley1952} and~\cite{Mosteller1951a,Mosteller1951b,Mosteller1951c}.}
+\en{The field continued to progress with the work of~\cite{Bradley1952} and~\cite{Mosteller1951a,Mosteller1951b,Mosteller1951c} leading to the breakthrough that took place with the methodology developed by~\cite{Elo2008} for the US Chess Federation (USCF), which is still used by the International Chess Federation (FIDE).}
+
+
 \es{El campo sigui\'o progresando con los trabajos de \cite{Bradley1952} y~\cite{Mosteller1951a,Mosteller1951b,Mosteller1951c}.}
 % 
-\en{A breakthrough took place with the methodology developed by~\cite{Elo2008} for the US Chess Federation (USCF), which is still used by the International Chess Federation (FIDE).}
 \es{Un gran avance produjo la metodolog\'ia desarrollada por~\cite{Elo2008} para la Federaci\'on de Ajedrez de los Estados Unidos (USCF), adoptada hasta el d\'ia de hoy por la Federaci\'on Internacional de Ajedrez (FIDE).}
 
 % Parrafo
 
 \en{All currently widely used skill estimators share some variant of the probabilistic model proposed by the Elo~\citep{Glickman1999,Herbrich2007,VanDerLinden2016,Fox2010}.}
-\es{Todos los estimadores de habilidad ampliamente utilizados actualmente comparten alguna variante del modelo probabilístico propuesto por el Elo~\cite{Glickman1999, Herbrich2007, VanDerLinden2016, Fox2010}.}
+\es{Todos los estimadores de habilidad ampliamente utilizados actualmente comparten alguna variante del modelo probabil\'istico propuesto por el Elo~\cite{Glickman1999, Herbrich2007, VanDerLinden2016, Fox2010}.}
 %
 \begin{figure}[h!]
 \centering \small
     \tikz{         
-    \node[det, fill=black!10] (r) {$r_{ij}$} ; 
+    \node[det, fill=black!10] (r) {$r$} ; 
     \node[const, left=of r, xshift=-1.35cm] (r_name) {\small \en{Result}\es{Resultado}:}; 
-    \node[const, right=of r] (dr) {\normalsize $ r_{ij} = (d_{ij}>0)$}; 
+    \node[const, right=of r] (dr) {\normalsize $ r = (d > 0)$}; 
 
-    \node[latent, above=of r, yshift=-0.45cm] (d) {$d_{ij}$} ; %
-    \node[const, right=of d] (dd) {\normalsize $ d_{ij}=p_i-p_j$}; 
+    \node[latent, above=of r, yshift=-0.45cm] (d) {$d$} ; %
+    \node[const, right=of d] (dd) {\normalsize $ d = p_i-p_j$}; 
     \node[const, left=of d, xshift=-1.35cm] (d_name) {\small \en{Difference}\es{Diferencia}:};
     
     \node[latent, above=of d, xshift=-0.8cm, yshift=-0.45cm] (p1) {$p_i$} ; %
@@ -283,8 +284,8 @@
     \en{At each event, agents exhibit a random performance around their unknown true skill, $p \sim \N(s,\beta^2)$.}
     \es{En cada evento, los agentes exhiben una rendimiento aleatorio centrado en la verdadera y desconocida habilidad, $p \sim \N(s,\beta^2)$.}
     %
-    \en{The one with the highest performance wins, $r_{ij} = p_i > p_j$.}
-    \es{Gana quien haya obtenido mayor rendimiento, $r_{ij} = p_i > p_j$.}
+    \en{The one with the highest performance wins, $r = p_i > p_j$.}
+    \es{Gana quien haya obtenido mayor rendimiento, $r = p_i > p_j$.}
     %
     \en{This graphical representation defines a joint probability distribution.}
     \es{Esta representaci\'on gr\'afica define una distribuci\'on de probabilidad conjunta.}
@@ -301,7 +302,7 @@
 \es{La figura~\ref{fig:generative_model} ofrece una representaci\'on gr\'afica en la que las habilidades generan el resultado observable.}
 %
 \en{The model assumes that the result is a direct consequence of the performances, which vary between events around the true skill with some constant noise,  $\N(p\,|\,s,\beta^2)$.}
-\es{El modelo supone que el resultado es consecuencia directa de los rendimientos, que varían entre eventos alrededor de la verdadera habilidad con cierto ruido constante, $\N(p\,|\,s,\beta^2)$.}
+\es{El modelo supone que el resultado es consecuencia directa de los rendimientos, que var\'ian entre eventos alrededor de la verdadera habilidad con cierto ruido constante, $\N(p\,|\,s,\beta^2)$.}
 %
 % \en{Then, the observed result is a direct consequence of the difference of the performance of each agent in a particular event (i.e. game), $d_{ij}=p_i - p_j$.}
 %
@@ -310,7 +311,7 @@
 
 % Parrafo
 
-\en{Elo's methodological solution is simple and astute: update the previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, based on the surprise, i.e. the complement of the prediction of the observed result.}
+\en{Elo's methodological solution is simple and smart: update both previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, based on the surprise (i.e. the complement of the prediction of the observed result).}
 \es{La soluci\'on metodol\'ogica de Elo es simple y astuta: actualizar las estimaciones previas, $s_{i_\text{old}}$ y $s_{j_\text{old}}$, en base a la sorpresa, i.e. el complemento de la predicci\'on del resultado observado.}
 %
 %empezar con estimaciones arbitrarias
@@ -319,20 +320,20 @@
  \Delta = \underbrace{\left(1-P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)\right)}_{\text{\en{Surprise}\es{Sorpresa}}}
 \end{equation}
 %
-\en{Where the probability arises from instantiating the previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, in the generative model (details in section~\ref{sec:exactSolution}).}
+\en{where the probability arises from instantiating the previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, in the generative model (details in section~\ref{sec:exactSolution}).}
 \es{Donde la probabilidad surge de instanciar las estimaciones previas en el modelo generativo (detalles en la sección~\ref{sec:exactSolution}).}
 %
-\en{The idea is that the surprise, $\Delta$, is related to the quality of the previous estimates and therefore serves to update them.}
+\en{The idea is that the surprise, $\Delta$, is related to how good are the previous estimates and therefore serves to update them.}
 \es{La idea es que la sorpresa, $\Delta$, está relacionada con la calidad de las estimaciones previas y por lo tanto sirvan para actualizarlas. }
 %
-\en{Unexpected results would indicate that current estimates are not entirely correct and should be updated to a greater extent than if they had occurred as expected.}
+\en{Unexpected results would indicate that current estimates should be updated to a greater extent than if they had occurred as expected.}
 \es{Los resultados inesperados indicar\'ian que las estimaciones actuales no son del todo correctas y deber\'ian actualizarse en mayor medida que si hubieran ocurrido como se esperaba.}
 %
 \begin{equation}\label{eq:elo_update}
  s_{\text{winner}_\text{new}} = s_{\text{winner}_\text{old}} + \Delta \ \ \ \ \ s_{\text{loser}_\text{new}} = s_{\text{loser}_\text{old}} - \Delta 
 \end{equation}
 %
-\en{Where the surprise, $\Delta$, acts as a correction factor for both previous estimates.}
+\en{where the surprise $\Delta$ acts as a correction factor for both previous estimates.}
 \es{Donde la sopresa, $\Delta$, act\'ua como factor de correcci\'on para ambas estimaciones previas.}
 %
 \en{This procedure can recover the relative scale of the agents, starting from arbitrary initial values.}
@@ -344,17 +345,17 @@
 \en{The update rule (Eq.~\ref{eq:elo_update}) is symmetric, so what one agent wins is lost by the other.}
 \es{La regla de actualizaci\'on (Eq.~\ref{eq:elo_update}) es sim\'etrica, as\'i que lo que un agente gana lo pierde el otro.}
 %
-\en{Because new agents start with arbitrary estimates (the same initial value for any individual), they tend to generate high surprise and abruptly modify estimates that had already converged correctly.}
-\es{Debido a que a los agentes nuevos comienzan con estimaciones arbitrarias (el mismo valor inicial para cualquier individuo), ellas tienden a generan alta sorpresa y a modificar bruscamente estimaciones que ya habían convergido correctamente.}
+\en{Because new agents start with arbitrary estimates (the same initial value is used for all individuals), they tend to generate high surprise and abruptly modify estimates that had already converged.}
+\es{Debido a que a los agentes nuevos comienzan con estimaciones arbitrarias (el mismo valor inicial para cualquier individuo), ellas tienden a generan alta sorpresa y a modificar bruscamente estimaciones que ya hab\'ian convergido.}
 %
-\en{The weak point of the methodological solution proposed by Elo is the lack of a notion of uncertainty.}
+\en{The weak point of the methodological solution proposed by Elo is the lack of the notion of uncertainty.}
 \es{El punto débil de la solución metodológica propuesta por Elo es la falta de una noción de incertidumbre.}
 %
-\en{To solve this problem, an ad-hoc solution was proposed: reducing the impact of the surprise, $\Delta$, based on the number of times the agent has participated.}
+\en{To solve this problem, an ad-hoc solution was proposed: reducing the impact of the surprise based on the number of times the agent has participated previously.}
 \es{Para resolver este problema, una soluci\'on ad-hoc fue propuesta: reducir el impacto de la sorpresa, $\Delta$, en funci\'on de la cantidad de veces que el agente ha participado.}
 %
-\en{This is the role played by the K-factor used by FIDE,  $\Delta_i = \Delta \cdot K_i$.}
-\es{Ese es rol que desempe\~na el K-factor usado por la FIDE, $\Delta_i = \Delta \cdot K_i$.}
+% \en{This is the role played by the K-factor used by FIDE,  $\Delta_i = \Delta \cdot K_i$.}
+% \es{Ese es rol que desempe\~na el K-factor usado por la FIDE, $\Delta_i = \Delta \cdot K_i$.}
 
 % Cambio de parrafo
 
@@ -363,30 +364,31 @@
 %
 \en{The use of probability theory to handle this type of uncertainty (or beliefs), known as Bayesian inference, has been widely adopted not only because it has been shown to be a successful tool in practice~\citep{bishop2006-PRML}, but also because its rules have been proven to be the only ones that guarantee consistent reasoning~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
 \es{El uso de la teor\'ia de la probabilidad para tratar este tipo de incertidumbre (o creencias), conocida como inferencia Bayesiana, se ha adoptado ampliamente no sólo porque ha mostrado ser una herramienta exitosa en la práctica \citep{bishop2006-PRML}, sino también porque se ha demostrado que sus reglas son las únicas que garantizan un razonamiento consistente~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
-%
+
 \en{All inference, no matter how complex, can be solved in terms of this two simple equations: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
 \es{Toda inferencia, no importa cuan compleja ella sea, puede ser resuelta a trav\'es de estas dos simples ecuaciones: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
+%
+\en{The \ref{eq:sum_rule} states that any marginal distribution can be obtained by integrating, or summing up, the joint distribution:}
+\es{La \ref{eq:sum_rule} afirma que cualquier distribuci\'on marginal se puede obtener integrando o sumando la distribuci\'on conjunta.}
 %
 \begin{equation} \label{eq:sum_rule}
  \tag{\en{sum rule}\es{regla de la suma}}
  P(x) = \sum_{y} P(x,y) \ \ \ \ \ \text{or} \ \ \ \ \ p(x) = \int p(x,y) \, dy
 \end{equation}
 %
-\en{Where $ P (\cdot) $ and $ p (\cdot) $ represent discrete and continuous probabilities distributions respectively.}
+\en{where $ P (\cdot) $ and $ p (\cdot) $ represent discrete and continuous probabilities distributions respectively.}
 \es{Donde $P(\cdot)$ y $p(\cdot)$ representan distribuciones de probabilidad discretas y continuas respectivamente.}
 %
-\en{The \ref{eq:sum_rule} state that any marginal distribution can be obtained by integrating, or summing up, the joint distribution.}
-\es{La \ref{eq:sum_rule} afirma que cualquier distribuci\'on marginal se puede obtener integrando o sumando la distribuci\'on conjunta.}
+\en{Additionally, the \ref{eq:product_rule} states that any joint distribution can be expressed as the product of one-dimensional conditional distributions.}
+\es{Adem\'as, la \ref{eq:product_rule} se\~nala que cualquier distribuci\'on conjunta puede ser expresada como el producto de distribuciones condicionales uni-dimensionles.}
 %
 \begin{equation}\label{eq:product_rule}
 \tag{\en{product rule}\es{regla del producto}}
  p(x,y) = p(x|y) p(y)
 \end{equation}
 %
-\en{Additionally, the \ref{eq:product_rule} state that any joint distribution can be expressed as the product of one-dimensional conditional distributions.}
-\es{Adem\'as, la \ref{eq:product_rule} se\~nala que cualquier distribuci\'on conjunta puede ser expresada como el producto de distribuciones condicionales uni-dimensionles.}
 %
-\en{From these rules, jointly with the symmetry property $p(x,y) = p(y,x)$, we can immediately obtain the~\ref{eq:bayes_theorem}:}
+\en{From these rules and jointly with the symmetry property $p(x,y) = p(y,x)$, we can immediately obtain the~\ref{eq:bayes_theorem}:}
 \es{De estas reglas, junto con la propiedad de simetr\'ia $p(x,y) = p(y,x)$, podemos obtenemos inmediatamente el~\ref{eq:bayes_theorem},}
 %
 \begin{equation}\label{eq:bayes_theorem}
@@ -400,14 +402,14 @@
 \en{The \ref{eq:bayes_theorem} allows to optimally update our beliefs about the hypotheses, given a model and the data.}
 \es{El \ref{eq:bayes_theorem} permite actualizar de forma \'optima las creencia sobre las hip\'otesis, dado un modelo y los datos.}
 %
-\en{In our case, to reduce the uncertainty about the hidden skill using the information provided by the observed result and the described causal model, we need to solve the following equation.}
-\es{En nuestro caso, para reducir la incertidumbre sobre la habilidad oculta usando la informaci\'on que nos ofrece el resultado observado y el modelo causal descrito, necesitamos resolver la siguiente ecuaci\'on.}
+\en{To reduce the uncertainty about the hidden skill using the information provided by the observed result and the described causal model, we need to solve:}
+\es{En nuestro caso, para reducir la incertidumbre sobre la habilidad oculta usando la informaci\'on que nos ofrece el resultado observado y el modelo causal descrito:}
 %
 \begin{equation}\label{eq:event_inference} 
  \underbrace{p(\overbrace{\text{\en{Skills}\es{Habilidades}}}^{\text{\en{Hidden}\es{Oculta}}}|\overbrace{\text{Result\es{ado}}}^{\text{Observ\en{ed}\es{ado}}}, \text{Model\es{o}})}_{\text{Posterior}} = \frac{\overbrace{P(\,\text{Result\es{ado}}\,|\,\text{\en{Skills}\es{Habilidades}}\,,\text{Model\es{o}})}^{\text{\en{Likelihood}\es{Verosimilitud}}}\overbrace{p(\text{\en{Skills}\es{Habilidades}})}^{\text{Prior}}}{\underbrace{P(\text{Result\es{ado}}\,|\,\text{Model\es{o}})}_{\text{Evidenc\en{e}\es{ia} o\en{r}\es{ predicci\'on a} prior \en{prediction}}}}
 \end{equation}
 %
-\en{Where the hidden skills are the hypotheses, the observed results are the data, and the model is defined by the figure~\ref{fig:generative_model}.}
+\en{where the hidden skills are the hypotheses, the observed results are the data, and the model is defined by the figure~\ref{fig:generative_model}.}
 \es{Donde las habilidades ocultas son las hip\'otesis, el resultado observado es el dato, y el modelo est\'a definido por la figura~\ref{fig:generative_model}.}
 %
 \en{The only free variable is the skill hypothesis}
@@ -497,7 +499,7 @@
 \es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on Gaussiana, lo que nos impedirá usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
 %
 \en{But due the shape of the exact posterior, a Gaussian seem to be a good enough approximation, allowing us to avoid the computational cost of the sampling methodologies.}
-\es{Por la forma del posterior exacto, una Gaussiana parece una aproximaci\'on suficientemente buena, que nos permitiría evitar el costo computacional de las metodolog\'ias de sampleo.}
+\es{Por la forma del posterior exacto, una Gaussiana parece una aproximaci\'on suficientemente buena, que nos permitir\'ia evitar el costo computacional de las metodolog\'ias de sampleo.}
 %
 \en{The main contribution of the Glicko system~\cite{glikman_gliko_2} was the development of an efficient method to approximate the exact posterior with a Gasussian distribution.}
 \es{El principal aporte del sistema Glicko~\cite{glikman_gliko_2} fue el desarroll\'o de un m\'etodo eficiente para aproximar la posterior exacta con una distribuci\'on Gasussiana.}
@@ -513,7 +515,7 @@
 \end{equation}
 %
 \en{This kind of methods, which minimize the Kullback-Leibler divergence between the true and the approximate distribution, allows to perform Bayesian inference in situations that otherwise would be impossible.}
-\es{Esta clase de m\'etodos, que minizan la divergencia Kullback-Leibler entre la distribuci\'on verdadera y aproximada, permiten realizar Inferencia Bayesiana en situaciones que de otra forma no sería posibles.}
+\es{Esta clase de m\'etodos, que minizan la divergencia Kullback-Leibler entre la distribuci\'on verdadera y aproximada, permiten realizar Inferencia Bayesiana en situaciones que de otra forma no ser\'ia posibles.}
 %
 \en{In our case, in which we want to know how skills change over time, this technique allow us to apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
 \es{En nuestro caso, en el que queremos conocer cómo cambian las habilidades a través del tiempo, está técnica nos permite aplicar la ecuación~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
@@ -550,7 +552,7 @@
  \end{equation}
  %
 \en{Because the filtering approach does not arise from any probabilistic model, it suffers from a number of problems.}
-\es{Debido a que el enfoque de filtrado no se surge de ningún modelo probabilístico, sufre de un serie de problemas.}
+\es{Debido a que el enfoque de filtrado no se surge de ningún modelo probabil\'istico, sufre de un serie de problemas.}
 % %
 \en{Thay weaknesses are related to the fact that the information propagates in only one direction through the system.}
 \es{Sus debilidades están relacionadas con el hecho de que la informaci\'on propaga en un solo sentido por el sistema.}
@@ -565,7 +567,7 @@
 \en{Although the relative differences between contemporary estimates within well-connected communities may be correct, estimates separated in time and between poorly connected communities are often incorrect.}
 % preventing comparability over time and between communities.
 \es{A pesar de que la diferencia relativa entre estimaciones contempor\'aneas al interior de comunidades bien conectadas puedan ser correctas, las estimaciones separadas en el tiempo y entre comunidades poco conectadas suelen ser incorrectas.}
-% impidiendo así la comparabilidad temporal y entre comunidades.
+% impidiendo as\'i la comparabilidad temporal y entre comunidades.
 
 % Parrafo
 
@@ -620,7 +622,7 @@
   \es{S\'olo se muestra los vecinos de una secuencia de estimaciones.}
   %
 %   \en{Its probabilistic solution generates the approach known as \emph{smoothing}, in which historical information flows through the whole system.}
-%   \es{La soluci\'on probabilística da como resultado el abordaje conocido como \emph{smoothing}, en el que la informaci\'on hist\'orica fluye por todo el sistema.}
+%   \es{La soluci\'on probabil\'istica da como resultado el abordaje conocido como \emph{smoothing}, en el que la informaci\'on hist\'orica fluye por todo el sistema.}
 %   %
 %   %\en{These types of models are known as \emph{state-space models}.}
 %   %\es{Este tipo de modelos se conocen como \emph{state space models}.}
@@ -866,22 +868,22 @@
 \section{Models and software} 
 
 \en{Driven by the growth in computing power, researchers have developed over the past five decades thousands of successful machine learning algorithms tailored to specific sets of problems.}
-\es{Impulsado por la creciento en la capacidad de c\'omputo ocurrida, en las últimas cinco d\'ecadas los investigadores han desarrollado miles de algoritmos exitosos de aprendizaje de automático, hechos a medida de conjuntos de problemas específicos.}
+\es{Impulsado por la creciento en la capacidad de c\'omputo ocurrida, en las últimas cinco d\'ecadas los investigadores han desarrollado miles de algoritmos exitosos de aprendizaje de automático, hechos a medida de conjuntos de problemas espec\'ificos.}
 %
 \en{In contrast, probabilistic inference offers a generally applicable framework~\citep{Bishop2013}.}
-\es{Por el contrario, la inferencia probabilística ofrece un marco de aplicaci\'on general~\citep{Bishop2013}.}
+\es{Por el contrario, la inferencia probabil\'istica ofrece un marco de aplicaci\'on general~\citep{Bishop2013}.}
 %
 \en{The assumptions made by standard machine learning algorithms are generally difficult to remember and often difficult to perceive.}
-\es{Las suposiciones hechas por los algoritmos estándar de aprendizaje automático son generalmente difíciles de recordar y a menudo difíciles de percibir.}
+\es{Las suposiciones hechas por los algoritmos estándar de aprendizaje automático son generalmente dif\'iciles de recordar y a menudo dif\'iciles de percibir.}
 %
 \en{Similarly, the algorithms used vary from application to application, forcing us to learn a variety of methods.}
-\es{Del mismo modo, los algoritmos empleadas varían de aplicaci\'on en aplicaci\'on, obligándonos a aprender una gran variedad de m\'etodos.}
+\es{Del mismo modo, los algoritmos empleadas var\'ian de aplicaci\'on en aplicaci\'on, obligándonos a aprender una gran variedad de m\'etodos.}
 %
 \en{Instead of having to transform the problem to fit some standard algorithm, probabilistic inference provides the building blocks to solve any specific problem.}
-\es{En lugar de tener que transformar el problema para que encaje en algún algoritmo estándar, la inferencia probabilística ofrece los bloques de construcci\'on que permiten resolver cualquier problema específico.}
+\es{En lugar de tener que transformar el problema para que encaje en algún algoritmo estándar, la inferencia probabil\'istica ofrece los bloques de construcci\'on que permiten resolver cualquier problema espec\'ifico.}
 %
 \en{All the assumptions are made explicit through a generative (or causal) model, which can be intuitively specified in a graphical way.}
-\es{Todos los supuestos se hacen explícitos a trav\'es de un modelo generativo (o causal), que puede ser especificado intuitivamente de forma gráfica.}
+\es{Todos los supuestos se hacen expl\'icitos a trav\'es de un modelo generativo (o causal), que puede ser especificado intuitivamente de forma gráfica.}
 %
 \en{Inference, on the other hand, is always solved by applying the rules of probability (the rules of the sum and the product) to the joint probability represented by the model.}
 \es{Y toda inferencia se hace aplicando las reglas de la probabilidad, de la suma y del producto, sobre el modelo representado como probabilidad conjunta.}
@@ -889,7 +891,7 @@
 % Parrafo
 
 \en{In this section we will explain all the details of the probabilistic framework in the context of the TrueSkill Throguth Time problem.}
-\es{En esta secci\'on explicaremos todos los detalles del marco probabilísitico en el contexto del problema TrueSkill Throguth Time.}
+\es{En esta secci\'on explicaremos todos los detalles del marco probabil\'isitico en el contexto del problema TrueSkill Throguth Time.}
 %
 \en{In the section~\ref{sec:sumProductAlgorithm} we will introduce the \emph{sum-product algorithm}, which allows to efficiently compute any marginal probability distributions from a joint probability distributions.}
 \es{En la secci\'on~\ref{sec:sumProductAlgorithm} introduciremos el \emph{sum-product algorithm}, que permite computar eficientemente cualquier distribuciones de probabilidad marginal a partir de una distribuciones de probabilidad conjunta.}
@@ -897,7 +899,7 @@
 \en{In the section~\ref{sec:propiedades} we list the properties that we will need to derive the marginal distributions of interest.}
 \es{En la secci\'on~\ref{sec:propiedades} enumeramos las propiedades que necesitaremos para derivar las distribuciones marginales de inter\'es.}
 %
-% Afortunadamente, gracias a la distribuci\'on de probabilidad elegida para representar el modelo causal~\ref{modelo_elo}, la distribuci\'on de creencias a posteriori de la habilidad de los agentes y la predicci\'on a priori del resultado observado (aka evidencia) tienen soluci\'on analítica.
+% Afortunadamente, gracias a la distribuci\'on de probabilidad elegida para representar el modelo causal~\ref{modelo_elo}, la distribuci\'on de creencias a posteriori de la habilidad de los agentes y la predicci\'on a priori del resultado observado (aka evidencia) tienen soluci\'on anal\'itica.
 %
 \en{In the section \ref{sec:Gasussian}, \ref{sec:rating} and \ref{sec:game} we introduce the implementation details of the classes \texttt{Gaussian}, \texttt{Rating} and \texttt{Game}.}
 \es{En las secciones \ref{sec:Gasussian}, \ref{sec:rating} y \ref{sec:game} introducimos los detalles de implementaci\'on de las clases \texttt{Gaussian}, \texttt{Rating} y \texttt{Game}.}
@@ -1001,7 +1003,7 @@ FALTA HISTORY
      \caption{
      \en{Factorizaci\'on gráfica del modelo generativo (Fig.~\ref{fig:generative_model}).}
      %
-     \en{Los cuadrados negros representan las funciones, los círculos blancos representan las variable, y los ejes entre ellos representan la relaci\'on matem\'atica ``la variable es argumento de la funci\'on''.}
+     \en{Los cuadrados negros representan las funciones, los c\'irculos blancos representan las variable, y los ejes entre ellos representan la relaci\'on matem\'atica ``la variable es argumento de la funci\'on''.}
      %
      }
     \label{fig:factor_graph}
@@ -1009,7 +1011,7 @@ FALTA HISTORY
 \end{figure} 
 %
 \en{The structure encodes the minimum number of steps required to calculate any marginal probability distribution.}
-\es{La estructura codifica la mínima cantidad de pasos que se requieren para calcular cualquier distribuci\'on de probabilidad marginal.}
+\es{La estructura codifica la m\'inima cantidad de pasos que se requieren para calcular cualquier distribuci\'on de probabilidad marginal.}
 %
 \en{In our case we want to compute two marginals, the posterior of the skills $p(s_i|r)$ and the a prior probability of the result $p(r)$.}
 \es{En nuestro caso querermos computar dos marginales, el posterior de las habilidades $p(s_i|r)$ y la probabilidad a priori del resultado $p(r)$.}
@@ -1017,13 +1019,13 @@ FALTA HISTORY
 % Parrafo
 
 \en{The \emph{sum-product algorithm} is a general way of breaking down the rules of probability as messages that are sent locally between the variables of the \emph{factor graph}.}
-\es{El \emph{sum-product algorithm} es una forma general de descomponer las reglas de la probabilidad como mensajes que se envían localmente las variables del \emph{factor graph}.}
+\es{El \emph{sum-product algorithm} es una forma general de descomponer las reglas de la probabilidad como mensajes que se env\'ian localmente las variables del \emph{factor graph}.}
 %
 \en{There are two types of messages: the messages that variable nodes send to their functions neighbors ($m_{v \rightarrow f}(v)$); and the messages that function nodes send to their variable neighbors ($m_{f \rightarrow v}(v)$).}
 \es{Hay dos tipos de mensajes: los mensajes que envian los nodos variables a sus funciones vecinas ($m_{v \rightarrow f}(v)$); y los mensajes que envian los nodos funciones a sus variables vecinas ($m_{f \rightarrow v}(v)$).}
 %
 \en{The messages sent by the variable nodes encode a portion of the product rule.}
-\es{Los mensajes que envían los nodos variables codifican una porci\'on de la regla del producto.}
+\es{Los mensajes que env\'ian los nodos variables codifican una porci\'on de la regla del producto.}
 %
 \begin{equation}\label{eq:m_v_f} \tag{\text{product step}}
 m_{v \rightarrow f}(v) = \prod_{h \in n(v) \setminus \{f\} } m_{h \rightarrow v}(v)
@@ -1033,10 +1035,10 @@ m_{v \rightarrow f}(v) = \prod_{h \in n(v) \setminus \{f\} } m_{h \rightarrow v}
 \es{Donde $n(v)$ representa el conjunto de vecinos del nodo $v$.}
 %
 \en{In short, the messages sent by a $v$ variable is simply the product of the messages that $v$ received from the rest of their neighbors $h \in n(v)$ except $f$.}
-\es{En pocas palabras, los mensajes que envía una variables $v$ es simplemente la multiplicaci\'on de los mensajes que recibi\'o del resto de sus vecinos $h \in n(v)$ salvo $f$.}
+\es{En pocas palabras, los mensajes que env\'ia una variables $v$ es simplemente la multiplicaci\'on de los mensajes que recibi\'o del resto de sus vecinos $h \in n(v)$ salvo $f$.}
 %
 \en{And the messages sent by the function nodes encode a portion of the sum rule.}
-\es{Y los mensajes que envían los nodos funciones codifican una parte de la regla de la suma.}
+\es{Y los mensajes que env\'ian los nodos funciones codifican una parte de la regla de la suma.}
 %
 \begin{equation}\label{eq:m_f_v}  \tag{\text{sum step}}
 m_{f \rightarrow v}(v) = \int \cdots \int \Big( f(\bm{h},v) \prod_{h \in n(f) \setminus \{v\} } m_{h \rightarrow f}(h) \Big) \,  d\bm{h}
@@ -1063,7 +1065,7 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 \subsection{\en{Mathematical properties and notation}\es{Propiedades matemáticas y notaci\'on}}\label{sec:propiedades}
 
 \en{The efficiency of TrueSkill Throguth Time is due to the fact that margins, whether exact or approximate, are solved analytically.}
-\es{La eficiencia de TrueSkill Throguth Time se debe a que las marginales, sean exactas o aproximadas, se resuelven de forma analítica.}
+\es{La eficiencia de TrueSkill Throguth Time se debe a que las marginales, sean exactas o aproximadas, se resuelven de forma anal\'itica.}
 %
 \en{In this section we list the properties that we will use to derive the exact messages that arise from the sum-product algorithm.}
 \es{En esta secci\'on enumeramos las propiedades que usaremos para derivar los mensajes exactos que surgen del \emph{sum-product algorithm}.}
@@ -1137,7 +1139,7 @@ R syntax
 \es{La clase \texttt{Gaussian()} realiza la mayor parte del c\'omputo en todos los paquetes.}
 %
 \en{It is represented by two parameters, the mean and the standard deviation.}
-\es{Se representa mediante dos parámetros, la media y el desvío estandar.}
+\es{Se representa mediante dos parámetros, la media y el desv\'io estandar.}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:N1_N2, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
@@ -1204,7 +1206,7 @@ v2 = N2$sigma^2
 \subsection{Rating} \label{sec:rating}
 
 \en{The class \texttt{Rating()} is represented by: the mean (\texttt{mu}) and the deviation (\texttt{sigma}) of the prior Gaussian distribution; the performance standard deviation (\texttt{beta}); and the temporal volatility of the skills (\texttt{gamma}).}
-\es{La clase \texttt{Rating()} se representa con cuatro atributos: la media (\texttt{mu}) y el desvío (\texttt{sigma}) de la distribuci\'on Gaussiana a priori; el devío de los rendimientos (\texttt{beta}); y la volatilidad temporal de las habilidades (\texttt{gamma}).}
+\es{La clase \texttt{Rating()} se representa con cuatro atributos: la media (\texttt{mu}) y el desv\'io (\texttt{sigma}) de la distribuci\'on Gaussiana a priori; el dev\'io de los rendimientos (\texttt{beta}); y la volatilidad temporal de las habilidades (\texttt{gamma}).}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:rating, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
@@ -1453,16 +1455,16 @@ elhs = g$exact_likelihoods()
 \es{Ya hemos definimos la variable \texttt{prior} en el c\'odigo~\ref{lst:prior}.}
 %
 \en{The next message, that the variable $s_i$ sends to the performance factor $f_{p_i}$ will also be the prior.}
-\es{El siguiente mensaje, que la variable $s_i$ le envía al factor rendimiento $f_{p_i}$ tambi\'en será el prior.}
+\es{El siguiente mensaje, que la variable $s_i$ le env\'ia al factor rendimiento $f_{p_i}$ tambi\'en será el prior.}
 %
 \en{Remember that the messages that the variables send are just the product of the messages that the variable receives from the rest of its neighboring factors.}
-\es{Recordar que los mensajes que envían las variables es tan solo la multiplicaci\'on de los mensajes que esa variable recibe del resto de los factores.}
+\es{Recordar que los mensajes que env\'ian las variables es tan solo la multiplicaci\'on de los mensajes que esa variable recibe del resto de los factores.}
 %
 \en{Since they are trivial, we will not make these types of messages explicit.}
-\es{Por ser de trivial soluci\'on, no haremos explícitos este tipo de mensajes.}
+\es{Por ser de trivial soluci\'on, no haremos expl\'icitos este tipo de mensajes.}
 %
 \en{Let's see then the message that the performance factors $f_{p_i}$ send to their variable $p_i$.}
-\es{Veamos entonces el mensaje que envían los factores rendimiento $f_{p_i}$ a su variable $p_i$.}
+\es{Veamos entonces el mensaje que env\'ian los factores rendimiento $f_{p_i}$ a su variable $p_i$.}
 %
 \begin{equation}\label{eq:m_fp_p} \tag{\texttt{performance()}}
 m_{f_{p_i} \rightarrow p_i}(p_i) = \int \N(p_i| s_i, \beta^2) \N(s_i| \mu_i, \sigma_i^2) ds_i = \N(p_i|\mu_i,\beta^2 + \sigma_i^2)
@@ -1492,7 +1494,7 @@ p4 = r4$performance()
 \end{paracol}
 %
 \en{Then, the message sent by the team factors $f_{t_e}$ to the team variable $t_e$ are,}
-\es{Luego, el mensaje que envían los factores equipos $f_{t_e}$ a la variable equipo $t_e$ son,}
+\es{Luego, el mensaje que env\'ian los factores equipos $f_{t_e}$ a la variable equipo $t_e$ son,}
 %
 \begin{equation} \label{eq:m_ft_t} \tag{\texttt{ta = p1 + p2}}
 \begin{split}
@@ -1508,7 +1510,7 @@ p4 = r4$performance()
 \end{equation*}
 %
 \en{The message sent by the difference factor $f_{d_1}$ to the difference variable $d_1$ are,}
-\es{El mensaje que envía el factor diferencia $f_{d_1}$ a la variable diferencia $d_1$ es,}
+\es{El mensaje que env\'ia el factor diferencia $f_{d_1}$ a la variable diferencia $d_1$ es,}
 %
 \begin{equation}\label{eq:m_fd_d} \tag{\texttt{d = ta - tb}}
  \begin{split} 
@@ -1630,7 +1632,7 @@ exact_lhood = function(s1){
 \es{Este modelo básico requiere determinar el valor del margen.}
 %
 \en{The original paper~\citep{Herbrich2007} proposed to use the empirical frequency of ties.}
-\es{El artículo original~\citep{Herbrich2007} proponía usar la frecuencia empírica de empates.}
+\es{El art\'iculo original~\citep{Herbrich2007} propon\'ia usar la frecuencia emp\'irica de empates.}
 %
 \en{However, this value depends on the actual skill difference, which we just don't know.}
 \es{Sin embargo, este valor depende de la diferencia de habilidad real, que justamente no conocemos.}
@@ -1645,7 +1647,7 @@ exact_lhood = function(s1){
 \es{En la figura~\ref{fig:draw_b} se puede ver que para mantener el área de empates constante, es necesario adaptar el margen dependiendo de la incertidumbre.}
 %
 %\en{This is because the actual distribution of performance differences depends on how many players are in the game.}
-%\es{Esto es así porque la distribuci\'on de diferencias de rendimientos real depende de cuántos jugadores hay en la partida.}
+%\es{Esto es as\'i porque la distribuci\'on de diferencias de rendimientos real depende de cuántos jugadores hay en la partida.}
 %
 \begin{figure}[h!]
 \centering
@@ -1667,7 +1669,7 @@ exact_lhood = function(s1){
 \es{Como los resultados observados son independientes de nuestras creencias, la \'unica fuente de incertidumbre proviene de varianza de los rendimientos $\beta$.}
 %
 \en{This is how we can define an equation that links the margin with the probability of a tie.}
-\es{Así es que podemos definir una ecuaci\'on que vincula el margen con la probabilidades de empate.}
+\es{As\'i es que podemos definir una ecuaci\'on que vincula el margen con la probabilidades de empate.}
 %
 \begin{equation}
  \text{Draw probability} = \Phi(\frac{\varepsilon}{\sqrt{n_1+n_2}\beta}) - \Phi(\frac{-\varepsilon}{\sqrt{n_1+n_2}\beta})
@@ -1719,10 +1721,10 @@ margin = compute_margin(p_draw, sd)
 % 
 % 
 % \en{But due the shape of the exact posterior, a Gaussian seem to be a good enough approximation, allowing us to avoid the computational cost of the sampling methodologies.}
-% \es{Por la forma del posterior exacto, una Gaussiana parece una aproximaci\'on suficientemente buena, que nos permitiría evitar el costo computacional de la metodolog\'ias de sampleo.}
+% \es{Por la forma del posterior exacto, una Gaussiana parece una aproximaci\'on suficientemente buena, que nos permitir\'ia evitar el costo computacional de la metodolog\'ias de sampleo.}
 % %
 % 
-% \en{Dado que la forma exacta se parece a una Gaussiana (figura~\ref{fig:posterior_win}), usar una Gaussiana para representar el posterior no parecería ser tan grave en t\'erminos de aproximaci\'on y en cambio nos permitiría realizar estimaciones sucesivas.}
+% \en{Dado que la forma exacta se parece a una Gaussiana (figura~\ref{fig:posterior_win}), usar una Gaussiana para representar el posterior no parecer\'ia ser tan grave en t\'erminos de aproximaci\'on y en cambio nos permitir\'ia realizar estimaciones sucesivas.}
 % 
 % % Parrafo
 %\en{The methods for approximating an untractable distribution by means of a distribution belonging to a known family are known in Bayesian inference as ``variational''.}
@@ -1732,7 +1734,7 @@ margin = compute_margin(p_draw, sd)
 \es{En esta secci\'on mostraremos c\'omo encontrar la distribuci\'on Gaussiana que mejor aproxima al posterior exacto, considerando la posibilidad de empates.}
 %
 \en{The packages solve it with the following two lines of code.}
-\es{Los paquetes lo resuelven con las siguientes dos líneas de c\'odigo.}
+\es{Los paquetes lo resuelven con las siguientes dos l\'ineas de c\'odigo.}
 %
 \begin{lstlisting}[backgroundcolor=\color
 {white},label=lst:post_2vs2, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
@@ -2264,7 +2266,7 @@ posterior_s2_approx = prior2 * lhood_s2_approx
 \subsection{History} \label{sec:throguthTime}
 
 \en{In this section we will see how to find the best approximation to the exact posterior in a history of events in which $n$ players compete over a period of $T$ time steps or temporal batches (e.g. day, week, month, year).}
-\es{En esta secci\'on vamos a ver c\'omo se obtiene la mejor aproximaci\'on al posterior exacto en una historia de eventos en la que $n$ agentes compiten durante $T$ pasos temporales o \emph{batches} (e.g. día, semana, mes, año).}
+\es{En esta secci\'on vamos a ver c\'omo se obtiene la mejor aproximaci\'on al posterior exacto en una historia de eventos en la que $n$ agentes compiten durante $T$ pasos temporales o \emph{batches} (e.g. d\'ia, semana, mes, año).}
 % 
 \en{Within each time step $t$ an agent $i$ can participate in $K$ events, $K_{i,t}$.}
 \es{Al interior de cada paso temporal $t$ un agente $i$ puede participar en $K$ eventos, $K_{i_t}$}
@@ -2367,7 +2369,7 @@ posterior_s2_approx = prior2 * lhood_s2_approx
 \es{Los mensajes que no est\'an todav\'ia definidos, por ejemplo el prior inverso en la primer pasada hacia adelante, es remplazado por una forma neutral como un escalar unidad o una distribuci\'on gausiana con infinita varianza.}
 %
 \en{Finally, the messages that the variable $s_{i_t}$ sends to the past and the future are,}
-\es{Finalmente, los mensajes que la variable $s_{i_t}$ envía al pasado y al futuro son,}
+\es{Finalmente, los mensajes que la variable $s_{i_t}$ env\'ia al pasado y al futuro son,}
 %
 \begin{equation*}
   \emph{posterior}_i(t-1) = \frac{p(s_{i_{t-1}})}{\emph{inversePrior}_i(t-1)} \ \ \ , \ \ \ \emph{inversePosterior}_i(t+1) = \frac{p(s_{i_{t+1}})}{\emph{prior}_i(t+1)}
