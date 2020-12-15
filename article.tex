@@ -359,14 +359,14 @@
 
 % Cambio de parrafo
 
-\en{Instead of selecting a single value as an estimate, we would like to quantify the ``relative certainty'' associated with each of the skill hypotheses.}
-\es{En vez seleccionar un único valor como estimación, quisiéramos cuantificar la ``certidumbre relativa'' asociada a cada una de las hipótesis de habilidad.}
+\en{A superior solution, instead of selecting a single value as an estimate, involves quantifying the ``relative certainty'' associated with each of the skill hypotheses.}
+\es{Una solución superior, a la de seleccionar una único valor como estimación, consiste en cuantificar la ``certidumbre relativa'' asociada a cada una de las hipótesis de habilidad.}
 %
-\en{The use of probability theory to handle this type of uncertainty (or beliefs), known as Bayesian inference, has been widely adopted not only because it has been shown to be a successful tool in practice~\citep{bishop2006-PRML}, but also because its rules have been proven to be the only ones that guarantee consistent reasoning~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
-\es{El uso de la teor\'ia de la probabilidad para tratar este tipo de incertidumbre (o creencias), conocida como inferencia Bayesiana, se ha adoptado ampliamente no sólo porque ha mostrado ser una herramienta exitosa en la práctica \citep{bishop2006-PRML}, sino también porque se ha demostrado que sus reglas son las únicas que garantizan un razonamiento consistente~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
-
-\en{All inference, no matter how complex, can be solved in terms of this two simple equations: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
-\es{Toda inferencia, no importa cuan compleja ella sea, puede ser resuelta a trav\'es de estas dos simples ecuaciones: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
+\en{This approach, known as Bayesian inference, which has proven successful in practice~\citep{bishop2006-PRML}, ensures consistent reasoning in handling this kind of uncertainty (plausible beliefs)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
+\es{Este enfoque conocido como inferencia Bayesiana, que ha demostrado ser exitoso en la práctica~\citep{bishop2006-PRML}, garantiza un razonamiento consistente en el manejo de este tipo de incertidumbre (creencias plausibles)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
+%
+\en{All inference, no matter how complex it is, can be solved by the rules of probability: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
+\es{Toda inferencia, no importa cuan compleja sea, puede ser resuelta mediante las reglas de la probabilidad: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
 %
 \en{The \ref{eq:sum_rule} states that any marginal distribution can be obtained by integrating, or summing up, the joint distribution:}
 \es{La \ref{eq:sum_rule} afirma que cualquier distribuci\'on marginal se puede obtener integrando o sumando la distribuci\'on conjunta.}
@@ -402,11 +402,11 @@
 \en{The \ref{eq:bayes_theorem} allows to optimally update our beliefs about the hypotheses, given a model and the data.}
 \es{El \ref{eq:bayes_theorem} permite actualizar de forma \'optima las creencia sobre las hip\'otesis, dado un modelo y los datos.}
 %
-\en{To reduce the uncertainty about the hidden skill using the information provided by the observed result and the described causal model, we need to solve:}
+\en{In our case, to reduce the uncertainty about the hidden skill using the information provided by the observed result and the described causal model, we need to solve:}
 \es{En nuestro caso, para reducir la incertidumbre sobre la habilidad oculta usando la informaci\'on que nos ofrece el resultado observado y el modelo causal descrito:}
 %
 \begin{equation}\label{eq:event_inference} 
- \underbrace{p(\overbrace{\text{\en{Skills}\es{Habilidades}}}^{\text{\en{Hidden}\es{Oculta}}}|\overbrace{\text{Result\es{ado}}}^{\text{Observ\en{ed}\es{ado}}}, \text{Model\es{o}})}_{\text{Posterior}} = \frac{\overbrace{P(\,\text{Result\es{ado}}\,|\,\text{\en{Skills}\es{Habilidades}}\,,\text{Model\es{o}})}^{\text{\en{Likelihood}\es{Verosimilitud}}}\overbrace{p(\text{\en{Skills}\es{Habilidades}})}^{\text{Prior}}}{\underbrace{P(\text{Result\es{ado}}\,|\,\text{Model\es{o}})}_{\text{Evidenc\en{e}\es{ia} o\en{r}\es{ predicci\'on a} prior \en{prediction}}}}
+ \underbrace{p(\overbrace{\text{\en{Skill}\es{Habilidad}$_i$}}^{\text{\en{Hidden}\es{Oculta}}}|\overbrace{\text{Result\es{ado}}}^{\text{Observ\en{ed}\es{ado}}}, \text{Model\es{o}})}_{\text{Posterior}} = \frac{\overbrace{P(\,\text{Result\es{ado}}\,|\,\text{\en{Skill}\es{Habilidad}$_i$}\,,\text{Model\es{o}})}^{\text{\en{Likelihood}\es{Verosimilitud}}}\overbrace{p(\text{\en{Skill}\es{Habilidad}$_i$})}^{\text{Prior}}}{\underbrace{P(\text{Result\es{ado}}\,|\,\text{Model\es{o}})}_{\text{Evidenc\en{e}\es{ia} o\en{r}\es{ predicci\'on a} prior \en{prediction}}}}
 \end{equation}
 %
 \en{where the hidden skills are the hypotheses, the observed results are the data, and the model is defined by the figure~\ref{fig:generative_model}.}
@@ -445,11 +445,14 @@
 \es{A partir de ahora el rol del modelo se dejrá impl\'icito, de acuerdo con convenciones de notaci\'on.}
 %
 \begin{equation}\label{eq:posterior_win}
-\underbrace{p(s_i , \, r \, | \, s_j\, )}_{\hfrac{\text{\scriptsize Proportional}}{\text{\scriptsize posterior}}} = \underbrace{1-\Phi(0 \, |  \overbrace{s_i^{\textcolor{white}{2}} - \mu_j}^{\hfrac{\text{\en{Expected}\es{Diferencia}}}{\text{\en{difference}\es{esperada}}}} , \, \overbrace{2\beta^2 + \sigma_j^2}^{\hfrac{\text{\en{Total}\es{Incertidumbre}}}{\text{\en{uncertainty}\es{total}}}} )}_{\text{\en{Likelihood}\es{Verosimilitud}}} \,  \underbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}_{\text{Prior}} 
+\underbrace{p(\,s_i\, | \, r \, )}_{\text{Posterior}} \propto \underbrace{1-\Phi(0 \, |  \overbrace{s_i^{\textcolor{white}{2}} - \mu_j}^{\hfrac{\text{\en{Expected}\es{Diferencia}}}{\text{\en{difference}\es{esperada}}}} , \, \overbrace{2\beta^2 + \sigma_j^2}^{\hfrac{\text{\en{Total}\es{Incertidumbre}}}{\text{\en{uncertainty}\es{total}}}} )}_{\text{\en{Likelihood}\es{Verosimilitud}}} \,  \underbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}_{\text{Prior}} 
 \end{equation}
 %
-\en{Where the proportional posterior is just the unnormalized posterior, $p(s_i| r, s_j) = \frac{p(s_i, r|s_j)}{P(r)}$, and the likelihood is the cumulative density of all positive values of a Gaussian distribution centered at the difference between the hypothesis $s_i$ and the opponent's mean estimate $\mu_j$, with a variance that includes all uncertainties except the one of $s_i$.}
-\es{El posterior no es m\'as que el posterior proporcional normalizado por la evidencia, $p(s_i| r, s_j) = \frac{p(s_i, r|s_j)}{P(r)}$, y la verosimilitud es la densidad acumulada de los valores positivos de una distribuci\'on Gaussiana centrada en la diferencia entre la hip\'otesis $s_i$ y la estimaci\'on media del oponente $\mu_j$, $\delta(s_i)$, con una varianza que incluye todas las incertidumbres salvo la de la propia hip\'otesis $s_i$, $\vartheta_i^2$. }
+\en{Where the normalized posterior can be found dividing the right hand by the evidence ${P(r)}$.}
+\es{Donde el el posterior normalizado se obtiene dividiendo el lado derecho por la evidencia, $P(r)$.}
+%
+\en{The likelihood is just the cumulative density of all positive values of a Gaussian distribution centered at the difference between the hypothesis $s_i$ and the opponent's mean estimate $\mu_j$, with a variance that includes all uncertainties except the one of $s_i$.}
+\es{La verosimilitud es la densidad acumulada de los valores positivos de una distribuci\'on Gaussiana centrada en la diferencia entre la hip\'otesis $s_i$ y la estimaci\'on media del oponente $\mu_j$, $\delta(s_i)$, con una varianza que incluye todas las incertidumbres salvo la de la propia hip\'otesis $s_i$, $\vartheta_i^2$. }
 %
 \en{In other words, the likelihood is just the prior prediction of the observed winning result, made with all the skill opponent's hypotheses, and assuming true the skill hypothesis of the agent we are evaluating.}
 \es{En otras palabras, la verosimilitud no es más que la predicci\'on a priori del resultado observado ganador, realizada con todas las hip\'otesis de habilidad del oponete, y suponiendo verdadera la hipótesis de habilidad del agente que estamos evaluando.}
