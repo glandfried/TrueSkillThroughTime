@@ -393,29 +393,23 @@
  \underbrace{p(\overbrace{\text{\en{Skill}\es{Habilidad}$_i$}}^{\text{\en{Hidden}\es{Oculta}}}|\overbrace{\text{Result\es{ado}}}^{\text{Observ\en{ed}\es{ado}}}, \text{Model\es{o}})}_{\text{Posterior}} = \frac{\overbrace{P(\,\text{Result\es{ado}}\,|\,\text{\en{Skill}\es{Habilidad}$_i$}\,,\text{Model\es{o}})}^{\text{\en{Likelihood}\es{Verosimilitud}}}\overbrace{p(\text{\en{Skill}\es{Habilidad}$_i$})}^{\text{Prior}}}{\underbrace{P(\text{Result\es{ado}}\,|\,\text{Model\es{o}})}_{\text{Evidenc\en{e}\es{ia} o\en{r}\es{ predicci\'on a} prior \en{prediction}}}}
 \end{equation}
 %
-\en{where the hidden skills are the hypotheses, the observed results are the data, and the model is defined by the figure~\ref{fig:generative_model}.}
-\es{Donde las habilidades ocultas son las hip\'otesis, el resultado observado es el dato, y el modelo est\'a definido por la figura~\ref{fig:generative_model}.}
+% \en{where the hidden skills are the hypotheses, the observed results are the data, and the model is defined by the figure~\ref{fig:generative_model}.}
+% \es{Donde las habilidades ocultas son las hip\'otesis, el resultado observado es el dato, y el modelo est\'a definido por la figura~\ref{fig:generative_model}.}
 %
-\en{The only free variable is the skill hypothesis of agent $i$.}
-\es{La única variable libre es la hip\'otesis de habilidad del agente $i$.}
+\en{where the only free variable is the skill hypothesis of agent $i$.}
+\es{Donde la única variable libre es la hip\'otesis de habilidad del agente $i$.}
 %
 \en{The prior quantifies the previous uncertainty, and the posterior reduces it based on the information provided by the data, given the model.}
 \es{El prior cuantifica la incertidumbre previa, y el posterior la reduce en base a la información provista por el dato, dado el modelo.}
 %
-\en{Note that the likelihood and the evidence are both probabilities of the observed result, so they can be seen as predictions.}
-\es{Notar que la verosimilitud como la evidencia son probabilidades del resultado observado, por lo que pueden ser vistas como predicciones.}
+\en{The likelihood and the evidence are both probabilities of the observed result, so they can be seen as predictions, and since the results are discrete variables, those probabilities are written with capital letters.}
+\es{La verosimilitud como la evidencia son ambas probabilidades del resultado observado, por lo que pueden ser vistas como predicciones, y como los resultados son variables discretas, esas probabilidad se escribe con letras mayúsculas.}
 %
-\en{Since the results are discrete variables, those probabilities are written with capital letters.}
-\es{Como los resultados son variables discretas, esas probabilidad se escribe con letras mayúsculas.}
+\en{The only factor that updates our beliefs is the likelihood, because the evidence is the same for all hypotheses.}
+\es{El único factor que actualiza nuestras creencias es la verosimilitud, porque la evidencia es la misma para todas las hipótesis.}
 %
-\en{The evidence does not change when different hypotheses are evaluated.}
-\es{La evidencia no cambia su valor cuando se evaluan diferentes hipótesis.}
-%
-\en{Therefore, the only factor that updates our beliefs is the likelihood.}
-\es{Es decir, el único factor que actualización nuestras creencias es la verosimilitud.}
-%
-\en{The posterior uncertainty of each hypothesis is proportional to the product of their prior uncertainty and their likelihood.}
-\es{La incertidumbre a posteriori de cada hip\'otesis es proporcional al producto de su incertidumbre a priori y su verosimilitud.}
+\en{So, the posterior uncertainty of each hypothesis is proportional to the product of their prior uncertainty and their likelihood.}
+\es{Por lo que la incertidumbre a posteriori de cada hip\'otesis es proporcional al producto de su incertidumbre a priori y su verosimilitud.}
 
 % Parrafo
 
@@ -428,8 +422,8 @@
 \en{Since we observed a winning result, we know from the causal model that the hidden difference of performances was indeed positive.}
 \es{Como observamos un resultado ganador, sabemos por el modelo causal que la diferencia de rendimientos oculta fue en efecto positiva.}
 %
-\en{The prior prediction of the observed result (or evidence) is therefore the cumulative density, $\Phi$, of all positive values of the difference of performances (Eq.~\ref{eq:evidence}).}
-\es{La predicción a priori del resultado observado (o evidencia) es entonces la densidad acumulada, $\Phi$, de todos los valores positivos de la diferencia de rendimientos (Eq.~\ref{eq:evidence}).}
+\en{Therefore, the prior prediction of the observed result (or evidence) is the cumulative density, $\Phi$, of all positive values of the difference of performances (Eq.~\ref{eq:evidence}).}
+\es{Por lo tanto, la predicción a priori del resultado observado (o evidencia) es la densidad acumulada, $\Phi$, de todos los valores positivos de la diferencia de rendimientos (Eq.~\ref{eq:evidence}).}
 %
 \en{From now on the role of the model will be left implicit.}
 \es{A partir de ahora el rol del modelo se dejrá impl\'icito.}
@@ -441,11 +435,11 @@
 \en{The evidence is a prediction made with all the prior hypotheses.}
 \es{La evidencia es una predicción hecha con todas las hipótesis a priori.}
 %
-\en{The posterior belief distribution for a winning case is shown in equation~\ref{eq:posterior_win}.}
-\es{La distribución de creencias a posteriori para el caso ganador se muestra en la ecuaci\'on~\ref{eq:posterior_win}.}
+\en{The proportional posterior for the winning case is obtained by multiplying the likelihood by the prior as shown in equation~\ref{eq:posterior_win}.}
+\es{El posterior proporcional para el caso ganador se obtiene multiplicando el likelihood por el prior como se muestra en la ecuaci\'on~\ref{eq:posterior_win}.}
 %
-\en{In section~\ref{sec:exactSolution} we will see in detail how all this equations arises by applying the sum and product rule over the probabilistic model.}
-\es{En la secci\'on~\ref{sec:exactSolution} veremos en detalle c\'omo todas estas ecuaciones surge de aplicar las reglas de las suma y el producto sobre el modelo probabil\'istico.}
+\en{In section~\ref{sec:exactSolution} we will see in detail how all this equations arises by applying the sum and product rule over the generative model.}
+\es{En la secci\'on~\ref{sec:exactSolution} veremos en detalle c\'omo todas estas ecuaciones surge de aplicar las reglas de las suma y el producto sobre el modelo generativo.}
 %
 \begin{equation}\label{eq:posterior_win}
 \underbrace{p(\,s_i\, | \, r \, )}_{\text{Posterior}} \propto \underbrace{1-\Phi(0 \, |  s_i - \mu_j , \, 2\beta^2 + \sigma_j^2)}_{\text{\en{Likelihood}\es{Verosimilitud}} \ P(r|s_i)} \,  \underbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}_{\text{Prior} \ p(s_i)} 
@@ -457,15 +451,18 @@
 % }
 % \end{equation}
 %
-\en{Where the normalized posterior can be found dividing the right hand by the evidence $P(r)$.}
+\en{where the normalized posterior can be found dividing the right hand by the evidence $P(r)$.}
 \es{Donde el el posterior normalizado se obtiene dividiendo el lado derecho por la evidencia, $P(r)$.}
 %
-\en{The likelihood is just the cumulative density of all positive values of a Gaussian distribution centered at the difference between the hypothesis $s_i$ and the opponent's mean estimate $\mu_j$, with a variance that includes all uncertainties except the one of $s_i$.}
-\es{La verosimilitud es la densidad acumulada de los valores positivos de una distribuci\'on Gaussiana centrada en la diferencia entre la hip\'otesis $s_i$ y la estimaci\'on media del oponente $\mu_j$ con una varianza que incluye todas las incertidumbres salvo la de la propia hip\'otesis $s_i$.}
+\en{It is interesting to note the similarities and differences between likelihood and evidence.}
+\es{Es interesante notar las similitudes y diferencias entre el likelihood y el evidencia.}
 %
-\en{In other words, the likelihood is just the prior prediction of the observed winning result, made with all the skill opponent's hypotheses, and assuming true the skill hypothesis of the agent we are evaluating.}
-\es{En otras palabras, la verosimilitud no es más que la predicci\'on a priori del resultado observado ganador, realizada con todas las hip\'otesis de habilidad del oponete, y suponiendo verdadera la hipótesis de habilidad del agente que estamos evaluando.}
+\en{The likelihood quantifies the same cumulative density as the evidence, but now centered at the difference between the hypothesis we are evaluating $s_i$ and the opponent's mean estimate $\mu_j$, with a variance that includes all uncertainties except the one of $s_i$.}
+\es{La verosimilitud cuantifica la misma densidad acumulada que la evidencia, pero centrada ahora en la diferencia entre la hip\'otesis que estamos evaluando $s_i$ y la estimaci\'on media del oponente $\mu_j$ con una varianza que incluye todas las incertidumbres salvo la de la propia hip\'otesis $s_i$.}
 %
+\en{In other words, the likelihood is just the prior prediction of the observed result assuming true the skill hypothesis we are evaluating.}
+\es{En otras palabras, la verosimilitud no es más que la predicci\'on a priori del resultado observado suponiendo verdadera la hipótesis de habilidad que estamos evaluando.}
+%, made with all the skill opponent's hypotheses,
 % \en{For each hypothesis $s_i$, the filtered density is exactly proportional to the magnitude of the surprise, defined as the complement of the likelihood.}
 % \es{Para cada hip\'otesis $s_i$, la masa filtrada es exactamente proporcional a la magnitud de la sorpresa, definida como el complemento de la verosimilitud.}
 %
@@ -481,11 +478,8 @@
     \en{Belief update for the winning case.}
     \es{Actualizaci\'on de creencias para el caso ganador.}
     %
-    \en{The proportinal posterior distribution is obtained as the product of the prior (Gaussian distribution) and the likelihood (cumulative Gaussian distribution).}
-    \es{La distribuci\'on a posteriori proporcional se obtiene como el producto de la distribuci\'on a priori (distribuci\'on Gaussiana) y la verosimilitud (distribuci\'on Gaussiana acumulada).}
-    %
-    \en{The surprise, defined as the complement of the likelihood, works as a filter for the prior.}
-    \es{La sorpresa, definida como el complemento de la verosimilitud, funciona como un filtro para el prior.}
+    \en{The proportinal posterior is obtained as the product of the prior (Gaussian distribution) and the likelihood (cumulative Gaussian distribution).}
+    \es{El posterior proporcional se obtiene como el producto de la distribuci\'on a priori (distribuci\'on Gaussiana) y la verosimilitud (distribuci\'on Gaussiana acumulada).}
     %
     \en{The evidence is the integration of the posterior.}
     \es{La evidencia es la integraci\'on del posterior.}
@@ -496,9 +490,12 @@
     \label{fig:posterior_win}
 \end{figure}
 %
-\en{The posterior receives the density of the prior no filtered by the likelihood.}
-\es{El posterior recibe la masa del prior no filtrada por la verosimilitud.}
+\en{The surprise, defined as the complement of the likelihood, works as a filter for the prior.}
+\es{La sorpresa, definida como el complemento de la verosimilitud, funciona como un filtro para el prior.}
 %
+\en{The posterior is just the density of the prior not filtered by the likelihood.}
+\es{El posterior no es más que la densidad del prior no filtrada por la verosimilitud.}
+%    
 \en{At the region of very high skill hypotheses, where the winning result would have generated almost no surprise ($\lim_{s_i \to \infty}P(r|s_i) = 1$), the posterior receives almost all the density of the prior.}
 \es{En la regi\'on de hip\'otesis de muy alta habilidad, donde el resultado ganador no nos hubiera generado casi ninguna sorpresa ($\lim_{s_i \to \infty}P(r|s_i) = 1$), el posterior recibe casi toda la masa del prior.}
 %
@@ -513,11 +510,11 @@
 \en{But due the shape of the exact posterior, a Gaussian seem to be a good enough approximation, allowing us to avoid the computational cost of the sampling methodologies.}
 \es{Por la forma del posterior exacto, una Gaussiana parece una aproximaci\'on suficientemente buena, que nos permitir\'ia evitar el costo computacional de las metodolog\'ias de sampleo.}
 %
-\en{The main contribution of the Glicko system~\cite{glikman_gliko_2} was the development of an efficient method to approximate the exact posterior with a Gasussian distribution.}
-\es{El principal aporte del sistema Glicko~\cite{glikman_gliko_2} fue el desarroll\'o de un m\'etodo eficiente para aproximar la posterior exacta con una distribuci\'on Gasussiana.}
+\en{The main contribution of the Glicko system~\citep{glikman_gliko_2} was the development of an efficient method to approximate the exact posterior with a Gasussian distribution.}
+\es{El principal aporte del sistema Glicko~\citep{glikman_gliko_2} fue el desarroll\'o de un m\'etodo eficiente para aproximar la posterior exacta con una distribuci\'on Gasussiana.}
 %
-\en{However, this offers no guarantee that the selected Gaussian is the one that best approximates the exact posterior.}
-\es{Sin embargo, esta no ofrece garant\'ias de que la Gaussiana seleccionada sea la que mejor aproxima al posterior exacto.}
+\en{However, this offers no guarantee that the selected Gaussian is the one that best approximates it.}
+\es{Sin embargo, esta no ofrece garant\'ias de que la Gaussiana seleccionada sea la que mejor aproxima.}
 %
 \en{The success of the TrueSkill solution~\citep{Herbrich2007} is based on the application of an efficient method for computing the Gaussian that best approximates the exact posterior (section~\ref{sec:approximate_posterior}).}
 \es{El \'exito de la soluci\'on TrueSkill~\citep{Herbrich2007} se basa en la aplicaci\'on de m\'etodo eficiente para calcular la Gaussiana que mejor aproxima a la posterior exacta (secci\'on~\ref{sec:approximate_posterior}).}
@@ -529,13 +526,8 @@
 \en{This kind of methods, which minimize the Kullback-Leibler divergence between the true and the approximate distribution, allows to perform Bayesian inference in situations that otherwise would be impossible.}
 \es{Esta clase de m\'etodos, que minizan la divergencia Kullback-Leibler entre la distribuci\'on verdadera y aproximada, permiten realizar Inferencia Bayesiana en situaciones que de otra forma no ser\'ia posibles.}
 %
-\en{In our case, in which we want to know how skills change over time, this technique allow us to apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
-\es{En nuestro caso, en el que queremos conocer cómo cambian las habilidades a través del tiempo, está técnica nos permite aplicar la ecuación~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
-%
-% Parrafo
-%
-%\en{Learning is a dynamical process.}
-%\es{El aprendizaje es un proceso din\'amico.}
+\en{In our case, in which we need to know how skills change over time, this technique allow us to apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
+\es{En nuestro caso, en el que necesitamos conocer cómo cambian las habilidades a través del tiempo, está técnica nos permite aplicar la ecuación~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
 %
 \en{The approach adopted by TrueSkill, Glicko, and BIRT to treat the dynamical process, known as \emph{filtering}, uses the posterior as the prior for the next event.}
 \es{El enfoque adoptado por TrueSkill, Glicko y BIRT para tratar el proceso din\'amico, conocido como \emph{filtering}, usa el posterior como prior del siguiente evento.}
@@ -547,7 +539,7 @@
  \widehat{\text{Posterior}}_t \propto \widehat{\text{Likelihood}}_t  \overbrace{\widehat{\text{Likelihood}}_{t-1} \dots \widehat{\text{Likelihood}}_{2} \underbrace{\widehat{\text{Likelihood}}_{1} \text{Prior}_1}_{\widehat{\text{Posterior}}_{1} \text{ \en{as}\es{como} } \text{Prior}_{2}} }^{\widehat{\text{Posterior}}_{t-1} \text{ \en{as}\es{como} } \text{Prior}_{t}} %= \text{Prior}_1 \prod_{i=1}^t \text{Likelihood}_i 
 \end{equation}
 %
-\en{Where {\footnotesize $\widehat{\text{Posterior}}_i$} and {\footnotesize $\widehat{\text{Likelihood}}_i$} represents the approximations induced by the equation~\ref{eq:approx} at the $i$-est event.}
+\en{where {\footnotesize $\widehat{\text{Posterior}}_i$} and {\footnotesize $\widehat{\text{Likelihood}}_i$} represents the approximations induced by the equation~\ref{eq:approx} at the $i$-est event.}
 \es{Donde {\footnotesize $\widehat{\text{Posterior}}_i$} y {\footnotesize $\widehat{\text{Likelihood}}_i$} representan la aproximaciones inducidas por la ecuaci\'on~\ref{eq:approx} en el $i$-\'esimo evento.}
 %
 \en{If we consider the likelihood as a filter of the prior, each posterior can be seen as an accumulation of all previous filters.}
@@ -556,6 +548,9 @@
 \en{In this way, information propagates from past to future estimates.}
 \es{De esta forma, la informaci\'on propaga del estimaciones pasadas hacia futuras.}
 %
+%\en{Learning is a dynamical process.}
+%\es{El aprendizaje es un proceso din\'amico.}
+%
 \en{Since skills are dynamic variables it is important to add some uncertainty $\gamma$ at each step.}
 \es{Debido a que las habilidades son variables din\'amicas es importante agregar alguna incertidumbre $\gamma$ en cada paso.}
 %
@@ -563,37 +558,34 @@
  \widehat{p}(s_{i_t}) = \N(s_{i_t} | \mu_{i_{t-1}}, \sigma_{i_{t-1}}^2 + \gamma^2 )
  \end{equation}
  %
-\en{Because the filtering approach does not arise from any probabilistic model, it suffers from a number of problems.}
-\es{Debido a que el enfoque de filtrado no se surge de ningún modelo probabil\'istico, sufre de un serie de problemas.}
-% %
-\en{Thay weaknesses are related to the fact that the information propagates in only one direction through the system.}
-\es{Sus debilidades están relacionadas con el hecho de que la informaci\'on propaga en un solo sentido por el sistema.}
+\en{Because the filtering approach does not arise from any probabilistic model, it suffers from a number of problems related to the fact that the information propagates in only one direction through the system.}
+\es{Debido a que el enfoque de filtrado no se surge de ningún modelo probabil\'istico, sufre de un serie de problemas, todos relacionados con el hecho de que la información se propaga en una sola dirección a través del sistema.}
 %
-\en{The beginning of any sequence of estimates always has high uncertainty.}
+\en{The most obvious is that the beginning of any sequence of estimates always has high uncertainty.}
 %, making them useless
-\es{El inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre.}
+\es{El más obvio es que el inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre.}
 % , lo que las hace inservibles
 \en{But it also suffer from ``temporary'' and ``spatial'' decoupling.}
 \es{Pero también sufre de desacoplamientos ``temporales'' y ``espaciales''.}
 %
-\en{Although the relative differences between contemporary estimates within well-connected communities may be correct, estimates separated in time and between poorly connected communities are often incorrect.}
+\en{Although the relative differences between contemporary estimates within well-connected communities are correct, estimates separated in time and between poorly connected communities are often incorrect.}
 % preventing comparability over time and between communities.
-\es{A pesar de que la diferencia relativa entre estimaciones contempor\'aneas al interior de comunidades bien conectadas puedan ser correctas, las estimaciones separadas en el tiempo y entre comunidades poco conectadas suelen ser incorrectas.}
+\es{Aunque la diferencias relativas entre estimaciones contempor\'aneas al interior de comunidades bien conectadas sean correctas, las estimaciones separadas en el tiempo y entre comunidades poco conectadas suelen ser incorrectas.}
 % impidiendo as\'i la comparabilidad temporal y entre comunidades.
 
 % Parrafo
 
-\en{In order to obtain good initial estimates and ensure temporal and spatial comparability we need a causal model of the temporal process that links all historical activities.}
+\en{To obtain good initial estimates and ensure temporal and spatial comparability we need a causal model of the temporal process that links all historical activities.}
 \es{A fin de obtener buenas estimaciones iniciales y garantizar comparbilidad temporal y espacial, necesitamos un modelo causal del proceso temporal que vincule todas las actividades hist\'oricas.}
 %
 \en{This approach, known as \emph{smoothing}, is the one implemented by TrueSkill Through Time~\citep{Dangauthier2007}.}
 \es{Este enfoque, conocido como \emph{smoothing}, es el implementado por TrueSkill Through Time~\citep{Dangauthier2007}.}
 %
-\en{It is difficult to imagine the complex structure that these types of models can acquire, any video game will typically require a network of millions of events.}
-\es{Es dif\'icil imaginar la compleja estructura que pueden adquerir este tipo de modelos gr\'aficos, cualquier videojuego requerirá tipicamente una red de millones de eventos.}
+\en{This kind of graphical models, in any video game, typically involves a complex network between millions of events.}
+\es{Este clase de modelos gr\'aficos, en cualquier video juego, implica típicamente una red compleja entre millones de eventos.}
 %
-\en{Figure~\ref{fig:smoothing} shows the closest neighbors of a sequence of estimates.}
-\es{En la figura~\ref{fig:smoothing} se muestra los vecinos m\'as pr\'oximos de una secuencia de estimaciones.}
+\en{For this reason, figure~\ref{fig:smoothing} shows only the closest neighbors of a sequence of estimates.}
+\es{Por esta razón, la figura~\ref{fig:smoothing} muestra s\'olo los vecinos m\'as pr\'oximos de una secuencia de estimaciones.}
 %
 \begin{figure}[h!]
   \centering
@@ -633,38 +625,36 @@
   \en{Only the neighbors of a sequence of estimates are displayed.}
   \es{S\'olo se muestra los vecinos de una secuencia de estimaciones.}
   %
-%   \en{Its probabilistic solution generates the approach known as \emph{smoothing}, in which historical information flows through the whole system.}
-%   \es{La soluci\'on probabil\'istica da como resultado el abordaje conocido como \emph{smoothing}, en el que la informaci\'on hist\'orica fluye por todo el sistema.}
-%   %
-%   %\en{These types of models are known as \emph{state-space models}.}
+  %\en{These types of models are known as \emph{state-space models}.}
 %   %\es{Este tipo de modelos se conocen como \emph{state space models}.}
   }
   \label{fig:smoothing}
 \end{figure}
 %
-\en{By applying the rules of probability to this temporal model, historical information naturally propagate throughout the system, solving the problems of the filtering approach.}
+\en{By applying the rules of probability over this temporal model, historical information naturally propagate throughout the system, solving the problems of the filtering approach.}
 \es{Al aplicar las reglas de la probabilidad sobre este modelo temporal, la informaci\'on hist\'orica propaga naturalmente hacia todo el sistema, resolviendo los problemas del enfoque de filtro.}
 %
-\en{A prior distribution at an event $t$, with $\gamma = 0$, is now the product of all past and future information.}
-\es{La distribuci\'on a prior en un evento $t$, con $\gamma = 0$, es ahora la multiplicaci\'on de toda la informaci\'on pasada y futura.}
+\en{Now, the prior at each $t$ event depends on all the past and future information.}
+\es{Ahora, el prior en cada evento $t$ depende de toda la informaci\'on pasada y futura.}
+%
+\en{Excluding the dynamic component, $\gamma = 0$, the prior of the agent $i$ at the $t$-eth event is just the product of all their likelihoods, except that of the $t$-eth event.}
+\es{Exluyendo el aspecto dinámico, $\gamma = 0$, el prior del agente $i$ en el $t$-ésimo evento es el producto del todas sus verosimilitudes, salvo la del $t$-ésimo evento.}
 %
 \begin{equation}\label{eq:smooth_prior}
- \text{Prior}_{i_t} = \text{Prior}_{i_0} \underbrace{\prod_{k = 1}^{t-1} \text{\en{Likelihood}\es{Verosimilitud}}_{i_k}}_{\text{\en{Past information}\es{Informaci\'on pasada}}} \underbrace{\prod_{k = t + 1}^{T} \text{\en{Likelihood}\es{Verosimilitud}}_{i_k}}_{\text{\en{Future information}\es{Informaci\'on futura}}}
+ \text{Prior}_{i_t} = \text{Prior}_{i_0} \underbrace{\prod_{k = 1}^{t-1} \text{\en{Likelihood}\es{Verosimilitud}}_{i_k}}_{\text{\en{Past information}\es{Informaci\'on pasada}}} \underbrace{\prod_{k = t + 1}^{T_i} \text{\en{Likelihood}\es{Verosimilitud}}_{i_k}}_{\text{\en{Future information}\es{Informaci\'on futura}}}
 \end{equation}
 %
-\en{This generates a mutual dependency between likelihoods, forcing us to implement an eficiente iterative algorithm to solve inference (details at secci\'on~\ref{sec:throguthTime})}
+\en{where $T_i$ is the total number of events in which the $i$ agent participated, with {\small Prior$_{i_0}$} the initial prior of agent $i$.}
+\es{Donde $T_i$ es la cantidad total de eventos del agente $i$, con {\small Prior$_{i_0}$} el prior inicial del agente $i$.}
 %
-\es{Esto genera una mutua dependencia entre verosimilitudes, obligándonos a implementar un algoritmo para resolver la inferencia (detalles en la secci\'on~\ref{sec:throguthTime}).}
+\en{This mutual dependency between likelihoods, force us to implement an iterative algorithm to solve inference (details at secci\'on~\ref{sec:throguthTime})}
+\es{Esta mutua dependencia entre verosimilitudes, nos obliga a implementar un algoritmo iterativo para resolver la inferencia (detalles en la secci\'on~\ref{sec:throguthTime}).}
 %
-\en{The expectation propagation defines a procedure that converge with a few linear iterations over the data, scaling to millions of observations in a few minutes.}
-\es{Este procedimiento converge con unas pocas iteraciones lineales sobre los datos, escalando a millones de observaciones en pocos minutos.}
+\en{In the first pass, the priors of each event are calculated using only the past likelihoods that have already been defined.}
+\es{En la primera pasada, los priors de cada evento se calculan usando sólo las verosimilitudes pasadas que ya han sido definidas.}
 %
-\en{At the beginning, the likelihoods that are not yet defined are initialized with a neutral value or simply excluded.}
-\es{Al empezar, las verosimilitudes que aun no están definidas se inicializan con un valor neutro o simplemente se las excluy\'e.}
-%
-\en{In Figure~\ref{fig:smooth_example} we show the behavior of the estimates in a data set with two agents and two events.}
-\es{En la figura~\ref{fig:smooth_example} se muestra el comportamiento de las estimaciones en conjunto de datos de dos agentes y dos eventos.}
-%
+\en{Once all the likelihoods have been calculated, we can run a new pass using the latest available likelihoods.}
+\es{Una vez calculadas todas las verosimilitudes, podemos realizar una nueva pasada usando las últimas verosimilitudes disponibles.}
 \begin{figure}[h!]
   \centering
   \scalebox{.9}{
@@ -759,6 +749,18 @@
   }
   \label{fig:smooth_example}
 \end{figure}
+%
+\en{The first likelihoods will necessarily be incorrect because the priors had been partially defined.}
+\es{Las primeras verosimilitudes necesariamente serán incorrectas debido a que los priors habían sido definidos parcialmente.}
+%
+\en{But so will be the likelihoods calculated in the second pass, because its outcome will depend partially on the likelihoods calculated in the previous pass.}
+\es{Pero también lo serán las verosimilitudes calculadas en la segunda pasada, debido a que su resutado dependerá parcialmente de las verosimilitudes calculadas en la pasada anterior.}
+%
+\en{However, this procedure converge with a few linear iterations over the data, scaling to millions of observations in a few minutes.}
+\es{Sin embargo, este procedimiento converge con unas pocas iteraciones lineales sobre los datos, escalando a millones de observaciones en pocos minutos.}
+%
+\en{In Figure~\ref{fig:smooth_example} we show the behavior of the estimates in a data set with two agents and two events.}
+\es{En la figura~\ref{fig:smooth_example} se muestra el comportamiento de las estimaciones en conjunto de datos de dos agentes y dos eventos.}
 %
 \en{TrueSkill Through Time recovers the true differences between hidden skills even at the beginning of the sequence.}
 \es{TrueSkill Through Time recupera las verdaderas diferencias entre habilidades ocultas incluso al principio de la secuencia.}
