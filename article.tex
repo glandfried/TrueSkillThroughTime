@@ -101,8 +101,8 @@
 %% - \title{} in title case
 %% - \Plaintitle{} without LaTeX markup (if any)
 %% - \Shorttitle{} with LaTeX markup (if any), used as running title
-\title{All the concepts behind TrueSkill Through Time: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages (Draft)}
-\Plaintitle{All the concepts behind TrueSkill Through Time: the Julia, Python and R packages (Draft)}
+\title{Harnessing Skill estimation using Bayesian Inference: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages}
+\Plaintitle{Harnessing Skill estimation using Bayesian Inference: the Julia, Python and R packages}
 \Shorttitle{TrueSkill Through Time: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages (Draft)}
 
 %% - \Address{} of at least one author
@@ -232,8 +232,8 @@
 \en{For this reason, all widely used skill estimators are based on pairwise comparisons.}
 \es{Por esta raz\'on, todos los estimadores de habilidad ampliamente usados se basa en comparaciones por pares.}
 %
-\en{Since the first generative models, proposed almost a century ago by~\cite{Thurstone1927} and~\cite{zermelo1929-translation}, it is assumed that the probability of an observed result, $r$, depends on the performance, $p$, of the agent $i$ and their opponent $j$, expressed as $P(\, r \,|\, p_i, \, p_j \,)$.}
-\es{Desde los primeros modelos generativos, propuestos hace casi un siglo por~\cite{Thurstone1927} y~\cite{zermelo1929-translation}, se supone que la probabilidad de un resultado observado, $r$, depende del rendimiento, $p$, del agente $i$ y de su oponente $j$, expresada como $P(\, r \,|\, p_i, \, p_j \,)$.}
+\en{Since the first generative models, proposed almost a century ago by~\cite{Thurstone1927} and~\cite{Zermelo1929}, it is assumed that the probability of an observed result, $r$, depends on the performance, $p$, of the agent $i$ and their opponent $j$, expressed as $P(\, r \,|\, p_i, \, p_j \,)$.}
+\es{Desde los primeros modelos generativos, propuestos hace casi un siglo por~\cite{Thurstone1927} y~\cite{Zermelo1929}, se supone que la probabilidad de un resultado observado, $r$, depende del rendimiento, $p$, del agente $i$ y de su oponente $j$, expresada como $P(\, r \,|\, p_i, \, p_j \,)$.}
 %
 \en{The field continued to progress with the work of~\cite{Bradley1952} and~\cite{Mosteller1951a,Mosteller1951b,Mosteller1951c} leading to the breakthrough that took place with the methodology developed by~\cite{Elo2008} for the US Chess Federation (USCF), which is still used by the International Chess Federation (FIDE).}
 \es{El campo sigui\'o progresando con los trabajos de \cite{Bradley1952} y~\cite{Mosteller1951a,Mosteller1951b,Mosteller1951c}, que condujo al gran avance que tuvo lugar con la metodología desarrollada por~\cite{Elo2008} para la Federaci\'on de Ajedrez de los Estados Unidos (USCF), adoptada hasta el d\'ia de hoy por la Federaci\'on Internacional de Ajedrez (FIDE).}
@@ -289,12 +289,14 @@
 \en{Figure~\ref{fig:generative_model} provides a graphical representation in which skills generates the observable result.}
 \es{La figura~\ref{fig:generative_model} ofrece una representaci\'on gr\'afica en la que las habilidades generan el resultado observable.}
 %
-\en{The model assumes that the one with the highest performance wins, $r = (p_i > p_j)$, which vary between events around the true skill with some constant noise, $\N(p\,|\,s,\beta^2)$.}
+\en{The model assumes that the agent with the highest performance wins, $r = (p_i > p_j)$, which may vary through the different events around the true skill with some constant noise.
+In the case of agent $i$, the model states: $\N(p_i\,|\,s_i,\beta^2)$.}
+\todo[inline]{Que pasa con el beta, no se dice nada de nada?}
 \es{El modelo supone que gana quien haya obtenido mayor rendimiento,  $r = (p_i > p_j)$, que var\'ian entre eventos alrededor de la verdadera habilidad con cierto ruido constante, $\N(p\,|\,s,\beta^2)$.}
 %
-\en{The graphical representation defines a probability distribution.}
-\es{Su representaci\'on gr\'afica define una distribuci\'on de probabilidad.}
-
+% \en{The graphical representation defines a probability distribution.}
+% \es{Su representaci\'on gr\'afica define una distribuci\'on de probabilidad.}
+\todo[inline]{La frase acerca de la representaci\'on gr\'afica no se entiende, no tiene contexto ni justificaci\'on, la coment\'e, pero yo la borrar\'ia directamente.}
 % Parrafo
 
 \en{Elo's methodological solution is simple and smart: update both previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, based on the surprise (i.e. the complement of the prediction of the observed result).}
@@ -307,7 +309,7 @@
 \en{where the probability arises from instantiating the previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, in the generative model (details in section~\ref{sec:exactSolution}).}
 \es{Donde la probabilidad surge de instanciar las estimaciones previas en el modelo generativo (detalles en la sección~\ref{sec:exactSolution}).}
 %
-\en{The idea is that the surprise $\Delta$ depends on how good the previous estimates are and therefore serves to update them.}
+\en{The idea is that the surprise $\Delta$ depends on how accurate are the previous estimates and, therefore, can be used to update them.}
 \es{La idea es que la sorpresa $\Delta$ depende de cuan buenas son las estimaciones previas y por lo tanto sirve para actualizarlas.}
 %
 \en{Unexpected results would indicate that current estimates should be updated to a greater extent than if they had occurred as expected.}
