@@ -101,8 +101,8 @@
 %% - \title{} in title case
 %% - \Plaintitle{} without LaTeX markup (if any)
 %% - \Shorttitle{} with LaTeX markup (if any), used as running title
-\title{Harnessing the skill estimation using Bayesian Inference: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages}
-\Plaintitle{Harnessing the skill estimation using Bayesian Inference: the Julia, Python and R packages}
+\title{Harnessing the skill estimation using True Skill Through Time: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages}
+\Plaintitle{Harnessing the skill estimation using True Skill Through Time: the Julia, Python and R packages}
 \Shorttitle{TrueSkill Through Time: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages (Draft)}
 
 %% - \Address{} of at least one author
@@ -321,7 +321,7 @@
 \end{equation}
 %
 \en{where the surprise $\Delta$ acts as a correction factor for both previous estimates.}
-\es{Donde la sopresa $\Delta$ act\'ua como factor de correcci\'on para ambas estimaciones previas.}
+\es{Donde la sorpresa $\Delta$ act\'ua como factor de correcci\'on para ambas estimaciones previas.}
 %
 \en{This procedure can recover the relative scale of the agents, starting from arbitrary initial values.}
 \es{Esta soluci\'on puede recuperar la escala relativa de los agentes, partiendo de de valores iniciales arbitrarios.}
@@ -336,7 +336,7 @@
 \es{Debido a que a los agentes nuevos comienzan con estimaciones arbitrarias (el mismo valor inicial para cualquier individuo), ellas tienden a generan alta sorpresa y a modificar bruscamente estimaciones que ya hab\'ian convergido.}
 %
 \en{The weak point is to not have into account the notion of uncertainty.}
-\es{El punto débil se debe a la falta de la noción de incertidumbre.}
+\es{El punto d\'ebil se debe a la falta de la noción de incertidumbre.}
 %
 \en{To solve this problem, an ad-hoc solution was proposed: reducing the impact of the surprise based on the number of times the agent has participated previously.}
 \es{Para resolver este problema, una soluci\'on ad-hoc fue propuesta: reducir el impacto de la sorpresa en funci\'on de la cantidad de veces que el agente ha participado previamente.}
@@ -355,8 +355,8 @@
 \en{All inference, independently of its complexity, can be solved by the rules of probability: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
 \es{Toda inferencia, no importa cuan compleja sea, puede ser resuelta mediante las reglas de la probabilidad: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
 %
-\en{The \ref{eq:sum_rule} states that any marginal distribution can be obtained by integrating, or summing up, the joint probability:}
-\es{La \ref{eq:sum_rule} afirma que cualquier distribuci\'on marginal se puede obtener integrando o sumando la distribuci\'on conjunta.}
+\en{The \ref{eq:sum_rule} states that any marginal distribution can be obtained by integrating, or summing up, the joint probability distribution:}
+\es{La \ref{eq:sum_rule} afirma que cualquier distribuci\'on marginal se puede obtener integrando o sumando la distribuci\'on de probabilidad conjunta.}
 %
 \begin{equation} \label{eq:sum_rule}
  \tag{\en{sum rule}\es{regla de la suma}}
@@ -419,8 +419,10 @@
 \en{As an instance, let's consider a winning case ($p_i > p_j$) using Gaussian priors, $\N(\,s\,|\,\mu, \sigma^2)$.}
 \es{A modo de ejemplo, consideremos un caso ganador ($p_i > p_j$) usando priors Gaussianos, $\N(\,s\,|\,\mu, \sigma^2)$.}
 %
-\en{The difference of perfomances, in these cases, can also be expressed as a Gaussian distribution, centered on the difference of the prior estimate means ($\mu_i -\mu_j$), with a variance that incorporates the uncertainty of both estimates ($\sigma$) and both performances ($\beta$), $\N( d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
-\es{La diferencia de rendimientos, en estos casos, también se puede expresar como una Gaussiana centrada en la diferencia de las medias de las estimaciones a priori ($\mu_i - \mu_j$), con una varianza que incorpora la incertidumbre de ambas estimaciones ($\sigma$) y de ambos rendimientos ($\beta$), $\N(\, d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
+
+\todo[inline]{Arreglar la siguiente frase, incerteza sobre la estimaci\'on y sobre la performace}
+\en{The difference of performances, in these cases, can also be expressed as a Gaussian distribution, centered on the difference of the prior estimate means ($\mu_i -\mu_j$), with a variance that incorporates the uncertainty of both estimates ($\sigma$) and both performances ($\beta$), $\N( d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
+\es{La diferencia de rendimientos, en estos casos, tambi\'en se puede expresar como una Gaussiana centrada en la diferencia de las medias de las estimaciones a priori ($\mu_i - \mu_j$), con una varianza que incorpora la incertidumbre de ambas estimaciones ($\sigma$) y de ambos rendimientos ($\beta$), $\N(\, d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
 %
 \en{Since we observed a winning result, we know from the causal model that the hidden difference of performances was indeed positive.}
 \es{Como observamos un resultado ganador, sabemos por el modelo causal que la diferencia de rendimientos oculta fue en efecto positiva.}
@@ -454,7 +456,7 @@
 % }
 % \end{equation}
 %
-\en{where the normalized posterior can be found dividing the right hand by the evidence $P(r)$.}
+\en{The normalized posterior can be found dividing the right hand by the evidence $P(r)$.}
 \es{Donde el el posterior normalizado se obtiene dividiendo el lado derecho por la evidencia, $P(r)$.}
 %
 \en{It is interesting to note the similarities and differences between likelihood and evidence.}
@@ -530,7 +532,7 @@
 \es{Esta clase de m\'etodos, que minizan la divergencia Kullback-Leibler entre la distribuci\'on verdadera y aproximada, permiten realizar Inferencia Bayesiana en situaciones que de otra forma no ser\'ia posibles.}
 %
 \en{In our case, in which we need to know how skills change over time, this technique allow us to apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
-\es{En nuestro caso, en el que necesitamos conocer cómo cambian las habilidades a través del tiempo, está técnica nos permite aplicar la ecuación~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
+\es{En nuestro caso, en el que necesitamos conocer cómo cambian las habilidades a trav\'es del tiempo, está t\'ecnica nos permite aplicar la ecuación~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
 %
 \en{The approach adopted by TrueSkill, Glicko, and BIRT to treat the dynamical process, known as \emph{filtering}, uses the posterior as the prior for the next event.}
 \es{El enfoque adoptado por TrueSkill, Glicko y BIRT para tratar el proceso din\'amico, conocido como \emph{filtering}, usa el posterior como prior del siguiente evento.}
@@ -562,14 +564,14 @@
  \end{equation}
  %
 \en{Because the filtering approach does not arise from any probabilistic model, it suffers from a number of problems related to the fact that the information propagates in only one direction through the system.}
-\es{Debido a que el enfoque de filtrado no se surge de ningún modelo probabil\'istico, sufre de un serie de problemas, todos relacionados con el hecho de que la información se propaga en una sola dirección a través del sistema.}
+\es{Debido a que el enfoque de filtrado no se surge de ningún modelo probabil\'istico, sufre de un serie de problemas, todos relacionados con el hecho de que la información se propaga en una sola dirección a trav\'es del sistema.}
 %
 \en{The most obvious is that the beginning of any sequence of estimates always has high uncertainty.}
 %, making them useless
 \es{El más obvio es que el inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre.}
 % , lo que las hace inservibles
 \en{But it also suffer from ``temporary'' and ``spatial'' decoupling.}
-\es{Pero también sufre de desacoplamientos ``temporales'' y ``espaciales''.}
+\es{Pero tambi\'en sufre de desacoplamientos ``temporales'' y ``espaciales''.}
 %
 \en{Although the relative differences between contemporary estimates within well-connected communities are correct, estimates separated in time and between poorly connected communities are often incorrect.}
 % preventing comparability over time and between communities.
@@ -641,7 +643,7 @@
 \es{Ahora, el prior en cada evento $t$ depende de toda la informaci\'on pasada y futura.}
 %
 \en{Excluding the dynamic component, $\gamma = 0$, the prior of the agent $i$ at the $t$-eth event is just the product of all their likelihoods, except that of the $t$-eth event.}
-\es{Exluyendo el aspecto dinámico, $\gamma = 0$, el prior del agente $i$ en el $t$-ésimo evento es el producto del todas sus verosimilitudes, salvo la del $t$-ésimo evento.}
+\es{Exluyendo el aspecto dinámico, $\gamma = 0$, el prior del agente $i$ en el $t$-\'esimo evento es el producto del todas sus verosimilitudes, salvo la del $t$-\'esimo evento.}
 %
 \begin{equation}\label{eq:smooth_prior}
  \text{Prior}_{i_t} = \text{Prior}_{i_0} \underbrace{\prod_{k = 1}^{t-1} \text{\en{Likelihood}\es{Verosimilitud}}_{i_k}}_{\text{\en{Past information}\es{Informaci\'on pasada}}} \underbrace{\prod_{k = t + 1}^{T_i} \text{\en{Likelihood}\es{Verosimilitud}}_{i_k}}_{\text{\en{Future information}\es{Informaci\'on futura}}}
@@ -757,7 +759,7 @@
 \es{Las primeras verosimilitudes necesariamente serán incorrectas debido a que los priors habían sido definidos parcialmente.}
 %
 \en{But so will be the likelihoods calculated in the second pass, because its outcome will depend partially on the likelihoods calculated in the previous pass.}
-\es{Pero también lo serán las verosimilitudes calculadas en la segunda pasada, debido a que su resutado dependerá parcialmente de las verosimilitudes calculadas en la pasada anterior.}
+\es{Pero tambi\'en lo serán las verosimilitudes calculadas en la segunda pasada, debido a que su resutado dependerá parcialmente de las verosimilitudes calculadas en la pasada anterior.}
 %
 \en{However, this procedure converge with a few linear iterations over the data, scaling to millions of observations in a few minutes.}
 \es{Sin embargo, este procedimiento converge con unas pocas iteraciones lineales sobre los datos, escalando a millones de observaciones en pocos minutos.}
