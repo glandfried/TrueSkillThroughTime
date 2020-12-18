@@ -101,10 +101,8 @@
 %% - \title{} in title case
 %% - \Plaintitle{} without LaTeX markup (if any)
 %% - \Shorttitle{} with LaTeX markup (if any), used as running title
-\title{Harnessing Skill estimation using Bayesian Inference: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages}
-\Plaintitle{Harnessing Skill estimation using Bayesian Inference: the Julia, Python and R packages}
-%\title{All the concepts behind TrueSkill Through Time: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages}
-%\Plaintitle{All the concepts behind TrueSkill Through Time: the Julia, Python and R packages}
+\title{Harnessing the skill estimation using Bayesian Inference: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages}
+\Plaintitle{Harnessing the skill estimation using Bayesian Inference: the Julia, Python and R packages}
 \Shorttitle{TrueSkill Through Time: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages (Draft)}
 
 %% - \Address{} of at least one author
@@ -331,13 +329,13 @@
 \en{However, it does have a major weaknesses.}
 \es{Sin embargo, tiene algunas debilidades importantes.}
 %
-\en{The update rule (Eq.~\ref{eq:elo_update}) is symmetric, so what one agent wins is lost by the other.}
+\en{The update rule (Eq.~\ref{eq:elo_update}) is symmetric: what one agent wins is lost by the other.}
 \es{La regla de actualizaci\'on (Eq.~\ref{eq:elo_update}) es sim\'etrica, as\'i que lo que un agente gana el otro lo pierde.}
 %
-\en{Because new agents start with arbitrary estimates (the same initial value is used for all individuals), they tend to generate high surprise and abruptly modify estimates that had already converged.}
+\en{Because new agents start with arbitrary estimates (the same initial value is used for all individuals), they tend to generate greater surprise values and abruptly modify estimates that had already converged.}
 \es{Debido a que a los agentes nuevos comienzan con estimaciones arbitrarias (el mismo valor inicial para cualquier individuo), ellas tienden a generan alta sorpresa y a modificar bruscamente estimaciones que ya hab\'ian convergido.}
 %
-\en{The weak point is due to the lack of the notion of uncertainty.}
+\en{The weak point is to not have into account the notion of uncertainty.}
 \es{El punto débil se debe a la falta de la noción de incertidumbre.}
 %
 \en{To solve this problem, an ad-hoc solution was proposed: reducing the impact of the surprise based on the number of times the agent has participated previously.}
@@ -348,16 +346,16 @@
 
 % Cambio de parrafo
 
-\en{A superior solution, instead of selecting a single value as an estimate, involves quantifying the ``relative certainty'' associated with each of the skill hypotheses.}
+\en{An improved alternative consists in quantifying the uncertainty associated with each of the skill hypotheses instead of selecting a single value.}
 \es{Una solución superior, a la de seleccionar una único valor como estimación, consiste en cuantificar la ``certidumbre relativa'' asociada a cada una de las hipótesis de habilidad.}
 %
 \en{This approach, known as Bayesian inference, which has proven successful in practice~\citep{bishop2006-PRML}, ensures consistent reasoning in handling this kind of uncertainty (plausible beliefs)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
 \es{Este enfoque conocido como inferencia Bayesiana, que ha demostrado ser exitoso en la práctica~\citep{bishop2006-PRML}, garantiza un razonamiento consistente en el manejo de este tipo de incertidumbre (creencias plausibles)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
 %
-\en{All inference, no matter how complex it is, can be solved by the rules of probability: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
+\en{All inference, independently of its complexity, can be solved by the rules of probability: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
 \es{Toda inferencia, no importa cuan compleja sea, puede ser resuelta mediante las reglas de la probabilidad: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
 %
-\en{The \ref{eq:sum_rule} states that any marginal distribution can be obtained by integrating, or summing up, the joint distribution:}
+\en{The \ref{eq:sum_rule} states that any marginal distribution can be obtained by integrating, or summing up, the joint probability:}
 \es{La \ref{eq:sum_rule} afirma que cualquier distribuci\'on marginal se puede obtener integrando o sumando la distribuci\'on conjunta.}
 %
 \begin{equation} \label{eq:sum_rule}
