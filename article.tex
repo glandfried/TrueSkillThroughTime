@@ -295,8 +295,8 @@
 \en{Choosing the variance $\beta^2$ only changes the scale, not the estimates: skills separated by a $\beta$ always have a 76\% chance of winning.}
 \es{La elección de la varianza $\beta^2$ sólo cambia la escala, no las estimaciones: habilidades separada por un $\beta$ siempre tienen una probabilidad de ganar de 76\%.}
 %
-\en{Its graphical representation defines a joint probability distribution, from which it is possible to derive, among others, the prediction of the result given the previous estimates, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$.}
-\es{Su representaci\'on gr\'afica define una distribuci\'on de probabilidad conjunta, a partir de la cual se puede derivar entre otras, la predicción del resultado dadas las estimaciones previas, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$.}
+\en{Its graphical representation defines a joint distribution, from which it is possible to derive, among others, the prediction of the result given the previous estimates, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$.}
+\es{Su representaci\'on gr\'afica define una distribuci\'on conjunta, a partir de la cual se puede derivar entre otras, la predicción del resultado dadas las estimaciones previas, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$.}
 
 % Parrafo
 
@@ -355,8 +355,8 @@
 \en{All inference, independently of its complexity, can be solved by the rules of probability: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
 \es{Toda inferencia, no importa cuan compleja sea, puede ser resuelta mediante las reglas de la probabilidad: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
 %
-\en{The \ref{eq:sum_rule} states that any marginal distribution can be obtained by integrating, or summing up, the joint probability distribution:}
-\es{La \ref{eq:sum_rule} afirma que cualquier distribuci\'on marginal se puede obtener integrando o sumando la distribuci\'on de probabilidad conjunta.}
+\en{The \ref{eq:sum_rule} states that any marginal distribution can be obtained by integrating, or summing up, the joint distribution:}
+\es{La \ref{eq:sum_rule} afirma que cualquier distribuci\'on marginal se puede obtener integrando o sumando la distribuci\'on conjunta.}
 %
 \begin{equation} \label{eq:sum_rule}
  \tag{\en{sum rule}\es{regla de la suma}}
@@ -906,16 +906,16 @@
 \en{All the assumptions are made explicit through a generative (or causal) model, which can be intuitively specified in a graphical way.}
 \es{Todos los supuestos se hacen expl\'icitos a trav\'es de un modelo generativo (o causal), que puede ser especificado intuitivamente de forma gráfica.}
 %
-\en{Inference, on the other hand, is always solved by applying the rules of probability (the rules of the sum and the product) to the joint probability represented by the model.}
-\es{Y toda inferencia se hace aplicando las reglas de la probabilidad, de la suma y del producto, sobre el modelo representado como probabilidad conjunta.}
+\en{Inference can always be solved by applying the rules of probability (the sum and product rules) over the joint distribution represented by the model.}
+\es{Y toda inferencia se hace aplicando las reglas de la probabilidad, de la suma y del producto, sobre el modelo representado como una distribución conjunta.}
 
 % Parrafo
 
 \en{In this section we will explain all the details of the probabilistic framework in the context of the TrueSkill Throguth Time problem.}
 \es{En esta secci\'on explicaremos todos los detalles del marco probabil\'isitico en el contexto del problema TrueSkill Throguth Time.}
 %
-\en{In the section~\ref{sec:sumProductAlgorithm} we will introduce the \emph{sum-product algorithm}, which allows to efficiently compute any marginal probability distributions from a joint probability distributions.}
-\es{En la secci\'on~\ref{sec:sumProductAlgorithm} introduciremos el \emph{sum-product algorithm}, que permite computar eficientemente cualquier distribuciones de probabilidad marginal a partir de una distribuciones de probabilidad conjunta.}
+\en{In the section~\ref{sec:sumProductAlgorithm} we will introduce the \emph{sum-product algorithm}, which allows to efficiently compute any marginal distribution from a joint distributions.}
+\es{En la secci\'on~\ref{sec:sumProductAlgorithm} introduciremos el \emph{sum-product algorithm}, que permite computar eficientemente cualquier distribuciones marginal a partir de una distribuci\'on conjunta.}
 %
 \en{In the section~\ref{sec:propiedades} we list the properties that we will need to derive the marginal distributions of interest.}
 \es{En la secci\'on~\ref{sec:propiedades} enumeramos las propiedades que necesitaremos para derivar las distribuciones marginales de inter\'es.}
@@ -925,8 +925,8 @@
 \en{In the section \ref{sec:Gasussian}, \ref{sec:rating} and \ref{sec:game} we introduce the implementation details of the classes \texttt{Gaussian}, \texttt{Rating} and \texttt{Game}.}
 \es{En las secciones \ref{sec:Gasussian}, \ref{sec:rating} y \ref{sec:game} introducimos los detalles de implementaci\'on de las clases \texttt{Gaussian}, \texttt{Rating} y \texttt{Game}.}
 %
-\en{In the sections \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate_posterior}, and \ref{sec:iterative_posterior} we show respectively how to solve the prior probability and the exact posterior of an event, we modified the model to include ties, we explain how to approximate the posterior, and we give the general multi-team solution.}
-\es{En las secciones \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate_posterior}, y \ref{sec:iterative_posterior} mostramos respectivamente c\'omo resolver la probabilidad a priori y el posterior exacto de un evento, modificamos el modelo para que incluya empates, explicamos c\'omo aproximar el posterior y damos la soluci\'on general multi-equipos.}
+\en{In the sections \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate_posterior}, and \ref{sec:iterative_posterior} we show respectively how to solve the prior prediction and the exact posterior of an event, we modified the model to include ties, we explain how to approximate the posterior, and we give the general multi-team solution.}
+\es{En las secciones \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate_posterior}, y \ref{sec:iterative_posterior} mostramos respectivamente c\'omo resolver la predicci\'on a priori y el posterior exacto de un evento, modificamos el modelo para que incluya empates, explicamos c\'omo aproximar el posterior y damos la soluci\'on general multi-equipos.}
 %
 FALTA HISTORY
 % %
@@ -945,8 +945,8 @@ FALTA HISTORY
 \en{The \emph{sum-product algorithm}~\citep{Kschischang2001} is a general procedure that takes advantage of the structure of the joint probability distribution imposed by the causal model to efficiently apply the rules of probability, the \ref{eq:sum_rule} and the \ref{eq:product_rule}.}
 \es{El \emph{sum-product algorithm}~\citep{Kschischang2001} es un procedimiento general que aprovecha la estructura de la disstribuci\'on de probabilidad conjunta que impone el modelo causal para aplicar eficientemente las reglas de la probabilidad, la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
 %
-\en{Represented as joint probability distributions, the models can be factored into the product of simple conditional probabilities.}
-\es{Representados como distribuciones de probabilidad conjunta, los modelos pueden factorizarse en el producto de probabilidades condicionales simples.}
+\en{Represented as joint distributions, the models can be factored into the product of simple conditional probabilities.}
+\es{Representados como distribuciones conjuntas, los modelos pueden factorizarse en el producto de probabilidades condicionales simples.}
 %
 \en{Our generative model (Figure~\ref{fig:generative_model}) can be factored as,}
 \es{Nuestro modelo generativo (figura~\ref{fig:generative_model}) puede factorizarse como,}
