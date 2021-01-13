@@ -202,6 +202,7 @@
 \shortcites{Dangauthier2007}
 \shortcites{jaynes2003-bookProbabilityTheory}
 \shortcites{VanHorn2003}
+\shortcites{maystre2019-pairwise}
 
 \begin{document}
 %\lstset{language=Python}
@@ -525,14 +526,16 @@
 \en{This kind of methods, which minimize the Kullback-Leibler divergence between the true and the approximate distribution, allows to perform Bayesian inference in situations that otherwise would be impossible.}
 \es{Esta clase de m\'etodos, que minizan la divergencia Kullback-Leibler entre la distribuci\'on verdadera y aproximada, permiten realizar Inferencia Bayesiana en situaciones que de otra forma no ser\'ia posibles.}
 %
-\en{In our case, in which we need to know how skills change over time, this technique allow us to apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
-\es{En nuestro caso, en el que necesitamos conocer cómo cambian las habilidades a trav\'es del tiempo, está t\'ecnica nos permite aplicar la ecuación~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
+\en{In our case, in which we need to know how skills change over time, this technique allow us to efficiently apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
+\es{En nuestro caso, en el que necesitamos conocer cómo cambian las habilidades a trav\'es del tiempo, está t\'ecnica nos permite aplicar eficientemente la ecuación~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
+
 %
-\en{The approach adopted by TrueSkill, Glicko, and BIRT to treat the dynamical process, known as \emph{filtering}, uses the posterior as the prior for the next event.}
-\es{El enfoque adoptado por TrueSkill, Glicko y BIRT para tratar el proceso din\'amico, conocido como \emph{filtering}, usa el posterior como prior del siguiente evento.}
+
+\en{The approach adopted by TrueSkill to treat the dynamical process, known as \emph{filtering}, uses the posterior as the prior for the next event.}
+\es{El enfoque adoptado por TrueSkill para tratar el proceso din\'amico, conocido como \emph{filtering}, usa el posterior como prior del siguiente evento.}
 %
-\en{Then, the posterior calculated by TrueSkill at any given time is,}
-\es{Luego, el posterior calculado por TrueSkill en un momento es,}
+\en{Then, the posterior at any given time is,}
+\es{Luego, el posterior en un determinado momento es,}
 %
 \begin{equation}\label{eq:filter} %\tag{\text{filtering}}
  \widehat{\text{Posterior}}_t \propto \widehat{\text{Likelihood}}_t  \overbrace{\widehat{\text{Likelihood}}_{t-1} \dots \widehat{\text{Likelihood}}_{2} \underbrace{\widehat{\text{Likelihood}}_{1} \text{Prior}_1}_{\widehat{\text{Posterior}}_{1} \text{ \en{as}\es{como} } \text{Prior}_{2}} }^{\widehat{\text{Posterior}}_{t-1} \text{ \en{as}\es{como} } \text{Prior}_{t}} %= \text{Prior}_1 \prod_{i=1}^t \text{Likelihood}_i 
@@ -577,67 +580,67 @@
 \en{To obtain good initial estimates and ensure temporal and spatial comparability we need a causal model of the temporal process that links all historical activities.}
 \es{A fin de obtener buenas estimaciones iniciales y garantizar comparbilidad temporal y espacial, necesitamos un modelo causal del proceso temporal que vincule todas las actividades hist\'oricas.}
 %
+\en{In any video game this typically involves evaluating a complex network made up of millions of events.}
+\es{En cualquier video juego esto típicamente implica evaluar una red compleja compuesta por millones de eventos.}
+%
+% \en{For this reason, figure~\ref{fig:smoothing} shows only the closest neighbors of a sequence of estimates.}
+% \es{Por esta razón, la figura~\ref{fig:smoothing} muestra s\'olo los vecinos m\'as pr\'oximos de una secuencia de estimaciones.}
+%
 \en{This approach, known as \emph{smoothing}, is the one implemented by TrueSkill Through Time~\citep{Dangauthier2007}.}
 \es{Este enfoque, conocido como \emph{smoothing}, es el implementado por TrueSkill Through Time~\citep{Dangauthier2007}.}
 %
-\en{This kind of graphical models, in any video game, typically involves a complex network between millions of events.}
-\es{Este clase de modelos gr\'aficos, en cualquier video juego, implica típicamente una red compleja entre millones de eventos.}
-%
-\en{For this reason, figure~\ref{fig:smoothing} shows only the closest neighbors of a sequence of estimates.}
-\es{Por esta razón, la figura~\ref{fig:smoothing} muestra s\'olo los vecinos m\'as pr\'oximos de una secuencia de estimaciones.}
-%
-\begin{figure}[h!]
-  \centering
-  \scalebox{.9}{
-    \tikz{ %
-      \node[latent] (s0) {$s_{i_0}$} ;
-      
-      \node[latent,right=of s0,xshift=-0.15cm] (s1) {$s_{i_1}$} ;
-      \node[latent, below=of s1,yshift=0.3cm] (p1) {$p_{i_1}$};
-      \node[const, below=of p1, yshift=-0.6cm] (t1) {\LARGE $\hfrac{}{\dots}$} ;
-
-      \node[latent, right=of s1,xshift=-0.15cm] (s2) {$s_{i_2}$} ;
-      \node[latent, below=of s2,yshift=0.3cm] (p2) {$p_{i_2}$};
-      \node[const, below=of p2, yshift=-0.6cm] (t2) {\LARGE $\hfrac{}{\dots}$} ;
-      
-      \node[const, right=of s2, xshift=0.6cm] (s3) {$\dots$} ;
-
-      \node[latent, right=of s3,xshift=-0.3cm] (sn) {$s_{i_n}$} ;
-      \node[latent, below=of sn,yshift=0.3cm] (pn) {$p_{i_n}$};
-      \node[const, below=of pn, yshift=-0.6cm] (tn) {\LARGE $\hfrac{}{\dots}$} ;
-      
-      \edge {s0} {s1};
-      \edge {s1} {p1,s2};
-      \edge {s2} {p2,s3};
-      \edge {s3} {sn};
-      \edge {sn} {pn};
-      \edge {p1} {t1};
-      \edge {p2} {t2};
-      \edge {pn} {tn};
-      
-      }  
-  }
-  \caption{
-  \en{Schematic representation of a single causal model for the entire history of events.}
-  \es{Representaci\'on esquemática de un único modelo causal para toda la historia de eventos.}
-  %
-  \en{Only the neighbors of a sequence of estimates are displayed.}
-  \es{S\'olo se muestra los vecinos de una secuencia de estimaciones.}
-  %
-  %\en{These types of models are known as \emph{state-space models}.}
-%   %\es{Este tipo de modelos se conocen como \emph{state space models}.}
-  }
-  \label{fig:smoothing}
-\end{figure}
+% \begin{figure}[h!]
+%   \centering
+%   \scalebox{.9}{
+%     \tikz{ %
+%       \node[latent] (s0) {$s_{i_0}$} ;
+%       
+%       \node[latent,right=of s0,xshift=-0.15cm] (s1) {$s_{i_1}$} ;
+%       \node[latent, below=of s1,yshift=0.3cm] (p1) {$p_{i_1}$};
+%       \node[const, below=of p1, yshift=-0.6cm] (t1) {\LARGE $\hfrac{}{\dots}$} ;
+% 
+%       \node[latent, right=of s1,xshift=-0.15cm] (s2) {$s_{i_2}$} ;
+%       \node[latent, below=of s2,yshift=0.3cm] (p2) {$p_{i_2}$};
+%       \node[const, below=of p2, yshift=-0.6cm] (t2) {\LARGE $\hfrac{}{\dots}$} ;
+%       
+%       \node[const, right=of s2, xshift=0.6cm] (s3) {$\dots$} ;
+% 
+%       \node[latent, right=of s3,xshift=-0.3cm] (sn) {$s_{i_n}$} ;
+%       \node[latent, below=of sn,yshift=0.3cm] (pn) {$p_{i_n}$};
+%       \node[const, below=of pn, yshift=-0.6cm] (tn) {\LARGE $\hfrac{}{\dots}$} ;
+%       
+%       \edge {s0} {s1};
+%       \edge {s1} {p1,s2};
+%       \edge {s2} {p2,s3};
+%       \edge {s3} {sn};
+%       \edge {sn} {pn};
+%       \edge {p1} {t1};
+%       \edge {p2} {t2};
+%       \edge {pn} {tn};
+%       
+%       }  
+%   }
+%   \caption{
+%   \en{Schematic representation of a single causal model for the entire history of events.}
+%   \es{Representaci\'on esquemática de un único modelo causal para toda la historia de eventos.}
+%   %
+%   \en{Only the neighbors of a sequence of estimates are displayed.}
+%   \es{S\'olo se muestra los vecinos de una secuencia de estimaciones.}
+%   %
+%   %\en{These types of models are known as \emph{state-space models}.}
+% %   %\es{Este tipo de modelos se conocen como \emph{state space models}.}
+%   }
+%   \label{fig:smoothing}
+% \end{figure}
 %
 \en{By applying the rules of probability over this temporal model, historical information naturally propagate throughout the system, solving the problems of the filtering approach.}
 \es{Al aplicar las reglas de la probabilidad sobre este modelo temporal, la informaci\'on hist\'orica propaga naturalmente hacia todo el sistema, resolviendo los problemas del enfoque de filtro.}
 %
-\en{Now, the prior at each $t$ event depends on all the past and future information.}
-\es{Ahora, el prior en cada evento $t$ depende de toda la informaci\'on pasada y futura.}
+%\en{Now, the prior at each event $t$ depends on all the past and future information.}
+%\es{Ahora, el prior en cada evento $t$ depende de toda la informaci\'on pasada y futura.}
 %
-\en{Excluding the dynamic component, $\gamma = 0$, the prior of the agent $i$ at the $t$-eth event is just the product of all their likelihoods, except that of the $t$-eth event.}
-\es{Exluyendo el aspecto dinámico, $\gamma = 0$, el prior del agente $i$ en el $t$-\'esimo evento es el producto del todas sus verosimilitudes, salvo la del $t$-\'esimo evento.}
+\en{Excluding the dynamic component, $\gamma = 0$, the prior of an agent $i$ at the $t$-eth event is just the product of all their likelihoods, except that of the $t$-eth event.}
+\es{Exluyendo el aspecto dinámico, $\gamma = 0$, el prior de un agente $i$ en el $t$-\'esimo evento es el producto del todas sus verosimilitudes, salvo la del $t$-\'esimo evento.}
 %
 \begin{equation}\label{eq:smooth_prior}
  \text{Prior}_{i_t} = \text{Prior}_{i_0} \underbrace{\prod_{k = 1}^{t-1} \text{\en{Likelihood}\es{Verosimilitud}}_{i_k}}_{\text{\en{Past information}\es{Informaci\'on pasada}}} \underbrace{\prod_{k = t + 1}^{T_i} \text{\en{Likelihood}\es{Verosimilitud}}_{i_k}}_{\text{\en{Future information}\es{Informaci\'on futura}}}
@@ -646,17 +649,34 @@
 \en{where $T_i$ is the total number of events in which the $i$ agent participated, with {\small Prior$_{i_0}$} the initial prior of agent $i$.}
 \es{Donde $T_i$ es la cantidad total de eventos del agente $i$, con {\small Prior$_{i_0}$} el prior inicial del agente $i$.}
 %
-\en{This mutual dependency between likelihoods, force us to implement an iterative algorithm to solve inference (details at secci\'on~\ref{sec:throguthTime})}
-\es{Esta mutua dependencia entre verosimilitudes, nos obliga a implementar un algoritmo iterativo para resolver la inferencia (detalles en la secci\'on~\ref{sec:throguthTime}).}
+\en{This produce a mutual dependency between likelihoods, forcing us to implement an iterative algorithm to solve inference (details at secci\'on~\ref{sec:throguthTime}).}
+\es{Esto produce una mutua dependencia entre verosimilitudes, obligándonos a implementar un algoritmo iterativo para resolver la inferencia (detalles en la secci\'on~\ref{sec:throguthTime}).}
 %
 \en{In the first pass, the priors of each event are calculated using only the past likelihoods that have already been defined.}
 \es{En la primera pasada, los priors de cada evento se calculan usando sólo las verosimilitudes pasadas que ya han sido definidas.}
 %
 \en{Once all the likelihoods have been calculated, we can run a new pass using the latest available likelihoods.}
 \es{Una vez calculadas todas las verosimilitudes, podemos realizar una nueva pasada usando las últimas verosimilitudes disponibles.}
+%
+%\en{The first likelihoods will necessarily be incorrect because the priors had been partially defined.}
+%\es{Las primeras verosimilitudes necesariamente serán incorrectas debido a que los priors habían sido definidos parcialmente.}
+%
+%\en{But so will be the likelihoods calculated in the second pass, because its outcome will depend partially on the likelihoods calculated in the previous pass.}
+%\es{Pero tambi\'en lo serán las verosimilitudes calculadas en la segunda pasada, debido a que su resutado dependerá parcialmente de las verosimilitudes calculadas en la pasada anterior.}
+%
+\en{This procedure converge with a few linear iterations over the data.}
+\es{Este procedimiento converge con unas pocas iteraciones lineales sobre los datos.}
+
+% Parrafo
+
+\en{TrueSkill Through Time outperforms TrueSkill and others filtering models.}
+\es{TrueSkill Through Time supera a TrueSkill y otros modelos de filtrado.}
+%
+\en{In Figure~\ref{fig:smooth_example} we show the behavior of the estimates in a data set with two agents and two events.}
+\es{En la figura~\ref{fig:smooth_example} se muestra el comportamiento de las estimaciones en conjunto de datos de dos agentes y dos eventos.}
 \begin{figure}[h!]
   \centering
-  \scalebox{.9}{
+  \scalebox{.92}{
     \tikz{ %
       \node[latent] (s10) {$s_{a_0}$} ;
       %
@@ -731,8 +751,8 @@
       }  
   }
   \caption{
-  \en{Convergence of TrueSkill Throguth Time in a history with only two events and two agents}
-  \es{Convergencia de TrueSkill Throguth Time en una historia con s\'olo dos eventos y dos agentes.}
+  \en{Convergence of TrueSkill Through Time in a history with only two events and two agents.}
+  \es{Convergencia de TrueSkill Through Time en una historia con s\'olo dos eventos y dos agentes.}
   %
   \en{The first game is won by the player $a$, $p_{a_1} > p_{b_1}$, and the second is won by the player $b$, $p_{a_2} < p_{b_2}$.}
   \es{La primera partida la gana el jugador $a$, $p_{a_1} > p_{b_1}$, y la segunda la gana el jugador $b$, $p_{a_2} < p_{b_2}$.}
@@ -743,45 +763,28 @@
   \en{The first one (the clearest) corresponds to the TrueSkill solution.}
   \es{La primera (la más clara) se correponde a la soluci\'on TrueSkill.}
   %
-  \en{The last one (the darkest) corresponds to the TrueSkill Throguth Time solution.}
-  \es{La última (la más oscura) se correponde a la soluci\'on TrueSkill Throguth Time.}
+  \en{The last one (the darkest) corresponds to the TrueSkill Through Time solution.}
+  \es{La última (la más oscura) se correponde a la soluci\'on TrueSkill Through Time.}
+  %
+  \en{Once convergence is reached, the posterior is centered at 0 for both players, indicating that they have the same skill.}
+  \es{Alcanzada la convergencia, el posterior se centra en 0 para ambos jugadores, indicando que tienen misma habilidad.}
   }
   \label{fig:smooth_example}
 \end{figure}
 %
-\en{The first likelihoods will necessarily be incorrect because the priors had been partially defined.}
-\es{Las primeras verosimilitudes necesariamente serán incorrectas debido a que los priors habían sido definidos parcialmente.}
-%
-\en{But so will be the likelihoods calculated in the second pass, because its outcome will depend partially on the likelihoods calculated in the previous pass.}
-\es{Pero tambi\'en lo serán las verosimilitudes calculadas en la segunda pasada, debido a que su resutado dependerá parcialmente de las verosimilitudes calculadas en la pasada anterior.}
-%
-\en{However, this procedure converge with a few linear iterations over the data, scaling to millions of observations in a few minutes.}
-\es{Sin embargo, este procedimiento converge con unas pocas iteraciones lineales sobre los datos, escalando a millones de observaciones en pocos minutos.}
-
-% Parrafo
-
-\en{In Figure~\ref{fig:smooth_example} we show the behavior of the estimates in a data set with two agents and two events.}
-\es{En la figura~\ref{fig:smooth_example} se muestra el comportamiento de las estimaciones en conjunto de datos de dos agentes y dos eventos.}
-%
-% \en{TrueSkill Through Time recovers the true differences between hidden skills even at the beginning of the sequence.}
-% \es{TrueSkill Through Time recupera las verdaderas diferencias entre habilidades ocultas incluso al principio de la secuencia.}
-%
-\en{At the end of the convergence the posterior is centered on 0 for both players, indicating that they have the same skill.}
-\es{Al final de la convergencia el posterior se centra en 0 para ambos jugadores, indicando que tienen misma habilidad.}
+\en{TrueSkill Through Time recovers the true differences between hidden skills even at the beginning of the sequence.}
+\es{TrueSkill Through Time recupera las verdaderas diferencias entre habilidades ocultas incluso al principio de la secuencia.}
 %  
-\en{TrueSkill Through Time outperforms TrueSkill and others filtering models.}
-\es{TrueSkill Through Time supera a TrueSkill y otros modelos \emph{filtering}.}
+\en{Similar methodologies to TrueSkill Through Time have been developed by \cite{coulom2008-wholeHistoryRating} and \cite{maystre2019-pairwise}.}
+\es{Metodologías similares a TrueSkill Through Time han sido desarrollads por \cite{coulom2008-wholeHistoryRating} y \cite{maystre2019-pairwise}.}
 %
-\en{This methodology has not been available until now in any of the major programming languages.}
-\es{Esta metodolog\'ia no hab\'ia estado hasta ahora disponible en ninguno de los principales lenguajes de programaci\'on.}
+%\en{This methodology has not been available until now in any of the major programming languages.}
+%\es{Esta metodolog\'ia no hab\'ia estado hasta ahora disponible en ninguno de los principales lenguajes de programaci\'on.}
 %
-\en{This paper we make available their packages for \proglang{R}, \proglang{Python} and \proglang{Julia}, together with its scientific documentation.}
-\es{Este art\'iculo poneme a disposici\'on sus paquetes para \proglang{R}, \proglang{Python} y \proglang{Julia}, junto con su documentaci\'on cient\'ifica.}
+\en{With this paper we make available the first TrueSkill Through Time packages for \proglang{Julia}, \proglang{Python} and \proglang{R}, together with its scientific documentation.}
+\es{Con este art\'iculo ponemos a disposici\'on los primeros paquetes de TrueSkill Through Time para \proglang{Julia}, \proglang{Python} y \proglang{R}, junto con su documentaci\'on cient\'ifica.}
 
-% \cite{coulom2008-wholeHistoryRating}
-% 
-% \cite{maystre2019-pairwise}
-%
+
 % \cite{A Guide to state-space modeling of ecological time series}
 
 
@@ -793,7 +796,6 @@
 %
 %Para responder a este pregunta y para entender el funcionamiento general de los state-space models mostramos en la Figura~\ref{fig:smooth_example} una solcuci\'on de forma gr\'afica.
 %
-
 
 
 
@@ -905,8 +907,8 @@
 
 % Parrafo
 
-\en{In this section we will explain all the details of the probabilistic framework in the context of the TrueSkill Throguth Time problem.}
-\es{En esta secci\'on explicaremos todos los detalles del marco probabil\'isitico en el contexto del problema TrueSkill Throguth Time.}
+\en{In this section we will explain all the details of the probabilistic framework in the context of the TrueSkill Through Time problem.}
+\es{En esta secci\'on explicaremos todos los detalles del marco probabil\'isitico en el contexto del problema TrueSkill Through Time.}
 %
 \en{In the section~\ref{sec:sumProductAlgorithm} we will introduce the \emph{sum-product algorithm}, which allows to efficiently compute any marginal distribution from a joint distributions.}
 \es{En la secci\'on~\ref{sec:sumProductAlgorithm} introduciremos el \emph{sum-product algorithm}, que permite computar eficientemente cualquier distribuciones marginal a partir de una distribuci\'on conjunta.}
@@ -1079,8 +1081,8 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 
 \subsection{\en{Mathematical properties and notation}\es{Propiedades matemáticas y notaci\'on}}\label{sec:propiedades}
 
-\en{The efficiency of TrueSkill Throguth Time is due to the fact that margins, whether exact or approximate, are solved analytically.}
-\es{La eficiencia de TrueSkill Throguth Time se debe a que las marginales, sean exactas o aproximadas, se resuelven de forma anal\'itica.}
+\en{The efficiency of TrueSkill Through Time is due to the fact that margins, whether exact or approximate, are solved analytically.}
+\es{La eficiencia de TrueSkill Through Time se debe a que las marginales, sean exactas o aproximadas, se resuelven de forma anal\'itica.}
 %
 \en{In this section we list the properties that we will use to derive the exact messages that arise from the sum-product algorithm.}
 \es{En esta secci\'on enumeramos las propiedades que usaremos para derivar los mensajes exactos que surgen del \emph{sum-product algorithm}.}
@@ -1181,8 +1183,8 @@ v2 = N2$sigma^2
 \end{lstlisting}
 \end{paracol}
 %
-\en{The class overwrites the operators addition (\texttt{+}), subtraction (\texttt{-}), product (\texttt{*}) and division (\texttt{/}) with the main properties required to compute the marginal distributions in the TrueSkill Throguth Time model.}
-\es{La clase sobreescribe los operadores suma (\texttt{+}), resta (\texttt{-}), producto (\texttt{*}) y divisi\'on (\texttt{/}) con las principales propiedades requeridas para computar las distribuciones marginales en el modelo TrueSkill Throguth Time.}
+\en{The class overwrites the operators addition (\texttt{+}), subtraction (\texttt{-}), product (\texttt{*}) and division (\texttt{/}) with the main properties required to compute the marginal distributions in the TrueSkill Through Time model.}
+\es{La clase sobreescribe los operadores suma (\texttt{+}), resta (\texttt{-}), producto (\texttt{*}) y divisi\'on (\texttt{/}) con las principales propiedades requeridas para computar las distribuciones marginales en el modelo TrueSkill Through Time.}
 %
 \begin{equation} \tag{\texttt{N1 * N2}}
  \N(x|\mu_1,\sigma_1^2)\N(x|\mu_2,\sigma_2^2) \propto \N(x|\mu_{*},\sigma_{*}^2)
