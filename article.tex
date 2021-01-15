@@ -232,7 +232,7 @@
 \en{For this reason, all widely used skill estimators are based on pairwise comparisons.}
 \es{Por esta raz\'on, todos los estimadores de habilidad ampliamente usados se basan en comparaciones por pares.}
 %
-\en{Since the first generative models, proposed almost a century ago by~\cite{Thurstone1927} and~\cite{Zermelo1929}, it is assumed that the probability of an observed result, $r$, depends on the performance, $p$, of the agent $i$ and their opponent $j$, expressed as $P(\, r \,|\, p_i, \, p_j \,)$.}
+\en{Since the first generative models, proposed almost a century ago by~\cite{Thurstone1927} and~\cite{Zermelo1929}, it is assumed that the probability of the observed result $r$ depends on the performance $p$ of the agent $i$ and their opponent $j$, expressed as $P(\, r \,|\, p_i, \, p_j \,)$.}
 \es{Desde los primeros modelos generativos, propuestos hace casi un siglo por~\cite{Thurstone1927} y~\cite{Zermelo1929}, se supone que la probabilidad de un resultado observado, $r$, depende del rendimiento, $p$, del agente $i$ y de su oponente $j$, expresada como $P(\, r \,|\, p_i, \, p_j \,)$.}
 %
 \en{The field continued to progress with the work of~\cite{Bradley1952} and~\cite{Mosteller1951a,Mosteller1951b,Mosteller1951c}, leading to the breakthrough that took place with the methodology developed by~\cite{Elo2008} for the US Chess Federation (USCF), which is still used by the International Chess Federation (FIDE).}
@@ -295,14 +295,14 @@
 \en{The variance $\beta^2$ only serves as a scale: skills separated by a distance equivalent to a $\beta$ always have a 76\% probability of winning.}
 \es{La varianza $\beta^2$ s\'olo sirve como escala: habilidades separada por un $\beta$ siempre tienen una probabilidad de ganar de 76\%.}
 %
-\en{The model assume that the agent with the highest performance wins, $r = (p_i > p_j)$, or in other words, whoever obtains a difference of performance greater than 0 wins, $r = (p_i - p_j > 0)$}
-\es{El modelo supone que gana el agente con mayor rendimiento, $r = (p_i > p_j)$, o en otras palabras, gana quien obtenga una diferencia de rendimiento mayor a 0, $r = (p_i - p_j > 0)$}
-%
-\en{From the graphical representation it is possible to derive, among others, the prediction of the result given the previous estimates, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$.}
-\es{A partir de su representaci\'on gr\'afica se puede derivar entre otras, la predicción del resultado dadas las estimaciones previas, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$.}
+\en{The model assumes that the agent with the highest performance wins, $r = (p_i > p_j)$. In other words, whoever obtains a difference of performance greater than 0 wins, $r = (p_i - p_j > 0)$.}
+\es{El modelo supone que gana el agente con mayor rendimiento, $r = (p_i > p_j)$, o en otras palabras, gana quien obtenga una diferencia de rendimiento mayor a 0, $r = (p_i - p_j > 0)$.}
 
 % Parrafo
 
+\en{Using the graphical representation it is possible to derive the prediction of the result given the previous estimates, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$.}
+\es{A partir de su representaci\'on gr\'afica se puede derivar entre otras, la predicci\'on del resultado dadas las estimaciones previas, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$.}
+%
 \en{Elo's methodological solution is simple and smart: update both previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, based on the surprise (i.e. the complement of the prediction of the observed result).}
 \es{La soluci\'on metodol\'ogica de Elo es simple y astuta: actualizar las estimaciones previas, $s_{i_\text{old}}$ y $s_{j_\text{old}}$, en base a la sorpresa (i.e. el complemento de la predicci\'on del resultado observado).}
 %
@@ -311,7 +311,7 @@
 \end{equation}
 %
 \en{where the probability arises from instantiating the previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, in the generative model (details in section~\ref{sec:exactSolution}).}
-\es{Donde la probabilidad surge de instanciar las estimaciones previas en el modelo generativo (detalles en la sección~\ref{sec:exactSolution}).}
+\es{Donde la probabilidad surge de instanciar las estimaciones previas en el modelo generativo (detalles en la secci\'on~\ref{sec:exactSolution}).}
 %
 \en{The idea is that the magnitud of the surprise $\Delta$ is related to how accurate the previous estimates are, and therefore can be used to update them.}
 \es{La idea es que la magnitud de la sorpresa $\Delta$ est\'a relacionada con cuan buenas son las estimaciones previas, y por lo tanto puede usarse para actualizarlas.}
@@ -338,10 +338,10 @@
 \en{Because new agents start with arbitrary estimates (the same initial value is used for all individuals), they tend to generate greater surprise values and abruptly modify estimates that had already converged.}
 \es{Debido a que a los agentes nuevos comienzan con estimaciones arbitrarias (el mismo valor inicial para cualquier individuo), ellas tienden a generan alta sorpresa y a modificar bruscamente estimaciones que ya hab\'ian convergido.}
 %
-\en{This weakness occurs because uncertainty about the estimates of each agent is not taken into account.}
+\en{This weakness emerges because the skill estimation's uncertainties are not considered.}
 \es{Esta debilidad ocurre porque no se tiene en cuenta la incertidumbre sobre las estimaciones de cada agente.}
 %
-\en{To solve this problem, an ad-hoc solution was proposed: reducing the impact of the surprise based on the number of times the agent has participated previously.}
+\en{An ad-hoc solution was proposed to solve this problem: reducing the impact of the surprise based on the number of times the agent has participated previously.}
 \es{Para resolver este problema, una soluci\'on ad-hoc fue propuesta: reducir el impacto de la sorpresa en funci\'on de la cantidad de veces que el agente ha participado previamente.}
 %
 % \en{This is the role played by the K-factor used by FIDE,  $\Delta_i = \Delta \cdot K_i$.}
@@ -349,13 +349,13 @@
 
 % Cambio de parrafo
 
-\en{Instead of selecting a single value as an estimate, a superior alternative involves quantifying the ``relative certainty'' among all possible skill hypotheses.}
+\en{Instead of selecting a single value as an estimate, a superior alternative consists on distributing the certainty among all possible skill hypotheses.}
 \es{En vez de seleccionar un \'unico valor como estimaci\'on, una alternativa superadora consiste en cuantificar la ``certidumbre relativa'' entre todas las posibles hip\'otesis de habilidad.}
 %
-\en{This approach known as Bayesian inference has proven successful in practice~\citep{Bishop2006} and ensures consistent reasoning in handling uncertainty (plausible beliefs)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
-\es{Este enfoque conocido como inferencia Bayesiana ha demostrado ser exitoso en la pr\'actica~\citep{Bishop2006} y garantiza un razonamiento consistente en el manejo de la incertidumbre (o creencias plausibles)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
+\en{This approach known as \emph{Bayesian inference} has proven successful in practice~\citep{Bishop2006} and ensures consistent reasoning when handling uncertainty (plausible beliefs)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
+\es{Este enfoque conocido como inferencia bayesiana ha demostrado ser exitoso en la pr\'actica~\citep{Bishop2006} y garantiza un razonamiento consistente en el manejo de la incertidumbre (o creencias plausibles)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
 %
-\en{All inference, independently of its complexity, can be solved by the rules of probability: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
+\en{Any inference, independently of its complexity, can be solved by the rules of probability: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
 \es{Toda inferencia, no importa cuan compleja sea, puede ser resuelta mediante las reglas de la probabilidad: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
 %
 \en{The \ref{eq:sum_rule} states that any marginal distribution can be obtained by integrating, or summing up, the joint distribution:}
@@ -403,13 +403,13 @@
 \es{Donde la única variable libre es la hip\'otesis de habilidad del agente $i$.}
 %
 \en{The prior quantifies the previous uncertainty, and the posterior reduces it based on the information provided by the data, given the model.}
-\es{El prior cuantifica la incertidumbre previa, y el posterior la reduce en base a la información provista por el dato, dado el modelo.}
+\es{El prior cuantifica la incertidumbre previa, y el posterior la reduce en base a la informaci\'on provista por el dato, dado el modelo.}
 %
 \en{The likelihood and the evidence are both probabilities about the observed result, so they can be seen as predictions (since the results are discrete variables, those probabilities are written with capital letters).}
 \es{La verosimilitud como la evidencia son ambas probabilidades del resultado observado, por lo que pueden ser vistas como predicciones (como los resultados son variables discretas, esas probabilidad se escribe con letras mayúsculas).}
 %
 \en{Because the evidence is the same for all hypotheses, the only factor that updates our beliefs is the likelihood.}
-\es{Debido a que la evidencia es la misma para todas las hipótesis, el único factor que actualiza nuestras creencias es la verosimilitud.}
+\es{Debido a que la evidencia es la misma para todas las hip\'otesis, el único factor que actualiza nuestras creencias es la verosimilitud.}
 
 % Parrafo
 
@@ -420,10 +420,10 @@
 \es{La diferencia de rendimientos, $d=p_i-p_j$, tambi\'en se puede expresar como una Gaussiana centrada en la diferencia de las medias de las estimaciones a priori ($\mu_i - \mu_j$), con una varianza que incorpora la incertidumbre de ambas estimaciones ($\sigma$) y la varianza de ambos rendimientos ($\beta$), $\N(\, d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
 %
 \en{As we observed that the agent $i$ won, we know from the causal model that the hidden difference of performances was indeed positive.}
-\es{Como observamos que el agente $i$ ganó, sabemos por el modelo causal que la diferencia de rendimientos oculta fue en efecto positiva.}
+\es{Como observamos que el agente $i$ gan\'o, sabemos por el modelo causal que la diferencia de rendimientos oculta fue en efecto positiva.}
 %
 \en{Therefore, the prior prediction of the observed result (or evidence) is the cumulative density, $\Phi$, of all positive values of the difference of performances (Eq.~\ref{eq:evidence}).}
-\es{Por lo tanto, la predicción a priori del resultado observado (o evidencia) es la densidad acumulada, $\Phi$, de todos los valores positivos de la diferencia de rendimientos (Eq.~\ref{eq:evidence}).}
+\es{Por lo tanto, la predicci\'on a priori del resultado observado (o evidencia) es la densidad acumulada, $\Phi$, de todos los valores positivos de la diferencia de rendimientos (Eq.~\ref{eq:evidence}).}
 %
 \en{From now on the role of the model will be left implicit.}
 \es{A partir de ahora el rol del modelo se dejr\'a impl\'icito.}
@@ -433,7 +433,7 @@
 \end{equation}
 %
 \en{The evidence is a prediction made with all the prior hypotheses.}
-\es{La evidencia es una predicción hecha con todas las hipótesis a priori.}
+\es{La evidencia es una predicci\'on hecha con todas las hip\'otesis a priori.}
 %
 \en{Since the evidence is constante, the posterior uncertainty of each hypothesis is proportional to the product of their prior uncertainty and their likelihood, as shown in equation~\ref{eq:posterior_win}.}
 \es{Como la evidencia es constante, la incertidumbre a posteriori de cada hip\'otesis es proporcional al producto de su incertidumbre a priori y su verosimilitud, como se muestra en la ecuaci\'on~\ref{eq:posterior_win}.}
@@ -461,7 +461,7 @@
 \es{La verosimilitud cuantifica la misma densidad acumulada que la evidencia, pero centrada ahora en la diferencia entre la hip\'otesis que estamos evaluando $s_i$ y la estimaci\'on media del oponente $\mu_j$ con una varianza que incluye todas las incertidumbres salvo la de la propia hip\'otesis $s_i$.}
 %
 \en{In other words, the likelihood is just the prior prediction of the observed result assuming true the skill hypothesis we are evaluating.}
-\es{En otras palabras, la verosimilitud no es m\'as que la predicci\'on a priori del resultado observado suponiendo verdadera la hipótesis de habilidad que estamos evaluando.}
+\es{En otras palabras, la verosimilitud no es m\'as que la predicci\'on a priori del resultado observado suponiendo verdadera la hip\'otesis de habilidad que estamos evaluando.}
 %, made with all the skill opponent's hypotheses,
 % \en{For each hypothesis $s_i$, the filtered density is exactly proportional to the magnitude of the surprise, defined as the complement of the likelihood.}
 % \es{Para cada hip\'otesis $s_i$, la masa filtrada es exactamente proporcional a la magnitud de la sorpresa, definida como el complemento de la verosimilitud.}
@@ -527,7 +527,7 @@
 \es{Esta clase de m\'etodos, que minizan la divergencia Kullback-Leibler entre la distribuci\'on verdadera y aproximada, permiten realizar Inferencia Bayesiana en situaciones que de otra forma no ser\'ia posibles.}
 %
 \en{In our case, in which we need to know how skills change over time, this technique allow us to efficiently apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
-\es{En nuestro caso, en el que necesitamos conocer cómo cambian las habilidades a trav\'es del tiempo, est\'a t\'ecnica nos permite aplicar eficientemente la ecuación~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
+\es{En nuestro caso, en el que necesitamos conocer c\'omo cambian las habilidades a trav\'es del tiempo, est\'a t\'ecnica nos permite aplicar eficientemente la ecuaci\'on~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
 
 %
 
@@ -561,7 +561,7 @@
  \end{equation}
  %
 \en{Because the filtering approach does not arise from any probabilistic model, it suffers from a number of problems related to the fact that the information propagates in only one direction through the system.}
-\es{Debido a que el enfoque de filtrado no se surge de ningún modelo probabil\'istico, sufre de un serie de problemas, todos relacionados con el hecho de que la información se propaga en una sola dirección a trav\'es del sistema.}
+\es{Debido a que el enfoque de filtrado no se surge de ningún modelo probabil\'istico, sufre de un serie de problemas, todos relacionados con el hecho de que la informaci\'on se propaga en una sola direcci\'on a trav\'es del sistema.}
 %
 \en{The most obvious is that the beginning of any sequence of estimates always has high uncertainty.}
 %, making them useless
@@ -584,7 +584,7 @@
 \es{En cualquier video juego esto típicamente implica evaluar una red compleja compuesta por millones de eventos.}
 %
 % \en{For this reason, figure~\ref{fig:smoothing} shows only the closest neighbors of a sequence of estimates.}
-% \es{Por esta razón, la figura~\ref{fig:smoothing} muestra s\'olo los vecinos m\'as pr\'oximos de una secuencia de estimaciones.}
+% \es{Por esta raz\'on, la figura~\ref{fig:smoothing} muestra s\'olo los vecinos m\'as pr\'oximos de una secuencia de estimaciones.}
 %
 \en{This approach, known as \emph{smoothing}, is the one implemented by TrueSkill Through Time~\citep{Dangauthier2007}.}
 \es{Este enfoque, conocido como \emph{smoothing}, es el implementado por TrueSkill Through Time~\citep{Dangauthier2007}.}
@@ -653,7 +653,7 @@
 \es{Esto produce una mutua dependencia entre verosimilitudes, oblig\'andonos a implementar un algoritmo iterativo para resolver la inferencia (detalles en la secci\'on~\ref{sec:throguthTime}).}
 %
 \en{In the first pass, the priors of each event are calculated using only the past likelihoods that have already been defined.}
-\es{En la primera pasada, los priors de cada evento se calculan usando sólo las verosimilitudes pasadas que ya han sido definidas.}
+\es{En la primera pasada, los priors de cada evento se calculan usando s\'olo las verosimilitudes pasadas que ya han sido definidas.}
 %
 \en{Once all the likelihoods have been calculated, we can run a new pass using the latest available likelihoods.}
 \es{Una vez calculadas todas las verosimilitudes, podemos realizar una nueva pasada usando las últimas verosimilitudes disponibles.}
@@ -903,7 +903,7 @@
 \es{Todos los supuestos se hacen expl\'icitos a trav\'es de un modelo generativo (o causal), que puede ser especificado intuitivamente de forma gr\'afica.}
 %
 \en{Inference can always be solved by applying the rules of probability (the sum and product rules) over the joint distribution represented by the model.}
-\es{Y toda inferencia se hace aplicando las reglas de la probabilidad, de la suma y del producto, sobre el modelo representado como una distribución conjunta.}
+\es{Y toda inferencia se hace aplicando las reglas de la probabilidad, de la suma y del producto, sobre el modelo representado como una distribuci\'on conjunta.}
 
 % Parrafo
 
