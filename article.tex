@@ -352,8 +352,8 @@
 \en{Instead of selecting a single value as an estimate, a superior alternative involves quantifying the ``relative certainty'' among all possible skill hypotheses.}
 \es{En vez de seleccionar un \'unico valor como estimaci\'on, una alternativa superadora consiste en cuantificar la ``certidumbre relativa'' entre todas las posibles hip\'otesis de habilidad.}
 %
-\en{This approach known as Bayesian inference has proven successful in practice~\citep{bishop2006-PRML} and ensures consistent reasoning in handling uncertainty (plausible beliefs)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
-\es{Este enfoque conocido como inferencia Bayesiana ha demostrado ser exitoso en la práctica~\citep{bishop2006-PRML} y garantiza un razonamiento consistente en el manejo de la incertidumbre (o creencias plausibles)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
+\en{This approach known as Bayesian inference has proven successful in practice~\citep{Bishop2006} and ensures consistent reasoning in handling uncertainty (plausible beliefs)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
+\es{Este enfoque conocido como inferencia Bayesiana ha demostrado ser exitoso en la pr\'actica~\citep{Bishop2006} y garantiza un razonamiento consistente en el manejo de la incertidumbre (o creencias plausibles)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
 %
 \en{All inference, independently of its complexity, can be solved by the rules of probability: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
 \es{Toda inferencia, no importa cuan compleja sea, puede ser resuelta mediante las reglas de la probabilidad: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
@@ -426,7 +426,7 @@
 \es{Por lo tanto, la predicción a priori del resultado observado (o evidencia) es la densidad acumulada, $\Phi$, de todos los valores positivos de la diferencia de rendimientos (Eq.~\ref{eq:evidence}).}
 %
 \en{From now on the role of the model will be left implicit.}
-\es{A partir de ahora el rol del modelo se dejrá impl\'icito.}
+\es{A partir de ahora el rol del modelo se dejr\'a impl\'icito.}
 %
 \begin{equation}\label{eq:evidence}
  \overbrace{P(r)}^{\text{Evidenc\en{e}\es{ia}}} = 1-\Phi(0 \, | \overbrace{\mu_i^{\phantom{2}} - \mu_j}^{\hfrac{\text{\en{Expected}\es{Diferencia}}}{\text{\en{difference}\es{esperada}}}} , \, \overbrace{2\beta^2 + \sigma_i^2+ \sigma_j^2}^{\hfrac{\text{\en{Total}\es{Incertidumbre}}}{\text{\en{uncertainty}\es{total}}}})
@@ -461,7 +461,7 @@
 \es{La verosimilitud cuantifica la misma densidad acumulada que la evidencia, pero centrada ahora en la diferencia entre la hip\'otesis que estamos evaluando $s_i$ y la estimaci\'on media del oponente $\mu_j$ con una varianza que incluye todas las incertidumbres salvo la de la propia hip\'otesis $s_i$.}
 %
 \en{In other words, the likelihood is just the prior prediction of the observed result assuming true the skill hypothesis we are evaluating.}
-\es{En otras palabras, la verosimilitud no es más que la predicci\'on a priori del resultado observado suponiendo verdadera la hipótesis de habilidad que estamos evaluando.}
+\es{En otras palabras, la verosimilitud no es m\'as que la predicci\'on a priori del resultado observado suponiendo verdadera la hipótesis de habilidad que estamos evaluando.}
 %, made with all the skill opponent's hypotheses,
 % \en{For each hypothesis $s_i$, the filtered density is exactly proportional to the magnitude of the surprise, defined as the complement of the likelihood.}
 % \es{Para cada hip\'otesis $s_i$, la masa filtrada es exactamente proporcional a la magnitud de la sorpresa, definida como el complemento de la verosimilitud.}
@@ -494,7 +494,7 @@
 \es{La sorpresa, definida como el complemento de la verosimilitud, funciona como un filtro para el prior.}
 %
 \en{The posterior is just the density of the prior not filtered by the likelihood.}
-\es{El posterior no es más que la densidad del prior no filtrada por la verosimilitud.}
+\es{El posterior no es m\'as que la densidad del prior no filtrada por la verosimilitud.}
 %    
 \en{At the region of very high skill hypotheses, where the winning result would have generated almost no surprise ($\lim_{s_i \to \infty}P(r|s_i) = 1$), the posterior receives almost all the density of the prior.}
 \es{En la regi\'on de hip\'otesis de muy alta habilidad, donde el resultado ganador no nos hubiera generado casi ninguna sorpresa ($\lim_{s_i \to \infty}P(r|s_i) = 1$), el posterior recibe casi toda la masa del prior.}
@@ -505,7 +505,7 @@
 % Parrafo
 
 \en{It is important to stress that the posterior, although similar, is not a Gaussian distribution, preventing us from using the equation~\ref{eq:posterior_win}  iteratively.}
-\es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on Gaussiana, lo que nos impedirá usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
+\es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on Gaussiana, lo que nos impedir\'a usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
 %
 \en{But due the shape of the exact posterior, a Gaussian seem to be a good enough approximation, allowing us to avoid the computational cost of the sampling methodologies.}
 \es{Por la forma del posterior exacto, una Gaussiana parece una aproximaci\'on suficientemente buena, que nos permitir\'ia evitar el costo computacional de las metodolog\'ias de sampleo.}
@@ -527,7 +527,7 @@
 \es{Esta clase de m\'etodos, que minizan la divergencia Kullback-Leibler entre la distribuci\'on verdadera y aproximada, permiten realizar Inferencia Bayesiana en situaciones que de otra forma no ser\'ia posibles.}
 %
 \en{In our case, in which we need to know how skills change over time, this technique allow us to efficiently apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
-\es{En nuestro caso, en el que necesitamos conocer cómo cambian las habilidades a trav\'es del tiempo, está t\'ecnica nos permite aplicar eficientemente la ecuación~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
+\es{En nuestro caso, en el que necesitamos conocer cómo cambian las habilidades a trav\'es del tiempo, est\'a t\'ecnica nos permite aplicar eficientemente la ecuación~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
 
 %
 
@@ -565,7 +565,7 @@
 %
 \en{The most obvious is that the beginning of any sequence of estimates always has high uncertainty.}
 %, making them useless
-\es{El más obvio es que el inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre.}
+\es{El m\'as obvio es que el inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre.}
 % , lo que las hace inservibles
 \en{But it also suffer from ``temporary'' and ``spatial'' decoupling.}
 \es{Pero tambi\'en sufre de desacoplamientos ``temporales'' y ``espaciales''.}
@@ -622,7 +622,7 @@
 %   }
 %   \caption{
 %   \en{Schematic representation of a single causal model for the entire history of events.}
-%   \es{Representaci\'on esquemática de un único modelo causal para toda la historia de eventos.}
+%   \es{Representaci\'on esquem\'atica de un único modelo causal para toda la historia de eventos.}
 %   %
 %   \en{Only the neighbors of a sequence of estimates are displayed.}
 %   \es{S\'olo se muestra los vecinos de una secuencia de estimaciones.}
@@ -640,7 +640,7 @@
 %\es{Ahora, el prior en cada evento $t$ depende de toda la informaci\'on pasada y futura.}
 %
 \en{Excluding the dynamic component, $\gamma = 0$, the prior of an agent $i$ at the $t$-eth event is just the product of all their likelihoods, except that of the $t$-eth event.}
-\es{Exluyendo el aspecto dinámico, $\gamma = 0$, el prior de un agente $i$ en el $t$-\'esimo evento es el producto del todas sus verosimilitudes, salvo la del $t$-\'esimo evento.}
+\es{Exluyendo el aspecto din\'amico, $\gamma = 0$, el prior de un agente $i$ en el $t$-\'esimo evento es el producto del todas sus verosimilitudes, salvo la del $t$-\'esimo evento.}
 %
 \begin{equation}\label{eq:smooth_prior}
  \text{Prior}_{i_t} = \text{Prior}_{i_0} \underbrace{\prod_{k = 1}^{t-1} \text{\en{Likelihood}\es{Verosimilitud}}_{i_k}}_{\text{\en{Past information}\es{Informaci\'on pasada}}} \underbrace{\prod_{k = t + 1}^{T_i} \text{\en{Likelihood}\es{Verosimilitud}}_{i_k}}_{\text{\en{Future information}\es{Informaci\'on futura}}}
@@ -650,7 +650,7 @@
 \es{Donde $T_i$ es la cantidad total de eventos del agente $i$, con {\small Prior$_{i_0}$} el prior inicial del agente $i$.}
 %
 \en{This produce a mutual dependency between likelihoods, forcing us to implement an iterative algorithm to solve inference (details at secci\'on~\ref{sec:throguthTime}).}
-\es{Esto produce una mutua dependencia entre verosimilitudes, obligándonos a implementar un algoritmo iterativo para resolver la inferencia (detalles en la secci\'on~\ref{sec:throguthTime}).}
+\es{Esto produce una mutua dependencia entre verosimilitudes, oblig\'andonos a implementar un algoritmo iterativo para resolver la inferencia (detalles en la secci\'on~\ref{sec:throguthTime}).}
 %
 \en{In the first pass, the priors of each event are calculated using only the past likelihoods that have already been defined.}
 \es{En la primera pasada, los priors de cada evento se calculan usando sólo las verosimilitudes pasadas que ya han sido definidas.}
@@ -659,10 +659,10 @@
 \es{Una vez calculadas todas las verosimilitudes, podemos realizar una nueva pasada usando las últimas verosimilitudes disponibles.}
 %
 %\en{The first likelihoods will necessarily be incorrect because the priors had been partially defined.}
-%\es{Las primeras verosimilitudes necesariamente serán incorrectas debido a que los priors habían sido definidos parcialmente.}
+%\es{Las primeras verosimilitudes necesariamente ser\'an incorrectas debido a que los priors habían sido definidos parcialmente.}
 %
 %\en{But so will be the likelihoods calculated in the second pass, because its outcome will depend partially on the likelihoods calculated in the previous pass.}
-%\es{Pero tambi\'en lo serán las verosimilitudes calculadas en la segunda pasada, debido a que su resutado dependerá parcialmente de las verosimilitudes calculadas en la pasada anterior.}
+%\es{Pero tambi\'en lo ser\'an las verosimilitudes calculadas en la segunda pasada, debido a que su resutado depender\'a parcialmente de las verosimilitudes calculadas en la pasada anterior.}
 %
 \en{This procedure converge with a few linear iterations over the data.}
 \es{Este procedimiento converge con unas pocas iteraciones lineales sobre los datos.}
@@ -761,10 +761,10 @@
   \es{La luminosidad de las curvas indican el orden en la convergencia.}
   %
   \en{The first one (the clearest) corresponds to the TrueSkill solution.}
-  \es{La primera (la más clara) se correponde a la soluci\'on TrueSkill.}
+  \es{La primera (la m\'as clara) se correponde a la soluci\'on TrueSkill.}
   %
   \en{The last one (the darkest) corresponds to the TrueSkill Through Time solution.}
-  \es{La última (la más oscura) se correponde a la soluci\'on TrueSkill Through Time.}
+  \es{La última (la m\'as oscura) se correponde a la soluci\'on TrueSkill Through Time.}
   %
   \en{Once convergence is reached, the posterior is centered at 0 for both players, indicating that they have the same skill.}
   \es{Alcanzada la convergencia, el posterior se centra en 0 para ambos jugadores, indicando que tienen misma habilidad.}
@@ -885,22 +885,22 @@
 \section{Models and software} 
 
 \en{Driven by the growth in computing power, researchers have developed over the past five decades thousands of successful machine learning algorithms tailored to specific sets of problems.}
-\es{Impulsado por la creciento en la capacidad de c\'omputo ocurrida, en las últimas cinco d\'ecadas los investigadores han desarrollado miles de algoritmos exitosos de aprendizaje de automático, hechos a medida de conjuntos de problemas espec\'ificos.}
+\es{Impulsado por la creciento en la capacidad de c\'omputo ocurrida, en las últimas cinco d\'ecadas los investigadores han desarrollado miles de algoritmos exitosos de aprendizaje de autom\'atico, hechos a medida de conjuntos de problemas espec\'ificos.}
 %
 \en{In contrast, probabilistic inference offers a generally applicable framework~\citep{Bishop2013}.}
 \es{Por el contrario, la inferencia probabil\'istica ofrece un marco de aplicaci\'on general~\citep{Bishop2013}.}
 %
 \en{The assumptions made by standard machine learning algorithms are generally difficult to remember and often difficult to perceive.}
-\es{Las suposiciones hechas por los algoritmos estándar de aprendizaje automático son generalmente dif\'iciles de recordar y a menudo dif\'iciles de percibir.}
+\es{Las suposiciones hechas por los algoritmos est\'andar de aprendizaje autom\'atico son generalmente dif\'iciles de recordar y a menudo dif\'iciles de percibir.}
 %
 \en{Similarly, the algorithms used vary from application to application, forcing us to learn a variety of methods.}
-\es{Del mismo modo, los algoritmos empleadas var\'ian de aplicaci\'on en aplicaci\'on, obligándonos a aprender una gran variedad de m\'etodos.}
+\es{Del mismo modo, los algoritmos empleadas var\'ian de aplicaci\'on en aplicaci\'on, oblig\'andonos a aprender una gran variedad de m\'etodos.}
 %
 \en{Instead of having to transform the problem to fit some standard algorithm, probabilistic inference provides the building blocks to solve any specific problem.}
-\es{En lugar de tener que transformar el problema para que encaje en algún algoritmo estándar, la inferencia probabil\'istica ofrece los bloques de construcci\'on que permiten resolver cualquier problema espec\'ifico.}
+\es{En lugar de tener que transformar el problema para que encaje en algún algoritmo est\'andar, la inferencia probabil\'istica ofrece los bloques de construcci\'on que permiten resolver cualquier problema espec\'ifico.}
 %
 \en{All the assumptions are made explicit through a generative (or causal) model, which can be intuitively specified in a graphical way.}
-\es{Todos los supuestos se hacen expl\'icitos a trav\'es de un modelo generativo (o causal), que puede ser especificado intuitivamente de forma gráfica.}
+\es{Todos los supuestos se hacen expl\'icitos a trav\'es de un modelo generativo (o causal), que puede ser especificado intuitivamente de forma gr\'afica.}
 %
 \en{Inference can always be solved by applying the rules of probability (the sum and product rules) over the joint distribution represented by the model.}
 \es{Y toda inferencia se hace aplicando las reglas de la probabilidad, de la suma y del producto, sobre el modelo representado como una distribución conjunta.}
@@ -926,7 +926,7 @@
 %
 FALTA HISTORY
 % %
-% En la secci\'on~\ref{history} mostamos los pasos matemáticos requeridos para resolver el modelo TTT.
+% En la secci\'on~\ref{history} mostamos los pasos matem\'aticos requeridos para resolver el modelo TTT.
 % %
 % En la subsecci\'on~\ref{estructuras} introducimos las estructuras de datos utlizadas para generar la hsitoria.
 % %
@@ -952,16 +952,16 @@ FALTA HISTORY
 \end{equation}
 %
 \en{In the Figure~\ref{fig:factor_graph}, we show its factorization graphically.}
-\es{En la figura~\ref{fig:factor_graph} mostramos gráficamente la factorizaci\'on.}
+\es{En la figura~\ref{fig:factor_graph} mostramos gr\'aficamente la factorizaci\'on.}
 %
 \en{These types of representations are known as \emph{factor graph}.}
 \es{A este tipo de representaciones se las conoce como \emph{factor graph}.}
 %
 \en{The \emph{factor graph} are bipartite graphs, consisting of variable nodes $v$ and function nodes (or factors) $f$.}
-\es{Los \emph{factor graph} son gráfos bipartitos, compuestos por nodos variables $v$ y nodos funciones (o factores) $f$.}
+\es{Los \emph{factor graph} son gr\'afos bipartitos, compuestos por nodos variables $v$ y nodos funciones (o factores) $f$.}
 %
 \en{The edge between variables and functions represent the mathematical relationship ``the variable $v$ is an argument of the function $f$''.}
-\es{Los ejes entre variables y funciones representan la relaci\'on matemática ``la variable $v$ es argumento de la funci\'on $f$''.}
+\es{Los ejes entre variables y funciones representan la relaci\'on matem\'atica ``la variable $v$ es argumento de la funci\'on $f$''.}
 %
 \begin{figure}[h!]
 \centering \small
@@ -1018,7 +1018,7 @@ FALTA HISTORY
     %\node[invisible, right=of p2, xshift=4.35cm] (s-dist) {};
 }
      \caption{
-     \en{Factorizaci\'on gráfica del modelo generativo (Fig.~\ref{fig:generative_model}).}
+     \en{Factorizaci\'on gr\'afica del modelo generativo (Fig.~\ref{fig:generative_model}).}
      %
      \en{Los cuadrados negros representan las funciones, los c\'irculos blancos representan las variable, y los ejes entre ellos representan la relaci\'on matem\'atica ``la variable es argumento de la funci\'on''.}
      %
@@ -1079,7 +1079,7 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 
 
 
-\subsection{\en{Mathematical properties and notation}\es{Propiedades matemáticas y notaci\'on}}\label{sec:propiedades}
+\subsection{\en{Mathematical properties and notation}\es{Propiedades matem\'aticas y notaci\'on}}\label{sec:propiedades}
 
 \en{The efficiency of TrueSkill Through Time is due to the fact that margins, whether exact or approximate, are solved analytically.}
 \es{La eficiencia de TrueSkill Through Time se debe a que las marginales, sean exactas o aproximadas, se resuelven de forma anal\'itica.}
@@ -1156,7 +1156,7 @@ R syntax
 \es{La clase \texttt{Gaussian()} realiza la mayor parte del c\'omputo en todos los paquetes.}
 %
 \en{It is represented by two parameters, the mean and the standard deviation.}
-\es{Se representa mediante dos parámetros, la media y el desv\'io estandar.}
+\es{Se representa mediante dos par\'ametros, la media y el desv\'io estandar.}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:N1_N2, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
@@ -1296,7 +1296,7 @@ g = Game(teams, result)
 \end{lstlisting}
 %
 \en{Its attributes, besides the \texttt{teams} and the \texttt{result}, are the approximate (Gaussian) \texttt{likelihoods} and the \texttt{evidence}.}
-\es{Sus atributos, además de los \texttt{teams} y el \texttt{result}, son los \texttt{likelihoods} aproximados (Gaussianos) y la \texttt{evidencia}.}
+\es{Sus atributos, adem\'as de los \texttt{teams} y el \texttt{result}, son los \texttt{likelihoods} aproximados (Gaussianos) y la \texttt{evidencia}.}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_attributes, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
@@ -1327,7 +1327,7 @@ ev = g$evidence
 \es{En presencia de equipos, el resultado observado se modela como consecuencias directa de la diferencia de los rendimientos de cada equipo, $d = \sum_{i \in a} p_i) - \sum_{i \in b} p_i)$}
 %
 \en{In the figure~\ref{fig:modelo_trueskill_2vs2}, we show its graphical factorization.}
-\es{En la figura~\ref{fig:modelo_trueskill_2vs2} mostramos su factorizaci\'on gráfica.} 
+\es{En la figura~\ref{fig:modelo_trueskill_2vs2} mostramos su factorizaci\'on gr\'afica.} 
 %
 \begin{figure}[h!]
   \centering
@@ -1462,7 +1462,7 @@ elhs = g$exact_likelihoods()
 %
 
 \en{Because of the rules of the sum-product algorithm and the factorization of the model, the messages from the skill factors $f_{s_i}$ to their variable $s_i$ are just the prior.}
-\es{Debido a las reglas del algoritmo de suma-producto y a la factorizaci\'on del modelo, los mensajes de los factores de habilidad $f_{s_i}$ a su variable $s_i$ no son otra cosa más que el prior.}
+\es{Debido a las reglas del algoritmo de suma-producto y a la factorizaci\'on del modelo, los mensajes de los factores de habilidad $f_{s_i}$ a su variable $s_i$ no son otra cosa m\'as que el prior.}
 %
 \begin{equation}\label{eq:m_fs_s} \tag{\texttt{prior}}
  m_{f_{s_i} \rightarrow s_i}(s_i) = \N(s_i| \mu_i, \sigma_i^2)
@@ -1472,7 +1472,7 @@ elhs = g$exact_likelihoods()
 \es{Ya hemos definimos la variable \texttt{prior} en el c\'odigo~\ref{lst:prior}.}
 %
 \en{The next message, that the variable $s_i$ sends to the performance factor $f_{p_i}$ will also be the prior.}
-\es{El siguiente mensaje, que la variable $s_i$ le env\'ia al factor rendimiento $f_{p_i}$ tambi\'en será el prior.}
+\es{El siguiente mensaje, que la variable $s_i$ le env\'ia al factor rendimiento $f_{p_i}$ tambi\'en ser\'a el prior.}
 %
 \en{Remember that the messages that the variables send are just the product of the messages that the variable receives from the rest of its neighboring factors.}
 \es{Recordar que los mensajes que env\'ian las variables es tan solo la multiplicaci\'on de los mensajes que esa variable recibe del resto de los factores.}
@@ -1637,16 +1637,16 @@ exact_lhood = function(s1){
 \end{lstlisting}   
 \end{paracol}
 
-\subsection{\en{Elementary draw model}\es{Modelo básico de empates}} \label{sec:empate}
+\subsection{\en{Elementary draw model}\es{Modelo b\'asico de empates}} \label{sec:empate}
 
 \en{The draw model asummes that a tie occur when the difference in performance does not exceed a certain margin, $|t_a > t_b| \leq \varepsilon$.}
 \es{El modelo supone que ocurre un empate cuando la diferencia de rendimientos no supera un cierto margen, $|t_a > t_b| \leq \varepsilon$.}
 %
 \en{In the figure~\ref{fig:draw_a} you can see in graphical terms the probabilities of the three possible outcomes.}
-\es{En la figura~\ref{fig:draw_a} se puede ver en t\'erminos gráficos las probabilidades de los tres resultados posibles.}
+\es{En la figura~\ref{fig:draw_a} se puede ver en t\'erminos gr\'aficos las probabilidades de los tres resultados posibles.}
 %
 \en{The elementary model requires determining the value of the margin.}
-\es{Este modelo básico requiere determinar el valor del margen.}
+\es{Este modelo b\'asico requiere determinar el valor del margen.}
 %
 \en{The original paper~\citep{Herbrich2007} proposed to use the empirical frequency of ties.}
 \es{El art\'iculo original~\citep{Herbrich2007} propon\'ia usar la frecuencia emp\'irica de empates.}
@@ -1661,16 +1661,16 @@ exact_lhood = function(s1){
 \es{En cualquier caso, suponiendo que podemos definir esa la ``probabilidad de empate entre equipos con misma habilidad'', es importante tener en cuenta que el margen tambi\'en depende de la cantidad de jugadores.}
 %
 \en{In the figure~\ref{fig:draw_b} you can see that to keep the tie area constant it is necessary to adapt the margin according to the uncertainty.}
-\es{En la figura~\ref{fig:draw_b} se puede ver que para mantener el área de empates constante, es necesario adaptar el margen dependiendo de la incertidumbre.}
+\es{En la figura~\ref{fig:draw_b} se puede ver que para mantener el \'area de empates constante, es necesario adaptar el margen dependiendo de la incertidumbre.}
 %
 %\en{This is because the actual distribution of performance differences depends on how many players are in the game.}
-%\es{Esto es as\'i porque la distribuci\'on de diferencias de rendimientos real depende de cuántos jugadores hay en la partida.}
+%\es{Esto es as\'i porque la distribuci\'on de diferencias de rendimientos real depende de cu\'antos jugadores hay en la partida.}
 %
 \begin{figure}[h!]
 \centering
 \begin{subfigure}[t]{0.48\textwidth}
  \includegraphics[width=1\textwidth]{figures/draw.pdf} 
- \caption{Las distintas áreas}
+ \caption{Las distintas \'areas}
  \label{fig:draw_a}
 \end{subfigure}
 \begin{subfigure}[t]{0.48\textwidth}
@@ -1721,7 +1721,7 @@ margin = compute_margin(p_draw, sd)
 %
 %
 % \en{In any case, an alternative is to use the classic optimization strategy: choose the value of $\varepsilon$ that maximizes some cost function.}
-% \es{En cualquier caso, una alternativa es usar la estrategia clásica de optimizaci\'on: elegir el valor de $\varepsilon$ que maximiza alguna funci\'on de costo.}
+% \es{En cualquier caso, una alternativa es usar la estrategia cl\'asica de optimizaci\'on: elegir el valor de $\varepsilon$ que maximiza alguna funci\'on de costo.}
 % %
 % \begin{equation*}
 % \varepsilon = \underset{\varepsilon}{\text{arg max}} \ p(\text{Data}|\text{Model}_{\varepsilon})
@@ -1733,7 +1733,7 @@ margin = compute_margin(p_draw, sd)
 \es{En la secci\'on~\ref{sec:exactSolution} hemos visto que el posterior exacta, si bien se parece a un Gaussiano, no lo es, .}
 %
 % \en{ although similar, is not a Gaussian distribution, preventing us from using the equation~\ref{eq:posterior_win}  iteratively.}
-% \es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on Gaussiana, lo que nos impedirá usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
+% \es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on Gaussiana, lo que nos impedir\'a usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
 % %
 % 
 % 
@@ -1938,7 +1938,7 @@ posterior_s1_approx = prior1 * lhood_s1_approx
 \subsection{\en{Multiples temas}\es{Varios equipos}} \label{sec:iterative_posterior} 
 %
 \en{In this section we will see how to find the best approximation to the exact posterior in cases where we have more than two teams.}
-\es{En esta secci\'on veremos como encontrar la mejor aproximaci\'on al posterior exacto en casos en los que tenemos más de dos equipos.}
+\es{En esta secci\'on veremos como encontrar la mejor aproximaci\'on al posterior exacto en casos en los que tenemos m\'as de dos equipos.}
 %
 \en{Let's assume that $n$ agents, organized in $k$ teams $\{1, \dots, k\}$, participate in an event.}
 \es{Supongamos que $n$ agentes, organizados en $k$ equipos $\{1, \dots, k\}$, participan de un evento.}
@@ -2062,7 +2062,7 @@ p = g$posteriors()
 \es{En estos caso es imposible realizar la inference de una sola pasada por la dependencia mutua entre las distribuciones de diferencia, $p(d_i)$.}
 %
 \en{The basic idea is to update repeatedly forward and backward all messages in the shortest path between any two marginals $p(d_i)$ until convergence, as shown in Figure~\ref{fig:ep_ts}.}
-\es{La idea básica es actualizar repetidamente hacia adelante y hacia atrás todos los mensajes en el camino más corto entre dos marginales $p(d_i)$ hasta la convergencia, como se muestra en la figura~\ref{fig:ep_ts}.}
+\es{La idea b\'asica es actualizar repetidamente hacia adelante y hacia atr\'as todos los mensajes en el camino m\'as corto entre dos marginales $p(d_i)$ hasta la convergencia, como se muestra en la figura~\ref{fig:ep_ts}.}
 %
 \begin{figure}[H]
   \centering
@@ -2130,7 +2130,7 @@ p = g$posteriors()
  \es{Mostramos s\'olo factores desde los equipos hasta los resultados.}
  %
  \en{The names will be used to explain the iterative procedure known as loopy belief propagation.}
- \es{Los nombres se usarán para explicar el procedimiento iterativo conocido como \emph{loopy belief propagatiion}.}
+ \es{Los nombres se usar\'an para explicar el procedimiento iterativo conocido como \emph{loopy belief propagatiion}.}
 }
 \label{fig:ep_ts}
 \end{figure}
@@ -2146,7 +2146,7 @@ prior_ta= performance(team_a); prior_tb= performance(team_b); prior_tc= performa
 \end{lstlisting}
 %
 \en{Messages that are not yet defined are initialized with a neutral form, such as a Gaussian distribution with infinite variance.}
-\es{Los mensajes que aún no están definidos se inicializan con una forma neutra, como una distribuci\'on gaussiana con varianza infinita.}
+\es{Los mensajes que aún no est\'an definidos se inicializan con una forma neutra, como una distribuci\'on gaussiana con varianza infinita.}
 %
 \begin{lstlisting}[backgroundcolor=\color
 {white},label=lst:init_lhood, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
@@ -2351,7 +2351,7 @@ posterior_s2_approx = prior2 * lhood_s2_approx
 \end{figure}
 %
 \en{In the Figure~\ref{fig:history} we show a schematic representation of the factor graph of a history of events.}
-\es{En la figura~\ref{fig:history} mostramos representaci\'on esquemática del grapho de factorizaci\'on de un historia de eventos.}
+\es{En la figura~\ref{fig:history} mostramos representaci\'on esquem\'atica del grapho de factorizaci\'on de un historia de eventos.}
 %
 \en{By the sum-product algorithm, we know that the marginal distribution of any variable is the product of the messages it receives from its neighbours.}
 \es{Mediante el algoritmo de sum-product, sabemos que la distribuci\'on marginal de cualquier variable es el producto de los mensajes que esta recibe de sus vecinos.}
