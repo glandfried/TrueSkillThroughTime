@@ -292,28 +292,28 @@
 \en{The agents exhibit different performances at each event, varying around their true skill, $\N(p_i\,|\,s_i,\beta^2)$.}
 \es{Los agentes exhiben distintos desempe\~nos en cada evento, que var\'ian alrededor de su verdadera habilidad, $\N(p\,|\,s,\beta^2)$.}
 %
-\en{The variance $\beta^2$ only serves as a scale: skills separated by a distance equivalent to a $\beta$ always have a 76\% probability of winning.}
-\es{La varianza $\beta^2$ s\'olo sirve como escala: habilidades separada por un $\beta$ siempre tienen una probabilidad de ganar de 76\%.}
 %
 \en{The model assumes that the agent with the highest performance wins, $r = (p_i > p_j)$. In other words, whoever obtains a difference of performance greater than 0 wins, $r = (p_i - p_j > 0)$.}
 \es{El modelo supone que gana el agente con mayor rendimiento, $r = (p_i > p_j)$, o en otras palabras, gana quien obtenga una diferencia de rendimiento mayor a 0, $r = (p_i - p_j > 0)$.}
+\en{The parameter $\beta^2$ is used as a global scale for the model.}
+\es{La varianza $\beta^2$ s\'olo sirve como escala: habilidades separada por un $\beta$ siempre tienen una probabilidad de ganar de 76\%.}
 
 % Parrafo
 
-\en{Using the graphical representation it is possible to derive the prediction of the result given the previous estimates, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$.}
+\en{Using the graphical representation proposed in Fig.~\ref{fig:generative_model}, it is possible to derive the prediction of the result given the previous estimates, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$.}
 \es{A partir de su representaci\'on gr\'afica se puede derivar entre otras, la predicci\'on del resultado dadas las estimaciones previas, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$.}
 %
-\en{Elo's methodological solution is simple and smart: update both previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, based on the surprise (i.e. the complement of the prediction of the observed result).}
+\en{Elo's methodological solution is simple and smart: updates both previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, based on the surprise (i.e. the complement of the prediction of the observed result).}
 \es{La soluci\'on metodol\'ogica de Elo es simple y astuta: actualizar las estimaciones previas, $s_{i_\text{old}}$ y $s_{j_\text{old}}$, en base a la sorpresa (i.e. el complemento de la predicci\'on del resultado observado).}
 %
 \begin{equation} \label{eq:elo_delta}
  \Delta = \underbrace{\left(1-P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)\right)}_{\text{\en{Surprise}\es{Sorpresa}}}
 \end{equation}
 %
-\en{where the probability arises from instantiating the previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, in the generative model (details in section~\ref{sec:exactSolution}).}
+\en{where the probability arises from instantiating the previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, in the generative model (more details in section~\ref{sec:exactSolution}).}
 \es{Donde la probabilidad surge de instanciar las estimaciones previas en el modelo generativo (detalles en la secci\'on~\ref{sec:exactSolution}).}
 %
-\en{The idea is that the magnitud of the surprise $\Delta$ is related to how accurate the previous estimates are, and therefore can be used to update them.}
+\en{The idea is that the magnitude of the surprise $\Delta$ is related to the accuracy of the previous estimates and, therefore, can be used to update them.}
 \es{La idea es que la magnitud de la sorpresa $\Delta$ est\'a relacionada con cuan buenas son las estimaciones previas, y por lo tanto puede usarse para actualizarlas.}
 %
 \en{Unexpected results would indicate that current estimates should be updated to a greater extent than if they had occurred as expected.}
@@ -335,7 +335,7 @@
 \en{The update rule (Eq.~\ref{eq:elo_update}) is symmetric: what one agent wins is lost by the other.}
 \es{La regla de actualizaci\'on (Eq.~\ref{eq:elo_update}) es sim\'etrica, as\'i que lo que un agente gana el otro lo pierde.}
 %
-\en{Because new agents start with arbitrary estimates (the same initial value is used for all individuals), they tend to generate greater surprise values and abruptly modify estimates that had already converged.}
+\en{Because new agents start with arbitrary skills (the same initial value is used for all individuals), they tend to generate greater surprise values and abruptly modify estimates that had already converged.}
 \es{Debido a que a los agentes nuevos comienzan con estimaciones arbitrarias (el mismo valor inicial para cualquier individuo), ellas tienden a generan alta sorpresa y a modificar bruscamente estimaciones que ya hab\'ian convergido.}
 %
 \en{This weakness emerges because the skill estimation's uncertainties are not considered.}
@@ -349,7 +349,7 @@
 
 % Cambio de parrafo
 
-\en{Instead of selecting a single value as an estimate, a superior alternative consists on distributing the certainty among all possible skill hypotheses.}
+\en{Instead of selecting a single value as an estimate, an enhancement consists of distributing the certainty among all possible skill hypotheses.}
 \es{En vez de seleccionar un \'unico valor como estimaci\'on, una alternativa superadora consiste en cuantificar la ``certidumbre relativa'' entre todas las posibles hip\'otesis de habilidad.}
 %
 \en{This approach known as \emph{Bayesian inference} has proven successful in practice~\citep{Bishop2006} and ensures consistent reasoning when handling uncertainty (plausible beliefs)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
@@ -389,7 +389,7 @@
 % \en{The inferential use of Bayes' theorem plays a central role in modern statistical learning techniques.}
 % \es{El uso inferencial del teorema de bayes juega un rol central en las t\'ecnicas modernas de aprendizaje estad\'isitico.}
 %
-\en{The \ref{eq:bayes_theorem} allows to optimally update our beliefs about the hypotheses, given a model and the data.}
+\en{The \ref{eq:bayes_theorem} allows us to optimally update our beliefs about the hypotheses, given a model and the data.}
 \es{El \ref{eq:bayes_theorem} permite actualizar de forma \'optima las creencia sobre las hip\'otesis, dado un modelo y los datos.}
 %
 \en{In our case, to quantify the relative certainty of the skill hypotheses using the information provided by the observed result and the described causal model, we need to solve:}
@@ -402,10 +402,10 @@
 \en{where the only free variable is the skill hypothesis of agent $i$.}
 \es{Donde la única variable libre es la hip\'otesis de habilidad del agente $i$.}
 %
-\en{The prior quantifies the previous uncertainty, and the posterior reduces it based on the information provided by the data, given the model.}
+\en{The prior quantifies the uncertainty about the known player's skill and the posterior decreases this uncertainty based on the information provided by the data (i.e. the result) and the given the model.}
 \es{El prior cuantifica la incertidumbre previa, y el posterior la reduce en base a la informaci\'on provista por el dato, dado el modelo.}
 %
-\en{The likelihood and the evidence are both probabilities about the observed result, so they can be seen as predictions (since the results are discrete variables, those probabilities are written with capital letters).}
+\en{The likelihood and the evidence are both probabilities of the observed result, so they can be seen as predictions (since the results are discrete variables, those probabilities are expressed using capital letters).}
 \es{La verosimilitud como la evidencia son ambas probabilidades del resultado observado, por lo que pueden ser vistas como predicciones (como los resultados son variables discretas, esas probabilidad se escribe con letras mayúsculas).}
 %
 \en{Because the evidence is the same for all hypotheses, the only factor that updates our beliefs is the likelihood.}
@@ -413,13 +413,13 @@
 
 % Parrafo
 
-\en{As an instance, let's consider a winning case ($p_i > p_j$) using Gaussian priors, $\N(\,s\,|\,\mu, \sigma^2)$.}
+\en{As an instance, let's consider a winning case ($p_i > p_j$) using a Gaussian prior (i.e. $\N(\,s\,|\,\mu, \sigma^2)$) for each of the skill estimations.}
 \es{A modo de ejemplo, consideremos un caso ganador ($p_i > p_j$) usando priors Gaussianos, $\N(\,s\,|\,\mu, \sigma^2)$.}
 %
 \en{The difference of performances, $d=p_i-p_j$, can also be expressed as a Gaussian distribution, centered on the difference of the prior estimate means ($\mu_i -\mu_j$), with a variance that incorporates the uncertainty of both estimates ($\sigma$) and the variance of both performances ($\beta$), $\N( d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
 \es{La diferencia de rendimientos, $d=p_i-p_j$, tambi\'en se puede expresar como una Gaussiana centrada en la diferencia de las medias de las estimaciones a priori ($\mu_i - \mu_j$), con una varianza que incorpora la incertidumbre de ambas estimaciones ($\sigma$) y la varianza de ambos rendimientos ($\beta$), $\N(\, d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
 %
-\en{As we observed that the agent $i$ won, we know from the causal model that the hidden difference of performances was indeed positive.}
+\en{As we observed that the agent $i$ won, we know from the causal model that the hidden difference of performances was, indeed, positive.}
 \es{Como observamos que el agente $i$ gan\'o, sabemos por el modelo causal que la diferencia de rendimientos oculta fue en efecto positiva.}
 %
 \en{Therefore, the prior prediction of the observed result (or evidence) is the cumulative density, $\Phi$, of all positive values of the difference of performances (Eq.~\ref{eq:evidence}).}
@@ -435,10 +435,10 @@
 \en{The evidence is a prediction made with all the prior hypotheses.}
 \es{La evidencia es una predicci\'on hecha con todas las hip\'otesis a priori.}
 %
-\en{Since the evidence is constante, the posterior uncertainty of each hypothesis is proportional to the product of their prior uncertainty and their likelihood, as shown in equation~\ref{eq:posterior_win}.}
+\en{Since the evidence is a constant value, the posterior uncertainty of each hypothesis is proportional to the product of their prior uncertainty and their likelihood, as shown in equation~\ref{eq:posterior_win}.}
 \es{Como la evidencia es constante, la incertidumbre a posteriori de cada hip\'otesis es proporcional al producto de su incertidumbre a priori y su verosimilitud, como se muestra en la ecuaci\'on~\ref{eq:posterior_win}.}
 %
-\en{In section~\ref{sec:exactSolution} we will see in detail how all this equations arises by applying the sum and product rule over the model.}
+\en{Section~\ref{sec:exactSolution} shows how these equations arise by applying the sum and product rule over the model.}
 \es{En la secci\'on~\ref{sec:exactSolution} veremos en detalle c\'omo todas estas ecuaciones surge de aplicar las reglas de las suma y el producto sobre el modelo.}
 %
 \begin{equation}\label{eq:posterior_win}
@@ -504,19 +504,19 @@
 
 % Parrafo
 
-\en{It is important to stress that the posterior, although similar, is not a Gaussian distribution, preventing us from using the equation~\ref{eq:posterior_win}  iteratively.}
+\en{It is important to stress that the posterior, although similar, is not a Gaussian distribution, preventing us from using equation~\ref{eq:posterior_win} iteratively.}
 \es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on Gaussiana, lo que nos impedir\'a usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
 %
-\en{But due the shape of the exact posterior, a Gaussian seem to be a good enough approximation, allowing us to avoid the computational cost of the sampling methodologies.}
+\en{But due to the shape of the exact posterior, a Gaussian distribution could be used as a good approximation, allowing us to avoid the computational cost of the sampling methodologies.}
 \es{Por la forma del posterior exacto, una Gaussiana parece una aproximaci\'on suficientemente buena, que nos permitir\'ia evitar el costo computacional de las metodolog\'ias de sampleo.}
 %
-\en{The main contribution of the Glicko system~\citep{glikman_gliko_2} was the development of an efficient method to approximate the exact posterior with a Gasussian distribution.}
+\en{The main contribution of the Glicko system~\citep{glikman_gliko_2} was the development of an efficient method to approximate the exact posterior using a Gaussian distribution.}
 \es{El principal aporte del sistema Glicko~\citep{glikman_gliko_2} fue el desarroll\'o de un m\'etodo eficiente para aproximar la posterior exacta con una distribuci\'on Gasussiana.}
 %
-\en{However, this offers no guarantee that the selected Gaussian is the one that best approximates it.}
+\en{However, this method does not guarantee the quality of the approximation used.}
 \es{Sin embargo, esta no ofrece garant\'ias de que la Gaussiana seleccionada sea la que mejor aproxima.}
 %
-\en{The success of the TrueSkill solution~\citep{Herbrich2007} is based on the application of an efficient method for computing the Gaussian that best approximates the exact posterior (section~\ref{sec:approximate_posterior}).}
+\en{The success of the TrueSkill solution~\citep{Herbrich2007} is based on the application of an efficient method for computing the Gaussian distribution that best approximates the exact posterior (section~\ref{sec:approximate_posterior}).}
 \es{El \'exito de la soluci\'on TrueSkill~\citep{Herbrich2007} se basa en la aplicaci\'on de m\'etodo eficiente para calcular la Gaussiana que mejor aproxima a la posterior exacta (secci\'on~\ref{sec:approximate_posterior}).}
 %
 \begin{equation} \label{eq:approx} 
@@ -526,7 +526,7 @@
 \en{This kind of methods, which minimize the Kullback-Leibler divergence between the true and the approximate distribution, allows to perform Bayesian inference in situations that otherwise would be impossible.}
 \es{Esta clase de m\'etodos, que minizan la divergencia Kullback-Leibler entre la distribuci\'on verdadera y aproximada, permiten realizar Inferencia Bayesiana en situaciones que de otra forma no ser\'ia posibles.}
 %
-\en{In our case, in which we need to know how skills change over time, this technique allow us to efficiently apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
+\en{In our case, in which we need to know how skills change over time, this technique allows us to efficiently apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
 \es{En nuestro caso, en el que necesitamos conocer c\'omo cambian las habilidades a trav\'es del tiempo, est\'a t\'ecnica nos permite aplicar eficientemente la ecuaci\'on~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
 
 %
