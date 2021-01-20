@@ -203,6 +203,7 @@
 \shortcites{jaynes2003-bookProbabilityTheory}
 \shortcites{VanHorn2003}
 \shortcites{maystre2019-pairwise}
+\shortcites{Bishop2006}
 
 \begin{document}
 %\lstset{language=Python}
@@ -295,8 +296,8 @@
 %
 \en{The model assumes that the agent with the highest performance wins, $r = (p_i > p_j)$. In other words, whoever obtains a difference of performance greater than 0 wins, $r = (p_i - p_j > 0)$.}
 \es{El modelo supone que gana el agente con mayor rendimiento, $r = (p_i > p_j)$, o en otras palabras, gana quien obtenga una diferencia de rendimiento mayor a 0, $r = (p_i - p_j > 0)$.}
-\en{The parameter $\beta^2$ is used as a global scale for the model.}
-\es{La varianza $\beta^2$ s\'olo sirve como escala: habilidades separada por un $\beta$ siempre tienen una probabilidad de ganar de 76\%.}
+\en{The parameter $\beta^2$, being the same for all the agents, acts as the scale of the estimations: skills separated by a $\beta$ keep always the same probability of winning.}
+\es{El parámetro $\beta^2$, al ser el mismo para todos los agentes, actúa como la escala de las estimaciones: habilidades separada por un $\beta$ mantienen siempre la misma probabilidad de ganar.}
 
 % Parrafo
 
@@ -338,8 +339,8 @@
 \en{Because new agents start with arbitrary skills (the same initial value is used for all individuals), they tend to generate greater surprise values and abruptly modify estimates that had already converged.}
 \es{Debido a que a los agentes nuevos comienzan con estimaciones arbitrarias (el mismo valor inicial para cualquier individuo), ellas tienden a generan alta sorpresa y a modificar bruscamente estimaciones que ya hab\'ian convergido.}
 %
-\en{This weakness emerges because the skill estimation's uncertainties are not considered.}
-\es{Esta debilidad ocurre porque no se tiene en cuenta la incertidumbre sobre las estimaciones de cada agente.}
+\en{This weakness emerges because the uncertainties of the agent's estimates are not considered.}
+\es{Esta debilidad ocurre porque no se tiene en cuenta la incertidumbre sobre las estimaciones de los agentes.}
 %
 \en{An ad-hoc solution was proposed to solve this problem: reducing the impact of the surprise based on the number of times the agent has participated previously.}
 \es{Para resolver este problema, una soluci\'on ad-hoc fue propuesta: reducir el impacto de la sorpresa en funci\'on de la cantidad de veces que el agente ha participado previamente.}
@@ -350,7 +351,7 @@
 % Cambio de parrafo
 
 \en{Instead of selecting a single value as an estimate, an enhancement consists of distributing the certainty among all possible skill hypotheses.}
-\es{En vez de seleccionar un \'unico valor como estimaci\'on, una alternativa superadora consiste en cuantificar la ``certidumbre relativa'' entre todas las posibles hip\'otesis de habilidad.}
+\es{En vez de seleccionar un \'unico valor como estimaci\'on, una alternativa superadora consiste distribuir la certidumbre entre todas las posibles hip\'otesis de habilidad.}
 %
 \en{This approach known as \emph{Bayesian inference} has proven successful in practice~\citep{Bishop2006} and ensures consistent reasoning when handling uncertainty (plausible beliefs)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
 \es{Este enfoque conocido como inferencia bayesiana ha demostrado ser exitoso en la pr\'actica~\citep{Bishop2006} y garantiza un razonamiento consistente en el manejo de la incertidumbre (o creencias plausibles)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
@@ -402,8 +403,8 @@
 \en{where the only free variable is the skill hypothesis of agent $i$.}
 \es{Donde la única variable libre es la hip\'otesis de habilidad del agente $i$.}
 %
-\en{The prior quantifies the uncertainty about the known player's skill and the posterior decreases this uncertainty based on the information provided by the data (i.e. the result) and the given the model.}
-\es{El prior cuantifica la incertidumbre previa, y el posterior la reduce en base a la informaci\'on provista por el dato, dado el modelo.}
+\en{The prior quantifies the uncertainty about the ability, and the posterior contains the uncertainty that remains after seeing the new data (the result of the event).}
+\es{El prior cuantifica la incertidumbre sobre la habilidad, y el posterior contiene la incertidumbre que queda luego de ver el nuevo dato (el resultado del evento).}
 %
 \en{The likelihood and the evidence are both probabilities of the observed result, so they can be seen as predictions (since the results are discrete variables, those probabilities are expressed using capital letters).}
 \es{La verosimilitud como la evidencia son ambas probabilidades del resultado observado, por lo que pueden ser vistas como predicciones (como los resultados son variables discretas, esas probabilidad se escribe con letras mayúsculas).}
@@ -417,7 +418,7 @@
 \es{A modo de ejemplo, consideremos un caso ganador ($p_i > p_j$) usando priors Gaussianos, $\N(\,s\,|\,\mu, \sigma^2)$.}
 %
 \en{The difference of performances, $d=p_i-p_j$, can also be expressed as a Gaussian distribution, centered on the difference of the prior estimate means ($\mu_i -\mu_j$), with a variance that incorporates the uncertainty of both estimates ($\sigma$) and the variance of both performances ($\beta$), $\N( d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
-\es{La diferencia de rendimientos, $d=p_i-p_j$, tambi\'en se puede expresar como una Gaussiana centrada en la diferencia de las medias de las estimaciones a priori ($\mu_i - \mu_j$), con una varianza que incorpora la incertidumbre de ambas estimaciones ($\sigma$) y la varianza de ambos rendimientos ($\beta$), $\N(\, d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
+\es{La diferencia de rendimientos, $d=p_i-p_j$, tambi\'en se puede expresar como una gaussiana centrada en la diferencia de las medias de las estimaciones a priori ($\mu_i - \mu_j$), con una varianza que incorpora la incertidumbre de ambas estimaciones ($\sigma$) y la varianza de ambos rendimientos ($\beta$), $\N(\, d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
 %
 \en{As we observed that the agent $i$ won, we know from the causal model that the hidden difference of performances was, indeed, positive.}
 \es{Como observamos que el agente $i$ gan\'o, sabemos por el modelo causal que la diferencia de rendimientos oculta fue en efecto positiva.}
@@ -479,7 +480,7 @@
     \es{Actualizaci\'on de creencias para el caso ganador.}
     %
     \en{The proportinal posterior is obtained as the product of the prior (Gaussian) and the likelihood (cumulative Gaussian).}
-    \es{El posterior proporcional se obtiene como el producto de la distribuci\'on a priori (distribuci\'on Gaussiana) y la verosimilitud (distribuci\'on Gaussiana acumulada).}
+    \es{El posterior proporcional se obtiene como el producto de la distribuci\'on a priori (distribuci\'on gaussiana) y la verosimilitud (distribuci\'on gaussiana acumulada).}
     %
     \en{The evidence is the integral of the proportional posterior.}
     \es{La evidencia es la integral del posterior proporcional.}
@@ -505,26 +506,26 @@
 % Parrafo
 
 \en{It is important to stress that the posterior, although similar, is not a Gaussian distribution, preventing us from using equation~\ref{eq:posterior_win} iteratively.}
-\es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on Gaussiana, lo que nos impedir\'a usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
+\es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on gaussiana, lo que nos impedir\'a usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
 %
 \en{But due to the shape of the exact posterior, a Gaussian distribution could be used as a good approximation, allowing us to avoid the computational cost of the sampling methodologies.}
-\es{Por la forma del posterior exacto, una Gaussiana parece una aproximaci\'on suficientemente buena, que nos permitir\'ia evitar el costo computacional de las metodolog\'ias de sampleo.}
+\es{Por la forma del posterior exacto, una gaussiana puede ser usada como una buena aproximaci\'on, permiti\'endonos evitar el costo computacional de las metodolog\'ias de sampleo.}
 %
 \en{The main contribution of the Glicko system~\citep{glikman_gliko_2} was the development of an efficient method to approximate the exact posterior using a Gaussian distribution.}
 \es{El principal aporte del sistema Glicko~\citep{glikman_gliko_2} fue el desarroll\'o de un m\'etodo eficiente para aproximar la posterior exacta con una distribuci\'on Gasussiana.}
 %
 \en{However, this method does not guarantee the quality of the approximation used.}
-\es{Sin embargo, esta no ofrece garant\'ias de que la Gaussiana seleccionada sea la que mejor aproxima.}
+\es{Sin embargo, este m\'etodo no garantiza que la distribuci\'on gaussiana seleccionada sea la que mejor aproxima.}
 %
 \en{The success of the TrueSkill solution~\citep{Herbrich2007} is based on the application of an efficient method for computing the Gaussian distribution that best approximates the exact posterior (section~\ref{sec:approximate_posterior}).}
-\es{El \'exito de la soluci\'on TrueSkill~\citep{Herbrich2007} se basa en la aplicaci\'on de m\'etodo eficiente para calcular la Gaussiana que mejor aproxima a la posterior exacta (secci\'on~\ref{sec:approximate_posterior}).}
+\es{El \'exito de la soluci\'on TrueSkill~\citep{Herbrich2007} se basa en la aplicaci\'on de m\'etodo eficiente para calcular la gaussiana que mejor aproxima a la posterior exacta (secci\'on~\ref{sec:approximate_posterior}).}
 %
 \begin{equation} \label{eq:approx} 
  \widehat{p}(s_i| r, s_j) = \underset{\mu, \sigma}{\text{ arg min }} \ \ \text{KL}(\, p(s_i| r, s_j) \, || \,  \N(s_i|\mu, \sigma^2) \, )
 \end{equation}
 %
 \en{This kind of methods, which minimize the Kullback-Leibler divergence between the true and the approximate distribution, allows to perform Bayesian inference in situations that otherwise would be impossible.}
-\es{Esta clase de m\'etodos, que minizan la divergencia Kullback-Leibler entre la distribuci\'on verdadera y aproximada, permiten realizar Inferencia Bayesiana en situaciones que de otra forma no ser\'ia posibles.}
+\es{Esta clase de m\'etodos, que minizan la divergencia Kullback-Leibler entre la distribuci\'on verdadera y aproximada, permiten realizar inferencia bayesiana en situaciones que de otra forma no ser\'ia posibles.}
 %
 \en{In our case, in which we need to know how skills change over time, this technique allows us to efficiently apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
 \es{En nuestro caso, en el que necesitamos conocer c\'omo cambian las habilidades a trav\'es del tiempo, est\'a t\'ecnica nos permite aplicar eficientemente la ecuaci\'on~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
@@ -1093,7 +1094,7 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 % Parrafo
 
 \en{Let $\N$ be the Gaussian probability distribution, $\Phi$ the cumulative Gaussian distribution, $\mathbb{I}$ the indicator function.}
-\es{Sea $\N$ la ditribuci\'on de probabilidad Gaussiana, $\Phi$ la acumulada de una distribuc\'on Gaussiana, $\mathbb{I}$ la funci\'on indicadora.}
+\es{Sea $\N$ la ditribuci\'on de probabilidad gaussiana, $\Phi$ la acumulada de una distribuc\'on gaussiana, $\mathbb{I}$ la funci\'on indicadora.}
 %
 \begin{equation}\label{eq:propiedad_1} \tag{\text{prop 1}}
 \N(x|\mu_1,\sigma_1^2)\N(x|\mu_2,\sigma_2^2) \overset{\ref{multiplicacion_normales}}{=} \N(\mu_1|\mu_2,\sigma_1^2+\sigma_2^2) \N(x|\mu_{*},\sigma_{*}^2)
@@ -1223,7 +1224,7 @@ v2 = N2$sigma^2
 \subsection{Rating} \label{sec:rating}
 
 \en{The class \texttt{Rating()} is represented by: the mean (\texttt{mu}) and the deviation (\texttt{sigma}) of the prior Gaussian distribution; the performance standard deviation (\texttt{beta}); and the temporal volatility of the skills (\texttt{gamma}).}
-\es{La clase \texttt{Rating()} se representa con cuatro atributos: la media (\texttt{mu}) y el desv\'io (\texttt{sigma}) de la distribuci\'on Gaussiana a priori; el dev\'io de los rendimientos (\texttt{beta}); y la volatilidad temporal de las habilidades (\texttt{gamma}).}
+\es{La clase \texttt{Rating()} se representa con cuatro atributos: la media (\texttt{mu}) y el desv\'io (\texttt{sigma}) de la distribuci\'on gaussiana a priori; el dev\'io de los rendimientos (\texttt{beta}); y la volatilidad temporal de las habilidades (\texttt{gamma}).}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:rating, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
@@ -1655,7 +1656,7 @@ exact_lhood = function(s1){
 \es{Sin embargo, este valor depende de la diferencia de habilidad real, que justamente no conocemos.}
 %
 \en{In section~\ref{sec:ttt-d} we present the Bayesian solution to the darw model.}
-\es{En la secci\'on~\ref{sec:ttt-d} presentamos la soluci\'on Bayesiana al modelo de empates.}
+\es{En la secci\'on~\ref{sec:ttt-d} presentamos la soluci\'on bayesiana al modelo de empates.}
 %
 \en{In any case, assuming that we can define the ``probability of a draw between teams with same skill'', it is important to note that the margin also depends on the number of players.}
 \es{En cualquier caso, suponiendo que podemos definir esa la ``probabilidad de empate entre equipos con misma habilidad'', es importante tener en cuenta que el margen tambi\'en depende de la cantidad de jugadores.}
@@ -1733,22 +1734,22 @@ margin = compute_margin(p_draw, sd)
 \es{En la secci\'on~\ref{sec:exactSolution} hemos visto que el posterior exacta, si bien se parece a un Gaussiano, no lo es, .}
 %
 % \en{ although similar, is not a Gaussian distribution, preventing us from using the equation~\ref{eq:posterior_win}  iteratively.}
-% \es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on Gaussiana, lo que nos impedir\'a usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
+% \es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on gaussiana, lo que nos impedir\'a usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
 % %
 % 
 % 
 % \en{But due the shape of the exact posterior, a Gaussian seem to be a good enough approximation, allowing us to avoid the computational cost of the sampling methodologies.}
-% \es{Por la forma del posterior exacto, una Gaussiana parece una aproximaci\'on suficientemente buena, que nos permitir\'ia evitar el costo computacional de la metodolog\'ias de sampleo.}
+% \es{Por la forma del posterior exacto, una gaussiana parece una aproximaci\'on suficientemente buena, que nos permitir\'ia evitar el costo computacional de la metodolog\'ias de sampleo.}
 % %
 % 
-% \en{Dado que la forma exacta se parece a una Gaussiana (figura~\ref{fig:posterior_win}), usar una Gaussiana para representar el posterior no parecer\'ia ser tan grave en t\'erminos de aproximaci\'on y en cambio nos permitir\'ia realizar estimaciones sucesivas.}
+% \en{Dado que la forma exacta se parece a una gaussiana (figura~\ref{fig:posterior_win}), usar una gaussiana para representar el posterior no parecer\'ia ser tan grave en t\'erminos de aproximaci\'on y en cambio nos permitir\'ia realizar estimaciones sucesivas.}
 % 
 % % Parrafo
 %\en{The methods for approximating an untractable distribution by means of a distribution belonging to a known family are known in Bayesian inference as ``variational''.}
 %\es{Los m\'etodos para aproximar una distribuci\'on intratable mediante una distribuci\'on perteneciente a una familia conocida se conocen en inferencia bayesiana como ``variacionales''.}
 %
 \en{In this section we will show how to find the Gaussian distribution that best approximates the exact posterior, considering the possibility of ties.}
-\es{En esta secci\'on mostraremos c\'omo encontrar la distribuci\'on Gaussiana que mejor aproxima al posterior exacto, considerando la posibilidad de empates.}
+\es{En esta secci\'on mostraremos c\'omo encontrar la distribuci\'on gaussiana que mejor aproxima al posterior exacto, considerando la posibilidad de empates.}
 %
 \en{The packages solve it with the following two lines of code.}
 \es{Los paquetes lo resuelven con las siguientes dos l\'ineas de c\'odigo.}
@@ -1790,10 +1791,10 @@ p(d) =
 \end{equation}
 %
 \en{For Gaussian distributions, moment matching is known to minimize the Kullback-Leibler divergence~\citep{Herbrich2007}.}
-\es{Se sabe que las distribuciones Gaussianas que minimizan la divergencia Kullback-Libler son las que tiene mismo momentos~\citep{Herbrich2007}.}
+\es{Se sabe que las distribuciones gaussianas que minimizan la divergencia Kullback-Libler son las que tiene mismo momentos~\citep{Herbrich2007}.}
 %
 \en{The expectation and variance of a truncated Gaussian $\N(x|\mu,\sigma^2)$ in a $[a,b]$ interval are,}
-\es{La esperanza y la varianza de una Gaussiana truncada $\N(x|\mu,\sigma^2)$ en un intervalo $[a,b]$ son,}
+\es{La esperanza y la varianza de una gaussiana truncada $\N(x|\mu,\sigma^2)$ en un intervalo $[a,b]$ son,}
 %
 \begin{equation}\label{eq:mean_aprox_double}
  E(X| a < X < b) = \mu + \sigma \frac{\N(\alpha) - \N(\beta) }{\Phi(\beta) - \Phi(\alpha) }
@@ -1814,7 +1815,7 @@ p(d) =
 \end{equation*}
 %
 \en{Then, the Gaussian that best approximates $p(d_1)$ in a winning case is}
-\es{Luego, la Gaussiana que mejor aproxima a $p(d_1)$ en un caso ganador es}
+\es{Luego, la gaussiana que mejor aproxima a $p(d_1)$ en un caso ganador es}
 %
 \begin{equation}\label{eq:p*_d} \tag{\texttt{approx()}}
  \widehat{p}(d) = \N(d | \widehat{\delta}, \widehat{\vartheta}^2) =
