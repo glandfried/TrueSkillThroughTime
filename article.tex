@@ -221,10 +221,10 @@
 
 %
 
-\en{Knowing how individual skills change over time is essential in sports and educational contexts.}
+\en{Knowing how individual skills change over time is essential in Sports and Education.}
 \es{Conocer c\'omo cambian las habilidades individuales a lo largo del tiempo es esencial para en contextos deportivos y educativos.}
 %
-\en{Since they are hidden variables, the best we can do is to estimate them based on their direct observable consequences: the outcome of problem solving and competitions.}
+\en{Since the skill is a hidden variable, the best we can do is to estimate it based on its direct observable consequences: the outcome of problem solving and competitions.}
 \es{Dado que son variables ocultas, lo mejor que podemos hacer es estimarlas a partir de sus consecuencias observables directas: el producto de resoluci\'on de problemas y competencias.}
 %
 \en{Considering only the frequency of positive results as an indicator of the individuals' ability could lead to wrong approximations, mainly because the outcome also depends on the difficulty of the challenge.}
@@ -241,7 +241,7 @@
 
 % Parrafo
 
-\en{All currently widely used skill estimators share some variant of the probabilistic model proposed by Elo~\citep{Glickman1999,Herbrich2007,VanDerLinden2016,Fox2010}.}
+\en{All currently used skill estimators share some variant of the probabilistic model proposed by Elo~\citep{Glickman1999,Herbrich2007,VanDerLinden2016,Fox2010}.}
 \es{Todos los estimadores de habilidad ampliamente utilizados actualmente comparten alguna variante del modelo probabil\'istico propuesto por Elo~\cite{Glickman1999, Herbrich2007, VanDerLinden2016, Fox2010}.}
 %
 \begin{figure}[h!]
@@ -296,7 +296,7 @@
 %
 \en{The model assumes that the agent with the highest performance wins, $r = (p_i > p_j)$. In other words, whoever obtains a difference of performance greater than 0 wins, $r = (p_i - p_j > 0)$.}
 \es{El modelo supone que gana el agente con mayor rendimiento, $r = (p_i > p_j)$, o en otras palabras, gana quien obtenga una diferencia de rendimiento mayor a 0, $r = (p_i - p_j > 0)$.}
-\en{The parameter $\beta^2$, being the same for all the agents, acts as the scale of the estimations: skills separated by a $\beta$ keep always the same probability of winning.}
+\en{The parameter $\beta^2$ is the same for all the agents and acts as the scale of the estimations: skills separated by a $\beta$ keep always the same probability of winning.}
 \es{El parámetro $\beta^2$, al ser el mismo para todos los agentes, actúa como la escala de las estimaciones: habilidades separada por un $\beta$ mantienen siempre la misma probabilidad de ganar.}
 
 % Parrafo
@@ -330,7 +330,7 @@
 \en{This procedure can recover the relative scale of the agents, starting from arbitrary initial values.}
 \es{Esta soluci\'on puede recuperar la escala relativa de los agentes, partiendo de de valores iniciales arbitrarios.}
 %
-\en{However, it does have a major weaknesses.}
+\en{However, it does have a major weakness.}
 \es{Sin embargo, tiene algunas debilidades importantes.}
 %
 \en{The update rule (Eq.~\ref{eq:elo_update}) is symmetric: what one agent wins is lost by the other.}
@@ -403,8 +403,8 @@
 \en{where the only free variable is the skill hypothesis of agent $i$.}
 \es{Donde la única variable libre es la hip\'otesis de habilidad del agente $i$.}
 %
-\en{The prior quantifies the uncertainty about the ability, and the posterior contains the uncertainty that remains after seeing the new data (the result of the event).}
-\es{El prior cuantifica la incertidumbre sobre la habilidad, y el posterior contiene la incertidumbre que queda luego de ver el nuevo dato (el resultado del evento).}
+\en{The prior quantifies the uncertainty about the ability, and the posterior contains the uncertainty that remains after seeing the new data (i.e.~the result of the event).}
+\es{El prior cuantifica la incertidumbre sobre la habilidad, y el posterior contiene la incertidumbre que queda luego de ver el nuevo dato (i.e.~el resultado del evento).}
 %
 \en{The likelihood and the evidence are both probabilities of the observed result, so they can be seen as predictions (since the results are discrete variables, those probabilities are expressed using capital letters).}
 \es{La verosimilitud como la evidencia son ambas probabilidades del resultado observado, por lo que pueden ser vistas como predicciones (como los resultados son variables discretas, esas probabilidad se escribe con letras mayúsculas).}
@@ -417,7 +417,7 @@
 \en{As an instance, let's consider a winning case ($p_i > p_j$) using a Gaussian prior (i.e. $\N(\,s\,|\,\mu, \sigma^2)$) for each of the skill estimations.}
 \es{A modo de ejemplo, consideremos un caso ganador ($p_i > p_j$) usando priors Gaussianos, $\N(\,s\,|\,\mu, \sigma^2)$.}
 %
-\en{The difference of performances, $d=p_i-p_j$, can also be expressed as a Gaussian distribution, centered on the difference of the prior estimate means ($\mu_i -\mu_j$), with a variance that incorporates the uncertainty of both estimates ($\sigma$) and the variance of both performances ($\beta$), $\N( d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
+\en{The difference of performances, $d=p_i-p_j$, can also be expressed as a Gaussian distribution, centered on the difference of the prior estimate means ($\mu_i -\mu_j$), with a variance that incorporates the uncertainty of both estimates ($\sigma_i$ and $\sigma_j$) and the variance of both performances ($\beta$), $\N( d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
 \es{La diferencia de rendimientos, $d=p_i-p_j$, tambi\'en se puede expresar como una gaussiana centrada en la diferencia de las medias de las estimaciones a priori ($\mu_i - \mu_j$), con una varianza que incorpora la incertidumbre de ambas estimaciones ($\sigma$) y la varianza de ambos rendimientos ($\beta$), $\N(\, d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
 %
 \en{As we observed that the agent $i$ won, we know from the causal model that the hidden difference of performances was, indeed, positive.}
@@ -426,7 +426,7 @@
 \en{Therefore, the prior prediction of the observed result (or evidence) is the cumulative density, $\Phi$, of all positive values of the difference of performances (Eq.~\ref{eq:evidence}).}
 \es{Por lo tanto, la predicci\'on a priori del resultado observado (o evidencia) es la densidad acumulada, $\Phi$, de todos los valores positivos de la diferencia de rendimientos (Eq.~\ref{eq:evidence}).}
 %
-\en{From now on the role of the model will be left implicit.}
+\en{During the rest of this work, the role of the model will be left implicit.}
 \es{A partir de ahora el rol del modelo se dejr\'a impl\'icito.}
 %
 \begin{equation}\label{eq:evidence}
@@ -458,7 +458,7 @@
 \en{It is interesting to note the similarities and differences between likelihood and evidence.}
 \es{Es interesante notar las similitudes y diferencias entre el likelihood y el evidencia.}
 %
-\en{The likelihood quantifies the same cumulative density as the evidence, but now centered at the difference between the hypothesis we are evaluating $s_i$ and the opponent's mean estimate $\mu_j$, with a variance that includes all uncertainties except the one of $s_i$.}
+\en{The likelihood quantifies the same cumulative density as the evidence but centered at the difference between the hypothesis we are evaluating $s_i$ and the opponent's mean estimate $\mu_j$, with a variance that includes all uncertainties except the one of $s_i$.}
 \es{La verosimilitud cuantifica la misma densidad acumulada que la evidencia, pero centrada ahora en la diferencia entre la hip\'otesis que estamos evaluando $s_i$ y la estimaci\'on media del oponente $\mu_j$ con una varianza que incluye todas las incertidumbres salvo la de la propia hip\'otesis $s_i$.}
 %
 \en{In other words, the likelihood is just the prior prediction of the observed result assuming true the skill hypothesis we are evaluating.}
@@ -517,17 +517,17 @@
 \en{However, this method does not guarantee the quality of the approximation used.}
 \es{Sin embargo, este m\'etodo no garantiza que la distribuci\'on gaussiana seleccionada sea la que mejor aproxima.}
 %
-\en{The success of the TrueSkill solution~\citep{Herbrich2007} is based on the application of an efficient method for computing the Gaussian distribution that best approximates the exact posterior (section~\ref{sec:approximate_posterior}).}
+\en{The success of the TrueSkill solution~\citep{Herbrich2007} is based on the application of an efficient method for computing the Gaussian distribution that guarantees the approximation of the posterior (section~\ref{sec:approximate_posterior}).}
 \es{El \'exito de la soluci\'on TrueSkill~\citep{Herbrich2007} se basa en la aplicaci\'on de m\'etodo eficiente para calcular la gaussiana que mejor aproxima a la posterior exacta (secci\'on~\ref{sec:approximate_posterior}).}
 %
 \begin{equation} \label{eq:approx} 
  \widehat{p}(s_i| r, s_j) = \underset{\mu, \sigma}{\text{ arg min }} \ \ \text{KL}(\, p(s_i| r, s_j) \, || \,  \N(s_i|\mu, \sigma^2) \, )
 \end{equation}
 %
-\en{This kind of methods, which minimize the Kullback-Leibler divergence between the true and the approximate distribution, allows to perform Bayesian inference in situations that otherwise would be impossible.}
+\en{which minimize the Kullback-Leibler divergence between the true and the approximate distribution. This  kind of methods allows performing Bayesian inference in situations that otherwise would be impossible.}
 \es{Esta clase de m\'etodos, que minizan la divergencia Kullback-Leibler entre la distribuci\'on verdadera y aproximada, permiten realizar inferencia bayesiana en situaciones que de otra forma no ser\'ia posibles.}
 %
-\en{In our case, in which we need to know how skills change over time, this technique allows us to efficiently apply the equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
+\en{In our case, in which we need to know how skills change over time, this technique allows us to efficiently apply equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
 \es{En nuestro caso, en el que necesitamos conocer c\'omo cambian las habilidades a trav\'es del tiempo, est\'a t\'ecnica nos permite aplicar eficientemente la ecuaci\'on~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
 
 %
@@ -542,7 +542,7 @@
  \widehat{\text{Posterior}}_t \propto \widehat{\text{Likelihood}}_t  \overbrace{\widehat{\text{Likelihood}}_{t-1} \dots \widehat{\text{Likelihood}}_{2} \underbrace{\widehat{\text{Likelihood}}_{1} \text{Prior}_1}_{\widehat{\text{Posterior}}_{1} \text{ \en{as}\es{como} } \text{Prior}_{2}} }^{\widehat{\text{Posterior}}_{t-1} \text{ \en{as}\es{como} } \text{Prior}_{t}} %= \text{Prior}_1 \prod_{i=1}^t \text{Likelihood}_i 
 \end{equation}
 %
-\en{where {\footnotesize $\widehat{\text{Posterior}}_i$} and {\footnotesize $\widehat{\text{Likelihood}}_i$} represents the approximations induced by the equation~\ref{eq:approx} at the $i$-est event.}
+\en{where {\footnotesize $\widehat{\text{Posterior}}_i$} and {\footnotesize $\widehat{\text{Likelihood}}_i$} represents the approximations induced by the equation~\ref{eq:approx} at the $i$-th event.}
 \es{Donde {\footnotesize $\widehat{\text{Posterior}}_i$} y {\footnotesize $\widehat{\text{Likelihood}}_i$} representan la aproximaciones inducidas por la ecuaci\'on~\ref{eq:approx} en el $i$-\'esimo evento.}
 %
 \en{If we consider the likelihood as a filter of the prior, each posterior can be seen as an accumulation of all previous filters.}
@@ -561,17 +561,17 @@
  \widehat{p}(s_{i_t}) = \N(s_{i_t} | \mu_{i_{t-1}}, \sigma_{i_{t-1}}^2 + \gamma^2 )
  \end{equation}
  %
-\en{Because the filtering approach does not arise from any probabilistic model, it suffers from a number of problems related to the fact that the information propagates in only one direction through the system.}
+\en{Because the filtering approach does not arise from any probabilistic model, it suffers from some problems related to the fact that the information propagates in only one direction through the system.}
 \es{Debido a que el enfoque de filtrado no se surge de ningún modelo probabil\'istico, sufre de un serie de problemas, todos relacionados con el hecho de que la informaci\'on se propaga en una sola direcci\'on a trav\'es del sistema.}
 %
 \en{The most obvious is that the beginning of any sequence of estimates always has high uncertainty.}
 %, making them useless
 \es{El m\'as obvio es que el inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre.}
 % , lo que las hace inservibles
-\en{But it also suffer from ``temporary'' and ``spatial'' decoupling.}
+\en{But it also suffers from ``temporary'' and ``spatial'' decoupling.}
 \es{Pero tambi\'en sufre de desacoplamientos ``temporales'' y ``espaciales''.}
 %
-\en{Although the relative differences between contemporary estimates within well-connected communities are correct, estimates separated in time and between poorly connected communities are often incorrect.}
+\en{Although the relative differences between current estimates within well-connected communities are correct, estimates separated in time and between poorly connected communities are often incorrect.}
 % preventing comparability over time and between communities.
 \es{Aunque la diferencias relativas entre estimaciones contempor\'aneas al interior de comunidades bien conectadas sean correctas, las estimaciones separadas en el tiempo y entre comunidades poco conectadas suelen ser incorrectas.}
 % impidiendo as\'i la comparabilidad temporal y entre comunidades.
@@ -650,13 +650,13 @@
 \en{where $T_i$ is the total number of events in which the $i$ agent participated, with {\small Prior$_{i_0}$} the initial prior of agent $i$.}
 \es{Donde $T_i$ es la cantidad total de eventos del agente $i$, con {\small Prior$_{i_0}$} el prior inicial del agente $i$.}
 %
-\en{This produce a mutual dependency between likelihoods, forcing us to implement an iterative algorithm to solve inference (details at secci\'on~\ref{sec:throguthTime}).}
+\en{This procedure establishes a mutual dependency between likelihoods, forcing us to implement an iterative algorithm to solve the inference (details in section~\ref{sec:throguthTime}).}
 \es{Esto produce una mutua dependencia entre verosimilitudes, oblig\'andonos a implementar un algoritmo iterativo para resolver la inferencia (detalles en la secci\'on~\ref{sec:throguthTime}).}
 %
-\en{In the first pass, the priors of each event are calculated using only the past likelihoods that have already been defined.}
+\en{In the first pass, we use the past likelihoods to compute the priors of each event.}
 \es{En la primera pasada, los priors de cada evento se calculan usando s\'olo las verosimilitudes pasadas que ya han sido definidas.}
 %
-\en{Once all the likelihoods have been calculated, we can run a new pass using the latest available likelihoods.}
+\en{Once all the likelihoods have been obtained, we can perform a new iteration using the recently computed likelihoods.}
 \es{Una vez calculadas todas las verosimilitudes, podemos realizar una nueva pasada usando las últimas verosimilitudes disponibles.}
 %
 %\en{The first likelihoods will necessarily be incorrect because the priors had been partially defined.}
@@ -665,7 +665,7 @@
 %\en{But so will be the likelihoods calculated in the second pass, because its outcome will depend partially on the likelihoods calculated in the previous pass.}
 %\es{Pero tambi\'en lo ser\'an las verosimilitudes calculadas en la segunda pasada, debido a que su resutado depender\'a parcialmente de las verosimilitudes calculadas en la pasada anterior.}
 %
-\en{This procedure converge with a few linear iterations over the data.}
+\en{This procedure converges with a few linear iterations over the data.}
 \es{Este procedimiento converge con unas pocas iteraciones lineales sobre los datos.}
 
 % Parrafo
@@ -752,10 +752,10 @@
       }  
   }
   \caption{
-  \en{Convergence of TrueSkill Through Time in a history with only two events and two agents.}
+  \en{The convergence of TrueSkill Through Time in a history consisting of two events and two agents.}
   \es{Convergencia de TrueSkill Through Time en una historia con s\'olo dos eventos y dos agentes.}
   %
-  \en{The first game is won by the player $a$, $p_{a_1} > p_{b_1}$, and the second is won by the player $b$, $p_{a_2} < p_{b_2}$.}
+  \en{The first game is won by player $a$, $p_{a_1} > p_{b_1}$, and the second one is won by player $b$, $p_{a_2} < p_{b_2}$.}
   \es{La primera partida la gana el jugador $a$, $p_{a_1} > p_{b_1}$, y la segunda la gana el jugador $b$, $p_{a_2} < p_{b_2}$.}
   %
   \en{The brightness of the curves indicates the order of convergence: the darkest are the latest estimates.}
@@ -773,7 +773,7 @@
   \label{fig:smooth_example}
 \end{figure}
 %
-\en{TrueSkill Through Time recovers the true differences between hidden skills even at the beginning of the sequence.}
+\en{TrueSkill Through Time recovers the actual differences between hidden skills even at the beginning of the sequence.}
 \es{TrueSkill Through Time recupera las verdaderas diferencias entre habilidades ocultas incluso al principio de la secuencia.}
 %  
 \en{Similar methodologies to TrueSkill Through Time have been developed by \cite{coulom2008-wholeHistoryRating} and \cite{maystre2019-pairwise}.}
@@ -782,7 +782,7 @@
 %\en{This methodology has not been available until now in any of the major programming languages.}
 %\es{Esta metodolog\'ia no hab\'ia estado hasta ahora disponible en ninguno de los principales lenguajes de programaci\'on.}
 %
-\en{With this paper we make available the first TrueSkill Through Time packages for \proglang{Julia}, \proglang{Python} and \proglang{R}, together with its scientific documentation.}
+\en{Jointly with this work, we make available the first TrueSkill Through Time packages for \proglang{Julia}, \proglang{Python}, and \proglang{R}, together with its scientific documentation.}
 \es{Con este art\'iculo ponemos a disposici\'on los primeros paquetes de TrueSkill Through Time para \proglang{Julia}, \proglang{Python} y \proglang{R}, junto con su documentaci\'on cient\'ifica.}
 
 
