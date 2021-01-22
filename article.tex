@@ -524,7 +524,7 @@
  \widehat{p}(s_i| r, s_j) = \underset{\mu, \sigma}{\text{ arg min }} \ \ \text{KL}(\, p(s_i| r, s_j) \, || \,  \N(s_i|\mu, \sigma^2) \, )
 \end{equation}
 %
-\en{which minimize the Kullback-Leibler divergence between the true and the approximate distribution. This  kind of methods allows performing Bayesian inference in situations that otherwise would be impossible.}
+\en{which minimize the Kullback-Leibler divergence between the true and the approximate distribution. This kind of methods allows performing Bayesian inference in situations that otherwise would be impossible.}
 \es{Esta clase de m\'etodos, que minizan la divergencia Kullback-Leibler entre la distribuci\'on verdadera y aproximada, permiten realizar inferencia bayesiana en situaciones que de otra forma no ser\'ia posibles.}
 %
 \en{In our case, in which we need to know how skills change over time, this technique allows us to efficiently apply equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
@@ -654,7 +654,7 @@
 \es{Esto produce una mutua dependencia entre verosimilitudes, oblig\'andonos a implementar un algoritmo iterativo para resolver la inferencia (detalles en la secci\'on~\ref{sec:throguthTime}).}
 %
 \en{In the first pass, we use the past likelihoods to compute the priors of each event.}
-\es{En la primera pasada, los priors de cada evento se calculan usando s\'olo las verosimilitudes pasadas que ya han sido definidas.}
+\es{En la primera pasada, utilizamos las versolimulitudes pasadas para calcular las priores de cada evento.}
 %
 \en{Once all the likelihoods have been obtained, we can perform a new iteration using the recently computed likelihoods.}
 \es{Una vez calculadas todas las verosimilitudes, podemos realizar una nueva pasada usando las últimas verosimilitudes disponibles.}
