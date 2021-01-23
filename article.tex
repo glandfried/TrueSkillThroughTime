@@ -877,6 +877,520 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%% -- Illustrations ------------------------------------------------------------
+
+%% - Virtually all JSS manuscripts list source code along with the generated
+%%   output. The style files provide dedicated environments for this.
+%% - In R, the environments {Sinput} and {Soutput} - as produced by Sweave() or
+%%   or knitr using the render_sweave() hook - are used (without the need to
+%%   load Sweave.sty).
+%% - Equivalently, {CodeInput} and {CodeOutput} can be used.
+%% - The code input should use "the usual" command prompt in the respective
+%%   software system.
+%% - For R code, the prompt "R> " should be used with "+  " as the
+%%   continuation prompt.
+%% - Comments within the code chunks should be avoided - these should be made
+%%   within the regular LaTeX text.
+
+\section{Illustrations} \label{sec:illustrations}
+
+%
+\begin{comment}
+\begin{CodeChunk}
+\begin{CodeInput}
+R> data("quine", package = "MASS")
+\end{CodeInput}
+\end{CodeChunk}
+
+\begin{leftbar}
+For code input and output, the style files provide dedicated environments.
+Either the ``agnostic'' \verb|{CodeInput}| and \verb|{CodeOutput}| can be used
+or, equivalently, the environments \verb|{Sinput}| and \verb|{Soutput}| as
+produced by \fct{Sweave} or \pkg{knitr} when using the \code{render_sweave()}
+hook. Please make sure that all code is properly spaced, e.g., using
+\code{y = a + b * x} and \emph{not} \code{y=a+b*x}. Moreover, code input should
+use ``the usual'' command prompt in the respective software system. For
+\proglang{R} code, the prompt \code{"R> "} should be used with \code{"+  "} as
+the continuation prompt. Generally, comments within the code chunks should be
+avoided -- and made in the regular {\LaTeX} text instead. Finally, empty lines
+before and after code input/output should be avoided (see above).
+\end{leftbar}
+\end{comment}
+
+\en{In this section we show how to use \proglang{Julia}, \proglang{Python} and \proglang{R} packages to solve a single event, a short history of 3 events and the real history of professional ATP tennis players.}
+\es{En esta sección mostramos cómo usar los usando los paquetes de\proglang{Julia}, \proglang{Python} y \proglang{R} para resolver un evento, una pequeña historia de 3 eventos y finalmente la historia real de jugadores profesional de tenis ATP.}
+%
+\en{We will show both TrueSkill and TrueSkill Through Time solutions, the method to obtain individual learning curves, and the a priori prediction of the observed data (i.e. evidence) that serve as a measure to compare models.}
+\es{Mostraremos la soluciones TrueSkill y TrueSkill Through Time, el método para obtener curvas de aprendizaje individuales, y la predicción a priori (i.e. evidencia) del dato observado que sirven como medida para comparar modelos.}
+%
+\en{Finally we will make a time complexity comparison between the three packages presented in this paper and the \texttt{trueskill} package of presented in this paper \proglang{Python}.}
+\es{Por último haremos un comparación de complejidad temporal entre los tres paquetes que presentamos en este trabajo y el paquete \texttt{trueskill} de \proglang{Python}.}
+
+\subsection{Rating} \label{sec:rating}
+
+\en{The class \texttt{Rating()} is represented by: the mean (\texttt{mu}) and the standard deviation (\texttt{sigma}) of the prior Gaussian distribution; the standard deviation of the performance (\texttt{beta}); and the dinamic factor of the skill (\texttt{gamma}).}
+\es{La clase \texttt{Rating()} se representa con cuatro atributos: la media (\texttt{mu}) y el desv\'io estandar (\texttt{sigma}) de la distribuci\'on gaussiana a priori; el dev\'io estanndar de los rendimientos (\texttt{beta}); y el factor din\'amico de la habilidad (\texttt{gamma}).}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:rating, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{lstlisting}[backgroundcolor=\color{all}]
+mu = 0.0; sigma = 6.0; beta = 1.0; gamma = 0.0
+r1 = Rating(mu, sigma, beta, gamma); r2 = Rating(mu, sigma, beta, gamma)
+r3 = Rating(mu, sigma, beta, gamma); r4 = Rating(mu, sigma, beta, gamma)
+\end{lstlisting}  
+%
+\en{Ratings have 3 attributes.}
+\es{Los rating tienen 3 atributos.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:prior, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}]
+prior = r1.prior
+beta == r1.beta
+gamma == r1.gamma
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}]
+prior = r1.prior
+beta == r1.beta
+gamma == r1.gamma
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}]
+prior = r1$prior
+beta == r1$beta
+gamma == r1$gamma
+\end{lstlisting}
+\end{paracol}
+%
+\en{For efficiency reasons, the prior is stored as \texttt{Gaussian()} class, which has the mean and standard deviation as attributes.}
+\es{Por cuesti\'on de eficiencia, el prior se guarda como clase \texttt{Gaussian()}, la que tiene la media y el desv\'io estandar como atributos.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:prior, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}]
+mu1 = r1.prior.mu
+sigma1 = r1.prior.sigma
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}]
+mu1 = r1.prior.mu
+sigma1 = r1.prior.sigma
+\end{lstlisting}
+\switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}]
+mu1 = r1$prior$mu
+sigma1 = r1$prior$sigma
+\end{lstlisting}
+\end{paracol}
+%
+\en{The \texttt{Gaussian()} class does most of the computation of the packages (details at section \ref{sec:Gasussian}).}
+\es{La clase \texttt{Gaussian()} realiza la mayor parte del c\'omputo en todos los paquetes (detalles en la secci\'on \ref{sec:Gaussian}).}
+
+
+\subsection{Games} \label{sec:game}
+
+\en{The class \texttt{Game()} is used to compute the posteriors and the evidence of events such as described in Figure~\ref{fig:generative_model}.}
+\es{La clase \texttt{Game()} se utiliza para computar los posteriors y la evidencia de eventos como los descritos en la figura~\ref{fig:generative_model}.}
+%
+\en{As an example, we initialize a game with two teams of two players.}
+\es{A modo de ejemplo, inicializamos una partida con dos equipos de dos jugadores.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+team_a = [ r1, r2 ]
+team_b = [ r3, r4 ]
+teams = [team_a, team_b]
+result = [1,0]
+\end{lstlisting}
+  \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+team_a = [ r1, r2 ]
+team_b = [ r3, r4 ]
+teams = [team_a, team_b]
+result = [1,0]
+\end{lstlisting}
+   \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+team_a = c(r1, r2)
+team_b = c(r3, r4)
+teams = list(team_a, team_b)
+result = c(1,0)
+\end{lstlisting}  
+\end{paracol}
+\begin{lstlisting}[backgroundcolor=\color{all}]
+g = Game(teams, result, p_draw = 0.0)
+\end{lstlisting}
+%
+\en{In the presence of teams, the observed result is modeled as a direct consequence of the difference of the team performance, $d = \sum_{i \in A} p_i - \sum_{i \in B} p_i$ (see details at section \ref{sec:2vs2}).}
+\es{En presencia de equipos, el resultado observado se modela como consecuencias directa de la diferencia de los rendimientos de cada equipo, $d = \sum_{i \in a} p_i) - \sum_{i \in b} p_i)$ (detalles en la sección \ref{sec:2vs2}).}
+%
+\en{The attributes of the \texttt{Game()} class are the \texttt{teams}, the \texttt{result}, the approximate \texttt{likelihoods} (one for each agent) and the \texttt{evidence}.}
+\es{Los atributos de la clase \texttt{Game()} son los \texttt{teams} y el \texttt{result}, los \texttt{likelihoods} aproximados (uno por cada agente) y la \texttt{evidencia}.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_attributes, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+teams == g.teams
+result == g.result
+lhs = g.likelihoods
+ev = g.evidence
+ev = round(ev, digits=3)
+\end{lstlisting}
+  \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+teams == g.teams
+result == g.result
+lhs = g.likelihoods
+ev = g.evidence
+ev = round(ev, 3)
+\end{lstlisting}
+   \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+teams == g$teams
+result == g$result
+lhs = g$likelihoods
+ev = g$evidence
+ev = round(ev, 3)
+\end{lstlisting}
+\end{paracol}
+\begin{lstlisting}[backgroundcolor=\color{all}]
+print(ev)
+> 0.5
+\end{lstlisting}
+%
+\en{The evidence is $0.5$, indicating that the a priori probability of the observed result was the same for both teams.}
+\es{La evidencia es $0.5$, indicando que la probabiilidad a priori del resultado observado era la misma para ambos equipos.}
+%
+\en{The posteriors of each agent are Gasussian that can be computed from the likelihoods and priors by calling a method.}
+\es{Los posteriors de cada agente son gaussianas que pueden computarse de los likelihoods y priors llamando a un método.}
+%
+\en{The output has the same order in which the teams and agents were loaded.}
+\es{La salida tiene el mismo orden en el que fueron cargados los equipos y los agentes.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_attributes, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+posts = posteriors(g)
+print(posts[1][1], ev)
+\end{lstlisting}
+  \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+posts = g.posteriors
+print(posts[0][0], ev)
+\end{lstlisting}
+   \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+posts = g$posteriors()
+print(posts[[1]][[1]], ev)
+\end{lstlisting}  
+\end{paracol}
+\begin{lstlisting}[backgroundcolor=\color{all}]
+> Gaussian(mu=2.361, sigma=5.516)
+\end{lstlisting}
+
+\subsection{Environment}
+
+\en{Before solving a history of events it is necessary to review the set of hyperparameters of the model (\texttt{environment}): the mean \texttt{mu} and standard deviation \texttt{sigma} of the priors; the standard deviation of the performances \texttt{beta}; the dynamic factor \texttt{gamma}; the draw probability \texttt{p\_draw}; and the convergence conditions \texttt{epsilon} and \texttt{iter}.}
+\es{Antes de resolver una historia de eventos es necesario revisar el conjunto de hiperparámetros del modelo (\texttt{environment}): la media \texttt{mu} y el desvío estandar \texttt{sigma} de los priors; el desvío estandar de los desempeños \texttt{beta}; el factor dinámico \texttt{gamma}; la probabilidad de empate \texttt{p\_draw}; y las condiciones de convergencia \texttt{epsilon} e \texttt{iter}.}
+%
+\begin{lstlisting}[backgroundcolor=\color{all}]
+env = Environment(mu=0., sigma=6., beta=1., gamma=.05, p_draw=0., epsilon=1e-6, iter=10)
+env == Environment()
+\end{lstlisting}
+
+
+\subsection{Single event}
+The first examples is the most basic one we figure out.
+Its one of the first examples in the official python package of \texttt{Trueskill}.
+In this case, we consider a game that can be won or lost but not tied, in which two players face each other and we want to update our prior of them knowing the result of it.
+For that we start creating an environment of \texttt{TrueSkill}, specifying the parameter \texttt{draw\_probability} to zero, not to consider the possibility of a tie.
+Then we define the prior of each player. 
+Because in this case we don't know anithing of each, they start with a default prior.
+This one can be set up at will.
+The parameters of this, is the mean and standard deviation of the skill (mu and sigma), the standard deviation of the performance (beta), and the noise add it in the posterior, as the method suggest (noise).
+The result of the game, is in format of a list, with a number for each player, meaning 0 for the one that lost the game, and 1 for the winner.
+After this, define the game with the method \texttt{Game}, and calculate this the posterior of the player with the method \texttt{posterior}.
+We update the prior of each player with the posterior.
+
+Also we show how to get some of the parameters, using the method with name of the parameters in this object.
+
+Our library, its almost four times faster than the official, when computing posteriors.
+% explicar el ejemplo de que esta pasando
+% presentar variables, mapeo entre ejemplo  y teoria
+\lstinputlisting{./code/Example1.py}
+\begin{lstlisting}
+[Out]: Posterior:  TrueSkill.Rating(mu=29.205, sigma=7.194, beta=4.167, noise=0.083) Mean:  29.2052208700336 Variance:  7.194481348831081
+\end{lstlisting}
+
+As we can see, we print the posterior of one of them, showing as the object of the class \texttt{TrueSkill}, with the new parameters.
+Esta mal la forma en que devuelve, player 1 deberia haber empeorado por perder. Ademas creo que sort teams solo funca para dos equipos
+This show that player 2, that won the game, update his skill with mean $25$ and standard deviation $25/3$ to have a mean $29.20$ and standard deviation $7.19$ approximately.
+
+% la habilidad del jugador 1 es babla
+%The time average of this example in a microprocessor i7 babla, its about $4.5$ $10^{-5}$, and for the python package its about $1.9$ $10^{-4}$. About four times faster.
+Tabla de valores temporales, esperar a tener el codigo optimizado 
+% sacar esto del tiempo aca y hacerlo en el data set y como escala a medida que agrando el data set, presentarlo en una tabla de tiempos.
+% 3 o 4 resultados
+\subsection{Example 2: TrueSkill data-set}
+Another example we want to show how TrueSkill can be used with a data set. 
+To start, we will show the implementation for the users that already are familiar with the original TrueSkill package making an almost same implementation and then we will show the way that this package its intend to be used. 
+With this way, the use of \textbf{TTT} its trivial. 
+For the first and second case we will use as input the Table \ref{tab:csvExample2}. Its important to have the input "Result" as the same format as shown in the table.
+In this first case we will use the library Pandas, but it can be done with out it, the only important its how to upload the data set and loop with it. For the second case we still using Pandas but only to keep the same way of reading the CSV file that the first one. 
+In this case we don't need to loop manually through the data set.
+
+
+\begin{table}[h!]
+	\centering
+	%\resizebox{\textwidth}{!}{%
+		\begin{tabular}{llll}
+			\hline
+			Id  & Player1        & Player2        & Result \\ \hline
+			101 & matt64      & Chuk         & [1,0]      \\
+			102 & matt64      & David        & [1,0]      \\
+			103 & ggg          & matt64       & [0,1]      \\
+			104 & Chuk         & David        & [0,1]      \\
+			105 & ggg         & TheProffesor & [0,1]      \\
+			106 & ggg          & matt64       & [1,0]      \\
+			107 & Chuk         & TheProffesor & [0,1]      \\
+			108 & Chuk         & NaT          & [1,0]      \\
+			109 & David        & TheProffesor & [1,0]      \\
+			110 & David        & Chuk         & [1,0]      \\
+			111 & TheProffesor & Chuk         & [0,1]      \\
+			112 & Mona         & matt64       & [1,0]      \\
+			113 & TiNi         & David        & [1,0]      \\
+			113 & Chuk         & matt64       & [1,0]      \\
+			115 & ggg          & matt64       & [1,0]      \\ \hline
+		\end{tabular}%
+	%}
+	\caption{An example of Data set, used in example 2. }
+	\label{tab:csvExample2}
+\end{table}
+
+% \subsubsection{Existing Implementation}
+% 
+% As we can see, the implantation requires a more manual job, by defining dictionary and also adding noise to the priors, like the TrueSkill algorithm suggest. This default noise can be change to other. 
+% The only thing we must do manually its to pass the input in the correct format.
+% \lstinputlisting{./code/Example2.py}
+% [Out]:Time $7.7$ $10^{-3}$ seconds
+% 
+% In this example, we use the method get, so we can use the global prior only for the first game for each player.
+% As the same way of the first example, we are updating the prior of each player with the posterior of each game.
+% In this case we are saving this in a dictionary with the name of each player as key.
+% Printing at the end this, we will have each player with the latest posterior.
+% 
+% % explicar como usar la salida
+% \subsubsection{Our proposed Implementation}
+\lstinputlisting{./code/Example2-1.py}
+[Out]:Time $2.8$ $10^{-3}$ seconds
+%\todo[inline]{No olvidar agregar los prints que muestra este c\'odigo, no solo el Out}
+
+We create an instance of the class \texttt{history} and use it as parameter for the game composition.
+This object contains the list of game's results.
+
+%\todo[inline]{Explicar qu\'e es history bien y mostrar un ejemplo}
+
+Then using the method \texttt{trueskill} in this object, we compute the posteriors. 
+ONLINE NO SERIA TRUE PARA SER CMOMO TRUESKILL?
+For last, we can see the last posterior of each player, calling the method \texttt{posteriors\_players()}
+Like we can see, the new way of implementation its more compact and simple than the original.
+
+\subsection{Example 3: Trueskill True Time}
+
+As it was mentioned already, one of the advantage of \textbf{TTT}, its the way that the algorithm pass information to the past to the future and vice versa, getting a more accurate estimation.
+This package is the first implementation of this method, beside the original \texttt{Microsoft} package in \texttt{F\#}, of not free access. CHEQUEAR ESTO
+For that, we use the next example. 
+Three player, three games, that each one wins one game and lose the other one. 
+So if we do TrueSkill, the order of how we compute the games will have importance, making at the end three player with three different skill. 
+With \textbf{TTT} this kind of problem its solve.
+
+\lstinputlisting{./code/Example3.py}
+\vspace{-0.3cm}
+[Out]:Poner Trueskill
+
+[Out]:Poner TTT
+\vspace{0.3cm}
+We print the posteriors in two instance, to the reason for comparing the posteriors with \texttt{TrueSkill} vanilla, and with \texttt{TTT}.
+The 
+% y aclarar que pasa si sale con TTT y que saldria si corro trueskill
+% poner el el grafico que corro trueskill
+%cambiar nombre de throguth time por trueskill
+To extend this example to a data set with more games, the only thing that matter is to pass the information in the format show. 
+In first place is the composition of games, that its a list, that contain a list for each game, that it have another list for each team. 
+So its a list of list of list. 
+Then its have a list of list of results, where each element is a list of numbers, representing the result of each team in each game. 
+The next important input its the time batches, as default it will make each game in a 
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Example 4: Performance Analysis}
+
+
+%\todo[inline]{Aca tendremos dos figuras analizando la base de Go: 1) TT original, TT nuestro, TT-R y TT-Julia ; y otra figura con TTT: Python, Julia y R}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 %% -- Manuscript ---------------------------------------------------------------
 %% - When describing longer chunks of code that are _not_ meant for execution
 %%   (e.g., a function synopsis or list of arguments), the environment {Code}
@@ -1221,112 +1735,9 @@ v2 = N2$sigma^2
 \en{Note that the value of \texttt{m1},\texttt{v1},\texttt{v2} has been previously defined.}
 \es{Notar que el valor de \texttt{m1},\texttt{v1},\texttt{v2} a sido definido previamente.}
 
-\subsection{Rating} \label{sec:rating}
 
-\en{The class \texttt{Rating()} is represented by: the mean (\texttt{mu}) and the deviation (\texttt{sigma}) of the prior Gaussian distribution; the performance standard deviation (\texttt{beta}); and the temporal volatility of the skills (\texttt{gamma}).}
-\es{La clase \texttt{Rating()} se representa con cuatro atributos: la media (\texttt{mu}) y el desv\'io (\texttt{sigma}) de la distribuci\'on gaussiana a priori; el dev\'io de los rendimientos (\texttt{beta}); y la volatilidad temporal de las habilidades (\texttt{gamma}).}
-%
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:rating, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{lstlisting}[backgroundcolor=\color{all}]
-mu = 0.0; sigma = 6.0; beta = 1.0; gamma = 0.0
-r1 = Rating(mu, sigma, beta, gamma); r2 = Rating(mu, sigma, beta, gamma)
-r3 = Rating(mu, sigma, beta, gamma); r4 = Rating(mu, sigma, beta, gamma)
-\end{lstlisting}  
-%
-\en{For efficiency, the prior is stored pre-computed.}
-\es{Por cuesti\'on de eficiencia, el prior Gaussiano se guarda precomputado.}
-%
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:prior, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
-prior = r1.prior
-beta == r1.beta
-gamma == r1.gamma
-\end{lstlisting}
-\switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
-prior = r1.prior
-beta == r1.beta
-gamma == r1.gamma
-\end{lstlisting}
-\switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
-prior = r1$prior
-beta == r1$beta
-gamma == r1$gamma
-\end{lstlisting}
-\end{paracol}
-%
+\subsection{\en{Graphical factorization}\es{Factorizaci\'on gr\'afica}}\label{sec:2vs2}
 
-\subsection{Games} \label{sec:game}
-
-\en{The class \texttt{Game()} is used to compute the posteriors and the evidence of events such as described in Figure~\ref{fig:generative_model}.}
-\es{La clase \texttt{Game()} se utiliza para computar los posteriors y la evidencia de eventos como los descritos en la figura~\ref{fig:generative_model}.}
-%
-\en{As an example, we initialize a game with two teams of two players.}
-\es{A modo de ejemplo, inicializamos una partida con dos equipos de dos jugadores.}
-%
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
-team_a = [ r1, r2 ]
-team_b = [ r3, r4 ]
-teams = [team_a, team_b]
-result = [1,0]
-\end{lstlisting}
-  \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
-team_a = [ r1, r2 ]
-team_b = [ r3, r4 ]
-teams = [team_a, team_b]
-result = [1,0]
-\end{lstlisting}
-   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
-team_a = c(r1, r2)
-team_b = c(r3, r4)
-teams = list(team_a, team_b)
-result = c(1,0)
-\end{lstlisting}  
-\end{paracol}
-\begin{lstlisting}[backgroundcolor=\color{all}]
-g = Game(teams, result)
-\end{lstlisting}
-%
-\en{Its attributes, besides the \texttt{teams} and the \texttt{result}, are the approximate (Gaussian) \texttt{likelihoods} and the \texttt{evidence}.}
-\es{Sus atributos, adem\'as de los \texttt{teams} y el \texttt{result}, son los \texttt{likelihoods} aproximados (Gaussianos) y la \texttt{evidencia}.}
-%
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_attributes, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
-teams == g.teams
-result == g.result
-lhs = g.likelihoods
-ev = g.evidence
-\end{lstlisting}
-  \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
-teams == g.teams
-result == g.result
-lhs = g.likelihoods
-ev = g.evidence
-\end{lstlisting}
-   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
-teams == g$teams
-result == g$result
-lhs = g$likelihoods
-ev = g$evidence
-\end{lstlisting}  
-\end{paracol}
-%
-\en{In the presence of teams, the observed result is modeled as a direct consequence of the difference of the team performance, $d = \sum_{i \in A} p_i - \sum_{i \in B} p_i$.}
-\es{En presencia de equipos, el resultado observado se modela como consecuencias directa de la diferencia de los rendimientos de cada equipo, $d = \sum_{i \in a} p_i) - \sum_{i \in b} p_i)$}
-%
 \en{In the figure~\ref{fig:modelo_trueskill_2vs2}, we show its graphical factorization.}
 \es{En la figura~\ref{fig:modelo_trueskill_2vs2} mostramos su factorizaci\'on gr\'afica.} 
 %
@@ -2509,214 +2920,6 @@ posterior_s2_approx = prior2 * lhood_s2_approx
 
 
 
-
-
-%% -- Illustrations ------------------------------------------------------------
-
-%% - Virtually all JSS manuscripts list source code along with the generated
-%%   output. The style files provide dedicated environments for this.
-%% - In R, the environments {Sinput} and {Soutput} - as produced by Sweave() or
-%%   or knitr using the render_sweave() hook - are used (without the need to
-%%   load Sweave.sty).
-%% - Equivalently, {CodeInput} and {CodeOutput} can be used.
-%% - The code input should use "the usual" command prompt in the respective
-%%   software system.
-%% - For R code, the prompt "R> " should be used with "+  " as the
-%%   continuation prompt.
-%% - Comments within the code chunks should be avoided - these should be made
-%%   within the regular LaTeX text.
-
-\section{Illustrations} \label{sec:illustrations}
-
-%
-\begin{comment}
-
-
-\begin{CodeChunk}
-\begin{CodeInput}
-R> data("quine", package = "MASS")
-\end{CodeInput}
-\end{CodeChunk}
-
-\begin{leftbar}
-For code input and output, the style files provide dedicated environments.
-Either the ``agnostic'' \verb|{CodeInput}| and \verb|{CodeOutput}| can be used
-or, equivalently, the environments \verb|{Sinput}| and \verb|{Soutput}| as
-produced by \fct{Sweave} or \pkg{knitr} when using the \code{render_sweave()}
-hook. Please make sure that all code is properly spaced, e.g., using
-\code{y = a + b * x} and \emph{not} \code{y=a+b*x}. Moreover, code input should
-use ``the usual'' command prompt in the respective software system. For
-\proglang{R} code, the prompt \code{"R> "} should be used with \code{"+  "} as
-the continuation prompt. Generally, comments within the code chunks should be
-avoided -- and made in the regular {\LaTeX} text instead. Finally, empty lines
-before and after code input/output should be avoided (see above).
-\end{leftbar}
-\end{comment}
-
-This tutorial will guide you through some of typical \textbf{TTT} package application.
-Familiarity with Python is assumed, so if you are new to Python there is plenty of online documentation like the official Python documentation
-page at \href{http://www.python.org/doc/}{\textcolor{blue}{http://www.python.org/doc/}}.
-In addition to the module \textbf{TTT}, the libraries collections, dateutil and mathematics(Gaussian) are also required.
-In this section its show some applications, starting with an example of TrueSkill of 1vs1, then an example with a data set, and the last one a first example of Trueskill Through Time.
-
-
-\subsection{Example 1: TrueSkill 1vs1}
-The first examples is the most basic one we figure out. Its one of the first examples in the official python package of \texttt{Trueskill}.
-In this case, we consider a game that can be won or lost but not tied, in which two players face each other and we want to update our prior of them knowing the result of it.
-For that we start creating an environment of \texttt{TrueSkill}, specifying the parameter \texttt{draw\_probability} to zero, not to consider the possibility of a tie.
-Then we define the prior of each player. 
-Because in this case we don't know anithing of each, they start with a default prior.
-This one can be set up at will.
-The parameters of this, is the mean and standard deviation of the skill (mu and sigma), the standard deviation of the performance (beta), and the noise add it in the posterior, as the method suggest (noise).
-The result of the game, is in format of a list, with a number for each player, meaning 0 for the one that lost the game, and 1 for the winner.
-After this, define the game with the method \texttt{Game}, and calculate this the posterior of the player with the method \texttt{posterior}.
-We update the prior of each player with the posterior.
-
-Also we show how to get some of the parameters, using the method with name of the parameters in this object.
-
-Our library, its almost four times faster than the official, when computing posteriors.
-% explicar el ejemplo de que esta pasando
-% presentar variables, mapeo entre ejemplo  y teoria
-\lstinputlisting{./code/Example1.py}
-\begin{lstlisting}
-[Out]: Posterior:  TrueSkill.Rating(mu=29.205, sigma=7.194, beta=4.167, noise=0.083) Mean:  29.2052208700336 Variance:  7.194481348831081
-\end{lstlisting}
-
-As we can see, we print the posterior of one of them, showing as the object of the class \texttt{TrueSkill}, with the new parameters.
-Esta mal la forma en que devuelve, player 1 deberia haber empeorado por perder. Ademas creo que sort teams solo funca para dos equipos
-This show that player 2, that won the game, update his skill with mean $25$ and standard deviation $25/3$ to have a mean $29.20$ and standard deviation $7.19$ approximately.
-
-% la habilidad del jugador 1 es babla
-%The time average of this example in a microprocessor i7 babla, its about $4.5$ $10^{-5}$, and for the python package its about $1.9$ $10^{-4}$. About four times faster.
-Tabla de valores temporales, esperar a tener el codigo optimizado 
-% sacar esto del tiempo aca y hacerlo en el data set y como escala a medida que agrando el data set, presentarlo en una tabla de tiempos.
-% 3 o 4 resultados
-\subsection{Example 2: TrueSkill data-set}
-Another example we want to show how TrueSkill can be used with a data set. 
-To start, we will show the implementation for the users that already are familiar with the original TrueSkill package making an almost same implementation and then we will show the way that this package its intend to be used. 
-With this way, the use of \textbf{TTT} its trivial. 
-For the first and second case we will use as input the Table \ref{tab:csvExample2}. Its important to have the input "Result" as the same format as shown in the table.
-In this first case we will use the library Pandas, but it can be done with out it, the only important its how to upload the data set and loop with it. For the second case we still using Pandas but only to keep the same way of reading the CSV file that the first one. 
-In this case we don't need to loop manually through the data set.
-
-
-\begin{table}[h!]
-	\centering
-	%\resizebox{\textwidth}{!}{%
-		\begin{tabular}{llll}
-			\hline
-			Id  & Player1        & Player2        & Result \\ \hline
-			101 & matt64      & Chuk         & [1,0]      \\
-			102 & matt64      & David        & [1,0]      \\
-			103 & ggg          & matt64       & [0,1]      \\
-			104 & Chuk         & David        & [0,1]      \\
-			105 & ggg         & TheProffesor & [0,1]      \\
-			106 & ggg          & matt64       & [1,0]      \\
-			107 & Chuk         & TheProffesor & [0,1]      \\
-			108 & Chuk         & NaT          & [1,0]      \\
-			109 & David        & TheProffesor & [1,0]      \\
-			110 & David        & Chuk         & [1,0]      \\
-			111 & TheProffesor & Chuk         & [0,1]      \\
-			112 & Mona         & matt64       & [1,0]      \\
-			113 & TiNi         & David        & [1,0]      \\
-			113 & Chuk         & matt64       & [1,0]      \\
-			115 & ggg          & matt64       & [1,0]      \\ \hline
-		\end{tabular}%
-	%}
-	\caption{An example of Data set, used in example 2. }
-	\label{tab:csvExample2}
-\end{table}
-
-% \subsubsection{Existing Implementation}
-% 
-% As we can see, the implantation requires a more manual job, by defining dictionary and also adding noise to the priors, like the TrueSkill algorithm suggest. This default noise can be change to other. 
-% The only thing we must do manually its to pass the input in the correct format.
-% \lstinputlisting{./code/Example2.py}
-% [Out]:Time $7.7$ $10^{-3}$ seconds
-% 
-% In this example, we use the method get, so we can use the global prior only for the first game for each player.
-% As the same way of the first example, we are updating the prior of each player with the posterior of each game.
-% In this case we are saving this in a dictionary with the name of each player as key.
-% Printing at the end this, we will have each player with the latest posterior.
-% 
-% % explicar como usar la salida
-% \subsubsection{Our proposed Implementation}
-\lstinputlisting{./code/Example2-1.py}
-[Out]:Time $2.8$ $10^{-3}$ seconds
-%\todo[inline]{No olvidar agregar los prints que muestra este c\'odigo, no solo el Out}
-
-We create an instance of the class \texttt{history} and use it as parameter for the game composition.
-This object contains the list of game's results.
-
-%\todo[inline]{Explicar qu\'e es history bien y mostrar un ejemplo}
-
-Then using the method \texttt{trueskill} in this object, we compute the posteriors. 
-ONLINE NO SERIA TRUE PARA SER CMOMO TRUESKILL?
-For last, we can see the last posterior of each player, calling the method \texttt{posteriors\_players()}
-Like we can see, the new way of implementation its more compact and simple than the original.
-
-\subsection{Example 3: Trueskill True Time}
-
-As it was mentioned already, one of the advantage of \textbf{TTT}, its the way that the algorithm pass information to the past to the future and vice versa, getting a more accurate estimation.
-This package is the first implementation of this method, beside the original \texttt{Microsoft} package in \texttt{F\#}, of not free access. CHEQUEAR ESTO
-For that, we use the next example. 
-Three player, three games, that each one wins one game and lose the other one. 
-So if we do TrueSkill, the order of how we compute the games will have importance, making at the end three player with three different skill. 
-With \textbf{TTT} this kind of problem its solve.
-
-\lstinputlisting{./code/Example3.py}
-\vspace{-0.3cm}
-[Out]:Poner Trueskill
-
-[Out]:Poner TTT
-\vspace{0.3cm}
-We print the posteriors in two instance, to the reason for comparing the posteriors with \texttt{TrueSkill} vanilla, and with \texttt{TTT}.
-The 
-% y aclarar que pasa si sale con TTT y que saldria si corro trueskill
-% poner el el grafico que corro trueskill
-%cambiar nombre de throguth time por trueskill
-To extend this example to a data set with more games, the only thing that matter is to pass the information in the format show. 
-In first place is the composition of games, that its a list, that contain a list for each game, that it have another list for each team. 
-So its a list of list of list. 
-Then its have a list of list of results, where each element is a list of numbers, representing the result of each team in each game. 
-The next important input its the time batches, as default it will make each game in a 
-
-
-\subsection{Example 4: Estimating the Evolution of the Skill}
-
-%\todo{inline]{poner el ejemplo de seguimiento de la habilidad de un jugador a medida que van pasando los partidos con una funci\'on de evoluci\'on conocida. ejemplo sinte\'etico}
-
-
-
-
-
-
-
-
-
-\subsection{Example 5: Performance Analysis}
-
-
-%\todo[inline]{Aca tendremos dos figuras analizando la base de Go: 1) TT original, TT nuestro, TT-R y TT-Julia ; y otra figura con TTT: Python, Julia y R}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%% -- Summary/conclusions/discussion -------------------------------------------
 
 \section{Summary and discussion} \label{sec:summary}
 
