@@ -1027,6 +1027,9 @@ sigma1 = r1$prior$sigma
 \en{As an example, we initialize a game with two teams of two players.}
 \es{A modo de ejemplo, inicializamos una partida con dos equipos de dos jugadores.}
 %
+\en{In the presence of teams, the observed result is modeled as a direct consequence of the difference of the team performance, $d = \sum_{i \in A} p_i - \sum_{i \in B} p_i$ (see details at section \ref{sec:2vs2}).}
+\es{En presencia de equipos, el resultado observado se modela como consecuencias directa de la diferencia de los rendimientos de cada equipo, $d = \sum_{i \in a} p_i) - \sum_{i \in b} p_i)$ (detalles en la sección \ref{sec:2vs2}).}
+%
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
@@ -1034,29 +1037,29 @@ sigma1 = r1$prior$sigma
 team_a = [ r1, r2 ]
 team_b = [ r3, r4 ]
 teams = [team_a, team_b]
-result = [1,0]
+result = [0,1]
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
 team_a = [ r1, r2 ]
 team_b = [ r3, r4 ]
 teams = [team_a, team_b]
-result = [1,0]
+result = [0,1]
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
 team_a = c(r1, r2)
 team_b = c(r3, r4)
 teams = list(team_a, team_b)
-result = c(1,0)
+result = c(0,1)
 \end{lstlisting}  
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
 g = Game(teams, result, p_draw = 0.0)
 \end{lstlisting}
 %
-\en{In the presence of teams, the observed result is modeled as a direct consequence of the difference of the team performance, $d = \sum_{i \in A} p_i - \sum_{i \in B} p_i$ (see details at section \ref{sec:2vs2}).}
-\es{En presencia de equipos, el resultado observado se modela como consecuencias directa de la diferencia de los rendimientos de cada equipo, $d = \sum_{i \in a} p_i) - \sum_{i \in b} p_i)$ (detalles en la sección \ref{sec:2vs2}).}
+\en{where \texttt{result} indicates the observed order (the teams with the lowest number are the winners), and \texttt{praw = 0.0} indicates that the probability of a draw is zero for that type of game.}
+\es{donde \texttt{result} indica el orden observado (los equipos con menor número son los ganadores), y \texttt{p\_draw = 0.0} indica que la probabilidad de empate nula para ese tipo de juegos.}
 %
 \en{The attributes of the \texttt{Game()} class are the \texttt{teams}, the \texttt{result}, the approximate \texttt{likelihoods} (one for each agent) and the \texttt{evidence}.}
 \es{Los atributos de la clase \texttt{Game()} son los \texttt{teams} y el \texttt{result}, los \texttt{likelihoods} aproximados (uno por cada agente) y la \texttt{evidencia}.}
@@ -1064,27 +1067,43 @@ g = Game(teams, result, p_draw = 0.0)
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_attributes, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia}]
 teams == g.teams
 result == g.result
 lhs = g.likelihoods
 ev = g.evidence
-ev = round(ev, digits=3)
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python}]
 teams == g.teams
 result == g.result
 lhs = g.likelihoods
 ev = g.evidence
-ev = round(ev, 3)
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{r}]
 teams == g$teams
 result == g$result
 lhs = g$likelihoods
 ev = g$evidence
+\end{lstlisting}
+\end{paracol}
+%
+\en{The evidence is $0.5$, indicating that the prior probability of the observed result was the same for both teams.}
+\es{La evidencia es $0.5$, indicando que la probabiilidad a priori del resultado observado era la misma para ambos equipos.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_evidence, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+ev = round(ev, digits=3)
+\end{lstlisting}
+  \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+ev = round(ev, 3)
+\end{lstlisting}
+   \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
 ev = round(ev, 3)
 \end{lstlisting}
 \end{paracol}
@@ -1092,17 +1111,14 @@ ev = round(ev, 3)
 print(ev)
 > 0.5
 \end{lstlisting}
-%
-\en{The evidence is $0.5$, indicating that the a priori probability of the observed result was the same for both teams.}
-\es{La evidencia es $0.5$, indicando que la probabiilidad a priori del resultado observado era la misma para ambos equipos.}
-%
+
 \en{The posteriors of each agent are Gasussian that can be computed from the likelihoods and priors by calling a method.}
 \es{Los posteriors de cada agente son gaussianas que pueden computarse de los likelihoods y priors llamando a un método.}
 %
 \en{The output has the same order in which the teams and agents were loaded.}
 \es{La salida tiene el mismo orden en el que fueron cargados los equipos y los agentes.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_attributes, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_posterior, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1126,112 +1142,135 @@ print(posts[[1]][[1]], ev)
 
 \subsection{Environment}
 
-\en{Before solving a history of events it is necessary to review the set of hyperparameters of the model (\texttt{environment}): the mean \texttt{mu} and standard deviation \texttt{sigma} of the priors; the standard deviation of the performances \texttt{beta}; the dynamic factor \texttt{gamma}; the draw probability \texttt{p\_draw}; and the convergence conditions \texttt{epsilon} and \texttt{iter}.}
-\es{Antes de resolver una historia de eventos es necesario revisar el conjunto de hiperparámetros del modelo (\texttt{environment}): la media \texttt{mu} y el desvío estandar \texttt{sigma} de los priors; el desvío estandar de los desempeños \texttt{beta}; el factor dinámico \texttt{gamma}; la probabilidad de empate \texttt{p\_draw}; y las condiciones de convergencia \texttt{epsilon} e \texttt{iter}.}
+\en{Before solving a history of events it is necessary to review the set of hyperparameters of the model (\texttt{Environment()}): the mean \texttt{mu} and standard deviation \texttt{sigma} of the priors; the standard deviation of the performances \texttt{beta}; the dynamic factor \texttt{gamma}; the draw probability \texttt{p\_draw}; and the convergence conditions \texttt{epsilon} and \texttt{iter}.}
+\es{Antes de resolver una historia de eventos es necesario revisar el conjunto de hiperparámetros del modelo (\texttt{Environment()}): la media \texttt{mu} y el desvío estandar \texttt{sigma} de los priors; el desvío estandar de los desempeños \texttt{beta}; el factor dinámico \texttt{gamma}; la probabilidad de empate \texttt{p\_draw}; y las condiciones de convergencia \texttt{epsilon} e \texttt{iter}.}
 %
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:environment, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
 \begin{lstlisting}[backgroundcolor=\color{all}]
 env = Environment(mu=0., sigma=6., beta=1., gamma=.05, p_draw=0., epsilon=1e-6, iter=10)
 env == Environment()
 \end{lstlisting}
+%
+\en{The values used in the code \ref{lst:environment} are the default values of the \texttt{Environment()} class.}
+\es{Los valores usados en el c\'odigo \ref{lst:environment} son los valores por defecto de la clase \texttt{Environment()}.}
+%
+\en{Some comments regarding the choice of parameters.}
+\es{Algunos comentarios respecto a la elección de los parámetros.}
+%
+\en{The value chosen as the mean of the prior \texttt{mu} does not affect the estimates because the only thing that matters is the difference in skill between agents.}
+\es{El valor que se elija como media del prior \texttt{mu} no afecta las estimaciones porque lo único que importa es la diferencia de habilidad entre agentes.}
+%
+\en{The standard deviation of the prior \texttt{sigma} must be large enough not to leave out any possible hypothesis.}
+\es{El desvío estandar del prior \texttt{sigma} debe ser suficientemente grande de modo de no dejar por fuera ninguna posible hipótesis.}
+%
+\en{This value depends on the scale imposed by the standard deviation of the performances \texttt{beta}.}
+\es{Ese valor depende de la escala que imponga el desvío estandar de los rendimientos \texttt{beta}.}
+%
+\en{A skill difference of one $\beta$, $ s_i - s_j = \beta $, represents a 76\% probability of winning.}
+\es{Una diferencia de habilidad de un $\beta$, $s_i - s_j = \beta$, representa 76\% de probabiilidad de ganar.}
+%
+\en{The other factor to take into account when choosing \texttt{sigma} is the nature of the problem, the number of ``levels'' that may exist in the system to be analyzed.}
+\es{El otro factor a tener en cuenta para elegir el valor de \texttt{sigma} tiene que ver con la naturaleza del problema, la cantidad de ``niveles'' que pueden exisitir en el sistema a analizar.}
+%
+\en{The dynamic factor \texttt{gamma} is generally a small fraction of \texttt {beta}.}
+\es{El factor dinámico \texttt{gamma} es en general una pequeña fracción de \texttt{beta}.}
+%
+\en{Its optimal value can be obtained by maximizing the a priori prediction (i.e. evidence).}
+\es{Su valor óptimo se puede obtener maximizando la predicción a priori (i.e. evidencia).}
+%
+\en{The rule of thumb proposes to initialize \texttt{p\_draw} with the empirical proportion of draws.}
+\es{La regla general propone inicializar \texttt{p\_draw} con la proporción empírica de empates.}
+%
+\en{The parameter \texttt{epsilon} indicates the convergence condition, the maximum change in all posteriors before and after an iteration.}
+\es{El parámetro \texttt{epsilon} indica la condición de convergencia, el cambio máximo en todos los posteriors antes y después de una iteración.}
+%
+\en{Finally, the number of iterations \texttt{iter} functions as a cut-off condition in case convergence has not been reached.}
+\es{Por último, la cantidad de iteraciones \texttt{iter} funciona como condición de corte en caso de no haber alcanzado la convergencia.}
 
+\subsection{History}
 
-\subsection{Single event}
-The first examples is the most basic one we figure out.
-Its one of the first examples in the official python package of \texttt{Trueskill}.
-In this case, we consider a game that can be won or lost but not tied, in which two players face each other and we want to update our prior of them knowing the result of it.
-For that we start creating an environment of \texttt{TrueSkill}, specifying the parameter \texttt{draw\_probability} to zero, not to consider the possibility of a tie.
-Then we define the prior of each player. 
-Because in this case we don't know anithing of each, they start with a default prior.
-This one can be set up at will.
-The parameters of this, is the mean and standard deviation of the skill (mu and sigma), the standard deviation of the performance (beta), and the noise add it in the posterior, as the method suggest (noise).
-The result of the game, is in format of a list, with a number for each player, meaning 0 for the one that lost the game, and 1 for the winner.
-After this, define the game with the method \texttt{Game}, and calculate this the posterior of the player with the method \texttt{posterior}.
-We update the prior of each player with the posterior.
+\todo{R debe admitir \texttt{list("a","b")}}
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:history, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+e1 = [["a"],["b"]]
+e2 = [["b"],["c"]]
+e3 = [["c"],["a"]]
+events = [e1, e2, e3]
+\end{lstlisting}
+  \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+e1 = [["a"],["b"]]
+e2 = [["b"],["c"]]
+e3 = [["c"],["a"]]
+events = [e1, e2, e3]
+\end{lstlisting}
+   \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+e1 = list("a","b")
+e2 = list("b","c")
+e3 = list("c","a")
+events = list(e1, e2, e3)
+\end{lstlisting}
+\end{paracol}
+\begin{lstlisting}[backgroundcolor=\color{all}]
+h = History(events = events, env = Environment(gamma = 0.0))
+> History(Events=3, Batches=3, Agents=3)
+\end{lstlisting}
+\todo{History debe admitir result por defecto}
 
-Also we show how to get some of the parameters, using the method with name of the parameters in this object.
+La carga de los datos genera el resultado TrueSkill
 
-Our library, its almost four times faster than the official, when computing posteriors.
-% explicar el ejemplo de que esta pasando
-% presentar variables, mapeo entre ejemplo  y teoria
-\lstinputlisting{./code/Example1.py}
-\begin{lstlisting}
-[Out]: Posterior:  TrueSkill.Rating(mu=29.205, sigma=7.194, beta=4.167, noise=0.083) Mean:  29.2052208700336 Variance:  7.194481348831081
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:trueskill, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+lc = learning_curves(h)
+\end{lstlisting}
+  \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+lc = h.learning_curves()
+\end{lstlisting}
+   \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+lc = h$learning_curves()
+\end{lstlisting}
+\end{paracol}
+\begin{lstlisting}[backgroundcolor=\color{all}]
+print(lc["a"])
+> [(1, Gaussian(mu=3.339 ,sigma=4.985)), (3, Gaussian(mu=-2.688 ,sigma=3.779))]
 \end{lstlisting}
 
-As we can see, we print the posterior of one of them, showing as the object of the class \texttt{TrueSkill}, with the new parameters.
-Esta mal la forma en que devuelve, player 1 deberia haber empeorado por perder. Ademas creo que sort teams solo funca para dos equipos
-This show that player 2, that won the game, update his skill with mean $25$ and standard deviation $25/3$ to have a mean $29.20$ and standard deviation $7.19$ approximately.
+Todos ganan contra todos, pero se puede ver que los posterior del jugador \texttt{a} varía mucho, cuando lo que esperábamos sería que todos tengan misma habilidad.
+%
+Para correr TTT necesitamos converger el modelo
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:ttt, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+convergence(h)
+\end{lstlisting}
+  \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+convergence
+\end{lstlisting}
+   \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+convergence
+\end{lstlisting}
+\end{paracol}
+\begin{lstlisting}[backgroundcolor=\color{all}]
+...
+\end{lstlisting}
 
-% la habilidad del jugador 1 es babla
-%The time average of this example in a microprocessor i7 babla, its about $4.5$ $10^{-5}$, and for the python package its about $1.9$ $10^{-4}$. About four times faster.
-Tabla de valores temporales, esperar a tener el codigo optimizado 
-% sacar esto del tiempo aca y hacerlo en el data set y como escala a medida que agrando el data set, presentarlo en una tabla de tiempos.
-% 3 o 4 resultados
-\subsection{Example 2: TrueSkill data-set}
-Another example we want to show how TrueSkill can be used with a data set. 
-To start, we will show the implementation for the users that already are familiar with the original TrueSkill package making an almost same implementation and then we will show the way that this package its intend to be used. 
-With this way, the use of \textbf{TTT} its trivial. 
-For the first and second case we will use as input the Table \ref{tab:csvExample2}. Its important to have the input "Result" as the same format as shown in the table.
-In this first case we will use the library Pandas, but it can be done with out it, the only important its how to upload the data set and loop with it. For the second case we still using Pandas but only to keep the same way of reading the CSV file that the first one. 
-In this case we don't need to loop manually through the data set.
 
 
-\begin{table}[h!]
-	\centering
-	%\resizebox{\textwidth}{!}{%
-		\begin{tabular}{llll}
-			\hline
-			Id  & Player1        & Player2        & Result \\ \hline
-			101 & matt64      & Chuk         & [1,0]      \\
-			102 & matt64      & David        & [1,0]      \\
-			103 & ggg          & matt64       & [0,1]      \\
-			104 & Chuk         & David        & [0,1]      \\
-			105 & ggg         & TheProffesor & [0,1]      \\
-			106 & ggg          & matt64       & [1,0]      \\
-			107 & Chuk         & TheProffesor & [0,1]      \\
-			108 & Chuk         & NaT          & [1,0]      \\
-			109 & David        & TheProffesor & [1,0]      \\
-			110 & David        & Chuk         & [1,0]      \\
-			111 & TheProffesor & Chuk         & [0,1]      \\
-			112 & Mona         & matt64       & [1,0]      \\
-			113 & TiNi         & David        & [1,0]      \\
-			113 & Chuk         & matt64       & [1,0]      \\
-			115 & ggg          & matt64       & [1,0]      \\ \hline
-		\end{tabular}%
-	%}
-	\caption{An example of Data set, used in example 2. }
-	\label{tab:csvExample2}
-\end{table}
 
-% \subsubsection{Existing Implementation}
-% 
-% As we can see, the implantation requires a more manual job, by defining dictionary and also adding noise to the priors, like the TrueSkill algorithm suggest. This default noise can be change to other. 
-% The only thing we must do manually its to pass the input in the correct format.
-% \lstinputlisting{./code/Example2.py}
-% [Out]:Time $7.7$ $10^{-3}$ seconds
-% 
-% In this example, we use the method get, so we can use the global prior only for the first game for each player.
-% As the same way of the first example, we are updating the prior of each player with the posterior of each game.
-% In this case we are saving this in a dictionary with the name of each player as key.
-% Printing at the end this, we will have each player with the latest posterior.
-% 
-% % explicar como usar la salida
-% \subsubsection{Our proposed Implementation}
-\lstinputlisting{./code/Example2-1.py}
-[Out]:Time $2.8$ $10^{-3}$ seconds
-%\todo[inline]{No olvidar agregar los prints que muestra este c\'odigo, no solo el Out}
 
-We create an instance of the class \texttt{history} and use it as parameter for the game composition.
-This object contains the list of game's results.
 
-%\todo[inline]{Explicar qu\'e es history bien y mostrar un ejemplo}
-
-Then using the method \texttt{trueskill} in this object, we compute the posteriors. 
-ONLINE NO SERIA TRUE PARA SER CMOMO TRUESKILL?
-For last, we can see the last posterior of each player, calling the method \texttt{posteriors\_players()}
-Like we can see, the new way of implementation its more compact and simple than the original.
-
-\subsection{Example 3: Trueskill True Time}
+\subsection{Real data set}
 
 As it was mentioned already, one of the advantage of \textbf{TTT}, its the way that the algorithm pass information to the past to the future and vice versa, getting a more accurate estimation.
 This package is the first implementation of this method, beside the original \texttt{Microsoft} package in \texttt{F\#}, of not free access. CHEQUEAR ESTO
