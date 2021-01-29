@@ -590,7 +590,7 @@
 %
 \begin{figure}[h!]
   \centering
-  \scalebox{.9}{
+  \scalebox{.8}{
     \tikz{ %
       \node[latent] (s0) {$s_{i_0}$} ;
       
@@ -675,7 +675,7 @@
 \es{En la figura~\ref{fig:smooth_example} se muestra el comportamiento de las estimaciones en conjunto de datos de dos agentes y dos eventos.}
 \begin{figure}[h!]
   \centering
-  \scalebox{.92}{
+  \scalebox{.9}{
     \tikz{ %
       \node[latent] (s10) {$s_{a_0}$} ;
       %
@@ -901,7 +901,7 @@
 
 
 
-
+\newpage
 
 
 %% -- Illustrations ------------------------------------------------------------
@@ -1188,39 +1188,81 @@ env == Environment()
 
 \subsection{History}
 
-\todo{R debe admitir \texttt{list("a","b")}}
+\en{The class \texttt{History()} is used to compute the posteriors and evidence of a history of events such as described in Figure~\ref{fig:smooth_example}.}
+\es{La clase \texttt{History()} se usa para computar los posteriors y la evidencia de una historia de eventos como la descrita en la figura~\ref{fig:smooth_example}.}
+%
+\en{As an example, we initialize a history containing three players (\texttt{\small "a", "b", "c"}) with three games.}
+\es{Como ejemplo, inicializamos una historia que contiene tres jugadores (\texttt{"a","b","c"}) con tres partidas.}
+%
+\en{In the first game \texttt{"a"} beats \texttt{"b"}, in the second game \texttt{"b"} beats \texttt{"c"}, and in the third game \texttt{"c"} beats \texttt{"a"}.}
+\es{En la primera partida \texttt{"a"} le gana a \texttt{"b"}, en la segunda \texttt{"b"} le gana a \texttt{"c"} y en la tercera \texttt{"c"} le gana a \texttt{"a"}.}
+%
+\en{In other words, all agents win one game and lose the other.}
+\es{Es decir, todos los agentes ganan una partida y pierden la otra.}
+%
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:history, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia}]
 e1 = [["a"],["b"]]
 e2 = [["b"],["c"]]
 e3 = [["c"],["a"]]
 events = [e1, e2, e3]
+res = [[0,1],[0,1],[0,1]]
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python}]
 e1 = [["a"],["b"]]
 e2 = [["b"],["c"]]
 e3 = [["c"],["a"]]
 events = [e1, e2, e3]
+res = [[0,1],[0,1],[0,1]]
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
-e1 = list("a","b")
-e2 = list("b","c")
-e3 = list("c","a")
+\begin{lstlisting}[backgroundcolor=\color{r}]
+e1 = list(c("a"),c("b"))
+e2 = list(c("b"),c("c"))
+e3 = list(c("c"),c("a"))
 events = list(e1, e2, e3)
+res=list(c(0,1),c(0,1),c(0,1))
 \end{lstlisting}
 \end{paracol}
+%
+\en{where the variable \texttt{e1} indicates the composition of the first game using the names of the agents; the variable \texttt{events} contains the composition of the three games; and the variable \texttt{res} contains the results of the three games (the smallest value represents the winner).}
+\es{Donde la variable \texttt{e1} indica la composición de la primer partida usando los nombres de los agentes; la variable \texttt{events} contiene la composición de las tres partidas; y la variable \texttt{res} contiene los resultados de las tres partidas (el menor valor representa el ganador).}
+%
+\en{Assuming that the agents' skill does not change between games, \texttt{gamma = 0.0}, the state of knowledge about their skills (i.e. the estimates) should be the same after observing the data.}
+\es{Suponiendo que la habilidad de los agentes no cambia entre partidas, \texttt{gamma = 0.0}, el estado de conocimiento sobre sus habilidades (i.e. las estimaciones) debería ser la misma luego de observar los datos.}
+%
 \begin{lstlisting}[backgroundcolor=\color{all}]
-h = History(events = events, env = Environment(gamma = 0.0))
+env = Environment(gamma = 0.0)
+h = History(events = events, result = res, env = env)
 > History(Events=3, Batches=3, Agents=3)
 \end{lstlisting}
-\todo{History debe admitir result por defecto}
+%
+\en{Immediately after the history is initialized, a summary of the data is printed.}
+\es{Inmediatamente después de que se inicializa la historia, se imprime un resumen de los datos.}
+%
+\en{In this case, 3 events, 3 batches and 3 agents are reported.}
+\es{En este caso se reportan 3 eventos, 3 batches y 3 agentes.}
+%
+\en{Batches are used to group events that happened at the same time.}
+\es{Los batches sirven para agrupar eventos que ocurrieron al mismo tiempo.}
+%
+\en{We will see an example with batches later on.}
+\es{Ya veremos un ejemplo con batches más adelante.}
+%
+\en{As we do not indicate the time of each game, the system places the games in different batches.}
+\es{Como no le indicamos el tiempo de cada partida, el sistema ubica las partida en batches distintos.}
 
-La carga de los datos genera el resultado TrueSkill
+% Parrafo
 
+\en{History initialization also triggers the computation of TrueSkill estimates.}
+\es{La inicialización de la historia también activa el computo de las estimaciones TrueSkill.}
+%
+\en{We can access them using the method \texttt{learning\_curves()}, which returns a dictionary that is accessed with the name of the agents.}
+\es{Podemos acceder a ellas mediante el m\'etodo \texttt{learning\_curves()}, que devuelve un diccionario de al que se accede con el nombre de los agentes.}
+%
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:trueskill, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
@@ -1239,67 +1281,98 @@ lc = h$learning_curves()
 \begin{lstlisting}[backgroundcolor=\color{all}]
 print(lc["a"])
 > [(1, Gaussian(mu=3.339 ,sigma=4.985)), (3, Gaussian(mu=-2.688 ,sigma=3.779))]
+print(lc["b"])
+> [(1, Gaussian(mu=-3.339 ,sigma=4.985)), (2, Gaussian(mu=0.059 ,sigma=4.218))]
 \end{lstlisting}
-
-Todos ganan contra todos, pero se puede ver que los posterior del jugador \texttt{a} varía mucho, cuando lo que esperábamos sería que todos tengan misma habilidad.
 %
-Para correr TTT necesitamos converger el modelo
+\en{The individual learning curves are a list of tuples.}
+\es{Las curvas de aprendizaje individuales son una lista de tuplas.}
+%
+\en{The first element indicates the batche number, and the second indicates the estimate corresponding to that batche.}
+\es{El primer elemento indica el tiempo, y el segundo indica la estimación correpondiente a ese tiempo.}
+%
+\en{Although it would be reasonable to have the same estimate for all agents (because they earn each other), it can be seen that the posteriors reported by TrueSkill differ greatly between players and vary greatly for the same player.}
+\es{A pesar de que lo razonable sería tener la misma estimación para todos los agentes (poque se ganan mutuamente), se puede ver que los posteriors reportados por TrueSkill difieren mucho entre jugadores y varían mucho para uno mismo jugador.}
+%
+\en{The TrueSkill Through Time model corrects all these problems.}
+\es{El modelo TrueSkill Through Time corrige todos estos problemas.}
+%
+\en{To compute it we need to converge history using the class \texttt{convergence()}.}
+\es{Para computarlo necesitamos converger la historia usando la clase \texttt{convergence()}.}
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:ttt, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
 convergence(h)
+lc = learning_curves(h)
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
-convergence
+h.convergence()
+lc = h.learning_curves()
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
-convergence
+h$convergence()
+lc = h.learning_curves()
 \end{lstlisting}
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
-...
+print(lc["a"])
+> [(1, Gaussian(mu=0.0 ,sigma=2.395)), (3, Gaussian(mu=-0.0 ,sigma=2.395))]
+print(lc["b"])
+> [(1, Gaussian(mu=-0.0 ,sigma=2.395)), (2, Gaussian(mu=-0.0 ,sigma=2.395))]
 \end{lstlisting}
-
-
-
-
-
-
-\subsection{Real data set}
-
-As it was mentioned already, one of the advantage of \textbf{TTT}, its the way that the algorithm pass information to the past to the future and vice versa, getting a more accurate estimation.
-This package is the first implementation of this method, beside the original \texttt{Microsoft} package in \texttt{F\#}, of not free access. CHEQUEAR ESTO
-For that, we use the next example. 
-Three player, three games, that each one wins one game and lose the other one. 
-So if we do TrueSkill, the order of how we compute the games will have importance, making at the end three player with three different skill. 
-With \textbf{TTT} this kind of problem its solve.
-
-\lstinputlisting{./code/Example3.py}
-\vspace{-0.3cm}
-[Out]:Poner Trueskill
-
-[Out]:Poner TTT
-\vspace{0.3cm}
-We print the posteriors in two instance, to the reason for comparing the posteriors with \texttt{TrueSkill} vanilla, and with \texttt{TTT}.
-The 
-% y aclarar que pasa si sale con TTT y que saldria si corro trueskill
-% poner el el grafico que corro trueskill
-%cambiar nombre de throguth time por trueskill
-To extend this example to a data set with more games, the only thing that matter is to pass the information in the format show. 
-In first place is the composition of games, that its a list, that contain a list for each game, that it have another list for each team. 
-So its a list of list of list. 
-Then its have a list of list of results, where each element is a list of numbers, representing the result of each team in each game. 
-The next important input its the time batches, as default it will make each game in a 
-
-
-
-
-
-
-
+%
+\en{It can be seen that the TrueSkill Through Time estimates are not only the same between players, but also have less uncertainty.}
+\es{Se puede ver que las estimaciones de TrueSkill Through Time no sólo son las mismas entre jugadores, sino que tienen también menos incertidumbre.}
+%
+\en{In turn, the players' estimates do not change over time according to the assumption that skills do not change over time, \texttt{gamma = 0.0}.}
+\es{A su vez las estimaciones de los jugadores no cambian en el tiempo de acuerdo al supuesto de que las habilidades no cambian en el tiempo, \texttt{gamma = 0.0}.}
+%
+\en{Something similar happens if we say that all items occurred at the same time.}
+\es{Algo similar pasa si decimos que todas las partidas ocurrieron al mismo tiempo.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:one_batch, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{lstlisting}[backgroundcolor=\color{all}]
+h = History(events = events, results = res, times = [1,1,1])
+> History(Events=3, Batches=1, Agents=3)
+\end{lstlisting}
+%
+\en{The history now contains the same 3 events and 3 agents but grouped in the same batche.}
+\es{La historia ahora contiene los mismo 3 eventos y 3 agentes pero agrupados en un mismo bache.}
+%
+\en{Although the dynamic factor is positive, due to the default values of the environment, the estimates converge to the same values we reported previously.}
+\es{A pesar de que el factor dinámico es positivo, debido a los valores por defecto del environment, las estimaciones convergen a los mismos valores que reportamos previamente.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:one:batch_output, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+convergence(h)
+lc = learning_curves(h)
+\end{lstlisting}
+  \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+h.convergence()
+lc = h.learning_curves()
+\end{lstlisting}
+   \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+h$convergence()
+lc = h.learning_curves()
+\end{lstlisting}
+\end{paracol}
+\begin{lstlisting}[backgroundcolor=\color{all}]
+print(lc["a"])
+> [(1, Gaussian(mu=0.0 ,sigma=2.395))]
+print(lc["b"])
+> [(1, Gaussian(mu=-0.0 ,sigma=2.395))]
+\end{lstlisting}
+%
+\en{The only difference is that the system reports only one estimate per batch.}
+\es{La única diferencia es que el sistema reporta una única estimación por bache.}
 
 
 
