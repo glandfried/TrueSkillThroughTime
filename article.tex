@@ -468,7 +468,7 @@
 \en{Figure~\ref{fig:posterior_win} shows, in graphical terms, the updating procedure executed in equation~\ref{eq:posterior_win}.}
 \es{La figura~\ref{fig:posterior_win} muestra, en t\'erminos gr\'aficos, el procedimiento de actualizaci\'on que se realiza en la ecuaci\'on~\ref{eq:posterior_win}.}
 %
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \en{\includegraphics[page={1},width=.6\linewidth]{figures/posterior_win}}
     \es{\includegraphics[page={2},width=.6\linewidth]{figures/posterior_win}}
@@ -563,16 +563,15 @@
 \es{Debido a que el enfoque de filtrado no se surge de ningún modelo probabil\'istico, sufre de un serie de problemas, todos relacionados con el hecho de que la informaci\'on se propaga en una sola direcci\'on a trav\'es del sistema.}
 %
 \en{The most obvious is that the beginning of any sequence of estimates always has high uncertainty.}
-%, making them useless
 \es{El m\'as obvio es que el inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre.}
-% , lo que las hace inservibles
+%
 \en{But it also suffers from ``temporary'' and ``spatial'' decoupling.}
 \es{Pero tambi\'en sufre de desacoplamientos ``temporales'' y ``espaciales''.}
 %
 \en{Although the relative differences between current estimates within well-connected communities are correct, estimates separated in time and between poorly connected communities are often incorrect.}
-% preventing comparability over time and between communities.
+%
 \es{Aunque la diferencias relativas entre estimaciones contempor\'aneas al interior de comunidades bien conectadas sean correctas, las estimaciones separadas en el tiempo y entre comunidades poco conectadas suelen ser incorrectas.}
-% impidiendo as\'i la comparabilidad temporal y entre comunidades.
+%
 
 % Parrafo
 
@@ -582,61 +581,55 @@
 \en{In any video game this typically involves evaluating a complex network made up of millions of events.}
 \es{En cualquier video juego esto típicamente implica evaluar una red compleja compuesta por millones de eventos.}
 %
-\en{For this reason, figure~\ref{fig:smoothing} shows only the closest neighbors of a sequence of estimates.}
-\es{Por esta raz\'on, la figura~\ref{fig:smoothing} muestra s\'olo los vecinos m\'as pr\'oximos de una secuencia de estimaciones.}
-%
+% \en{For this reason, figure~\ref{fig:smoothing} shows only the closest neighbors of a sequence of estimates.}
+% \es{Por esta raz\'on, la figura~\ref{fig:smoothing} muestra s\'olo los vecinos m\'as pr\'oximos de una secuencia de estimaciones.}
+% %
 \en{This approach, known as \emph{smoothing}, is the one implemented by TrueSkill Through Time~\citep{Dangauthier2007}.}
 \es{Este enfoque, conocido como \emph{smoothing}, es el implementado por TrueSkill Through Time~\citep{Dangauthier2007}.}
 %
-\begin{figure}[h!]
-  \centering
-  \scalebox{.8}{
-    \tikz{ %
-      \node[latent] (s0) {$s_{i_0}$} ;
-      
-      \node[latent,right=of s0,xshift=-0.15cm] (s1) {$s_{i_1}$} ;
-      \node[latent, below=of s1,yshift=0.3cm] (p1) {$p_{i_1}$};
-      \node[const, below=of p1, yshift=-0.6cm] (t1) {\LARGE $\hfrac{}{\dots}$} ;
-
-      \node[latent, right=of s1,xshift=-0.15cm] (s2) {$s_{i_2}$} ;
-      \node[latent, below=of s2,yshift=0.3cm] (p2) {$p_{i_2}$};
-      \node[const, below=of p2, yshift=-0.6cm] (t2) {\LARGE $\hfrac{}{\dots}$} ;
-      
-      \node[const, right=of s2, xshift=0.6cm] (s3) {$\dots$} ;
-
-      \node[latent, right=of s3,xshift=-0.3cm] (sn) {$s_{i_n}$} ;
-      \node[latent, below=of sn,yshift=0.3cm] (pn) {$p_{i_n}$};
-      \node[const, below=of pn, yshift=-0.6cm] (tn) {\LARGE $\hfrac{}{\dots}$} ;
-      
-      \edge {s0} {s1};
-      \edge {s1} {p1,s2};
-      \edge {s2} {p2,s3};
-      \edge {s3} {sn};
-      \edge {sn} {pn};
-      \edge {p1} {t1};
-      \edge {p2} {t2};
-      \edge {pn} {tn};
-      
-      }  
-  }
-  \caption{
-  \en{Schematic representation of a single causal model for the entire history of events.}
-  \es{Representaci\'on esquem\'atica de un único modelo causal para toda la historia de eventos.}
-  %
-  \en{Only the neighbors of a sequence of estimates are displayed.}
-  \es{S\'olo se muestra los vecinos de una secuencia de estimaciones.}
-  %
-  %\en{These types of models are known as \emph{state-space models}.}
-%   %\es{Este tipo de modelos se conocen como \emph{state space models}.}
-  }
-  \label{fig:smoothing}
-\end{figure}
+% \begin{figure}[h!]
+%   \centering
+%   \scalebox{.8}{
+%     \tikz{ %
+%       \node[latent] (s0) {$s_{i_0}$} ;
+%       
+%       \node[latent,right=of s0,xshift=-0.15cm] (s1) {$s_{i_1}$} ;
+%       \node[latent, below=of s1,yshift=0.3cm] (p1) {$p_{i_1}$};
+%       \node[const, below=of p1, yshift=-0.6cm] (t1) {\LARGE $\hfrac{}{\dots}$} ;
+% 
+%       \node[latent, right=of s1,xshift=-0.15cm] (s2) {$s_{i_2}$} ;
+%       \node[latent, below=of s2,yshift=0.3cm] (p2) {$p_{i_2}$};
+%       \node[const, below=of p2, yshift=-0.6cm] (t2) {\LARGE $\hfrac{}{\dots}$} ;
+%       
+%       \node[const, right=of s2, xshift=0.6cm] (s3) {$\dots$} ;
+% 
+%       \node[latent, right=of s3,xshift=-0.3cm] (sn) {$s_{i_n}$} ;
+%       \node[latent, below=of sn,yshift=0.3cm] (pn) {$p_{i_n}$};
+%       \node[const, below=of pn, yshift=-0.6cm] (tn) {\LARGE $\hfrac{}{\dots}$} ;
+%       
+%       \edge {s0} {s1};
+%       \edge {s1} {p1,s2};
+%       \edge {s2} {p2,s3};
+%       \edge {s3} {sn};
+%       \edge {sn} {pn};
+%       \edge {p1} {t1};
+%       \edge {p2} {t2};
+%       \edge {pn} {tn};
+%       
+%       }  
+%   }
+%   \caption{
+%   \en{Schematic representation of a single causal model for the entire history of events.}
+%   \es{Representaci\'on esquem\'atica de un único modelo causal para toda la historia de eventos.}
+%   %
+%   \en{Only the neighbors of a sequence of estimates are displayed.}
+%   \es{S\'olo se muestra los vecinos de una secuencia de estimaciones.}
+%   }
+%   \label{fig:smoothing}
+% \end{figure}
 %
 \en{By applying the rules of probability over this temporal model, historical information naturally propagate throughout the system, solving the problems of the filtering approach.}
 \es{Al aplicar las reglas de la probabilidad sobre este modelo temporal, la informaci\'on hist\'orica propaga naturalmente hacia todo el sistema, resolviendo los problemas del enfoque de filtro.}
-%
-%\en{Now, the prior at each event $t$ depends on all the past and future information.}
-%\es{Ahora, el prior en cada evento $t$ depende de toda la informaci\'on pasada y futura.}
 %
 \en{Excluding the dynamic component, $\gamma = 0$, the prior of an agent $i$ at the $t$-eth event is just the product of all their likelihoods, except that of the $t$-eth event.}
 \es{Exluyendo el aspecto din\'amico, $\gamma = 0$, el prior de un agente $i$ en el $t$-\'esimo evento es el producto del todas sus verosimilitudes, salvo la del $t$-\'esimo evento.}
