@@ -182,7 +182,7 @@
  \es{El \'exito del TrueSkill se bas\'o en la aplicaci\'on de un algoritmo eficiente para encuentrar la mejor aproximaci\'on del posterior exacto.}
  %
  \en{TrueSkill Through Time is a major enhancement that uses a single generative model for the entire history of activities, rather than a sequence of independent observations, allowing historical information to propagate throughout the system, resulting in better estimates with even less data.}
- \es{TrueSkill Through Time utiliza un único modelo generativo para toda la historia de las actividades, en lugar de una secuencia de observaciones independientes, lo que permite que la informaci\'on hist\'orica se propague por todo el sistema, lo que da lugar a mejores estimaciones con aún menos datos.}
+ \es{TrueSkill Through Time utiliza un \'unico modelo generativo para toda la historia de las actividades, en lugar de una secuencia de observaciones independientes, lo que permite que la informaci\'on hist\'orica se propague por todo el sistema, lo que da lugar a mejores estimaciones con a\'un menos datos.}
  %
  \en{The use of an efficient algorithm, that requires only a few linear iterations over the data, allows scaling to millions of observations in few minutes.}
  \es{El uso de un algoritmo eficiente, que requiere s\'olo unas pocas iteraciones lineales sobre los datos, permite escalar a millones de observaciones en pocos minutos.}
@@ -296,7 +296,7 @@
 \en{The model assumes that the agent with the highest performance wins, $r = (p_i > p_j)$. In other words, whoever obtains a difference of performance greater than 0 wins, $r = (p_i - p_j > 0)$.}
 \es{El modelo supone que gana el agente con mayor rendimiento, $r = (p_i > p_j)$, o en otras palabras, gana quien obtenga una diferencia de rendimiento mayor a 0, $r = (p_i - p_j > 0)$.}
 \en{The parameter $\beta^2$ is the same for all the agents and acts as the scale of the estimations: skills separated by a $\beta$ keep always the same probability of winning.}
-\es{El parámetro $\beta^2$, al ser el mismo para todos los agentes, actúa como la escala de las estimaciones: habilidades separada por un $\beta$ mantienen siempre la misma probabilidad de ganar.}
+\es{El parámetro $\beta^2$, al ser el mismo para todos los agentes, act\'ua como la escala de las estimaciones: habilidades separada por un $\beta$ mantienen siempre la misma probabilidad de ganar.}
 
 % Parrafo
 
@@ -399,16 +399,16 @@
 \end{equation}
 %
 \en{where the only free variable is the skill hypothesis of agent $i$.}
-\es{Donde la única variable libre es la hip\'otesis de habilidad del agente $i$.}
+\es{Donde la \'unica variable libre es la hip\'otesis de habilidad del agente $i$.}
 %
 \en{The prior quantifies the uncertainty about the ability, and the posterior contains the uncertainty that remains after seeing the new data (i.e.~the result of the event).}
 \es{El prior cuantifica la incertidumbre sobre la habilidad, y el posterior contiene la incertidumbre que queda luego de ver el nuevo dato (i.e.~el resultado del evento).}
 %
 \en{The likelihood and the evidence are both probabilities of the observed result, so they can be seen as predictions (since the results are discrete variables, those probabilities are expressed using capital letters).}
-\es{La verosimilitud como la evidencia son ambas probabilidades del resultado observado, por lo que pueden ser vistas como predicciones (como los resultados son variables discretas, esas probabilidad se escribe con letras mayúsculas).}
+\es{La verosimilitud como la evidencia son ambas probabilidades del resultado observado, por lo que pueden ser vistas como predicciones (como los resultados son variables discretas, esas probabilidad se escribe con letras may\'usculas).}
 %
 \en{Because the evidence is the same for all hypotheses, the only factor that updates our beliefs is the likelihood.}
-\es{Debido a que la evidencia es la misma para todas las hip\'otesis, el único factor que actualiza nuestras creencias es la verosimilitud.}
+\es{Debido a que la evidencia es la misma para todas las hip\'otesis, el \'unico factor que actualiza nuestras creencias es la verosimilitud.}
 
 % Parrafo
 
@@ -560,7 +560,7 @@
  \end{equation}
  %
 \en{Because the filtering approach does not arise from any probabilistic model, it suffers from some problems related to the fact that the information propagates in only one direction through the system.}
-\es{Debido a que el enfoque de filtrado no se surge de ningún modelo probabil\'istico, sufre de un serie de problemas, todos relacionados con el hecho de que la informaci\'on se propaga en una sola direcci\'on a trav\'es del sistema.}
+\es{Debido a que el enfoque de filtrado no se surge de ning\'un modelo probabil\'istico, sufre de un serie de problemas, todos relacionados con el hecho de que la informaci\'on se propaga en una sola direcci\'on a trav\'es del sistema.}
 %
 \en{The most obvious is that the beginning of any sequence of estimates always has high uncertainty.}
 \es{El m\'as obvio es que el inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre.}
@@ -620,7 +620,7 @@
 %   }
 %   \caption{
 %   \en{Schematic representation of a single causal model for the entire history of events.}
-%   \es{Representaci\'on esquem\'atica de un único modelo causal para toda la historia de eventos.}
+%   \es{Representaci\'on esquem\'atica de un \'unico modelo causal para toda la historia de eventos.}
 %   %
 %   \en{Only the neighbors of a sequence of estimates are displayed.}
 %   \es{S\'olo se muestra los vecinos de una secuencia de estimaciones.}
@@ -648,7 +648,7 @@
 \es{En la primera pasada, utilizamos las versolimulitudes pasadas para calcular las priores de cada evento.}
 %
 \en{Once all the likelihoods have been obtained, we can perform a new iteration using the recently computed likelihoods.}
-\es{Una vez calculadas todas las verosimilitudes, podemos realizar una nueva pasada usando las últimas verosimilitudes disponibles.}
+\es{Una vez calculadas todas las verosimilitudes, podemos realizar una nueva pasada usando las \'ultimas verosimilitudes disponibles.}
 %
 %\en{The first likelihoods will necessarily be incorrect because the priors had been partially defined.}
 %\es{Las primeras verosimilitudes necesariamente ser\'an incorrectas debido a que los priors habían sido definidos parcialmente.}
@@ -756,7 +756,7 @@
   \es{La primera (la m\'as clara) se correponde a la soluci\'on TrueSkill.}
   %
   \en{The last one (the darkest) corresponds to the TrueSkill Through Time solution.}
-  \es{La última (la m\'as oscura) se correponde a la soluci\'on TrueSkill Through Time.}
+  \es{La \'ultima (la m\'as oscura) se correponde a la soluci\'on TrueSkill Through Time.}
   %
   \en{Once convergence is reached, the posterior is centered at 0 for both players, indicating that they have the same skill.}
   \es{Alcanzada la convergencia, el posterior se centra en 0 para ambos jugadores, indicando que tienen misma habilidad.}
@@ -937,110 +937,61 @@ before and after code input/output should be avoided (see above).
 \end{leftbar}
 \end{comment}
 
-\en{In this section we show how to use \proglang{Julia}, \proglang{Python} and \proglang{R} packages to solve a single event, a short history of 3 events and the real history of professional ATP tennis players.}
-\es{En esta sección mostramos cómo usar los usando los paquetes de\proglang{Julia}, \proglang{Python} y \proglang{R} para resolver un evento, una pequeña historia de 3 eventos y finalmente la historia real de jugadores profesional de tenis ATP.}
+\en{In this section we show how to use \proglang{Julia}, \proglang{Python} and \proglang{R} packages to solve a single event, a short history of three events, and the real-life history of professional ATP tennis players.}
+\es{En esta secci\'on mostramos c\'omo usar los usando los paquetes de\proglang{Julia}, \proglang{Python} y \proglang{R} para resolver un evento, una peque\~na historia de tres eventos y finalmente la historia real de jugadores profesional de tenis ATP.}
 %
-\en{We will show both TrueSkill and TrueSkill Through Time solutions, the method to obtain individual learning curves, and the a priori prediction of the observed data (i.e. evidence) that serve as a measure to compare models.}
-\es{Mostraremos la soluciones TrueSkill y TrueSkill Through Time, el método para obtener curvas de aprendizaje individuales, y la predicción a priori (i.e. evidencia) del dato observado que sirven como medida para comparar modelos.}
+\en{We show both TrueSkill and TrueSkill Through Time solutions, how to obtain the individual learning curves, and the prior prediction of the observed data (i.e. evidence) that is also used as a measure to compare models.}
+\es{Mostraremos la soluciones TrueSkill y TrueSkill Through Time, el m\'etodo para obtener curvas de aprendizaje individuales, y la predicci\'on a priori (i.e. evidencia) del dato observado que sirven como medida para comparar modelos.}
 %
-\en{Finally we will make a time complexity comparison between the three packages presented in this paper and the \texttt{trueskill} package of presented in this paper \proglang{Python}.}
-\es{Por último haremos un comparación de complejidad temporal entre los tres paquetes que presentamos en este trabajo y el paquete \texttt{trueskill} de \proglang{Python}.}
+% \en{Finally, we make a time complexity comparison between the three packages presented in this paper and the \texttt{trueskill} package of presented in this paper \proglang{Python}.}
+% \es{Por \'ultimo haremos un comparaci\'on de complejidad temporal entre los tres paquetes que presentamos en este trabajo y el paquete \texttt{trueskill} de \proglang{Python}.}
 
-\subsection{Rating} \label{sec:rating}
+\subsection{Single Event} \label{sec:singleEvent}
 
-\en{The class \texttt{Rating()} is represented by: the mean (\texttt{mu}) and the standard deviation (\texttt{sigma}) of the prior Gaussian distribution; the standard deviation of the performance (\texttt{beta}); and the dinamic factor of the skill (\texttt{gamma}).}
-\es{La clase \texttt{Rating()} se representa con cuatro atributos: la media (\texttt{mu}) y el desv\'io estandar (\texttt{sigma}) de la distribuci\'on gaussiana a priori; el dev\'io estanndar de los rendimientos (\texttt{beta}); y el factor din\'amico de la habilidad (\texttt{gamma}).}
+\todo[inline]{Contar que para poder hacer el analisis de un evento, necesitamos instanciar ratings (o como se llame) y decir en esta oracion qu\'e se modela con esta clase, y mas o menos para que se usa}
+\en{The class \texttt{Player()} has three attributes: the prior Gaussian distribution (characterized by the mean (\texttt{mu}) and the standard deviation (\texttt{sigma}), the standard deviation of the performance (\texttt{beta}), and the dynamic factor of the skill (\texttt{gamma}).}
+\es{La clase \texttt{Player()} se representa con cuatro atributos: la media (\texttt{mu}) y el desv\'io est\'andar (\texttt{sigma}) de la distribuci\'on gaussiana a priori; el desv\'io est\'andar de los rendimientos (\texttt{beta}); y el factor din\'amico de la habilidad (\texttt{gamma}).}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:rating, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{lstlisting}[backgroundcolor=\color{all}]
+\begin{lstlisting}[backgroundcolor=\color{all},label=lst:rating, caption={\en{Example of initialization of players}}]
 mu = 0.0; sigma = 6.0; beta = 1.0; gamma = 0.0
-r1 = Rating(mu, sigma, beta, gamma); r2 = Rating(mu, sigma, beta, gamma)
-r3 = Rating(mu, sigma, beta, gamma); r4 = Rating(mu, sigma, beta, gamma)
+p1 = Player(Gaussian(mu, sigma), beta, gamma); p2 = Player(Gaussian(mu, sigma), beta, gamma)
+p3 = Player(Gaussian(mu, sigma), beta, gamma); p4 = Player(Gaussian(mu, sigma), beta, gamma)
 \end{lstlisting}  
 %
-\en{Ratings have 3 attributes.}
-\es{Los rating tienen 3 atributos.}
-%
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:prior, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
-prior = r1.prior
-beta == r1.beta
-gamma == r1.gamma
-\end{lstlisting}
-\switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
-prior = r1.prior
-beta == r1.beta
-gamma == r1.gamma
-\end{lstlisting}
-\switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
-prior = r1$prior
-beta == r1$beta
-gamma == r1$gamma
-\end{lstlisting}
-\end{paracol}
-%
-\en{For efficiency reasons, the prior is stored as \texttt{Gaussian()} class, which has the mean and standard deviation as attributes.}
-\es{Por cuesti\'on de eficiencia, el prior se guarda como clase \texttt{Gaussian()}, la que tiene la media y el desv\'io estandar como atributos.}
-%
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:prior, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
-mu1 = r1.prior.mu
-sigma1 = r1.prior.sigma
-\end{lstlisting}
-\switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
-mu1 = r1.prior.mu
-sigma1 = r1.prior.sigma
-\end{lstlisting}
-\switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
-mu1 = r1$prior$mu
-sigma1 = r1$prior$sigma
-\end{lstlisting}
-\end{paracol}
-%
-\en{The \texttt{Gaussian()} class does most of the computation of the packages (details at section \ref{sec:Gasussian}).}
-\es{La clase \texttt{Gaussian()} realiza la mayor parte del c\'omputo en todos los paquetes (detalles en la secci\'on \ref{sec:Gaussian}).}
+\en{In this example, we instantiate four players using the same initial parameters. The \texttt{Gaussian()} class is used to model the standard operations of Gaussian distributions including multiplication, summation, division, and differentiation. The next step is using the instantiated players in a game.}
+\es{Los rating tienen tres atributos.}
 
+% Parrafo
 
-\subsection{Games} \label{sec:game}
-
-\en{The class \texttt{Game()} is used to compute the posteriors and the evidence of events such as described in Figure~\ref{fig:generative_model}.}
+\en{The class \texttt{Game()} storages the game details (i.e. teams and result) and computes the likehood and the evidence.}
 \es{La clase \texttt{Game()} se utiliza para computar los posteriors y la evidencia de eventos como los descritos en la figura~\ref{fig:generative_model}.}
 %
 \en{As an example, we initialize a game with two teams of two players.}
 \es{A modo de ejemplo, inicializamos una partida con dos equipos de dos jugadores.}
 %
-\en{In the presence of teams, the observed result is modeled as a direct consequence of the difference of the team performance, $d = \sum_{i \in A} p_i - \sum_{i \in B} p_i$ (see details at section \ref{sec:2vs2}).}
-\es{En presencia de equipos, el resultado observado se modela como consecuencias directa de la diferencia de los rendimientos de cada equipo, $d = \sum_{i \in a} p_i) - \sum_{i \in b} p_i)$ (detalles en la sección \ref{sec:2vs2}).}
+\en{When dealing with teams and following a natural extension to the single player model, the observed result is a direct consequence of the difference of the team performance (see details at section \ref{sec:2vs2}).}
+\es{En presencia de equipos, el resultado observado se modela como consecuencias directa de la diferencia de los rendimientos de cada equipo, $d = \sum_{i \in a} p_i) - \sum_{i \in b} p_i)$ (detalles en la secci\'on \ref{sec:2vs2}).}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={Example of teams initialization and creation of a game}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
-team_a = [ r1, r2 ]
-team_b = [ r3, r4 ]
+team_a = [ p1, p2 ]
+team_b = [ p3, p4 ]
 teams = [team_a, team_b]
 result = [0,1]
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
-team_a = [ r1, r2 ]
-team_b = [ r3, r4 ]
+team_a = [ p1, p2 ]
+team_b = [ p3, p4 ]
 teams = [team_a, team_b]
 result = [0,1]
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
-team_a = c(r1, r2)
-team_b = c(r3, r4)
+team_a = c(p1, p2)
+team_b = c(p3, p4)
 teams = list(team_a, team_b)
 result = c(0,1)
 \end{lstlisting}  
@@ -1049,52 +1000,31 @@ result = c(0,1)
 g = Game(teams, result, p_draw = 0.0)
 \end{lstlisting}
 %
-\en{where \texttt{result} indicates the observed order (the teams with the lowest number are the winners), and \texttt{praw = 0.0} indicates that the probability of a draw is zero for that type of game.}
-\es{donde \texttt{result} indica el orden observado (los equipos con menor número son los ganadores), y \texttt{p\_draw = 0.0} indica que la probabilidad de empate nula para ese tipo de juegos.}
+\todo[inline]{Arreglar como se informa el resultado del partido}
+\en{In this example, \texttt{result} has the outcome of the game, and \texttt{p\_draw} is used to consider the probability of a draw, when this parameter is zero or is omitted there is no chance of a draw.}
+\es{donde \texttt{result} indica el orden observado (los equipos con menor n\'umero son los ganadores), y \texttt{p\_draw = 0.0} indica que la probabilidad de empate nula para ese tipo de juegos.}
 %
-\en{The attributes of the \texttt{Game()} class are the \texttt{teams}, the \texttt{result}, the approximate \texttt{likelihoods} (one for each agent) and the \texttt{evidence}.}
+\en{The approximate \texttt{likelihoods} (one for each agent) and the \texttt{evidence} are computed during the initialization stage.}
 \es{Los atributos de la clase \texttt{Game()} son los \texttt{teams} y el \texttt{result}, los \texttt{likelihoods} aproximados (uno por cada agente) y la \texttt{evidencia}.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_attributes, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
-teams == g.teams
-result == g.result
-lhs = g.likelihoods
-ev = g.evidence
-\end{lstlisting}
-  \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
-teams == g.teams
-result == g.result
-lhs = g.likelihoods
-ev = g.evidence
-\end{lstlisting}
-   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
-teams == g$teams
-result == g$result
-lhs = g$likelihoods
-ev = g$evidence
-\end{lstlisting}
-\end{paracol}
-%
-\en{The evidence is $0.5$, indicating that the prior probability of the observed result was the same for both teams.}
+\en{This class enables to query about the prior probability of the observed result:} 
 \es{La evidencia es $0.5$, indicando que la probabiilidad a priori del resultado observado era la misma para ambos equipos.}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_evidence, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+ev = g.evidence
 ev = round(ev, digits=3)
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+ev = g.evidence
 ev = round(ev, 3)
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+ev = g$evidence
 ev = round(ev, 3)
 \end{lstlisting}
 \end{paracol}
@@ -1103,12 +1033,13 @@ print(ev)
 > 0.5
 \end{lstlisting}
 
-\en{The posteriors of each agent are Gasussian that can be computed from the likelihoods and priors by calling a method.}
-\es{Los posteriors de cada agente son gaussianas que pueden computarse de los likelihoods y priors llamando a un método.}
+\en{In this case, the evidence is $0.5$ showing that the both teams have the same previous skill estimation.}
+\es{GUSTAVO COMPLETA}
 %
-\en{The output has the same order in which the teams and agents were loaded.}
-\es{La salida tiene el mismo orden en el que fueron cargados los equipos y los agentes.}
+\en{This class also provides the posteriors for each agent (they are also Gaussian distributions) which can be computed by calling a method:}
+\es{Los posteriors de cada agente son gaussianas que pueden computarse de los likelihoods y priors llamando a un m\'etodo.}
 %
+
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_posterior, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
@@ -1130,11 +1061,14 @@ print(posts[[1]][[1]], ev)
 \begin{lstlisting}[backgroundcolor=\color{all}]
 > Gaussian(mu=2.361, sigma=5.516)
 \end{lstlisting}
+\todo[inline]{Explicar como se accede a los posteriors y que hace este codigo}
+\en{The output has the same order in which the teams and agents were loaded.}
+\es{La salida tiene el mismo orden en el que fueron cargados los equipos y los agentes.}
 
 \subsection{Environment}
 
 \en{Before solving a history of events it is necessary to review the set of hyperparameters of the model (\texttt{Environment()}): the mean \texttt{mu} and standard deviation \texttt{sigma} of the priors; the standard deviation of the performances \texttt{beta}; the dynamic factor \texttt{gamma}; the draw probability \texttt{p\_draw}; and the convergence conditions \texttt{epsilon} and \texttt{iter}.}
-\es{Antes de resolver una historia de eventos es necesario revisar el conjunto de hiperparámetros del modelo (\texttt{Environment()}): la media \texttt{mu} y el desvío estandar \texttt{sigma} de los priors; el desvío estandar de los desempeños \texttt{beta}; el factor dinámico \texttt{gamma}; la probabilidad de empate \texttt{p\_draw}; y las condiciones de convergencia \texttt{epsilon} e \texttt{iter}.}
+\es{Antes de resolver una historia de eventos es necesario revisar el conjunto de hiperparámetros del modelo (\texttt{Environment()}): la media \texttt{mu} y el desvío estandar \texttt{sigma} de los priors; el desvío estandar de los desempe\~nos \texttt{beta}; el factor dinámico \texttt{gamma}; la probabilidad de empate \texttt{p\_draw}; y las condiciones de convergencia \texttt{epsilon} e \texttt{iter}.}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:environment, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
@@ -1147,13 +1081,13 @@ env == Environment()
 \es{Los valores usados en el c\'odigo \ref{lst:environment} son los valores por defecto de la clase \texttt{Environment()}.}
 %
 \en{Some comments regarding the choice of parameters.}
-\es{Algunos comentarios respecto a la elección de los parámetros.}
+\es{Algunos comentarios respecto a la elecci\'on de los parámetros.}
 %
 \en{The value chosen as the mean of the prior \texttt{mu} does not affect the estimates because the only thing that matters is the difference in skill between agents.}
-\es{El valor que se elija como media del prior \texttt{mu} no afecta las estimaciones porque lo único que importa es la diferencia de habilidad entre agentes.}
+\es{El valor que se elija como media del prior \texttt{mu} no afecta las estimaciones porque lo \'unico que importa es la diferencia de habilidad entre agentes.}
 %
 \en{The standard deviation of the prior \texttt{sigma} must be large enough not to leave out any possible hypothesis.}
-\es{El desvío estandar del prior \texttt{sigma} debe ser suficientemente grande de modo de no dejar por fuera ninguna posible hipótesis.}
+\es{El desvío estandar del prior \texttt{sigma} debe ser suficientemente grande de modo de no dejar por fuera ninguna posible hip\'otesis.}
 %
 \en{This value depends on the scale imposed by the standard deviation of the performances \texttt{beta}.}
 \es{Ese valor depende de la escala que imponga el desvío estandar de los rendimientos \texttt{beta}.}
@@ -1165,19 +1099,19 @@ env == Environment()
 \es{El otro factor a tener en cuenta para elegir el valor de \texttt{sigma} tiene que ver con la naturaleza del problema, la cantidad de ``niveles'' que pueden exisitir en el sistema a analizar.}
 %
 \en{The dynamic factor \texttt{gamma} is generally a small fraction of \texttt {beta}.}
-\es{El factor dinámico \texttt{gamma} es en general una pequeña fracción de \texttt{beta}.}
+\es{El factor dinámico \texttt{gamma} es en general una peque\~na fracci\'on de \texttt{beta}.}
 %
 \en{Its optimal value can be obtained by maximizing the a priori prediction (i.e. evidence).}
-\es{Su valor óptimo se puede obtener maximizando la predicción a priori (i.e. evidencia).}
+\es{Su valor \'optimo se puede obtener maximizando la predicci\'on a priori (i.e. evidencia).}
 %
 \en{The rule of thumb proposes to initialize \texttt{p\_draw} with the empirical proportion of draws.}
-\es{La regla general propone inicializar \texttt{p\_draw} con la proporción empírica de empates.}
+\es{La regla general propone inicializar \texttt{p\_draw} con la proporci\'on empírica de empates.}
 %
 \en{The parameter \texttt{epsilon} indicates the convergence condition, the maximum change in all posteriors before and after an iteration.}
-\es{El parámetro \texttt{epsilon} indica la condición de convergencia, el cambio máximo en todos los posteriors antes y después de una iteración.}
+\es{El parámetro \texttt{epsilon} indica la condici\'on de convergencia, el cambio máximo en todos los posteriors antes y despu\'es de una iteraci\'on.}
 %
 \en{Finally, the number of iterations \texttt{iter} functions as a cut-off condition in case convergence has not been reached.}
-\es{Por último, la cantidad de iteraciones \texttt{iter} funciona como condición de corte en caso de no haber alcanzado la convergencia.}
+\es{Por \'ultimo, la cantidad de iteraciones \texttt{iter} funciona como condici\'on de corte en caso de no haber alcanzado la convergencia.}
 
 \subsection{History}
 
@@ -1222,7 +1156,7 @@ res=list(c(0,1),c(0,1),c(0,1))
 \end{paracol}
 %
 \en{where the variable \texttt{e1} indicates the composition of the first game using the names of the agents; the variable \texttt{events} contains the composition of the three games; and the variable \texttt{res} contains the results of the three games (the smallest value represents the winner).}
-\es{Donde la variable \texttt{e1} indica la composición de la primer partida usando los nombres de los agentes; la variable \texttt{events} contiene la composición de las tres partidas; y la variable \texttt{res} contiene los resultados de las tres partidas (el menor valor representa el ganador).}
+\es{Donde la variable \texttt{e1} indica la composici\'on de la primer partida usando los nombres de los agentes; la variable \texttt{events} contiene la composici\'on de las tres partidas; y la variable \texttt{res} contiene los resultados de las tres partidas (el menor valor representa el ganador).}
 %
 \en{Assuming that the agents' skill does not change between games, \texttt{gamma = 0.0}, the state of knowledge about their skills (i.e. the estimates) should be the same after observing the data.}
 \es{Suponiendo que la habilidad de los agentes no cambia entre partidas, \texttt{gamma = 0.0}, el estado de conocimiento sobre sus habilidades (i.e. las estimaciones) debería ser la misma luego de observar los datos.}
@@ -1234,7 +1168,7 @@ h = History(events = events, result = res, env = env)
 \end{lstlisting}
 %
 \en{Immediately after the history is initialized, a summary of the data is printed.}
-\es{Inmediatamente después de que se inicializa la historia, se imprime un resumen de los datos.}
+\es{Inmediatamente despu\'es de que se inicializa la historia, se imprime un resumen de los datos.}
 %
 \en{In this case, 3 events, 3 batches and 3 agents are reported.}
 \es{En este caso se reportan 3 eventos, 3 batches y 3 agentes.}
@@ -1251,7 +1185,7 @@ h = History(events = events, result = res, env = env)
 % Parrafo
 
 \en{History initialization also triggers the computation of TrueSkill estimates.}
-\es{La inicialización de la historia también activa el computo de las estimaciones TrueSkill.}
+\es{La inicializaci\'on de la historia tambi\'en activa el computo de las estimaciones TrueSkill.}
 %
 \en{We can access them using the method \texttt{learning\_curves()}, which returns a dictionary that is accessed with the name of the agents.}
 \es{Podemos acceder a ellas mediante el m\'etodo \texttt{learning\_curves()}, que devuelve un diccionario de al que se accede con el nombre de los agentes.}
@@ -1282,10 +1216,10 @@ print(lc["b"])
 \es{Las curvas de aprendizaje individuales son una lista de tuplas.}
 %
 \en{The first element indicates the batche number, and the second indicates the estimate corresponding to that batche.}
-\es{El primer elemento indica el tiempo, y el segundo indica la estimación correpondiente a ese tiempo.}
+\es{El primer elemento indica el tiempo, y el segundo indica la estimaci\'on correpondiente a ese tiempo.}
 %
 \en{Although it would be reasonable to have the same estimate for all agents (because they earn each other), it can be seen that the posteriors reported by TrueSkill differ greatly between players and vary greatly for the same player.}
-\es{A pesar de que lo razonable sería tener la misma estimación para todos los agentes (poque se ganan mutuamente), se puede ver que los posteriors reportados por TrueSkill difieren mucho entre jugadores y varían mucho para uno mismo jugador.}
+\es{A pesar de que lo razonable sería tener la misma estimaci\'on para todos los agentes (poque se ganan mutuamente), se puede ver que los posteriors reportados por TrueSkill difieren mucho entre jugadores y varían mucho para uno mismo jugador.}
 %
 \en{The TrueSkill Through Time model corrects all these problems.}
 \es{El modelo TrueSkill Through Time corrige todos estos problemas.}
@@ -1318,7 +1252,7 @@ print(lc["b"])
 \end{lstlisting}
 %
 \en{It can be seen that the TrueSkill Through Time estimates are not only the same between players, but also have less uncertainty.}
-\es{Se puede ver que las estimaciones de TrueSkill Through Time no sólo son las mismas entre jugadores, sino que tienen también menos incertidumbre.}
+\es{Se puede ver que las estimaciones de TrueSkill Through Time no s\'olo son las mismas entre jugadores, sino que tienen tambi\'en menos incertidumbre.}
 %
 \en{In turn, the players' estimates do not change over time according to the assumption that skills do not change over time, \texttt{gamma = 0.0}.}
 \es{A su vez las estimaciones de los jugadores no cambian en el tiempo de acuerdo al supuesto de que las habilidades no cambian en el tiempo, \texttt{gamma = 0.0}.}
@@ -1365,7 +1299,7 @@ print(lc["b"])
 \end{lstlisting}
 %
 \en{The only difference is that the system reports only one estimate per batch.}
-\es{La única diferencia es que el sistema reporta una única estimación por bache.}
+\es{La \'unica diferencia es que el sistema reporta una \'unica estimaci\'on por bache.}
 
 
 
@@ -1503,7 +1437,7 @@ print(lc["b"])
 \section{Models and software} 
 
 \en{Driven by the growth in computing power, researchers have developed over the past five decades thousands of successful machine learning algorithms tailored to specific sets of problems.}
-\es{Impulsado por la crecimiento en la capacidad de c\'omputo ocurrida, en las últimas cinco d\'ecadas los investigadores han desarrollado miles de algoritmos exitosos de aprendizaje de autom\'atico, hechos a medida de conjuntos de problemas espec\'ificos.}
+\es{Impulsado por la crecimiento en la capacidad de c\'omputo ocurrida, en las \'ultimas cinco d\'ecadas los investigadores han desarrollado miles de algoritmos exitosos de aprendizaje de autom\'atico, hechos a medida de conjuntos de problemas espec\'ificos.}
 %
 \en{In contrast, probabilistic inference offers a generally applicable framework~\citep{Bishop2013}.}
 \es{Por el contrario, la inferencia probabil\'istica ofrece un marco de aplicaci\'on general~\citep{Bishop2013}.}
@@ -1515,7 +1449,7 @@ print(lc["b"])
 \es{Del mismo modo, los algoritmos empleadas var\'ian de aplicaci\'on en aplicaci\'on, oblig\'andonos a aprender una gran variedad de m\'etodos.}
 %
 \en{Instead of having to transform the problem to fit some standard algorithm, probabilistic inference provides the building blocks to solve any specific problem.}
-\es{En lugar de tener que transformar el problema para que encaje en algún algoritmo est\'andar, la inferencia probabil\'istica ofrece los bloques de construcci\'on que permiten resolver cualquier problema espec\'ifico.}
+\es{En lugar de tener que transformar el problema para que encaje en alg\'un algoritmo est\'andar, la inferencia probabil\'istica ofrece los bloques de construcci\'on que permiten resolver cualquier problema espec\'ifico.}
 %
 \en{All the assumptions are made explicit through a generative (or causal) model, which can be intuitively specified in a graphical way.}
 \es{Todos los supuestos se hacen expl\'icitos a trav\'es de un modelo generativo (o causal), que puede ser especificado intuitivamente de forma gr\'afica.}
@@ -2113,7 +2047,7 @@ m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_
 \end{equation}
 %
 \en{This last message, $m_{f_{p_1} \rightarrow s_1}(s_1)$, is the exact likelihood and computes the prior probability of winning if the player's true skill was $s_1$.}
-\es{Este último mensaje, $m_{f_{p_1} \rightarrow s_1}(s_1)$, es el likelihood exacto y computa la probabilidad a priori de ganar si la verdadera habilidad del jugador fuera $s_1$.}
+\es{Este \'ultimo mensaje, $m_{f_{p_1} \rightarrow s_1}(s_1)$, es el likelihood exacto y computa la probabilidad a priori de ganar si la verdadera habilidad del jugador fuera $s_1$.}
 %
 \en{Assuming that the skill is known, we must replace the average estimate $\mu_1$ by the hypothesis $s_1$ in the expected difference $\delta$, and remove its own uncertainty from the total uncertainty $\vartheta^2$.}
 \es{Al suponer conocida la habilidad, debemos remplazar su estimaci\'on media $\mu_1$ por la hip\'otesis $s_1$ en la diferencia esperada $\delta$, y remover su propia incertidumbre de la incertidumbre total $\vartheta^2$.}
@@ -2661,7 +2595,7 @@ prior_ta= performance(team_a); prior_tb= performance(team_b); prior_tc= performa
 \end{lstlisting}
 %
 \en{Messages that are not yet defined are initialized with a neutral form, such as a Gaussian distribution with infinite variance.}
-\es{Los mensajes que aún no est\'an definidos se inicializan con una forma neutra, como una distribuci\'on gaussiana con varianza infinita.}
+\es{Los mensajes que a\'un no est\'an definidos se inicializan con una forma neutra, como una distribuci\'on gaussiana con varianza infinita.}
 %
 \begin{lstlisting}[backgroundcolor=\color
 {white},label=lst:init_lhood, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
@@ -2745,7 +2679,7 @@ lhood_win_tb = posterior_lose_tc + lhood_d2_approx
 \es{Entonces, repite los c\'odigos \ref{lst:d1}, \ref{lst:tb_lose}, \ref{lst:d2}, \ref{lst:tb_win} hasta alcanzar convergencia.}
 %
 \en{Once the iteration is finished, we send the last ascending message to the teams on the sides.}
-\es{Finalizada la iteraci\'on, enviamos los últimos mensajes ascendentes a los equipos de los bordes.}
+\es{Finalizada la iteraci\'on, enviamos los \'ultimos mensajes ascendentes a los equipos de los bordes.}
 %
 \begin{lstlisting}[backgroundcolor=\color
 {white},label=lst:te_side, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
@@ -2798,7 +2732,7 @@ posterior_s2_approx = prior2 * lhood_s2_approx
 \subsection{History} \label{sec:throguthTime}
 
 \en{In this section we will see how to find the best approximation to the exact posterior in a history of events in which $n$ players compete over a period of $T$ time steps or temporal batches (e.g. day, week, month, year).}
-\es{En esta secci\'on vamos a ver c\'omo se obtiene la mejor aproximaci\'on al posterior exacto en una historia de eventos en la que $n$ agentes compiten durante $T$ pasos temporales o \emph{batches} (e.g. d\'ia, semana, mes, año).}
+\es{En esta secci\'on vamos a ver c\'omo se obtiene la mejor aproximaci\'on al posterior exacto en una historia de eventos en la que $n$ agentes compiten durante $T$ pasos temporales o \emph{batches} (e.g. d\'ia, semana, mes, a\~no).}
 % 
 \en{Within each time step $t$ an agent $i$ can participate in $K$ events, $K_{i,t}$.}
 \es{Al interior de cada paso temporal $t$ un agente $i$ puede participar en $K$ eventos, $K_{i_t}$}
@@ -2892,7 +2826,7 @@ posterior_s2_approx = prior2 * lhood_s2_approx
  \end{equation}
 % 
 \en{There is a mutual dependency between forward and backward messages that make imposible a one shot inference iteration.}
-\es{Existe una dependencia muta entre los mensajes hacia adelante y hacia atras, haciendo imposible una inferencia de única iteraci\'on.}
+\es{Existe una dependencia muta entre los mensajes hacia adelante y hacia atras, haciendo imposible una inferencia de \'unica iteraci\'on.}
 %
 \en{The basic idea is to update repeatedly forward and backward until convergence, making sure that the effect of the previous update is removed before the new effect is added.}
 \es{La idea b\'asica es actualizar repetidas veces los mensajes hacia adelante y hacia atras hasta la convergencia, asegur\'andonos que el efecto de la actualizaci\'on previa sea removida antes de que el nuevo efecto se agregue.}
