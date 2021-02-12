@@ -200,7 +200,7 @@
 \shortcites{Kschischang2001}
 \shortcites{Herbrich2007}
 \shortcites{Dangauthier2007}
-\shortcites{jaynes2003-bookProbabilityTheory}
+% \shortcites{jaynes2003-bookProbabilityTheory}
 \shortcites{VanHorn2003}
 \shortcites{maystre2019-pairwise}
 \shortcites{Bishop2006}
@@ -352,8 +352,8 @@
 \en{Instead of selecting a single value as an estimate, an enhancement consists of distributing the certainty among all possible skill hypotheses.}
 \es{En vez de seleccionar un \'unico valor como estimaci\'on, una alternativa superadora consiste distribuir la certidumbre entre todas las posibles hip\'otesis de habilidad.}
 %
-\en{This approach known as \emph{Bayesian inference} has proven successful in practice~\citep{Bishop2006} and ensures consistent reasoning when handling uncertainty (plausible beliefs)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
-\es{Este enfoque conocido como inferencia bayesiana ha demostrado ser exitoso en la pr\'actica~\citep{Bishop2006} y garantiza un razonamiento consistente en el manejo de la incertidumbre (o creencias plausibles)~\citep{jaynes2003-bookProbabilityTheory,VanHorn2003}.}
+\en{This approach known as \emph{Bayesian inference} has proven successful in practice~\citep{Bishop2006} and ensures consistent reasoning when handling uncertainty (plausible beliefs)~\citep{Jaynes2003,VanHorn2003}.}
+\es{Este enfoque conocido como inferencia bayesiana ha demostrado ser exitoso en la pr\'actica~\citep{Bishop2006} y garantiza un razonamiento consistente en el manejo de la incertidumbre (o creencias plausibles)~\citep{Jaynes2003,VanHorn2003}.}
 %
 \en{Any inference, independently of its complexity, can be solved by the rules of probability: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
 \es{Toda inferencia, no importa cuan compleja sea, puede ser resuelta mediante las reglas de la probabilidad: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
@@ -418,7 +418,7 @@
 \en{The difference of performances, $d=p_i-p_j$, can also be expressed as a Gaussian distribution, centered on the difference of the prior estimate means ($\mu_i -\mu_j$), with a variance that incorporates the uncertainty of both estimates ($\sigma_i$ and $\sigma_j$) and the variance of both performances ($\beta$), $\N( d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
 \es{La diferencia de rendimientos, $d=p_i-p_j$, tambi\'en se puede expresar como una gaussiana centrada en la diferencia de las medias de las estimaciones a priori ($\mu_i - \mu_j$), con una varianza que incorpora la incertidumbre de ambas estimaciones ($\sigma$) y la varianza de ambos rendimientos ($\beta$), $\N(\, d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
 %
-\en{As we observed that the agent $i$ won, we know from the causal model that the hidden difference of performances was, indeed, positive.}
+\en{As we observed that the agent $i$ won, we know from the causal model that the hidden difference of performances was positive.}
 \es{Como observamos que el agente $i$ gan\'o, sabemos por el modelo causal que la diferencia de rendimientos oculta fue en efecto positiva.}
 %
 \en{Therefore, the prior prediction of the observed result (or evidence) is the cumulative density, $\Phi$, of all positive values of the difference of performances (Eq.~\ref{eq:evidence}).}
@@ -437,7 +437,7 @@
 \en{Since the evidence is a constant value, the posterior uncertainty of each hypothesis is proportional to the product of their prior uncertainty and their likelihood, as shown in equation~\ref{eq:posterior_win}.}
 \es{Como la evidencia es constante, la incertidumbre a posteriori de cada hip\'otesis es proporcional al producto de su incertidumbre a priori y su verosimilitud, como se muestra en la ecuaci\'on~\ref{eq:posterior_win}.}
 %
-\en{Section~\ref{sec:exactSolution} shows how these equations arise by applying the sum and product rule over the model.}
+\en{Section~\ref{sec:exactSolution} shows how these expressions can be derived applying the sum and product rule.}
 \es{En la secci\'on~\ref{sec:exactSolution} veremos en detalle c\'omo todas estas ecuaciones surge de aplicar las reglas de las suma y el producto sobre el modelo.}
 %
 \begin{equation}\label{eq:posterior_win}
@@ -492,18 +492,18 @@
 \en{The surprise, defined as the complement of the likelihood, works as a filter for the prior.}
 \es{La sorpresa, definida como el complemento de la verosimilitud, funciona como un filtro para el prior.}
 %
-\en{The posterior is just the density of the prior not filtered by the likelihood.}
+\en{The posterior is just the prior's density that is not filtered by the likelihood.}
 \es{El posterior no es m\'as que la densidad del prior no filtrada por la verosimilitud.}
 %    
-\en{At the region of very high skill hypotheses, where the winning result would have generated almost no surprise ($\lim_{s_i \to \infty}P(r|s_i) = 1$), the posterior receives almost all the density of the prior.}
+\en{At the region of very high skill hypotheses, where the winning result would have generated almost no surprise ($\lim_{s_i \to \infty}P(r|s_i) = 1$), the posterior receives most of the prior's density.}
 \es{En la regi\'on de hip\'otesis de muy alta habilidad, donde el resultado ganador no nos hubiera generado casi ninguna sorpresa ($\lim_{s_i \to \infty}P(r|s_i) = 1$), el posterior recibe casi toda la masa del prior.}
 %
-\en{At the region of very low skill hypotheses, where the winning result would have generated a lot of surprise ($\lim_{s_i \to -\infty}P(r|s_i) = 0$), the posterior receives almost no density from the prior.}
+\en{At the region of very low skill hypotheses, where the winning result would have generated huge surprise ($\lim_{s_i \to -\infty}P(r|s_i) = 0$), the posterior does not receive density from the prior.}
 \es{En cambio, en la regi\'on de hip\'otesis de muy baja habilidad, donde el resultado habr\'ia generado mucha sorpresa ($\lim_{s_i \to -\infty}P(r|s_i) = 0$), el posterior no recibe casi nada de la masa del prior.}
 
 % Parrafo
 
-\en{It is important to stress that the posterior, although similar, is not a Gaussian distribution, preventing us from using equation~\ref{eq:posterior_win} iteratively.}
+\en{It is important to stress that the posterior, although similar, is not a Gaussian distribution, initially preventing us from using equation~\ref{eq:posterior_win} iteratively.}
 \es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on gaussiana, lo que nos impedir\'a usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
 %
 \en{But due to the shape of the exact posterior, a Gaussian distribution could be used as a good approximation, allowing us to avoid the computational cost of the sampling methodologies.}
@@ -552,7 +552,7 @@
 %\en{Learning is a dynamical process.}
 %\es{El aprendizaje es un proceso din\'amico.}
 %
-\en{Since skills are dynamic variables it is important to add some uncertainty $\gamma$ at each step.}
+\en{Since skills are dynamic variables it is important to incorporate a degree of uncertainty $\gamma$ at each step.}
 \es{Debido a que las habilidades son variables din\'amicas es importante agregar alguna incertidumbre $\gamma$ en cada paso.}
 %
 \begin{equation}\label{eq:dynamic_factor}
