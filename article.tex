@@ -495,15 +495,15 @@
 \en{The posterior is just the prior's density that is not filtered by the likelihood.}
 \es{El posterior no es m\'as que la densidad del prior no filtrada por la verosimilitud.}
 %    
-\en{At the region of very high skill hypotheses, where the winning result would have generated almost no surprise ($\lim_{s_i \to \infty}P(r|s_i) = 1$), the posterior receives most of the prior's density.}
+\en{At the region of very high skill hypotheses, where the winning result would have generated almost no surprise ($\lim_{s_i \to \infty}P(r|s_i) = 1$), the posterior receives all the prior's density.}
 \es{En la regi\'on de hip\'otesis de muy alta habilidad, donde el resultado ganador no nos hubiera generado casi ninguna sorpresa ($\lim_{s_i \to \infty}P(r|s_i) = 1$), el posterior recibe casi toda la masa del prior.}
 %
-\en{At the region of very low skill hypotheses, where the winning result would have generated huge surprise ($\lim_{s_i \to -\infty}P(r|s_i) = 0$), the posterior does not receive density from the prior.}
+\en{At the region of very low skill hypotheses, where the winning result would have generated huge surprise ($\lim_{s_i \to -\infty}P(r|s_i) = 0$), the posterior receive no density from the prior.}
 \es{En cambio, en la regi\'on de hip\'otesis de muy baja habilidad, donde el resultado habr\'ia generado mucha sorpresa ($\lim_{s_i \to -\infty}P(r|s_i) = 0$), el posterior no recibe casi nada de la masa del prior.}
 
 % Parrafo
 
-\en{It is important to stress that the posterior, although similar, is not a Gaussian distribution, initially preventing us from using equation~\ref{eq:posterior_win} iteratively.}
+\en{It is important to stress that the posterior, although similar, is not a Gaussian distribution, preventing us from using equation~\ref{eq:posterior_win} iteratively.}
 \es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on gaussiana, lo que nos impedir\'a usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
 %
 \en{But due to the shape of the exact posterior, a Gaussian distribution could be used as a good approximation, allowing us to avoid the computational cost of the sampling methodologies.}
@@ -940,7 +940,7 @@ before and after code input/output should be avoided (see above).
 \en{In this section we show how to use \proglang{Julia}, \proglang{Python} and \proglang{R} packages to solve a single event, a short history of three events, and the real-life history of professional ATP tennis players.}
 \es{En esta secci\'on mostramos c\'omo usar los usando los paquetes de\proglang{Julia}, \proglang{Python} y \proglang{R} para resolver un evento, una peque\~na historia de tres eventos y finalmente la historia real de jugadores profesional de tenis ATP.}
 %
-\en{We show both TrueSkill and TrueSkill Through Time solutions, how to obtain the individual learning curves, and the prior prediction of the observed data (i.e. evidence) that is also used as a measure to compare models.}
+\en{We show TrueSkill and TrueSkill Through Time solutions, how to obtain the individual learning curves, and the prior prediction of the observed data (i.e. evidence) that is also used as a measure to compare models.}
 \es{Mostraremos la soluciones TrueSkill y TrueSkill Through Time, el m\'etodo para obtener curvas de aprendizaje individuales, y la predicci\'on a priori (i.e. evidencia) del dato observado que sirven como medida para comparar modelos.}
 %
 % \en{Finally, we make a time complexity comparison between the three packages presented in this paper and the \texttt{trueskill} package of presented in this paper \proglang{Python}.}
@@ -948,82 +948,87 @@ before and after code input/output should be avoided (see above).
 
 \subsection{Single Event} \label{sec:singleEvent}
 
-\todo[inline]{Contar que para poder hacer el analisis de un evento, necesitamos instanciar ratings (o como se llame) y decir en esta oracion qu\'e se modela con esta clase, y mas o menos para que se usa}
-\en{The class \texttt{Player()} has three attributes: the prior Gaussian distribution (characterized by the mean (\texttt{mu}) and the standard deviation (\texttt{sigma}), the standard deviation of the performance (\texttt{beta}), and the dynamic factor of the skill (\texttt{gamma}).}
-\es{La clase \texttt{Player()} se representa con cuatro atributos: la media (\texttt{mu}) y el desv\'io est\'andar (\texttt{sigma}) de la distribuci\'on gaussiana a priori; el desv\'io est\'andar de los rendimientos (\texttt{beta}); y el factor din\'amico de la habilidad (\texttt{gamma}).}
+\en{To solve a single event we will use the class \texttt{Game()}, although the class \texttt{History()} (which we will present later) also allows to solve single event histories.}
+\es{Para resolver un único evento utilizareomos la clase \texttt{Game()}, a pesar de que la clase \texttt{History()} (que presentaremos más adelante) también permita resolver historias de eventos únicos.}
 %
-\begin{lstlisting}[backgroundcolor=\color{all},label=lst:rating, caption={\en{Example of initialization of players}}]
+\en{To perform the analysis using the class \texttt{Game()} we first need to define the characteristics of the participating players.}
+\es{Para hacer el análisis mediante la clase \texttt{Game()} necesitamos definir primero las caracterísiticas de los jugadores participantes.}
+%
+\en{The class \texttt{Player()} has three attributes: the prior Gaussian distribution (characterized by the mean \texttt{mu} and the standard deviation \texttt{sigma}), the standard deviation of the performance (\texttt{beta}), and the dynamic factor of the skill (\texttt{gamma}).}
+\es{La clase \texttt{Player()} tiene tres atributos: la distribuci\'on gaussiana a priori (caracterizada por la media \texttt{mu} y el desv\'io est\'andar \texttt{sigma}); el desv\'io est\'andar de los rendimientos (\texttt{beta}); y el factor din\'amico de la habilidad (\texttt{gamma}).}
+%
+\begin{lstlisting}[backgroundcolor=\color{all},label=lst:player, caption={\en{Initialization of players}},aboveskip=0.1cm]
 mu = 0.0; sigma = 6.0; beta = 1.0; gamma = 0.0
 p1 = Player(Gaussian(mu, sigma), beta, gamma); p2 = Player(Gaussian(mu, sigma), beta, gamma)
 p3 = Player(Gaussian(mu, sigma), beta, gamma); p4 = Player(Gaussian(mu, sigma), beta, gamma)
 \end{lstlisting}  
 %
-\en{In this example, we instantiate four players using the same initial parameters. The \texttt{Gaussian()} class is used to model the standard operations of Gaussian distributions including multiplication, summation, division, and differentiation. The next step is using the instantiated players in a game.}
-\es{Los rating tienen tres atributos.}
-
-% Parrafo
-
-\en{The class \texttt{Game()} storages the game details (i.e. teams and result) and computes the likehood and the evidence.}
-\es{La clase \texttt{Game()} se utiliza para computar los posteriors y la evidencia de eventos como los descritos en la figura~\ref{fig:generative_model}.}
+\en{In this example, we instantiate four players using the same initial parameters.}
+\es{En este ejemplo instanciamos cuantro jugadores usando los mismos parámetros iniciales.}
 %
-\en{As an example, we initialize a game with two teams of two players.}
-\es{A modo de ejemplo, inicializamos una partida con dos equipos de dos jugadores.}
+\en{The \texttt{Gaussian()} class is used to model the standard operations of Gaussian distributions including multiplication, summation, division, and substraction (details at section \ref{sec:Gasussian}).}
+\es{La clase \texttt{Gaussian()} se usa para modelar las operaciones estandar de las distribuciones gaussianas, incluyendo multiplicación, suma, divisi\'on y resta (detalles en la secci\'on \ref{sec:Gaussian}).}
 %
-\en{When dealing with teams and following a natural extension to the single player model, the observed result is a direct consequence of the difference of the team performance (see details at section \ref{sec:2vs2}).}
-\es{En presencia de equipos, el resultado observado se modela como consecuencias directa de la diferencia de los rendimientos de cada equipo, $d = \sum_{i \in a} p_i) - \sum_{i \in b} p_i)$ (detalles en la secci\'on \ref{sec:2vs2}).}
+\en{In the next step we create a game with two teams of two players.}
+\es{En el siguiete paso creamos una partida con dos equipos de dos jugadores.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={Example of teams initialization and creation of a game}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\en{When dealing with teams, the observed result depends on the sum of the performances of each team (see details at section \ref{sec:2vs2}).}
+\es{En presencia de equipos, the observed result depends on the sum of the performances of each team, $d = \sum_{i \in a} p_i) - \sum_{i \in b} p_i)$ (detalles en la secci\'on \ref{sec:2vs2}).}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={Initialization of teams and games}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
 team_a = [ p1, p2 ]
 team_b = [ p3, p4 ]
 teams = [team_a, team_b]
-result = [0,1]
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
 team_a = [ p1, p2 ]
 team_b = [ p3, p4 ]
 teams = [team_a, team_b]
-result = [0,1]
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
 team_a = c(p1, p2)
 team_b = c(p3, p4)
 teams = list(team_a, team_b)
-result = c(0,1)
 \end{lstlisting}  
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
-g = Game(teams, result, p_draw = 0.0)
+g = Game(teams)
 \end{lstlisting}
 %
-\todo[inline]{Arreglar como se informa el resultado del partido}
-\en{In this example, \texttt{result} has the outcome of the game, and \texttt{p\_draw} is used to consider the probability of a draw, when this parameter is zero or is omitted there is no chance of a draw.}
-\es{donde \texttt{result} indica el orden observado (los equipos con menor n\'umero son los ganadores), y \texttt{p\_draw = 0.0} indica que la probabilidad de empate nula para ese tipo de juegos.}
+\en{where the result of the game is implicitly defined by the order of the teams in the list: the teams appearing first in the list (lower index) beat those appearing later (higher index)).}
+\es{donde el resultado de la partida queda definido implícitamente por el orden de los equipos en la lista \texttt{temas}: los equipos que aparecen primero en la lista (menor índice) le ganan a los que aparecen después (mayor índice)).}
 %
-\en{The approximate \texttt{likelihoods} (one for each agent) and the \texttt{evidence} are computed during the initialization stage.}
-\es{Los atributos de la clase \texttt{Game()} son los \texttt{teams} y el \texttt{result}, los \texttt{likelihoods} aproximados (uno por cada agente) y la \texttt{evidencia}.}
+\en{This is the simplest example of use.}
+\es{Este es el ejemplo de uso más simple.}
 %
-\en{This class enables to query about the prior probability of the observed result:} 
-\es{La evidencia es $0.5$, indicando que la probabiilidad a priori del resultado observado era la misma para ambos equipos.}
+\en{Later on we will see how to explicitly specify the result.}
+\es{Más adelante veremos como especificar explícitamente el resultado.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_evidence, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\en{During the initialization, the class \texttt{Game()} computes the prior prediction (\texttt{evidence}) of the observed result and the approximate \texttt{likelihoods}, one for each player.}
+\es{Duarante la inicialización, la clase \texttt{Game()} calcula la predicción a priori (\texttt{evidence}) del resultado observado y las verosimilitudes aproximadas (\texttt{likelihoods}), una por cada jugador.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:evidence_likelihoods, caption={Evidence and likelihoods queries}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+lhs = g.likelihoods
 ev = g.evidence
 ev = round(ev, digits=3)
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+lhs = g.likelihoods
 ev = g.evidence
 ev = round(ev, 3)
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+lhs = g$likelihoods
 ev = g$evidence
 ev = round(ev, 3)
 \end{lstlisting}
@@ -1032,38 +1037,105 @@ ev = round(ev, 3)
 print(ev)
 > 0.5
 \end{lstlisting}
-
-\en{In this case, the evidence is $0.5$ showing that the both teams have the same previous skill estimation.}
-\es{GUSTAVO COMPLETA}
 %
-\en{This class also provides the posteriors for each agent (they are also Gaussian distributions) which can be computed by calling a method:}
-\es{Los posteriors de cada agente son gaussianas que pueden computarse de los likelihoods y priors llamando a un m\'etodo.}
+\en{In this case, the evidence is $0.5$ indicating that both teams had the same probability of winning given the previous estimates.}
+\es{En este caso, la evidencia es de $0,5$ indicando que ambos equipos tenian la misma probabilidad de ganar dadas las estimaciones previas.}
 %
-
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_posterior, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\en{Posteriors can be found by multiplying the likelihoods and priors, or we can call the method \texttt{posteriors()} to solve it for us.}
+\es{Los posteriors se pueden obtener multiplicando a mano las verosimilitudes y los priors, o podemos llamar al método \texttt{posteriors()} para que lo resuelva por nosotros.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_posterior, caption={Posterior query}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
-posts = posteriors(g)
-print(posts[1][1], ev)
+pos = posteriors(g)
+print(pos[1][1])
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
-posts = g.posteriors
-print(posts[0][0], ev)
+pos = g.posteriors()
+print(pos[0][0])
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
-posts = g$posteriors()
-print(posts[[1]][[1]], ev)
+pos = g$posteriors()
+print(pos[[1]][1])
+\end{lstlisting}  
+\end{paracol}
+\begin{lstlisting}[backgroundcolor=\color{all}, belowskip=-0.77 \baselineskip]
+> Gaussian(mu=2.361, sigma=5.516)
+\end{lstlisting}
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+print(lhs[1][1] * p1.prior)
+\end{lstlisting}
+  \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+print(lhs[0][0] * p1.prior)
+\end{lstlisting}
+   \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+print(lhs[[1]][1] * p1$prior)
 \end{lstlisting}  
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
 > Gaussian(mu=2.361, sigma=5.516)
 \end{lstlisting}
-\todo[inline]{Explicar como se accede a los posteriors y que hace este codigo}
-\en{The output has the same order in which the teams and agents were loaded.}
-\es{La salida tiene el mismo orden en el que fueron cargados los equipos y los agentes.}
+%
+\en{The likelihoods and posteriors are returned respecting the order in which players and teams were loaded in the \texttt{Game()} class.}
+\es{Las verosimilitudes y posteriors se devuelven respetando el orden en el que los jugadores y equipos fueron cargados en la clase \texttt{Game()}.}
+
+% Parrafo
+
+\en{Let's suppose now that the same four players participate in a game organized in 3 teams in which two of them draw and one wins.}
+\es{Supongamos ahora que esos mismo cuatro jugadores participan en una partida organizados en 3 equipos en el que dos de ellos empatan y uno gana.}
+%
+\en{Unlike the previous example, now you need to specify the result and the probability of a tie associated with these types of games.}
+\es{A diferencia del ejemplo anterior, ahora necesitas especificar el resultado y la probabilidad de empatar asociada a ese tipo de juegos.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={Initialization of teams and games}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\end{lstlisting}
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+ta = [p1]
+tb = [p2, p3]
+tc = [p4]
+teams = [ta, tb, tc]
+result = [1., 0., 0.]
+\end{lstlisting}
+  \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+ta = [p1]
+tb = [p2, p3]
+tc = [p4]
+teams = [ta, tb, tc]
+result = [1, 0, 0]
+\end{lstlisting}
+   \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+ta = c(p1)
+tb = c(p2, p3)
+tc = c(p4)
+teams = list(ta, tb, tc)
+result = c(1, 0, 0)
+\end{lstlisting}  
+\end{paracol}
+\begin{lstlisting}[backgroundcolor=\color{all}]
+g = Game(teams, result, p_draw=0.25)
+\end{lstlisting}
+%
+\en{Now the outcome of the game is explicitly defined: the team with the highest value beats the rest, and the teams with the same value tie.}
+\es{Ahora el resultado de la partida se define explícitamente: el equipo con el mayor valor le gana al resto, y los equipos con mismo valor empatan.}
+%
+\en{When considering the possibility of a tie, it is necessary to indicate the approximate typical draw frequency for this type of game.}
+\es{Al considerar la posibilidad de empate se hace necesario indicar la frecuencia de empate típica aproximada que tienen ese tipo de juegos.}
+%
+\en{The evidence and the posteriors can be queried in the same way as before.}
+\es{La evidencia y el posterior se obtienen de la misma forma que hemos visto.}
+
+\todo[inline]{Que julia acepte resultados con enteros}
+\todo[inline]{Verificar que si hay un empate el bico chille.}
+
 
 \subsection{Environment}
 
