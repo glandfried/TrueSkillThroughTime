@@ -957,7 +957,7 @@ before and after code input/output should be avoided (see above).
 \en{The class \texttt{Player()} has three attributes: the prior Gaussian distribution (characterized by the mean \texttt{mu} and the standard deviation \texttt{sigma}), the standard deviation of the performance (\texttt{beta}), and the dynamic factor of the skill (\texttt{gamma}).}
 \es{La clase \texttt{Player()} tiene tres atributos: la distribuci\'on gaussiana a priori (caracterizada por la media \texttt{mu} y el desv\'io est\'andar \texttt{sigma}); el desv\'io est\'andar de los rendimientos (\texttt{beta}); y el factor din\'amico de la habilidad (\texttt{gamma}).}
 %
-\begin{lstlisting}[backgroundcolor=\color{all},label=lst:player, caption={\en{Initialization of players}},aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{all},label=lst:player, caption={\en{Players initialization}\es{Inicializaci\'on de los jugadores}},aboveskip=0.1cm]
 mu = 0.0; sigma = 6.0; beta = 1.0; gamma = 0.0
 p1 = Player(Gaussian(mu, sigma), beta, gamma); p2 = Player(Gaussian(mu, sigma), beta, gamma)
 p3 = Player(Gaussian(mu, sigma), beta, gamma); p4 = Player(Gaussian(mu, sigma), beta, gamma)
@@ -975,7 +975,7 @@ p3 = Player(Gaussian(mu, sigma), beta, gamma); p4 = Player(Gaussian(mu, sigma), 
 \en{When dealing with teams, the observed result depends on the sum of the performances of each team (see details at section \ref{sec:2vs2}).}
 \es{En presencia de equipos, the observed result depends on the sum of the performances of each team, $d = \sum_{i \in a} p_i) - \sum_{i \in b} p_i)$ (detalles en la secci\'on \ref{sec:2vs2}).}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={Initialization of teams and games}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={\en{Initialization of teams and games}\es{Inicializaci\'on de los equipos y el juego}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1012,7 +1012,7 @@ g = Game(teams)
 \en{During the initialization, the class \texttt{Game()} computes the prior prediction (\texttt{evidence}) of the observed result and the approximate \texttt{likelihoods}, one for each player.}
 \es{Duarante la inicialización, la clase \texttt{Game()} calcula la predicción a priori (\texttt{evidence}) del resultado observado y las verosimilitudes aproximadas (\texttt{likelihoods}), una por cada jugador.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:evidence_likelihoods, caption={Evidence and likelihoods queries}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:evidence_likelihoods, caption={\en{Evidence and likelihoods queries}\es{Comsulta de la evidencia y las verosimilitudes}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1044,7 +1044,7 @@ print(ev)
 \en{Posteriors can be found by multiplying the likelihoods and priors, or we can call the method \texttt{posteriors()} to solve it for us.}
 \es{Los posteriors se pueden obtener multiplicando a mano las verosimilitudes y los priors, o podemos llamar al método \texttt{posteriors()} para que lo resuelva por nosotros.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_posterior, caption={Posterior query}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_posterior, caption={\en{Posteriors query}\es{Consulta de los posteriors}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1059,7 +1059,7 @@ print(pos[0][0])
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
 pos = g$posteriors()
-print(pos[[1]][1])
+print(pos[[1]][[1]])
 \end{lstlisting}  
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}, belowskip=-0.77 \baselineskip]
@@ -1075,25 +1075,25 @@ print(lhs[0][0] * p1.prior)
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
-print(lhs[[1]][1] * p1$prior)
+print(lhs[[1]][[1]]*p1$prior)
 \end{lstlisting}  
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
 > Gaussian(mu=2.361, sigma=5.516)
 \end{lstlisting}
 %
-\en{The likelihoods and posteriors are returned respecting the order in which players and teams were loaded in the \texttt{Game()} class.}
-\es{Las verosimilitudes y posteriors se devuelven respetando el orden en el que los jugadores y equipos fueron cargados en la clase \texttt{Game()}.}
+\en{The likelihoods and posteriors are returned keeping the order in which players and teams were loaded during the initilization of the class \texttt{Game()}.}
+\es{Las verosimilitudes y posteriors se devuelven manteniendo el orden en el que los jugadores y equipos fueron cargados durante la inicialización de la clase \texttt{Game()}.}
 
 % Parrafo
 
-\en{Let's suppose now that the same four players participate in a game organized in 3 teams in which two of them draw and one wins.}
-\es{Supongamos ahora que esos mismo cuatro jugadores participan en una partida organizados en 3 equipos en el que dos de ellos empatan y uno gana.}
+\en{Assume now that the same four players participate in a game organized in 3 different teams, two of them draw and one wins.}
+\es{Suponga ahora que esos mismo cuatro jugadores participan en una partida organizados en 3 equipos diferentes, dos de ellos empatan y uno gana.}
 %
 \en{Unlike the previous example, now you need to specify the result and the probability of a tie associated with these types of games.}
 \es{A diferencia del ejemplo anterior, ahora necesitas especificar el resultado y la probabilidad de empatar asociada a ese tipo de juegos.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={Initialization of teams and games}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={\en{Initialization of teams and games}\es{Inicializaci\'on de los equipos y el juego}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1133,62 +1133,10 @@ g = Game(teams, result, p_draw=0.25)
 \en{The evidence and the posteriors can be queried in the same way as before.}
 \es{La evidencia y el posterior se obtienen de la misma forma que hemos visto.}
 
-\todo[inline]{Que julia acepte resultados con enteros}
-\todo[inline]{Verificar que si hay un empate el bico chille.}
-
-
-\subsection{Environment}
-
-\en{Before solving a history of events it is necessary to review the set of hyperparameters of the model (\texttt{Environment()}): the mean \texttt{mu} and standard deviation \texttt{sigma} of the priors; the standard deviation of the performances \texttt{beta}; the dynamic factor \texttt{gamma}; the draw probability \texttt{p\_draw}; and the convergence conditions \texttt{epsilon} and \texttt{iter}.}
-\es{Antes de resolver una historia de eventos es necesario revisar el conjunto de hiperparámetros del modelo (\texttt{Environment()}): la media \texttt{mu} y el desvío estandar \texttt{sigma} de los priors; el desvío estandar de los desempe\~nos \texttt{beta}; el factor dinámico \texttt{gamma}; la probabilidad de empate \texttt{p\_draw}; y las condiciones de convergencia \texttt{epsilon} e \texttt{iter}.}
-%
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:environment, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{lstlisting}[backgroundcolor=\color{all}]
-env = Environment(mu=0., sigma=6., beta=1., gamma=.05, p_draw=0., epsilon=1e-6, iter=10)
-env == Environment()
-\end{lstlisting}
-%
-\en{The values used in the code \ref{lst:environment} are the default values of the \texttt{Environment()} class.}
-\es{Los valores usados en el c\'odigo \ref{lst:environment} son los valores por defecto de la clase \texttt{Environment()}.}
-%
-\en{Some comments regarding the choice of parameters.}
-\es{Algunos comentarios respecto a la elecci\'on de los parámetros.}
-%
-\en{The value chosen as the mean of the prior \texttt{mu} does not affect the estimates because the only thing that matters is the difference in skill between agents.}
-\es{El valor que se elija como media del prior \texttt{mu} no afecta las estimaciones porque lo \'unico que importa es la diferencia de habilidad entre agentes.}
-%
-\en{The standard deviation of the prior \texttt{sigma} must be large enough not to leave out any possible hypothesis.}
-\es{El desvío estandar del prior \texttt{sigma} debe ser suficientemente grande de modo de no dejar por fuera ninguna posible hip\'otesis.}
-%
-\en{This value depends on the scale imposed by the standard deviation of the performances \texttt{beta}.}
-\es{Ese valor depende de la escala que imponga el desvío estandar de los rendimientos \texttt{beta}.}
-%
-\en{A skill difference of one $\beta$, $ s_i - s_j = \beta $, represents a 76\% probability of winning.}
-\es{Una diferencia de habilidad de un $\beta$, $s_i - s_j = \beta$, representa 76\% de probabiilidad de ganar.}
-%
-\en{The other factor to take into account when choosing \texttt{sigma} is the nature of the problem, the number of ``levels'' that may exist in the system to be analyzed.}
-\es{El otro factor a tener en cuenta para elegir el valor de \texttt{sigma} tiene que ver con la naturaleza del problema, la cantidad de ``niveles'' que pueden exisitir en el sistema a analizar.}
-%
-\en{The dynamic factor \texttt{gamma} is generally a small fraction of \texttt {beta}.}
-\es{El factor dinámico \texttt{gamma} es en general una peque\~na fracci\'on de \texttt{beta}.}
-%
-\en{Its optimal value can be obtained by maximizing the a priori prediction (i.e. evidence).}
-\es{Su valor \'optimo se puede obtener maximizando la predicci\'on a priori (i.e. evidencia).}
-%
-\en{The rule of thumb proposes to initialize \texttt{p\_draw} with the empirical proportion of draws.}
-\es{La regla general propone inicializar \texttt{p\_draw} con la proporci\'on empírica de empates.}
-%
-\en{The parameter \texttt{epsilon} indicates the convergence condition, the maximum change in all posteriors before and after an iteration.}
-\es{El parámetro \texttt{epsilon} indica la condici\'on de convergencia, el cambio máximo en todos los posteriors antes y despu\'es de una iteraci\'on.}
-%
-\en{Finally, the number of iterations \texttt{iter} functions as a cut-off condition in case convergence has not been reached.}
-\es{Por \'ultimo, la cantidad de iteraciones \texttt{iter} funciona como condici\'on de corte en caso de no haber alcanzado la convergencia.}
-
 \subsection{History}
 
-\en{The class \texttt{History()} is used to compute the posteriors and evidence of a history of events such as described in Figure~\ref{fig:smooth_example}.}
-\es{La clase \texttt{History()} se usa para computar los posteriors y la evidencia de una historia de eventos como la descrita en la figura~\ref{fig:smooth_example}.}
+\en{The class \texttt{History()} is used to compute the posteriors and evidence of a history of events.}
+\es{La clase \texttt{History()} se usa para computar los posteriors y la evidencia de una historia de eventos.}
 %
 \en{As an example, we initialize a history containing three players (\texttt{\small "a", "b", "c"}) with three games.}
 \es{Como ejemplo, inicializamos una historia que contiene tres jugadores (\texttt{"a","b","c"}) con tres partidas.}
@@ -1199,70 +1147,55 @@ env == Environment()
 \en{In other words, all agents win one game and lose the other.}
 \es{Es decir, todos los agentes ganan una partida y pierden la otra.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:history, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:history, caption={\en{History initialization}\es{Inicializaci\'on de la historia}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
-e1 = [["a"],["b"]]
-e2 = [["b"],["c"]]
-e3 = [["c"],["a"]]
-events = [e1, e2, e3]
-res = [[0,1],[0,1],[0,1]]
+\begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
+c1 = [["a"],["b"]]
+c2 = [["b"],["c"]]
+c3 = [["c"],["a"]]
+composition = [c1, c2, c3]
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
-e1 = [["a"],["b"]]
-e2 = [["b"],["c"]]
-e3 = [["c"],["a"]]
-events = [e1, e2, e3]
-res = [[0,1],[0,1],[0,1]]
+\begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
+c1 = [["a"],["b"]]
+c2 = [["b"],["c"]]
+c3 = [["c"],["a"]]
+composition = [c1, c2, c3]
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
-e1 = list(c("a"),c("b"))
-e2 = list(c("b"),c("c"))
-e3 = list(c("c"),c("a"))
-events = list(e1, e2, e3)
-res=list(c(0,1),c(0,1),c(0,1))
+\begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
+c1 = list(c("a"),c("b"))
+c2 = list(c("b"),c("c"))
+c3 = list(c("c"),c("a"))
+composition = list(c1,c2,c3)
 \end{lstlisting}
 \end{paracol}
-%
-\en{where the variable \texttt{e1} indicates the composition of the first game using the names of the agents; the variable \texttt{events} contains the composition of the three games; and the variable \texttt{res} contains the results of the three games (the smallest value represents the winner).}
-\es{Donde la variable \texttt{e1} indica la composici\'on de la primer partida usando los nombres de los agentes; la variable \texttt{events} contiene la composici\'on de las tres partidas; y la variable \texttt{res} contiene los resultados de las tres partidas (el menor valor representa el ganador).}
-%
-\en{Assuming that the agents' skill does not change between games, \texttt{gamma = 0.0}, the state of knowledge about their skills (i.e. the estimates) should be the same after observing the data.}
-\es{Suponiendo que la habilidad de los agentes no cambia entre partidas, \texttt{gamma = 0.0}, el estado de conocimiento sobre sus habilidades (i.e. las estimaciones) debería ser la misma luego de observar los datos.}
-%
 \begin{lstlisting}[backgroundcolor=\color{all}]
-env = Environment(gamma = 0.0)
-h = History(events = events, result = res, env = env)
-> History(Events=3, Batches=3, Agents=3)
+h = History(composition, gamma=0.0)
 \end{lstlisting}
 %
-\en{Immediately after the history is initialized, a summary of the data is printed.}
-\es{Inmediatamente despu\'es de que se inicializa la historia, se imprime un resumen de los datos.}
+\en{where the variable \texttt{c1} indicates the composition of the first game using the names (i.e. identifiers) of the agents, the variable \texttt{composition} is a list containing the three game compositions, and the parameter \texttt{gamma} when set at zero indicate that agent's skill does not change between games.}
+\es{donde la variable \texttt{c1} indica la composici\'on de la primer partida usando los nombres (i.e. identificadores) de los agentes, la variable \texttt{composition} es una lista que contiene la composición de la tres partidas y el par\'ametro \texttt{gamma} inicializado en cero indica que la habilidad de los agetes no cambia entre partidas.}
 %
-\en{In this case, 3 events, 3 batches and 3 agents are reported.}
-\es{En este caso se reportan 3 eventos, 3 batches y 3 agentes.}
+\en{Again the results are implicitly defined by the order in which compositions were initialized: the teams appearing first in the list beat those appearing later.}
+\es{Otra vez el resultado de la partida queda definido implícitamente por el orden en el que las composiciones fueron inicializadas: los equipos que aparecen primero en la lista (menor índice) le ganan a los que aparecen después (mayor índice)).}
 %
-\en{Batches are used to group events that happened at the same time.}
-\es{Los batches sirven para agrupar eventos que ocurrieron al mismo tiempo.}
-%
-\en{We will see an example with batches later on.}
-\es{Ya veremos un ejemplo con batches más adelante.}
-%
-\en{As we do not indicate the time of each game, the system places the games in different batches.}
-\es{Como no le indicamos el tiempo de cada partida, el sistema ubica las partida en batches distintos.}
+\en{Other default values are the mean (\texttt{mu = 0.}) and standard deviation (\texttt{sigma = 6.}) of the priors, the standard deviation of the performances (\texttt{beta = 1.}), and the draw probability (\texttt{p\_draw = 0.}).}
+\es{Otros valores por defecto son la media (\texttt{mu = 0.}) y el desvio estándar (\texttt{sigma = 6.}) de los priors, el desvio estándar de los rendimientos (\texttt{beta = 1.}), y la probabilidad de empate (\texttt{p_draw = 0.}).}
 
 % Parrafo
 
-\en{History initialization also triggers the computation of TrueSkill estimates.}
-\es{La inicializaci\'on de la historia tambi\'en activa el computo de las estimaciones TrueSkill.}
+\en{History initilization triggers the computation of TrueSkill estimates.}
+\es{La inicializaci\'on de la historia activa el computo de las estimaciones TrueSkill.}
 %
-\en{We can access them using the method \texttt{learning\_curves()}, which returns a dictionary that is accessed with the name of the agents.}
-\es{Podemos acceder a ellas mediante el m\'etodo \texttt{learning\_curves()}, que devuelve un diccionario de al que se accede con el nombre de los agentes.}
+\en{In this example, where agents beat each other and their skills do not change over time, it would be reasonable for the agent's estimates to be the same after observing the data.}
+\es{En este ejemplo, en el que los agentes se ganan mutuamente y sus habilidades no cambian en el tiempo, sería razonable que las estimaciones de los agentes sean las mismas luego de observar los datos.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:trueskill, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\en{To access them we can use the method \texttt{learning curves()}, which returns a dictionary that is indexed by the names of the agents.}
+\es{Para acceder acceder a ellas podemos utilizar el m\'etodo \texttt{learning\_curves()}, que devuelve un diccionario indexado por los nombres de los agentes.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:trueskill, caption={\en{Learning curves query}\es{Consulta de curvas de aprendizaje}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1279,26 +1212,24 @@ lc = h$learning_curves()
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
 print(lc["a"])
-> [(1, Gaussian(mu=3.339 ,sigma=4.985)), (3, Gaussian(mu=-2.688 ,sigma=3.779))]
+> [(1, Gaussian(mu=3.339, sigma=4.985)), (3, Gaussian(mu=-2.688, sigma=3.779))]
 print(lc["b"])
-> [(1, Gaussian(mu=-3.339 ,sigma=4.985)), (2, Gaussian(mu=0.059 ,sigma=4.218))]
+> [(1, Gaussian(mu=-3.339, sigma=4.985)), (2, Gaussian(mu=0.059, sigma=4.218))]
 \end{lstlisting}
 %
-\en{The individual learning curves are a list of tuples.}
-\es{Las curvas de aprendizaje individuales son una lista de tuplas.}
+\en{Individual learning curves are lists of tuples: the first element indicates the time, and the second the estimate corresponding to that time.}
+\es{Las curvas de aprendizaje individuales son listas de tuplas: el primer elemento indica el tiempo, y el segundo la estimaci\'on correpondiente a ese tiempo.}
 %
-\en{The first element indicates the batche number, and the second indicates the estimate corresponding to that batche.}
-\es{El primer elemento indica el tiempo, y el segundo indica la estimaci\'on correpondiente a ese tiempo.}
+\en{Although it would be reasonable to have the same estimate for all agents, the posteriors reported by TrueSkill differ greatly between players and vary greatly for the same player.}
+\es{A pesar de que lo razonable sería tener la misma estimaci\'on para todos los agentes, los posteriors reportados por TrueSkill difieren mucho entre jugadores y varían mucho para uno mismo jugador.}
 %
-\en{Although it would be reasonable to have the same estimate for all agents (because they earn each other), it can be seen that the posteriors reported by TrueSkill differ greatly between players and vary greatly for the same player.}
-\es{A pesar de que lo razonable sería tener la misma estimaci\'on para todos los agentes (poque se ganan mutuamente), se puede ver que los posteriors reportados por TrueSkill difieren mucho entre jugadores y varían mucho para uno mismo jugador.}
-%
-\en{The TrueSkill Through Time model corrects all these problems.}
+\en{The TrueSkill Through Time model remedy all these problems.}
 \es{El modelo TrueSkill Through Time corrige todos estos problemas.}
 %
 \en{To compute it we need to converge history using the class \texttt{convergence()}.}
 \es{Para computarlo necesitamos converger la historia usando la clase \texttt{convergence()}.}
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:ttt, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:ttt, caption={\en{History convergence}\es{Convergencia de la historia}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1318,9 +1249,9 @@ lc = h.learning_curves()
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
 print(lc["a"])
-> [(1, Gaussian(mu=0.0 ,sigma=2.395)), (3, Gaussian(mu=-0.0 ,sigma=2.395))]
+> [(1, Gaussian(mu=0.0, sigma=2.395)), (3, Gaussian(mu=-0.0, sigma=2.395))]
 print(lc["b"])
-> [(1, Gaussian(mu=-0.0 ,sigma=2.395)), (2, Gaussian(mu=-0.0 ,sigma=2.395))]
+> [(1, Gaussian(mu=-0.0, sigma=2.395)), (2, Gaussian(mu=-0.0, sigma=2.395))]
 \end{lstlisting}
 %
 \en{It can be seen that the TrueSkill Through Time estimates are not only the same between players, but also have less uncertainty.}
@@ -1328,7 +1259,11 @@ print(lc["b"])
 %
 \en{In turn, the players' estimates do not change over time according to the assumption that skills do not change over time, \texttt{gamma = 0.0}.}
 \es{A su vez las estimaciones de los jugadores no cambian en el tiempo de acuerdo al supuesto de que las habilidades no cambian en el tiempo, \texttt{gamma = 0.0}.}
-%
+
+
+% Parrafo
+
+
 \en{Something similar happens if we say that all items occurred at the same time.}
 \es{Algo similar pasa si decimos que todas las partidas ocurrieron al mismo tiempo.}
 %
@@ -1374,6 +1309,70 @@ print(lc["b"])
 \es{La \'unica diferencia es que el sistema reporta una \'unica estimaci\'on por bache.}
 
 
+
+\subsection{\en{Parameters}\es{Par\'ametros}}
+
+\en{Before solving a history of events it is necessary to review the set of hyperparameters of the class \texttt{History}: the mean \texttt{mu} and standard deviation \texttt{sigma} of the priors; the standard deviation of the performances \texttt{beta}; the dynamic factor \texttt{gamma}; the draw probability \texttt{p\_draw}; and the convergence conditions \texttt{epsilon} and \texttt{iterations}.}
+\es{Antes de resolver una historia de eventos es necesario revisar el conjunto de hiperparámetros de la clase (\texttt{History()}): la media \texttt{mu} y el desvío estandar \texttt{sigma} de los priors; el desvío estandar de los desempe\~nos \texttt{beta}; el factor dinámico \texttt{gamma}; la probabilidad de empate \texttt{p\_draw}; y las condiciones de convergencia \texttt{epsilon} e \texttt{itertions}.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:environment, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{lstlisting}[backgroundcolor=\color{all}]
+MU = 0.; SIGMA = 6.; BETA = 1.; GAMMA = .05; P_DRAW = 0.; EPSILON = 1e-6; ITERATIONS = 40
+\end{lstlisting}
+%
+\en{The values used in the code \ref{lst:environment} are the default values of the class \texttt{History()}.}
+\es{Los valores usados en el c\'odigo \ref{lst:environment} son los valores por defecto de la clase \texttt{History()}.}
+%
+\en{Some comments regarding the choice of parameters.}
+\es{Algunos comentarios respecto a la elecci\'on de los parámetros.}
+%
+\en{The value chosen as the mean of the prior \texttt{mu} does not affect the estimates because the only thing that matters is the difference in skill between agents.}
+\es{El valor que se elija como media del prior \texttt{mu} no afecta las estimaciones porque lo \'unico que importa es la diferencia de habilidad entre agentes.}
+%
+\en{The standard deviation of the prior \texttt{sigma} must be large enough not to leave out any possible hypothesis.}
+\es{El desvío estandar del prior \texttt{sigma} debe ser suficientemente grande de modo de no dejar por fuera ninguna posible hip\'otesis.}
+%
+\en{This value depends on the scale imposed by the standard deviation of the performances \texttt{beta}.}
+\es{Ese valor depende de la escala que imponga el desvío estandar de los rendimientos \texttt{beta}.}
+%
+\en{A skill difference of one $\beta$, $ s_i - s_j = \beta $, represents a 76\% probability of winning.}
+\es{Una diferencia de habilidad de un $\beta$, $s_i - s_j = \beta$, representa 76\% de probabiilidad de ganar.}
+%
+\en{The other factor to take into account when choosing \texttt{sigma} is the nature of the problem, the number of ``levels'' that may exist in the system to be analyzed.}
+\es{El otro factor a tener en cuenta para elegir el valor de \texttt{sigma} tiene que ver con la naturaleza del problema, la cantidad de ``niveles'' que pueden exisitir en el sistema a analizar.}
+%
+\en{The dynamic factor \texttt{gamma} is generally a small fraction of \texttt {beta}.}
+\es{El factor dinámico \texttt{gamma} es en general una peque\~na fracci\'on de \texttt{beta}.}
+%
+\en{Its optimal value can be obtained by maximizing the a priori prediction (i.e. evidence).}
+\es{Su valor \'optimo se puede obtener maximizando la predicci\'on a priori (i.e. evidencia).}
+%
+\en{The rule of thumb proposes to initialize \texttt{p\_draw} with the empirical proportion of draws.}
+\es{La regla general propone inicializar \texttt{p\_draw} con la proporci\'on empírica de empates.}
+%
+\en{The parameter \texttt{epsilon} indicates the convergence condition, the maximum change in all posteriors before and after an iteration.}
+\es{El parámetro \texttt{epsilon} indica la condici\'on de convergencia, el cambio máximo en todos los posteriors antes y despu\'es de una iteraci\'on.}
+%
+\en{Finally, the number of iterations \texttt{iter} functions as a cut-off condition in case convergence has not been reached.}
+\es{Por \'ultimo, la cantidad de iteraciones \texttt{iter} funciona como condici\'on de corte en caso de no haber alcanzado la convergencia.}
+
+
+\todo[inline]{Batch}
+% \en{Immediately after the history is initialized, a summary of the data is printed.}
+% \es{Inmediatamente despu\'es de que se inicializa la historia, se imprime un resumen de los datos.}
+%
+% \en{In this case, 3 events, 3 batches and 3 agents are reported.}
+% \es{En este caso se reportan 3 eventos, 3 batches y 3 agentes.}
+%
+% \en{Batches are used to group events that happened at the same time.}
+% \es{Los batches sirven para agrupar eventos que ocurrieron al mismo tiempo.}
+%
+% \en{We will see an example with batches later on.}
+% \es{Ya veremos un ejemplo con batches más adelante.}
+%
+% \en{As we do not indicate the time of each game, the system places the games in different batches.}
+% \es{Como no le indicamos el tiempo de cada partida, el sistema ubica las partida en batches distintos.}
 
 
 \subsection{Example 4: Performance Analysis}
