@@ -7,7 +7,7 @@
 \newif\ifes
 \newcommand{\en}[1]{\ifen#1\fi}
 \newcommand{\es}[1]{\ifes#1\fi}
-\estrue
+\entrue
 \usepackage[utf8]{inputenc}
 \usepackage{paracol}
 %\newcommand{\jan}{%
@@ -295,7 +295,7 @@
 %
 \en{The model assumes that the agent with the highest performance wins, $r = (p_i > p_j)$. In other words, whoever obtains a difference of performance greater than 0 wins, $r = (p_i - p_j > 0)$.}
 \es{El modelo supone que gana el agente con mayor rendimiento, $r = (p_i > p_j)$, o en otras palabras, gana quien obtenga una diferencia de rendimiento mayor a 0, $r = (p_i - p_j > 0)$.}
-\en{The parameter $\beta^2$ is the same for all the agents and acts as the scale of the estimations: skills separated by a $\beta$ keep always the same probability of winning.}
+\en{The parameter $\beta^2$ is the same for all the agents and acts as the scale of the estimates: skills separated by a $\beta$ keep always the same probability of winning.}
 \es{El parámetro $\beta^2$, al ser el mismo para todos los agentes, act\'ua como la escala de las estimaciones: habilidades separada por un $\beta$ mantienen siempre la misma probabilidad de ganar.}
 
 % Parrafo
@@ -412,10 +412,10 @@
 
 % Parrafo
 
-\en{As an instance, let's consider a winning case ($p_i > p_j$) using a Gaussian prior (i.e. $\N(\,s\,|\,\mu, \sigma^2)$) for each of the skill estimations.}
+\en{As an instance, let's consider a winning case ($p_i > p_j$) using a Gaussian prior (i.e. $\N(\,s\,|\,\mu, \sigma^2)$) for each of the skills.}
 \es{A modo de ejemplo, consideremos un caso ganador ($p_i > p_j$) usando priors Gaussianos, $\N(\,s\,|\,\mu, \sigma^2)$.}
 %
-\en{The difference of performances, $d=p_i-p_j$, can also be expressed as a Gaussian distribution, centered on the difference of the prior estimate means ($\mu_i -\mu_j$), with a variance that incorporates the uncertainty of both estimates ($\sigma_i$ and $\sigma_j$) and the variance of both performances ($\beta$), $\N( d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
+\en{The difference of performances, $d=p_i-p_j$, can also be expressed as a Gaussian distribution, centered on the difference of the prior estimates ($\mu_i -\mu_j$), with a variance that incorporates the uncertainty of both estimates ($\sigma_i$ and $\sigma_j$) and the variance of both performances ($\beta$), $\N( d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
 \es{La diferencia de rendimientos, $d=p_i-p_j$, tambi\'en se puede expresar como una gaussiana centrada en la diferencia de las medias de las estimaciones a priori ($\mu_i - \mu_j$), con una varianza que incorpora la incertidumbre de ambas estimaciones ($\sigma$) y la varianza de ambos rendimientos ($\beta$), $\N(\, d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
 %
 \en{As we observed that the agent $i$ won, we know from the causal model that the hidden difference of performances was positive.}
@@ -645,7 +645,7 @@
 \es{Esto produce una mutua dependencia entre verosimilitudes, oblig\'andonos a implementar un algoritmo iterativo para resolver la inferencia (detalles en la secci\'on~\ref{sec:throguthTime}).}
 %
 \en{In the first pass, we use the past likelihoods to compute the priors of each event.}
-\es{En la primera pasada, utilizamos las versolimulitudes pasadas para calcular las priores de cada evento.}
+\es{En la primera pasada, utilizamos las verosimilitudes pasadas para calcular las priores de cada evento.}
 %
 \en{Once all the likelihoods have been obtained, we can perform a new iteration using the recently computed likelihoods.}
 \es{Una vez calculadas todas las verosimilitudes, podemos realizar una nueva pasada usando las \'ultimas verosimilitudes disponibles.}
@@ -664,7 +664,7 @@
 \en{TrueSkill Through Time outperforms TrueSkill and others filtering models.}
 \es{TrueSkill Through Time supera a TrueSkill y otros modelos de filtrado.}
 %
-\en{In Figure~\ref{fig:smooth_example} we show the behavior of the estimates in a data set with two agents and two events.}
+\en{In Figure~\ref{fig:smooth_example} we show the estimation's behavior in a data set with two agents and two events.}
 \es{En la figura~\ref{fig:smooth_example} se muestra el comportamiento de las estimaciones en conjunto de datos de dos agentes y dos eventos.}
 \begin{figure}[h!]
   \centering
@@ -937,16 +937,16 @@ before and after code input/output should be avoided (see above).
 \end{leftbar}
 \end{comment}
 
-\en{In this section we show how to use \proglang{Julia}, \proglang{Python} and \proglang{R} packages to solve a single event, a short history of three events, and the real-life history of professional ATP tennis players.}
+\en{In this section we show how to use \proglang{Julia}, \proglang{Python} and \proglang{R} packages to solve a single event, a sequence consisting of three events, and the real-life history of professional ATP tennis players.}
 \es{En esta secci\'on mostramos c\'omo usar los usando los paquetes de\proglang{Julia}, \proglang{Python} y \proglang{R} para resolver un evento, una peque\~na historia de tres eventos y finalmente la historia real de jugadores profesional de tenis ATP.}
 %
-\en{We present both TrueSkill and TrueSkill Through Time solutions, and the methods to obtain the posteriors, the learning curves, and the prior prediction of the observed data (i.e. evidence).}
+\en{We present both TrueSkill and TrueSkill Through Time solutions, and the steps to obtain the posteriors, the learning curves, and the prior prediction of the observed data (i.e. evidence).}
 \es{Presentamos la soluciones TrueSkill y TrueSkill Through Time, y los m\'etodos para obtener los posteriors, las curvas de aprendizaje, y la predicci\'on a priori (i.e. evidencia) del dato observado.}
 %
 % \en{Finally, we make a time complexity comparison between the three packages presented in this paper and the \texttt{trueskill} package of presented in this paper \proglang{Python}.}
 % \es{Por \'ultimo haremos un comparaci\'on de complejidad temporal entre los tres paquetes que presentamos en este trabajo y el paquete \texttt{trueskill} de \proglang{Python}.}
 %
-\en{Because we develop packages in three programming languages, by displaying code we will identify each syntax as follows.}
+\en{As we present three different versions of the tool using different programming languages, we select the following color convention to identify each one:}
 \es{Debido a que desarrollamos paquetes en tres lenguajes de programaci\'on, al mostrar c\'odigo identificaremos cada sintaxis del siguiente modo.}
 %
 \begin{lstlisting}[backgroundcolor=\color{all}, belowskip=-0.77 \baselineskip]
@@ -966,62 +966,62 @@ R syntax
 \end{lstlisting}  
 \end{paracol}
 %
+where grey is used for all the common parts of the code (i.e. same syntax in the three languages), \proglang{Julia} code is colored with pink, \proglang{Python} with cyan, and \proglang{R} with light green.
 
 \subsection{Single event} \label{sec:singleEvent}
 
-\en{To solve an event we use the class \texttt{Game()}.}
-\es{Para resolver un único evento utilizamos la clase \texttt{Game()}.}
-\en{To perform the analysis we first need to define the features of the players.}
+\en{The class \texttt{Game} is used to model an event.}
+\es{Para resolver un único evento utilizamos la clase \texttt{Game}.}
+\en{The features of the players are defined within class \texttt{Player}: the prior Gaussian distribution characterized by the mean (\texttt{mu}) and the standard deviation (\texttt{sigma}), the standard deviation of the performance (\texttt{beta}), and the dynamic factor of the skill (\texttt{gamma}).}
 \es{Para hacer el análisis necesitamos definir primero las caracterísiticas de los jugadores.}
 %
-\en{The class \texttt{Player()} has three attributes: the prior Gaussian distribution characterized by the mean (\texttt{mu}) and the standard deviation (\texttt{sigma}); the standard deviation of the performance (\texttt{beta}); and the dynamic factor of the skill (\texttt{gamma}).}
-\es{La clase \texttt{Player()} tiene tres atributos: la distribuci\'on gaussiana a priori (caracterizada por la media \texttt{mu} y el desv\'io est\'andar \texttt{sigma}); el desv\'io est\'andar de los rendimientos (\texttt{beta}); y el factor din\'amico de la habilidad (\texttt{gamma}).}
+\es{La clase \texttt{Player} tiene tres atributos: la distribuci\'on gaussiana a priori (caracterizada por la media \texttt{mu} y el desv\'io est\'andar \texttt{sigma}); el desv\'io est\'andar de los rendimientos (\texttt{beta}); y el factor din\'amico de la habilidad (\texttt{gamma}).}
 %
-\en{Before we begin, we offer some comments on the value of the parameters.}
+\en{We assign the default values to the parameters with code~\ref{lst:parameters}.}
 \es{Antes de empezar, ofrecemos algunos comentarios respecto de los valores de los parámetros.}
 %
-\begin{lstlisting}[backgroundcolor=\color{all},label=lst:parameters, caption={\en{Parameters}\es{Par\'ametros}},aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{all},label=lst:parameters, caption={\en{Packages' default values}\es{Par\'ametros}},aboveskip=0.1cm]
 mu = 0.0; sigma = 6.0; beta = 1.0; gamma = 0.03; p_draw = 0.0
 \end{lstlisting}  
 %
-\en{The absolute value of the mean \texttt{mu} is irrelevant because it is the difference in skills what really matters.}
+\en{The initial value of \texttt{mu} can be selected by the user as it does not model any feature by itself, the difference between \texttt{mu} of the different players is what really matters.}
 \es{El valor absoluto de la media \texttt{mu} es irrelevante porque es la diferencia de habilidades lo que realmente importa.}
 %
-\en{The prior's standard deviation \texttt{sigma} must be sufficiently large so as not to leave out possible skill hypotheses.}
-\es{El desvío estandar del prior \texttt{sigma} debe ser suficientemente grande para no dejar por fuera posibles hip\'otesis de habilidad.}
+\en{The prior's standard deviation \texttt{sigma} must be sufficiently large to include all possible skill hypotheses.}
+\es{El desvío est\'andar del prior \texttt{sigma} debe ser suficientemente grande para no dejar por fuera posibles hip\'otesis de habilidad.}
 %
-\en{This value depends fundamentally on the standard deviation of the performances  \texttt{beta}, which works as the scale of the estimates.}
+\en{The parameter \texttt{beta} ($\beta$) works as the scale for the estimation.}
 \es{Ese valor depende fundamentalmente del desvío estandar de los rendimientos \texttt{beta}, que funciona como la escala del sistema.}
 %
-\en{A real skill difference of one $\beta$, $ s_i - s_j = \beta $, is equivalent to 76\% probability of winning whatever the value of \texttt{beta}.}
+\en{A difference of one $\beta$ between two actual skills, $ s_i - s_j = \beta $, is equivalent to 76\% probability of winning independently of the chosen \texttt{beta}.}
 \es{Una diferencia de habilidad real de un $\beta$, $s_i - s_j = \beta$, es equivale a 76\% de probabilidad de ganar, cualquiera sea el valor de \texttt{beta}.}
 %
-\en{Being the unit of measurement of the system, we choose \texttt{beta =1.0}.}
+\en{The default value for \texttt{beta} is \texttt{1.0} which is also used for this example.}
 \es{Al ser la unidad de medida del sistema, elegimos \texttt{beta=1.0}.}
 % \en{The other element to consider when choosing the \texttt{sigma} is the number of ``levels'' that may exist in the game to be analyzed.}
 % \es{El otro elemento a considerar para elegir el \texttt{sigma} es la cantidad de ``niveles'' que pueden exisitir en el juego que va a ser analizado.}
 %
-\en{The dynamic factor \texttt{gamma} is generally a small fraction of \texttt {beta}.}
+\en{The dynamic factor \texttt{gamma} is generally a small fraction of \texttt{beta}.}
 \es{El factor dinámico \texttt{gamma} es en general una peque\~na fracci\'on de \texttt{beta}.}
 %
 % \en{Its optimal value can be obtained by maximizing the a priori prediction (i.e. evidence).}
 % \es{Su valor \'optimo se puede obtener maximizando la predicci\'on a priori (i.e. evidencia).}
 %
-\en{And to initialize the draw probability \texttt{p\_draw} of the game, rule of thumb proposes to select the observed frequency of draws.}
+\en{The rule of thumb to initialize the draw probability (\texttt{p\_draw}) proposes to use the observed frequency of draws.}
 \es{Y para inicializar la probabilidad de empate \texttt{p\_draw} del juego, la regla general propone seleccionar la frecuencia observada de empates.}
 %
-\en{These are the default values for the three packages.}
-\es{Estos son los valores por defecto de los tres paquetes.}
+% \en{These are the default values for the three packages.}
+% \es{Estos son los valores por defecto de los tres paquetes.}
 %
 \begin{lstlisting}[backgroundcolor=\color{all},label=lst:player, caption={\en{Players initialization}\es{Inicializaci\'on de los jugadores}},aboveskip=0.1cm]
 p1 = Player(Gaussian(mu, sigma), beta, gamma); p2 = Player(); p3 = Player(); p4 = Player()
 \end{lstlisting}  
 %
-\en{In this example, we instantiate four players using the same initial parameters.}
+\en{In this example, we instantiate four players using the same initial parameters. For the first player (\texttt{p1}), we use a call to the constructor explicitly including the initial values while \texttt{p2}, \texttt{p3}, and \texttt{p4} are initialized using default values.}
 \es{En este ejemplo instanciamos cuantro jugadores usando los mismos parámetros iniciales.}
 %
-\en{The \texttt{Gaussian()} class is used to model the standard operations of Gaussian distributions including multiplication, summation, division, and substraction (details at section \ref{sec:Gasussian}).}
-\es{La clase \texttt{Gaussian()} se usa para modelar las operaciones estandar de las distribuciones gaussianas, incluyendo multiplicación, suma, divisi\'on y resta (detalles en la secci\'on \ref{sec:Gaussian}).}
+\en{The \texttt{Gaussian} class is used to model the standard operations of Gaussian distributions including multiplication, summation, division, and substraction (details at section \ref{sec:Gasussian}).}
+\es{La clase \texttt{Gaussian} se usa para modelar las operaciones estandar de las distribuciones gaussianas, incluyendo multiplicación, suma, divisi\'on y resta (detalles en la secci\'on \ref{sec:Gaussian}).}
 %
 \en{In the next step we create a game with two teams of two players.}
 \es{En el siguiete paso creamos una partida con dos equipos de dos jugadores.}
@@ -1029,7 +1029,7 @@ p1 = Player(Gaussian(mu, sigma), beta, gamma); p2 = Player(); p3 = Player(); p4 
 \en{When dealing with teams, the observed result depends on the sum of the performances of each team (see details at section \ref{sec:2vs2}).}
 \es{En presencia de equipos, the observed result depends on the sum of the performances of each team, $d = \sum_{i \in a} p_i) - \sum_{i \in b} p_i)$ (detalles en la secci\'on \ref{sec:2vs2}).}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={\en{Initialization of teams and games}\es{Inicializaci\'on de los equipos y el juego}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={\en{Initialization of teams and a game}\es{Inicializaci\'on de los equipos y el juego}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1063,8 +1063,8 @@ g = Game(teams)
 \en{Later on we will see how to explicitly specify the result.}
 \es{Más adelante veremos como especificar explícitamente el resultado.}
 %
-\en{During the initialization, the class \texttt{Game()} computes the prior prediction (\texttt{evidence}) of the observed result and the approximate \texttt{likelihoods}, one for each player.}
-\es{Duarante la inicialización, la clase \texttt{Game()} calcula la predicción a priori (\texttt{evidence}) del resultado observado y las verosimilitudes aproximadas (\texttt{likelihoods}), una por cada jugador.}
+\en{During the initialization, the class \texttt{Game} computes the prior prediction (\texttt{evidence}) of the observed result and the approximate \texttt{likelihoods}, one for each player.}
+\es{Duarante la inicialización, la clase \texttt{Game} calcula la predicción a priori (\texttt{evidence}) del resultado observado y las verosimilitudes aproximadas (\texttt{likelihoods}), una por cada jugador.}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:evidence_likelihoods, caption={\en{Evidence and likelihoods queries}\es{Comsulta de la evidencia y las verosimilitudes}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
@@ -1095,7 +1095,7 @@ print(ev)
 \en{In this case, the evidence is $0.5$ indicating that both teams had the same probability of winning given the prior estimates.}
 \es{En este caso, la evidencia es de $0,5$ indicando que ambos equipos tenian la misma probabilidad de ganar dadas las estimaciones a priori.}
 %
-\en{Posteriors can be found by multiplying the likelihoods and priors, or we can call the method \texttt{posteriors()} to solve it for us.}
+\en{Posteriors can be found by manually multiplying the likelihoods and priors, or we can call the method \texttt{posteriors()} of class \texttt{Game} to directly compute them.}
 \es{Los posteriors se pueden obtener multiplicando a mano las verosimilitudes y los priors, o podemos llamar al método \texttt{posteriors()} para que lo resuelva por nosotros.}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_posterior, caption={\en{Posteriors query}\es{Consulta de los posteriors}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
@@ -1136,18 +1136,20 @@ print(lhs[[1]][[1]]*p1$prior)
 > Gaussian(mu=2.361, sigma=5.516)
 \end{lstlisting}
 %
-\en{The lists of likelihoods and posteriors are returned keeping the order in which players and teams were loaded during the initilization of the class \texttt{Game()}.}
-\es{Las listas de verosimilitudes y posteriors se devuelven manteniendo el orden en el que los jugadores y equipos fueron cargados durante la inicialización de la clase \texttt{Game()}.}
+\en{The lists of likelihoods and posteriors are returned keeping the order in which players and teams were loaded during the initialization of the class \texttt{Game}. HABLAR DEL RESULTADO Y DAR INTUICION.}
+\es{Las listas de verosimilitudes y posteriors se devuelven manteniendo el orden en el que los jugadores y equipos fueron cargados durante la inicialización de la clase \texttt{Game}.}
 
 % Parrafo
 
-\en{Let's look at a more complex example in which the same four players participate in a game organized in 3 teams, ending with a single winning team and the losing teams tied with each other.}
+\en{At this point, we analyze a more complex example in which the same four players participate in a single team game. 
+The players are organized in three teams of different size (two teams with only one player and the other with two players).
+The result is a single winning team and a tie between the other two losing teams.}
 \es{Veamos un ejemplo más complejo en el que los mismos cuatro jugadores participan en una partida organizados en 3 equipos, finalizando con un único equipo ganador y los equipos perdedores empatados entre sí.}
 %
-\en{Unlike the previous example, now we need to specify the result and the draw probability of the game.}
+\en{Unlike the previous example, we use a draw probability different from the default.}
 \es{A diferencia del ejemplo anterior, ahora necesitamos especificar el resultado y la probabilidad de empate del juego.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={\en{Initialization of teams and games}\es{Inicializaci\'on de los equipos y el juego}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={\en{Game with different sized teams}\es{Inicializaci\'on de los equipos y el juego}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1175,11 +1177,12 @@ result = c(1, 0, 0)
 \end{lstlisting}  
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
-g = Game(teams, result, p_draw=0.25)
+g2 = Game(teams, result, p_draw=0.25)
 \end{lstlisting}
-\todo{Revisar que se aplique gamma después de la partida.}
 %
-\en{where the team with the highest value beats the rest, and the teams with the same value are tied.}
+\en{where \texttt{teams} includes all the participants in the game while \texttt{result} has the score obtained by each team following the same order used previously.
+The team with the highest value is the winner and the teams with the same value are tied.
+In this way you can specify any outcome of a team game including global ties.}
 \es{donde el equipo con el mayor valor le gana al resto, y los equipos con mismo valor empatan.}
 %
 % \en{When considering the possibility of a tie, it is necessary to indicate the approximate typical draw frequency for this type of game.}
@@ -1188,12 +1191,12 @@ g = Game(teams, result, p_draw=0.25)
 \en{The evidence and the posteriors can be queried in the same way as before.}
 \es{La evidencia y el posterior se obtienen de la misma forma que hemos visto.}
 
-\subsection{History}
+\subsection{Sequence of three events}
 
-\en{The class \texttt{History()} is used to compute the posteriors and evidence of a history of events.}
-\es{La clase \texttt{History()} se usa para computar los posteriors y la evidencia de una historia de eventos.}
+\en{The class \texttt{History} is used to compute the posteriors and evidence of a sequence of events.}
+\es{La clase \texttt{History} se usa para computar los posteriors y la evidencia de una historia de eventos.}
 %
-\en{As an example, we initialize a history containing three players (\texttt{\small "a", "b", "c"}) and three games.}
+\en{In this example, we instantiate class \texttt{History} containing three players (\texttt{\small "a", "b", "c"}) and three games.}
 \es{Como ejemplo, inicializamos una historia que contiene tres jugadores (\texttt{"a","b","c"}) con tres partidas.}
 %
 \en{In the first game \texttt{"a"} beats \texttt{"b"}, in the second game \texttt{"b"} beats \texttt{"c"}, and in the third game \texttt{"c"} beats \texttt{"a"}.}
@@ -1247,7 +1250,7 @@ h = History(composition, gamma=0.0)
 \en{In this example, where all agents beat each other and their skills do not change over time, it would be reasonable for the agent's estimates to be the same after observing the data.}
 \es{En este ejemplo, en el que todos los agentes se ganan mutuamente y sus habilidades no cambian en el tiempo, sería razonable que las estimaciones de los agentes sean las mismas luego de observar los datos.}
 %
-\en{To access them we can use the method \texttt{learning curves()}, which returns a dictionary that is indexed by the names of the agents.}
+\en{To access them we can use the method \texttt{learning\_curves()}, which returns a dictionary that is indexed by the names of the agents.}
 \es{Para acceder acceder a ellas podemos utilizar el m\'etodo \texttt{learning\_curves()}, que devuelve un diccionario indexado por los nombres de los agentes.}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:trueskill, caption={\en{Learning curves query}\es{Consulta de curvas de aprendizaje}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
@@ -1755,8 +1758,8 @@ con $\mu_{\div} = \frac{\mu_1}{\sigma_1^2} - \frac{\mu_2}{\sigma_2^2}$ y $\sigma
 
 \subsection{Gaussian}\label{sec:Gasussian}
 
-\en{The \texttt{Gaussian()} class does most of the computation of the packages.}
-\es{La clase \texttt{Gaussian()} realiza la mayor parte del c\'omputo en todos los paquetes.}
+\en{The \texttt{Gaussian} class does most of the computation of the packages.}
+\es{La clase \texttt{Gaussian} realiza la mayor parte del c\'omputo en todos los paquetes.}
 %
 \en{It is represented by two parameters, the mean and the standard deviation.}
 \es{Se representa mediante dos par\'ametros, la media y el desv\'io estandar.}
