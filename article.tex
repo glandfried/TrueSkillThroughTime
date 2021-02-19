@@ -1255,37 +1255,37 @@ h = History(composition, gamma=0.0)
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
 lc = learning_curves(h)
-print(lc["a"][2][2])
+print(lc["a"])
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
 lc = h.learning_curves()
-print(lc["a"][1][1])
+print(lc["a"])
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
 lc = h$learning_curves()
-print(lc$a[[2]][[2]])
+lc_print(lc[["a"]])
 \end{lstlisting}
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}, belowskip=-0.77 \baselineskip]
-> Gaussian(mu=-2.688, sigma=3.779)
+> [(1, Gaussian(mu=3.339, sigma=4.985)), (3, Gaussian(mu=-2.688, sigma=3.779))]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
-print(lc["b"][2][2])
+print(lc["b"])
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
-print(lc["b"][1][1])
+print(lc["b"])
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
-print(lc$b[[2]][[2]])
+lc_print(lc[["b"]])
 \end{lstlisting}
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
-> Gaussian(mu=0.059, sigma=4.218)
+> [(1, Gaussian(mu=-3.339, sigma=4.985)), (2, Gaussian(mu=0.059, sigma=4.218))]
 \end{lstlisting}
 %
 \en{Individual learning curves are lists of tuples: the first element indicates the time, and the second the estimate corresponding to that time.}
@@ -1297,8 +1297,8 @@ print(lc$b[[2]][[2]])
 \en{The TrueSkill Through Time model remedy all these problems.}
 \es{El modelo TrueSkill Through Time corrige todos estos problemas.}
 %
-\en{To compute it we need to converge history using the class \texttt{convergence()}.}
-\es{Para computarlo necesitamos converger la historia usando la clase \texttt{convergence()}.}
+\en{To compute it we need to converge history using the method \texttt{convergence()}.}
+\es{Para computarlo necesitamos converger la historia usando el método \texttt{convergence()}.}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:ttt, caption={\en{History convergence}\es{Convergencia de la historia}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
@@ -1306,108 +1306,60 @@ print(lc$b[[2]][[2]])
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
 convergence(h)
 lc = learning_curves(h)
-print(lc["a"][1][2])
+print(lc["a"])
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
 h.convergence()
 lc = h.learning_curves()
-print(lc["a"][0][1])
+print(lc["a"])
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
 h$convergence()
 lc = h.learning_curves()
-print(lc$a[[1]][[2]])
+lc_print(lc[["a"]])
 \end{lstlisting}
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}, belowskip=-0.77 \baselineskip]
-> Gaussian(mu=0.0, sigma=2.395)
+> [(1, Gaussian(mu=0.0, sigma=2.395)), (3, Gaussian(mu=-0.0, sigma=2.395))]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
-print(lc["a"][1][2])
+print(lc["b"])
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
-print(lc["a"][0][1])
+print(lc["a"])
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
-print(lc$a[[1]][[2]])
+lc_print(lc[["a"]])
 \end{lstlisting}
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
-> Gaussian(mu=-0.0, sigma=2.395)
+> [(1, Gaussian(mu=-0.0, sigma=2.395)), (3, Gaussian(mu=0.0, sigma=2.395))]
 \end{lstlisting}
 
 %
 \en{It can be seen that the TrueSkill Through Time estimates are not only the same between players, but also have less uncertainty.}
 \es{Se puede ver que las estimaciones de TrueSkill Through Time no s\'olo son las mismas entre jugadores, sino que tienen tambi\'en menos incertidumbre.}
 %
-\en{In turn, the players' estimates do not change over time according to the assumption that skills do not change over time, \texttt{gamma = 0.0}.}
-\es{A su vez las estimaciones de los jugadores no cambian en el tiempo de acuerdo al supuesto de que las habilidades no cambian en el tiempo, \texttt{gamma = 0.0}.}
+\en{Note also that the estimates do not change over time according to the assumption \texttt{gamma = 0.0}.}
+\es{Notar también que las estimaciones de los jugadores no cambian en el tiempo de acuerdo con el supuesto \texttt{gamma = 0.0}.}
 
+\subsection{The history of the Association of Tennis Professionals (ATP)}
 
-% Parrafo
+\todo[inline]{Crear un archivo csv con lo básico, buenos nombres de columnas}
+\todo[inline]{Verificar que el nombre sirva como ID}
+\todo[inline]{Mostrar el ejemplo con un único lenguaje de programación.}
+% 
+% \en{The parameter \texttt{epsilon} indicates the convergence condition, the maximum change in all posteriors before and after an iteration.}
+% \es{El parámetro \texttt{epsilon} indica la condici\'on de convergencia, el cambio máximo en todos los posteriors antes y despu\'es de una iteraci\'on.}
+% %
+% \en{Finally, the number of iterations \texttt{iter} functions as a cut-off condition in case convergence has not been reached.}
+% \es{Por \'ultimo, la cantidad de iteraciones \texttt{iter} funciona como condici\'on de corte en caso de no haber alcanzado la convergencia.}
 
-
-\en{Something similar happens if we say that all items occurred at the same time.}
-\es{Algo similar pasa si decimos que todas las partidas ocurrieron al mismo tiempo.}
-%
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:one_batch, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{lstlisting}[backgroundcolor=\color{all}]
-h = History(events = events, results = res, times = [1,1,1])
-> History(Events=3, Batches=1, Agents=3)
-\end{lstlisting}
-%
-\en{The history now contains the same 3 events and 3 agents but grouped in the same batche.}
-\es{La historia ahora contiene los mismo 3 eventos y 3 agentes pero agrupados en un mismo bache.}
-%
-\en{Although the dynamic factor is positive, due to the default values of the environment, the estimates converge to the same values we reported previously.}
-\es{A pesar de que el factor dinámico es positivo, debido a los valores por defecto del environment, las estimaciones convergen a los mismos valores que reportamos previamente.}
-%
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:one:batch_output, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
-convergence(h)
-lc = learning_curves(h)
-\end{lstlisting}
-  \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
-h.convergence()
-lc = h.learning_curves()
-\end{lstlisting}
-   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
-h$convergence()
-lc = h.learning_curves()
-\end{lstlisting}
-\end{paracol}
-\begin{lstlisting}[backgroundcolor=\color{all}]
-print(lc["a"])
-> [(1, Gaussian(mu=0.0 ,sigma=2.395))]
-print(lc["b"])
-> [(1, Gaussian(mu=-0.0 ,sigma=2.395))]
-\end{lstlisting}
-%
-\en{The only difference is that the system reports only one estimate per batch.}
-\es{La \'unica diferencia es que el sistema reporta una \'unica estimaci\'on por bache.}
-
-
-
-\subsection{\en{Parameters}\es{Par\'ametros}}
-
-\en{The parameter \texttt{epsilon} indicates the convergence condition, the maximum change in all posteriors before and after an iteration.}
-\es{El parámetro \texttt{epsilon} indica la condici\'on de convergencia, el cambio máximo en todos los posteriors antes y despu\'es de una iteraci\'on.}
-%
-\en{Finally, the number of iterations \texttt{iter} functions as a cut-off condition in case convergence has not been reached.}
-\es{Por \'ultimo, la cantidad de iteraciones \texttt{iter} funciona como condici\'on de corte en caso de no haber alcanzado la convergencia.}
-
-
-\todo[inline]{Batch}
 % \en{Immediately after the history is initialized, a summary of the data is printed.}
 % \es{Inmediatamente despu\'es de que se inicializa la historia, se imprime un resumen de los datos.}
 %
