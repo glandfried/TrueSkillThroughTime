@@ -937,17 +937,14 @@ before and after code input/output should be avoided (see above).
 \end{leftbar}
 \end{comment}
 
-\en{In this section we show how to use \proglang{Julia}, \proglang{Python} and \proglang{R} packages to solve a single event, a sequence consisting of three events, and the real-life history of professional ATP tennis players.}
-\es{En esta secci\'on mostramos c\'omo usar los usando los paquetes de\proglang{Julia}, \proglang{Python} y \proglang{R} para resolver un evento, una peque\~na historia de tres eventos y finalmente la historia real de jugadores profesional de tenis ATP.}
+\en{In this section we show how to use \proglang{Julia}, \proglang{Python} and \proglang{R} packages to solve a single event, various sequences of events, and the real history of the Association of Tennis Professionals (ATP).}
+\es{En esta secci\'on mostramos c\'omo usar los paquetes de \proglang{Julia}, \proglang{Python} y \proglang{R} para resolver un evento, doversas secuencias de eventos, y la historia real de la Asociación de Tenis Profesional (ATP).}
 %
 \en{We present both TrueSkill and TrueSkill Through Time solutions, and the steps to obtain the posteriors, the learning curves, and the prior prediction of the observed data (i.e. evidence).}
-\es{Presentamos la soluciones TrueSkill y TrueSkill Through Time, y los m\'etodos para obtener los posteriors, las curvas de aprendizaje, y la predicci\'on a priori (i.e. evidencia) del dato observado.}
+\es{Presentamos la soluciones TrueSkill y TrueSkill Through Time, y los pasos para obtener los posteriors, las curvas de aprendizaje, y la predicci\'on a priori del dato observado (i.e. evidencia).}
 %
-% \en{Finally, we make a time complexity comparison between the three packages presented in this paper and the \texttt{trueskill} package of presented in this paper \proglang{Python}.}
-% \es{Por \'ultimo haremos un comparaci\'on de complejidad temporal entre los tres paquetes que presentamos en este trabajo y el paquete \texttt{trueskill} de \proglang{Python}.}
-%
-\en{As we present three different versions of the tool using different programming languages, we select the following color convention to identify each one:}
-\es{Debido a que desarrollamos paquetes en tres lenguajes de programaci\'on, al mostrar c\'odigo identificaremos cada sintaxis del siguiente modo.}
+\en{Since the tool we present was developed with three programming languages, we will identify the different syntaxes using the following layout:}
+\es{Debido a que la herramienta que presentamos fue desarrollada con tres lenguajes de programaci\'on, identificaremos las diferentes sintaxis usando el siguiente formato:}
 %
 \begin{lstlisting}[backgroundcolor=\color{all}, belowskip=-0.77 \baselineskip]
 Syntax common to Julia, Python and R
@@ -966,59 +963,53 @@ R syntax
 \end{lstlisting}  
 \end{paracol}
 %
-where grey is used for all the common parts of the code (i.e. same syntax in the three languages), \proglang{Julia} code is colored with pink, \proglang{Python} with cyan, and \proglang{R} with light green.
+\en{where the full line is used when the syntax of the three languages match, and the columns are used when the languages differ: \proglang{Julia} on the left, \proglang{Python} in the middle, and \proglang{R} on the right.}
+\es{donde la l\'inea completa la usamos cuando la sintaxis de los tres lenguajes coinciden, y las columnas las usamos cuando los lenguajes difieren: \proglang{Julia} a la izquierda, \proglang{Python} al centro, y \proglang{R} a la derecha.}
 
 \subsection{Single event} \label{sec:singleEvent}
 
-\en{The class \texttt{Game} is used to model an event.}
-\es{Para resolver un único evento utilizamos la clase \texttt{Game}.}
+\en{The class \texttt{Game} is used to model events.}
+\es{La clase \texttt{Game} la utilizamos para modelar eventos.}
+%
 \en{The features of the players are defined within class \texttt{Player}: the prior Gaussian distribution characterized by the mean (\texttt{mu}) and the standard deviation (\texttt{sigma}), the standard deviation of the performance (\texttt{beta}), and the dynamic factor of the skill (\texttt{gamma}).}
-\es{Para hacer el análisis necesitamos definir primero las caracterísiticas de los jugadores.}
+\es{Las caracterísiticas de los jugadores se definen al interior de la clase \texttt{Player}: la distribuci\'on gaussiana a priori caracterizada por la media (\texttt{mu}) y el desv\'io est\'andar (\texttt{sigma}); el desv\'io est\'andar de los rendimientos (\texttt{beta}); y el factor din\'amico de la habilidad (\texttt{gamma}).}
 %
-\es{La clase \texttt{Player} tiene tres atributos: la distribuci\'on gaussiana a priori (caracterizada por la media \texttt{mu} y el desv\'io est\'andar \texttt{sigma}); el desv\'io est\'andar de los rendimientos (\texttt{beta}); y el factor din\'amico de la habilidad (\texttt{gamma}).}
+\en{In the following code we define the variables that we will use later, assigning the default values of the packages.}
+\es{In the following code we define the variables that we will use later, assigning the default values of the packages.}
 %
-\en{We assign the default values to the parameters with code~\ref{lst:parameters}.}
-\es{Antes de empezar, ofrecemos algunos comentarios respecto de los valores de los parámetros.}
-%
-\begin{lstlisting}[backgroundcolor=\color{all},label=lst:parameters, caption={\en{Packages' default values}\es{Par\'ametros}},aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{all},label=lst:parameters, caption={\en{Package parameters and their default values}\es{Parámetros de los paquetes y sus valores por defecto}},aboveskip=0.1cm]
 mu = 0.0; sigma = 6.0; beta = 1.0; gamma = 0.03; p_draw = 0.0
 \end{lstlisting}  
 %
-\en{The initial value of \texttt{mu} can be selected by the user as it does not model any feature by itself, the difference between \texttt{mu} of the different players is what really matters.}
-\es{El valor absoluto de la media \texttt{mu} es irrelevante porque es la diferencia de habilidades lo que realmente importa.}
+\en{The initial value of \texttt{mu}, common to all players, can be freely chosen because it is the difference in skills which really matters and not its absolute value.}
+\es{El valor inicial de \texttt{mu}, común a todos los jugadores, puede elegirse a gusto debido que es la diferencia de habilidades lo que realmente importa y no su valor absoluto.}
 %
 \en{The prior's standard deviation \texttt{sigma} must be sufficiently large to include all possible skill hypotheses.}
-\es{El desvío est\'andar del prior \texttt{sigma} debe ser suficientemente grande para no dejar por fuera posibles hip\'otesis de habilidad.}
+\es{El desv\'io est\'andar del prior \texttt{sigma} debe ser suficientemente grande para incluir todas las posibles hip\'otesis de habilidad.}
 %
-\en{The parameter \texttt{beta} ($\beta$) works as the scale for the estimation.}
-\es{Ese valor depende fundamentalmente del desvío estandar de los rendimientos \texttt{beta}, que funciona como la escala del sistema.}
+\en{The value of \texttt{beta} ($\beta$) is perhaps the most important because it works as the scale of the estimates.}
+\es{El valor de \texttt{beta} quizás sea el más importante debido a que funciona como la escala de las estimaciones.}
 %
-\en{A difference of one $\beta$ between two actual skills, $ s_i - s_j = \beta $, is equivalent to 76\% probability of winning independently of the chosen \texttt{beta}.}
-\es{Una diferencia de habilidad real de un $\beta$, $s_i - s_j = \beta$, es equivale a 76\% de probabilidad de ganar, cualquiera sea el valor de \texttt{beta}.}
+\en{A difference of one $\beta$ between two actual skills, $ s_i - s_j = \beta $, is equivalent to 76\% probability of winning.}
+\es{Una diferencia de habilidad real de un $\beta$, $s_i - s_j = \beta$, equivale a 76\% de probabilidad de ganar.}
 %
-\en{The default value for \texttt{beta} is \texttt{1.0} which is also used for this example.}
-\es{Al ser la unidad de medida del sistema, elegimos \texttt{beta=1.0}.}
-% \en{The other element to consider when choosing the \texttt{sigma} is the number of ``levels'' that may exist in the game to be analyzed.}
-% \es{El otro elemento a considerar para elegir el \texttt{sigma} es la cantidad de ``niveles'' que pueden exisitir en el juego que va a ser analizado.}
+\en{Since it is the unit of measurement, we choose \texttt{beta=1.0}.}
+\es{Como es la unidad de medida, elegimos \texttt{beta=1.0}.}
 %
 \en{The dynamic factor \texttt{gamma} is generally a small fraction of \texttt{beta}.}
 \es{El factor dinámico \texttt{gamma} es en general una peque\~na fracci\'on de \texttt{beta}.}
 %
-% \en{Its optimal value can be obtained by maximizing the a priori prediction (i.e. evidence).}
-% \es{Su valor \'optimo se puede obtener maximizando la predicci\'on a priori (i.e. evidencia).}
+\en{And the probability of a draw in the games (\texttt{p\_draw}) is usually initialized with the observed frequency of draws.}
+\es{Y la probabilidad de empate de las partidas (\texttt{p\_draw}) se suele inicializar con la frecuencia observada de empates.}
 %
-\en{The rule of thumb to initialize the draw probability (\texttt{p\_draw}) proposes to use the observed frequency of draws.}
-\es{Y para inicializar la probabilidad de empate \texttt{p\_draw} del juego, la regla general propone seleccionar la frecuencia observada de empates.}
-%
-% \en{These are the default values for the three packages.}
-% \es{Estos son los valores por defecto de los tres paquetes.}
-%
+\en{With these default values we create four identical players.}
+\es{Con estos valores por defecto creamos cuatro jugadores idénticos.}
 \begin{lstlisting}[backgroundcolor=\color{all},label=lst:player, caption={\en{Players initialization}\es{Inicializaci\'on de los jugadores}},aboveskip=0.1cm]
 p1 = Player(Gaussian(mu, sigma), beta, gamma); p2 = Player(); p3 = Player(); p4 = Player()
-\end{lstlisting}  
+\end{lstlisting}   
 %
-\en{In this example, we instantiate four players using the same initial parameters. For the first player (\texttt{p1}), we use a call to the constructor explicitly including the initial values while \texttt{p2}, \texttt{p3}, and \texttt{p4} are initialized using default values.}
-\es{En este ejemplo instanciamos cuantro jugadores usando los mismos parámetros iniciales.}
+\en{The first player was created by making the constructor parameters explicit, while the rest were initialized with the default values.}
+\es{El primer jugador fue creado haciendo explícitos los parámetros del constructor, mientras que el resto fueron inicializados con los valores por defecto.}
 %
 \en{The \texttt{Gaussian} class is used to model the standard operations of Gaussian distributions including multiplication, summation, division, and substraction (details at section \ref{sec:Gasussian}).}
 \es{La clase \texttt{Gaussian} se usa para modelar las operaciones estandar de las distribuciones gaussianas, incluyendo multiplicación, suma, divisi\'on y resta (detalles en la secci\'on \ref{sec:Gaussian}).}
@@ -1027,9 +1018,9 @@ p1 = Player(Gaussian(mu, sigma), beta, gamma); p2 = Player(); p3 = Player(); p4 
 \es{En el siguiete paso creamos una partida con dos equipos de dos jugadores.}
 %
 \en{When dealing with teams, the observed result depends on the sum of the performances of each team (see details at section \ref{sec:2vs2}).}
-\es{En presencia de equipos, the observed result depends on the sum of the performances of each team, $d = \sum_{i \in a} p_i) - \sum_{i \in b} p_i)$ (detalles en la secci\'on \ref{sec:2vs2}).}
+\es{En presencia de equipos, el rendimiento observado depende de la suma de los rendimientos de cada equipo (detalles en la secci\'on \ref{sec:2vs2}).}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={\en{Initialization of teams and a game}\es{Inicializaci\'on de los equipos y el juego}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={\en{Teams and game initialization}\es{Equipos e inicializaci\'on del juego}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1063,8 +1054,8 @@ g = Game(teams)
 \en{Later on we will see how to explicitly specify the result.}
 \es{Más adelante veremos como especificar explícitamente el resultado.}
 %
-\en{During the initialization, the class \texttt{Game} computes the prior prediction (\texttt{evidence}) of the observed result and the approximate \texttt{likelihoods}, one for each player.}
-\es{Duarante la inicialización, la clase \texttt{Game} calcula la predicción a priori (\texttt{evidence}) del resultado observado y las verosimilitudes aproximadas (\texttt{likelihoods}), una por cada jugador.}
+\en{During the initialization, the class \texttt{Game} computes the prior prediction of the observed result (\texttt{evidence}) and the approximate likelihood of each player (\texttt{likelihoods}).}
+\es{Duarante la inicialización, la clase \texttt{Game} calcula la predicción a priori del resultado observado (\texttt{evidence}) y las verosimilitud aproximada de cada jugador (\texttt{likelihoods}).}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:evidence_likelihoods, caption={\en{Evidence and likelihoods queries}\es{Comsulta de la evidencia y las verosimilitudes}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
@@ -1095,8 +1086,11 @@ print(ev)
 \en{In this case, the evidence is $0.5$ indicating that both teams had the same probability of winning given the prior estimates.}
 \es{En este caso, la evidencia es de $0,5$ indicando que ambos equipos tenian la misma probabilidad de ganar dadas las estimaciones a priori.}
 %
-\en{Posteriors can be found by manually multiplying the likelihoods and priors, or we can call the method \texttt{posteriors()} of class \texttt{Game} to directly compute them.}
-\es{Los posteriors se pueden obtener multiplicando a mano las verosimilitudes y los priors, o podemos llamar al método \texttt{posteriors()} para que lo resuelva por nosotros.}
+\en{Posteriors can be found by manually multiplying the likelihoods and priors, or we can call the method \texttt{posteriors()} of class \texttt{Game} to compute them.}
+\es{Los posteriors se pueden obtener multiplicando manualmente las verosimilitudes y los priors, o podemos llamar al método \texttt{posteriors()} de la clase \texttt{Game} para que los compute.}
+%
+\en{The likelihoods and posteriors are returned keeping the order in which players and teams were loaded during the initialization of the class \texttt{Game}.}
+\es{Las verosimilitudes y posteriors se devuelven manteniendo el orden en el que los jugadores y equipos fueron cargados durante la inicialización de la clase \texttt{Game}.}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_posterior, caption={\en{Posteriors query}\es{Consulta de los posteriors}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
@@ -1136,20 +1130,30 @@ print(lhs[[1]][[1]]*p1$prior)
 > Gaussian(mu=2.361, sigma=5.516)
 \end{lstlisting}
 %
-\en{The lists of likelihoods and posteriors are returned keeping the order in which players and teams were loaded during the initialization of the class \texttt{Game}. HABLAR DEL RESULTADO Y DAR INTUICION.}
-\es{Las listas de verosimilitudes y posteriors se devuelven manteniendo el orden en el que los jugadores y equipos fueron cargados durante la inicialización de la clase \texttt{Game}.}
+\en{where the printed posterior corresponds to the first player of the first team.}
+\es{donde el posterior impreso corresponde al primer jugadar del primer equipo.}
+%
+\en{Due to the winning result, the player's estimate now has a larger mean and a smaller uncertainty.}
+\es{Debido al resultado ganador, la estimación del jugador tiene ahora una media más grande y una incertidumbre más chica.}
+%
+\en{The product of Gaussians, the likelihood times the prior, generates the same normalized posterior.}
+\es{El producto de gaussianas, la verosimilitud por el prior, genera el mismo posterior normalizado.}
 
 % Parrafo
 
-\en{At this point, we analyze a more complex example in which the same four players participate in a single team game. 
-The players are organized in three teams of different size (two teams with only one player and the other with two players).
-The result is a single winning team and a tie between the other two losing teams.}
-\es{Veamos un ejemplo más complejo en el que los mismos cuatro jugadores participan en una partida organizados en 3 equipos, finalizando con un único equipo ganador y los equipos perdedores empatados entre sí.}
+\en{We now analyze a more complex example in which the same four players participate in a multi-team game.}
+\es{Ahora analizamos un ejemplo más complejo en el que los mismos cuatro jugadores participan en un juego de varios equipos.}
 %
-\en{Unlike the previous example, we use a draw probability different from the default.}
-\es{A diferencia del ejemplo anterior, ahora necesitamos especificar el resultado y la probabilidad de empate del juego.}
+\en{The players are organized in three teams of different size: two teams with only one player, and the other with two players.}
+\es{Los jugadores se organizan en tres equipos de diferente tamaño: dos equipos con un solo jugador, y el otro con dos jugadore.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={\en{Game with different sized teams}\es{Inicializaci\'on de los equipos y el juego}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\en{The result has a single winning team and a tie between the other two losing teams.}
+\es{El resultado tiene un único equipo ganador y un empate entre los otros dos equipos perdedores.}
+%
+\en{Unlike the previous example, we need to use a draw probability greater than zero.}
+\es{A diferencia del ejemplo anterior, ahora necesitamos usar una probabilidad de empate mayor a cero.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={\en{Games with multiple teams of different sizes and the possibility of ties}\es{Juegos con multiples equipos de diferente tamaño y posibilidad de empates}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1180,24 +1184,25 @@ result = c(1, 0, 0)
 g2 = Game(teams, result, p_draw=0.25)
 \end{lstlisting}
 %
-\en{where \texttt{teams} includes all the participants in the game while \texttt{result} has the score obtained by each team following the same order used previously.
-The team with the highest value is the winner and the teams with the same value are tied.
-In this way you can specify any outcome of a team game including global ties.}
-\es{donde el equipo con el mayor valor le gana al resto, y los equipos con mismo valor empatan.}
+\en{where \texttt{teams} contains the players distributed in different teams, while \texttt{result} now indicates the score obtained by each team.}
+\es{donde \texttt{teams} contiene a los jugadores distribuidos en diferentes equipos, mientras que \texttt{result} indica ahora la puntuación obtenida por cada equipo.}
 %
-% \en{When considering the possibility of a tie, it is necessary to indicate the approximate typical draw frequency for this type of game.}
-% \es{Al considerar la posibilidad de empate se hace necesario indicar la frecuencia de empate típica aproximada que tienen ese tipo de juegos.}
+\en{The team with the highest score is the winner and the teams with the same score are tied.}
+\es{El equipo con la mayor puntuación es el ganador y los equipos con misma puntuación están empatados.}
+%
+\en{In this way we can specify any outcome, including global draws.}
+\es{De este modo podemos especificar cualquier resultado, incluidos empates globales.}
 %
 \en{The evidence and the posteriors can be queried in the same way as before.}
 \es{La evidencia y el posterior se obtienen de la misma forma que hemos visto.}
 
-\subsection{Sequence of three events}
+\subsection{Sequence of events}
 
 \en{The class \texttt{History} is used to compute the posteriors and evidence of a sequence of events.}
-\es{La clase \texttt{History} se usa para computar los posteriors y la evidencia de una historia de eventos.}
+\es{La clase \texttt{History} se usa para computar los posteriors y la evidencia  the secuencias de eventos.}
 %
-\en{In this example, we instantiate class \texttt{History} containing three players (\texttt{\small "a", "b", "c"}) and three games.}
-\es{Como ejemplo, inicializamos una historia que contiene tres jugadores (\texttt{"a","b","c"}) con tres partidas.}
+\en{In the first example, we instantiate the class \texttt{History} with three players (\texttt{\small "a", "b", "c"}) and three games.}
+\es{En el primer ejemplo, inicializamos una la clase \texttt{History} con tres jugadores (\texttt{"a","b","c"}) y tres partidas.}
 %
 \en{In the first game \texttt{"a"} beats \texttt{"b"}, in the second game \texttt{"b"} beats \texttt{"c"}, and in the third game \texttt{"c"} beats \texttt{"a"}.}
 \es{En la primera partida \texttt{"a"} le gana a \texttt{"b"}, en la segunda \texttt{"b"} le gana a \texttt{"c"} y en la tercera \texttt{"c"} le gana a \texttt{"a"}.}
@@ -1205,7 +1210,7 @@ In this way you can specify any outcome of a team game including global ties.}
 \en{In this case, all agents win one game and lose the other.}
 \es{En este caso, todos los agentes ganan una partida y pierden la otra.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:history, caption={\en{History initialization}\es{Inicializaci\'on de la historia}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:history, caption={\en{History initialized with a sequence of three events }\es{Historia inicializada con una secuencia de tres eventos}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
@@ -1244,14 +1249,17 @@ h = History(composition, gamma=0.0)
 
 % Parrafo
 
-\en{Upon initialization, the history immediately triggers the computation of TrueSkill estimates.}
-\es{Al inicializarse, la historia inmediatamente activa el computo de las estimaciones TrueSkill.}
+\en{When initialized, the \texttt{History} class immediately triggers the computation of TrueSkill estimates: it creates a player for each name, initializes a game for each event, and between events applies the dynamic factor to the players' estimates.}
+\es{Al inicializarse, la clase \texttt{History} inmediatamente activa el computo de las estimaciones TrueSkill: crea un jugador por nombre, inicializa una partida por cada evento, y entre eventos aplica el factor dinámico a las estimaciones de los jugadores.}
 %
-\en{In this example, where all agents beat each other and their skills do not change over time, it would be reasonable for the agent's estimates to be the same after observing the data.}
-\es{En este ejemplo, en el que todos los agentes se ganan mutuamente y sus habilidades no cambian en el tiempo, sería razonable que las estimaciones de los agentes sean las mismas luego de observar los datos.}
+\en{In this example, where all agents beat each other and their skills do not change over time, it would be reasonable for all estimates to be the same after observing the data.}
+\es{En este ejemplo, en el que todos los agentes se ganan mutuamente y sus habilidades no cambian en el tiempo, sería razonable que todas las estimaciones sean iguales luego de observar los datos.}
 %
-\en{To access them we can use the method \texttt{learning\_curves()}, which returns a dictionary that is indexed by the names of the agents.}
-\es{Para acceder acceder a ellas podemos utilizar el m\'etodo \texttt{learning\_curves()}, que devuelve un diccionario indexado por los nombres de los agentes.}
+\en{To access them we can call the method \texttt{learning\_curves()} of the class \texttt{History}, which returns a dictionary that is indexed by the names of the agents.}
+\es{Para acceder acceder a ellas podemos llamar al m\'etodo \texttt{learning\_curves()} de la clase \texttt{HIstory}, que devuelve un diccionario indexado por los nombres de los agentes.}
+%
+\en{Individual learning curves are lists of tuples: the first element of each tuple indicates the time, and the second the estimate corresponding to that time.}
+\es{Las curvas de aprendizaje individuales son listas de tuplas: el primer elemento de cada tupla indica el tiempo, y el segundo la estimaci\'on correpondiente a ese tiempo.}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:trueskill, caption={\en{Learning curves query}\es{Consulta de curvas de aprendizaje}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
@@ -1291,17 +1299,29 @@ lc_print(lc[["b"]])
 > [(1, Gaussian(mu=-3.339, sigma=4.985)), (2, Gaussian(mu=0.059, sigma=4.218))]
 \end{lstlisting}
 %
-\en{Individual learning curves are lists of tuples: the first element indicates the time, and the second the estimate corresponding to that time.}
-\es{Las curvas de aprendizaje individuales son listas de tuplas: el primer elemento indica el tiempo, y el segundo la estimaci\'on correpondiente a ese tiempo.}
+\en{The learning curves of both player \texttt{"a"} and \texttt{"b"} contain only two tuples, one per game.}
+\es{Las curvas de aprendizaje de ambos jugador \texttt{"a"} y \texttt{"b"} contienen solamente dos tuplas, una por partida.}
 %
 \en{Although it would be reasonable to have the same estimate for all agents, the posteriors reported by TrueSkill differ greatly between players and vary greatly for the same player.}
 \es{A pesar de que lo razonable sería tener la misma estimaci\'on para todos los agentes, los posteriors reportados por TrueSkill difieren mucho entre jugadores y varían mucho para uno mismo jugador.}
 %
+\en{The first tuple of both corresponds to time 1, the game in which \texttt{"a"} beats \texttt{"b"}.}
+\es{La primera tupla de ambos se corresponde con el tiempo 1, la partida en la que \texttt{"a"} le gana a \texttt{"b"}.}
+%
+\en{Both estimates have the same uncertainty and the same mean absolute value, being positive for the winning player and negative for the loser.}
+\es{Ambas estimaciones tienen misma incertidumbre y misma valor absoluto como media, positivo para el jugador ganador y negativo para el perdedor.}
+%
+\en{The second tuple for each player has less uncertainty and the mean is closer to zero.}
+\es{La segunda tupla de cada jugador tiene menor incertidumbre y la media se encuentra más cerca de cero.}
+%
+\en{However, the estimates did not turn out to be equal as they should be in cases where no player is better than another.}
+\es{Sin embargo las estimaciones no resultaron ser iguales como debería ser en los casos donde ningún jugador es mejor que otro.}
+%
 \en{The TrueSkill Through Time model remedy all these problems.}
 \es{El modelo TrueSkill Through Time corrige todos estos problemas.}
 %
-\en{To compute it we need to converge history using the method \texttt{convergence()}.}
-\es{Para computarlo necesitamos converger la historia usando el método \texttt{convergence()}.}
+\en{To compute it we need to converge history calling the method \texttt{convergence()}.}
+\es{Para computarlo necesitamos converger la historia llamando al método \texttt{convergence()}.}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:ttt, caption={\en{History convergence}\es{Convergencia de la historia}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
@@ -1348,8 +1368,8 @@ lc_print(lc[["a"]])
 \en{It can be seen that the TrueSkill Through Time estimates are not only the same between players, but also have less uncertainty.}
 \es{Se puede ver que las estimaciones de TrueSkill Through Time no s\'olo son las mismas entre jugadores, sino que tienen tambi\'en menos incertidumbre.}
 %
-\en{Note also that the estimates do not change over time according to the assumption \texttt{gamma = 0.0}.}
-\es{Notar también que las estimaciones de los jugadores no cambian en el tiempo de acuerdo con el supuesto \texttt{gamma = 0.0}.}
+\en{Note also that the estimates do not change over time according to the assumption \texttt{gamma=0.0}.}
+\es{Notar también que las estimaciones de los jugadores no cambian en el tiempo de acuerdo con el supuesto \texttt{gamma=0.0}.}
 
 \subsection{The history of the Association of Tennis Professionals (ATP)}
 
@@ -3082,688 +3102,26 @@ information such as relative contributions of the authors may be added here
 %% - DOIs should be included where available.
 
 \bibliography{../../bibliografia/journalsAbbr,../../bibliografia/Gaming/gaming}
+% All references should be made with \verb|\cite|, \verb|\citet|, \verb|\citep|,
+% \verb|\citealp|
+% \begin{itemize}
+%   \item JSS-specific markup (\verb|\proglang|, \verb|\pkg|, \verb|\code|) should
+%     be used in the references.
+%   \item Titles should be in title case.
+%   \item Journal titles should not be abbreviated and in title case.
+%   \item DOIs should be included where available.
+%   \item Software should be properly cited as well. For \proglang{R} packages
+%     \code{citation("pkgname")} typically provides a good starting point.
+% \end{itemize}
+% \end{leftbar}
+% 
 
 \newpage
+\section{Appendix} \label{app:technical}
+% Appendices can be included after the bibliography (with a page break). Each
+% section within the appendix should have a proper section title (rather than
+% just \emph{Appendix}).
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% \begin{appendix}
-% 
-% \section{Propiedades}\label{sec:propiedades}
-% 
-% Las siguientes tres propiedades, junto con las reglas del \emph{sum-product algorithm}, es lo \'unico que se necesita para calcular la posterior anal\'itica del modelo bayesiano.
-% 
-% \subsection*{Multiplicacion de normales}
-% \begin{equation}\label{eq:multiplicacion_normales}
-% \begin{split}
-%  \int_{-\infty}^{\infty} N(x|\mu_x,\sigma_x^2)N(x|\mu_y,\sigma_y^2) \, dx  &  \overset{*}{=} \int_{-\infty}^{\infty}  \underbrace{N(\mu_x|\mu_y,\sigma_x^2+\sigma_y^2)}_{\text{constante}} N(x|\mu_{*},\sigma_{*}^2) dx \\
-%  & = N(\mu_x|\mu_y,\sigma_x^2+\sigma_y^2) \underbrace{\int_{-\infty}^{\infty}  N(x|\mu_{*},\sigma_{*}^2) dx}_{1} \\
-%  & = N(\mu_x|\mu_y,\sigma_x^2+\sigma_y^2)
-% \end{split}
-% \end{equation}
-% 
-% Donde la igualdad destacada ($\overset{*}{=}$) se demuestra en la secci\'on~\ref{multiplicacion_normales} anexa.
-% 
-% \subsection*{Integrales con funci\'on indicadora}
-% \begin{equation}\label{eq:integral_con_indicadora}
-% \begin{split}
-%  \int_{-\infty}^{\infty}  \int_{-\infty}^{\infty}  \mathbb{I}(x=h(y,z)) f(x) g(y)\, dx\, dy &=  \int_{-\infty}^{\infty} \int_{h(y,z)}^{h(y,z)} f(h(y,z)) g(y)\, dx\, dy\\
-%  & = \int_{-\infty}^{\infty} f(h(y,z)) g(y) dy
-%  %& \propto \int f(h(y,z)) g(y) dy
-% \end{split}
-% \end{equation}
-% 
-% \subsection*{Simetr\'ia de normales}
-% \begin{equation}\label{eq:simetria}
-%  N(x|\mu,\sigma^2) = N(\mu|x,\sigma^2) = N(-\mu|-x,\sigma^2) = N(-x|-\mu,\sigma^2)
-% \end{equation}
-% 
-% \subsection*{Derivada de la acumulada normal}
-% \begin{equation}\label{eq:phi_norm}
-%  \frac{\partial}{\partial x} \Phi(x|\mu,\sigma^2) = N(x|\mu,\sigma^2)
-% \end{equation}
-% 
-% \subsection*{Distribuci\'on normal estandarizada}
-% \begin{equation}\label{eq:estandarizar}
-%  X \sim N(\mu,\sigma^2) \Rightarrow \frac{X-\mu}{\sigma} \sim N(0,1)
-% \end{equation}
-% 
-% 
-% 
-% \section{Ejemplo 2 vs 2}
-% 
-% \begin{figure}[t!]
-%   \centering
-%   \scalebox{.75}{\input{modelos/trueskill_factorGraph_2equiops.tex}}
-%   \caption{\small Grafo bipartito de factorizaci\'on del modelo \texttt{TrueSkill} (Caso 2 vs 2)}
-%   \label{fig:modelo_trueskill_2vs2}
-% \end{figure}
-% 
-% 
-% \subsection{Mensajes descendentes}
-% 
-% \paragraph{$\bm{m_{f_s \rightarrow s}(s)}:$}
-% 
-% \begin{equation}\label{eq:m_fs_s}
-% \begin{split}
-%  m_{f_{s_i} \rightarrow s_i}(s_i) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{s_i}(\bm{x}) \prod_{h \in n(f_{s_i}) \setminus \{s_i\} } m_{h \rightarrow f_{s_i}}(h) d\bm{x}_{\setminus \{s_i\}}  \\
-% & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{=} \int \dots \int N(s_i| \mu_i, \sigma_i^2) d\bm{x}_{\setminus \{s_i\} } \\
-% & \underset{*}{\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=}} N(s_i| \mu_i, \sigma_i^2)
-% \end{split}
-% \end{equation}
-% 
-% Notar que la igualdad se\~nalada $\overset{*}{=}$ vale por definici\'on de la notaci\'on resumen (Eq.~\ref{eq:m_f_v}),
-% 
-% \begin{equation*}
-% \begin{split}
-% \bm{x}_{\setminus \{s_i\} } & = \text{arg}(f) \setminus \{s_i\} \\
-% &= \text{arg}(N(s_i| \mu_i, \sigma_i^2)) \setminus \{s_i\} \\
-% &= \{s_i\} \setminus \{s_i\} \\
-% & = \emptyset
-% \end{split}
-% \end{equation*}
-% 
-% 
-% 
-% \paragraph{$\bm{m_{s \rightarrow f_p}(s)}:$}
-% 
-% \begin{equation}\label{eq:m_s_fp}
-%  m_{s_i \rightarrow f_{p_i}}(s_i) \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(s_i) \setminus  \{f_{p_i} \}} m_{g \rightarrow s_i} (s_i) \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{=} m_{f_{s_i} \rightarrow s_i}(s_i) \overset{\hfrac{\text{eq}}{\ref{eq:m_fs_s}}}{=}   N(s_i| \mu_i, \sigma_i^2)
-% \end{equation}
-% 
-% 
-% 
-% \paragraph{$\bm{m_{f_p \rightarrow p}(p)}:$}
-% 
-% \begin{equation}\label{eq:m_fp_p}
-% \begin{split}
-%  m_{f_{p_i} \rightarrow p_i}(p_i) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{p_i}(\bm{x}) \prod_{h \in n(f_{p_i}) \setminus \{p_i\} } m_{h \rightarrow f_{p_i}}(h) d\bm{x}_{\setminus \{p_i\} }  \\
-%  & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_s_fp}}}{=}} \int \dots \int N(p_i| s_i, \beta^2) N(s_i| \mu_i, \sigma_i^2) d\bm{x}_{\setminus \{p_i\} } \\[0.3cm]
-%  & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int N(p_i| s_i, \beta^2) N(s_i| \mu_i, \sigma_i^2) ds_i \\
-%  & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int N(s_i|p_i, \beta^2) N(s_i| \mu_i, \sigma_i^2) ds_i \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{=} N(p_i|\mu_i,\beta^2 + \sigma_i^2)
-% \end{split}
-% \end{equation}
-% 
-% \paragraph{$\bm{m_{p \rightarrow f_t}(p)}:$}
-% 
-% \begin{equation}\label{eq:m_p_ft}
-% \begin{split}
-%  m_{p_i \rightarrow f_{t_e}}(p_i) & \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(p_i) \setminus  \{f_{t_e} \}} m_{g \rightarrow p_i} (p_i) \\
-%  & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{=} m_{f_{p_i} \rightarrow p_i}(p_i) \overset{\hfrac{\text{eq}}{\ref{eq:m_fp_p}}}{=} N(p_i|\mu_i,\beta^2 + \sigma_i^2)
-% \end{split}
-% \end{equation}
-% 
-% \paragraph{$\bm{m_{f_t \rightarrow t}(t)}:$}
-% 
-% \begin{equation}
-% \begin{split}
-%  m_{f_{t_e} \rightarrow t_e}(t_e) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{t_e}(\bm{x}) \prod_{h \in n(f_{t_e}) \setminus \{t_e\} } m_{h \rightarrow f_{t_e}}(h) d\bm{x}_{\setminus \{t_e\} }  \\
-%  & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_p_ft}}}{=}} \int \dots \int \mathbb{I}(t_e = p_i + p_j) N(p_i|\mu_i,\beta^2 + \sigma_i^2)N(p_j|\mu_j,\beta^2 + \sigma_j^2) d\bm{x}_{\setminus \{t_e\} }\\[0.3cm]
-%  & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \iint \mathbb{I}(t_e = p_i + p_j) N(p_i|\mu_i,\beta^2 + \sigma_i^2)N(p_j|\mu_j,\beta^2 + \sigma_j^2) dp_idp_j \\
-%  & \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int N(p_i|\mu_i,\beta^2 + \sigma_i^2) N(t_e - p_i|\mu_j,\beta^2 + \sigma_j^2) dp_i   \\
-%  & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int N(p_i|\mu_i,\beta^2 + \sigma_i^2) N(p_i|t_e - \mu_j,\beta^2 + \sigma_j^2) dp_i \\
-%  & \overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{=} N(t_e|\mu_i+\mu_j,2\beta^2 + \sigma_i^2 + \sigma_j^2)
-% \end{split}
-% \end{equation}
-% 
-% \vspace{0.3cm}
-% 
-% General (por inducci\'on)
-% \begin{equation}\label{eq:m_ft_t}
-%  m_{f_{t_e} \rightarrow t_e}(t_e) =  N \Big( t_e | \underbrace{\sum_{i\in A_e } \mu_i}_{\hfrac{\text{Habilidad}}{\text{de equipo}} \ \mu_e}, \underbrace{\sum_{i \in A_e} \beta^2 + \sigma_i^2}_{\hfrac{\text{Varianza}}{\text{de equipo}} \ \sigma_e^2} \Big) = N(t_e | \mu_e, \sigma_e^2)
-% \end{equation}
-% 
-% Ver anexo~\ref{suma_normales_induccion}, la secci\'on sobre suma de $n$ normales.
-% 
-% \paragraph{$\bm{m_{t \rightarrow f_d}(t)}:$}
-% 
-% \begin{equation}\label{eq:m_t_fd}
-% \begin{split}
-% m_{t_e \rightarrow f_{d_{k}}}(d_{k}) & \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(t_e) \setminus  \{f_{d_{k}} \}} m_{g \rightarrow t_e} (t_e) \\[0.3cm]
-%  & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{=} m_{f_{t_e} \rightarrow t_e}(t_e) \overset{\hfrac{\text{eq}}{\ref{eq:m_ft_t}}}{=} N(t_e| \sum_{i \in A_e} \mu_i, \sum_{i \in A_e} \beta^2 + \sigma_i^2) \overset{\hfrac{\text{eq}}{\ref{eq:m_ft_t}}}{=} N(t_e|\mu_e,\sigma_e^2)
-% \end{split}
-% \end{equation}
-% 
-% \paragraph{$\bm{m_{f_d \rightarrow d}(d)}:$}
-% 
-% \begin{equation}
-%  \begin{split}
-%   m_{f_{d_1} \rightarrow d_1}(d_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{d_1}(\bm{x}) \prod_{h \in n(f_{d_1}) \setminus \{d_1\} } m_{h \rightarrow f_{d_1}}(h) \, d\bm{x}_{\setminus \{d_1\} }  \\
-%   & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_t_fd}}}{=}} \int \int \mathbb{I}(d_1 = t_a - t_b) N(t_a| \mu_a, \sigma_a^2)  N(t_b| \mu_b, \sigma_b^2)  dt_adt_b \\[0.25cm]
-%   & \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int N(d_1 + t_b| \mu_a, \sigma_a^2)  N(t_b| \mu_a, \sigma_b^2)  dt_b \\
-%   & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int N(t_b| \mu_a - d_1 , \sigma_a^2)  N(t_b| \mu_b, \sigma_b^2)  dt_b \\
-%   & \overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{=} N( \mu_a - d_1 | \mu_b, \sigma_a^2 +\sigma_b^2  ) \\
-%   & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} N( d_1 | \mu_a - \mu_b, \sigma_a^2 +\sigma_b^2  )
-%  \end{split}
-% \end{equation}
-% 
-% General
-% 
-% \begin{equation} \label{eq:m_fd_d}
-%  m_{f_{d_1} \rightarrow d_1}(d_1) = N\Bigg(d_1 \ | \ \underbrace{\sum_{i \in A_a} \mu_i - \sum_{i \in A_b} \mu_i}_{\hfrac{\text{Diferencia}}{\text{esperada}} \, (\delta)} \ , \  \underbrace{\sum_{i \in A_a \cup A_b} \beta^2 + \sigma_i^2}_{\hfrac{\text{Varianza}}{\text{total}} \, (\vartheta) } \Bigg) = N(d_1 | \delta, \vartheta)
-% \end{equation}
-% 
-% \paragraph{$\bm{m_{d \rightarrow f_r}(r)}:$}
-% 
-% \begin{equation}\label{eq:m_d_fr}
-% \begin{split}
-% m_{d \rightarrow f_r}(d) & \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(t_e) \setminus  \{f_{d_{k}} \}} m_{g \rightarrow t_e} (t_e) \\[0.3cm]
-%  & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{=} m_{f_d \rightarrow d}(d) \overset{\hfrac{\text{eq}}{\ref{eq:m_fd_d}}}{=} N(d_1| \delta, \vartheta)
-% \end{split}
-% \end{equation}
-% 
-% \paragraph{$\bm{m_{f_r \rightarrow r}(r)}:$} (Caso ganador)
-% 
-% \begin{equation}\label{eq:m_fr_r}
-% \begin{split}
-%  m_{f_{r_1} \rightarrow r_1}(r_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{r_1}(\bm{x}) \prod_{h \in n(f_{r_1}) \setminus \{r_1\} } m_{h \rightarrow f_{r_1}}(h) \, d\bm{x}_{\setminus \{r_1\} }  \\[0.2cm]
-%  & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_d_fr}}}{=}} \int \mathbb{I}(d_1 > 0) N(d_1 | \delta, \vartheta)  dd_1 \\[0.2cm]
-%  &  \overset{\hfrac{\text{eq}}{\ref{eq:estandarizar}}}{=} \int \mathbb{I}(d_1 > 0) N( \frac{d_1 - \delta}{\vartheta}) dd_1 \\[0.2cm]
-%  & = 1 - \Phi(\frac{-\delta}{\vartheta}) \\
-%  & = \Phi(\frac{\delta}{\vartheta})
-% \end{split}
-% \end{equation}
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% \subsubsection{Mensajes ascendentes}
-% 
-% \paragraph{$\bm{m_{f_r \rightarrow d}(d)}:$}
-% 
-% \begin{equation}\label{eq:m_fr_d}
-% \begin{split}
-% m_{f_r \rightarrow d_1}(d_1) & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=}} \mathbb{I}(d_1 > 0)
-% \end{split}
-% \end{equation}
-% 
-% 
-% \paragraph{$\bm{m_{d \rightarrow f_d}(d)}:$}
-% \begin{equation}\label{eq:m_d_fd}
-% \begin{split}
-% m_{d_1 \rightarrow f_{d_1}}(d_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(d_1) \setminus  \{f_{d_1} \}} m_{g \rightarrow d_1} (d_1) \\[0.3cm]
-%  & \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{=} m_{f_r \rightarrow d_1}(d_1) \overset{\hfrac{\text{eq}}{\ref{eq:m_fr_d}}}{=} \mathbb{I}(d_1 > 0)
-% \end{split}
-% \end{equation}
-% 
-% \paragraph{$\bm{m_{f_{d_1} \rightarrow t_a}(t_a)}:$} (Caso ganador)
-% \begin{equation}\label{eq:m_fd_ta}
-% \begin{split}
-% m_{f_{d_1} \rightarrow t_a}(t_a) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{d_1}(\bm{x}) \prod_{h \in n(f_{d_1}) \setminus \{t_a\} } m_{h \rightarrow f_{d_1}}(h) \, d\bm{x}_{\setminus \{t_a\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_t_fd}}}{=}}  \int \dots \int \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0) N(t_b | \mu_b , \sigma_b^2 )  \, d\bm{x}_{\setminus \{t_a\} } \\[0.1cm]
-% & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \iint \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0) N(t_b | \mu_b , \sigma_b^2 ) \, dd_1\,dt_b \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int \mathbb{I}( t_a > t_b)  N(t_b | \mu_b , \sigma_b^2 ) \,dt_b  \\
-% & \overset{\hfrac{\text{fig}}{\ref{fig:m_fd_t}}}{=} \Phi (t_a| \mu_b, \sigma_b^2)  \overset{\hfrac{\mu_b}{\sigma_b}}{=}  \Phi \Big(t_a| \sum_{i \in A_b} \mu_i , \sum_{i \in A_b} \beta^2 + \sigma_i^2 \Big)
-% \end{split}
-% \end{equation}
-% 
-% \paragraph{$\bm{m_{f_{d_1} \rightarrow t_b}(t_b)}:$} (Caso perdedor)
-% \begin{equation}\label{eq:m_fd_tb}
-% \begin{split}
-% m_{f_{d_1} \rightarrow t_b}(t_b) &\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{d_1}(\bm{x}) \prod_{h \in n(f_{d_1}) \setminus \{t_b\} } m_{h \rightarrow f_{d_1}}(h) \, d\bm{x}_{\setminus \{t_a\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_t_fd}}}{=}}  \int \dots \int \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0) N(t_a | \mu_a , \sigma_a^2 )  \, d\bm{x}_{\setminus \{t_b\} } \\[0.1cm]
-% &\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \iint \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0)  N(t_a | \mu_a , \sigma_a^2 )  \, dd_1\,dt_a \\
-% &\overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int \mathbb{I}( t_a > t_b)   N(t_a | \mu_a , \sigma_a^2 ) \,dt_a \\
-% &\overset{\hfrac{\text{fig}}{\ref{fig:m_fd_t}}}{=} 1 - \Phi (t_b| \mu_a , \sigma_a^2 ) \overset{\hfrac{\mu_a}{\sigma_a}}{=} 1 - \Phi \Big(t_b| \sum_{i \in A_a} \mu_i , \sum_{i \in A_a} \beta^2 + \sigma_i^2 \Big)
-% \end{split}
-% \end{equation}
-% 
-% \begin{figure}[t!]
-% \centering
-%   \begin{subfigure}[t]{0.48\textwidth}
-%   \includegraphics[width=\textwidth]{figures/m_d_ta.pdf}
-%   \caption{$m_{f_{d_1} \rightarrow t_a}(t_a)$: (Caso ganador)}
-%   \label{fig:m_fd_ta}
-%   \end{subfigure}
-%   \begin{subfigure}[t]{0.48\textwidth}
-%   \includegraphics[width=\textwidth]{figures/m_d_tb.pdf}
-%   \caption{$m_{f_{d_1} \rightarrow t_b}(t_b)$: (Caso perdedor)}
-%   \label{fig:m_fd_tb}
-%   \end{subfigure}
-%   \caption{Notar que en el caso ganador, $t_a$ es un valor fijo que entra como par\'ametro en la funci\'on $m_{f_{d_1} \rightarrow t_a}(t_a)$. El caso perdedor es an\'alogo.}
-%   \label{fig:m_fd_t}
-% \end{figure}
-% 
-% \paragraph{$\bm{m_{t_a \rightarrow f_{t_a}}(t_a)}:$} (Caso ganador)
-% 
-% \begin{equation}\label{eq:m_ta_ft}
-% \begin{split}
-%  m_{t_a \rightarrow f_{t_a}}(t_a) \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(t_a) \setminus  \{f_{t_a} \}} m_{g \rightarrow t_a} (t_a)  \overset{\hfrac{\text{eq}}{\ref{eq:m_fd_ta}}}{=} \Phi(t_a|\mu_b,\sigma_b^2) \overset{\hfrac{\mu_b}{\sigma_b}}{=} \Phi \Big(t_a| \sum_{i \in A_b} \mu_i , \sum_{i \in A_b} \beta^2 + \sigma_i^2 \Big)
-% \end{split}
-% \end{equation}
-% 
-% \paragraph{$\bm{m_{t_b \rightarrow f_{t_b}}(t_b)}:$} (Caso perdedor)
-% \begin{equation}\label{eq:m_tb_ft}
-% \begin{split}
-%  m_{t_b \rightarrow f_{t_b}}(t_b) \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(t_b) \setminus  \{f_{t_b} \}} m_{g \rightarrow t_b} (t_b)  \overset{\hfrac{\text{eq}}{\ref{eq:m_fd_tb}}}{=} 1- \Phi(t_b|\mu_a,\sigma_a^2) \overset{\hfrac{\mu_a}{\sigma_a}}{=} 1 - \Phi \Big(t_b| \sum_{i \in A_a} \mu_i , \sum_{i \in A_a} \beta^2 + \sigma_i^2 \Big)
-% \end{split}
-% \end{equation}
-% 
-% 
-% 
-% \paragraph{$\bm{m_{f_{t_a} \rightarrow p_1}(p_1)}:$} (Caso ganador)
-% \begin{equation}\label{eq:m_fta_p_inicial}
-% \begin{split}
-% m_{f_{t_a} \rightarrow p_1}(p_1)  &\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{t_a}(\bm{x}) \prod_{h \in n(f_{t_a}) \setminus \{p_1\} } m_{h \rightarrow f_{t_a}}(h) \, d\bm{x}_{\setminus \{p_1\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_ta_ft}}}{=}} \int \dots \int \mathbb{I}( t_a = p_1 + p_2) N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (t_a| \mu_b , \sigma_b^2 ) \, d\bm{x}_{\setminus \{p_1\} }\\[0.1cm]
-% &\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \iint \mathbb{I}( t_a = p_1 + p_2) \, N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (t_a| \mu_b , \sigma_b^2 ) \, dt_a dp_2 \\
-% &\overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int  \, N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (p_1 + p_2| \mu_b , \sigma_b^2 ) \, dp_2 \\
-% &\overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int  N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (p_1 | \mu_b - p_2 , \sigma_b^2) \, dp_2 \\
-% &= \kappa(p_1)
-% \end{split}
-% \end{equation}
-% 
-% La derivada de la funci\'on de distribuci\'on acumulada $\Phi(\,)$ es el valor de la densidad de la funci\'on de probabilidad $N(\,)$. Con esta idea en mente, tomamos la derivada de ambos lados de la igualdad:
-% 
-% \begin{equation}\label{eq:ta-p_derivada}
-% \begin{split}
-% \frac{\partial\kappa(x)}{\partial x} &= \frac{\partial}{\partial x} \int  N(y| \mu_y, \sigma_y^2 ) \,   \Phi (x | \mu_x -y , \sigma_x^2 ) \, dy \\
-% &= \int  N(y| \mu_y, \sigma_y^2 ) \, \frac{\partial}{\partial x} \,\Phi (x| \mu_x - y, \sigma_x^2 )  \, dy   \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:phi_norm}}}{=} \int  N(y| \mu_y, \sigma_y^2 ) \, N(x| \mu_x -y , \sigma_x^2)  \, dy  \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int  N(y| \mu_y, \sigma_y^2 ) \, N(y| \mu_x  -x , \sigma_x^2)  \, dy  \\
-% &\overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{\underset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}} N(x| \mu_x - \mu_y, \sigma_x^2 + \sigma_y^2)
-% \end{split}
-% \end{equation}
-% 
-% Luego
-% 
-% \begin{equation}\label{eq:m_fta_p}
-%  m_{f_{t_a} \rightarrow p_1}(p_1) \overset{\hfrac{\text{eq}}{\ref{eq:m_fta_p_inicial}}}{\underset{\hfrac{\text{eq}}{\ref{eq:ta-p_derivada}}}{=}}  \Phi(p_1| \mu_b - \mu_2, \beta^2 + \sigma_2^2 + \sigma_b^2)  \overset{\hfrac{\mu_b}{\sigma_b}}{=}  \Phi\Big(p_1| \sum_{i \in A_b} \mu_i - \mu_2, \beta^2 + \sigma_2^2 + \sum_{i \in A_b} \beta^2 + \sigma_i^2 \Big)
-% \end{equation}
-% 
-% \paragraph{$\bm{m_{f_{t_b} \rightarrow p_3}(p_3)}:$} (Caso perdedor)
-% \begin{equation}\label{eq:m_ftb_p}
-% \begin{split}
-% m_{f_{t_b} \rightarrow p_3}(p_3)&\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{t_a}(\bm{x}) \prod_{h \in n(f_{t_a}) \setminus \{p_1\} } m_{h \rightarrow f_{t_a}}(h) \, d\bm{x}_{\setminus \{p_1\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_tb_ft}}}{=}} \int \dots \int \mathbb{I}( t_b = p_3 + p_4) \, (1-\Phi (t_b| \mu_a , \sigma_a^2 )) \, N(p_4| \mu_4, \beta^2 + \sigma_4^2 ) \, d\bm{x}_{\setminus \{p_3\} }\\[0.1cm]
-% &\overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \iint \mathbb{I}( t_b = p_3 + p_4) N(p_4| \mu_4, \beta^2 + \sigma_4^2 )  (1 - \Phi (t_b| \mu_a , \sigma_a^2) )\, dt_b dp_4 \\
-% &\overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{\underset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}} \int N(p_4| \mu_4, \beta^2 + \sigma_4^2 )  (1 - \Phi (p_3 | \mu_a - p_4 , \sigma_a^2 ) ) \,  dp_4 \\
-% & =  \underbrace{\int N(p_4| \mu_4, \beta^2 + \sigma_4^2 )dp_4}_{1}  -  \underbrace{\int N(p_4| \mu_4, \beta^2 + \sigma_4^2 ) \Phi (p_3 | \mu_a - p_4 , \sigma_a^2 ) ) \, dp_4}_{\kappa(p_3)} \\
-% &\overset{\hfrac{\text{eq}}{\ref{eq:ta-p_derivada}}}{=} 1 - \Phi(p_3, \mu_a  - \mu_4, \beta^2 + \sigma_4^2 + \sigma_a^2)\\[0.1cm]
-% &\overset{\hfrac{\mu_a}{\sigma_a}}{=} 1 - \Phi\Big(p_3, \sum_{i \in A_a} \mu_i  - \mu_4, \beta^2 + \sigma_4^2 + \sum_{i \in A_a} \beta^2 + \sigma_i^2  \Big)
-% \end{split}
-% \end{equation}
-% 
-% \paragraph{$\bm{m_{p_1 \rightarrow f_{p_1}}(s_1)}:$} (Caso ganador)
-% 
-% \begin{equation}\label{eq:m_p1_fp}
-% \begin{split}
-%  m_{p_1 \rightarrow f_{p_1}}(p_1) \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(p_1) \setminus  \{f_{p_1} \}} m_{g \rightarrow p_1} (p_1)  \overset{\hfrac{\text{eq}}{\ref{eq:m_fta_p}}}{=}  \Phi(p_1| \mu_b - \mu_2, \beta^2 + \sigma_2^2 + \sigma_b^2)
-% \end{split}
-% \end{equation}
-% 
-% 
-% \paragraph{$\bm{m_{p_3 \rightarrow f_{p_3}}(s_1)}:$} (Caso perdedor)
-% 
-% \begin{equation}\label{eq:m_p3_fp}
-% \begin{split}
-%  m_{p_3 \rightarrow f_{p_3}}(p_3) \overset{\hfrac{\text{eq}}{\ref{eq:m_v_f}}}{=} \prod_{g \in n(p_3) \setminus  \{f_{p_3} \}} m_{g \rightarrow p_3} (p_3)  \overset{\hfrac{\text{eq}}{\ref{eq:m_ftb_p}}}{=}  1 - \Phi(p_3, \mu_a  - \mu_4, \beta^2 + \sigma_4^2 + \sigma_a^2)
-% \end{split}
-% \end{equation}
-% 
-% \paragraph{$\bm{m_{f_{p_1} \rightarrow s_1}(s_1)}:$} (Caso ganador)
-% \begin{equation}\label{eq:m_fp_s1}
-% \begin{split}
-% m_{f_{p_1} \rightarrow s_1}(s_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{p_1}(\bm{x}) \prod_{h \in n(f_{p_1}) \setminus \{s_1\} } m_{h \rightarrow f_{p_1}}(h) \, d\bm{x}_{\setminus \{s_1\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_p1_fp}}}{=}} \int \dots \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_b - \mu_2, \beta^2 + \sigma_2^2 + \sigma_b^2 ) \, d\bm{x}_{\setminus \{s_1\} }
-% \\[0.1cm]
-% & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{\underset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}} \int N(p_1| s_1, \beta^2) \, \Phi(\mu_2| \mu_b -  p_1, \beta^2 + \sigma_2^2 + \sigma_b^2) \, dp_1 \\[0.1cm]
-% &\overset{\hfrac{\text{eq}}{\ref{eq:ta-p_derivada}}}{=} \Phi(s_1| \mu_b - \mu_2, 2\beta^2 + \sigma_2^2 + \sigma_b^2)
-% \end{split}
-% \end{equation}
-% 
-% General (N vs N)
-% \begin{equation}\label{eq:m_fp_s1_gral}
-% \begin{split}
-% m_{f_{p_1} \rightarrow s_1}(s_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_fp_s1}}}{=} \Phi(s_1| \mu_b - \mu_a + \mu_1, \sigma_b^2 +\sigma_a^2 - \sigma_1^2 )  \\
-% & \overset{\hfrac{\mu_b}{\sigma_b}}{=} \Phi\Big(s_1| \underbrace{\sum_{i \in A_b} \mu_i - \sum_{i \in A_a} \mu_i }_{-\hfrac{\text{Diferencia}}{\text{esperada}} \, -\delta = \delta } + \mu_1 , \underbrace{\sum_{i \in A_b \cup A_a} \beta^2 + \sigma_i^2}_{\hfrac{\text{Varianza}}{\text{total}} \, \vartheta^2} - \sigma_1^2   \Big) \\
-% & \overset{\hfrac{\delta}{\vartheta}}{=} \Phi(s_1|-\delta + \mu_1,\vartheta^2-\sigma_1^2) \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} 1- \Phi(0| \underbrace{\delta - \mu_1 + s_1}_{\hfrac{\text{Diferencia esperada}}{\text{parametrizada}} \, \delta_1(s_1)},\underbrace{\vartheta^2-\sigma_1^2}_{\vartheta_1^2}) \\
-% & \overset{\hfrac{\delta_1}{\vartheta_1}}{=} 1- \Phi(0|\delta_1(s_1),\vartheta_1^2) \\
-% &\overset{\hfrac{\text{eq}}{\ref{eq:estandarizar}}}{=} 1- \Phi\Big(\frac{0-\delta_1(s_1)}{\vartheta_1}\Big)\\
-% &\overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \Phi\Big(\frac{\delta_1(s_1)}{\vartheta_1}\Big)
-% \end{split}
-% \end{equation}
-% 
-% \textbf{Nota}: el mensaje $m_{f_{p_1} \rightarrow s_1}(s_1)$ computa la ``probabilidad de ganar parametrizada'', esto es la probabilidad de ganar si conoci\'eramos la habilidad del jugador. Si conocemos la habilidad del jugador entonces hay que eliminar la varianza de la distribuci\'on de creencias de la varianza total (lo que hacemos en $\vartheta_1$) y hay que remplazar la media de la distribuci\'on de creencias por la verdadera habilidad en la diferencia esperada (lo que hacemos en $\delta_1(s_1)$).
-% 
-% \paragraph{$\bm{m_{f_{p_3} \rightarrow s_3}(s_3)}:$}
-% 
-% \begin{equation}\label{eq:m_fp_s3}
-% \begin{split}
-% m_{f_{p_3} \rightarrow s_3}(s_3) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{p_3}(\bm{x}) \prod_{h \in n(f_{p_3}) \setminus \{s_3\} } m_{h \rightarrow f_{p_3}}(h) \, d\bm{x}_{\setminus \{s_3\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_p3_fp}}}{=}} \int \dots \int N(p_3| s_3, \beta^2) (1 - \Phi(p_3, \mu_a  - \mu_4, \beta^2 + \sigma_4^2 + \sigma_a^2)) \, d\bm{x}_{\setminus \{s_3\} }\\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{\underset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}} \int N(p_3| s_3, \beta^2) (1 - \Phi(\mu_4, \mu_a  - p_3, \beta^2 + \sigma_4^2 + \sigma_a^2)) \, dp_3 \\
-% &=\int N(p_3| s_3, \beta^2) \, dp_3 -  \int N(p_3| s_3, \beta^2)  \Phi(\mu_4, \mu_a  - p_3, \beta^2 + \sigma_4^2 + \sigma_a^2) \, dp_3 \\
-% &\overset{\hfrac{\text{eq}}{\ref{eq:ta-p_derivada}}}{=} 1 - \Phi\Big(s_3| \mu_a-  \mu_4, 2\beta^2 + \sigma_4^2 + \sigma_a^2 \Big)
-% \end{split}
-% \end{equation}
-% 
-% General (N vs N)
-% 
-% \begin{equation}
-% \begin{split}
-% m_{f_{p_3} \rightarrow s_3}(s_3) & \overset{\hfrac{\text{eq}}{\ref{eq:m_fp_s3}}}{=} 1 - \Phi\Big(s_3| \underbrace{\mu_a-\mu_b}_{\delta}+\mu_3, \underbrace{\sigma_a^2 + \sigma_b^2}_{\vartheta^2} - \sigma_3^2 \Big) \\
-% & \overset{\hfrac{\delta}{\vartheta}}{=} 1 - \Phi\Big(s_3| \delta +\mu_3, \vartheta^2- \sigma_3^2 \Big) \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \Phi\Big(0| \underbrace{-\delta-\mu_3+s_3}_{\delta_3(s_3)}, \underbrace{\vartheta^2- \sigma_3^2}_{\vartheta_3^2} \Big) \\
-% & \overset{\hfrac{\delta_3}{\vartheta_3}}{=} \Phi(0|\delta_3(s_3),\vartheta_3^2)  \overset{\hfrac{\text{eq}}{\ref{eq:estandarizar}}}{=}  \Phi\left(\frac{0-\delta_3(s_3)}{\vartheta_3}\right) \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \Phi\Big(\frac{-\delta_3(s_3)}{\vartheta_3}\Big)
-% \end{split}
-% \end{equation}
-% 
-% \textbf{Nota}: el mensaje $m_{f_{p_3} \rightarrow s_3}(s_3)$ computa la ``probabilidad de perder parametrizada'' (que es la misma que la probabilidad de ganar de su contrincante). Si conoci\'eramos la habilidad del jugador entonces hay que eliminar la varianza de la distribuci\'on de creencias de la varianza total (lo que hacemos en $\vartheta_3$) y hay que remplazar la media de la distribuci\'on de creencias por la verdadera habilidad en la diferencia esperada (lo que hacemos en $\delta_3(s_3)$).
-% 
-% \subsubsection{Posterior ganador y perdedor}
-% \paragraph{Ganador}
-% \begin{equation}\label{eq:posterior_ganador}
-%  p(s_1|o,A) \overset{\hfrac{\text{eq}}{\ref{eq:marginal}}}{=} \prod_{h \in n(x_i)} m_{h \rightarrow x_i} \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_fp_s1_gral}}}{=}}  N(s_1| \mu_1, \sigma_1^2)  \Phi\left(\frac{\delta_1(s_1)}{\vartheta_1}\right)
-% \end{equation}
-% 
-% 
-% \begin{figure}[t!]
-% \centering
-%   \begin{subfigure}[t]{0.48\textwidth}
-%   \includegraphics[page=1,width=\textwidth]{figures/posterior_ganador.pdf}
-%   \caption{}
-%   \label{posterior_ganador_image}
-%   \end{subfigure}
-%   \begin{subfigure}[t]{0.48\textwidth}
-%   \includegraphics[page=2,width=\textwidth]{figures/posterior_ganador.pdf}
-%   \caption{}
-%   \label{posterior_ganador_distribution}
-%   \end{subfigure}
-%   \caption{Posterior ganador}
-%   \label{posterior_ganador}
-% \end{figure}
-% 
-% \paragraph{Perdedor}
-% 
-% \begin{equation}\label{eq:posterior_perdedor}
-%  p(s_1|o,A) \overset{\hfrac{\text{eq}}{\ref{eq:marginal}}}{=} \prod_{h \in n(x_i)} m_{h \rightarrow x_i} \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_fp_s1_gral}}}{=}}  N(s_1| \mu_1, \sigma_1^2)  \Phi\left(\frac{-\delta_1(s_1)}{\vartheta_1}\right)
-% \end{equation}
-% 
-% 
-% \begin{figure}[t!]
-% \centering
-%   \begin{subfigure}[t]{0.48\textwidth}
-%   \includegraphics[page=1,width=\textwidth]{figures/posterior_perdedor.pdf}
-%   \caption{}
-%   \label{posterior_perdedor_image}
-%   \end{subfigure}
-%   \begin{subfigure}[t]{0.48\textwidth}
-%   \includegraphics[page=2,width=\textwidth]{figures/posterior_perdedor.pdf}
-%   \caption{}
-%   \label{posterior_perdedor_distribution}
-%   \end{subfigure}
-%   \caption{Posterior perdedor}
-%   \label{posterior_perdedor}
-% \end{figure}
-% 
-%  \begin{figure}[t!]
-% \centering
-%   \begin{subfigure}[t]{0.48\textwidth}
-%   \includegraphics[page=1,width=\textwidth]{figures/evidence_win.pdf}
-%   \caption{Evidence}
-%   \label{fig:evidence_win}
-%   \end{subfigure}
-%   \begin{subfigure}[t]{0.48\textwidth}
-%   \caption{Prior predictive}
-%   \label{fig:prior_predictive_win}
-%   \end{subfigure}
-%   \caption{The Evidence and the Prior predictive are the same object, so they have the same area under the curve}
-%   \label{fig:evidence_prior_predictive}
-% \end{figure}
-% 
-%  Caso ganador
-% 
-%  \begin{equation}\label{eq:prior_predictive}
-%   P(r=\text{win}) = \prod_{h \in n(r)} m_{h \rightarrow r}  = m_{f_r \rightarrow r}(r) =  \Phi(\frac{\delta_1}{\vartheta_1})
-%  \end{equation}
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-%  \subsection{Aproximacion de la posterior (DRAFT)}
-% 
-% La probabilidad de una diferencia cuando se conoce el resultado (Eq.~\ref{eq:p_d}) es una Normal truncada.
-% %
-% \begin{equation}\label{eq:p_d}
-% \begin{split}
-%  P(d_1) & \overset{\hfrac{\text{eq}}{\ref{eq:marginal}}}{=}   \prod_{h \in n(d_1)} m_{h \rightarrow d_1} \overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{=} m_{f_{d_1} \rightarrow d_1}(d_1) \, m_{f_r \rightarrow d_1}(d_1) \overset{\hfrac{\text{eq}}{\ref{eq:m_fr_d}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_d_fd}}}{=}}  m_{f_{d_1} \rightarrow d_1}(d_1) \, m_{d_1 \rightarrow f_{d_1}}(d_1)  \\
-%  & = N(d_1|\delta,\vartheta) \mathbb{I}(d_1 > 0)
-% \end{split}
-% \end{equation}
-% %
-% Para tener una posterior normal lo que se hace es un buscar la normal que m\'as se aproxima a esta normal truncada
-% 
-% \vspace{0.3cm}
-% 
-% Se sabe que la Normal que mejor aproxima a una Normal truncada tiene como esperanza
-% 
-% \begin{equation}\label{eq:mean_aprox_double}
-%  E(X| a < X < b) = \mu + \sigma \frac{N(\frac{a-\mu}{\sigma}) - N(\frac{b-\mu}{\sigma}) }{\Phi(\frac{b-\mu}{\sigma}) - \Phi(\frac{a-\mu}{\sigma}) } = \mu + \sigma \frac{N(\alpha) - N(\beta) }{\Phi(\beta) - \Phi(\alpha) }
-% \end{equation}
-% 
-% done $\beta = \frac{b-\mu}{\sigma}$ y $\alpha = \frac{a-\mu}{\sigma}$.
-% 
-% Y la varianza
-% 
-% \begin{equation}\label{eq:variance_aprox_double}
-%  V(X| a < X < b) = \sigma^2 \Bigg( 1 + \bigg(\frac{\alpha N(\alpha) - \beta N(\beta) }{\Phi(\beta) - \Phi(\alpha) }\bigg) - \bigg(\frac{N(\alpha) - N(\beta) }{\Phi(\beta) - \Phi(\alpha) }\bigg)^2 \Bigg)
-% \end{equation}
-% 
-% Usando  \'unico truncamiento estas funciones se pueden simplificar como sigue
-% 
-% \begin{equation}\label{eq:mean_aprox_}
-% \begin{split}
-%  E(X|  X > a)  & \overset{\hfrac{\text{eq}}{\ref{eq:mean_aprox_double}}}{=}  \mu + \sigma \frac{N(\alpha)}{1 - \Phi(\alpha) } = \mu + \sigma \frac{N(\frac{a-\mu}{\sigma})}{1 - \Phi(\frac{a-\mu}{\sigma}) }\\
-%  & = \mu + \sigma \underbrace{\frac{N(\frac{\mu-a}{\sigma})}{\Phi(\frac{\mu-a}{\sigma}) }}_{\text{\small $V_1(t)$} } = \mu + \sigma V_1(t)
-%  \end{split}
-% \end{equation}
-% 
-% con $t = \frac{\mu -a}{\sigma} = -\alpha  $
-% 
-% \begin{equation}\label{eq:variance_aprox_}
-% \begin{split}
-%  V(X|  X > a) & \overset{\hfrac{\text{eq}}{\ref{eq:variance_aprox_double}}}{=} \sigma^2 \Bigg( 1 + \bigg(\frac{\alpha N(\alpha)}{1 - \Phi(\alpha) }\bigg) - \bigg(\frac{N(\alpha)}{1 - \Phi(\alpha) }\bigg)^2 \Bigg) \\
-%  & = \sigma^2 \Bigg( 1 + \bigg(\frac{\alpha N(-\alpha)}{\Phi(-\alpha) }\bigg) - \bigg(\frac{N(-\alpha)}{\Phi(-\alpha) }\bigg)^2 \Bigg) \\
-%  & = \sigma^2 \Bigg( 1 + \bigg(\frac{-t N(t)}{\Phi(t) }\bigg) - \bigg(\frac{N(t)}{\Phi(t) }\bigg)^2 \Bigg) \\
-%  & = \sigma^2 \Big( 1 +  -t V_1(t) - V_1(t)^2 \Big) \\
-%  & = \sigma^2 \Big( 1 + V_1(t) \big(-t  - V_1(t)\big) \Big)  \\
-%  & = \sigma^2 \Big( 1 - \underbrace{V_1(t) \big(V_1(t) + t \big)}_{W_1(t)} \Big)  = \sigma^2 \big( 1 - W_1(t) \big)
-%  \end{split}
-% \end{equation}
-% 
-% Luego, la normal aproximada es
-% 
-% \begin{equation}\label{eq:p*_d}
-%  \widehat{P}(d_1) \overset{\hfrac{\text{eq}}{\ref{eq:mean_aprox_}}}{\underset{\hfrac{\text{eq}}{\ref{eq:variance_aprox_}}}{=}} N\Bigg(d1 \,  \bigg| \, \underbrace{ \delta + \vartheta \, V_1(t) \,}_{\hfrac{\text{\scriptsize Media}}{\text{\scriptsize aproximada}} \, \text{\small $\widehat{\delta}$}} , \,  \underbrace{ \vartheta^2 \big( 1 - W_1(t) \big) }_{\hfrac{\text{\scriptsize Varianza}}{\text{\scriptsize aproximada}} \,\text{\small $\widehat{\vartheta}^{\,2}$}} \, \Bigg)
-% \end{equation}
-% 
-% donde, en caso de que no se contemple el empate, $\alpha=\frac{-\delta_1}{\vartheta_1}$.
-% 
-% Teniendo la normal aproximada $\widehat{P}(d_1)$ podemos calcular el mensaje ascendentes aproximado
-% 
-% \paragraph{$\bm{\widehat{m}_{d \rightarrow f_{d}}(d)}$}
-% 
-% \begin{equation}\label{eq:m^_d_fd}
-% \begin{split}
-%  m_{d_1 \rightarrow f_{d_1}}(d_1) &\overset{\hfrac{\text{eq}}{\ref{eq:p_d}}}{=} \frac{P(d_1)}{m_{f_{d_1} \rightarrow d_1}(d_1)} \\
-%  &\overset{\hfrac{\text{eq}}{\ref{eq:mean_aprox_}}}{\underset{\hfrac{\text{eq}}{\ref{eq:variance_aprox_}}}{\approx}} \frac{\widehat{P}(d_1)}{m_{f_{d_1} \rightarrow d_1}(d_1)} \\
-%  & \overset{\hfrac{\text{eq}}{\ref{eq:p*_d}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m_fd_d}}}{=}}  \frac{N(d_1 \,  | \,\widehat{\delta} , \, \widehat{\vartheta}^{\,2} )}{N(d_1 | \delta, \vartheta^2)} \\
-%  &\overset{\hfrac{\text{sec}}{\ref{sec:division_normales}}}{\propto} N(d_1,\delta_{\div},\vartheta_{\div}^2 )
-% \end{split}
-% \end{equation}
-% 
-% \begin{equation}
-%  \vartheta_{\div} = \sqrt{\frac{\widehat{\vartheta}^{\,2}\vartheta^2}{(\vartheta^2 - \widehat{\vartheta}^{\,2})}}
-% \end{equation}
-% 
-% \begin{equation}
-%  \delta_{\div} = \frac{(\vartheta^2\widehat{\delta} - \widehat{\vartheta}^{\,2}\delta)}{(\vartheta^2 - \widehat{\vartheta}^{\,2})}
-% \end{equation}
-% 
-% \paragraph{$\bm{\widehat{m}_{f_d \rightarrow f_{t_a}}(t_a)}$} (Caso ganador)
-% 
-% \begin{equation}\label{eq:^m_fd_ta}
-% \begin{split}
-% m_{f_{d_1} \rightarrow t_a}(t_a) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{d_1}(\bm{x}) \prod_{h \in n(f_{d_1}) \setminus \{t_a\} } m_{h \rightarrow f_{d_1}}(h) \, d\bm{x}_{\setminus \{t_a\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m^_d_fd}}}{\approx}}  \int \dots \int \mathbb{I}(d_1 = t_a - t_b) N(d_1 | \delta_{\div}, \vartheta_{\div}^2) N(t_b | \mu_b , \sigma_b^2 )  \, d\bm{x}_{\setminus \{t_a\} } \\[0.1cm]
-% \widehat{m}_{f_{d_1} \rightarrow t_a}(t_a)  & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \int \mathbb{I}(d_1 = t_a - t_b) N(d_1 | \delta_{\div}, \vartheta_{\div}^2) N(t_b | \mu_b , \sigma_b^2 )  \, d{d_1} d_{t_b} \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int  N(t_a - t_b | \delta_{\div}, \vartheta_{\div}^2) N(t_b | \mu_b , \sigma_b^2 )  \, d_{t_b} \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int  N( - t_b | \delta_{\div} - t_a, \vartheta_{\div}^2) N(t_b | \mu_b , \sigma_b^2 )  \, d_{t_b} \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int  N( t_b | t_a - \delta_{\div}, \vartheta_{\div}^2) N(t_b | \mu_b , \sigma_b^2 )  \,  d_{t_b} \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{=} N(t_a - \delta_{\div} \, | \, \mu_b \, , \, \vartheta_{\div}^2 + \sigma_b^2) \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} N(t_a \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) \\
-% \end{split}
-% \end{equation}
-% 
-% 
-% \paragraph{$\bm{\widehat{m}_{f_d \rightarrow f_{t_b}}(t_b)}$} (Caso perdedor)
-% 
-% \begin{equation}\label{eq:^m_fd_tb}
-% \begin{split}
-% m_{f_{d_1} \rightarrow t_b}(t_b) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{d_1}(\bm{x}) \prod_{h \in n(f_{d_1}) \setminus \{t_b\} } m_{h \rightarrow f_{d_1}}(h) \, d\bm{x}_{\setminus \{t_b\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:m^_d_fd}}}{\approx}}  \int \dots \int \mathbb{I}(d_1 = t_a - t_b) N(d_1 | \delta_{\div}, \vartheta_{\div}^2) N(t_a | \mu_a , \sigma_a^2 )  \, d\bm{x}_{\setminus \{t_a\} } \\[0.1cm]
-% \widehat{m}_{f_{d_1} \rightarrow t_b}(t_b)  & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \int \mathbb{I}(d_1 = t_a - t_b) N(d_1 | \delta_{\div}, \vartheta_{\div}^2) N(t_a | \mu_a , \sigma_a^2 )  \, d{d_1} d_{t_a} \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int  N(t_a - t_b | \delta_{\div}, \vartheta_{\div}^2) N(t_a | \mu_a , \sigma_a^2 )  \, d_{t_a} \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int  N( t_a | \delta_{\div} + t_b, \vartheta_{\div}^2) N(t_a | \mu_a , \sigma_a^2 )  \, d_{t_a} \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{=} N(t_b + \delta_{\div} \, | \, \mu_a \, , \, \vartheta_{\div}^2 + \sigma_a^2) \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} N(t_b \, | \, \mu_a - \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_a^2) \\
-% \end{split}
-% \end{equation}
-% 
-% \paragraph{$\bm{\widehat{m}_{f_{t_a} \rightarrow p_1}(p_1)}$} (Caso ganador)
-% 
-% \begin{equation}\label{eq:^m_fta_p}
-% \begin{split}
-% m_{f_{t_a} \rightarrow p_1}(p_1) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{t_a}(\bm{x}) \prod_{h \in n(f_{t_a}) \setminus \{p_1\} } m_{h \rightarrow f_{t_a}}(h) \, d\bm{x}_{\setminus \{p_1\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:^m_fd_ta}}}{\approx}}  \int \dots \int \mathbb{I}(t_a = p_1 + p_2) N(t_a \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) N(p_2 | \mu_2 , \sigma_2^2 + \beta^2)  \, d\bm{x}_{\setminus \{p_1\} } \\[0.1cm]
-% \widehat{m}_{f_{t_a} \rightarrow p_1}(p_1)  & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \int \mathbb{I}(t_a = p_1 + p_2) N(t_a \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) N(p_2 | \mu_2 , \sigma_2^2 + \beta^2)  \, d{t_a} d_{p_2} \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int N(p_1 + p_2 \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) N(p_2 | \mu_2 , \sigma_2^2+ \beta^2 )   \, d_{p_2} \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}\int N(p_2 \, | \, \mu_b - p_1 + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) N(p_2 | \mu_2 , \sigma_2^2 + \beta^2)   \, d_{p_2} \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{=} N(\mu_b - p_1 + \delta_{\div} \,|\, \mu_2 \,,\,\vartheta_{\div}^2 + \sigma_b^2 + \sigma_2^2 + \beta^2)   \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}  N( p_1 \,|\,  (\mu_b - \mu_2) + \delta_{\div}  \,,\,\vartheta_{\div}^2 + \sigma_b^2 + \sigma_2^2 + \beta^2)  \\
-% \end{split}
-% \end{equation}
-% 
-% 
-% En general
-% \begin{equation}
-% \begin{split}
-% \widehat{m}_{f_{t_a} \rightarrow p_1}(p_1) &= N( p_1 \,|\, (\mu_b  - \sum_{i \in A_a, i\neq1} \mu_i) + \delta_{\div}  \,,\,\vartheta_{\div}^2 + \sigma_b^2 + \sum_{i \in A_a, i\neq1} \sigma_i^2 + \beta^2 ) \\
-%  & = N( p_1 \,|\, (-\delta + \mu_1) + \delta_{\div}  \,,\,\vartheta_{\div}^2 + (\vartheta^2 - \sigma_1^2 - \beta^2))
-% \end{split}
-% \end{equation}
-% 
-% 
-% \paragraph{$\bm{\widehat{m}_{f_{t_b} \rightarrow p_3}(p_3)}$} (Caso perdedor)
-% 
-% \begin{equation}\label{eq:^m_ftb_p}
-% \begin{split}
-% m_{f_{t_b} \rightarrow p_3}(p_3) & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \dots \int f_{t_b}(\bm{x}) \prod_{h \in n(f_{t_b}) \setminus \{p_3\} } m_{h \rightarrow f_{t_b}}(h) \, d\bm{x}_{\setminus \{p_3\} }  \\
-% &\overset{\hfrac{\text{fig}}{\ref{fig:modelo_trueskill_2vs2}}}{\underset{\hfrac{\text{eq}}{\ref{eq:^m_fd_tb}}}{\approx}}  \int \dots \int \mathbb{I}(t_b = p_3 + p_4) N(t_b \, | \, \mu_a - \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_a^2) N(p_4 | \mu_4 , \sigma_4^2 + \beta^2)  \, d\bm{x}_{\setminus \{p_3\} } \\[0.1cm]
-% \widehat{m}_{f_{t_b} \rightarrow p_3}(p_3)  & \overset{\hfrac{\text{eq}}{\ref{eq:m_f_v}}}{=} \int \int \mathbb{I}(t_b = p_3 + p_4) N(t_b \, | \, \mu_a - \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_a^2) N(p_4 | \mu_4 , \sigma_4^2 + \beta^2) \, d{t_b} d_{p_4} \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:integral_con_indicadora}}}{=} \int N(p_3 + p_4 \, | \, \mu_a - \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_a^2) N(p_4 | \mu_4 , \sigma_4^2 + \beta^2) \, d_{p_4} \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=} \int N(p_4 \, | \, \mu_a - \delta_{\div} - p_3 \, , \, \vartheta_{\div}^2 + \sigma_a^2) N(p_4 | \mu_4 , \sigma_4^2 + \beta^2) \, d_{p_4} \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:multiplicacion_normales}}}{=} N(\mu_a - \delta_{\div} - p_3  \,|\, \mu_4 \, , \, \vartheta_{\div}^2 + \sigma_a^2 + \sigma_4^2 + \beta^2)   \\
-% & \overset{\hfrac{\text{eq}}{\ref{eq:simetria}}}{=}   N(  p_3  \,|\, (\mu_a - \mu_4)  - \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_a^2 + \sigma_4^2 + \beta^2)  \\
-% \end{split}
-% \end{equation}
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
 % 
 % \section{Propiedades de las funciones de densidad Normales}
 % 
@@ -4054,55 +3412,8 @@ information such as relative contributions of the authors may be added here
 % 
 % 
 % 
-% \section{More technical details} \label{app:technical}
-% 
-% \begin{leftbar}
-% Appendices can be included after the bibliography (with a page break). Each
-% section within the appendix should have a proper section title (rather than
-% just \emph{Appendix}).
-% 
-% For more technical style details, please check out JSS's style FAQ at
-% \url{https://www.jstatsoft.org/pages/view/style#frequently-asked-questions}
-% which includes the following topics:
-% \begin{itemize}
-%   \item Title vs.\ sentence case.
-%   \item Graphics formatting.
-%   \item Naming conventions.
-%   \item Turning JSS manuscripts into \proglang{R} package vignettes.
-%   \item Trouble shooting.
-%   \item Many other potentially helpful details\dots
-% \end{itemize}
-% \end{leftbar}
-% 
-% 
-% \section[Using BibTeX]{Using \textsc{Bib}{\TeX}} \label{app:bibtex}
-% 
-% \begin{leftbar}
-% References need to be provided in a \textsc{Bib}{\TeX} file (\code{.bib}). All
-% references should be made with \verb|\cite|, \verb|\citet|, \verb|\citep|,
-% \verb|\citealp| etc.\ (and never hard-coded). This commands yield different
-% formats of author-year citations and allow to include additional details (e.g.,
-% pages, chapters, \dots) in brackets. In case you are not familiar with these
-% commands see the JSS style FAQ for details.
-% 
-% Cleaning up \textsc{Bib}{\TeX} files is a somewhat tedious task -- especially
-% when acquiring the entries automatically from mixed online sources. However,
-% it is important that informations are complete and presented in a consistent
-% style to avoid confusions. JSS requires the following format.
-% \begin{itemize}
-%   \item JSS-specific markup (\verb|\proglang|, \verb|\pkg|, \verb|\code|) should
-%     be used in the references.
-%   \item Titles should be in title case.
-%   \item Journal titles should not be abbreviated and in title case.
-%   \item DOIs should be included where available.
-%   \item Software should be properly cited as well. For \proglang{R} packages
-%     \code{citation("pkgname")} typically provides a good starting point.
-% \end{itemize}
-% \end{leftbar}
-% 
-% \end{appendix}
 
 %% -----------------------------------------------------------------------------
 
-
+\newpage
 \end{document}
