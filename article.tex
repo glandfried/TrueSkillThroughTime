@@ -1371,6 +1371,62 @@ lc_print(lc[["a"]])
 \en{Note also that the estimates do not change over time according to the assumption \texttt{gamma=0.0}.}
 \es{Notar también que las estimaciones de los jugadores no cambian en el tiempo de acuerdo con el supuesto \texttt{gamma=0.0}.}
 
+% Parrafo
+
+\en{We now analyze a complex example in which a new player joins a population of already known players.}
+\es{Ahora analizamos un ejemplo más complejo en el que un jugador nuevo se integra a una población de jugadores ya conocidos.}
+%
+\en{Suppose we track the new player for 1000 games, and during that time his actual skill increases by two points ($\beta$) following a logistic function.}
+\es{Supongamos que le hacemos seguimiento al nuevo jugador durante 1000 partidas, y que durante ese tiempo su habilidad real aumenta dos puntos ($\beta$) siguiendo una función logísitica.}
+%
+\en{Here we only show the \proglang{Python} version.}
+\es{Aquí mostramos solo la versión de \proglang{Python}.}
+%
+\en{The codes for \proglang{Julia} and \proglang{R} can be found in the appendix \ref{AGREGA-CODE}.}
+\es{Los códigos de \proglang{Julia} y \proglang{R} se encuentran en el anexo \ref{AGREGA-CODIGO}.}
+%
+\begin{lstlisting}[backgroundcolor=\color{python}, label=lst:synthetic_skill, caption={\en{Synthetic learning curve}\es{Curva de aprendizaje sintética}}, belowskip=0.0, aboveskip=0.1cm]
+from numpy import exp
+def skill(experience, middle, maximum, slope):
+    return maximum/(1+exp(slope*(-experience+middle)))
+mu_agent = [skill(i, 500, 2, 0.0075) for i in range(1000)]
+\end{lstlisting}
+%
+\en{In this example we want to infer this learing curve from the results of the games.}
+\es{En este ejemplo queremos inferir esta curva de aprendizaje a partir de los resultados de las partidas.}
+%
+\en{}
+\es{Supongamos que los oponentes tienen habilidad similar, se encuentran alrededor de la verdadera habilidad del nuevo jugador.}
+%
+\en{}
+\es{Los resultados van a depender de los rendimientos ambos jugadores}
+\begin{lstlisting}[backgroundcolor=\color{python}]
+from numpy.random import normal, seed
+seed(999)
+mu_other = normal(mu_agent,scale=0.5,size=1000)
+def perf(mu, beta=1.0):
+    return normal(mu,beta)
+\end{lstlisting}
+
+\begin{lstlisting}[backgroundcolor=\color{python}]
+composition = [[["a"], [str(i)]] for i in range(1000)]
+results = [  [1,0] if perf(mu_agent[i]) > perf(mu_other[i]) else [0,1] for i in range(1000)]
+times = [i for i in range(1000)]
+priors = dict([(str(k), Player(Gaussian(mean_target[k], 0.2))) for k in range(1000)])
+\end{lstlisting}
+
+\begin{lstlisting}[backgroundcolor=\color{python}]
+h = History(composition, results, times, priors, sigma=6.0, gamma=0.017)
+h.convergence()
+mu = [tp[1].mu for tp in h.learning_curves()["a"]] 
+\end{lstlisting}
+
+
+
+
+
+
+
 \subsection{The history of the Association of Tennis Professionals (ATP)}
 
 \todo[inline]{Crear un archivo csv con lo básico, buenos nombres de columnas}
