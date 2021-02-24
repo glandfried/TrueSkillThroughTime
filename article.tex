@@ -1376,53 +1376,66 @@ lc_print(lc[["a"]])
 \en{We now analyze a complex example in which a new player joins a population of already known players.}
 \es{Ahora analizamos un ejemplo más complejo en el que un jugador nuevo se integra a una población de jugadores ya conocidos.}
 %
-\en{Suppose we track the new player for 1000 games, and during that time his actual skill increases by two points ($\beta$) following a logistic function.}
-\es{Supongamos que le hacemos seguimiento al nuevo jugador durante 1000 partidas, y que durante ese tiempo su habilidad real aumenta dos puntos ($\beta$) siguiendo una función logísitica.}
+\en{Suppose we know the true ability of all players.}
+\es{Supongamos que nosotros conocemos la verdadera habilidad de todos los jugadores.}
 %
-\en{Here we only show the \proglang{Python} version.}
-\es{Aquí mostramos solo la versión de \proglang{Python}.}
+\en{In this example we want to see how close the estimate is to the true skill.}
+\es{En este ejemplo queremos ver cuan cercana es la estimación de la verdadera habilidad.}
 %
-\en{The codes for \proglang{Julia} and \proglang{R} can be found in the appendix \ref{AGREGA-CODE}.}
-\es{Los códigos de \proglang{Julia} y \proglang{R} se encuentran en el anexo \ref{AGREGA-CODIGO}.}
+\en{For this purpose, we establish a skill that changes over time following a logistic function, to be approximated by the package.}
+\es{Para eso establecemos una habilidad que cambia en el tiempo siguiendo una función logísitica, que deberá ser aproximada por el paquete.}
 %
-\begin{lstlisting}[backgroundcolor=\color{python}, label=lst:synthetic_skill, caption={\en{Synthetic learning curve}\es{Curva de aprendizaje sintética}}, belowskip=0.0, aboveskip=0.1cm]
-from numpy import exp
+\en{In the following code we generate the agent's learning curve and 1000 opponents' skills around the agent's skill (i.e. the agent plays with opponents of his own level).}
+\es{En el siguiente código generamos la curva de aprendizaje del agente y 1000 oponentes con habilidades alrededor de la habilidad del agente (i.e. el agente juega con oponentes de su propio nivel).}
+%
+\begin{lstlisting}[backgroundcolor=\color{python}, label=lst:synthetic_skill, caption={\en{Synthetic learning curve}\es{Curva de aprendizaje sintética}}, belowskip=0.1cm, aboveskip=0.1cm]
+import math; from numpy.random import normal, seed; seed(99)
 def skill(experience, middle, maximum, slope):
-    return maximum/(1+exp(slope*(-experience+middle)))
-mu_agent = [skill(i, 500, 2, 0.0075) for i in range(1000)]
+    return maximum/(1+math.exp(slope*(-experience+middle)))
+agent = [skill(i, 500, 2, 0.0075) for i in range(1000)]
+other = normal(agent,scale=0.5,size=1000)
 \end{lstlisting}
 %
-\en{In this example we want to infer this learing curve from the results of the games.}
-\es{En este ejemplo queremos inferir esta curva de aprendizaje a partir de los resultados de las partidas.}
+\en{Here we only show the \proglang{Python} version because the amount of code is bigger than before (\proglang{Julia} and \proglang{R} versions can be found in the appendix \ref{AGREGA-CODE}).}
+\es{Aquí mostramos solo la versión de \proglang{Python}, debido a que la cantidad de código es mayor que antes (las versiones de \proglang{Julia} y \proglang{R} se encuentran en el anexo \ref{AGREGA-CODIGO}).}
 %
-\en{}
-\es{Supongamos que los oponentes tienen habilidad similar, se encuentran alrededor de la verdadera habilidad del nuevo jugador.}
+\en{The list \texttt{agent} represents the agent's skills, has a smooth growth starting at zero and ending at two, passing through one at event 500.}
+\es{La lista \texttt{agent} representa las habilidades del agente, tiene un crecimiento suave que comienza en cero y termina en dos, pasando por uno en el evento 500.}
 %
-\en{}
-\es{Los resultados van a depender de los rendimientos ambos jugadores}
-\begin{lstlisting}[backgroundcolor=\color{python}]
-from numpy.random import normal, seed
-seed(999)
-mu_other = normal(mu_agent,scale=0.5,size=1000)
-def perf(mu, beta=1.0):
-    return normal(mu,beta)
-\end{lstlisting}
-
-\begin{lstlisting}[backgroundcolor=\color{python}]
+\en{The list \texttt{other} represents the randomly generated opponents' skills with a normal distribution, centered on the agent's skill with a standard deviation of $0.5$.}
+\es{La lista \texttt{other} representa las habilidades de los oponentes generadas de forma aleatorias con una distribución normal, centrada en la habilidad del agente con un desvío estandar de $0.5$.}
+%
+\begin{lstlisting}[backgroundcolor=\color{python},label=lst:synthetic_parameters, caption={\en{Synthetic history}\es{Historia sintética}}, belowskip=0.1cm, aboveskip=0.1cm]
 composition = [[["a"], [str(i)]] for i in range(1000)]
-results = [  [1,0] if perf(mu_agent[i]) > perf(mu_other[i]) else [0,1] for i in range(1000)]
-times = [i for i in range(1000)]
-priors = dict([(str(k), Player(Gaussian(mean_target[k], 0.2))) for k in range(1000)])
-\end{lstlisting}
+results = [[1,0] if normal(agent[i]) > normal(other[i]) else [0,1] for i in range(1000)]
+times = [(i for i in range(10)]
+priors = dict([(str(k), Player(Gaussian(other[k], 0.2))) for k in range(1000)])
 
-\begin{lstlisting}[backgroundcolor=\color{python}]
-h = History(composition, results, times, priors, sigma=6.0, gamma=0.017)
+h = History(composition, results, times, priors, sigma=6.0, gamma=0.015)
 h.convergence()
 mu = [tp[1].mu for tp in h.learning_curves()["a"]] 
 \end{lstlisting}
-
-
-
+%
+\en{The variable \texttt{composition} contains all the games in which the agent participates against the 1000 different opponents.}
+\es{La variable \texttt{composition} contiene todas las partidas en la que participa el agente contra los 1000 distintos oponentes.}
+%
+\en{The variable \texttt{results} contains the results randomly generated from the true skill, the player with the highest performance wins.}
+\es{La variable \texttt{results} es una lista con los resultados generados aleatoriamente a partir de la verdadera habilidad, el juegador que saca mayor rendimiento gana.}
+%
+\en{The variable \texttt{time} contains integer values from 0 to 999.}
+\es{La variable \texttt{time} contiene valores enteros de 0 a 999.}
+%
+\en{When passed to the class \texttt{History}, this will indicate the time period in which each of the games was played, and therefore the amount of dynamic uncertainty ($\gamma$) to be added between adjacent games.}
+\es{Al pasarselo a la clase \texttt{History}, esto indicará el período temporal en los que se jugó cada una de las partidas, y por lo tanto la cantidad de incertidumbre dinámica ($\gamma$) que se debe agregar entre partidas adyacentes.}
+%
+\en{The variable \texttt{priors} is a dictionary indexed by the names of the players, which will indicate in this case the custom priors of the opponents (all estimates with low uncertainty)}
+\es{La variable \texttt{priors} es un diccionario indexado por los nombres que indicará a la clase Historia los priors personalizados de los oponetes (todas las estimaciones con baja incertidumbre).}
+%
+\en{The class \texttt{History} is initialized with these four parameters, and dynamic fator \texttt{gamma=0.015} less than the defualt value.}
+\es{La clase \texttt{History} la inicializamos con estos parámetros, y un factor dinámico \texttt{gamma=0.015} menor al valor por defecto.}
+%
+\en{Then we converge the class \texttt{History} to obtain the TrueSkill Through Time estimates to finally obtain the mean of the estimated learning curve.}
+\es{Luego convergemos la clase \texttt{History} para obtener las estimaciones de TrueSkill Through Time para finalmente obtener la media de la curva de aprendizaje estimada.}
 
 
 
@@ -1585,6 +1598,7 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 %%   is recommended. Alternatively, a plain {verbatim} can also be used.
 %%   (For executed code see the next section.)
 
+\newpage
 \section{Models and software} 
 
 \en{Driven by the growth in computing power, researchers have developed over the past five decades thousands of successful machine learning algorithms tailored to specific sets of problems.}
