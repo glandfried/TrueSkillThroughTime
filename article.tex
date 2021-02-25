@@ -1490,14 +1490,37 @@ composition = [ r.double == "t" ? [[r.w1_id,r.w2_id],[r.l1_id,r.l2_id]] : [[r.w1
 h = History(composition=composition, times = times, sigma = 2.0, gamma = 0.02)
 convergence(h,epsilon=0.01, iterations=10)
 \end{lstlisting}
-
-
-
+%
+\en{In this code we open the file \texttt{atp.csv}, create the variables \texttt{times} and \texttt{composition}, and instantiate the class \texttt{History}.}
+\es{En este código abrimos el archivo \texttt{csv}, creamos las variables \texttt{times} y \texttt{composition} e instanciamos la clase \texttt{History}.}
+%
+\en{Times are defined as days elapsed from a base date (any date) to the tournament start time.}
+\es{Los tiempos los definimos como días transcurridos desde una fecha base (cualquiera sea) hasta el inicio del toreno.}
+%
+\en{We subtract the number of rounds to roughly differentiate the days within each tournament, but this is not necessary.}
+\es{Restamos el número de ronda para diferenciar aproximadamente los días al interior de cada torneo, pero no es algo que sea necesario.}
+%
+\en{The composition of the events depends on whether the games were doubles or singles.}
+\es{La composición de los eventos dependen de si la partidas fueron dobles o singles.}
+%
+\en{The results are implied by the order in which we set the composition, always placing the winning team first.}
+\es{Los resultados quedan implicitos por el orden en que armamos la composición, poniendo siempre primero al equipo ganador.}
+%
+\en{When initializing the class \texttt{History} we also modify the default values of \texttt{sigma} and \texttt{gamma}.}
+\es{Al inicializar la clase \texttt{History} modificamos los valores por defecto de \texttt{sigma} y \texttt{gamma}.}
+%
+\en{Finally, we converge the history to obtain TrueSkill Through Time estimates, explicitly indicating the breaking criterion: when the change between iterations is less than $0.01$, or when $10$ iterations are reached.}
+\es{Finalmente, convergemos la historia para obtener las estimaciones de TrueSkill Through Time, indicando explícitamente el criterio de corte: cuando la modificación entrte iteraciones sea menor a $0.01$, o cuando se alcanzan las $10$ iteraciones.}
+%
+\en{The learning curves are obtained in the same way as we have seen before.}
+\es{Las curvas de aprendizaje se obtienen de la misma forma que hemos visto.}
+%
+\en{In the following figure we plot the learning curves of 8 important players in the history of the ATP.}
+\es{En la siguiente figura graficamos las curvas de aprendizaje de 8 jugadores importantes de la historia de la ATP.}
+%
 \begin{figure}[h]
     \centering
     \includegraphics[page={1},width=.6\linewidth]{figures/atp}
-    \caption{
-    }
     \caption{ATP}
     \label{fig:atp}
 \end{figure}
@@ -1650,7 +1673,6 @@ convergence(h,epsilon=0.01, iterations=10)
 %%   is recommended. Alternatively, a plain {verbatim} can also be used.
 %%   (For executed code see the next section.)
 
-\newpage
 \section{Models and software} 
 
 \en{Driven by the growth in computing power, researchers have developed over the past five decades thousands of successful machine learning algorithms tailored to specific sets of problems.}
@@ -3240,6 +3262,15 @@ information such as relative contributions of the authors may be added here
 
 \newpage
 \section{Appendix} \label{app:technical}
+
+\subsection{Sequence of events}
+
+\todo[inline]{Código de Julia y R}
+
+\subsection{\en{The history of the Association of Tennis Professionals (ATP)}\es{Historia de la Asociación de Tenistas Profesionales (ATP)}}
+
+\todo[inline]{Código de Python y R}
+
 % Appendices can be included after the bibliography (with a page break). Each
 % section within the appendix should have a proper section title (rather than
 % just \emph{Appendix}).
