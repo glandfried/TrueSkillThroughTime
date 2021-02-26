@@ -1675,45 +1675,23 @@ convergence(h,epsilon=0.01, iterations=10)
 
 \section{Models and software} 
 
-\en{Driven by the growth in computing power, researchers have developed over the past five decades thousands of successful machine learning algorithms tailored to specific sets of problems.}
-\es{Impulsado por la crecimiento en la capacidad de c\'omputo ocurrida, en las \'ultimas cinco d\'ecadas los investigadores han desarrollado miles de algoritmos exitosos de aprendizaje de autom\'atico, hechos a medida de conjuntos de problemas espec\'ificos.}
+\en{Probabilistic inference offers a generally applicable framework~\citep{Bishop2013}: all the assumptions are made explicit through a generative (or causal) model, which can be intuitively specified in a graphical way; and inference can always be solved by applying the same rules of probability (the sum and product rules) over the joint distribution represented by the model.}
+\es{La inferencia probabil\'istica ofrece un marco de aplicaci\'on general~\citep{Bishop2013}: todos los supuestos se hacen expl\'icitos a trav\'es de un modelo generativo (o causal), que puede ser especificado intuitivamente de forma gr\'afica; y toda inferencia se hace aplicando las reglas de la probabilidad, de la suma y del producto, sobre el modelo representado como una distribuci\'on conjunta.}
 %
-\en{In contrast, probabilistic inference offers a generally applicable framework~\citep{Bishop2013}.}
-\es{Por el contrario, la inferencia probabil\'istica ofrece un marco de aplicaci\'on general~\citep{Bishop2013}.}
-%
-\en{The assumptions made by standard machine learning algorithms are generally difficult to remember and often difficult to perceive.}
-\es{Las suposiciones hechas por los algoritmos est\'andar de aprendizaje autom\'atico son generalmente dif\'iciles de recordar y a menudo dif\'iciles de percibir.}
-%
-\en{Similarly, the algorithms used vary from application to application, forcing us to learn a variety of methods.}
-\es{Del mismo modo, los algoritmos empleadas var\'ian de aplicaci\'on en aplicaci\'on, oblig\'andonos a aprender una gran variedad de m\'etodos.}
-%
-\en{Instead of having to transform the problem to fit some standard algorithm, probabilistic inference provides the building blocks to solve any specific problem.}
-\es{En lugar de tener que transformar el problema para que encaje en alg\'un algoritmo est\'andar, la inferencia probabil\'istica ofrece los bloques de construcci\'on que permiten resolver cualquier problema espec\'ifico.}
-%
-\en{All the assumptions are made explicit through a generative (or causal) model, which can be intuitively specified in a graphical way.}
-\es{Todos los supuestos se hacen expl\'icitos a trav\'es de un modelo generativo (o causal), que puede ser especificado intuitivamente de forma gr\'afica.}
-%
-\en{Inference can always be solved by applying the rules of probability (the sum and product rules) over the joint distribution represented by the model.}
-\es{Y toda inferencia se hace aplicando las reglas de la probabilidad, de la suma y del producto, sobre el modelo representado como una distribuci\'on conjunta.}
-
-% Parrafo
-
 \en{In this section we will explain all the details of the probabilistic framework in the context of the TrueSkill Through Time problem.}
 \es{En esta secci\'on explicaremos todos los detalles del marco probabil\'isitico en el contexto del problema TrueSkill Through Time.}
 %
-\en{In the section~\ref{sec:sumProductAlgorithm} we will introduce the \emph{sum-product algorithm}, which allows to efficiently compute any marginal distribution from a joint distributions.}
-\es{En la secci\'on~\ref{sec:sumProductAlgorithm} introduciremos el \emph{sum-product algorithm}, que permite computar eficientemente cualquier distribuciones marginal a partir de una distribuci\'on conjunta.}
+\en{In the section~\ref{sec:sumProductAlgorithm} we will introduce the \emph{sum-product algorithm}, which allows to efficiently apply the sum and product rules to compute any marginal distribution from the joint distributions.}
+\es{En la secci\'on~\ref{sec:sumProductAlgorithm} introduciremos el \emph{sum-product algorithm}, que permite aplicar eficientemente las reglas de la suma y el producto para compuutar cualquier distribuciones marginal a partir de la distribuci\'on conjunta.}
 %
 \en{In the section~\ref{sec:propiedades} we list the properties that we will need to derive the marginal distributions of interest.}
 \es{En la secci\'on~\ref{sec:propiedades} enumeramos las propiedades que necesitaremos para derivar las distribuciones marginales de inter\'es.}
 %
-% Afortunadamente, gracias a la distribuci\'on de probabilidad elegida para representar el modelo causal~\ref{modelo_elo}, la distribuci\'on de creencias a posteriori de la habilidad de los agentes y la predicci\'on a priori del resultado observado (aka evidencia) tienen soluci\'on anal\'itica.
+\en{In the section \ref{sec:Gasussian} we introduce the implementation details of the class \texttt{Gaussian}.}
+\es{En las sección \ref{sec:Gasussian} introducimos los detalles de implementaci\'on de la clases \texttt{Gaussian}.}
 %
-\en{In the section \ref{sec:Gasussian}, \ref{sec:rating} and \ref{sec:game} we introduce the implementation details of the classes \texttt{Gaussian}, \texttt{Rating} and \texttt{Game}.}
-\es{En las secciones \ref{sec:Gasussian}, \ref{sec:rating} y \ref{sec:game} introducimos los detalles de implementaci\'on de las clases \texttt{Gaussian}, \texttt{Rating} y \texttt{Game}.}
-%
-\en{In the sections \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate_posterior}, and \ref{sec:iterative_posterior} we show respectively how to solve the prior prediction and the exact posterior of an event, we modified the model to include ties, we explain how to approximate the posterior, and we give the general multi-team solution.}
-\es{En las secciones \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate_posterior}, y \ref{sec:iterative_posterior} mostramos respectivamente c\'omo resolver la predicci\'on a priori y el posterior exacto de un evento, modificamos el modelo para que incluya empates, explicamos c\'omo aproximar el posterior y damos la soluci\'on general multi-equipos.}
+\en{In the sections \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate_posterior}, and \ref{sec:iterative_posterior} we show respectively how to solve the prior prediction and the exact posterior of an event, we introduce ties into the model, we explain how to approximate the posterior of a single event, and we give the general multi-team solution.}
+\es{En las secciones \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate_posterior}, y \ref{sec:iterative_posterior} mostramos respectivamente c\'omo resolver la predicci\'on a priori y el posterior exacto de un evento, instroucimos la posibilidad de empates en el modelo, explicamos c\'omo aproximar el posterior, y damos la soluci\'on general multi-equipos.}
 %
 FALTA HISTORY
 % %
@@ -1732,24 +1710,24 @@ FALTA HISTORY
 \en{The \emph{sum-product algorithm}~\citep{Kschischang2001} is a general procedure that takes advantage of the structure of the joint probability distribution imposed by the causal model to efficiently apply the rules of probability, the \ref{eq:sum_rule} and the \ref{eq:product_rule}.}
 \es{El \emph{sum-product algorithm}~\citep{Kschischang2001} es un procedimiento general que aprovecha la estructura de la disstribuci\'on de probabilidad conjunta que impone el modelo causal para aplicar eficientemente las reglas de la probabilidad, la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
 %
-\en{Represented as joint distributions, the models can be factored into the product of simple conditional probabilities.}
-\es{Representados como distribuciones conjuntas, los modelos pueden factorizarse en el producto de probabilidades condicionales simples.}
+\en{Any model can be factored into the product of conditional probabilities.}
+\es{Cualquier modelo puede factorizarse en el producto de probabilidades condicionales.}
 %
-\en{Our generative model (Figure~\ref{fig:generative_model}) can be factored as,}
-\es{Nuestro modelo generativo (figura~\ref{fig:generative_model}) puede factorizarse como,}
+\en{By making use of the independencies between variables (figure~\ref{fig:generative_model}) our model can be factored as,}
+\es{Haciendo uso de las independencias entre las variables (figura~\ref{fig:generative_model}) nuestro modelo puede factorizarse como,}
 %
 \begin{equation} \label{eq:factorization}
  p(\bm{s},\bm{p},d,r) = p(s_1)p(s_2)p(p_1|s_1)p(p_2|s_2)p(d|\bm{p})P(r|d)
 \end{equation}
 %
-\en{In the Figure~\ref{fig:factor_graph}, we show its factorization graphically.}
+\en{In the figure~\ref{fig:factor_graph} we show this factorization graphically.}
 \es{En la figura~\ref{fig:factor_graph} mostramos gr\'aficamente la factorizaci\'on.}
 %
 \en{These types of representations are known as \emph{factor graph}.}
 \es{A este tipo de representaciones se las conoce como \emph{factor graph}.}
 %
-\en{The \emph{factor graph} are bipartite graphs, consisting of variable nodes $v$ and function nodes (or factors) $f$.}
-\es{Los \emph{factor graph} son gr\'afos bipartitos, compuestos por nodos variables $v$ y nodos funciones (o factores) $f$.}
+\en{These are graphs with two types of nodes, variable nodes (white circles) and function nodes (black squares).}
+\es{Son gr\'afos con dos tipos de nodos, los nodos variables (círculos blancos) y los nodos funciones (cuadrados negros).}
 %
 \en{The edge between variables and functions represent the mathematical relationship ``the variable $v$ is an argument of the function $f$''.}
 \es{Los ejes entre variables y funciones representan la relaci\'on matem\'atica ``la variable $v$ es argumento de la funci\'on $f$''.}
@@ -1772,7 +1750,7 @@ FALTA HISTORY
     
     \node[factor, above=of d,yshift=-0.6cm] (fd) {} ; 
     \node[const, left=of fd] (nfd) {\normalsize $p(d|\bm{p})$}; 
-    \node[const, right=of fd] (dfd) {\normalsize \hspace{2.4cm} $p(d|\bm{p}) =\mathbb{I}(d=p_1-p_2) \ o \ \delta() $}; 
+    \node[const, right=of fd] (dfd) {\normalsize \hspace{2.4cm} $p(d|\bm{p}) =\delta(d=p_1-p_2) $}; 
     
     
     \node[latent, above=of fd, xshift=-0.8cm, yshift=-0.6cm] (p1) {$p_1$} ; %
@@ -1809,23 +1787,23 @@ FALTA HISTORY
     %\node[invisible, right=of p2, xshift=4.35cm] (s-dist) {};
 }
      \caption{
-     \en{Factorizaci\'on gr\'afica del modelo generativo (Fig.~\ref{fig:generative_model}).}
+     \en{Graphical way of representing the factorization of the basic causal model (equation~\ref{eq:factorization}).}
+     \es{Forma gráfica de representar la factorizaci\'on del modelo causal básico (ecuación~\ref{eq:factorization}).}
      %
-     \en{Los cuadrados negros representan las funciones, los c\'irculos blancos representan las variable, y los ejes entre ellos representan la relaci\'on matem\'atica ``la variable es argumento de la funci\'on''.}
+     \en{The black squares represent the functions, the white circles represent the variable, and the edges between them represent the mathematical relationship ``the variable is argument of the function''.}
+     \es{Los cuadrados negros representan las funciones, los c\'irculos blancos representan las variable, y los ejes entre ellos representan la relaci\'on matem\'atica ``la variable es argumento de la funci\'on''.}
      %
      }
     \label{fig:factor_graph}
 \label{modelo}
 \end{figure} 
 %
-\en{The structure encodes the minimum number of steps required to calculate any marginal probability distribution.}
-\es{La estructura codifica la m\'inima cantidad de pasos que se requieren para calcular cualquier distribuci\'on de probabilidad marginal.}
+% \en{The structure encodes the minimum number of steps required to calculate any marginal probability distribution.}
+% \es{La estructura codifica la m\'inima cantidad de pasos que se requieren para calcular cualquier distribuci\'on de probabilidad marginal.}
 %
-\en{In our case we want to compute two marginals, the posterior of the skills $p(s_i|r)$ and the a prior probability of the result $p(r)$.}
-\es{En nuestro caso querermos computar dos marginales, el posterior de las habilidades $p(s_i|r)$ y la probabilidad a priori del resultado $p(r)$.}
-
-% Parrafo
-
+\en{In our case we want to compute two marginals, the proportional posterior of the skills $p(s_i, r)$ and the a prior probability of the result $p(r)$.}
+\es{En nuestro caso querermos computar dos marginales, el posterior de las habilidades $p(s_i, r)$ y la probabilidad a priori del resultado $p(r)$.}
+%
 \en{The \emph{sum-product algorithm} is a general way of breaking down the rules of probability as messages that are sent locally between the variables of the \emph{factor graph}.}
 \es{El \emph{sum-product algorithm} es una forma general de descomponer las reglas de la probabilidad como mensajes que se env\'ian localmente las variables del \emph{factor graph}.}
 %
