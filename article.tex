@@ -937,7 +937,7 @@ before and after code input/output should be avoided (see above).
 \end{leftbar}
 \end{comment}
 
-\en{In this section we show how to use \proglang{Julia}, \proglang{Python} and \proglang{R} packages to solve a single event, various sequences of events, and the real history of the Association of Tennis Professionals (ATP).}
+\en{In this section we show how to use \proglang{Julia}, \proglang{Python} and \proglang{R} packages to solve a single event, a sequences of three events, the skill evolution of a player, and the analysis of the historical players of the Association of Tennis Professionals (ATP).}
 \es{En esta secci\'on mostramos c\'omo usar los paquetes de \proglang{Julia}, \proglang{Python} y \proglang{R} para resolver un evento, doversas secuencias de eventos, y la historia real de la Asociación de Tenis Profesional (ATP).}
 %
 \en{We present both TrueSkill and TrueSkill Through Time solutions, and the steps to obtain the posteriors, the learning curves, and the prior prediction of the observed data (i.e. evidence).}
@@ -1199,7 +1199,7 @@ g2 = Game(teams, result, p_draw=0.25)
 \subsection{Sequence of events}
 
 \en{The class \texttt{History} is used to compute the posteriors and evidence of a sequence of events.}
-\es{La clase \texttt{History} se usa para computar los posteriors y la evidencia  the secuencias de eventos.}
+\es{La clase \texttt{History} se usa para computar los posteriors y la evidencia de secuencias de eventos.}
 %
 \en{In the first example, we instantiate the class \texttt{History} with three players (\texttt{\small "a", "b", "c"}) and three games.}
 \es{En el primer ejemplo, inicializamos una la clase \texttt{History} con tres jugadores (\texttt{"a","b","c"}) y tres partidas.}
@@ -1207,10 +1207,10 @@ g2 = Game(teams, result, p_draw=0.25)
 \en{In the first game \texttt{"a"} beats \texttt{"b"}, in the second game \texttt{"b"} beats \texttt{"c"}, and in the third game \texttt{"c"} beats \texttt{"a"}.}
 \es{En la primera partida \texttt{"a"} le gana a \texttt{"b"}, en la segunda \texttt{"b"} le gana a \texttt{"c"} y en la tercera \texttt{"c"} le gana a \texttt{"a"}.}
 %
-\en{In this case, all agents win one game and lose the other.}
-\es{En este caso, todos los agentes ganan una partida y pierden la otra.}
+\en{In brief, all agents win one game and lose the other.}
+\es{En resumen, todos los agentes ganan una partida y pierden la otra.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:history, caption={\en{History initialized with a sequence of three events }\es{Historia inicializada con una secuencia de tres eventos}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:history, caption={\en{Initialization of a \texttt{History}'s instance using a sequence of three events}\es{Historia inicializada con una secuencia de tres eventos}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
@@ -1238,19 +1238,19 @@ composition = list(c1,c2,c3)
 h = History(composition, gamma=0.0)
 \end{lstlisting}
 %
-\en{where the variable \texttt{c1} indicates the composition of the first game using the names (i.e. identifiers) of the agents, the variable \texttt{composition} is a list containing the game compositions, and the parameter \texttt{gamma=0.0} indicate that agent's skill does not change between games.}
-\es{donde la variable \texttt{c1} indica la composici\'on de la primer partida usando los nombres (i.e. identificadores) de los agentes, la variable \texttt{composition} es una lista que contiene la composición de la tres partidas y el par\'ametro \texttt{gamma=0.0} indica que la habilidad de los agetes no cambia entre partidas.}
+\en{where the variables \texttt{c1}, \texttt{c2}, and \texttt{c3} model the composition of the each game using the names of the participating agents (i.e. identifiers), the variable \texttt{composition} is a list containing all the events to be considered in the analysis, and the parameter \texttt{gamma} determines the change of one agent's skill between games (in this case 0 means no change).}
+\es{donde la variable \texttt{c1} indica la composici\'on de la primer partida usando los nombres (i.e. identificadores) de los agentes, la variable \texttt{composition} es una lista que contiene la composición de la tres partidas y el par\'ametro \texttt{gamma=0.0} indica que la habilidad de los agentes no cambia entre partidas.}
 %
-\en{Again the results are implicitly defined by the order in which the game compositions were initialized: the teams appearing first in the list beat those appearing later.}
+\en{The results are implicitly defined by the order in which the game compositions are initialized: the teams appearing first in the list beat those appearing later.}
 \es{Otra vez el resultado de la partida queda definido implícitamente por el orden en el que las composiciones fueron inicializadas: los equipos que aparecen primero en la lista le ganan a los que aparecen después.}
 %
 \en{The rest of the parameters are initialized with the default values seen in code~\ref{lst:parameters}.}
-\es{El resto de los parámetros se inicializa con los valores por defecto vistos en el código \ref{lst:parameters}.}
+\es{El resto de los parámetros se inicializa con los valores por defecto vistos en el código~\ref{lst:parameters}.}
 
 % Parrafo
 
-\en{When initialized, the \texttt{History} class immediately triggers the computation of TrueSkill estimates: it creates a player for each name, initializes a game for each event, and between events applies the dynamic factor to the players' estimates.}
-\es{Al inicializarse, la clase \texttt{History} inmediatamente activa el computo de las estimaciones TrueSkill: crea un jugador por nombre, inicializa una partida por cada evento, y entre eventos aplica el factor dinámico a las estimaciones de los jugadores.}
+\en{After initialization, the \texttt{History} class immediately triggers the computation of TrueSkill estimates: it instantiates a new player for each name, initializes a game for each event, and applies the dynamic factor to the players' estimates between events.}
+\es{Al inicializarse, la clase \texttt{History} inmediatamente activa el computo de las estimaciones TrueSkill: crea un jugador por nombre, inicializa una partida por cada evento y, entre eventos, aplica el factor dinámico a las estimaciones de los jugadores.}
 %
 \en{In this example, where all agents beat each other and their skills do not change over time, it would be reasonable for all estimates to be the same after observing the data.}
 \es{En este ejemplo, en el que todos los agentes se ganan mutuamente y sus habilidades no cambian en el tiempo, sería razonable que todas las estimaciones sean iguales luego de observar los datos.}
@@ -1258,10 +1258,10 @@ h = History(composition, gamma=0.0)
 \en{To access them we can call the method \texttt{learning\_curves()} of the class \texttt{History}, which returns a dictionary that is indexed by the names of the agents.}
 \es{Para acceder acceder a ellas podemos llamar al m\'etodo \texttt{learning\_curves()} de la clase \texttt{HIstory}, que devuelve un diccionario indexado por los nombres de los agentes.}
 %
-\en{Individual learning curves are lists of tuples: the first element of each tuple indicates the time, and the second the estimate corresponding to that time.}
-\es{Las curvas de aprendizaje individuales son listas de tuplas: el primer elemento de cada tupla indica el tiempo, y el segundo la estimaci\'on correpondiente a ese tiempo.}
+\en{Individual learning curves are lists of tuples: each tuple has the time of the estimate as the first component and the estimate itself as the second one.}
+\es{Las curvas de aprendizaje individuales son listas de tuplas: el primer elemento de cada tupla indica el tiempo, y el segundo la estimaci\'on correspondiente a ese tiempo.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:trueskill, caption={\en{Learning curves query}\es{Consulta de curvas de aprendizaje}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:trueskill, caption={\en{Obtaining the learning curves for the players participating in a sequence of events}\es{Consulta de curvas de aprendizaje}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1299,31 +1299,32 @@ lc_print(lc[["b"]])
 > [(1, Gaussian(mu=-3.339, sigma=4.985)), (2, Gaussian(mu=0.059, sigma=4.218))]
 \end{lstlisting}
 %
-\en{The learning curves of both player \texttt{"a"} and \texttt{"b"} contain only two tuples, one per game.}
+\en{The learning curves of players \texttt{"a"} and \texttt{"b"} contain one tuple per game but the initial prior is omitted.}
 \es{Las curvas de aprendizaje de ambos jugador \texttt{"a"} y \texttt{"b"} contienen solamente dos tuplas, una por partida.}
 %
-\en{Although it would be reasonable to have the same estimate for all agents, the posteriors reported by TrueSkill differ greatly between players and vary greatly for the same player.}
+\en{As every player wins one game and loses the other, we expect to obtain the same skill estimate for all agents. 
+But in this case, the final skill reported by TrueSkill differ between players. Moreover, the skill estimate for each player has strong variations between events.}
 \es{A pesar de que lo razonable sería tener la misma estimaci\'on para todos los agentes, los posteriors reportados por TrueSkill difieren mucho entre jugadores y varían mucho para uno mismo jugador.}
-%
-\en{The first tuple of both corresponds to time 1, the game in which \texttt{"a"} beats \texttt{"b"}.}
+
+\en{For example, the first tuple of both players corresponds to the first game between them in which \texttt{"a"} beat \texttt{"b"}.}
 \es{La primera tupla de ambos se corresponde con el tiempo 1, la partida en la que \texttt{"a"} le gana a \texttt{"b"}.}
 %
-\en{Both estimates have the same uncertainty and the same mean absolute value, being positive for the winning player and negative for the loser.}
+\en{Both estimates have the same uncertainty. They also have the same mean absolute value, but positive for the winner and negative for the loser.}
 \es{Ambas estimaciones tienen misma incertidumbre y misma valor absoluto como media, positivo para el jugador ganador y negativo para el perdedor.}
 %
-\en{The second tuple for each player has less uncertainty and the mean is closer to zero.}
+\en{The second tuple for each player includes the result of their game against \texttt{"c"}. In both cases, the posteriors show a decrease in the uncertainty and the mean closer to zero.}
 \es{La segunda tupla de cada jugador tiene menor incertidumbre y la media se encuentra más cerca de cero.}
 %
-\en{However, the estimates did not turn out to be equal as they should be in cases where no player is better than another.}
+\en{We expected the final estimates to be equal for all players, but we can see strong differences.}
 \es{Sin embargo las estimaciones no resultaron ser iguales como debería ser en los casos donde ningún jugador es mejor que otro.}
 %
-\en{The TrueSkill Through Time model remedy all these problems.}
+\en{The TrueSkill Through Time model solves this problem by propagating the information through all the system.}
 \es{El modelo TrueSkill Through Time corrige todos estos problemas.}
 %
-\en{To compute it we need to converge history calling the method \texttt{convergence()}.}
+\en{To compute the estimates using this method, we need to use \texttt{convergence()}.}
 \es{Para computarlo necesitamos converger la historia llamando al método \texttt{convergence()}.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:ttt, caption={\en{History convergence}\es{Convergencia de la historia}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:ttt, caption={\en{Using TrueSkill Through Time to generate the learning curves}\es{Convergencia de la historia}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1368,10 +1369,12 @@ lc_print(lc[["a"]])
 \en{It can be seen that the TrueSkill Through Time estimates are not only the same between players, but also have less uncertainty.}
 \es{Se puede ver que las estimaciones de TrueSkill Through Time no s\'olo son las mismas entre jugadores, sino que tienen tambi\'en menos incertidumbre.}
 %
-\en{Note also that the estimates do not change over time according to the assumption \texttt{gamma=0.0}.}
+\en{Note also that the estimates do not change over time following the assumption value assigned to \texttt{gamma}.}
 \es{Notar también que las estimaciones de los jugadores no cambian en el tiempo de acuerdo con el supuesto \texttt{gamma=0.0}.}
 
 % Parrafo
+
+\subsection{Skill evolution}
 
 \en{We now analyze a complex example in which a new player joins a population of already known players.}
 \es{Ahora analizamos un ejemplo más complejo en el que un jugador nuevo se integra a una población de jugadores ya conocidos.}
@@ -1472,7 +1475,7 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \es{Tenemos un identidicador por la partida (\texttt{match\_id}) y el número de ronda (\texttt{round\_number}) donde 0 representa la partida final, 1 la semi-final, etc.}
 %
 \en{It contains four columns indicating the players' identifiers and four columns indicating their names: for example \texttt{w2\_id} is the identifier of the second player of the winning team (second players have null values in single games) and \texttt{l1\_name} is the name of the first player of the losing team.}
-\es{Contiene cuatro columnas correpondiente a los identificadores de los jugadores y cuatro columnas correpondientes a sus nombres, por ejemplo \texttt{w2\_id} es el identificador del segundo jugador del equipo ganador (los segundos jugadores tienen valores nulos en partidas simples) y \texttt{l1\_name} es el nombre del primer jugador del equipo perdedor.}
+\es{Contiene cuatro columnas correspondiente a los identificadores de los jugadores y cuatro columnas correspondiente a sus nombres, por ejemplo \texttt{w2\_id} es el identificador del segundo jugador del equipo ganador (los segundos jugadores tienen valores nulos en partidas simples) y \texttt{l1\_name} es el nombre del primer jugador del equipo perdedor.}
 %
 \en{Finally we have the name of the tournament (\texttt{tour\_name}), its identified (\texttt{tour\_id}), the start date of the tournament (\texttt{time\_start}) and the ground (\texttt{ground}).}
 \es{Finalmente tenemos el nombre del torneo (\texttt{tour\_name}), su identificado (\texttt{tour\_id}), la fecha de inicio del torneo (\texttt{time\_start}) y el tipo de piso (\texttt{ground}).}
@@ -2284,7 +2287,7 @@ exact_lhood = function(s1){
 
 \subsection{\en{Elementary draw model}\es{Modelo b\'asico de empates}} \label{sec:empate}
 
-\en{The draw model asummes that a tie occur when the difference in performance does not exceed a certain margin, $|t_a > t_b| \leq \varepsilon$.}
+\en{The draw model assumes that a tie occur when the difference in performance does not exceed a certain margin, $|t_a > t_b| \leq \varepsilon$.}
 \es{El modelo supone que ocurre un empate cuando la diferencia de rendimientos no supera un cierto margen, $|t_a > t_b| \leq \varepsilon$.}
 %
 \en{In the figure~\ref{fig:draw_a} you can see in graphical terms the probabilities of the three possible outcomes.}
