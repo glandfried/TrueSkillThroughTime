@@ -936,8 +936,8 @@ before and after code input/output should be avoided (see above).
 \end{leftbar}
 \end{comment}
 
-\en{In this section we show how to use \proglang{Julia}, \proglang{Python} and \proglang{R} packages to solve a single event, a sequences of three events, the skill evolution of a player, and the analysis of the historical players of the Association of Tennis Professionals (ATP).}
-\es{En esta secci\'on mostramos c\'omo usar los paquetes de \proglang{Julia}, \proglang{Python} y \proglang{R} para resolver un evento, doversas secuencias de eventos, y la historia real de la Asociación de Tenis Profesional (ATP).}
+\en{In this section we show how to use \proglang{Julia}, \proglang{Python} and \proglang{R} packages to solve a single event, a sequences of three events, the skill evolution of a player, and the history of the Association of Tennis Professionals (ATP).}
+\es{En esta secci\'on mostramos c\'omo usar los paquetes de \proglang{Julia}, \proglang{Python} y \proglang{R} para resolver un evento, una secuencia de tres eventos, la evolución de habilidad de un jugador, y la historia de la Asociación de Tenis Profesional (ATP).}
 %
 \en{We present both TrueSkill and TrueSkill Through Time solutions, and the steps to obtain the posteriors, the learning curves, and the prior prediction of the observed data (i.e. evidence).}
 \es{Presentamos la soluciones TrueSkill y TrueSkill Through Time, y los pasos para obtener los posteriors, las curvas de aprendizaje, y la predicci\'on a priori del dato observado (i.e. evidencia).}
@@ -1209,7 +1209,7 @@ g2 = Game(teams, result, p_draw=0.25)
 \en{In brief, all agents win one game and lose the other.}
 \es{En resumen, todos los agentes ganan una partida y pierden la otra.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:history, caption={\en{Initialization of a \texttt{History}'s instance using a sequence of three events}\es{Historia inicializada con una secuencia de tres eventos}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:history, caption={\en{Initialization of a \texttt{History}'s instance with a three events sequence.}\es{Inicialización de una instancia de \texttt{History} con una secuencia de tres eventos}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
@@ -1237,19 +1237,19 @@ composition = list(c1,c2,c3)
 h = History(composition, gamma=0.0)
 \end{lstlisting}
 %
-\en{where the variables \texttt{c1}, \texttt{c2}, and \texttt{c3} model the composition of the each game using the names of the participating agents (i.e. identifiers), the variable \texttt{composition} is a list containing all the events to be considered in the analysis, and the parameter \texttt{gamma} determines the change of one agent's skill between games (in this case 0 means no change).}
-\es{donde la variable \texttt{c1} indica la composici\'on de la primer partida usando los nombres (i.e. identificadores) de los agentes, la variable \texttt{composition} es una lista que contiene la composición de la tres partidas y el par\'ametro \texttt{gamma=0.0} indica que la habilidad de los agentes no cambia entre partidas.}
+\en{where the variables \texttt{c1}, \texttt{c2}, and \texttt{c3} model the composition of the each game using the names of the agents (i.e. identifiers), the variable \texttt{composition} is a list containing the three events, and the parameter \texttt{gamma} specifies how much the skills change over time (where 0 means no change).}
+\es{donde la variable \texttt{c1}, \texttt{c2} y \texttt{c3} modela la composici\'on de cada partida usando los nombres de los agentes (i.e. identificadores), la variable \texttt{composition} es una lista que contiene las tres partidas, y el par\'ametro \texttt{gamma} especifica cuánto cambian las habilidad en el tiempo (donde 0 significa ningún cambio).}
 %
 \en{The results are implicitly defined by the order in which the game compositions are initialized: the teams appearing first in the list beat those appearing later.}
-\es{Otra vez el resultado de la partida queda definido implícitamente por el orden en el que las composiciones fueron inicializadas: los equipos que aparecen primero en la lista le ganan a los que aparecen después.}
+\es{El resultado queda definido implícitamente por el orden en el que la composiciones de las partidas fueron inicializadas: los equipos que aparecen primero en la lista vencen a los que aparecen después.}
 %
 \en{The rest of the parameters are initialized with the default values seen in code~\ref{lst:parameters}.}
 \es{El resto de los parámetros se inicializa con los valores por defecto vistos en el código~\ref{lst:parameters}.}
 
 % Parrafo
 
-\en{After initialization, the \texttt{History} class immediately triggers the computation of TrueSkill estimates: it instantiates a new player for each name, initializes a game for each event, and applies the dynamic factor to the players' estimates between events.}
-\es{Al inicializarse, la clase \texttt{History} inmediatamente activa el computo de las estimaciones TrueSkill: crea un jugador por nombre, inicializa una partida por cada evento y, entre eventos, aplica el factor dinámico a las estimaciones de los jugadores.}
+\en{After initialization, the class \texttt{History} immediately triggers the computation of TrueSkill estimates: it instantiates a new player for each name, a game for each event, and applies the dynamic factor between players' estimates.}
+\es{Al inicializarse, la clase \texttt{History} inmediatamente activa el computo de las estimaciones TrueSkill: instancia un nuevo jugador por cada nombre, una partida por cada evento, y aplica el factor dinámico entre las estimaciones de los jugadores.}
 %
 \en{In this example, where all agents beat each other and their skills do not change over time, it would be reasonable for all estimates to be the same after observing the data.}
 \es{En este ejemplo, en el que todos los agentes se ganan mutuamente y sus habilidades no cambian en el tiempo, sería razonable que todas las estimaciones sean iguales luego de observar los datos.}
@@ -1257,10 +1257,10 @@ h = History(composition, gamma=0.0)
 \en{To access them we can call the method \texttt{learning\_curves()} of the class \texttt{History}, which returns a dictionary that is indexed by the names of the agents.}
 \es{Para acceder acceder a ellas podemos llamar al m\'etodo \texttt{learning\_curves()} de la clase \texttt{HIstory}, que devuelve un diccionario indexado por los nombres de los agentes.}
 %
-\en{Individual learning curves are lists of tuples: each tuple has the time of the estimate as the first component and the estimate itself as the second one.}
-\es{Las curvas de aprendizaje individuales son listas de tuplas: el primer elemento de cada tupla indica el tiempo, y el segundo la estimaci\'on correspondiente a ese tiempo.}
+\en{Individual learning curves are lists of tuples: each tuple has the time of the estimate as the first component, and the estimate itself as the second one.}
+\es{Las curvas de aprendizaje individuales son listas de tuplas: el primer elemento indica el tiempo, y el segundo la estimaci\'on correspondiente a ese tiempo.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:trueskill, caption={\en{Obtaining the learning curves for the players participating in a sequence of events}\es{Consulta de curvas de aprendizaje}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:trueskill, caption={\en{Learning curves of players participating in a sequence of events}\es{Curvas de aprendizaje de los jugadores que participan en una secuencia de eventos}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1298,27 +1298,31 @@ lc_print(lc[["b"]])
 > [(1, Gaussian(mu=-3.339, sigma=4.985)), (2, Gaussian(mu=0.059, sigma=4.218))]
 \end{lstlisting}
 %
-\en{The learning curves of players \texttt{"a"} and \texttt{"b"} contain one tuple per game but the initial prior is omitted.}
-\es{Las curvas de aprendizaje de ambos jugador \texttt{"a"} y \texttt{"b"} contienen solamente dos tuplas, una por partida.}
+\en{The learning curves of players \texttt{"a"} and \texttt{"b"} contain one tuple per game played (not including the initial prior).}
+\es{Las curvas de aprendizaje los jugador \texttt{"a"} y \texttt{"b"} contienen una tupla por partida jugada (no incluye el prior inicial).}
 %
-\en{As every player wins one game and loses the other, we expect to obtain the same skill estimate for all agents. 
-But in this case, the final skill reported by TrueSkill differ between players. Moreover, the skill estimate for each player has strong variations between events.}
+\en{Since each player wins one game and loses the other, a proper estimation process should return the same skill estimate for all agents, as no one is stronger than the others.}
+\es{Como cada jugador gana una partida y pierde la otra, un proceso de estimación correcto debería devolver la misma estimación de habilidad para todos los agentes, ya que nadie es más fuerte que los demás.}
+%
 \es{A pesar de que lo razonable sería tener la misma estimaci\'on para todos los agentes, los posteriors reportados por TrueSkill difieren mucho entre jugadores y varían mucho para uno mismo jugador.}
-
-\en{For example, the first tuple of both players corresponds to the first game between them in which \texttt{"a"} beat \texttt{"b"}.}
-\es{La primera tupla de ambos se corresponde con el tiempo 1, la partida en la que \texttt{"a"} le gana a \texttt{"b"}.}
 %
-\en{Both estimates have the same uncertainty. They also have the same mean absolute value, but positive for the winner and negative for the loser.}
-\es{Ambas estimaciones tienen misma incertidumbre y misma valor absoluto como media, positivo para el jugador ganador y negativo para el perdedor.}
+\en{However, the final skills reported by TrueSkill differ greatly among players.}
+\es{Sin embargo, las habilidades finales reportadas por TrueSkill difieren mucho entre los jugadores.}
 %
-\en{The second tuple for each player includes the result of their game against \texttt{"c"}. In both cases, the posteriors show a decrease in the uncertainty and the mean closer to zero.}
-\es{La segunda tupla de cada jugador tiene menor incertidumbre y la media se encuentra más cerca de cero.}
+\en{In addition, the skill estimates of each player show strong variations between events.}
+\es{Además, las estimaciones de las habilidades de cada jugador presentan fuertes variaciones entre eventos.}
 %
-\en{We expected the final estimates to be equal for all players, but we can see strong differences.}
-\es{Sin embargo las estimaciones no resultaron ser iguales como debería ser en los casos donde ningún jugador es mejor que otro.}
+\en{The first estimate of players \texttt{"a"} and \texttt{"b"} have the same uncertainty and the same absolute value as mean, being positive for the winning player and negative for the loser, because they contain only the information of the event in which \texttt{"a"} beats \texttt{"b"}.}
+\es{La primera estimación de los jugadores \texttt{"a"} y \texttt{"b"} tienen misma incertidumbre y misma valor absoluto como media, positivo para el jugador ganador y negativo para el perdedor, debido a que contienen sólo la información del evento en el que \texttt{"a"} vence a \texttt{"b"}.}
 %
-\en{The TrueSkill Through Time model solves this problem by propagating the information through all the system.}
-\es{El modelo TrueSkill Through Time corrige todos estos problemas.}
+\en{The second estimate of players \texttt{"a"} and \texttt{"b"} posteriors show a decrease in the uncertainty and the mean closer to zero, because they contain also the information of the events in which agent \texttt{"c"} is involved.}
+\es{La segunda tupla de cada jugador tiene menor incertidumbre y la media se encuentra más cerca de cero, porque contienen además la información de los eventos en los que participa el agente \texttt{"c"}.}
+%
+\en{Estimates are not equal as they should be in a case where no one is better than anyone else and where the order of the games should not matter since skills do not change over time.}
+\es{Las estimaciones no son iguales como debería ocurrir en un caso donde nadie es mejor que los demás y donde el orden de las partidas no debería importar dado que las habilidades no cambian en el tiempo.}
+%
+\en{The TrueSkill Through Time model corrects this problem by propagating information throughout the system.}
+\es{El modelo TrueSkill Through Time corrige este problema gracias a que la información propaga por todo el sistema.}
 %
 \en{To compute the estimates using this method, we need to use \texttt{convergence()}.}
 \es{Para computarlo necesitamos converger la historia llamando al método \texttt{convergence()}.}
