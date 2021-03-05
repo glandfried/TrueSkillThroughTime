@@ -1324,10 +1324,10 @@ lc_print(lc[["b"]])
 \en{The TrueSkill Through Time model corrects this problem by propagating information throughout the system.}
 \es{El modelo TrueSkill Through Time corrige este problema gracias a que la información propaga por todo el sistema.}
 %
-\en{To compute the estimates using this method, we need to use \texttt{convergence()}.}
-\es{Para computarlo necesitamos converger la historia llamando al método \texttt{convergence()}.}
+\en{To compute those estimates, we call the method \texttt{convergence()} of the class \texttt{History}.}
+\es{Para computar esas estimaciones, utilizamos el método \texttt{convergence()} de la clase \texttt{History}.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:ttt, caption={\en{Using TrueSkill Through Time to generate the learning curves}\es{Convergencia de la historia}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:ttt, caption={\en{Propagating information throughout the model to compute TrueSkill Through Time learning curves}\es{Propagación de la información en todo el sistema para calcular las curvas de aprendizaje de TrueSkill Through Time}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1367,13 +1367,12 @@ lc_print(lc[["a"]])
 \begin{lstlisting}[backgroundcolor=\color{all}]
 > [(1, Gaussian(mu=-0.0, sigma=2.395)), (3, Gaussian(mu=0.0, sigma=2.395))]
 \end{lstlisting}
-
 %
 \en{It can be seen that the TrueSkill Through Time estimates are not only the same between players, but also have less uncertainty.}
 \es{Se puede ver que las estimaciones de TrueSkill Through Time no s\'olo son las mismas entre jugadores, sino que tienen tambi\'en menos incertidumbre.}
 %
-\en{Note also that the estimates do not change over time following the assumption value assigned to \texttt{gamma}.}
-\es{Notar también que las estimaciones de los jugadores no cambian en el tiempo de acuerdo con el supuesto \texttt{gamma=0.0}.}
+\en{Note also that the estimates do not change over time following the absence of a dynamic factor, specified at the beginning by the null value of \texttt{gamma}.}
+\es{Notar también que las estimaciones de los jugadores no cambian en el tiempo de acuerdo con la ausencia de factor dinámico, expresado al principio mediante el valor nulo de \texttt{gamma}.}
 
 % Parrafo
 
