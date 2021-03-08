@@ -1252,10 +1252,10 @@ h = History(composition, gamma=0.0)
 % Parrafo
 
 \en{After initialization, the class \texttt{History} immediately triggers the computation of TrueSkill estimates: it instantiates a new player for each name, and a game for each event.}
-\es{Al inicializarse, la clase \texttt{History} inmediatamente activa el computo de las estimaciones TrueSkill: instancia un nuevo jugador por cada nombre, una partida por cada evento, y aplica el factor dinámico entre las estimaciones de los jugadores.}
+\es{Al inicializarse, la clase \texttt{History} inmediatamente activa el computo de las estimaciones TrueSkill: instancia un nuevo jugador por cada nombre y una partida por cada evento.}
 %
 \en{In this example, where all agents beat each other and their skills do not change over time (as the dynamic factor is set to zero), all the estimates must be the same after observing the data as none is more skilled than the rest.}
-\es{En este ejemplo, en el que todos los agentes se ganan mutuamente y sus habilidades no cambian en el tiempo, sería razonable que todas las estimaciones sean iguales luego de observar los datos.}
+\es{En este ejemplo, en el que todos los agentes se ganan mutuamente y sus habilidades no cambian en el tiempo (dado que el factor dinámico fue fijado en cero), todas las estimaciones deben ser iguales luego de observar los datos.}
 %
 \en{To access them we can call the method \texttt{learning\_curves()} of the class \texttt{History}, which returns a dictionary indexed by the names of the agents.}
 \es{Para acceder acceder a ellas podemos llamar al m\'etodo \texttt{learning\_curves()} de la clase \texttt{History}, que devuelve un diccionario indexado por los nombres de los agentes.}
@@ -1304,27 +1304,23 @@ lc_print(lc[["b"]])
 \en{The learning curves of players \texttt{"a"} and \texttt{"b"} contain one tuple per game played (not including the initial prior).}
 \es{Las curvas de aprendizaje los jugador \texttt{"a"} y \texttt{"b"} contienen una tupla por partida jugada (no incluye el prior inicial).}
 %
-\en{The skills reported by TrueSkill present strong variations between events for each player and also among players for each event.}
-\es{Sin embargo, las habilidades finales reportadas por TrueSkill difieren mucho entre los jugadores.}
+\en{Although in this example no player is stronger than the others, the estimates reported by TrueSkill present strong variations between players.}
+% events for each player and also among players for each event
+\es{A pesar de que en este ejemplo ningún jugador es más fuerte que los demás, las habilidades finales reportadas por TrueSkill varían mucho entre los jugadores.}
 %
-\es{Además, las estimaciones de las habilidades de cada jugador presentan fuertes variaciones entre eventos.}
-%
-\en{The estimates obtained after the first game in which \texttt{"a"} beats \texttt{"b"} have the same uncertainty and mean absolute value, being positive for the winner and negative for the loser.}
-\es{La primera estimación de los jugadores \texttt{"a"} y \texttt{"b"} tienen misma incertidumbre y misma valor absoluto como media, positivo para el jugador ganador y negativo para el perdedor, debido a que contienen sólo la información del evento en el que \texttt{"a"} vence a \texttt{"b"}.}
+\en{The estimates obtained after the first game, in which \texttt{"a"} beats \texttt{"b"}, have the same uncertainty and mean absolute value, being positive for the winner and negative for the loser.}
+\es{Las estimaciones obtenidas luego de la primera partida, en la que \texttt{"a"} vence a \texttt{"b"}, tienen misma incertidumbre y mismo media en valor absoluta, siendo positiva para el jugador ganador y negativo para el perdedor.}
 %
 \en{The estimates computed after the event in which each of the agents plays with \texttt{"c"} show a decrease in the uncertainties and the means are closer to zero.}
-\es{La segunda tupla de cada jugador tiene menor incertidumbre y la media se encuentra más cerca de cero, porque contienen además la información de los eventos en los que participa el agente \texttt{"c"}.}
+\es{Las estimaciones calculadas luego de los eventos en los que participa el agente \texttt{"c"} tienen menor incertidumbre y medias que se encuentran más cerca del cero.}
 %
-\en{In this example where no one is better than rest, TrueSkill obtains different skill estimates, but they must be the same for all the players, }
-\es{Las estimaciones no son iguales como debería ocurrir en un caso donde nadie es mejor que los demás y donde el orden de las partidas no debería importar dado que las habilidades no cambian en el tiempo.}
+\en{TrueSkill's inability to obtain correct estimates is fixed by the TrueSkill Through Time model, in which information propagates throughout the system.}
+\es{La incapacidad de TrueSkill para obtener las estimaciones correctas se resuelve mediante el modelo TrueSkill Through Time, en el que la información propaga por todo el sistema.}
 %
-\en{TrueSkill Through Time solves this issue by propagating information throughout the system.}
-\es{El modelo TrueSkill Through Time corrige este problema gracias a que la información propaga por todo el sistema.}
+\en{Our package allows computing the correct estimates, those of the TrueSkill Through Time model, by calling the method \texttt{convergence()} of the class \texttt{History}.}
+\es{Nuestro paquete permite computar las estimaciones correctas, las del modelo TrueSkill Through Time, llamando al método \texttt{convergence()} de la clase \texttt{History}.}
 %
-\en{Our package can also compute the estimates using TrueSkill Through Time by calling \texttt{convergence()} method of the class \texttt{History}.}
-\es{Para computar esas estimaciones, utilizamos el método \texttt{convergence()} de la clase \texttt{History}.}
-%
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:ttt, caption={\en{Propagating information throughout the model to compute TrueSkill Through Time learning curves}\es{Propagación de la información en todo el sistema para calcular las curvas de aprendizaje de TrueSkill Through Time}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:ttt, caption={\en{Computing TrueSkill Through Time learning curves}\es{Propagación de la información en todo el sistema para calcular las curvas de aprendizaje de TrueSkill Through Time}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1365,18 +1361,13 @@ lc_print(lc[["a"]])
 > [(1, Gaussian(mu=-0.0, sigma=2.395)), (3, Gaussian(mu=0.0, sigma=2.395))]
 \end{lstlisting}
 %
-\en{TrueSkill Through Time computes estimates that are not only the same for all players but also have less uncertainty.}
-\es{Se puede ver que las estimaciones de TrueSkill Through Time no s\'olo son las mismas entre jugadores, sino que tienen tambi\'en menos incertidumbre.}
-%
-% \en{Note also that the estimates do not change over time following the absence of a dynamic factor, specified at the beginning by the null value of \texttt{gamma}.}
-% \es{Notar también que las estimaciones de los jugadores no cambian en el tiempo de acuerdo con la ausencia de factor dinámico, expresado al principio mediante el valor nulo de \texttt{gamma}.}
-
-% Parrafo
+\en{TrueSkill Through Time not only returns correct estimates (the same for all players), they also have less uncertainty.}
+\es{TrueSkill Through Time no sólo devuelve las estimaciones correctas (la misma para todos los jugadores), también tienen menos incertidumbre.}
 
 \subsection{Skill evolution}
 
 \en{We now analyze a complex example in which a new player joins a large community of already known players.}
-\es{Ahora analizamos un ejemplo más complejo en el que un jugador nuevo se integra a una población de jugadores ya conocidos.}
+\es{Ahora analizamos un ejemplo más complejo en el que un jugador nuevo se integra a comunidad grande de jugadores ya conocidos.}
 %
 \en{Suppose we know the true skill of all players.}
 \es{Supongamos que nosotros conocemos la verdadera habilidad de todos los jugadores.}
@@ -1384,34 +1375,37 @@ lc_print(lc[["a"]])
 \en{In this example, we focus on the estimation of an evolving skill.}
 \es{En este ejemplo queremos ver cuan cercana es la estimación de la verdadera habilidad.}
 %
-\en{For this purpose, we establish the skill of the target player to change over time following a logistic function. The community is generated ensuring each opponent has similar skill as the target player following her evolution.}
-\es{Para eso establecemos una habilidad que cambia en el tiempo siguiendo una función logística, que deberá ser aproximada por el paquete.}
+\en{For this purpose, we establish the skill of the target player to change over time following a logistic function.}
+\es{Para eso establecemos que la habilidad del jugador objetivo cambia en el tiempo siguiendo una función logística.}
+%
+\en{The community is generated by ensuring that each opponent has skill similar to the target of the target player, following its evolution.}
+\es{La comunidad se genera asegurando que cada oponente tenga una habilidad similar a la del jugador objetivo, siguiendo su evolución.}
 %
 \en{In the following code, we generate the target player's learning curve and 1000 random opponents.}
-\es{En el siguiente código generamos la curva de aprendizaje del agente y 1000 oponentes con habilidades alrededor de la habilidad del agente (i.e. el agente juega con oponentes de su propio nivel).}
+\es{En el siguiente código generamos la curva de aprendizaje del agente objetivo y 1000 oponentes aleatorios.}
 %
-\begin{lstlisting}[backgroundcolor=\color{python}, label=lst:synthetic_skill, caption={\en{Synthetic learning curve}\es{Curva de aprendizaje sintética}}, belowskip=0.1cm, aboveskip=0.1cm]
-import math; from numpy.random import normal, seed; seed(99)
+\begin{lstlisting}[backgroundcolor=\color{python}, label=lst:simulated_skill, caption={\en{Simulation of the target learning curve and the community of opponents}\es{Simulación de la curva de aprendizaje objetivo y la comunidad de oponentes}}, belowskip=0.1cm, aboveskip=0.1cm]
+import math; from numpy.random import normal, seed; seed(99); N = 1000
 def skill(experience, middle, maximum, slope):
     return maximum/(1+math.exp(slope*(-experience+middle)))
-target = [skill(i, 500, 2, 0.0075) for i in range(1000)]
-opponents = normal(target,scale=0.5,size=1000)
+target = [skill(i, 500, 2, 0.0075) for i in range(N)]
+opponents = normal(target,scale=0.5)
 \end{lstlisting}
 %
-\en{We only include the \proglang{Python} version as \proglang{Julia} and \proglang{R} versions can be found in the appendix~\ref{AGREGA-CODE}).}
-\es{Aquí mostramos solo la versión de \proglang{Python}, debido a que la cantidad de código es mayor que antes (las versiones de \proglang{Julia} y \proglang{R} se encuentran en el anexo \ref{AGREGA-CODIGO}).}
+\en{Here we only include the \proglang{Python} version (\proglang{Julia} and \proglang{R} versions can be found in the appendix~\ref{AGREGA-CODE}).}
+\es{Aquí incluimos s\'olo la versi\'on de \proglang{Python} (las versiones de \proglang{Julia} y \proglang{R} se encuentran en el anexo \ref{AGREGA-CODIGO}).}
 %
-\en{The list \texttt{target} has the agent's skills at each moment. The values start at zero grow smoothly until the target player's skill reaches two.}
-\es{La lista \texttt{agent} representa las habilidades del agente, tiene un crecimiento suave que comienza en cero y termina en dos, pasando por uno en el evento 500.}
+\en{The list \texttt{target} has the agent's skills at each moment: the values start at zero and grow smoothly until the target player's skill reaches two.}
+\es{La lista \texttt{target} contiene la habilidad del agente en cada momento: los valores comienzan en cero y crecen suavemente hasta que la habilidad del jugador objetivo llega a dos.}
 %
-\en{The list \texttt{opponents} includes the randomly generated opponents' skills following a normal distribution centered on each of the target's skills and a standard deviation of $0.5$.}
-\es{La lista \texttt{other} representa las habilidades de los oponentes generadas de forma aleatorias con una distribución normal, centrada en la habilidad del agente con un desvío estandar de $0.5$.}
+\en{The list \texttt{opponents} includes the randomly generated opponents' skills following a Gaussian distribution centered on each of the target's skills and a standard deviation of $0.5$.}
+\es{La lista \texttt{opponents} incluye los oponentes generadas mediante una distribuci\'on gaussiana centrada en cada una de las habilidades del jugador objetivo con un desvío estandar de $0.5$.}
 %
-\begin{lstlisting}[backgroundcolor=\color{python},label=lst:synthetic_parameters, caption={\en{Synthetic history}\es{Historia sintética}}, belowskip=0.1cm, aboveskip=0.1cm]
-composition = [[["a"], [str(i)]] for i in range(1000)]
-results = [[1,0] if normal(target[i]) > normal(opponents[i]) else [0,1] for i in range(1000)]
-times = [(i for i in range(1000)]
-priors = dict([(str(i), Player(Gaussian(opponents[i], 0.2))) for i in range(1000)])
+\begin{lstlisting}[backgroundcolor=\color{python},label=lst:estimating_the_simulated, caption={\en{Estimating the simulated learning curve from random results}\es{Estimando la curva de aprendizaje simulada a partir de los resultados aleatorios}}, belowskip=0.1cm, aboveskip=0.1cm]
+composition = [[["a"], [str(i)]] for i in range(N)]
+results = [[1,0] if normal(target[i]) > normal(opponents[i]) else [0,1] for i in range(N)]
+times = [i for i in range(N)]
+priors = dict([(str(i), Player(Gaussian(opponents[i], 0.2))) for i in range(N)])
 
 h = History(composition, results, times, priors, gamma=0.015)
 h.convergence()
@@ -1422,48 +1416,73 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \es{En este código definimos cuatro variables para instancir la clase \texttt{History} con el objetivo de obtener la curva de aprendizaje del agente.}
 %
 \en{The variable \texttt{composition} contains 1000 games between the target player and different opponents.}
-\es{La variable \texttt{composition} contiene 1000 partidas entre el agente y 1000 oponentes distintos.}
+\es{La variable \texttt{composition} contiene 1000 partidas entre el jugador objetivo y los distintos oponentes.}
 %
-\en{To generate the list \texttt{results} we sample the performance following a normal distribution of the skills: the player with the highest performance wins.}
-\es{La variable \texttt{resultados} contiene los resultados generados aleatoriamente a partir de las habilidades reales: gana el jugador con mayor rendimiento.}
+\en{To generate the list \texttt{results} we sample the performance of the players from the synthetic skills: the player with the highest performance wins.}
+\es{Para generar la lista \texttt{results} muestreamos el rendimiento de los jugadores a partir de las habilidades sintéticas: gana el jugador con mayor rendimiento.}
 %
-% Parrafo
-
-\en{The variable \texttt{time} contain a list of integer values ranging from 0 to 999 representing the time for each game.}
-\es{La variable \texttt{time} contiene valores enteros de 0 a 999, indicando el período temporal de cada evento.}
+\en{The variable \texttt{time} is a list of integer values ranging from 0 to 999 representing the time for each game: the class \texttt{History} uses it to determine how much dynamic uncertainty ($\gamma^2$) must be applied between games as we move forward in time.}
+\es{La variable \texttt{time} es una lista de valores enteros que van de 0 a 999, representando el tiempo de cada partida: la clase \texttt{Historia} la utiliza para determinar cuánta incertidumbre dinámica ($\gamma^2$) debe aplicarse entre juegos a medida que avanzamos en el tiempo.}
 %
-\en{The class \texttt{History} uses this list to determine if the dynamic uncertainty ($\gamma^2$) should be applied or not. In this example, as all the events have different time, $\gamma^2$ is applied to all of them as we move forward in time.}
-\es{Cuando se la pasamos a la clase \texttt{History}, la diferencia entre partidas determina la cantidad de veces que la incertidumbre dinámica ($\gamma^2$) debe ser aplicada a medida que avanzamos en el tiempo.}
+The variable \texttt{priors} is a dictionary that can be used to customize player characteristics.
+\en{The variable \texttt{priors} is a dictionary that can be used to customize the features of the players.}
+\es{La variable \texttt{priors} es un diccionario que se puede utilizar para personalizar las caracterísiticas de los jugadores.}
 %
-\en{The variable \texttt{priors} is a dictionary which can be used to customize the properties of players.}
-\es{La variable \texttt{priors} es un diccionario indexado por los nombres con priors de los oponetes (todas las estimaciones con baja incertidumbre).}
-%
-\en{In this example, we assign low uncertainty to the priors of the opponents to simulate we know their skill beforehand.}
-\es{En este ejemplo, le asignamos baja incertidumbre a los priors de los oponentes para simular que son jugadores ya conocidos.}
-%
-\en{The class \texttt{History} initializes the rest of the players (in this case only the target player) using the default values and a dynamic factor \texttt{gamma=0.015}.}
-\es{La clase \texttt{History} inicializa al resto de los jugadores (en este caso sólo al agente) con los valores por defecto y un factor dinámico \texttt{gamma=0.015}.}
-%
-\en{Finally, we use the \texttt{convergence()} method to obtain the TrueSkill Through Time estimates and the target's learning curve.}
-\es{Finalmente, hacemos converger la clase \texttt{Historia} para obtener las estimaciones de TrueSkill Through Time y la curva de aprendizaje del agente.}
+\en{In this example, we assign low uncertainty to the opponents' priors to simulate that we know their skill beforehand.}
+\es{En este ejemplo, asignamos baja incertidumbre a los priors de los oponentes para simular que conocemos su habilidad de antemano.}
 
 % Parrafo
-%
-\en{Figure~\ref{fig:logistic} presents the evolution of the estimate of the target player's skill. The solid black line represents the true target's skill, while the dashed black line shows the estimate. The dark grey zone depicts the uncertainty of the skill estimate, while the light grey indicates two times this uncertainty.}
-\es{En la siguiente figura podemos ver la diferencia entre la curva de aprendizaje estimada y la curva de aprendizaje real.}
 
+\en{The class \texttt{History} receives those four parameters, and initializes the rest of the players (in this case only the target player) using the default values and a dynamic factor \texttt{gamma=0.015}.}
+\es{La clase \texttt{History} recibe los 4 parámetros, e inicializa al resto de los jugadores (en este caso sólo el agente objetivo) con los valores por defecto y un factor dinámico \texttt{gamma=0.015}.}
+%
+\en{Using the method \texttt{convergence()} we obtain the TrueSkill Through Time estimates and the target's learning curve.}
+\es{Usando el m\'etodo \texttt{convergence()} obtenemos las estimaciones de TrueSkill Through Time y la curva de aprendizaje del agente objetivo.}
+%
+\en{Figure~\ref{fig:logistic} shows the evoltion of the synthetic (solid line) and estimaed (dashed line) learning curve of the target player's.}
+\es{La figura~\ref{fig:logistic} muestra la evolución de la curva de aprendizaje sintética (línea sólida) y estimada (línea punteada) del jugador objetivo.}
+%
 \begin{figure}[H]
     \centering
-    \en{\includegraphics[page={1},width=.6\linewidth]{figures/logistic}}
-    \es{\includegraphics[page={2},width=.6\linewidth]{figures/logistic}}
+    \begin{subfigure}[b]{0.48\textwidth}
+    \en{\includegraphics[page={3},width=1.\linewidth]{figures/logistic}}
+    \es{\includegraphics[page={4},width=1.\linewidth]{figures/logistic}}
     \caption{
-    \en{Estimated and actual learning curve of the synthetic example in which a new player joins a large population of known players.}
-    \es{Curva de aprendizaje estimada y real del ejemplo sintético en el que un jugador nuevo se incorpora a una población grande de jugadores conocidos.}
+    \en{Several mean estimates}
+    \es{Varias estimaciones medias}
+    }
+    \label{fig:logistic_mu}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.48\textwidth}
+    \en{\includegraphics[page={1},width=1.\linewidth]{figures/logistic}}
+    \es{\includegraphics[page={2},width=1.\linewidth]{figures/logistic}}
+    \caption{
+    \en{Uncertainty of an estimate}
+    \es{Incertidumbre de una estimación}
+    }
+    \label{fig:logistic_sigma}
+    \end{subfigure}
+    \caption{
+    \en{Synthetic and estimated learning curve of a new player that joining a large community of already known players.}
+    \es{Curva de aprendizaje sintética y estimada de un jugador nuevo que se incorpora a una comunidad grande de jugadores ya conocidos.}
+    %
+    \en{The solid line represents the synthetic skill of the target player, while the dashed line shows the mean estimate.}
+    \es{La línea continua representa la habilidad sintética del jugador objetivo, mientras que la línea discontinua muestra la estimación media.}
+    %
+    \en{The dark (light) gray area shows once (twice) the uncertainty of the estimate.}
+    \es{La zona gris oscura (clara) iulstra una vez (dos veces) la incertidumbre de la estimación.}
     }
     \label{fig:logistic}
 \end{figure}
-
-\todo[inline]{Aca corresponde discutir qu\'e resultado dio y hacer un cierre diciendo que TTT es bueno para seguir la evolucion de los jugadores}
+%
+\en{In the Figure~\ref{fig:logistic_mu} we see that all the means of the estimated learning curves always remain close to the actual skill during the whole evolution.}
+\es{En la figura~\ref{fig:logistic_mu} vemos que las medias de las curvas de aprendizaje estimada se mantienen siempre cerca de la habilidad real durante toda la evolución.}
+%
+\en{In Figure~\ref{fig:logistic_sigma} we see that the real learning curve is always contained in the uncertainty interval of any of the estimates.}
+\es{En la figura~\ref{fig:logistic_sigma} vemos que la curva real esta siempre contenida en el itervalo de incertidumbre de cualquiera de las estimaciones.}
+%
+\en{With this example we can see that at all times TrueSkill Through Time correctly estimates the real skills of new players in communities of already known players.}
+\es{Con este ejemplo podemos ver que en todo momento TrueSkill Through Time estima correctamente las habilidades reales de los jugadores nuevos que se incoporan a comunindades de jugadores ya conocidos.}
 
 \subsection{\en{The history of the Association of Tennis Professionals (ATP)}\es{Historia de la Asociación de Tenistas Profesionales (ATP)}}
 
