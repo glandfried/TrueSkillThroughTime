@@ -524,10 +524,10 @@
  \widehat{p}(s_i| r, s_j) = \underset{\mu, \sigma}{\text{ arg min }} \ \ \text{KL}(\, p(s_i| r, s_j) \, || \,  \N(s_i|\mu, \sigma^2) \, )
 \end{equation}
 %
-\en{which minimize the Kullback-Leibler divergence between the true and the approximate distribution. This kind of methods allows performing Bayesian inference in situations that otherwise would be impossible.}
+\en{which minimizes the Kullback-Leibler divergence between the true and the approximate distribution. This kind of method allow performing Bayesian inference in situations that otherwise would be impossible.}
 \es{Esta clase de m\'etodos, que minizan la divergencia Kullback-Leibler entre la distribuci\'on verdadera y aproximada, permiten realizar inferencia bayesiana en situaciones que de otra forma no ser\'ia posibles.}
 %
-\en{In our case, in which we need to know how skills change over time, this technique allows us to efficiently apply equation~\ref{eq:posterior_win} iteratively over a sequence of observations.}
+\en{As we need to know how skills change over time, this technique allows to efficiently apply equation~\eqref{eq:posterior_win} iteratively over a sequence of observations.}
 \es{En nuestro caso, en el que necesitamos conocer c\'omo cambian las habilidades a trav\'es del tiempo, est\'a t\'ecnica nos permite aplicar eficientemente la ecuaci\'on~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
 
 %
@@ -535,15 +535,15 @@
 \en{The approach adopted by TrueSkill to treat the dynamical process, known as \emph{filtering}, uses the posterior as the prior for the next event.}
 \es{El enfoque adoptado por TrueSkill para tratar el proceso din\'amico, conocido como \emph{filtering}, usa el posterior como prior del siguiente evento.}
 %
-\en{Then, the posterior at any given time is,}
+\en{The posterior at any given time is:}
 \es{Luego, el posterior en un determinado momento es,}
 %
 \begin{equation}\label{eq:filter} %\tag{\text{filtering}}
  \widehat{\text{Posterior}}_t \propto \widehat{\text{Likelihood}}_t  \overbrace{\widehat{\text{Likelihood}}_{t-1} \dots \widehat{\text{Likelihood}}_{2} \underbrace{\widehat{\text{Likelihood}}_{1} \text{Prior}_1}_{\widehat{\text{Posterior}}_{1} \text{ \en{as}\es{como} } \text{Prior}_{2}} }^{\widehat{\text{Posterior}}_{t-1} \text{ \en{as}\es{como} } \text{Prior}_{t}} %= \text{Prior}_1 \prod_{i=1}^t \text{Likelihood}_i 
 \end{equation}
 %
-\en{where {\footnotesize $\widehat{\text{Posterior}}_i$} and {\footnotesize $\widehat{\text{Likelihood}}_i$} represents the approximations induced by the equation~\ref{eq:approx} at the $i$-th event.}
-\es{Donde {\footnotesize $\widehat{\text{Posterior}}_i$} y {\footnotesize $\widehat{\text{Likelihood}}_i$} representan la aproximaciones inducidas por la ecuaci\'on~\ref{eq:approx} en el $i$-\'esimo evento.}
+\en{where {\footnotesize $\widehat{\text{Posterior}}_i$} and {\footnotesize $\widehat{\text{Likelihood}}_i$} represent the approximations induced by the equation~\eqref{eq:approx} at the $i$-th event.}
+\es{Donde {\footnotesize $\widehat{\text{Posterior}}_i$} y {\footnotesize $\widehat{\text{Likelihood}}_i$} representan la aproximaciones inducidas por la ecuaci\'on~\eqref{eq:approx} en el $i$-\'esimo evento.}
 %
 \en{If we consider the likelihood as a filter of the prior, each posterior can be seen as an accumulation of all previous filters.}
 \es{Si consideramos la verosimilitud como un filtro del prior, cada posterior puede ser visto como una acumulaci\'on de todos los filtros anterios.}
@@ -554,14 +554,14 @@
 %\en{Learning is a dynamical process.}
 %\es{El aprendizaje es un proceso din\'amico.}
 %
-\en{Since skills are dynamic variables it is important to incorporate a degree of uncertainty $\gamma$ at each step.}
-\es{Debido a que las habilidades son variables din\'amicas es importante agregar alguna incertidumbre $\gamma$ en cada paso.}
+\en{Since skills are dynamic variables, it is important to incorporate a degree of uncertainty $\gamma$ at each step.}
+\es{Debido a que las habilidades son variables din\'amicas, es importante agregar alguna incertidumbre $\gamma$ en cada paso.}
 %
 \begin{equation}\label{eq:dynamic_factor}
  \widehat{p}(s_{i_t}) = \N(s_{i_t} | \mu_{i_{t-1}}, \sigma_{i_{t-1}}^2 + \gamma^2 )
  \end{equation}
  %
-\en{Because the filtering approach does not arise from any probabilistic model, it suffers from some problems related to the fact that the information propagates in only one direction through the system.}
+\en{Because the filtering approach does not arise from any probabilistic model, it suffers from some limitations related to the fact that the information propagates in only one direction through the system.}
 \es{Debido a que el enfoque de filtrado no se surge de ning\'un modelo probabil\'istico, sufre de un serie de problemas, todos relacionados con el hecho de que la informaci\'on se propaga en una sola direcci\'on a trav\'es del sistema.}
 %
 \en{The most obvious is that the beginning of any sequence of estimates always has high uncertainty.}
@@ -576,16 +576,16 @@
 
 % Parrafo
 
-\en{To obtain good initial estimates and ensure temporal and spatial comparability we need a causal model of the temporal process that links all historical activities.}
-\es{A fin de obtener buenas estimaciones iniciales y garantizar comparbilidad temporal y espacial, necesitamos un modelo causal del proceso temporal que vincule todas las actividades hist\'oricas.}
+\en{To obtain accurate initial estimates and ensure temporal and spatial comparability, we need a causal model of the dynamical process that links all historical activities.}
+\es{A fin de obtener buenas estimaciones iniciales y garantizar comparabilidad temporal y espacial, necesitamos un modelo causal del proceso temporal que vincule todas las actividades hist\'oricas.}
 %
-\en{In any video game this typically involves evaluating a complex network made up of millions of events.}
+\en{In any video game, this typically involves evaluating a complex network consisting of millions of events.}
 \es{En cualquier video juego esto típicamente implica evaluar una red compleja compuesta por millones de eventos.}
 %
 % \en{For this reason, figure~\ref{fig:smoothing} shows only the closest neighbors of a sequence of estimates.}
 % \es{Por esta raz\'on, la figura~\ref{fig:smoothing} muestra s\'olo los vecinos m\'as pr\'oximos de una secuencia de estimaciones.}
 % %
-\en{This approach, known as \emph{smoothing}, is the one implemented by TrueSkill Through Time~\citep{Dangauthier2007}.}
+\en{This approach, known as \emph{smoothing}, is implemented by TrueSkill Through Time~\citep{Dangauthier2007}.}
 \es{Este enfoque, conocido como \emph{smoothing}, es el implementado por TrueSkill Through Time~\citep{Dangauthier2007}.}
 %
 % \begin{figure}[h!]
@@ -629,7 +629,7 @@
 %   \label{fig:smoothing}
 % \end{figure}
 %
-\en{By applying the rules of probability over this temporal model, historical information naturally propagate throughout the system, solving the problems of the filtering approach.}
+\en{By applying the rules of probability over this dynamical model, the historical information naturally propagates throughout the system, solving the issues caused by the filtering approach.}
 \es{Al aplicar las reglas de la probabilidad sobre este modelo temporal, la informaci\'on hist\'orica propaga naturalmente hacia todo el sistema, resolviendo los problemas del enfoque de filtro.}
 %
 \en{Excluding the dynamic component, $\gamma = 0$, the prior of an agent $i$ at the $t$-eth event is just the product of all their likelihoods, except that of the $t$-eth event.}
@@ -1814,8 +1814,8 @@ FALTA HISTORY
     %\node[invisible, right=of p2, xshift=4.35cm] (s-dist) {};
 }
      \caption{
-     \en{Graphical way of representing the factorization of the basic causal model (equation~\ref{eq:factorization}).}
-     \es{Forma gráfica de representar la factorizaci\'on del modelo causal básico (ecuación~\ref{eq:factorization}).}
+     \en{Graphical way of representing the factorization of the basic causal model (equation~\eqref{eq:factorization}).}
+     \es{Forma gráfica de representar la factorizaci\'on del modelo causal básico (ecuación~\eqref{eq:factorization}).}
      %
      \en{The black squares represent the functions, the white circles represent the variable, and the edges between them represent the mathematical relationship ``the variable is argument of the function''.}
      \es{Los cuadrados negros representan las funciones, los c\'irculos blancos representan las variable, y los ejes entre ellos representan la relaci\'on matem\'atica ``la variable es argumento de la funci\'on''.}
@@ -2354,10 +2354,10 @@ exact_lhood = function(s1){
   \label{fig:draw}
 \end{figure}
 %
-\en{Since the observed results are independent of our beliefs, the only source of uncertainty comes from the variance of individual perfomances $\beta$.}
+\en{Since the observed results are independent of our beliefs, the only source of uncertainty comes from the variance of individual perfomance $\beta$.}
 \es{Como los resultados observados son independientes de nuestras creencias, la \'unica fuente de incertidumbre proviene de varianza de los rendimientos $\beta$.}
 %
-\en{This is how we can define an equation that links the margin with the probability of a tie.}
+\en{This is how we can define an expression that links the margin with the probability of a tie.}
 \es{As\'i es que podemos definir una ecuaci\'on que vincula el margen con la probabilidades de empate.}
 %
 \begin{equation}
