@@ -517,26 +517,24 @@
 \en{However, this method does not guarantee the quality of the approximation used.}
 \es{Sin embargo, este m\'etodo no garantiza que la distribuci\'on gaussiana seleccionada sea la que mejor aproxima.}
 %
-\en{The success of the TrueSkill solution~\citep{Herbrich2007} is based on the application of an efficient method for computing the Gaussian distribution that guarantees the approximation of the posterior (section~\ref{sec:approximate_posterior}).}
-\es{El \'exito de la soluci\'on TrueSkill~\citep{Herbrich2007} se basa en la aplicaci\'on de m\'etodo eficiente para calcular la gaussiana que mejor aproxima a la posterior exacta (secci\'on~\ref{sec:approximate_posterior}).}
+\en{The success of the TrueSkill solution~\citep{Herbrich2007} is based on the application of an efficient method for computing the Gaussian distribution that guarantees the approximation of the posterior (section~\ref{sec:approximate_posterior}),}
+\es{El \'exito de la soluci\'on TrueSkill~\citep{Herbrich2007} se basa en la aplicaci\'on de m\'etodo eficiente para calcular la gaussiana que mejor aproxima a la posterior exacta (secci\'on~\ref{sec:approximate_posterior}),}
 %
 \begin{equation} \label{eq:approx} 
  \widehat{p}(s_i| r, s_j) = \underset{\mu, \sigma}{\text{ arg min }} \ \ \text{KL}(\, p(s_i| r, s_j) \, || \,  \N(s_i|\mu, \sigma^2) \, )
 \end{equation}
 %
-\en{which minimizes the Kullback-Leibler divergence between the true and the approximate distribution. This kind of method allow performing Bayesian inference in situations that otherwise would be impossible.}
-\es{Esta clase de m\'etodos, que minizan la divergencia Kullback-Leibler entre la distribuci\'on verdadera y aproximada, permiten realizar inferencia bayesiana en situaciones que de otra forma no ser\'ia posibles.}
+\en{which minimizes the Kullback-Leibler divergence between the true and the approximate distribution.}
+\es{que miniza la divergencia Kullback-Leibler entre la distribuci\'on verdadera y la aproximada.}
 %
-\en{As we need to know how skills change over time, this technique allows to efficiently apply equation~\eqref{eq:posterior_win} iteratively over a sequence of observations.}
-\es{En nuestro caso, en el que necesitamos conocer c\'omo cambian las habilidades a trav\'es del tiempo, est\'a t\'ecnica nos permite aplicar eficientemente la ecuaci\'on~\ref{eq:posterior_win} iterativamente sobre una secuencia de observaciones.}
-
+\en{This method allow as to efficiently apply equation~\eqref{eq:posterior_win} iteratively over a sequence of observations, which would otherwise be infeasible.}
+\es{Este método nos permite aplicar eficientemente la ecuaci\'on~\eqref{eq:posterior_win} iterativamente sobre una secuencia de observaciones, que de otra manera sería inviable.}
 %
-
-\en{The approach adopted by TrueSkill to treat the dynamical process, known as \emph{filtering}, uses the posterior as the prior for the next event.}
-\es{El enfoque adoptado por TrueSkill para tratar el proceso din\'amico, conocido como \emph{filtering}, usa el posterior como prior del siguiente evento.}
+\en{The approach adopted by TrueSkill to treat the dynamical process, known as \emph{filtering}, uses the approximate posterior as the prior for the next event.}
+\es{El enfoque adoptado por TrueSkill para tratar el proceso din\'amico, conocido como \emph{filtering}, usa el posterior aproximado como prior del siguiente evento.}
 %
-\en{The posterior at any given time is:}
-\es{Luego, el posterior en un determinado momento es,}
+\en{The approximate posterior at any given time is:}
+\es{Luego, el posterior aproximado en un determinado momento es,}
 %
 \begin{equation}\label{eq:filter} %\tag{\text{filtering}}
  \widehat{\text{Posterior}}_t \propto \widehat{\text{Likelihood}}_t  \overbrace{\widehat{\text{Likelihood}}_{t-1} \dots \widehat{\text{Likelihood}}_{2} \underbrace{\widehat{\text{Likelihood}}_{1} \text{Prior}_1}_{\widehat{\text{Posterior}}_{1} \text{ \en{as}\es{como} } \text{Prior}_{2}} }^{\widehat{\text{Posterior}}_{t-1} \text{ \en{as}\es{como} } \text{Prior}_{t}} %= \text{Prior}_1 \prod_{i=1}^t \text{Likelihood}_i 
@@ -629,7 +627,7 @@
 %   \label{fig:smoothing}
 % \end{figure}
 %
-\en{By applying the rules of probability over this dynamical model, the historical information naturally propagates throughout the system, solving the issues caused by the filtering approach.}
+\en{By applying the rules of probability over the dynamical model, the historical information naturally propagates through the system, solving the issues caused by the filtering approach.}
 \es{Al aplicar las reglas de la probabilidad sobre este modelo temporal, la informaci\'on hist\'orica propaga naturalmente hacia todo el sistema, resolviendo los problemas del enfoque de filtro.}
 %
 \en{Excluding the dynamic component, $\gamma = 0$, the prior of an agent $i$ at the $t$-eth event is just the product of all their likelihoods, except that of the $t$-eth event.}
@@ -1367,7 +1365,7 @@ lc_print(lc[["a"]])
 \subsection{Skill evolution}
 
 \en{We now analyze a scenario in which a new player joins a large community of already known players.}
-\es{Ahora analizamos un ejemplo más complejo en el que un jugador nuevo se integra a comunidad grande de jugadores ya conocidos.}
+\es{Ahora analizamos un escenario en el que un jugador nuevo se integra a una comunidad grande de jugadores ya conocidos.}
 %
 \en{In this example, we focus on the estimation of an evolving skill.}
 \es{En este ejemplo queremos ver cuan cercana es la estimación de la verdadera habilidad.}
@@ -1375,13 +1373,13 @@ lc_print(lc[["a"]])
 \en{For this purpose, we establish the skill of the target player to change over time following a logistic function.}
 \es{Para eso establecemos que la habilidad del jugador objetivo cambia en el tiempo siguiendo una función logística.}
 %
-\en{The community is generated by ensuring that each opponent has a skill similar to the target player and follows its evolution.}
-\es{La comunidad se genera asegurando que cada oponente tenga una habilidad similar a la del jugador objetivo, siguiendo su evolución.}
+\en{The community is generated by ensuring that each opponent has a skill similar to that of the target player throughout their evolution.}
+\es{La comunidad se genera asegurando que cada oponente tenga una habilidad similar a la del jugador objetivo durante toda su evolución.}
 %
 \en{In the following code, we generate the target player's learning curve and 1000 random opponents.}
 \es{En el siguiente código generamos la curva de aprendizaje del agente objetivo y 1000 oponentes aleatorios.}
 %
-\begin{lstlisting}[backgroundcolor=\color{python}, label=lst:simulated_skill, caption={\en{Initialization of the target's learning curve and the community of opponents}\es{Simulación de la curva de aprendizaje objetivo y la comunidad de oponentes}}, belowskip=0.1cm, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{python}, label=lst:simulated_skill, caption={\en{Initialization of the target's learning curve and the community of opponents}\es{Inicialización de la curva de aprendizaje objetivo y la comunidad de oponentes}}, belowskip=0.1cm, aboveskip=0.1cm]
 import math; from numpy.random import normal, seed; seed(99); N = 1000
 def skill(experience, middle, maximum, slope):
     return maximum/(1+math.exp(slope*(-experience+middle)))
@@ -1415,28 +1413,31 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \en{The variable \texttt{composition} contains 1000 games between the target player and different opponents.}
 \es{La variable \texttt{composition} contiene 1000 partidas entre el jugador objetivo y los distintos oponentes.}
 %
-\en{To generate the list \texttt{results}, we sample the performance of the players using the previously generated skills: the outcome of each game depends on the highest performance.}
-\es{Para generar la lista \texttt{results} muestreamos el rendimiento de los jugadores a partir de las habilidades sintéticas: gana el jugador con mayor rendimiento.}
+\en{The results of the list \texttt{results} are obtained randomly, sampling the performance of the players through Gaussian distributions centered on their skills, with the winner being the player with the highest performance.}
+\es{Los resultados de la lista \texttt{results} se obtienen de forma aleatoria, muestreando el rendimiento de los jugadores a través de distribuciones Gaussianas centradas en sus habilidades, siendo ganador el jugador con mayor rendimiento.}
 %
-\en{The variable \texttt{time} is a list of integer values ranging from 0 to 999 representing the date of each game: the class \texttt{History} uses it to add dynamic uncertainty ($\gamma^2$) proportionally to the days between each game.}
-\es{La variable \texttt{time} es una lista de valores enteros que van de 0 a 999, representando el tiempo de cada partida: la clase \texttt{Historia} la utiliza para determinar cuánta incertidumbre dinámica ($\gamma^2$) debe aplicarse entre juegos a medida que avanzamos en el tiempo.}
+\en{The variable \texttt{time} is a list of integer values ranging from 0 to 999 representing the time batch in which each game is located: the class \texttt{History} uses the distance between games to determine the amount of dynamic uncertainty ($\gamma^2$) that is added between games as we go forward in time.}
+\es{La variable \texttt{tiempo} es una lista de valores enteros que van de 0 a 999 y que representan el lote temporal en el que está ubicada cada partida: la clase \texttt{Historia} utiliza la distancia entre juegos para determinar la cantidad de incertidumbre dinámica ($\gamma^2$) que se añade entre partidas medida que avanzamos en el tiempo.}
 %
-\en{The variable \texttt{priors} is a dictionary containing the customization of the players' features.}
-\es{La variable \texttt{priors} es un diccionario que se puede utilizar para personalizar las características de los jugadores.}
+\en{The variable \texttt{priors} is a dictionary used to customize player attributes.}
+\es{La variable \texttt{priors} es un diccionario para personalizar los atributos de los jugadores.}
 %
-\en{In particular, we assign a low uncertainty to the opponents' priors considering we know their skill beforehand.}
-\es{En este ejemplo, asignamos baja incertidumbre a los priors de los oponentes para simular que conocemos su habilidad de antemano.}
+\en{In this example, we assign low uncertainty to the opponents' priors, pretending that we know their skills beforehand.}
+\es{En este ejemplo, asignamos baja incertidumbre a los priors de los oponentes, simuando que conocemos sus habilidades de antemano.}
 
 % Parrafo
 
-\en{The class \texttt{History} receives those four parameters and initializes the target player using the default values except for the dynamic factor \texttt{gamma=0.015}.}
-\es{La clase \texttt{History} recibe los cuatro parámetros, e inicializa al resto de los jugadores (en este caso sólo el agente objetivo) con los valores por defecto y un factor dinámico \texttt{gamma=0.015}.}
+\en{The class \texttt{History} receives this four parameters and initializes the target player using the default values and a dynamic uncertainty \texttt{gamma=0.015}.}
+\es{La clase \texttt{History} recibe estos cuatro parámetros e inicializa al agente objetivo con los valores por defecto y un incertidumbre dinámico \texttt{gamma=0.015}.}
 %
-\en{Then, we use the method \texttt{convergence()} to obtain the TrueSkill Through Time estimates and the target's learning curve.}
+\en{Using the method \texttt{convergence()} we obtain the TrueSkill Through Time estimates and the target's learning curve.}
 \es{Usando el m\'etodo \texttt{convergence()} obtenemos las estimaciones de TrueSkill Through Time y la curva de aprendizaje del agente objetivo.}
 %
-\en{To generate the data for Figure~\ref{fig:logistic}, we repeat this procedure and shows the evolution of the true (solid line) and estimated (dashed line) learning curves of the target player's.}
-\es{La figura~\ref{fig:logistic} muestra la evolución de la curva de aprendizaje sintética (línea sólida) y estimada (línea punteada) del jugador objetivo.}
+\en{Because the estimates depend on random results, we decided to repeat procedure~\ref{lst:estimating_the_simulated} to account for their variability.}
+\es{Debido a que las estimaciones dependen de los resultados aleatorios, para tener en cuenta su variabilidad decidimos repetir el procedimiento~\ref{lst:estimating_the_simulated}.}
+%
+\en{The Fig~\ref{fig:logistic} shows the evolution of the true (solid line) and estimated (dotted line) learning curves of the target player.}
+\es{La figura~\ref{fig:logistic} muestra la evolución de la curva de aprendizaje real (línea sólida) y estimada (línea punteada) del jugador objetivo.}
 %
 \begin{figure}[H]
     \centering
@@ -1463,10 +1464,10 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
     \es{Curva de aprendizaje sintética y estimada de un jugador nuevo que se incorpora a una comunidad grande de jugadores ya conocidos.}
     %
     \en{The solid line represents the true skill of the target player while the dashed lines show the mean estimates.}
-    \es{La línea continua representa la habilidad sintética del jugador objetivo, mientras que la línea discontinua muestra la estimación media.}
+    \es{La línea continua representa la habilidad real del jugador objetivo, mientras que la línea discontinua muestra la estimación media.}
     %
-    \en{The dark and light gray areas show once and twice the uncertainty of one of the estimates.}
-    \es{La zona gris oscura (clara) ilustra una vez (dos veces) la incertidumbre de la estimación.}
+    \en{The dark and light gray areas show onnce and twice the uncertainty of one of the estimates.}
+    \es{Las zonas oscuras y claras ilustra una y dos veces la incertidumbre de la estimación.}
     }
     \label{fig:logistic}
 \end{figure}
@@ -1474,22 +1475,22 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \en{The estimated learning curves remain close to the actual skill during the whole evolution as can be seen in Fig~\ref{fig:logistic_mu}.}
 \es{En la figura~\ref{fig:logistic_mu} vemos que las medias de las curvas de aprendizaje estimada se mantienen siempre cerca de la habilidad real durante toda la evolución.}
 %
-\en{For the Fig~\ref{fig:logistic_sigma}, we select one of the estimated learning curves and present its uncertainty to show that the actual learning curve is contained in the uncertainty interval.}
+\en{For the Fig~\ref{fig:logistic_sigma}, we select one of the estimated learning curves and present its uncertainty, showing that the actual learning curve is contained in the uncertainty interval.}
 \es{En la figura~\ref{fig:logistic_sigma} vemos que la curva real esta siempre contenida en el intervalo de incertidumbre de cualquiera de las estimaciones.}
 %
-\en{This example shows that TrueSkill Through Time correctly estimates and follows the skill evolution of a new player.}
-\es{Con este ejemplo podemos ver que en todo momento TrueSkill Through Time estima correctamente las habilidades reales de los jugadores nuevos que se incorporan a comunidades de jugadores ya conocidos.}
+\en{This example exhibit that TrueSkill Through Time correctly estimates and follows the skill evolution of a new player.}
+\es{Este ejemplo evidencia que TrueSkill Through Time estima y sigue correctamente la evolución de las habilidades de los jugador nuevos.}
 
 \subsection{\en{The history of the Association of Tennis Professionals (ATP)}\es{Historia de la Asociación de Tenistas Profesionales (ATP)}}
 
-\en{This last example is based on real-life data of all Association of Tennis Professionals (ATP) registered games.}
-\es{En este ejemplo mostramos cómo resolver la historia de la Asociación de Tenistas Profesionales (ATP).}
+\en{In this last example we use the entire history of matches of the Association of Tennis Professionals (ATP).}
+\es{En este último ejemplo utilizamos toda la historia de partidas de la Asociación de Tenistas Profesionales (ATP).}
 %
 \en{The database has \num{447000} games starting at year 1915 until 2020 with more than \num{19000} participating players.}
-\es{La base de datos cuenta con 447 mil partidas que van desde 1915 hasta el 2020 en las que participan 19 mil jugadores.}
+\es{La base de datos cuenta con \num{447000} mil partidas que van desde el año 1915 hasta el 2020, en las que participan \num{19000} jugadores.}
 %
-\en{We condensed the information in a \texttt{csv} file containing both single and double matches: if the column \texttt{double} has the letter \texttt{t}, the game is a double match.}
-\es{El archivo \texttt{csv} contiene tanto partidas simples como dobles, indicado por la columna \texttt{double}.}
+\en{The information contained in the \texttt{csv} files has both single and double matches: if the column \texttt{double} has the letter \texttt{t}, the game is a double match.}
+\es{La información contenida en los archivos \texttt{csv} contiene tanto partidas simples como dobles, indicado por la columna \texttt{double}.}
 %
 \en{Each game has a unique identifier (i.e. \texttt{match\_id}) and tournament's round number (i.e. \texttt{round\_number}) where 0 represents the final game, 1 the semi-final, and so on.}
 \es{Tenemos un identificador por la partida (\texttt{match\_id}) y el número de ronda (\texttt{round\_number}) donde 0 representa la partida final, 1 la semi-final, etc.}
@@ -1501,7 +1502,7 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \es{Finalmente tenemos el nombre del torneo (\texttt{tour\_name}), su identificado (\texttt{tour\_id}), la fecha de inicio del torneo (\texttt{time\_start}) y el tipo de piso (\texttt{ground}).}
 %
 \en{Here we only show the \proglang{Julia} version because it is more efficient than \proglang{Python} and \proglang{R} versions, which can be also found in the appendix \ref{AGREGA-CODE}.}
-\es{Aquí mostramos solo la versión de \proglang{Julia}, debido a que es la más eficiente (las versiones de \proglang{Python} y \proglang{R} se encuentran en el anexo \ref{AGREGA-CODIGO}).}
+\es{Aquí mostramos solo la versión de \proglang{Julia} debido a que es la más eficiente, las versiones de \proglang{Python} y \proglang{R} se pueden entonrar en el anexo \ref{AGREGA-CODIGO}.}
 %
 \begin{lstlisting}[backgroundcolor=\color{julia},label=lst:atp, caption={\en{The history of the Association of Tennis Professionals}\es{Historia sintética}}, belowskip=0.1cm, aboveskip=0.1cm]
 using CSV; using Dates
@@ -1517,26 +1518,23 @@ convergence(h,epsilon=0.01, iterations=10)
 \en{In this code we open the file \texttt{atp.csv}, create the variables \texttt{times} and \texttt{composition}, and instantiate the class \texttt{History}.}
 \es{En este código abrimos el archivo \texttt{csv}, creamos las variables \texttt{times} y \texttt{composition} e instanciamos la clase \texttt{History}.}
 %
-\en{Times are defined as days elapsed since a reference date to the tournament start.}
-\es{Los tiempos los definimos como días transcurridos desde una fecha base (cualquiera sea) hasta el inicio del torneo.}
+\en{Temporal batches are defined as days elapsed since a reference date to the tournament start.}
+\es{Los lotes temporales se definen como días transcurridos desde una fecha de referencia hasta el inicio del torneo.}
 %
-% \en{We subtract the number of rounds to roughly differentiate the days within each tournament, but this is not necessary.}
-% \es{Restamos el número de ronda para diferenciar aproximadamente los días al interior de cada torneo, pero no es algo que sea necesario.}
-% %
-\en{To generate the list \texttt{composition} we differentiate if the games are doubles or singles based on the column \texttt{double}.}
-\es{La composición de los eventos dependen de si la partidas fueron dobles o singles.}
+\en{When generating the list \texttt{composition} we discriminate whether the games are double or single based on the column \texttt{double}.}
+\es{Al generar la lista \texttt{composition} discriminamos si los juegos son dobles o individuales en base a la columna \texttt{double}.}
 %
 \en{The results are implied by the order in which we set the composition, always placing the winning team first.}
 \es{Los resultados quedan impl\'icitos por el orden en que armamos la composición, poniendo siempre primero al equipo ganador.}
 %
 \en{When initializing the class \texttt{History} we also modify the default values of \texttt{sigma} and \texttt{gamma} based on an optimization procedure previously performed (more details next).}
-\es{Al inicializar la clase \texttt{History} modificamos los valores por defecto de \texttt{sigma} y \texttt{gamma}.}
+\es{Al inicializar la clase \texttt{History} modificamos los valores por defecto de \texttt{sigma} y \texttt{gamma}, basados en un procedimiento de optimización realizado previamente (más detalles a continuación).}
 %
 \en{Finally, we use the \texttt{convergence()} method to obtain TrueSkill Through Time estimates explicitly selecting the convergence criterion: when the change between iterations is less than $0.01$ or when $10$ iterations are performed.}
-\es{Finalmente, convergemos la historia para obtener las estimaciones de TrueSkill Through Time, indicando explícitamente el criterio de corte: cuando la modificación entre iteraciones sea menor a $0.01$, o cuando se alcanzan las $10$ iteraciones.}
+\es{Finalmente, convergemos la historia para obtener las estimaciones de TrueSkill Through Time, indicando explícitamente el criterio de corte: cuando el cambio entre iteraciones sea menor a $0.01$, o cuando se alcanzan las $10$ iteraciones.}
 %
-\en{Figure~\ref{fig:atp} presents the learning curves of eight players of the ATP's history.}
-\es{En la siguiente figura graficamos las curvas de aprendizaje de ocho jugadores importantes de la historia de la ATP.}
+\en{Figure~\ref{fig:atp} presents the learning curves of eight famous players of the ATP's history.}
+\es{En la figura~\ref{fig:atp} graficamos las curvas de aprendizaje de ocho jugadores famosos de la historia de la ATP.}
 %
 \begin{figure}[h]
     \centering
@@ -1695,25 +1693,25 @@ convergence(h,epsilon=0.01, iterations=10)
 
 \section{Models and software} 
 
-\en{Probabilistic inference offers a generally applicable framework~\citep{Bishop2013}: all the assumptions are made explicit through a generative (or causal) model, which can be intuitively specified in a graphical way; and inference can always be solved by applying the same rules of probability (the sum and product rules) over the joint distribution represented by the model.}
-\es{La inferencia probabil\'istica ofrece un marco de aplicaci\'on general~\citep{Bishop2013}: todos los supuestos se hacen expl\'icitos a trav\'es de un modelo generativo (o causal), que puede ser especificado intuitivamente de forma gr\'afica; y toda inferencia se hace aplicando las reglas de la probabilidad, de la suma y del producto, sobre el modelo representado como una distribuci\'on conjunta.}
+\en{Probabilistic inference offers a generally applicable framework~\citep{Bishop2013} in which all the assumptions are made explicit through a generative model, and inference can always be solved by applying the sum and product rules over the joint distribution represented by the model.}
+\es{La inferencia probabil\'istica ofrece un marco de aplicaci\'on general~\citep{Bishop2013} en el que todos los supuestos se hacen expl\'icitos a trav\'es de un modelo generativo y toda inferencia se hace aplicando las reglas de la suma y el producto sobre la distribuci\'on conjunta representada por el modelo.}
 %
 \en{In this section we will explain all the details of the probabilistic framework in the context of the TrueSkill Through Time problem.}
 \es{En esta secci\'on explicaremos todos los detalles del marco probabil\'isitico en el contexto del problema TrueSkill Through Time.}
 %
-\en{In the section~\ref{sec:sumProductAlgorithm} we will introduce the \emph{sum-product algorithm}, which allows to efficiently apply the sum and product rules to compute any marginal distribution from the joint distributions.}
-\es{En la secci\'on~\ref{sec:sumProductAlgorithm} introduciremos el \emph{sum-product algorithm}, que permite aplicar eficientemente las reglas de la suma y el producto para compuutar cualquier distribuciones marginal a partir de la distribuci\'on conjunta.}
-%
-\en{In the section~\ref{sec:propiedades} we list the properties that we will need to derive the marginal distributions of interest.}
-\es{En la secci\'on~\ref{sec:propiedades} enumeramos las propiedades que necesitaremos para derivar las distribuciones marginales de inter\'es.}
-%
-\en{In the section \ref{sec:Gasussian} we introduce the implementation details of the class \texttt{Gaussian}.}
-\es{En las sección \ref{sec:Gasussian} introducimos los detalles de implementaci\'on de la clases \texttt{Gaussian}.}
-%
-\en{In the sections \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate_posterior}, and \ref{sec:iterative_posterior} we show respectively how to solve the prior prediction and the exact posterior of an event, we introduce ties into the model, we explain how to approximate the posterior of a single event, and we give the general multi-team solution.}
-\es{En las secciones \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate_posterior}, y \ref{sec:iterative_posterior} mostramos respectivamente c\'omo resolver la predicci\'on a priori y el posterior exacto de un evento, instroucimos la posibilidad de empates en el modelo, explicamos c\'omo aproximar el posterior, y damos la soluci\'on general multi-equipos.}
-%
-FALTA HISTORY
+\en{In the section~\ref{sec:sumProductAlgorithm} we will introduce the \emph{sum-product algorithm}, which allows to efficiently apply the sum and product rules to compute the marginal distribution (e.g. the posterior and the prior predicition) from the joint distributions.}
+\es{En la secci\'on~\ref{sec:sumProductAlgorithm} introduciremos el \emph{sum-product algorithm}, que permite aplicar eficientemente las reglas de la suma y el producto para computar distribuciones marginal (e.g. el posterior y la predicción a priori) a partir de la distribuci\'on conjunta.}
+% %
+% \en{In the section~\ref{sec:propiedades} we list the properties that we will need to derive the marginal distributions of interest.}
+% \es{En la secci\'on~\ref{sec:propiedades} enumeramos las propiedades que necesitaremos para derivar las distribuciones marginales de inter\'es.}
+% %
+% \en{In the section \ref{sec:Gasussian} we introduce the implementation details of the class \texttt{Gaussian}.}
+% \es{En las sección \ref{sec:Gasussian} introducimos los detalles de implementaci\'on de la clases \texttt{Gaussian}.}
+% %
+% \en{In the sections \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate_posterior}, and \ref{sec:iterative_posterior} we show respectively how to solve the prior prediction and the exact posterior of an event, we introduce ties into the model, we explain how to approximate the posterior of a single event, and we give the general multi-team solution.}
+% \es{En las secciones \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate_posterior}, y \ref{sec:iterative_posterior} mostramos respectivamente c\'omo resolver la predicci\'on a priori y el posterior exacto de un evento, instroucimos la posibilidad de empates en el modelo, explicamos c\'omo aproximar el posterior, y damos la soluci\'on general multi-equipos.}
+% %
+% FALTA HISTORY
 % %
 % En la secci\'on~\ref{history} mostamos los pasos matem\'aticos requeridos para resolver el modelo TTT.
 % %
@@ -1740,17 +1738,14 @@ FALTA HISTORY
  p(\bm{s},\bm{p},d,r) = p(s_1)p(s_2)p(p_1|s_1)p(p_2|s_2)p(d|\bm{p})P(r|d)
 \end{equation}
 %
-\en{In the figure~\ref{fig:factor_graph} we show this factorization graphically.}
+\en{In figure~\ref{fig:factor_graph} we show this factorization graphically.}
 \es{En la figura~\ref{fig:factor_graph} mostramos gr\'aficamente la factorizaci\'on.}
 %
-\en{These types of representations are known as \emph{factor graph}.}
-\es{A este tipo de representaciones se las conoce como \emph{factor graph}.}
+\en{These types of representations, known as \emph{factor graph}, are graphs with two types of nodes: variable nodes (white circles), and function nodes (black squares).}
+\es{A este tipo de representaciones, conocidas como \emph{factor graph}, son gr\'afos con dos tipos de nodos: los nodos variables (círculos blancos), y los nodos funciones (cuadrados negros).}
 %
-\en{These are graphs with two types of nodes, variable nodes (white circles) and function nodes (black squares).}
-\es{Son gr\'afos con dos tipos de nodos, los nodos variables (círculos blancos) y los nodos funciones (cuadrados negros).}
-%
-\en{The edge between variables and functions represent the mathematical relationship ``the variable $v$ is an argument of the function $f$''.}
-\es{Los ejes entre variables y funciones representan la relaci\'on matem\'atica ``la variable $v$ es argumento de la funci\'on $f$''.}
+\en{The edge between node variables and node functions represent the mathematical relationship ``the variable $v$ is an argument of the function $f$''.}
+\es{Los ejes entre los nodos variables y los nodos funciones representan la relaci\'on matem\'atica ``la variable $v$ es argumento de la funci\'on $f$''.}
 %
 \begin{figure}[h!]
 \centering \small
@@ -1807,10 +1802,10 @@ FALTA HISTORY
     %\node[invisible, right=of p2, xshift=4.35cm] (s-dist) {};
 }
      \caption{
-     \en{Graphical way of representing the factorization of the basic causal model (equation~\eqref{eq:factorization}).}
-     \es{Forma gráfica de representar la factorizaci\'on del modelo causal básico (ecuación~\eqref{eq:factorization}).}
+     \en{Graphical way of representing the factorization of joint distibution induced by the basic causal model (Eq.~\ref{eq:factorization}).}
+     \es{Forma gráfica de representar la factorizaci\'on de la distribución conjunta inducida por el modelo causal básico (ecuación~\eqref{eq:factorization}).}
      %
-     \en{The black squares represent the functions, the white circles represent the variable, and the edges between them represent the mathematical relationship ``the variable is argument of the function''.}
+     \en{Black squares represent the functions, white circles represent the variable, and the edges between them represent the mathematical relationship ``the variable is argument of the function''.}
      \es{Los cuadrados negros representan las funciones, los c\'irculos blancos representan las variable, y los ejes entre ellos representan la relaci\'on matem\'atica ``la variable es argumento de la funci\'on''.}
      %
      }
@@ -1824,8 +1819,8 @@ FALTA HISTORY
 \en{In our case we want to compute two marginals, the proportional posterior of the skills $p(s_i, r)$ and the a prior probability of the result $p(r)$.}
 \es{En nuestro caso querermos computar dos marginales, el posterior de las habilidades $p(s_i, r)$ y la probabilidad a priori del resultado $p(r)$.}
 %
-\en{The \emph{sum-product algorithm} is a general way of breaking down the rules of probability as messages that are sent locally between the variables of the \emph{factor graph}.}
-\es{El \emph{sum-product algorithm} es una forma general de descomponer las reglas de la probabilidad como mensajes que se env\'ian localmente las variables del \emph{factor graph}.}
+\en{The \emph{sum-product algorithm} is a general way of breaking down the rules of probability as messages that are sent locally between the nodes of the \emph{factor graph}.}
+\es{El \emph{sum-product algorithm} es una forma general de descomponer las reglas de la probabilidad como mensajes que se env\'ian localmente los nodos del \emph{factor graph}.}
 %
 \en{There are two types of messages: the messages that variable nodes send to their functions neighbors ($m_{v \rightarrow f}(v)$); and the messages that function nodes send to their variable neighbors ($m_{f \rightarrow v}(v)$).}
 \es{Hay dos tipos de mensajes: los mensajes que envian los nodos variables a sus funciones vecinas ($m_{v \rightarrow f}(v)$); y los mensajes que envian los nodos funciones a sus variables vecinas ($m_{f \rightarrow v}(v)$).}
@@ -1856,9 +1851,9 @@ m_{f \rightarrow v}(v) = \int \cdots \int \Big( f(\bm{h},v) \prod_{h \in n(f) \s
 \en{In short, the messages sent by a function $f$ to a neighboring variable $v$ is simply the integration over $\bm{h}$ of the product of itself and all the messages that $f$ receives from the rest of its neighbors $\bm{h}$ except $v$.}
 \es{En pocas palabras, los mensajes que enviado por una funci\'on $f$ a una variable vecina $v$ es simplemente la integraci\'on sobre $\bm{h}$ del producto de si mismo con todos los mensajes que $f$ recibe del resto de sus vecinos $\bm{h}$ salvo $v$.}
 %
-\en{The composition of messages generates a partial computation.}
-\es{La composici\'on de mensajes va generando un computo parcial.}
-%
+% \en{The composition of messages generates a partial computation.}
+% \es{La composici\'on de mensajes va generando un computo parcial.}
+% %
 \en{Finally, the marginal probability distribution of a $v$ variable is simply the product of the messages that $v$ receives from its neighbors.}
 \es{Finalmente, la distribuci\'on de probabilidad marginal de una variable $v$ es simplemente la multiplicaci\'on de los mensajes que $v$ recibe de sus vecinos.}
 %
@@ -1867,54 +1862,90 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 \end{equation}
 
 
-
 \subsection{\en{Mathematical properties and notation}\es{Propiedades matem\'aticas y notaci\'on}}\label{sec:propiedades}
 
-\en{The efficiency of TrueSkill Through Time is due to the fact that margins, whether exact or approximate, are solved analytically.}
-\es{La eficiencia de TrueSkill Through Time se debe a que las marginales, sean exactas o aproximadas, se resuelven de forma anal\'itica.}
+\en{The efficiency of TrueSkill Through Time is achieved because the marginals are computed analytically.}
+\es{La eficiencia de TrueSkill Through Time se obtiene gracias que las marginales se computan de forma analítica.}
 %
-\en{In this section we list the properties that we will use to derive the exact messages that arise from the sum-product algorithm.}
-\es{En esta secci\'on enumeramos las propiedades que usaremos para derivar los mensajes exactos que surgen del \emph{sum-product algorithm}.}
+\en{In this section we list the properties that we will use to derive the exact and the approxiamte messages that arise from the sum-product algorithm.}
+\es{En esta secci\'on enumeramos las propiedades que usaremos para derivar los mensajes exactos y aproximados que surgen del \emph{sum-product algorithm}.}
 %
 \en{Although these properties are widely known, we attach their full demonstrations in the supplemental material.}
 \es{Aunque estas propiedades son ampliamente conocidas, adjuntamos sus demostraciones completas en material suplementario.}
 
 % Parrafo
 
-\en{Let $\N$ be the Gaussian probability distribution, $\Phi$ the cumulative Gaussian distribution, $\mathbb{I}$ the indicator function.}
-\es{Sea $\N$ la ditribuci\'on de probabilidad gaussiana, $\Phi$ la acumulada de una distribuc\'on gaussiana, $\mathbb{I}$ la funci\'on indicadora.}
+% \en{Let $\N$ be the Gaussian probability distribution, $\Phi$ the cumulative Gaussian distribution, $\mathbb{I}$ the indicator function.}
+% \es{Sea $\N$ la ditribuci\'on de probabilidad gaussiana, $\Phi$ la acumulada de una distribuc\'on gaussiana, $\mathbb{I}$ la funci\'on indicadora.}
+%
+\en{The first property states that the product of two Gaussian distributions, both evaluated at the same point $x$, can be expressed as the product of two other Gaussian distributions, for which only one of them is evaluated at $x$.}
+\es{La primera propiedad establece que el producto de dos distribuciones Gaussianas, ambas evaluadas en el mismo punto $x$, pueden expresarse como la producto de otras dos distribuciones Gaussianas, para las que sólo una de ellas está evaluada en $x$.}
 %
 \begin{equation}\label{eq:propiedad_1} \tag{\text{prop 1}}
 \N(x|\mu_1,\sigma_1^2)\N(x|\mu_2,\sigma_2^2) \overset{\ref{multiplicacion_normales}}{=} \N(\mu_1|\mu_2,\sigma_1^2+\sigma_2^2) \N(x|\mu_{*},\sigma_{*}^2)
 \end{equation}
 %
-con $\mu_{*} = \frac{\mu_1}{\sigma_1^2} + \frac{\mu_2}{\sigma_2^2}$ y $\sigma_{*}^2 = \left(\frac{1}{\sigma_1^2} + \frac{1}{\sigma_2^2} \right)^{-1}$ 
-
+\en{where}\es{con} $\mu_{*} = \frac{\mu_1}{\sigma_1^2} + \frac{\mu_2}{\sigma_2^2}$ y $\sigma_{*}^2 = \left(\frac{1}{\sigma_1^2} + \frac{1}{\sigma_2^2} \right)^{-1}$.
+%
+\en{Something similar occurs with the division of two Gaussian distributions, both evaluated at the same point $x$.}
+\es{Algo similar ocurre con la división de dos distribuciones Gaussianas, ambas evaluadas en el mismo punto $x$.}
 \begin{equation}\label{eq:propiedad_2} \tag{\text{prop 2}}
-\N(x|\mu_1,\sigma_1^2)/\N(x|\mu_2,\sigma_2^2) \overset{\ref{sec:division_normales}}{=} \N(\mu_1|\mu_2,\sigma_1^2+\sigma_2^2) \N(x|\mu_{\div},\sigma_{\div}^2)
+\N(x|\mu_1,\sigma_1^2)/\N(x|\mu_2,\sigma_2^2) \overset{\ref{sec:division_normales}}{\propto} \N(x|\mu_{\div},\sigma_{\div}^2)/\N(\mu_1|\mu_2,\sigma_1^2+\sigma_2^2) 
 \end{equation}
 %
-con $\mu_{\div} = \frac{\mu_1}{\sigma_1^2} - \frac{\mu_2}{\sigma_2^2}$ y $\sigma_{\div}^2 = \left(\frac{1}{\sigma_1^2} - \frac{1}{\sigma_2^2} \right)^{-1}$ 
-
+\en{where}\es{con} $\mu_{\div} = \frac{\mu_1}{\sigma_1^2} - \frac{\mu_2}{\sigma_2^2}$ y $\sigma_{\div}^2 = \left(\frac{1}{\sigma_1^2} - \frac{1}{\sigma_2^2} \right)^{-1}$ .
+%
+\en{The indicator function $\mathbb{I}(\cdot=\cdot)$ is worth $1$ when equality is true and $0$ otherwise.}
+\es{La funci\'on indicadora $\mathbb{I}(\cdot=\cdot)$ vale $1$ cuando la igualdad es verdadera y $0$ en caso contrario.}
+%
+\en{When we can use it to replace variable within an integral,}
+\es{Cuando podemos usarla para remplazar variable dentro de una integral,}
+%
 \begin{equation}\label{eq:integral_con_indicadora} \tag{\text{prop 3}}
 \begin{split}
  \iint  \mathbb{I}(x=h(y,z)) f(x) g(y)\, dx\, dy = \int f(h(y,z)) g(y) dy
  \end{split}
 \end{equation}
-
-\begin{equation}\label{eq:simetria} \tag{\text{prop 4}}
+%
+\en{the dimensionality of the problem is reduced.}
+\es{la dimensionalidad del problema se reduce.}
+%
+\en{The indicator function is used to represent probability distributions of non-random discrete variables, as the result of the games given the difference of performances $p(r|d)$.}
+\es{La función indicadora se usa para representar distribuciones de probabilidad de variables discretas no aleatoria, como el resultado de los juegos dada la diferencia de rendimientos $p(r|d)$}
+%
+\en{Similarly, the dirac delta function, $\delta(\cdot=\cdot)$, which is used to represent probability distributions of non-random continuous variables, such as the difference of performances given the agents' performances $p(d|\bm{p})$, can also be used to reduce dimensionality of some integrals.}
+\es{De la misma forma, la función delta de dirac, $\delta(\cdot=\cdot)$, que se usa para representar distribuciones de probabilidad de variables continuas no aleatoria como la diferencia de rendimiento dados rendimientos $p(d|\bm{p})$, también puede usarse para reducir la dimensionalidad de algunas integrales.}
+%
+\begin{equation}\label{eq:integral_con_indicadora} \tag{\text{prop 4}}
+\begin{split}
+ \iint  \delta(x=h(y,z)) f(x) g(y)\, dx\, dy = \int f(h(y,z)) g(y) dy
+ \end{split}
+\end{equation}
+%
+\en{We will also use the properties derived from the symmetry of Gaussians.}
+\es{Usaremos además las propiedades que se derivan de la simetría de Gaussianas.}
+\begin{equation}\label{eq:simetria} \tag{\text{prop 5}}
  \N(x|\mu,\sigma^2) = \N(\mu|x,\sigma^2) = \N(-\mu|-x,\sigma^2) = \N(-x|-\mu,\sigma^2) 
 \end{equation}
-
-\begin{equation}\label{eq:estandarizar} \tag{\text{prop 5}}
+%
+\en{The Gaussian standardization,}
+\es{La estandizarización de la Gaussiana,}
+\begin{equation}\label{eq:estandarizar} \tag{\text{prop 6}}
   \N(x|\mu,\sigma^2) = \N((x-\mu)/\sigma | 0, 1)
 \end{equation}
-
-\begin{equation}\label{eq:phi_norm} \tag{\text{prop 6}}
+%
+\en{Equality between the Gaussian distribution and the derivative of their cumulative distribution,}
+\es{La igualdad entre la distribución Gaussiana y la derivada de la acumulada,}
+\begin{equation}\label{eq:phi_norm} \tag{\text{prop 7}}
  \frac{\partial}{\partial x} \Phi(x|\mu,\sigma^2) = \N(x|\mu,\sigma^2)
 \end{equation}
-
-\begin{equation}\label{eq:phi_simetria} \tag{\text{prop 7}}
+%
+\en{which is valid by definition.}
+\es{que vale por definición.}
+%
+\en{The symmetry of the cumulative Gaussian distribution.}
+\es{La simetría de la distribución Gaussiana acumulada.}
+\begin{equation}\label{eq:phi_simetria} \tag{\text{prop 8}}
 \Phi(0|\mu,\sigma^2) = 1-\Phi(0|-\mu,\sigma^2)
 \end{equation}
 
@@ -1926,30 +1957,11 @@ con $\mu_{\div} = \frac{\mu_1}{\sigma_1^2} - \frac{\mu_2}{\sigma_2^2}$ y $\sigma
 \en{It is represented by two parameters, the mean and the standard deviation.}
 \es{Se representa mediante dos par\'ametros, la media y el desv\'io estandar.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:N1_N2, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{all},label=lst:N1_N2, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
-\begin{lstlisting}[backgroundcolor=\color{all}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{all}, belowskip=0.0 \baselineskip]
 N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)  
 \end{lstlisting}
-\begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
-m1 = N1.mu
-v1 = N1.sigma^2
-v2 = N2.sigma^2
-\end{lstlisting}
-\switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
-m1 = N1.mu
-v1 = N1.sigma**2
-v2 = N2.sigma**2
-\end{lstlisting}
-\switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
-m1 = N1$mu
-v1 = N1$sigma^2
-v2 = N2$sigma^2
-\end{lstlisting}
-\end{paracol}
 %
 \en{The class overwrites the operators addition (\texttt{+}), subtraction (\texttt{-}), product (\texttt{*}) and division (\texttt{/}) with the main properties required to compute the marginal distributions in the TrueSkill Through Time model.}
 \es{La clase sobreescribe los operadores suma (\texttt{+}), resta (\texttt{-}), producto (\texttt{*}) y divisi\'on (\texttt{/}) con las principales propiedades requeridas para computar las distribuciones marginales en el modelo TrueSkill Through Time.}
@@ -1966,7 +1978,7 @@ v2 = N2$sigma^2
 %
 \begin{equation} \tag{\texttt{N1 + N2}} \label{eq:suma_normales}
 \begin{split}
-\iint \mathbb{I}(t = x + y) \N(x|\mu_1, \sigma_1^2)\N(y|\mu_2, \sigma_2^2) dxdy = \N(t|\mu_1+\mu_2,\sigma_1^2 + \sigma_2^2)
+\iint \delta(t=x + y) \N(x|\mu_1, \sigma_1^2)\N(y|\mu_2, \sigma_2^2) dxdy = \N(t|\mu_1+\mu_2,\sigma_1^2 + \sigma_2^2)
 \end{split}
 \end{equation}
 %
@@ -1974,7 +1986,7 @@ v2 = N2$sigma^2
 %
 \begin{equation} \tag{\texttt{N1 - N2}} \label{eq:resta_normales}
 \begin{split}
-\iint \mathbb{I}(t = x - y) \N(x|\mu_1, \sigma_1^2)\N(y|\mu_2, \sigma_2^2) dxdy = \N(t|\mu_1 - \mu_2,\sigma_1^2 + \sigma_2^2)
+\iint \delta(t = x - y) \N(x|\mu_1, \sigma_1^2)\N(y|\mu_2, \sigma_2^2) dxdy = \N(t|\mu_1 - \mu_2,\sigma_1^2 + \sigma_2^2)
 \end{split}
 \end{equation}
 %
@@ -3273,218 +3285,230 @@ information such as relative contributions of the authors may be added here
 % section within the appendix should have a proper section title (rather than
 % just \emph{Appendix}).
 
-% 
-% \section{Propiedades de las funciones de densidad Normales}
-% 
-% \subsection{Multiplicacion de normales}\label{multiplicacion_normales}
-% 
-% Luego, el problema que tenemos que resolver es
-% \begin{equation}
-%  \int N(x;\mu_1,\sigma_1^2)N(x;\mu_2,\sigma_2^2) dx
-% \end{equation}
-% 
-% Por defnici\'on,
-% \begin{equation}
-% \begin{split}
-%  N(x;y,\beta^2)N(x;\mu,\sigma^2) & = \frac{1}{\sqrt{2\pi}\sigma_1}e^{-\frac{(x-\mu_1)^2}{2\sigma_1^2}} \frac{1}{\sqrt{2\pi}\sigma_2}e^{-\frac{(x-\mu_2)^2}{2\sigma_2^2}}  \\
-%  & = \frac{1}{2\pi\sigma_1\sigma_2}\text{exp}\Bigg(-\underbrace{\left( \frac{(x-\mu_1)^2}{2\sigma_1^2} + \frac{(x-\mu_2)^2}{2\sigma_2^2} \right)}_{\theta} \Bigg)
-% \end{split}
-% \end{equation}
-% 
-% Luego,
-% \begin{equation}
-%  \theta = \frac{\sigma_2^2(x^2 + \mu_1^2 - 2x\mu_1) + \sigma_1^2(x^2 + \mu_2^2 - 2x\mu_2) }{2\sigma_1^2\sigma_2^2}
-% \end{equation}
-% 
-% Expando y reordeno los factores por potencias de $x$
-% \begin{equation}
-%  \frac{(\sigma_1^2 + \sigma_2^2) x^2 - (2\mu_1\sigma_2^2 + 2\mu_2\sigma_1^2) x + (\mu_1^2\sigma_2^2 + \mu_2^2\sigma_1^2)}{2\sigma_1^2\sigma_2^2}
-% \end{equation}
-% 
-% Divido al numerador y el denominador por el factor de $x^2$
-% \begin{equation}
-%  \frac{x^2 - 2\frac{(\mu_1\sigma_2^2 + \mu_2\sigma_1^2)}{(\sigma_1^2 + \sigma_2^2) } x + \frac{(\mu_1^2\sigma_2^2 + \mu_2^2\sigma_1^2)}{(\sigma_1^2 + \sigma_2^2) }}{2\frac{\sigma_1^2\sigma_2^2}{(\sigma_1^2 + \sigma_2^2)}}
-% \end{equation}
-% 
-% Esta ecuaci\'on es cuadr\'atica en x, y por lo tanto es proporcional a una funci\'on de densidad gausiana con desv\'io
-% \begin{equation}
-% \sigma_{\times} = \sqrt{\frac{\sigma_1^2\sigma_2^2}{\sigma_1^2+\sigma_2^2}}
-% \end{equation}
-% 
-% y media
-% \begin{equation}
-%  \mu_{\times} = \frac{(\mu_1\sigma_2^2 + \mu_2\sigma_1^2)}{(\sigma_1^2 + \sigma_2^2) }
-% \end{equation}
-% 
-% Dado que un t\'ermino $\varepsilon = 0$ puede ser agregado para completar el cuadrado en $\theta$, esta prueba es suficiente cuando no se necesita una normalizaci\'on.
-% Sea,
-% \begin{equation}
-%  \varepsilon = \frac{\mu_{\times}^2-\mu_{\times}^2}{2\sigma_{\times}^2} = 0
-% \end{equation}
-% 
-% Al agregar este t\'ermino a $\theta$ tenemos
-% \begin{equation}
-%  \theta = \frac{x^2 - 2\mu_{\times}x + \mu_{\times}^2 }{2\sigma_{\times}^2} + \underbrace{\frac{ \frac{(\mu_1^2\sigma_2^2 + \mu_2^2\sigma_1^2)}{(\sigma_1^2 + \sigma_2^2) } - \mu_{\times}^2}{2\sigma_{\times}^2}}_{\varphi}
-% \end{equation}
-% 
-% Reorganizando el t\'ermino $\varphi$
-% \begin{equation}
-% \begin{split}
-% \varphi & = \frac{\frac{(\mu_1^2\sigma_2^2 + \mu_2^2\sigma_1^2)}{(\sigma_1^2 + \sigma_2^2) } - \left(\frac{(\mu_1\sigma_2^2 + \mu_2\sigma_1^2)}{(\sigma_1^2 + \sigma_2^2) }\right)^2 }{2\frac{\sigma_1^2\sigma_2^2}{\sigma_1^2+\sigma_2^2}}  \\
-% & = \frac{(\sigma_1^2 + \sigma_2^2)(\mu_1^2\sigma_2^2 + \mu_2^2\sigma_1^2) - (\mu_1\sigma_2^2 + \mu_2\sigma_1^2)^2}{\sigma_1^2 + \sigma_2^2}\frac{1}{2\sigma_1^2\sigma_2^2} \\[0.3cm]
-% & = \frac{(\mu_1^2\sigma_1^2\sigma_2^2 + \cancel{\mu_2^2\sigma_1^4} + \bcancel{\mu_1^2\sigma_2^4} + \mu_2^2\sigma_1^2\sigma_2^2) - (\bcancel{\mu_1^2\sigma_2^4} + 2\mu_1\mu_2\sigma_1^2\sigma_2^2 + \cancel{\mu_2^2\sigma_1^4} )}{\sigma_1^2 + \sigma_2^2}  \frac{1}{2\sigma_1^2\sigma_2^2} \\[0.3cm]
-% & = \frac{(\sigma_1^2\sigma_2^2)(\mu_1^2 + \mu_2^2 - 2\mu_1\mu_2)}{\sigma_1^2 + \sigma_2^2}\frac{1}{2\sigma_1^2\sigma_2^2} = \frac{\mu_1^2 + \mu_2^2 - 2\mu_1\mu_2}{2(\sigma_1^2 + \sigma_2^2)} = \frac{(\mu_1 - \mu_2)^2}{2(\sigma_1^2 + \sigma_2^2)}
-% \end{split}
-% \end{equation}
-% 
-% Luego,
-% \begin{equation}
-%  \theta = \frac{(x-\mu_{\times})^2}{2\sigma_{\times}^2} + \frac{(\mu_1 - \mu_2)^2}{2(\sigma_1^2 + \sigma_2^2)}
-% \end{equation}
-% 
-% Colocando esta forma de $\theta$ en su lugar
-% \begin{equation}
-% \begin{split}
-%  N(x;y,\beta^2)N(x;\mu,\sigma^2) & = \frac{1}{2\pi\sigma_1\sigma_2}\text{exp}\Bigg(-\underbrace{\left( \frac{(x-\mu_{\times})^2}{2\sigma_{\times}^2} + \frac{(\mu_1 - \mu_2)^2}{2(\sigma_1^2 + \sigma_2^2)} \right)}_{\theta} \Bigg) \\
-%  & = \frac{1}{2\pi\sigma_1\sigma_2}\text{exp}\left(  - \frac{(x-\mu_{\times})^2}{2\sigma_{\times}^2} \right) \text{exp} \left( - \frac{(\mu_1 - \mu_2)^2}{2(\sigma_1^2 + \sigma_2^2)} \right)
-% \end{split}
-% \end{equation}
-% 
-% Multiplicando por $\sigma_{\times}\sigma_{\times}^{-1}$
-% \begin{equation}
-% \overbrace{\frac{\cancel{\sigma_1\sigma_2}}{\sqrt{\sigma_1^2+\sigma_2^2}}}^{\sigma_{\times}} \frac{1}{\sigma_{\times}} \frac{1}{2\pi\cancel{\sigma_1\sigma_2}}\text{exp}\left(  - \frac{(x-\mu_{\times})^2}{2\sigma_{\times}^2} \right) \text{exp} \left( - \frac{(\mu_1 - \mu_2)^2}{2(\sigma_1^2 + \sigma_2^2)} \right)
-% \end{equation}
-% 
-% Luego,
-% \begin{equation}
-%  \frac{1}{\sqrt{2\pi}\sigma_{\times}}\text{exp}\left(  - \frac{(x-\mu_{\times})^2}{2\sigma_{\times}^2} \right) \frac{1}{\sqrt{2\pi(\sigma_1^2+\sigma_2^2)}} \text{exp} \left( - \frac{(\mu_1 - \mu_2)^2}{2(\sigma_1^2 + \sigma_2^2)} \right)
-% \end{equation}
-% 
-% Retonando a la integral
-% \begin{equation}
-% \begin{split}
-% I & = \int N(x;\mu_{\times},\sigma_{\times}^2) \overbrace{N(\mu_1;\mu_2,\sigma_1^2 + \sigma_2^2)}^{\text{Escalar independiente de x}} dx \\[0.3cm]
-% & = N(\mu_1;\mu_2,\sigma_1^2 + \sigma_2^2) \underbrace{\int N(x,\mu_{\times},\sigma_{\times}^2)  dx}_{\text{Integra 1}} \\
-% & = N(\mu_1;\mu_2,\sigma_1^2 + \sigma_2^2)
-% \end{split}
-% \end{equation}
-% 
-% \subsection{Suma de n normales}\label{suma_normales_induccion}
-% 
-% Sabemos que
-% 
-% \begin{equation}
-% t_n = \sum_{i=1}^n x_i \sim \int \dots \int \mathbb{I}(t_n= \sum_{i=1}^n x_i ) \left( \prod_{i=1}^n N(x_i;\mu_i,\sigma_i^2) \right) dx_1 \dots dx_n = N(t;\sum_{i=1}^n \mu_i,\sum_{i=1}^n \sigma_i^2 )
-% \end{equation}
-% 
-% 
-% Queremos probar por inducci\'on.
-% \begin{equation}
-%  P(n):= \int \dots \int \mathbb{I}(t_n= \sum_{i=1}^n x_i ) \left( \prod_{i=1}^n N(x_i;\mu_i,\sigma_i^2) \right) dx_1 \dots dx_n \overset{?}{=} N(t;\sum_{i=1}^n \mu_i,\sum_{i=1}^n \sigma_i^2 )
-% \end{equation}
-% 
-% \paragraph{Casos base}
-% 
-% \begin{equation}
-% \begin{split}
-%  P(1) := \int \mathbb{I}(t_1 = x_1) N(x_1;\mu_1,\sigma_1^2) dx_1 = N(x;\mu_1,\sigma_1^2)
-% \end{split}
-% \end{equation}
-% 
-% Luego $P(1)$ es verdadera.
-% 
-% \begin{equation}
-%  \begin{split}
-% P(2) & := \iint \mathbb{I}(t_2 = x_1 + x_2) N(x_1|\mu_1, \sigma_1^2)N(x_2|\mu_2, \sigma_2^2) dx_1dx_2 \\
-%  &= \int N(x_1|\mu_1, \sigma_1^2) N(t_2 - x_1|\mu_2, \sigma_2^2) dx_1   \\
-%  & = \int N(x_1|\mu_1, \sigma_1^2) N(x_1|t_2 - \mu_2, \sigma_2^2) dx_1 \\
-%  & \overset{*}{=} \int \underbrace{N(t_2|\mu_1+\mu_2,\sigma_1^2 + \sigma_2^2)}_{\text{const.}} \underbrace{N(x_1|\mu_{*},\sigma_{*}^2) dx_1}_{1} \\
-%  & = N(t_2|\mu_1+\mu_2,\sigma_1^2 + \sigma_2^2)
-%  \end{split}
-%  \end{equation}
-% 
-%  Donde $\overset{*}{=}$ vale por la demostraci\'on de miltiplicaci\'on de normales en la secci\'on~\ref{multiplicacion_normales}.
-%  Luego, vale $P(2)$.
-% 
-% 
-% \paragraph{Paso inductivo} $P(n) \Rightarrow P(n+1)$
-% 
-% Sea,
-% \begin{equation}
-%  P(n) :=\int \dots \int \mathbb{I}(t_n= \sum_{i=1}^n x_i ) \left( \prod_{i=1}^n N(x_i;\mu_i,\sigma_i^2) \right) dx_1 \dots dx_n = N(t;\sum_{i=1}^n \mu_i,\sum_{i=1}^n \sigma_i^2 )
-% \end{equation}
-% 
-% Queremos ver que vale $P(n+1)$
-% 
-% \begin{equation}
-%  P(n+1) := \int \dots \int \mathbb{I}(t_{n+1}=  x_{n+1} + \sum_{i=1}^{n} x_i ) \left( \prod_{i=1}^{n} N(x_i;\mu_i,\sigma_i^2) \right) N(x_{n+1};\mu_{n+1},\sigma_{n+1}^2) dx_1 \dots dx_{n} dx_{n+1}
-% \end{equation}
-% 
-% Por independencia
-% \begin{equation}
-%  \int N(x_{n+1};\mu_{n+1},\sigma_{n+1}^2) \left( \int \dots \int \mathbb{I}(t_{n+1}= x_{n+1} + \sum_{i=1}^{n} x_i ) \left( \prod_{i=1}^{n} N(x_i;\mu_i,\sigma_i^2) \right)  dx_1 \dots dx_{n}\right) dx_{n+1}
-% \end{equation}
-% 
-% Por hip\'otesis inductiva
-% \begin{equation}
-%  \int N(x_{n+1};\mu_{n+1},\sigma_{n+1}^2) N(t-x_{n+1};\sum_{i=1}^n \mu_i,\sum_{i=1}^n \sigma_i^2) dx_{n+1}
-% \end{equation}
-% 
-% Por demostraci\'on de la secci\'on~\ref{multiplicacion_normales},
-% \begin{equation}
-%   N(t;\mu_{n+1}+\sum_{i=1}^{n} \mu_i,\sigma_{n+1}^2 \sum_{i=1}^n \sigma_i^2) dx_{n+1}
-% \end{equation}
-% 
-% Luego, vale $P(n+1)$.
-% 
-% \subsection{Normal por acumulada de Normal}
-% 
-% Queremos resolver la integral
-% 
-% \begin{equation}
-%  f(x) = \int N(y;\mu_1,\sigma_1^2)\Phi(y+x;\mu_2,\sigma_2^2) dy
-% \end{equation}
-% 
-% Para ello trabajamos con la drivada $\frac{\partial}{\partial x}f(x) = \theta(x)$,
-% \begin{equation}
-%  \theta(x) = \frac{\partial}{\partial x}\int N(y;\mu_1,\sigma_1^2)\Phi(y+x;\mu_2,\sigma_2^2) dy
-% \end{equation}
-% 
-% Por ``Dominated convergence theorem, integrales y derivadas pueden intercambiar posiciones.
-% \begin{equation}
-%  \theta(x) = \int N(y;\mu_1,\sigma_1^2)\frac{\partial}{\partial x}\Phi(y+x;\mu_2,\sigma_2^2) dy
-% \end{equation}
-% 
-% La derivada de $\Phi$ es justamente una normal,
-% \begin{equation}
-% \begin{split}
-% \theta(x) & = \int N(y;\mu_1,\sigma_1^2)N(y+x;\mu_2,\sigma_2^2) dy \\
-% & = \int N(y;\mu_1,\sigma_1^2)N(y;\mu_2-x,\sigma_2^2) dy
-% \end{split}
-% \end{equation}
-% 
-% Por la demostraci\'on de la secci\'on~\ref{multiplicacion_normales} sabemos
-% \begin{equation}
-%  \theta(x) = N(\mu_1; \mu_2 - x, \sigma_1^2 + \sigma_2^2)
-% \end{equation}
-% 
-% Por simetr\'ia
-% \begin{equation}
-%  \theta(x) = N(x; \mu_2 - \mu_1, \sigma_1^2 + \sigma_2^2)
-% \end{equation}
-% 
-% Retornando a $f(x)$
-% \begin{equation}
-%  f(x) = \Phi(x; \mu_2 - \mu_1, \sigma_1^2 + \sigma_2^2)
-% \end{equation}
-% 
-\subsection{Division de Normales}\label{sec:division_normales}
 
+\subsection{\en{Gaussian product}\es{Producto de gaussianas}}\label{multiplicacion_normales}
+
+\en{The problem we must solve is}
+\es{El problema que tenemos que resolver es}
 \begin{equation}
-\kappa = \frac{N(x;\mu_f,\sigma_f^2)}{N(x;\mu_g,\sigma_g^2)} = N(x;\mu_f,\sigma_f^2)N(x;\mu_g,\sigma_g^2)^{-1}
+ \int \N(x|\mu_1,\sigma_1^2)\N(x|\mu_2,\sigma_2^2) dx
+\end{equation}
+%
+\en{By definition}\es{Por defnici\'on},
+\begin{equation}
+\begin{split}
+ \N(x|y,\beta^2)\N(x|\mu,\sigma^2) & = \frac{1}{\sqrt{2\pi}\sigma_1}e^{-\frac{(x-\mu_1)^2}{2\sigma_1^2}} \frac{1}{\sqrt{2\pi}\sigma_2}e^{-\frac{(x-\mu_2)^2}{2\sigma_2^2}}  \\
+ & = \frac{1}{2\pi\sigma_1\sigma_2}\text{exp}\Bigg(-\underbrace{\left( \frac{(x-\mu_1)^2}{2\sigma_1^2} + \frac{(x-\mu_2)^2}{2\sigma_2^2} \right)}_{\theta} \Bigg)
+\end{split}
+\end{equation}
+%
+\en{Then}\es{Luego},
+\begin{equation}
+ \theta = \frac{\sigma_2^2(x^2 + \mu_1^2 - 2x\mu_1) + \sigma_1^2(x^2 + \mu_2^2 - 2x\mu_2) }{2\sigma_1^2\sigma_2^2}
+\end{equation}
+%
+\en{We expand and reorder the factors by powers of $x$}
+\es{Expando y reordeno los factores por potencias de $x$}
+\begin{equation}
+ \frac{(\sigma_1^2 + \sigma_2^2) x^2 - (2\mu_1\sigma_2^2 + 2\mu_2\sigma_1^2) x + (\mu_1^2\sigma_2^2 + \mu_2^2\sigma_1^2)}{2\sigma_1^2\sigma_2^2}
+\end{equation}
+%
+\en{We divide the numerator and denominator by the factor of $x^2$}
+\es{Divido al numerador y el denominador por el factor de $x^2$}
+\begin{equation}
+ \frac{x^2 - 2\frac{(\mu_1\sigma_2^2 + \mu_2\sigma_1^2)}{(\sigma_1^2 + \sigma_2^2) } x + \frac{(\mu_1^2\sigma_2^2 + \mu_2^2\sigma_1^2)}{(\sigma_1^2 + \sigma_2^2) }}{2\frac{\sigma_1^2\sigma_2^2}{(\sigma_1^2 + \sigma_2^2)}}
+\end{equation}
+%
+\en{This equation is quadratic in x, and is therefore proportional to a Gaussian density function with standar deviation}
+\es{Esta ecuaci\'on es cuadr\'atica en x, y por lo tanto es proporcional a una funci\'on de densidad gausiana con desv\'io}
+\begin{equation}
+\sigma_{\times} = \sqrt{\frac{\sigma_1^2\sigma_2^2}{\sigma_1^2+\sigma_2^2}}
+\end{equation}
+%
+\en{and mean}
+\es{y media}
+\begin{equation}
+ \mu_{\times} = \frac{(\mu_1\sigma_2^2 + \mu_2\sigma_1^2)}{(\sigma_1^2 + \sigma_2^2) }
+\end{equation}
+%
+\en{Since a term $\varepsilon = 0$ can be added to complete the square in $\theta$, this proof is sufficient when no normalization is needed.}
+\es{Dado que un t\'ermino $\varepsilon = 0$ puede ser agregado para completar el cuadrado en $\theta$, esta prueba es suficiente cuando no se necesita una normalizaci\'on.}
+%
+\begin{equation}
+ \varepsilon = \frac{\mu_{\times}^2-\mu_{\times}^2}{2\sigma_{\times}^2} = 0
+\end{equation}
+%
+\en{By adding this term to $\theta$ we obtain}\es{Al agregar este t\'ermino a $\theta$ tenemos}
+\begin{equation}
+ \theta = \frac{x^2 - 2\mu_{\times}x + \mu_{\times}^2 }{2\sigma_{\times}^2} + \underbrace{\frac{ \frac{(\mu_1^2\sigma_2^2 + \mu_2^2\sigma_1^2)}{(\sigma_1^2 + \sigma_2^2) } - \mu_{\times}^2}{2\sigma_{\times}^2}}_{\varphi}
+\end{equation}
+%
+\en{Reorganizing}\es{Reorganizando} $\varphi$
+\begin{equation}
+\begin{split}
+\varphi & = \frac{\frac{(\mu_1^2\sigma_2^2 + \mu_2^2\sigma_1^2)}{(\sigma_1^2 + \sigma_2^2) } - \left(\frac{(\mu_1\sigma_2^2 + \mu_2\sigma_1^2)}{(\sigma_1^2 + \sigma_2^2) }\right)^2 }{2\frac{\sigma_1^2\sigma_2^2}{\sigma_1^2+\sigma_2^2}}  \\
+& = \frac{(\sigma_1^2 + \sigma_2^2)(\mu_1^2\sigma_2^2 + \mu_2^2\sigma_1^2) - (\mu_1\sigma_2^2 + \mu_2\sigma_1^2)^2}{\sigma_1^2 + \sigma_2^2}\frac{1}{2\sigma_1^2\sigma_2^2} \\[0.3cm]
+& = \frac{(\mu_1^2\sigma_1^2\sigma_2^2 + \cancel{\mu_2^2\sigma_1^4} + \bcancel{\mu_1^2\sigma_2^4} + \mu_2^2\sigma_1^2\sigma_2^2) - (\bcancel{\mu_1^2\sigma_2^4} + 2\mu_1\mu_2\sigma_1^2\sigma_2^2 + \cancel{\mu_2^2\sigma_1^4} )}{\sigma_1^2 + \sigma_2^2}  \frac{1}{2\sigma_1^2\sigma_2^2} \\[0.3cm]
+& = \frac{(\sigma_1^2\sigma_2^2)(\mu_1^2 + \mu_2^2 - 2\mu_1\mu_2)}{\sigma_1^2 + \sigma_2^2}\frac{1}{2\sigma_1^2\sigma_2^2} = \frac{\mu_1^2 + \mu_2^2 - 2\mu_1\mu_2}{2(\sigma_1^2 + \sigma_2^2)} = \frac{(\mu_1 - \mu_2)^2}{2(\sigma_1^2 + \sigma_2^2)}
+\end{split}
+\end{equation}
+%
+\en{Then}\es{Luego},
+\begin{equation}
+ \theta = \frac{(x-\mu_{\times})^2}{2\sigma_{\times}^2} + \frac{(\mu_1 - \mu_2)^2}{2(\sigma_1^2 + \sigma_2^2)}
+\end{equation}
+%
+\en{Putting $\theta$ in place}\es{Colocando $\theta$ en su lugar}
+\begin{equation}
+\begin{split}
+ \N(x|y,\beta^2)\N(x|\mu,\sigma^2) & = \frac{1}{2\pi\sigma_1\sigma_2}\text{exp}\Bigg(-\underbrace{\left( \frac{(x-\mu_{\times})^2}{2\sigma_{\times}^2} + \frac{(\mu_1 - \mu_2)^2}{2(\sigma_1^2 + \sigma_2^2)} \right)}_{\theta} \Bigg) \\
+ & = \frac{1}{2\pi\sigma_1\sigma_2}\text{exp}\left(  - \frac{(x-\mu_{\times})^2}{2\sigma_{\times}^2} \right) \text{exp} \left( - \frac{(\mu_1 - \mu_2)^2}{2(\sigma_1^2 + \sigma_2^2)} \right)
+\end{split}
+\end{equation}
+%
+\en{Multiplying by}\es{Multiplicando por} $\sigma_{\times}\sigma_{\times}^{-1}$
+\begin{equation}
+\overbrace{\frac{\cancel{\sigma_1\sigma_2}}{\sqrt{\sigma_1^2+\sigma_2^2}}}^{\sigma_{\times}} \frac{1}{\sigma_{\times}} \frac{1}{2\pi\cancel{\sigma_1\sigma_2}}\text{exp}\left(  - \frac{(x-\mu_{\times})^2}{2\sigma_{\times}^2} \right) \text{exp} \left( - \frac{(\mu_1 - \mu_2)^2}{2(\sigma_1^2 + \sigma_2^2)} \right)
+\end{equation}
+%
+\en{Then}\es{Luego},
+\begin{equation}
+ \frac{1}{\sqrt{2\pi}\sigma_{\times}}\text{exp}\left(  - \frac{(x-\mu_{\times})^2}{2\sigma_{\times}^2} \right) \frac{1}{\sqrt{2\pi(\sigma_1^2+\sigma_2^2)}} \text{exp} \left( - \frac{(\mu_1 - \mu_2)^2}{2(\sigma_1^2 + \sigma_2^2)} \right)
+\end{equation}
+%
+\en{Going back to the integral}\es{Retonando a la integral}
+\begin{equation}
+\begin{split}
+I & = \int \N(x|\mu_{\times},\sigma_{\times}^2) \overbrace{\N(\mu_1|\mu_2,\sigma_1^2 + \sigma_2^2)}^{\text{Escalar independiente de x}} dx \\[0.3cm]
+& = \N(\mu_1|\mu_2,\sigma_1^2 + \sigma_2^2) \underbrace{\int \N(x|\mu_{\times},\sigma_{\times}^2)  dx}_{\text{Integra 1}} \\
+& = \N(\mu_1|\mu_2,\sigma_1^2 + \sigma_2^2)
+\end{split}
 \end{equation}
 
-Por definici\'on
+\subsection{\en{Sum of n Gaussians}\es{Suma de n gaussianas}}\label{suma_normales_induccion}
+
+\en{We know that}\es{Sabemos que}
+\begin{equation}
+t_n = \sum_{i=1}^n x_i \sim \int \dots \int \delta(t_n= \sum_{i=1}^n x_i ) \left( \prod_{i=1}^n \N(x_i|\mu_i,\sigma_i^2) \right) dx_1 \dots dx_n = \N(t|\sum_{i=1}^n \mu_i,\sum_{i=1}^n \sigma_i^2 )
+\end{equation}
+%
+\en{We want to demonstrate by induction.}\es{Queremos demostrar por inducci\'on.}
+\begin{equation}
+ P(n):= \int \dots \int \delta(t_n= \sum_{i=1}^n x_i ) \left( \prod_{i=1}^n \N(x_i|\mu_i,\sigma_i^2) \right) dx_1 \dots dx_n \overset{?}{=} \N(t|\sum_{i=1}^n \mu_i,\sum_{i=1}^n \sigma_i^2 )
+\end{equation}
+
+\paragraph{\en{Base case}\es{Casos base}}
+
+\begin{equation}
+\begin{split}
+ P(1) := \int \delta(t_1 = x_1) \N(x_1|\mu_1,\sigma_1^2) dx_1 = \N(t_1|\mu_1,\sigma_1^2)
+\end{split}
+\end{equation}
+%
+\en{Therefore $P(1)$ is true.}
+\es{Luego $P(1)$ es verdadera.}
+\begin{equation}
+ \begin{split}
+P(2) & := \iint \delta(t_2 = x_1 + x_2) \N(x_1|\mu_1, \sigma_1^2)\N(x_2|\mu_2, \sigma_2^2) dx_1dx_2 \\
+ &= \int \N(x_1|\mu_1, \sigma_1^2) \N(t_2 - x_1|\mu_2, \sigma_2^2) dx_1   \\
+ & = \int \N(x_1|\mu_1, \sigma_1^2) \N(x_1|t_2 - \mu_2, \sigma_2^2) dx_1 \\
+ & \overset{*}{=} \int \underbrace{N(t_2|\mu_1+\mu_2,\sigma_1^2 + \sigma_2^2)}_{\text{const.}} \underbrace{\N(x_1|\mu_{*},\sigma_{*}^2) dx_1}_{1} \\
+ & = \N(t_2|\mu_1+\mu_2,\sigma_1^2 + \sigma_2^2)
+ \end{split}
+ \end{equation}
+%
+ \en{Where $\overset{*}{=}$ is valid by de proof by the section~\ref{multiplicacion_normales}.}
+ \es{Donde $\overset{*}{=}$ vale por la demostraci\'on de miltiplicaci\'on de normales en la secci\'on~\ref{multiplicacion_normales}.}
+ %
+ \en{Therefore, $P(2)$ is valid.}
+ \es{Luego, vale $P(2)$}.
+
+\paragraph{\en{Inductive step}\es{Paso inductivo}} $P(n) \Rightarrow P(n+1)$
+
+\en{Given}\es{Dado},
+\begin{equation}
+ P(n) :=\int \dots \int \delta(t_n= \sum_{i=1}^n x_i ) \left( \prod_{i=1}^n \N(x_i|\mu_i,\sigma_i^2) \right) dx_1 \dots dx_n = \N(t|\sum_{i=1}^n \mu_i,\sum_{i=1}^n \sigma_i^2 )
+\end{equation}
+%
+\en{We want to see that $P(n+1)$ is valid.}
+\es{Queremos ver que $P(n+1)$ es válida.}
+%
+\begin{equation}
+ P(n+1) := \int \dots \int \delta(t_{n+1}=x_{n+1} + \sum_{i=1}^{n} x_i ) \left( \prod_{i=1}^{n} \N(x_i|\mu_i,\sigma_i^2) \right) \N(x_{n+1}|\mu_{n+1},\sigma_{n+1}^2) dx_1 \dots dx_{n} dx_{n+1}
+\end{equation}
+%
+\en{By independence}
+\es{Por independencia}
+\begin{equation}
+ \int \N(x_{n+1}|\mu_{n+1},\sigma_{n+1}^2) \left( \int \dots \int \delta(t_{n+1}= x_{n+1} + \sum_{i=1}^{n} x_i ) \left( \prod_{i=1}^{n} \N(x_i|\mu_i,\sigma_i^2) \right)  dx_1 \dots dx_{n}\right) dx_{n+1}
+\end{equation}
+%
+\en{By inductive hypothesis}
+\es{Por hip\'otesis inductiva}
+\begin{equation}
+ \int \N(x_{n+1}|\mu_{n+1},\sigma_{n+1}^2) \N(t_{n+1}-x_{n+1}|\sum_{i=1}^n \mu_i,\sum_{i=1}^n \sigma_i^2) dx_{n+1}
+\end{equation}
+%
+\en{By de proof of section~\ref{multiplicacion_normales}}
+\es{Por la demostraci\'on de la secci\'on~\ref{multiplicacion_normales}}
+\begin{equation}
+  \N(t_{n+1}|\mu_{n+1}+\sum_{i=1}^{n} \mu_i,\sigma_{n+1}^2 \sum_{i=1}^n \sigma_i^2) dx_{n+1}
+\end{equation}
+%
+\en{Therefore, $P(n+1)$ is valid}
+\es{Luego, $P(n+1)$ es válida.}
+
+\subsection{\en{A Gaussian multiplied by an cumulative Gaussian.}\es{Gaussiana por acumulada de Gaussiana.}}
+
+\en{We want to solve the integral}
+\es{Queremos resolver la integral}
+\begin{equation}
+ f(x) = \int \N(y;\mu_1,\sigma_1^2)\Phi(y+x;\mu_2,\sigma_2^2) dy
+\end{equation}
+%
+\en{To do so, we take the derivative of the function}\es{Para ello trabajamos con la drivada} $\frac{\partial}{\partial x}f(x) = \theta(x)$,
+\begin{equation}
+ \theta(x) = \frac{\partial}{\partial x}\int \N(y;\mu_1,\sigma_1^2)\Phi(y+x|\mu_2,\sigma_2^2) dy
+\end{equation}
+%
+\begin{equation}
+ \theta(x) = \int \N(y|\mu_1,\sigma_1^2)\frac{\partial}{\partial x}\Phi(y+x|\mu_2,\sigma_2^2) dy
+\end{equation}
+%
+\en{The derivative of $\Phi$ is indeed a Gaussian,}
+\es{La derivada de $\Phi$ es justamente una Gaussiana,}
+\begin{equation}
+\begin{split}
+\theta(x) & = \int \N(y|\mu_1,\sigma_1^2)\N(y+x|\mu_2,\sigma_2^2) dy \\
+& = \int \N(y|\mu_1,\sigma_1^2)\N(y|\mu_2-x,\sigma_2^2) dy
+\end{split}
+\end{equation}
+%
+\en{By the proof at section~\ref{multiplicacion_normales} we know}
+\es{Por la demostraci\'on de la secci\'on~\ref{multiplicacion_normales} sabemos}
+\begin{equation}
+ \theta(x) = \N(\mu_1| \mu_2 - x, \sigma_1^2 + \sigma_2^2)
+\end{equation}
+%
+\en{By symmetry}
+\es{Por simetr\'ia}
+\begin{equation}
+ \theta(x) = \N(x| \mu_2 - \mu_1, \sigma_1^2 + \sigma_2^2)
+\end{equation}
+%
+\en{Returning to $f(x)$}
+\es{Retornando a $f(x)$}
+\begin{equation}
+ f(x) = \Phi(x| \mu_2 - \mu_1, \sigma_1^2 + \sigma_2^2)
+\end{equation}
+
+\subsection{\en{Gaussian division}\es{Division de gaussianas}}\label{sec:division_normales}
+
+\begin{equation}
+\kappa = \frac{\N(x|\mu_f,\sigma_f^2)}{\N(x|\mu_g,\sigma_g^2)} = \N(x|\mu_f,\sigma_f^2)\N(x|\mu_g,\sigma_g^2)^{-1}
+\end{equation}
+%
+\en{By definition}\es{Por definici\'on}
 \begin{equation}
 \begin{split}
 \kappa & = \frac{1}{\sqrt{2\pi}\sigma_f}e^{-\left(\frac{(x-\mu_f)^2}{2\sigma_f^2}\right)} \left( \frac{1}{\sqrt{2\pi}\sigma_g}e^{-\left(\frac{(x-\mu_g)^2}{2\sigma_g^2}\right)} \right)^{-1} \\[0.3cm]
@@ -3492,40 +3516,41 @@ Por definici\'on
 & = \frac{\sigma_g}{\sigma_f}\text{exp}\Bigg(-\underbrace{\Big(\frac{(x-\mu_f)^2}{2\sigma_f^2} - \frac{(x-\mu_g)^2}{2\sigma_g^2}\Big)}_{\theta}\Bigg)
 \end{split}
 \end{equation}
-
-Reorganizando $\theta$
+%
+\en{Reorganizing}\es{Reorganizando} $\theta$
 \begin{equation}
 \begin{split}
  \theta & = \frac{(x-\mu_f)^2}{2\sigma_f^2} - \frac{(x-\mu_g)^2}{2\sigma_g^2} = \frac{\sigma_g^2(x-\mu_f)^2 - \sigma_f^2(x-\mu_g)^2}{2\sigma_f^2\sigma_g^2} \\[0.3cm]
  & = \frac{\sigma_g^2(x^2+\mu_f^2-2\mu_fx) - \sigma_f^2(x^2+\mu_g^2-2\mu_gx)}{2\sigma_f^2\sigma_g^2}
 \end{split}
 \end{equation}
-
-Expandimos y ordenamos en base $x$,
+%
+\en{We expand and sort terms based on $x$,}\es{Expandimos y ordenamos en base $x$,}
+%
 \begin{equation}
 \begin{split}
  \theta & = \left((\sigma_g^2 - \sigma_f^2)x^2 - 2(\sigma_g^2\mu_f - \sigma_f^2\mu_g)x + (\sigma_g^2\mu_f^2 - \sigma_f^2\mu_g^2 )\right) \frac{1}{2\sigma_f^2\sigma_g^2} \\[0.3cm]
  & = \left(x^2 - \frac{2(\sigma_g^2\mu_f - \sigma_f^2\mu_g)}{(\sigma_g^2 - \sigma_f^2)}x + \frac{(\sigma_g^2\mu_f^2 - \sigma_f^2\mu_g^2 )}{(\sigma_g^2 - \sigma_f^2)}\right) \frac{(\sigma_g^2 - \sigma_f^2)}{2\sigma_f^2\sigma_g^2}
 \end{split}
 \end{equation}
-
-Esto es cuadr\'atico en x. Dado que un t\'ermino $\varepsilon=0$, independiente de $x$ puede ser agregado para completar el cuadrado en $\theta$, esta prueba es suficiente para dterminar la media y la varianza cuando no es necesario normalizar.
-
+%
+\en{This is quadratic in $x$. Since a term $\varepsilon=0$ independent of $x$ can be added to complete the square in $\theta$, this test is sufficient to determine the mean and variance when it is not necessary to normalize.}
+\es{Esto es cuadr\'atico en x. Dado que un t\'ermino $\varepsilon=0$, independiente de $x$ puede ser agregado para completar el cuadrado en $\theta$, esta prueba es suficiente para dterminar la media y la varianza cuando no es necesario normalizar.}
+%
 \begin{equation}
  \sigma_{\div} = \sqrt{\frac{\sigma_f^2\sigma_g^2}{(\sigma_g^2 - \sigma_f^2)}}
 \end{equation}
-
+%
 \begin{equation}
  \mu_{\div} = \frac{(\sigma_g^2\mu_f - \sigma_f^2\mu_g)}{(\sigma_g^2 - \sigma_f^2)}
 \end{equation}
-
-agregado $\varepsilon = \frac{\mu_{\div}^2-\mu_{\div}^2}{2\sigma_{\div}^2}$
-
+%
+\en{adding}\es{agregado} $\varepsilon = \frac{\mu_{\div}^2-\mu_{\div}^2}{2\sigma_{\div}^2} = 0$
 \begin{equation}
 \theta = \frac{x^2 - 2\mu_{\div}x + \mu_{\div}^2 }{2\sigma_{\div}^2} + \underbrace{ \frac{ \frac{(\sigma_g^2\mu_f^2 - \sigma_f^2\mu_g^2)}{(\sigma_g^2 - \sigma_f^2)} - \mu_{\div}^2 }{2\sigma_{\div}^2} }_{\varphi}
 \end{equation}
 
-Reorganizando $\varphi$
+\en{Reorganizing}\es{Reorganizando} $\varphi$
 \begin{equation}
 \begin{split}
  \varphi & = \left( \frac{(\sigma_g^2\mu_f^2 - \sigma_f^2\mu_g^2)}{(\sigma_g^2 - \sigma_f^2)} - \left(\frac{(\sigma_g^2\mu_f - \sigma_f^2\mu_g)}{(\sigma_g^2 - \sigma_f^2)} \right)^2 \right) \frac{(\sigma_g^2 - \sigma_f^2)}{2\sigma_f^2\sigma_g^2} \\[0.3cm]
@@ -3533,31 +3558,31 @@ Reorganizando $\varphi$
  & =  \left( \cancel{\sigma_g^4\mu_f^2} - \sigma_f^2\sigma_g^2\mu_f^2 - \sigma_f^2\sigma_g^2\mu_g^2 + \bcancel{\sigma_f^4\mu_g^2} - (\cancel{\sigma_g^4\mu_f^2} + \bcancel{\sigma_f^4\mu_g^2 } - 2\sigma_f^2\sigma_g^2\mu_f\mu_g)\right) \frac{1}{2\sigma_f^2\sigma_g^2(\sigma_g^2 - \sigma_f^2)}
  \end{split}
 \end{equation}
-
-Cancelando los $\sigma^2$
+%
+\en{Canceling}\es{Cancelando} $\sigma_f^2\sigma_g^2$
 \begin{equation}
  \varphi = \frac{- \mu_g^2 - \mu_f^2 + 2\mu_f\mu_g}{2(\sigma_g^2 - \sigma_f^2)} = \frac{- (\mu_g - \mu_f)^2}{2(\sigma_g^2 - \sigma_f^2)}
 \end{equation}
-
-Luego $\theta$
+%
+\en{Then}\es{Luego} $\theta$
 \begin{equation}
  \theta = \frac{(x - \mu_{\div})^2}{2\sigma_{\div}^2} - \frac{(\mu_g - \mu_f)^2)}{2(\sigma_g^2 - \sigma_f^2)}
 \end{equation}
 
-Por lo tanto
+\en{Returning to the original expression}\es{Volviendo a la expresión original}
 \begin{equation}
 \begin{split}
  \kappa & = \frac{\sigma_g}{\sigma_f}  \, \text{exp}\left(- \frac{(x - \mu_{\div})^2}{2\sigma_{\div}^2} + \frac{(\mu_g - \mu_f)^2)}{2(\sigma_g^2 - \sigma_f^2)}  \right)\\[0.3cm]
- & = \frac{\sigma_g}{\sigma_f} \, e^{-\frac{(x - \mu_{\div})^2}{2\sigma_{\div}^2}} \, e^{\frac{(\mu_g - \mu_f)^2)}{2(\sigma_g^2 - \sigma_f^2)}}
+ & = \frac{\sigma_g}{\sigma_f} \, \text{exp}\left({-\frac{(x - \mu_{\div})^2}{2\sigma_{\div}^2}}\right) \, \text{exp}\left({\frac{(\mu_g - \mu_f)^2)}{2(\sigma_g^2 - \sigma_f^2)}}\right)
 \end{split}
 \end{equation}
 
-Multiplicando por $\frac{\sqrt{2\pi}}{\sqrt{2\pi}}\frac{\sigma_{\div}}{\sigma_{\div}}\frac{\sqrt{\sigma_g^2 - \sigma_f^2}}{\sqrt{\sigma_g^2 - \sigma_f^2}}=1$,
+\en{Multiplying by}\es{Multiplicando por} $\frac{\sqrt{2\pi}}{\sqrt{2\pi}}\frac{\sigma_{\div}}{\sigma_{\div}}\frac{\sqrt{\sigma_g^2 - \sigma_f^2}}{\sqrt{\sigma_g^2 - \sigma_f^2}}=1$,
 \begin{equation}
 \begin{split}
  \kappa & =  \frac{1}{\sqrt{2\pi}\sigma_{\div}} \, e^{-\frac{(x - \mu_{\div})^2}{2\sigma_{\div}^2}} \, \left( \frac
  {1}{\sqrt{2\pi(\sigma_g^2 - \sigma_f^2)} } e^{-\frac{(\mu_g - \mu_f)^2)}{2(\sigma_g^2 - \sigma_f^2)}} \right)^{-1} \, \frac{\sigma_{\div}}{\sqrt{\sigma_g^2 - \sigma_f^2}}\frac{\sigma_g}{\sigma_f}\\[0.3cm]
- & = \frac{N\left(x; \mu_{\div},\sigma_{\div}\right)}{N\left(\mu_g;\mu_f,\sigma_g^2-\sigma_f^2\right)} \frac{\sigma_g^2}{\sigma_g^2 - \sigma_f^2}
+ & = \frac{\N\left(x| \mu_{\div},\sigma_{\div}\right)}{\N\left(\mu_g|\mu_f,\sigma_g^2-\sigma_f^2\right)} \frac{\sigma_g^2}{\sigma_g^2 - \sigma_f^2}
 \end{split}
 \end{equation}
 
