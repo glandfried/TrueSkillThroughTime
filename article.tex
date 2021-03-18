@@ -296,7 +296,8 @@
 \es{Los agentes exhiben distintos desempe\~nos en cada evento, que var\'ian alrededor de su verdadera habilidad, $\N(p\,|\,s,\beta^2)$.}
 %
 \en{The model assumes that the agent with the highest performance wins, $r = (p_i > p_j)$. In other words, whoever obtains a difference of performance greater than 0 wins, $r = (p_i - p_j > 0)$.}
-\es{El modelo supone que gana el agente con mayor rendimiento, $r = (p_i > p_j)$, o en otras palabras, gana quien obtenga una diferencia de rendimiento mayor a 0, $r = (p_i - p_j > 0)$.}
+\es{El modelo supone que gana el agente con mayor rendimiento, $r = (p_i > p_j)$. En otras palabras, gana quien obtenga una diferencia de rendimiento mayor a 0, $r = (p_i - p_j > 0)$.}
+%
 \en{The parameter $\beta^2$ is the same for all the agents and acts as the scale of the estimates: skills separated by a $\beta$ keep always the same probability of winning.}
 \es{El parámetro $\beta^2$, al ser el mismo para todos los agentes, act\'ua como la escala de las estimaciones: habilidades separada por un $\beta$ mantienen siempre la misma probabilidad de ganar.}
 
@@ -1954,14 +1955,14 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 \en{The \texttt{Gaussian} class does most of the computation of the packages.}
 \es{La clase \texttt{Gaussian} realiza la mayor parte del c\'omputo en todos los paquetes.}
 %
-\en{It is represented by two parameters, the mean and the standard deviation.}
+\en{It is represented by two parameters, the mean (\texttt{mu}) and the standard deviation (\texttt{sigma}).}
 \es{Se representa mediante dos par\'ametros, la media y el desv\'io estandar.}
-%
-\begin{lstlisting}[backgroundcolor=\color{all},label=lst:N1_N2, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{lstlisting}[backgroundcolor=\color{all}, belowskip=0.0 \baselineskip]
-N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)  
-\end{lstlisting}
+% %
+% \begin{lstlisting}[backgroundcolor=\color{all},label=lst:N1_N2, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+% \end{lstlisting}
+% \begin{lstlisting}[backgroundcolor=\color{all}, belowskip=0.0 \baselineskip]
+% N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)  
+% \end{lstlisting}
 %
 \en{The class overwrites the operators addition (\texttt{+}), subtraction (\texttt{-}), product (\texttt{*}) and division (\texttt{/}) with the main properties required to compute the marginal distributions in the TrueSkill Through Time model.}
 \es{La clase sobreescribe los operadores suma (\texttt{+}), resta (\texttt{-}), producto (\texttt{*}) y divisi\'on (\texttt{/}) con las principales propiedades requeridas para computar las distribuciones marginales en el modelo TrueSkill Through Time.}
@@ -1989,22 +1990,28 @@ N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)
 \iint \delta(t = x - y) \N(x|\mu_1, \sigma_1^2)\N(y|\mu_2, \sigma_2^2) dxdy = \N(t|\mu_1 - \mu_2,\sigma_1^2 + \sigma_2^2)
 \end{split}
 \end{equation}
-%
-\en{For its part, the following property will be computed ``by hand''.}
-\es{Por su parte, la siguiente propiedad la computaremos ``a mano''.}
-%
-\begin{equation} \label{eq:normal_de_normal} \tag{\texttt{Gaussian(m1, sqrt(v1+v2))}}
-\int \N(y| x, \sigma_y^2) \N(x| \mu_x, \sigma_x^2) dx = \N(y|\mu_x,\sigma_y^2 + \sigma_x^2)   
-\end{equation}
-%
-\en{Note that the value of \texttt{m1},\texttt{v1},\texttt{v2} has been previously defined.}
-\es{Notar que el valor de \texttt{m1},\texttt{v1},\texttt{v2} a sido definido previamente.}
+% %
+% \en{For its part, the following property will be computed ``by hand''.}
+% \es{Por su parte, la siguiente propiedad la computaremos ``a mano''.}
+% %
+% \begin{equation} \label{eq:normal_de_normal} \tag{\texttt{Gaussian(m1, sqrt(v1+v2))}}
+% \int \N(y| x, \sigma_y^2) \N(x| \mu_x, \sigma_x^2) dx = \N(y|\mu_x,\sigma_y^2 + \sigma_x^2)   
+% \end{equation}
+% %
+% \en{Note that the value of \texttt{m1},\texttt{v1},\texttt{v2} has been previously defined.}
+% \es{Notar que el valor de \texttt{m1},\texttt{v1},\texttt{v2} a sido definido previamente.}
 
 
-\subsection{\en{Graphical factorization}\es{Factorizaci\'on gr\'afica}}\label{sec:2vs2}
+\subsection{\en{Team model an their exact solution}\es{Modelo de equipos y su solución exacta}}\label{sec:2vs2}
 
-\en{In the figure~\ref{fig:modelo_trueskill_2vs2}, we show its graphical factorization.}
-\es{En la figura~\ref{fig:modelo_trueskill_2vs2} mostramos su factorizaci\'on gr\'afica.} 
+\en{TrueSkill also allows modeling team games.}
+\es{TrueSkill también permite modelar partidas con equipos.}
+%
+\en{The model assumes that the team with the highest performance wins, $r = (t_i > t_j)$, where $t_i$ and $t_j$ represent the team performances.}
+\es{El modelo supone que gana el equipo con mayor rendimiento, $r = (t_i > t_j)$, donde $t_i$ y $t_j$ representan los desempeños de los equipos.}
+%
+\en{In figure~\ref{fig:modelo_trueskill_2vs2} we show the factor graph.}
+\es{En la figura~\ref{fig:modelo_trueskill_2vs2} mostramos la factorizaci\'on gr\'afica.} 
 %
 \begin{figure}[h!]
   \centering
@@ -2087,45 +2094,32 @@ N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)
         
 	
 	\node[const, below=of fr,xshift=7cm,yshift=-0.3cm] (dfr) { $f_r = \mathbb{I}(d>0)$}; %
-	\node[const, left=of dfr,xshift=-0.5cm] (dfd) {$f_d = \mathbb{I}(d=t_a - t_b)$}; %
-	\node[const, left=of dfd,xshift=-0.5cm] (dft) {$f_{t_e} = \mathbb{I}(t_e = \sum_{i \in A_e} p_i)$}; %
+	\node[const, left=of dfr,xshift=-0.5cm] (dfd) {$f_d = \delta(d=t_a - t_b)$}; %
+	\node[const, left=of dfd,xshift=-0.5cm] (dft) {$f_{t_e} = \delta(t_e = \sum_{i \in A_e} p_i)$}; %
         \node[const, left=of dft,xshift=-0.5cm] (dfp) {$f_{p_i} = \N(p_i|s_i,\beta^2)$}; %
         \node[const, left=of dfp,xshift=-0.5cm] (dfs) {$f_{s_i} = \N(s_i|\mu_i,\sigma^2)$}; %
    }
    }
   \caption{
-  \en{Graphical factorization of a 2 vs 2 game.}
+  \en{Factor graph of a 2 vs 2 game.}
   \es{Factorizaci\'on gr\'afica de una partida 2 vs 2.}
+  %
+  \en{We incorporated a new variable, $t$, that models the team performance.}
+  \es{Incorporamos una variable nueva, $t$, que modela el desempeño de los equipos.}
   }
   \label{fig:modelo_trueskill_2vs2}
 \end{figure}
+%
+\en{In Figure~\ref{fig:modelo_trueskill_2vs2}, team performance is modeled as the sum of the individual performances of its members.}
+\es{En la figura~\ref{fig:modelo_trueskill_2vs2}, el desempeño de los equipos se modela como una suma de los desempeños de sus integrantes.}
 
-\subsection{\en{Exact posterior}\es{Posterior exacta}} \label{sec:exactSolution}
+% Parrafo
 
-\en{Every game with two teams has an exact solution.}
-\es{Todo partida con dos equipos tiene soluci\'on exacta.}
+\en{Every game with two teams has an analytical solution.}
+\es{Toda partida con dos equipos tiene soluci\'on analítica.}
 %
-\en{The exact likelihoods can be computed  \proglang{Julia}, \proglang{Python} y \proglang{R} by the method \texttt{exact\_likelihoods()}.}
-\es{y los likelihoods exactos pueden computarse en \proglang{Julia}, \proglang{Python} y \proglang{R} mediante el m\'etodo \texttt{exact\_likelihoods()}.}
-%
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:elhs, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
-elhs = exact_likelihoods(g)
-\end{lstlisting}
-  \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
-elhs = g.exact_likelihoods()
-\end{lstlisting}
-   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
-elhs = g$exact_likelihoods()
-\end{lstlisting}  
-\end{paracol}
-%
-\en{In this section we will show the steps to compute the evidence and an exact likelihood of a game with two teams of two players.}
-\es{En esta secci\'on vamos a mostrar los pasos para calcular la evidencia  y un likelihood exacto de una partida con dos equipos de dos jugadores.}
+\en{In this section we will show the steps to compute the exact evidence and the exact likelihoods of a game with two teams of two players.}
+\es{En esta secci\'on vamos a mostrar los pasos para calcular la evidencia exacta y los likelihoods exactos de una partida con dos equipos de dos jugadores.}
 %
 \en{We will start first with the ``descending'' messages, from the priors to the result, until compute the evidence.}
 \es{Empezaremos primero con los mensajes ``descendentes'', desde los priors hasta el resultado, para calcular la evidencia.}
