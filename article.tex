@@ -2002,7 +2002,7 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 % \es{Notar que el valor de \texttt{m1},\texttt{v1},\texttt{v2} a sido definido previamente.}
 
 
-\subsection{\en{Team model an their exact solution}\es{Modelo de equipos y su solución exacta}}\label{sec:2vs2}
+\subsection{\en{The team model and the exact solution}\es{El modelo de equipos y la solución exacta}}\label{sec:2vs2}
 
 \en{TrueSkill also allows modeling team games.}
 \es{TrueSkill también permite modelar partidas con equipos.}
@@ -2112,44 +2112,38 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 %
 \en{In Figure~\ref{fig:modelo_trueskill_2vs2}, team performance is modeled as the sum of the individual performances of its members.}
 \es{En la figura~\ref{fig:modelo_trueskill_2vs2}, el desempeño de los equipos se modela como una suma de los desempeños de sus integrantes.}
+%
+\en{Every game with two teams has an analytical solution.}
+\es{Toda partida con dos equipos tiene soluci\'on analítica.}
 
 % Parrafo
 
-\en{Every game with two teams has an analytical solution.}
-\es{Toda partida con dos equipos tiene soluci\'on analítica.}
-%
 \en{In this section we will show the steps to compute the exact evidence and the exact likelihoods of a game with two teams of two players.}
 \es{En esta secci\'on vamos a mostrar los pasos para calcular la evidencia exacta y los likelihoods exactos de una partida con dos equipos de dos jugadores.}
 %
-\en{We will start first with the ``descending'' messages, from the priors to the result, until compute the evidence.}
-\es{Empezaremos primero con los mensajes ``descendentes'', desde los priors hasta el resultado, para calcular la evidencia.}
+\en{We only need the \emph{sum-product algorithm} and the properties mentioned above.}
+\es{Sólo necesitamos el \emph{sum-product algorithm} y las propiedades arriba mencionadas.}
 %
-\en{Then we will continue with the ``ascending'' messages to compute the posterior of an agent from the observed result and the prior of the rest of the agents.}
-\es{Luego seguiremos con los mensajes ``ascendentes'' que permiten calcular el posterior de un agente a partir del resultado observado y el prior del resto de los agentes.}
-%
-%\en{To compute the messages we will only use the sum-product algorithm and the properties mentioned above.}
-%\es{Para computar los mensajes utilizaremos solamente el \emph{sum-product algorithm} y las propiedades arriba mencionadas.}
+\en{We will start first with the ``descending'' messages, from the priors to the result until compute the evidence, and then we will continue with the ``ascending'' messages, from the observed result and to the priors until compute the posterior of each agent.}
+\es{Empezaremos primero con los mensajes ``descendentes'', desde los priors a el resultado hasta calcular la evidencia, y seguiremos con los mensajes ``ascendentes'', desde el resultado observado a los priors hasta calcular el posterior de cada agente.}
 
-%
+\paragraph{\en{Descending messages}\es{Mensajes descendentes}.}
 
-\en{Because of the rules of the sum-product algorithm and the factorization of the model, the messages from the skill factors $f_{s_i}$ to their variable $s_i$ are just the prior.}
-\es{Debido a las reglas del algoritmo de suma-producto y a la factorizaci\'on del modelo, los mensajes de los factores de habilidad $f_{s_i}$ a su variable $s_i$ no son otra cosa m\'as que el prior.}
+\en{Following the \ref{eq:m_f_v} of the sum-product algorithm and the factorization of the model displayed at Figure~\ref{fig:modelo_trueskill_2vs2}, the messages from the skill factors $f_{s_i}$ to their variable $s_i$ are just the priors.}
+\es{Siguiendo la regla~\ref{eq:m_f_v} del \emph{sum-product algorithm} y la factorizaci\'on del modelo presentado en la figura~\ref{fig:modelo_trueskill_2vs2}, los mensajes de los factores de habilidad $f_{s_i}$ a su variable $s_i$ no son otra cosa m\'as que el priors.}
 %
 \begin{equation}\label{eq:m_fs_s} \tag{\texttt{prior}}
  m_{f_{s_i} \rightarrow s_i}(s_i) = \N(s_i| \mu_i, \sigma_i^2)
 \end{equation}
 %
-\en{We have already defined the variable \texttt{prior} in the code \ref{lst:prior}.}
-\es{Ya hemos definimos la variable \texttt{prior} en el c\'odigo~\ref{lst:prior}.}
+\en{We have access to this message by calling the \texttt{prior} attribute of the initialized \texttt{p} players, \texttt{p.prior}.}
+\es{Tenemos acceso a este mensaje llamando al atributo \texttt{prior} de los jugadores \texttt{p} que se tengan inicializados, \texttt{p.prior}.}
 %
-\en{The next message, that the variable $s_i$ sends to the performance factor $f_{p_i}$ will also be the prior.}
-\es{El siguiente mensaje, que la variable $s_i$ le env\'ia al factor rendimiento $f_{p_i}$ tambi\'en ser\'a el prior.}
+\en{The next message, the one that the variable $s_i$ sends to the performance factor $f_{p_i}$ is also the prior, in this case due to the~\ref{eq:m_v_f} of the sum-product algorithm and the factorization of the model.}
+\es{El siguiente mensaje, el que la variable $s_i$ le env\'ia al factor rendimiento $f_{p_i}$ tambi\'en es el prior, en este caso debido al~\ref{eq:m_v_f} del \emph{sum-product algorithm} y la factorizacion del modelo.}
 %
-\en{Remember that the messages that the variables send are just the product of the messages that the variable receives from the rest of its neighboring factors.}
-\es{Recordar que los mensajes que env\'ian las variables es tan solo la multiplicaci\'on de los mensajes que esa variable recibe del resto de los factores.}
-%
-\en{Since they are trivial, we will not make these types of messages explicit.}
-\es{Por ser de trivial soluci\'on, no haremos expl\'icitos este tipo de mensajes.}
+\en{Since it is trivial to calculate the messages sent by the variables (they are always the product of the messages they receive from behind), we will avoid writing them.}
+\es{Debido a que es trivial calcular los mensajes que envian las variables (siempre es el producto de los mensajes que reciben de atrás), vamos a evitar escribirlos.}
 %
 \en{Let's see then the message that the performance factors $f_{p_i}$ send to their variable $p_i$.}
 \es{Veamos entonces el mensaje que env\'ian los factores rendimiento $f_{p_i}$ a su variable $p_i$.}
