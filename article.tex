@@ -15,7 +15,6 @@
 %  \es{Enero}
 %}
 
-
 \newcommand\Wider[2][3em]{%
 \makebox[\linewidth][c]{%
   \begin{minipage}{\dimexpr\textwidth+#1\relax}
@@ -30,7 +29,6 @@
 \usepackage{amsmath} %para escribir funci\'on partida , matrices
 \usepackage{amsthm} %para numerar definciones y teoremas
 \usepackage{amsfonts} % \mathbb{N} -> conjunto de los n\'umeros naturales
-
 \usepackage{bm} % \bm{\alpha} bold greek symbol
 \usepackage[makeroom]{cancel} % \cancel{} \bcancel{} etc
 \usepackage{mdframed}
@@ -1917,7 +1915,7 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 \en{Similarly, the dirac delta function, $\delta(\cdot=\cdot)$, which is used to represent probability distributions of non-random continuous variables, such as the difference of performances given the agents' performances $p(d|\bm{p})$, can also be used to reduce dimensionality of some integrals.}
 \es{De la misma forma, la función delta de dirac, $\delta(\cdot=\cdot)$, que se usa para representar distribuciones de probabilidad de variables continuas no aleatoria como la diferencia de rendimiento dados rendimientos $p(d|\bm{p})$, también puede usarse para reducir la dimensionalidad de algunas integrales.}
 %
-\begin{equation}\label{eq:integral_con_dirac} \tag{\text{\en{Delta de Dirac function}\es{Función delta de dirac}}}
+\begin{equation}\label{eq:integral_con_dirac} \tag{\text{\en{Dirac delta function}\es{Función delta de dirac}}}
 \begin{split}
  \iint  \delta(x=h(y,z)) f(x) g(y)\, dx\, dy = \int f(h(y,z)) g(y) dy
  \end{split}
@@ -1958,11 +1956,11 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 \en{It is represented by two parameters, the mean (\texttt{mu}) and the standard deviation (\texttt{sigma}).}
 \es{Se representa mediante dos par\'ametros, la media y el desv\'io estandar.}
 % %
-% \begin{lstlisting}[backgroundcolor=\color{all},label=lst:N1_N2, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-% \end{lstlisting}
-% \begin{lstlisting}[backgroundcolor=\color{all}, belowskip=0.0 \baselineskip]
-% N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)  
-% \end{lstlisting}
+\begin{lstlisting}[backgroundcolor=\color{all},label=lst:N1_N2, caption={\en{Initialization of Gaussians distributions}\es{Inicialización de distirbuciones gaussianas}}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\end{lstlisting}
+\begin{lstlisting}[backgroundcolor=\color{all}, belowskip=0.0 \baselineskip]
+N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)  
+\end{lstlisting}
 %
 \en{The class overwrites the operators addition (\texttt{+}), subtraction (\texttt{-}), product (\texttt{*}) and division (\texttt{/}) with the main properties required to compute the marginal distributions in the TrueSkill Through Time model.}
 \es{La clase sobreescribe los operadores suma (\texttt{+}), resta (\texttt{-}), producto (\texttt{*}) y divisi\'on (\texttt{/}) con las principales propiedades requeridas para computar las distribuciones marginales en el modelo TrueSkill Through Time.}
@@ -1990,17 +1988,6 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 \iint \delta(t = x - y) \N(x|\mu_1, \sigma_1^2)\N(y|\mu_2, \sigma_2^2) dxdy \overset{\text{\ref{suma_normales_induccion}}}{=} \N(t|\mu_1 - \mu_2,\sigma_1^2 + \sigma_2^2)
 \end{split}
 \end{equation}
-% %
-% \en{For its part, the following property will be computed ``by hand''.}
-% \es{Por su parte, la siguiente propiedad la computaremos ``a mano''.}
-% %
-% \begin{equation} \label{eq:normal_de_normal} \tag{\texttt{Gaussian(m1, sqrt(v1+v2))}}
-% \int \N(y| x, \sigma_y^2) \N(x| \mu_x, \sigma_x^2) dx = \N(y|\mu_x,\sigma_y^2 + \sigma_x^2)   
-% \end{equation}
-% %
-% \en{Note that the value of \texttt{m1},\texttt{v1},\texttt{v2} has been previously defined.}
-% \es{Notar que el valor de \texttt{m1},\texttt{v1},\texttt{v2} a sido definido previamente.}
-
 
 \subsection{\en{The team model and the exact solution}\es{El modelo de equipos y la solución exacta}}\label{sec:2vs2}
 
@@ -2155,7 +2142,7 @@ m_{f_{p_i} \rightarrow p_i}(p_i) = \int \N(p_i| s_i, \beta^2) \N(s_i| \mu_i, \si
 \en{We have access to these messages through the \texttt{performance()} method of the \texttt{Agent} class.}
 \es{Tenemos acceso a estos mensajes mediante el método \texttt{performance()} de la clase \texttt{Agent}.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:performance, caption={\en{Computing the priori performance}\es{Computando el desempeño a priori}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:performance, caption={\en{Computing the prior performance}\es{Computando el desempeño a priori}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
@@ -2171,69 +2158,56 @@ p1 = a1$performance()
 \end{lstlisting}  
 \end{paracol}
 %
-\en{The message sent by the team factors $f_{t_e}$ to the team variable $t_e$ is an integral over all the individual performance variables with their sum being equal to a constant $t_e$ (constraint imposed by the Dirac delta function).}
-\es{El mensaje que envían los factores equipos $f_{t_e}$ a la variable equipo $t_e$ es una integral sobre todas las variables de rendimiento individuales siendo su suma igual a una constante $t_e$ (restricción impuesta por la función delta de Dirac).}
+\en{The message sent by the team factors $f_{t_e}$ to the team variable $t_e$ is an integral over all the individual performance variables, with the sum being equal to a constant $t_e$ (constraint imposed by the Dirac delta function).}
+\es{El mensaje que envían los factores equipos $f_{t_e}$ a la variable equipo $t_e$ es una integral sobre todas las variables de rendimiento individuales, siendo la suma igual a una constante $t_e$ (restricción impuesta por la función delta de Dirac).}
 %
 \begin{equation} \label{eq:m_ft_t} \tag{\texttt{ta = p1 + p2}}
 \begin{split}
- m_{f_{t_e} \rightarrow t_e}(t_e) &= \iint \mathbb{I}(t_e = p_i + p_j) \N(p_i|\mu_i,\beta^2 + \sigma_i^2)\N(p_j|\mu_j,\beta^2 + \sigma_j^2) dp_idp_j  \\ &=  \N(t_e|\mu_i+\mu_j,2\beta^2 + \sigma_i^2 + \sigma_j^2)
+ m_{f_{t_e} \rightarrow t_e}(t_e) &= \iint \delta(t_e = p_i + p_j) \N(p_i|\mu_i,\beta^2 + \sigma_i^2)\N(p_j|\mu_j,\beta^2 + \sigma_j^2) dp_idp_j  \\ &=  \N(t_e|\mu_i+\mu_j,2\beta^2 + \sigma_i^2 + \sigma_j^2)
 \end{split}
 \end{equation}
 %
-\en{Thanks to the property of \ref{sum of normals}, the integral has an analytical solution being again a Gaussian distribution.}
-\es{Gracias a la propiedad de \ref{suma de normales}, la integral tiene solución analítica siendo a su vez una distribución Gaussiana.}
+\en{Thanks to the property of Gaussians, the integral has an analytical solution being again a Gaussian distribution.}
+\es{Gracias a la propiedad de las gaussianas, la integral tiene solución analítica siendo a su vez una distribución Gaussiana.}
 %
-\en{In general (demo at annex section~\ref{suma_normales_induccion})}
-\es{En general (demostraci\'on en secci\'on anexa~\ref{suma_normales_induccion})}.
+\en{We have access to this message when we use the operator \texttt{+} of the class \texttt{Gaussian} to sum the agents' performances, \texttt{ta = p1 + p2}.}
+\es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{+} de la clase \texttt{Gaussian} para sumar los desempeños de los agentes, \texttt{ta = p1 + p2}.}
 %
-\begin{equation*}
- m_{f_{t_e} \rightarrow t_e}(t_e) =  \N \Big( t_e | \underbrace{\sum_{i\in A_e } \mu_i}_{\hfrac{\text{Habilidad}}{\text{de equipo}} \ \mu_e}, \underbrace{\sum_{i \in A_e} \beta^2 + \sigma_i^2}_{\hfrac{\text{Varianza}}{\text{de equipo}} \ \sigma_e^2} \Big) = \N(t_e | \mu_e, \sigma_e^2)
-\end{equation*}
-%
-\en{The message sent by the difference factor $f_{d_1}$ to the difference variable $d_1$ are,}
-\es{El mensaje que env\'ia el factor diferencia $f_{d_1}$ a la variable diferencia $d_1$ es,}
-%
+\en{The next message, sent by the difference factor $f_{d_1}$ to the difference variable $d_1$ is,}
+\es{El siguiente mensaje, que env\'ia el factor diferencia $f_{d_1}$ a la variable diferencia $d_1$ es,}
 \begin{equation}\label{eq:m_fd_d} \tag{\texttt{d = ta - tb}}
  \begin{split} 
-  m_{f_{d_1} \rightarrow d_1}(d_1) & = \iint \mathbb{I}(d_1 = t_a - t_b) \N(t_a| \mu_a, \sigma_a^2)  \N(t_b| \mu_b, \sigma_b^2)  dt_adt_b \\[0.25cm]
-  & = \N\big( d_1 | \underbrace{\mu_a - \mu_b}_{\hfrac{\text{Differencia}}{\text{esperada:} \ \delta} }, \underbrace{\sigma_a^2 +\sigma_b^2}_{\hfrac{\text{incertidumbre}}{\text{total:} \ \vartheta^2}}  \big) = \N(d_1 | \delta, \, \vartheta^2)
+  m_{f_{d_1} \rightarrow d_1}(d_1) & = \iint \delta(d_1 = t_a - t_b) \N(t_a| \mu_a, \sigma_a^2)  \N(t_b| \mu_b, \sigma_b^2)  dt_adt_b \\[0.25cm]
+  & = \N\big( d_1 | \underbrace{\mu_a - \mu_b}_{\hfrac{\text{\en{Expected}\es{Differencia}}}{\text{\en{difference}\es{esperada}}}:  \ \psi}, \underbrace{\sigma_a^2 +\sigma_b^2}_{\hfrac{\text{\en{Total}\es{incertidumbre}}}{\text{\en{uncertainty}\es{total}}} : \ \vartheta^2}  \big) = \N(d_1 | \psi, \, \vartheta^2)
  \end{split}
 \end{equation}
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:difference, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0.5 \baselineskip]
-\end{lstlisting}
-\begin{lstlisting}[backgroundcolor=\color{all}, belowskip=-0.77 \baselineskip]
-ta = p1 + p2; tb = p3 + p4
-d = ta - tb
-\end{lstlisting}
-\begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
-delta = d.mu
-theta = d.sigma
-ev = cdf(d, 0.0)
-evidencia = ev
-\end{lstlisting}  
- \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
-delta = d.mu
-theta = d.sigma
-ev = cdf(0,delta,theta) 
-evidencia = ev
-\end{lstlisting} 
- \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
-delta = d$mu
-theta = d$sigma
-ev = cdf(0,delta,theta) 
-evidencia = ev
-\end{lstlisting}   
-\end{paracol}
+%
+\en{We have access to this message when we use the operator \texttt{-} of the class \texttt{Gaussian} to get de difference of teams' performances, \texttt{d = ta - tb}.}
+\es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{-} de la clase \texttt{Gaussian} para la diferencia de los desempeños de los equipos, \texttt{d = ta - tb}.}
 %
 \begin{equation}\label{eq:m_fr_r} \tag{\texttt{evidencia}}
 \begin{split}
- m_{f_{r_1} \rightarrow r_1}(r_1) = \int \mathbb{I}(d_1 > 0) \N(d_1 | \delta, \vartheta^2)  dd_1 = \Phi(\frac{\delta}{\vartheta})
+ m_{f_{r_1} \rightarrow r_1}(r_1) = \int \mathbb{I}(d_1 > 0) \N(d_1 | \psi, \vartheta^2)  dd_1 = 1 - \Phi(0|\psi, \vartheta^2)
 \end{split}
 \end{equation}
 
+
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:difference, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
+\end{lstlisting}
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}]
+e = 1.0 - cdf(d, 0.0)
+\end{lstlisting}  
+ \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}]
+e = 1 - cdf(0,d.mu,d.sigma) 
+\end{lstlisting} 
+ \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}]
+e = 1 - cdf(0,d$mu,d$sigma) 
+\end{lstlisting}   
+\end{paracol}
+%
 % Parrafo
 
 \en{Let us now examine the ascending messages.}
