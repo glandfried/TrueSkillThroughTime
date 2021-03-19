@@ -1882,7 +1882,7 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 \en{The first property states that the product of two Gaussian distributions, both evaluated at the same point $x$, can be expressed as the product of two other Gaussian distributions, for which only one of them is evaluated at $x$.}
 \es{La primera propiedad establece que el producto de dos distribuciones Gaussianas, ambas evaluadas en el mismo punto $x$, pueden expresarse como la producto de otras dos distribuciones Gaussianas, para las que sólo una de ellas está evaluada en $x$.}
 %
-\begin{equation}\label{eq:propiedad_1} \tag{\text{prop 1}}
+\begin{equation}\label{eq:gaussian_product} \tag{\text{\en{Gaussian product}\es{Producto de gaussianas}}}
 \N(x|\mu_1,\sigma_1^2)\N(x|\mu_2,\sigma_2^2) \overset{\ref{multiplicacion_normales}}{=} \N(\mu_1|\mu_2,\sigma_1^2+\sigma_2^2) \N(x|\mu_{*},\sigma_{*}^2)
 \end{equation}
 %
@@ -1890,7 +1890,7 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 %
 \en{Something similar occurs with the division of two Gaussian distributions, both evaluated at the same point $x$.}
 \es{Algo similar ocurre con la división de dos distribuciones Gaussianas, ambas evaluadas en el mismo punto $x$.}
-\begin{equation}\label{eq:propiedad_2} \tag{\text{prop 2}}
+\begin{equation}\label{eq:gaussian_division} \tag{\text{\en{Gaussian division}\es{División de gaussianas}}}
 \N(x|\mu_1,\sigma_1^2)/\N(x|\mu_2,\sigma_2^2) \overset{\ref{sec:division_normales}}{\propto} \N(x|\mu_{\div},\sigma_{\div}^2)/\N(\mu_1|\mu_2,\sigma_1^2+\sigma_2^2) 
 \end{equation}
 %
@@ -1902,7 +1902,7 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 \en{When we can use it to replace variable within an integral,}
 \es{Cuando podemos usarla para remplazar variable dentro de una integral,}
 %
-\begin{equation}\label{eq:integral_con_indicadora} \tag{\text{prop 3}}
+\begin{equation}\label{eq:integral_con_indicadora} \tag{\text{\en{Indicator function}\es{Función indicadora}}}
 \begin{split}
  \iint  \mathbb{I}(x=h(y,z)) f(x) g(y)\, dx\, dy = \int f(h(y,z)) g(y) dy
  \end{split}
@@ -1917,7 +1917,7 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 \en{Similarly, the dirac delta function, $\delta(\cdot=\cdot)$, which is used to represent probability distributions of non-random continuous variables, such as the difference of performances given the agents' performances $p(d|\bm{p})$, can also be used to reduce dimensionality of some integrals.}
 \es{De la misma forma, la función delta de dirac, $\delta(\cdot=\cdot)$, que se usa para representar distribuciones de probabilidad de variables continuas no aleatoria como la diferencia de rendimiento dados rendimientos $p(d|\bm{p})$, también puede usarse para reducir la dimensionalidad de algunas integrales.}
 %
-\begin{equation}\label{eq:integral_con_indicadora} \tag{\text{prop 4}}
+\begin{equation}\label{eq:integral_con_dirac} \tag{\text{\en{Delta de Dirac function}\es{Función delta de dirac}}}
 \begin{split}
  \iint  \delta(x=h(y,z)) f(x) g(y)\, dx\, dy = \int f(h(y,z)) g(y) dy
  \end{split}
@@ -1925,19 +1925,19 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 %
 \en{We will also use the properties derived from the symmetry of Gaussians.}
 \es{Usaremos además las propiedades que se derivan de la simetría de Gaussianas.}
-\begin{equation}\label{eq:simetria} \tag{\text{prop 5}}
+\begin{equation}\label{eq:simetria} \tag{\text{\en{Gaussian symmentry}\es{Simetría de gaussianas}}}
  \N(x|\mu,\sigma^2) = \N(\mu|x,\sigma^2) = \N(-\mu|-x,\sigma^2) = \N(-x|-\mu,\sigma^2) 
 \end{equation}
 %
 \en{The Gaussian standardization,}
 \es{La estandizarización de la Gaussiana,}
-\begin{equation}\label{eq:estandarizar} \tag{\text{prop 6}}
+\begin{equation}\label{eq:estandarizar} \tag{\text{\en{Gaussian standarization}\es{Estandarización de gaussianas}}}
   \N(x|\mu,\sigma^2) = \N((x-\mu)/\sigma | 0, 1)
 \end{equation}
 %
 \en{Equality between the Gaussian distribution and the derivative of their cumulative distribution,}
 \es{La igualdad entre la distribución Gaussiana y la derivada de la acumulada,}
-\begin{equation}\label{eq:phi_norm} \tag{\text{prop 7}}
+\begin{equation}\label{eq:phi_norm} \tag{\text{\en{Derivative of the cumulative Gaussian}\es{Derivada de la gaussiana acumulada}}}
  \frac{\partial}{\partial x} \Phi(x|\mu,\sigma^2) = \N(x|\mu,\sigma^2)
 \end{equation}
 %
@@ -1946,7 +1946,7 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 %
 \en{The symmetry of the cumulative Gaussian distribution.}
 \es{La simetría de la distribución Gaussiana acumulada.}
-\begin{equation}\label{eq:phi_simetria} \tag{\text{prop 8}}
+\begin{equation}\label{eq:phi_simetria} \tag{\text{\en{Symmetry of the cumulative Gaussian}\es{Simetría de la gaussiana acumulada}}}
 \Phi(0|\mu,\sigma^2) = 1-\Phi(0|-\mu,\sigma^2)
 \end{equation}
 
@@ -1968,18 +1968,18 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 \es{La clase sobreescribe los operadores suma (\texttt{+}), resta (\texttt{-}), producto (\texttt{*}) y divisi\'on (\texttt{/}) con las principales propiedades requeridas para computar las distribuciones marginales en el modelo TrueSkill Through Time.}
 %
 \begin{equation} \tag{\texttt{N1 * N2}}
- \N(x|\mu_1,\sigma_1^2)\N(x|\mu_2,\sigma_2^2) \propto \N(x|\mu_{*},\sigma_{*}^2)
+ \N(x|\mu_1,\sigma_1^2)\N(x|\mu_2,\sigma_2^2) \overset{\ref{multiplicacion_normales}}{\propto} \N(x|\mu_{*},\sigma_{*}^2)
 \end{equation}
 %
 \begin{equation} \tag{\texttt{N1 / N2}}
- \N(x|\mu_1,\sigma_1^2)/\N(x|\mu_2,\sigma_2^2) \propto \N(x|\mu_{\div},\sigma_{\div}^2)
+ \N(x|\mu_1,\sigma_1^2)/\N(x|\mu_2,\sigma_2^2)  \overset{\ref{sec:division_normales}}{\propto} \N(x|\mu_{\div},\sigma_{\div}^2)
 \end{equation} 
 %
 \vspace{-0.3cm}
 %
 \begin{equation} \tag{\texttt{N1 + N2}} \label{eq:suma_normales}
 \begin{split}
-\iint \delta(t=x + y) \N(x|\mu_1, \sigma_1^2)\N(y|\mu_2, \sigma_2^2) dxdy = \N(t|\mu_1+\mu_2,\sigma_1^2 + \sigma_2^2)
+\iint \delta(t=x + y) \N(x|\mu_1, \sigma_1^2)\N(y|\mu_2, \sigma_2^2) dxdy \overset{\text{\ref{suma_normales_induccion}}}{=} \N(t|\mu_1+\mu_2,\sigma_1^2 + \sigma_2^2)
 \end{split}
 \end{equation}
 %
@@ -1987,7 +1987,7 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 %
 \begin{equation} \tag{\texttt{N1 - N2}} \label{eq:resta_normales}
 \begin{split}
-\iint \delta(t = x - y) \N(x|\mu_1, \sigma_1^2)\N(y|\mu_2, \sigma_2^2) dxdy = \N(t|\mu_1 - \mu_2,\sigma_1^2 + \sigma_2^2)
+\iint \delta(t = x - y) \N(x|\mu_1, \sigma_1^2)\N(y|\mu_2, \sigma_2^2) dxdy \overset{\text{\ref{suma_normales_induccion}}}{=} \N(t|\mu_1 - \mu_2,\sigma_1^2 + \sigma_2^2)
 \end{split}
 \end{equation}
 % %
@@ -2136,8 +2136,8 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
  m_{f_{s_i} \rightarrow s_i}(s_i) = \N(s_i| \mu_i, \sigma_i^2)
 \end{equation}
 %
-\en{We have access to this message by calling the \texttt{prior} attribute of the initialized \texttt{p} players, \texttt{p.prior}.}
-\es{Tenemos acceso a este mensaje llamando al atributo \texttt{prior} de los jugadores \texttt{p} que se tengan inicializados, \texttt{p.prior}.}
+\en{We have access to this message by calling the \texttt{prior} attribute of the initialized \texttt{a} agent, \texttt{a.prior}.}
+\es{Tenemos acceso a este mensaje llamando al atributo \texttt{prior} de los jugadores \texttt{a} que se tengan inicializados, \texttt{a.prior}.}
 %
 \en{The next message, the one that the variable $s_i$ sends to the performance factor $f_{p_i}$ is also the prior, in this case due to the~\ref{eq:m_v_f} of the sum-product algorithm and the factorization of the model.}
 \es{El siguiente mensaje, el que la variable $s_i$ le env\'ia al factor rendimiento $f_{p_i}$ tambi\'en es el prior, en este caso debido al~\ref{eq:m_v_f} del \emph{sum-product algorithm} y la factorizacion del modelo.}
@@ -2152,37 +2152,36 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 m_{f_{p_i} \rightarrow p_i}(p_i) = \int \N(p_i| s_i, \beta^2) \N(s_i| \mu_i, \sigma_i^2) ds_i = \N(p_i|\mu_i,\beta^2 + \sigma_i^2)
 \end{equation}
 %
-%\en{Computacionalmente, podemos calcular esto de la siguiente manera.}
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:performance, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0.5 \baselineskip]
+\en{We have access to these messages through the \texttt{performance()} method of the \texttt{Agent} class.}
+\es{Tenemos acceso a estos mensajes mediante el método \texttt{performance()} de la clase \texttt{Agent}.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:performance, caption={\en{Computing the priori performance}\es{Computando el desempeño a priori}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
-p1 = performance(r1)
-  ...
-p4 = performance(r4)
+p1 = performance(a1)
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}]
-p1 = r1.performance()
-  ...
-p4 = r4.performance()
+p1 = a1.performance()
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}]
-p1 = r1$performance()
-  ...
-p4 = r4$performance()
+p1 = a1$performance()
 \end{lstlisting}  
 \end{paracol}
 %
-\en{Then, the message sent by the team factors $f_{t_e}$ to the team variable $t_e$ are,}
-\es{Luego, el mensaje que env\'ian los factores equipos $f_{t_e}$ a la variable equipo $t_e$ son,}
+\en{The message sent by the team factors $f_{t_e}$ to the team variable $t_e$ is an integral over all the individual performance variables with their sum being equal to a constant $t_e$ (constraint imposed by the Dirac delta function).}
+\es{El mensaje que envían los factores equipos $f_{t_e}$ a la variable equipo $t_e$ es una integral sobre todas las variables de rendimiento individuales siendo su suma igual a una constante $t_e$ (restricción impuesta por la función delta de Dirac).}
 %
 \begin{equation} \label{eq:m_ft_t} \tag{\texttt{ta = p1 + p2}}
 \begin{split}
  m_{f_{t_e} \rightarrow t_e}(t_e) &= \iint \mathbb{I}(t_e = p_i + p_j) \N(p_i|\mu_i,\beta^2 + \sigma_i^2)\N(p_j|\mu_j,\beta^2 + \sigma_j^2) dp_idp_j  \\ &=  \N(t_e|\mu_i+\mu_j,2\beta^2 + \sigma_i^2 + \sigma_j^2)
 \end{split}
 \end{equation}
+%
+\en{Thanks to the property of \ref{sum of normals}, the integral has an analytical solution being again a Gaussian distribution.}
+\es{Gracias a la propiedad de \ref{suma de normales}, la integral tiene solución analítica siendo a su vez una distribución Gaussiana.}
 %
 \en{In general (demo at annex section~\ref{suma_normales_induccion})}
 \es{En general (demostraci\'on en secci\'on anexa~\ref{suma_normales_induccion})}.
@@ -3375,15 +3374,8 @@ I & = \int \N(x|\mu_{\times},\sigma_{\times}^2) \overbrace{\N(\mu_1|\mu_2,\sigma
 
 \subsection{\en{Sum of n Gaussians}\es{Suma de n gaussianas}}\label{suma_normales_induccion}
 
-\en{We know that}\es{Sabemos que}
-\begin{equation}
-t_n = \sum_{i=1}^n x_i \sim \int \dots \int \delta(t_n= \sum_{i=1}^n x_i ) \left( \prod_{i=1}^n \N(x_i|\mu_i,\sigma_i^2) \right) dx_1 \dots dx_n = \N(t|\sum_{i=1}^n \mu_i,\sum_{i=1}^n \sigma_i^2 )
-\end{equation}
-%
-\en{We want to demonstrate by induction.}\es{Queremos demostrar por inducci\'on.}
-\begin{equation}
- P(n):= \int \dots \int \delta(t_n= \sum_{i=1}^n x_i ) \left( \prod_{i=1}^n \N(x_i|\mu_i,\sigma_i^2) \right) dx_1 \dots dx_n \overset{?}{=} \N(t|\sum_{i=1}^n \mu_i,\sum_{i=1}^n \sigma_i^2 )
-\end{equation}
+\en{Proof by induction,}
+\es{Demostración por inducción,}
 
 \paragraph{\en{Base case}\es{Casos base}}
 
@@ -3393,23 +3385,24 @@ t_n = \sum_{i=1}^n x_i \sim \int \dots \int \delta(t_n= \sum_{i=1}^n x_i ) \left
 \end{split}
 \end{equation}
 %
-\en{Therefore $P(1)$ is true.}
-\es{Luego $P(1)$ es verdadera.}
-\begin{equation}
+\en{The proporisition $P(1)$ is true given the properties of the delta Dirac function.}
+\es{La proposición $P(1)$ es verdadera dada las propiedades de la función delta de dirac.}
+\begin{equation}\label{eq:induccion_2}
  \begin{split}
 P(2) & := \iint \delta(t_2 = x_1 + x_2) \N(x_1|\mu_1, \sigma_1^2)\N(x_2|\mu_2, \sigma_2^2) dx_1dx_2 \\
- &= \int \N(x_1|\mu_1, \sigma_1^2) \N(t_2 - x_1|\mu_2, \sigma_2^2) dx_1   \\
- & = \int \N(x_1|\mu_1, \sigma_1^2) \N(x_1|t_2 - \mu_2, \sigma_2^2) dx_1 \\
+ & \overset{\ref{eq:induccion_2}.1}{=} \int \N(x_1|\mu_1, \sigma_1^2) \N(t_2 - x_1|\mu_2, \sigma_2^2) dx_1   \\
+ & \overset{\ref{eq:induccion_2}.2}{=} \int \N(x_1|\mu_1, \sigma_1^2) \N(x_1|t_2 - \mu_2, \sigma_2^2) dx_1 \\
  & \overset{*}{=} \int \underbrace{N(t_2|\mu_1+\mu_2,\sigma_1^2 + \sigma_2^2)}_{\text{const.}} \underbrace{\N(x_1|\mu_{*},\sigma_{*}^2) dx_1}_{1} \\
  & = \N(t_2|\mu_1+\mu_2,\sigma_1^2 + \sigma_2^2)
  \end{split}
  \end{equation}
 %
- \en{Where $\overset{*}{=}$ is valid by de proof by the section~\ref{multiplicacion_normales}.}
- \es{Donde $\overset{*}{=}$ vale por la demostraci\'on de miltiplicaci\'on de normales en la secci\'on~\ref{multiplicacion_normales}.}
+ \en{Where $\overset{\ref{eq:induccion_2}.1}{=}$ is valid for the properties of the dirac delta function, $\overset{\ref{eq:induccion_2}.2}{=}$ is valid for the symmetry of the Gaussians, and $\overset{*}{=}$ is valid by de proof at section~\ref{multiplicacion_normales}.}
+ \es{Donde $\overset{\ref{eq:induccion_2}.1}{=}$ vale por las propiedades de la función delta de dirac, $\overset{\ref{eq:induccion_2}.2}{=}$ vale por la simetría de las gaussianas, y $\overset{*}{=}$ vale por la demostraci\'on de miltiplicaci\'on de normales en la secci\'on~\ref{multiplicacion_normales}.}
  %
  \en{Therefore, $P(2)$ is valid.}
- \es{Luego, vale $P(2)$}.
+ \es{Luego, vale $P(2)$.}
+
 
 \paragraph{\en{Inductive step}\es{Paso inductivo}} $P(n) \Rightarrow P(n+1)$
 
