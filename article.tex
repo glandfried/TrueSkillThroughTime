@@ -438,7 +438,7 @@
 \en{Since the evidence is a constant value, the posterior uncertainty of each hypothesis is proportional to the product of their prior uncertainty and their likelihood, as shown in equation~\ref{eq:posterior_win}.}
 \es{Como la evidencia es constante, la incertidumbre a posteriori de cada hip\'otesis es proporcional al producto de su incertidumbre a priori y su verosimilitud, como se muestra en la ecuaci\'on~\ref{eq:posterior_win}.}
 %
-\en{Section~\ref{sec:exactSolution} shows how these expressions can be derived applying the sum and product rule.}
+\en{Section~\ref{sec:exactSolution} shows how these expressions can be derived by applying the sum and product rules.}
 \es{En la secci\'on~\ref{sec:exactSolution} veremos en detalle c\'omo todas estas ecuaciones surge de aplicar las reglas de las suma y el producto sobre el modelo.}
 %
 \begin{equation}\label{eq:posterior_win}
@@ -2163,12 +2163,12 @@ p1 = a1$performance()
 %
 \begin{equation} \label{eq:m_ft_t} \tag{\texttt{ta = p1 + p2}}
 \begin{split}
- m_{f_{t_e} \rightarrow t_e}(t_e) &= \iint \delta(t_e = p_i + p_j) \N(p_i|\mu_i,\beta^2 + \sigma_i^2)\N(p_j|\mu_j,\beta^2 + \sigma_j^2) dp_idp_j  \\ &=  \N(t_e|\mu_i+\mu_j,2\beta^2 + \sigma_i^2 + \sigma_j^2)
+ m_{f_{t_e} \rightarrow t_e}(t_e) &= \iint \delta(t_e = p_i + p_j) \N(p_i|\mu_i,\beta^2 + \sigma_i^2)\N(p_j|\mu_j,\beta^2 + \sigma_j^2) dp_idp_j  \\ &=  \N(t_e|\underbrace{\mu_i+\mu_j}_{\text{\normalsize $\mu_e\phantom{^2}$}}, \underbrace{2\beta^2 + \sigma_i^2 + \sigma_j^2}_{\text{\normalsize $\sigma_e^2$}})
 \end{split}
 \end{equation}
 %
-\en{Thanks to the property of Gaussians, the integral has an analytical solution being again a Gaussian distribution.}
-\es{Gracias a la propiedad de las gaussianas, la integral tiene solución analítica siendo a su vez una distribución Gaussiana.}
+\en{The prior performance of the teams is a Gaussian distribution centered on the sum of the mean estimates $\mu_e = \mu_i + \mu_j$ with a variance $\sigma_e^2$ that includes both the uncertainties of the estimates, $\sigma_i^2 + \sigma_j^2$, and the variance of the individual performances, $\beta^2 + \beta^2$.}
+\es{El desempeño a priori de los equipos es una distribución Gaussiana centrada en la suma de las estimaciones medias $\mu_e = \mu_i + \mu_j$ con una varianza que incluye tanto las incertidumbres de las estimaciones, $\sigma_i^2 + \sigma_j^2$, como la varianza de los rendimientos individuales, $\beta^2 + \beta^2$.}
 %
 \en{We have access to this message when we use the operator \texttt{+} of the class \texttt{Gaussian} to sum the agents' performances, \texttt{ta = p1 + p2}.}
 \es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{+} de la clase \texttt{Gaussian} para sumar los desempeños de los agentes, \texttt{ta = p1 + p2}.}
@@ -2177,22 +2177,30 @@ p1 = a1$performance()
 \es{El siguiente mensaje, que env\'ia el factor diferencia $f_{d_1}$ a la variable diferencia $d_1$ es,}
 \begin{equation}\label{eq:m_fd_d} \tag{\texttt{d = ta - tb}}
  \begin{split} 
-  m_{f_{d_1} \rightarrow d_1}(d_1) & = \iint \delta(d_1 = t_a - t_b) \N(t_a| \mu_a, \sigma_a^2)  \N(t_b| \mu_b, \sigma_b^2)  dt_adt_b \\[0.25cm]
-  & = \N\big( d_1 | \underbrace{\mu_a - \mu_b}_{\hfrac{\text{\en{Expected}\es{Differencia}}}{\text{\en{difference}\es{esperada}}}:  \ \psi}, \underbrace{\sigma_a^2 +\sigma_b^2}_{\hfrac{\text{\en{Total}\es{incertidumbre}}}{\text{\en{uncertainty}\es{total}}} : \ \vartheta^2}  \big) = \N(d_1 | \psi, \, \vartheta^2)
+  m_{f_{d} \rightarrow d}(d) & = \iint \delta(d = t_a - t_b) \N(t_a| \mu_a, \sigma_a^2)  \N(t_b| \mu_b, \sigma_b^2)  dt_adt_b \\[0.25cm]
+  & = \N\big( d | \underbrace{\mu_a - \mu_b}_{\hfrac{\text{\en{Expected}\es{Differencia}}}{\text{\en{difference}\es{esperada}}}:  \ \psi}, \underbrace{\sigma_a^2 +\sigma_b^2}_{\hfrac{\text{\en{Total}\es{incertidumbre}}}{\text{\en{uncertainty}\es{total}}} : \ \vartheta^2}  \big) = \N(d | \psi, \, \vartheta^2)
  \end{split}
 \end{equation}
 %
-\en{We have access to this message when we use the operator \texttt{-} of the class \texttt{Gaussian} to get de difference of teams' performances, \texttt{d = ta - tb}.}
+\en{The prior difference of performance is a Gaussian distribution centered on the a priori expected difference between teams $\psi = \mu_a - \mu_b$ with variance $\vartheta^2 = \sigma_a^2 + \sigma_b^2$ that includes the uncertainty of both teams.}
+\es{La diferencia de desempeños a priori es una distribución gaussiana centrada en la diferencia esperada a priori $\psi = \mu_a - \mu_b$ con una varianza $\vartheta^2 = \sigma_a^2 + \sigma_b^2$ que incluye la incertidumbre de ambos equipos.}
+%
+\en{We have access to this message using the operator \texttt{-} of the class \texttt{Gaussian} to get de difference of teams' performances, \texttt{d = ta - tb}.}
 \es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{-} de la clase \texttt{Gaussian} para la diferencia de los desempeños de los equipos, \texttt{d = ta - tb}.}
 %
-\begin{equation}\label{eq:m_fr_r} \tag{\texttt{evidencia}}
+\en{The last descending message, sent by the factor $f_r$ to the variable $r$, is}
+\es{El último mensaje descendente, el que envía el factor $f_r$ a la variable $r$, permite computar la evidencia, es decir la predicción a priori del resultado observado}
+%
+\begin{equation}\label{eq:m_fr_r} \tag{\texttt{evidence}}
 \begin{split}
- m_{f_{r_1} \rightarrow r_1}(r_1) = \int \mathbb{I}(d_1 > 0) \N(d_1 | \psi, \vartheta^2)  dd_1 = 1 - \Phi(0|\psi, \vartheta^2)
+ m_{f_{r} \rightarrow r}(r) = \int \mathbb{I}(d > 0) \N(d | \psi, \vartheta^2)  dd = 1 - \Phi(0|\psi, \vartheta^2)
 \end{split}
 \end{equation}
-
-
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:difference, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
+%
+\en{We have access to the prior probability of the observed result (or evidence) by computing the cumulative value from $0$ to $\infty$ of the team difference of performances distribution.}
+\es{Tenemos acceso a la probabilidad a priori del resultado observado (o evidencia) calculando el valor acumulado desde $0$ hasta $\infty$ de la distribución de diferencia de desempeños de los equipos.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:difference, caption={\en{Computing the prior prediction of the oberved result (or evidence)}\es{Computando la predicción a priori del resultado observado (o evidencia)}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
@@ -2208,72 +2216,114 @@ e = 1 - cdf(0,d$mu,d$sigma)
 \end{lstlisting}   
 \end{paracol}
 %
-% Parrafo
+\en{Where \texttt{e} contains the value of \texttt{evidence}.}
+\es{Donde \texttt{e} contiene el valor de \texttt{evidence}.}
 
+
+\paragraph{\en{Ascending messages}\es{Mensajes ascendentes}.}
+%
 \en{Let us now examine the ascending messages.}
 \es{Examinemos ahora los mensajes ascendentes.}
 %
-\begin{equation}\label{eq:m_fd_ta} \tag{\texttt{exact\_lhood\_ta}}
+\en{Just as downward messages could be interpreted as priors, in this case the upward messages can also be interpreted as likelihoods, because they transmit the information of the observed result.}
+\es{Así como los mensajes descendente podíamos interpretarlos como priors, en este caso los mensajes ascendentes van a poder ser interprestados como likelihoods, debido a que transmiten la información del resultado observado.}
+%
+\en{The first ascending message is sent by the result factor $f_r$ to the difference variable $d$.}
+\es{El primer mensaje ascendentes lo envía el factor de resultados $f_r$ a la variable de diferencia $d$.}
+%
+\begin{equation}\label{eq:m_fr_d} \tag{\texttt{exact\_lhood\_d}}
 \begin{split}
-m_{f_{d_1} \rightarrow t_a}(t_a) & = \iint \mathbb{I}(d_1 = t_a - t_b) \mathbb{I}(d_1 > 0) \N(t_b | \mu_b , \sigma_b^2 ) \, dd_1\,dt_b \\
-& = \int \mathbb{I}( t_a > t_b)  \N(t_b | \mu_b , \sigma_b^2 ) \,dt_b  \\
-& = 1 - \Phi (t_a| -\mu_b, \sigma_b^2) = \Phi (t_a| \mu_b, \sigma_b^2)
+m_{f_r \rightarrow d}(d) & = \mathbb{I}(d>0)
 \end{split}
 \end{equation}
+%
+\en{The message contains just the indicator function of the factor $f_r$.}
+\es{El mensaje sólo contiene la función indicadora propia del factor $f_r$.}
+%
+% \en{The ascending messages will not be computed step by step, we will give the code at the end.}
+% \es{Los mensajes ascendentes no los vamos a ir computando paso a paso, daremos el código al final.}
+%
+\en{The message sent by difference factor $f_d$ to the winning team performance variables $t_e$ is,}
+\es{El mensaje que el factor diferencia $f_d$ envía la variables de desempeño del equipo ganador $t_a$ es,}
+\begin{equation}\label{eq:m_fd_ta} \tag{\texttt{exact\_lhood\_ta}}
+\begin{split}
+m_{f_{d} \rightarrow t_a}(t_a) & = \iint \delta(d = t_a - t_b) \mathbb{I}(d > 0) \N(t_b | \mu_b , \sigma_b^2 ) \, dd\,dt_b \\
+& = \int \mathbb{I}( t_a > t_b)  \N(t_b | \mu_b , \sigma_b^2 ) \,dt_b  \\
+& = 1 - \Phi (0| t_a -\mu_b, \sigma_b^2) = \Phi (t_a| \mu_b, \sigma_b^2)
+\end{split}
+\end{equation}
+%
+\en{In this case, the previous upstream message is integrated with the downstream message from the other team.}
+\es{En este caso se integra el mensaje ascendente anterior junto con el mensaje descendente del otro equipo.}
+%
+\en{This message, parametrized at $t_a$, is the cumulative of the Gaussian distribution of the opposing team's performances from $t_a$ to $\infty$, and encodes the likelihood of the winning team performance hypotheses.}
+\es{Este mensaje, paramtrizado en $t_a$, es la acumulada de la distribución gaussiana de los rendimientos del equipo contrario desde $t_a$ hasta $\infty$, y codifica la verosimilitud de las hipótesis de rendimiento de equipo ganador.}
+%
+\en{The message sent by team performance factor $f_{t_a}$ to the variable of the individual performance $p_1$ is,}
+\es{El mensaje enviado por el factor de rendimiento del equipo $f_{t_a}$ a la variable del rendimiento individual $p_1$ es,}
 %
 \begin{equation}\label{eq:m_fta_p_inicial} \tag{\texttt{exact\_lhood\_p1}}
 \begin{split}
-m_{f_{t_a} \rightarrow p_1}(p_1)  & = \iint \mathbb{I}( t_a = p_1 + p_2) \, N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (t_a| \mu_b , \sigma_b^2 ) \, dt_a dp_2 \\
+m_{f_{t_a} \rightarrow p_1}(p_1)  & = \iint \delta( t_a = p_1 + p_2) \, N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (t_a| \mu_b , \sigma_b^2 ) \, dt_a dp_2 \\
 & = \int  \, \N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (p_1 + p_2| \mu_b , \sigma_b^2 ) \, dp_2 \\
-& = 1 - \Phi( p_1 | \underbrace{\mu_2 - \mu_b}_{\delta-\mu_1}, \underbrace{\beta^2 + \sigma_2^2 + \sigma_b^2}_{\vartheta^2 - (\sigma_1^2 + \beta^2)}) 
+& = 1 - \Phi( 0 | p_1 + \underbrace{\mu_2 - \mu_b}_{\mu_1 - \psi}, \underbrace{\beta^2 + \sigma_2^2 + \sigma_b^2}_{\vartheta^2 - (\sigma_1^2 + \beta^2)}) \\
 \end{split}
 \end{equation}
 %
+\en{Again, the previous upstream message is integrated with a downstream message, the prior performance of their teammate.}
+\es{Otra vez, el mensaje ascendente anterior se integra junto con un mensaje descendente, el desempeño a priori de su compañero de equipos.}
+%
+\en{The message, parameterized at $p1$, encodes the likelihood of the individual performance hypotheses of the winning player.}
+\es{El mensaje, parametrizado en $p1$, codifica la verosimilitud de las hipótesis de rendimiento individual del jugador ganador.}
+%
+\en{The last message, sent by indivudal performance factor $f_{p_1}$ to the skill variable $s_1$ is,}
+\es{El mensaje enviado por el factor de rendimiento individual $f_{p_1}$ a la variable del hbilidad $s_1$ es,}
+%
 \begin{equation}\label{eq:m_fp_s1} \tag{\texttt{exact\_lhood\_s1}}
 \begin{split}
-m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_1-\delta, \vartheta^2 - (\sigma_1^2 + \beta^2)) \, dp_1 \\[0.1cm]
-& = 1 - \Phi(0 | \underbrace{(s_1 + \mu_2) - (\mu_3 + \mu_4)}_{\hfrac{\text{\en{Expected difference}\es{Diferencia esperada}}}{\text{\en{parameterized in }\es{parametrizada en }$s_1$}}: \ \delta_1(s_1) } \ , \underbrace{\ \ \ \ \vartheta^2 - \sigma_1^2 \ \ \ \ }_{\hfrac{\text{\en{Total uncertainty}\es{Incertidumbre total}}}{\text{\en{except for }\es{salvo la de }$s_1$}}: \ \vartheta_1^2})\end{split}
+m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_1-\psi, \vartheta^2 - (\sigma_1^2 + \beta^2)) \, dp_1 \\[0.1cm]
+& = 1 - \Phi(0 | \underbrace{(s_1 + \mu_2) - (\mu_3 + \mu_4)}_{\hfrac{\text{\en{Expected difference}\es{Diferencia esperada}}}{\text{\en{parameterized in }\es{parametrizada en }$s_1$}} } \ , \underbrace{\ \ \ \ \vartheta^2 - \sigma_1^2 \ \ \ \ }_{\hfrac{\text{\en{Total uncertainty}\es{Incertidumbre total}}}{\text{\en{except the one of }\es{salvo la de }$s_1$}}})\end{split}
 \end{equation}
 %
-\en{This last message, $m_{f_{p_1} \rightarrow s_1}(s_1)$, is the exact likelihood and computes the prior probability of winning if the player's true skill was $s_1$.}
-\es{Este \'ultimo mensaje, $m_{f_{p_1} \rightarrow s_1}(s_1)$, es el likelihood exacto y computa la probabilidad a priori de ganar si la verdadera habilidad del jugador fuera $s_1$.}
+\en{This is the exact likelihood, and computes the prior probability of winning result if the player's true skill was $s_1$.}
+\es{Este es el likelihood exacto, y computa la probabilidad a priori de un resultado ganador si la verdadera habilidad del jugador fuera $s_1$.}
 %
-\en{Assuming that the skill is known, we must replace the average estimate $\mu_1$ by the hypothesis $s_1$ in the expected difference $\delta$, and remove its own uncertainty from the total uncertainty $\vartheta^2$.}
-\es{Al suponer conocida la habilidad, debemos remplazar su estimaci\'on media $\mu_1$ por la hip\'otesis $s_1$ en la diferencia esperada $\delta$, y remover su propia incertidumbre de la incertidumbre total $\vartheta^2$.}
-%
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:delta_1, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
-theta1 = theta^2 - sigma1^2
-theta1 = sqrt(theta1)
-function exact_lhood(s1)
-  delta1 = delta - mu1 + s1 
-  N= Gaussian(delta1,theta1)
-  return 1-cdf(N,0.0)
-end
-\end{lstlisting}  
- \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
-theta1 = theta**2 - sigma1**2
-theta1 = sqrt(theta1)
-def exact_lhood(s1):
-    delta1 = delta - mu1 + s1 
-    res=1-cdf(0,delta1,theta1)
-    return res
-    
-\end{lstlisting} 
- \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
-theta1 = theta^2 - sigma1^2
-theta1 = sqrt(theta1)
-exact_lhood = function(s1){
-  delta1 = delta - mu1 + s1 
-  res=1-cdf(0,delta1,theta1)
-  return(res)
-}
-\end{lstlisting}   
-\end{paracol}
+\en{By assuming that the skill is known, we replace the average estimate $\mu_1$ by the hypothesis $s_1$ in the expected difference $\psi$, and remove its own uncertainty from the total uncertainty $\vartheta^2$.}
+\es{Al suponer conocida la habilidad, remplazamos su estimaci\'on media $\mu_1$ por la hip\'otesis $s_1$ en la diferencia esperada $\psi$, y eliminamos su incertidumbre de la incertidumbre total $\vartheta^2$.}
+% %
+% \begin{lstlisting}[backgroundcolor=\color{white},label=lst:delta_1, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+% \end{lstlisting}
+% \begin{paracol}{3}
+% \begin{lstlisting}[backgroundcolor=\color{julia}]
+% theta1 = theta^2 - sigma1^2
+% theta1 = sqrt(theta1)
+% function exact_lhood(s1)
+%   delta1 = delta - mu1 + s1 
+%   N= Gaussian(delta1,theta1)
+%   return 1-cdf(N,0.0)
+% end
+% \end{lstlisting}  
+%  \switchcolumn
+% \begin{lstlisting}[backgroundcolor=\color{python}]
+% theta1 = theta**2 - sigma1**2
+% theta1 = sqrt(theta1)
+% def exact_lhood(s1):
+%     delta1 = delta - mu1 + s1 
+%     res=1-cdf(0,delta1,theta1)
+%     return res
+%     
+% \end{lstlisting} 
+%  \switchcolumn
+% \begin{lstlisting}[backgroundcolor=\color{r}]
+% theta1 = theta^2 - sigma1^2
+% theta1 = sqrt(theta1)
+% exact_lhood = function(s1){
+%   delta1 = delta - mu1 + s1 
+%   res=1-cdf(0,delta1,theta1)
+%   return(res)
+% }
+% \end{lstlisting}   
+% \end{paracol}
 
 \subsection{\en{Elementary draw model}\es{Modelo b\'asico de empates}} \label{sec:empate}
 

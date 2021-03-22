@@ -11,11 +11,12 @@ setwd(this.dir)
 basic = read.csv("data/basic.csv", stringsAsFactors=FALSE)
 
 rows = basic[,1]
-cols = seq(4.0,7.0,0.2)
+cols = seq(6.0,12.0,0.2)
 
 basic = data.matrix(basic[,-1])
+rows 
 
-plot(basic[,dim(basic)[2]])
+min(basic)
 
 persp(basic,theta=20,phi=20)
 image(rows,cols,basic)
