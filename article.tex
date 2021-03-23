@@ -311,8 +311,8 @@
  \Delta = \underbrace{\left(1-P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)\right)}_{\text{\en{Surprise}\es{Sorpresa}}}
 \end{equation}
 %
-\en{where the probability arises from instantiating the previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, in the generative model (more details in section~\ref{sec:exactSolution}).}
-\es{Donde la probabilidad surge de instanciar las estimaciones previas en el modelo generativo (detalles en la secci\'on~\ref{sec:exactSolution}).}
+\en{where the probability arises from instantiating the previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, in the generative model (more details in section~\ref{sec:2vs2}).}
+\es{Donde la probabilidad surge de instanciar las estimaciones previas en el modelo generativo (detalles en la secci\'on~\ref{sec:2vs2}).}
 %
 \en{The idea is that the magnitude of the surprise $\Delta$ is related to the accuracy of the previous estimates and, therefore, can be used to update them.}
 \es{La idea es que la magnitud de la sorpresa $\Delta$ est\'a relacionada con cuan buenas son las estimaciones previas, y por lo tanto puede usarse para actualizarlas.}
@@ -438,8 +438,8 @@
 \en{Since the evidence is a constant value, the posterior uncertainty of each hypothesis is proportional to the product of their prior uncertainty and their likelihood, as shown in equation~\ref{eq:posterior_win}.}
 \es{Como la evidencia es constante, la incertidumbre a posteriori de cada hip\'otesis es proporcional al producto de su incertidumbre a priori y su verosimilitud, como se muestra en la ecuaci\'on~\ref{eq:posterior_win}.}
 %
-\en{Section~\ref{sec:exactSolution} shows how these expressions can be derived by applying the sum and product rules.}
-\es{En la secci\'on~\ref{sec:exactSolution} veremos en detalle c\'omo todas estas ecuaciones surge de aplicar las reglas de las suma y el producto sobre el modelo.}
+\en{Section~\ref{sec:2vs2} shows how these expressions can be derived by applying the sum and product rules.}
+\es{En la secci\'on~\ref{sec:2vs2} veremos en detalle c\'omo todas estas ecuaciones surge de aplicar las reglas de las suma y el producto sobre el modelo.}
 %
 \begin{equation}\label{eq:posterior_win}
 \underbrace{p(\,s_i\, | \, r \, )}_{\text{Posterior}} \propto \underbrace{1-\Phi(0 \, |  s_i - \mu_j , \, 2\beta^2 + \sigma_j^2)}_{\text{\en{Likelihood}\es{Verosimilitud}} \ P(r|s_i)} \,  \underbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}_{\text{Prior} \ p(s_i)} 
@@ -1707,8 +1707,8 @@ convergence(h,epsilon=0.01, iterations=10)
 % \en{In the section \ref{sec:Gasussian} we introduce the implementation details of the class \texttt{Gaussian}.}
 % \es{En las sección \ref{sec:Gasussian} introducimos los detalles de implementaci\'on de la clases \texttt{Gaussian}.}
 % %
-% \en{In the sections \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate_posterior}, and \ref{sec:iterative_posterior} we show respectively how to solve the prior prediction and the exact posterior of an event, we introduce ties into the model, we explain how to approximate the posterior of a single event, and we give the general multi-team solution.}
-% \es{En las secciones \ref{sec:exactSolution}, \ref{sec:empate}, \ref{sec:approximate_posterior}, y \ref{sec:iterative_posterior} mostramos respectivamente c\'omo resolver la predicci\'on a priori y el posterior exacto de un evento, instroucimos la posibilidad de empates en el modelo, explicamos c\'omo aproximar el posterior, y damos la soluci\'on general multi-equipos.}
+% \en{In the sections \ref{sec:2vs2}, \ref{sec:empate}, \ref{sec:approximate_posterior}, and \ref{sec:iterative_posterior} we show respectively how to solve the prior prediction and the exact posterior of an event, we introduce ties into the model, we explain how to approximate the posterior of a single event, and we give the general multi-team solution.}
+% \es{En las secciones \ref{sec:2vs2}, \ref{sec:empate}, \ref{sec:approximate_posterior}, y \ref{sec:iterative_posterior} mostramos respectivamente c\'omo resolver la predicci\'on a priori y el posterior exacto de un evento, instroucimos la posibilidad de empates en el modelo, explicamos c\'omo aproximar el posterior, y damos la soluci\'on general multi-equipos.}
 % %
 % FALTA HISTORY
 % %
@@ -1897,29 +1897,34 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 \en{The indicator function $\mathbb{I}(\cdot=\cdot)$ is worth $1$ when equality is true and $0$ otherwise.}
 \es{La funci\'on indicadora $\mathbb{I}(\cdot=\cdot)$ vale $1$ cuando la igualdad es verdadera y $0$ en caso contrario.}
 %
-\en{When we can use it to replace variable within an integral,}
-\es{Cuando podemos usarla para remplazar variable dentro de una integral,}
-%
-\begin{equation}\label{eq:integral_con_indicadora} \tag{\text{\en{Indicator function}\es{Función indicadora}}}
-\begin{split}
- \iint  \mathbb{I}(x=h(y,z)) f(x) g(y)\, dx\, dy = \int f(h(y,z)) g(y) dy
- \end{split}
-\end{equation}
-%
-\en{the dimensionality of the problem is reduced.}
-\es{la dimensionalidad del problema se reduce.}
-%
+% \en{When we can use it to replace variable within an integral,}
+% \es{Cuando podemos usarla para remplazar variable dentro de una integral,}
+% %
+% \begin{equation}\label{eq:integral_con_indicadora} \tag{\text{\en{Indicator function}\es{Función indicadora}}}
+% \begin{split}
+%  \iint  \mathbb{I}(x=h(y,z)) f(x) g(y)\, dx\, dy = \int f(h(y,z)) g(y) dy
+%  \end{split}
+% \end{equation}
+% %
+% \en{the dimensionality of the problem is reduced.}
+% \es{la dimensionalidad del problema se reduce.}
+% %
 \en{The indicator function is used to represent probability distributions of non-random discrete variables, as the result of the games given the difference of performances $p(r|d)$.}
 \es{La función indicadora se usa para representar distribuciones de probabilidad de variables discretas no aleatoria, como el resultado de los juegos dada la diferencia de rendimientos $p(r|d)$}
 %
-\en{Similarly, the dirac delta function, $\delta(\cdot=\cdot)$, which is used to represent probability distributions of non-random continuous variables, such as the difference of performances given the agents' performances $p(d|\bm{p})$, can also be used to reduce dimensionality of some integrals.}
-\es{De la misma forma, la función delta de dirac, $\delta(\cdot=\cdot)$, que se usa para representar distribuciones de probabilidad de variables continuas no aleatoria como la diferencia de rendimiento dados rendimientos $p(d|\bm{p})$, también puede usarse para reducir la dimensionalidad de algunas integrales.}
+\en{Similarly, the dirac delta function, $\delta(\cdot=\cdot)$, which is used to represent probability distributions of non-random continuous variables, such as the difference of performances given the agents' performances $p(d|\bm{p})$.}
+\es{De la misma forma, la función delta de dirac, $\delta(\cdot=\cdot)$, que se usa para representar distribuciones de probabilidad de variables continuas no aleatoria como la diferencia de rendimiento dados rendimientos $p(d|\bm{p})$.}
+%
+\en{When we can use it to replace variable within an integral,}
+\es{Cuando podemos usarla para remplazar variable dentro de una integral,}
 %
 \begin{equation}\label{eq:integral_con_dirac} \tag{\text{\en{Dirac delta function}\es{Función delta de dirac}}}
 \begin{split}
  \iint  \delta(x=h(y,z)) f(x) g(y)\, dx\, dy = \int f(h(y,z)) g(y) dy
  \end{split}
 \end{equation}
+\en{the dimensionality of the problem is reduced.}
+\es{la dimensionalidad del problema se reduce.}
 %
 \en{We will also use the properties derived from the symmetry of Gaussians.}
 \es{Usaremos además las propiedades que se derivan de la simetría de Gaussianas.}
@@ -2142,21 +2147,33 @@ m_{f_{p_i} \rightarrow p_i}(p_i) = \int \N(p_i| s_i, \beta^2) \N(s_i| \mu_i, \si
 \en{We have access to these messages through the \texttt{performance()} method of the \texttt{Agent} class.}
 \es{Tenemos acceso a estos mensajes mediante el método \texttt{performance()} de la clase \texttt{Agent}.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:performance, caption={\en{Computing the prior performance}\es{Computando el desempeño a priori}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:performance, caption={\en{Computing the indivudal prior performance}\es{Computando el desempeño individual a priori}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
 p1 = performance(a1)
+p2 = performance(a2)
+p3 = performance(a3)
+p4 = performance(a4)
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}]
 p1 = a1.performance()
+p2 = a2.performance()
+p3 = a3.performance()
+p4 = a4.performance()
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}]
-p1 = a1$performance()
+p1 = a1.performance()
+p2 = a2.performance()
+p3 = a3.performance()
+p4 = a4.performance()
 \end{lstlisting}  
 \end{paracol}
+%
+\en{Where the agents \texttt{a1}, \texttt{a2}, \texttt{a3}, and \texttt{a4} were initialized at code~\ref{lst:player}.}
+\es{Donde los agentes \texttt{a1}, \texttt{a2}, \texttt{a3} y \texttt{a4}, fueron inicializados en el código~\ref{lst:player}.}
 %
 \en{The message sent by the team factors $f_{t_e}$ to the team variable $t_e$ is an integral over all the individual performance variables, with the sum being equal to a constant $t_e$ (constraint imposed by the Dirac delta function).}
 \es{El mensaje que envían los factores equipos $f_{t_e}$ a la variable equipo $t_e$ es una integral sobre todas las variables de rendimiento individuales, siendo la suma igual a una constante $t_e$ (restricción impuesta por la función delta de Dirac).}
@@ -2170,8 +2187,14 @@ p1 = a1$performance()
 \en{The prior performance of the teams is a Gaussian distribution centered on the sum of the mean estimates $\mu_e = \mu_i + \mu_j$ with a variance $\sigma_e^2$ that includes both the uncertainties of the estimates, $\sigma_i^2 + \sigma_j^2$, and the variance of the individual performances, $\beta^2 + \beta^2$.}
 \es{El desempeño a priori de los equipos es una distribución Gaussiana centrada en la suma de las estimaciones medias $\mu_e = \mu_i + \mu_j$ con una varianza que incluye tanto las incertidumbres de las estimaciones, $\sigma_i^2 + \sigma_j^2$, como la varianza de los rendimientos individuales, $\beta^2 + \beta^2$.}
 %
-\en{We have access to this message when we use the operator \texttt{+} of the class \texttt{Gaussian} to sum the agents' performances, \texttt{ta = p1 + p2}.}
-\es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{+} de la clase \texttt{Gaussian} para sumar los desempeños de los agentes, \texttt{ta = p1 + p2}.}
+\en{We have access to this message when we use the operator \texttt{+} of the class \texttt{Gaussian} to sum the agents' performances,}
+\es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{+} de la clase \texttt{Gaussian} para sumar los desempeños de los agentes,}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:team_performance, caption={\en{Computing the team prior performance}\es{Computando el desempeño a priori de los equipos}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
+\end{lstlisting}
+\begin{lstlisting}[backgroundcolor=\color{all}]
+ta = p1 + p2; tb = p3 + p4
+\end{lstlisting}
 %
 \en{The next message, sent by the difference factor $f_{d_1}$ to the difference variable $d_1$ is,}
 \es{El siguiente mensaje, que env\'ia el factor diferencia $f_{d_1}$ a la variable diferencia $d_1$ es,}
@@ -2187,6 +2210,12 @@ p1 = a1$performance()
 %
 \en{We have access to this message using the operator \texttt{-} of the class \texttt{Gaussian} to get de difference of teams' performances, \texttt{d = ta - tb}.}
 \es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{-} de la clase \texttt{Gaussian} para la diferencia de los desempeños de los equipos, \texttt{d = ta - tb}.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:difference_performance, caption={\en{Computing the prior difference of performances}\es{Computando la diferencia de desempeños a priori}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
+\end{lstlisting}
+\begin{lstlisting}[backgroundcolor=\color{all}]
+d = ta - tb 
+\end{lstlisting}
 %
 \en{The last descending message, sent by the factor $f_r$ to the variable $r$, is}
 \es{El último mensaje descendente, el que envía el factor $f_r$ a la variable $r$, permite computar la evidencia, es decir la predicción a priori del resultado observado}
@@ -2231,7 +2260,7 @@ e = 1 - cdf(0,d$mu,d$sigma)
 \en{The first ascending message is sent by the result factor $f_r$ to the difference variable $d$.}
 \es{El primer mensaje ascendentes lo envía el factor de resultados $f_r$ a la variable de diferencia $d$.}
 %
-\begin{equation}\label{eq:m_fr_d} \tag{\texttt{exact\_lhood\_d}}
+\begin{equation}%\label{eq:m_fr_d} \tag{\texttt{exact\_lhood\_d}}
 \begin{split}
 m_{f_r \rightarrow d}(d) & = \mathbb{I}(d>0)
 \end{split}
@@ -2245,7 +2274,7 @@ m_{f_r \rightarrow d}(d) & = \mathbb{I}(d>0)
 %
 \en{The message sent by difference factor $f_d$ to the winning team performance variables $t_e$ is,}
 \es{El mensaje que el factor diferencia $f_d$ envía la variables de desempeño del equipo ganador $t_a$ es,}
-\begin{equation}\label{eq:m_fd_ta} \tag{\texttt{exact\_lhood\_ta}}
+\begin{equation}%\label{eq:m_fd_ta} \tag{\texttt{exact\_lhood\_ta}}
 \begin{split}
 m_{f_{d} \rightarrow t_a}(t_a) & = \iint \delta(d = t_a - t_b) \mathbb{I}(d > 0) \N(t_b | \mu_b , \sigma_b^2 ) \, dd\,dt_b \\
 & = \int \mathbb{I}( t_a > t_b)  \N(t_b | \mu_b , \sigma_b^2 ) \,dt_b  \\
@@ -2262,7 +2291,7 @@ m_{f_{d} \rightarrow t_a}(t_a) & = \iint \delta(d = t_a - t_b) \mathbb{I}(d > 0)
 \en{The message sent by team performance factor $f_{t_a}$ to the variable of the individual performance $p_1$ is,}
 \es{El mensaje enviado por el factor de rendimiento del equipo $f_{t_a}$ a la variable del rendimiento individual $p_1$ es,}
 %
-\begin{equation}\label{eq:m_fta_p_inicial} \tag{\texttt{exact\_lhood\_p1}}
+\begin{equation}%\label{eq:m_fta_p_inicial} \tag{\texttt{exact\_lhood\_p1}}
 \begin{split}
 m_{f_{t_a} \rightarrow p_1}(p_1)  & = \iint \delta( t_a = p_1 + p_2) \, N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (t_a| \mu_b , \sigma_b^2 ) \, dt_a dp_2 \\
 & = \int  \, \N(p_2| \mu_2, \beta^2 + \sigma_2^2 ) \, \Phi (p_1 + p_2| \mu_b , \sigma_b^2 ) \, dp_2 \\
@@ -2279,7 +2308,7 @@ m_{f_{t_a} \rightarrow p_1}(p_1)  & = \iint \delta( t_a = p_1 + p_2) \, N(p_2| \
 \en{The last message, sent by indivudal performance factor $f_{p_1}$ to the skill variable $s_1$ is,}
 \es{El mensaje enviado por el factor de rendimiento individual $f_{p_1}$ a la variable del hbilidad $s_1$ es,}
 %
-\begin{equation}\label{eq:m_fp_s1} \tag{\texttt{exact\_lhood\_s1}}
+\begin{equation}%\label{eq:m_fp_s1} \tag{\texttt{exact\_lhood\_s1}}
 \begin{split}
 m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_1-\psi, \vartheta^2 - (\sigma_1^2 + \beta^2)) \, dp_1 \\[0.1cm]
 & = 1 - \Phi(0 | \underbrace{(s_1 + \mu_2) - (\mu_3 + \mu_4)}_{\hfrac{\text{\en{Expected difference}\es{Diferencia esperada}}}{\text{\en{parameterized in }\es{parametrizada en }$s_1$}} } \ , \underbrace{\ \ \ \ \vartheta^2 - \sigma_1^2 \ \ \ \ }_{\hfrac{\text{\en{Total uncertainty}\es{Incertidumbre total}}}{\text{\en{except the one of }\es{salvo la de }$s_1$}}})\end{split}
@@ -2290,16 +2319,16 @@ m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_
 %
 \en{By assuming that the skill is known, we replace the average estimate $\mu_1$ by the hypothesis $s_1$ in the expected difference $\psi$, and remove its own uncertainty from the total uncertainty $\vartheta^2$.}
 \es{Al suponer conocida la habilidad, remplazamos su estimaci\'on media $\mu_1$ por la hip\'otesis $s_1$ en la diferencia esperada $\psi$, y eliminamos su incertidumbre de la incertidumbre total $\vartheta^2$.}
-% %
+%
 % \begin{lstlisting}[backgroundcolor=\color{white},label=lst:delta_1, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 % \end{lstlisting}
 % \begin{paracol}{3}
 % \begin{lstlisting}[backgroundcolor=\color{julia}]
-% theta1 = theta^2 - sigma1^2
+% theta1 = d.sigma^2-a1.sigma^2
 % theta1 = sqrt(theta1)
-% function exact_lhood(s1)
-%   delta1 = delta - mu1 + s1 
-%   N= Gaussian(delta1,theta1)
+% function exact_lhood_s1(s)
+%   psi1 = d.mu - a1.mu + s
+%   N= Gaussian(psi1,theta1)
 %   return 1-cdf(N,0.0)
 % end
 % \end{lstlisting}  
@@ -2307,7 +2336,7 @@ m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_
 % \begin{lstlisting}[backgroundcolor=\color{python}]
 % theta1 = theta**2 - sigma1**2
 % theta1 = sqrt(theta1)
-% def exact_lhood(s1):
+% def exact_lhood_s1(s):
 %     delta1 = delta - mu1 + s1 
 %     res=1-cdf(0,delta1,theta1)
 %     return res
@@ -2317,8 +2346,8 @@ m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_
 % \begin{lstlisting}[backgroundcolor=\color{r}]
 % theta1 = theta^2 - sigma1^2
 % theta1 = sqrt(theta1)
-% exact_lhood = function(s1){
-%   delta1 = delta - mu1 + s1 
+% exact_lhood_s1 =function(s){
+%   delta1 = delta - mu1 + s 
 %   res=1-cdf(0,delta1,theta1)
 %   return(res)
 % }
@@ -2330,45 +2359,61 @@ m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_
 \en{The draw model assumes that a tie occur when the difference in performance does not exceed a certain margin, $|t_a > t_b| \leq \varepsilon$.}
 \es{El modelo supone que ocurre un empate cuando la diferencia de rendimientos no supera un cierto margen, $|t_a > t_b| \leq \varepsilon$.}
 %
-\en{In the figure~\ref{fig:draw_a} you can see in graphical terms the probabilities of the three possible outcomes.}
+\en{In the figure~\ref{fig:draw_a} we display in graphical terms the probabilities of the three possible outcomes.}
 \es{En la figura~\ref{fig:draw_a} se puede ver en t\'erminos gr\'aficos las probabilidades de los tres resultados posibles.}
 %
-\en{The elementary model requires determining the value of the margin.}
-\es{Este modelo b\'asico requiere determinar el valor del margen.}
+\begin{figure}[h!]
+\centering
+\begin{subfigure}[t]{0.48\textwidth}
+ \includegraphics[width=1\textwidth]{figures/draw.pdf} 
+ \caption{
+ \en{The three possible results}
+ \es{Los tres posibles resultados}
+ }
+ \label{fig:draw_a}
+\end{subfigure}
+\begin{subfigure}[t]{0.48\textwidth}
+  \includegraphics[page=2,width=1\textwidth]{figures/draw.pdf}
+  \caption{
+  \en{Constant draw probability}
+  \es{Probabilidad de empate constante}
+  }
+ \label{fig:draw_b}
+\end{subfigure}
+  \caption{
+  \en{Distribution of performance difference under the draw model.}
+  \es{Distribución de diferencia de desempeño bajo el modelo de empate.}
+  %
+  \en{In Figure~\ref{fig:draw_a} we show an example of the areas corresponding to the probability of losing, drawing and winning.}
+  \es{En la figura~\ref{fig:draw_a} mostramos un ejemplo de las áreas correspondientes a la probabilidad de perder, empatar y ganar.}
+  %
+  \en{In figure~\ref{fig:draw_b} we show how the tie margin should be adapted to keep the tie probability constant when the uncertainty of the distribution changes.}
+  \es{En la figura~\ref{fig:draw_b} mostramos cómo el margen de empate se debe adaptar para mantener la probabilidad de empate constante cuando la incertidumbre de la distribución cambia.}
+  }
+  \label{fig:draw}
+\end{figure}
 %
-\en{The original paper~\citep{Herbrich2007} proposed to use the empirical frequency of ties.}
-\es{El art\'iculo original~\citep{Herbrich2007} propon\'ia usar la frecuencia emp\'irica de empates.}
+\en{This elementary model requires determining the size of the margin.}
+\es{Este modelo b\'asico requiere determinar el largo del margen.}
+%
+\en{The original paper~\citep{Herbrich2007} proposed to use the empirical frequency of ties as clue to define it.}
+\es{El art\'iculo original~\citep{Herbrich2007} propon\'ia usar la frecuencia emp\'irica de empates como indicio para definirlo.}
 %
 \en{However, this value depends on the actual skill difference, which we just don't know.}
 \es{Sin embargo, este valor depende de la diferencia de habilidad real, que justamente no conocemos.}
 %
-\en{In section~\ref{sec:ttt-d} we present the Bayesian solution to the darw model.}
-\es{En la secci\'on~\ref{sec:ttt-d} presentamos la soluci\'on bayesiana al modelo de empates.}
+% \en{In section~\ref{sec:ttt-d} we present the Bayesian solution to the darw model.}
+% \es{En la secci\'on~\ref{sec:ttt-d} presentamos la soluci\'on bayesiana al modelo de empates.}
 %
-\en{In any case, assuming that we can define the ``probability of a draw between teams with same skill'', it is important to note that the margin also depends on the number of players.}
-\es{En cualquier caso, suponiendo que podemos definir esa la ``probabilidad de empate entre equipos con misma habilidad'', es importante tener en cuenta que el margen tambi\'en depende de la cantidad de jugadores.}
+%
+\en{Assuming that we can define the ``probability of a draw between teams with same skill'', it is important to note that the margin also depends on the number of players.}
+\es{Suponiendo que podemos definir esa la ``probabilidad de empate entre equipos con misma habilidad'', es importante tener en cuenta que el margen tambi\'en depende de la cantidad de jugadores.}
 %
 \en{In the figure~\ref{fig:draw_b} you can see that to keep the tie area constant it is necessary to adapt the margin according to the uncertainty.}
 \es{En la figura~\ref{fig:draw_b} se puede ver que para mantener el \'area de empates constante, es necesario adaptar el margen dependiendo de la incertidumbre.}
 %
 %\en{This is because the actual distribution of performance differences depends on how many players are in the game.}
 %\es{Esto es as\'i porque la distribuci\'on de diferencias de rendimientos real depende de cu\'antos jugadores hay en la partida.}
-%
-\begin{figure}[h!]
-\centering
-\begin{subfigure}[t]{0.48\textwidth}
- \includegraphics[width=1\textwidth]{figures/draw.pdf} 
- \caption{Las distintas \'areas}
- \label{fig:draw_a}
-\end{subfigure}
-\begin{subfigure}[t]{0.48\textwidth}
-  \includegraphics[page=2,width=1\textwidth]{figures/draw.pdf}
-  \caption{Área de empate constante}
- \label{fig:draw_b}
-\end{subfigure}
-  \caption{Modelo de empate.}
-  \label{fig:draw}
-\end{figure}
 %
 \en{Since the observed results are independent of our beliefs, the only source of uncertainty comes from the variance of individual perfomance $\beta$.}
 \es{Como los resultados observados son independientes de nuestras creencias, la \'unica fuente de incertidumbre proviene de varianza de los rendimientos $\beta$.}
@@ -2380,60 +2425,42 @@ m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_
  \text{Draw probability} = \Phi(\frac{\varepsilon}{\sqrt{n_1+n_2}\beta}) - \Phi(\frac{-\varepsilon}{\sqrt{n_1+n_2}\beta})
 \end{equation}
 %
-\begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:draw, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\en{In the following code we use the function \texttt{compute\_margin()} to get the size of the margin.}
+\es{En el siguiente código usamos la función \texttt{compute\_margin()} para calcular el tamaño del margen de empate.}
+
+\begin{lstlisting}[backgroundcolor=\color{white}, label=lst:draw, caption={\en{Computing the draw margin}\es{Computando el margen de empate}}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
 na = length(team_a)
 nb = length(team_b)
-sd = sqrt(na + nb)*BETA
+sd = sqrt(na + nb)*beta
 \end{lstlisting}
 \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
 na = len(team_a)
 nb = len(team_b)
-sd = math.sqrt(na + nb)*BETA
+sd = math.sqrt(na + nb)*beta
 \end{lstlisting}
 \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
 na = length(team_a)
 nb = length(team_b)
-sd = sqrt(na + nb)*BETA
+sd = sqrt(na + nb)*beta
 \end{lstlisting}
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
 p_draw = 0.25
 margin = compute_margin(p_draw, sd)
-\end{lstlisting}  
+\end{lstlisting}
 %
-%
-% \en{In any case, an alternative is to use the classic optimization strategy: choose the value of $\varepsilon$ that maximizes some cost function.}
-% \es{En cualquier caso, una alternativa es usar la estrategia cl\'asica de optimizaci\'on: elegir el valor de $\varepsilon$ que maximiza alguna funci\'on de costo.}
-% %
-% \begin{equation*}
-% \varepsilon = \underset{\varepsilon}{\text{arg max}} \ p(\text{Data}|\text{Model}_{\varepsilon})
-% \end{equation*}
-% %
-\subsection{\en{Optimal approximation of the exact posterior}\es{Aproximaci\'on \'optima del posterior exacto}} \label{sec:approximate_posterior}
+\en{Where \texttt{team\_a} and \texttt{team\_b} were initialized in code~\ref{lst:game}, and \texttt{beta} in the code~\ref{lst:parameters}.}
+\es{Donde \texttt{team\_a} y \texttt{team\_b} fueron inicializadas en el c\'odigo \ref{lst:game}, y \texttt{beta} en el código~\ref{lst:parameters}.}
 
-\en{In the section~\ref{sec:exactSolution} we have seen how to find the exact posterior.}
-\es{En la secci\'on~\ref{sec:exactSolution} hemos visto que el posterior exacta, si bien se parece a un Gaussiano, no lo es, .}
+\subsection{\en{Optimal approximation of the exact posterior}\es{Aproximaci\'on \'optima del posterior exacto}} \label{sec:approximate_posterior}
 %
-% \en{ although similar, is not a Gaussian distribution, preventing us from using the equation~\ref{eq:posterior_win}  iteratively.}
-% \es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on gaussiana, lo que nos impedir\'a usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
-% %
-% 
-% 
-% \en{But due the shape of the exact posterior, a Gaussian seem to be a good enough approximation, allowing us to avoid the computational cost of the sampling methodologies.}
-% \es{Por la forma del posterior exacto, una gaussiana parece una aproximaci\'on suficientemente buena, que nos permitir\'ia evitar el costo computacional de la metodolog\'ias de sampleo.}
-% %
-% 
-% \en{Dado que la forma exacta se parece a una gaussiana (figura~\ref{fig:posterior_win}), usar una gaussiana para representar el posterior no parecer\'ia ser tan grave en t\'erminos de aproximaci\'on y en cambio nos permitir\'ia realizar estimaciones sucesivas.}
-% 
-% % Parrafo
-%\en{The methods for approximating an untractable distribution by means of a distribution belonging to a known family are known in Bayesian inference as ``variational''.}
-%\es{Los m\'etodos para aproximar una distribuci\'on intratable mediante una distribuci\'on perteneciente a una familia conocida se conocen en inferencia bayesiana como ``variacionales''.}
+\en{In the section~\ref{sec:2vs2} we have seen how to find the exact posterior.}
+\es{En la secci\'on~\ref{sec:2vs2} hemos visto como encontrar el posterior exacto.}
 %
 \en{In this section we will show how to find the Gaussian distribution that best approximates the exact posterior, considering the possibility of ties.}
 \es{En esta secci\'on mostraremos c\'omo encontrar la distribuci\'on gaussiana que mejor aproxima al posterior exacto, considerando la posibilidad de empates.}
@@ -2441,11 +2468,10 @@ margin = compute_margin(p_draw, sd)
 \en{The packages solve it with the following two lines of code.}
 \es{Los paquetes lo resuelven con las siguientes dos l\'ineas de c\'odigo.}
 %
-\begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:post_2vs2, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{white}, label=lst:post_2vs2, caption={\en{Computing the approximate posterior}\es{Computando el posterior aproximado}}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{lstlisting}[backgroundcolor=\color{all},belowskip=-0.77 \baselineskip]
-g = Game(teams, result, p_draw)
+g = Game(teams, p_draw = 0.25)
 \end{lstlisting}  
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
@@ -2461,24 +2487,22 @@ post = g$posteriors()
 \end{lstlisting}
 \end{paracol}
 %
-\en{Remember that \texttt{teams}, \texttt{results}, and \texttt{p\_draw}, were defined in Code \ref{lst:game} and \ref{lst:draw}.}
-\es{Recuerden que \texttt{teams}, \texttt{results}, y \texttt{p\_draw}, fueron definidas en los c\'odigos \ref{lst:game} y \ref{lst:draw}.}
-
-% Parrafo
-
+\en{Where the variable \texttt{teams} was initialized in code \ref{lst:game}.}
+\es{Donde la variable \texttt{teams} fue inicializada en el código~\ref{lst:game}.}
+%
 \en{The need to approximate the posterior occurs because the probability distribution of the difference is a truncated Gasussian (Eq.~\ref{eq:p_d}).}
 \es{La necesidad de aproximar el posterior ocurre debido a que la distribuci\'on de probabilidad de la diferencia es una Gasussian truncada (Eq.~\ref{eq:p_d}).}
 %
 \begin{equation}\label{eq:p_d}
 p(d) =
 \begin{cases}
-\N(d|\delta,\vartheta^2) \mathbb{I}(-\varepsilon < d < \varepsilon) & \text{tie} \\
-\N(d|\delta,\vartheta^2) \mathbb{I}(d > \varepsilon) & \text{not tie}
+\N(d|\psi,\vartheta^2) \mathbb{I}(-\varepsilon < d < \varepsilon) & \text{tie} \\
+\N(d|\psi,\vartheta^2) \mathbb{I}(d > \varepsilon) & \text{not tie}
 \end{cases}
 \end{equation}
 %
-\en{For Gaussian distributions, moment matching is known to minimize the Kullback-Leibler divergence~\citep{Herbrich2007}.}
-\es{Se sabe que las distribuciones gaussianas que minimizan la divergencia Kullback-Libler son las que tiene mismo momentos~\citep{Herbrich2007}.}
+\en{It is known that the exponential family, to which the Gaussian distribution belongs, minimizes the Kullback-Leibler divergence with respect to the true distribution $p$, $KL(p||q)$, when both have the same moments~\citep{minka2005-divergences}.}
+\es{Se sabe que la familia exponencial, a la que pertenece la distribución gaussianas, minimizan la divergencia Kullback-Leibler respecto de la verdadera distribución $p$, $KL(p||q)$, cuando ambas tienen mismos momentos~\citep{minka2005-divergences}.}
 %
 \en{The expectation and variance of a truncated Gaussian $\N(x|\mu,\sigma^2)$ in a $[a,b]$ interval are,}
 \es{La esperanza y la varianza de una gaussiana truncada $\N(x|\mu,\sigma^2)$ en un intervalo $[a,b]$ son,}
@@ -2494,18 +2518,18 @@ p(d) =
 \en{where $\beta = \frac{b-\mu}{\sigma}$ and $\alpha = \frac{a-\mu}{\sigma}$.}
 \es{donde $\beta = \frac{b-\mu}{\sigma}$ y $\alpha = \frac{a-\mu}{\sigma}$.}
 %
-\en{With a single-sided truncation, these functions can be simplified as,}
-\es{Con un \'unico truncamiento, estas funciones se pueden simplificar como,}
+\en{With a single-sided truncation, they can be simplified as,}
+\es{Con un \'unico truncamiento, se pueden simplificar como,}
 %
 \begin{equation*}
  E(X| a < X )   =  \mu + \sigma \frac{\N(\alpha)}{1 - \Phi(\alpha) } \ \ , \ \ V(X| a < X )  = \sigma^2 \Bigg( 1 + \bigg(\frac{\alpha \N(\alpha)}{1 - \Phi(\alpha) }\bigg) - \bigg(\frac{\N(\alpha)}{1 - \Phi(\alpha) }\bigg)^2 \Bigg) 
 \end{equation*}
 %
-\en{Then, the Gaussian that best approximates $p(d_1)$ in a winning case is}
-\es{Luego, la gaussiana que mejor aproxima a $p(d_1)$ en un caso ganador es}
+\en{Then, the Gaussian that best approximates $p(d)$ is}
+\es{Luego, la gaussiana que mejor aproxima a $p(d)$ es}
 %
 \begin{equation}\label{eq:p*_d} \tag{\texttt{approx()}}
- \widehat{p}(d) = \N(d | \widehat{\delta}, \widehat{\vartheta}^2) =
+ \widehat{p}(d) = \N(d | \widehat{\psi}, \widehat{\vartheta}^2) =
  \begin{cases*}
  \N\Big(d \,  | \, E(d | -\varepsilon < d < \varepsilon ) , \,  V(d | -\varepsilon < d < \varepsilon ) \, \Big) & \text{tie} \\
 \N\Big(d \,  | \, E(d | d > -\varepsilon ) , \,  V(d | d > -\varepsilon ) \, \Big) & \text{not tie}
@@ -2513,115 +2537,133 @@ p(d) =
 \end{equation}
 %
 \begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:pd_approx, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+{white},label=lst:d_approx, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
-tie, not_tie = true, false
+tie = false
 \end{lstlisting}
 \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
-tie, not_tie = True, False
+tie = False
 \end{lstlisting}
 \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
-tie = T; not_tie = F 
+tie = F 
 \end{lstlisting}
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
-pd_approx = approx(d, margin, not_tie)
+d_approx = approx(d, margin, tie)
 \end{lstlisting}
 %
-\en{Given $\widehat{p}(d_1)$, we can compute the approximate ascending message.}
-\es{Dada $\widehat{p}(d_1)$, podemos calcular el mensaje ascendentes aproximado.}
+\en{Where the difference distribution \texttt{d} was initialized in code~\ref{lst:difference_performance}, and the variable \texttt{margin} in code~\ref{lst:draw}.}
+\es{Donde la distribución de diferencias \texttt{d} fue inicializada en el código~\ref{lst:difference_performance}, y \texttt{margin} en el código~\ref{lst:draw}.}
 %
-\begin{equation}\label{eq:m^_d_fd} \tag{\texttt{approx\_lhood\_d1}}
+\en{Given $\widehat{p}(d)$, we can compute the approximate ascending message.}
+\es{Dada $\widehat{p}(d)$, podemos calcular el mensaje ascendentes aproximado.}
+%
+\en{Recall that any marginal distribution can be calculated as the product of the messages received from all its neighboring factors, and that in this case due to the factorization of the model, it holds that $ m_{f_r \rightarrow d}(d) = m_{d \rightarrow f_{d}}(d)$.}
+\es{Recordar que la distribución marginal se puede calcular como el producto de los mensajes que le envían todos los factores vecinos, y que en este caso por la factorización del modelo, el mensaje $ m_{f_r \rightarrow d}(d) = m_{d \rightarrow f_{d}}(d)$.}
+%
+\en{Then, the approximate ascending message is,}
+\es{Luego, el mensaje aproximado ascendente es,}
+%
+\begin{equation}\label{eq:m^_d_fd} \tag{\texttt{approx\_lhood\_d}}
 \begin{split}
- m_{d_1 \rightarrow f_{d_1}}(d_1)   = \frac{p(d_1)}{m_{f_{d_1} \rightarrow d_1}(d_1)} 
- & \approx \frac{\widehat{p}(d_1)}{m_{f_{d_1} \rightarrow d_1}(d_1)}  \\
-& = \frac{\N(d_1 \,  | \,\widehat{\delta} , \, \widehat{\vartheta}^{\,2} )}{\N(d_1 | \delta, \vartheta^2)} 
-\propto N(d_1,\delta_{\div},\vartheta_{\div}^2 )
+ m_{d \rightarrow f_{d}}(d)   = \frac{p(d)}{m_{f_{d} \rightarrow d}(d)} 
+ & \approx \frac{\widehat{p}(d)}{m_{f_{d} \rightarrow d}(d)}  \\
+& = \frac{\N(d \,  | \,\widehat{\psi} , \, \widehat{\vartheta}^{\,2} )}{\N(d | \psi, \vartheta^2)} 
+\propto N(d,\psi_{\div},\vartheta_{\div}^2 )
 \end{split}
 \end{equation}
 %
-\en{with}\es{con} $\delta_{\div} = \frac{\widehat{\delta}}{\widehat{\vartheta}^2} - \frac{\delta}{\vartheta^2}$ \en{and}\es{y} $\vartheta_{\div}^2 = (\frac{1}{\widehat{\vartheta}^2} - \frac{1}{\vartheta^2})^{-1}$ 
+\en{with}\es{con} $\psi_{\div} = \frac{\widehat{\psi}}{\widehat{\vartheta}^2} - \frac{\psi}{\vartheta^2}$ \en{and}\es{y} $\vartheta_{\div}^2 = (\frac{1}{\widehat{\vartheta}^2} - \frac{1}{\vartheta^2})^{-1}$ .
 %
-\begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:d_div, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\en{We have access to this message when we use the \texttt{/} operator of the \texttt{Gaussian} class to divide the indicated Gaussians,}
+\es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{/} de la clase \texttt{Gaussian}, para dividir las gaussianas indicadas,}
+%
+\begin{lstlisting}[backgroundcolor=\color{white}, label=lst:d_div, caption={\en{Computing the first approximate message}\es{Computando el primer mensaje aproximado}}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
-\begin{lstlisting}[backgroundcolor=\color{all},belowskip=-0.77 \baselineskip]
-approx_lhood_d1 = pd_approx/d
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.0 \baselineskip]
+approx_lhood_d = d_approx / d
 \end{lstlisting}  
-\begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
-d_div = approx_lhood_d1.mu
-v_div = approx_lhood_d1.sigma
-\end{lstlisting}
-\switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
-d_div = lhood_d1_approx.mu
-v_div = lhood_d1_approx.sigma
-\end{lstlisting}
-\switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
-d_div = lhood_d1_approx$mu
-v_div = lhood_d1_approx$sigma
-\end{lstlisting}
-\end{paracol}
+% \begin{paracol}{3}
+% \begin{lstlisting}[backgroundcolor=\color{julia}]
+% d_div = approx_lhood_d1.mu
+% v_div = approx_lhood_d1.sigma
+% \end{lstlisting}
+% \switchcolumn
+% \begin{lstlisting}[backgroundcolor=\color{python}]
+% d_div = lhood_d1_approx.mu
+% v_div = lhood_d1_approx.sigma
+% \end{lstlisting}
+% \switchcolumn
+% \begin{lstlisting}[backgroundcolor=\color{r}]
+% d_div = lhood_d1_approx$mu
+% v_div = lhood_d1_approx$sigma
+% \end{lstlisting}
+% \end{paracol}
 %
-\begin{equation}\label{eq:^m_fd_ta} \tag{\texttt{lhood\_ta\_approx}}
+\en{All these messages can be interpreted as approximate likelihoods via Guassian distributions.}
+\es{Todos estos mensajes pueden ser interpretados como verosimilitudes aproximadas mediante distribuciones guassianas.}
+%
+\en{The approximate message sent by difference factor $f_d$ to the winning team performance variables $t_a$ is,}
+\es{El mensaje aproximado que el factor diferencia $f_d$ envía a la variables de desempeño del equipo ganador $t_a$ es,}
+%
+\begin{equation}%\label{eq:^m_fd_ta} \tag{\texttt{approx\_lhood\_ta}}
 \begin{split}
-\widehat{m}_{f_{d_1} \rightarrow t_a}(t_a) & =  \iint \mathbb{I}(d_1 = t_a - t_b) \N(d_1 | \delta_{\div}, \vartheta_{\div}^2) \N(t_b | \mu_b , \sigma_b^2 )  \, d{d_1} d_{t_b} \\
-& = \int  \N( t_a-t_b | \delta_{\div}, \vartheta_{\div}^2) \N(t_b | \mu_b , \sigma_b^2 )  \,  d_{t_b} \\
-& = \N(t_a \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) \\
+\widehat{m}_{f_{d} \rightarrow t_a}(t_a) & =  \iint \delta(d = t_a - t_b) \N(d_1 | \psi_{\div}, \vartheta_{\div}^2) \N(t_b | \mu_b , \sigma_b^2 )  \, d{d} \,dt_b \\
+& = \int  \N( t_a-t_b | \psi_{\div}, \vartheta_{\div}^2) \N(t_b | \mu_b , \sigma_b^2 )  \,  d_{t_b} \\
+& = \N(t_a \, | \, \mu_b + \psi_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) \\
 \end{split}
 \end{equation}
 %
-\begin{equation}\label{eq:^m_fta_p} \tag{\texttt{lhood\_p1\_approx}}
+\en{The approximate message sent by team performance factor $f_{t_a}$ to the winning individual performance variables $p_1$ is,}
+\es{El mensaje aproximado que el factor desempeño de equipo $f_{t_a}$ envía a la variables de desempeño individual $p_1$ es,}
+%
+\begin{equation}%\label{eq:^m_fta_p} \tag{\texttt{lhood\_p1\_approx}}
 \begin{split}
-\widehat{m}_{f_{t_a} \rightarrow p_1}(p_1) &= \iint \mathbb{I}(t_a = p_1 + p_2) \N(t_a \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) \N(p_2 | \mu_2 , \sigma_2^2 + \beta^2)  \, d{t_a} d_{p_2} \\
-& = \int \N(p_1 + p_2 \, | \, \mu_b + \delta_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) \N(p_2 | \mu_2 , \sigma_2^2+ \beta^2 )   \, d_{p_2} \\
-& = \N( p_1 \,|\,  \underbrace{\mu_b - \mu_2}_{\mu_1-\delta} + \delta_{\div}  \,,\,\vartheta_{\div}^2 + \underbrace{\sigma_b^2 + \sigma_2^2 + \beta^2}_{\vartheta^2 - (\sigma_1^2 + \beta^2)})  \\
+\widehat{m}_{f_{t_a} \rightarrow p_1}(p_1) &= \iint \delta(t_a = p_1 + p_2) \N(t_a \, | \, \mu_b + \psi_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) \N(p_2 | \mu_2 , \sigma_2^2 + \beta^2)  \, d{t_a} d_{p_2} \\
+& = \int \N(p_1 + p_2 \, | \, \mu_b + \psi_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) \N(p_2 | \mu_2 , \sigma_2^2+ \beta^2 )   \, d_{p_2} \\
+& = \N( p_1 \,|\,  \underbrace{\mu_b - \mu_2}_{\mu_1-\psi} + \psi_{\div}  \,,\,\vartheta_{\div}^2 + \underbrace{\sigma_b^2 + \sigma_2^2 + \beta^2}_{\vartheta^2 - (\sigma_1^2 + \beta^2)})  \\
 \end{split}
 \end{equation}
 %
-\begin{equation}\label{eq:^m_fp_s} \tag{\texttt{lhood\_s1\_approx}}
+\en{The approximate message sent by the individual performance factor $f_{p_1}$ to the winning skill variables $s_1$ is,}
+\es{El mensaje aproximado que el factor de desempeño individual $f_{p_1}$ envía a la variables de habilidad $s_1$ es,}
+%
+\begin{equation}%\label{eq:^m_fp_s} \tag{\texttt{lhood\_s1\_approx}}
 \begin{split}
-\widehat{m}_{f_{p_1} \rightarrow s_1}(s_1) & = \int \N(p_1|s_1,\beta^2) \N(p_1| \mu_1 - \delta + \delta_{\div}, \vartheta_{\div}^2 + \vartheta^2 - \sigma_1^2 - \beta^2)dp_1 \\
-& = \N(s_1| \mu_1 - \delta + \delta_{\div}, \vartheta_{\div}^2 + \vartheta^2 - \sigma_1^2)
+\widehat{m}_{f_{p_1} \rightarrow s_1}(s_1) & = \int \N(p_1|s_1,\beta^2) \N(p_1| \mu_1 - \psi + \psi_{\div}, \vartheta_{\div}^2 + \vartheta^2 - \sigma_1^2 - \beta^2)dp_1 \\
+& = \N(s_1| \mu_1 - \psi + \psi_{\div}, \vartheta_{\div}^2 + \vartheta^2 - \sigma_1^2)
 \end{split}
 \end{equation}
+%
+\en{Finally, the approximate proportional posterior of the variable $s_1$ is obtained by multiplying the messages it receives from its neighboring factors.}
+\es{Finalmente, el posterior proporcional aproximado de la variable $s_1$ se obtiene multiplicando los mensajes que recibe de sus factores vecinos.}
 %
 \begin{equation}\label{eq:^p_s} \tag{\texttt{posterior\_s1\_approx}}
- \widehat{p}(s_1) = \N(s_1|\mu_1, \sigma_1^2) \N(s_1| \mu_1 - \delta + \delta_{\div}, \vartheta_{\div}^2 + \vartheta^2 - \sigma_1^2)
+ \widehat{p}(s_1) = \N(s_1|\mu_1, \sigma_1^2) \N(s_1| \mu_1 - \psi + \psi_{\div}, \vartheta_{\div}^2 + \vartheta^2 - \sigma_1^2)
 \end{equation}
 %
-\begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:lhood_s1_approx, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+\en{We have access to this message when we use the \texttt{*} operator of the \texttt{Gaussian} class to multiply the indicated Gaussians, or getting the first element of the list \texttt{post} computed in code~\ref{lst:post_2vs2}.}
+\es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{*} de la clase \texttt{Gaussian} para multiplicar las gaussianas indicadas, o tomando el primer elemento de la lista \texttt{post} computada en el código~\ref{lst:post_2vs2}.}
+%
+\begin{lstlisting}[backgroundcolor=\color{white}, label=lst:posterior_s1_approx, caption={\en{Accessing the approximate posterior}\es{Accediendo al posterior aproximado}}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
-mu1 = prior1.mu
-v2, v_div_2 = v^2, v_div^2
-sigma1_2 = prior1.sigma^2
+posterior_s1_approx = post[1]
 \end{lstlisting}
 \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
-mu1 = prior1.mu
-v2, v_div_2 = v**2, v_div**2 
-sigma1_2 = prior1.sigma**2
+posterior_s1_approx = post[0]
 \end{lstlisting}
 \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
-mu1 = prior1$mu
-v2 = v^2; v_div_2 = v_div^2
-sigma1_2 = prior1$sigma^2
+posterior_s1_approx=post[[1]]
 \end{lstlisting}
 \end{paracol}
-\begin{lstlisting}[backgroundcolor=\color{all}]
-lhood_s1_approx = Gaussian(mu = (mu1 - d + d_div), sigma = sqrt(v_div_2 + v2 - sigma1_2) )
-posterior_s1_approx = prior1 * lhood_s1_approx
-\end{lstlisting}
 
 \subsection{\en{Multiple teams}\es{Varios equipos}} \label{sec:iterative_posterior} 
 %
@@ -2640,7 +2682,7 @@ posterior_s1_approx = prior1 * lhood_s1_approx
 \en{For that purpose we define the order of teams that arises from the observed result, $ o:= (o_1, \ dots, o_k) $, where $ o_1 $ indicates the winning team, and in general $ o_i = e $ indicates that the team $ e $ was located at position $ i $.}
 \es{Para ese prop\'osito definimos el orden de equipos que surge del resultado observdo, $o := (o_1, \dots, o_k)$, donde $o_1$ indica el equipo ganador, y en general $o_i = e$ indica que el equipo $e$ qued\'o ubicado en la posici\'on $i$.}
 %
-\begin{figure}[t!]
+\begin{figure}[h!]
   \centering
   \scalebox{.9}{
   \tikz{ %

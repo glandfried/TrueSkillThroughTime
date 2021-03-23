@@ -17,6 +17,7 @@ basic = data.matrix(basic[,-1])
 rows 
 
 min(basic)
+which.max(basic[,dim(basic)[2]])
 
 persp(basic,theta=20,phi=20)
 image(rows,cols,basic)
