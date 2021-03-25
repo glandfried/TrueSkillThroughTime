@@ -2541,19 +2541,19 @@ p(d) =
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
-tie = false
+tie = true
 \end{lstlisting}
 \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
-tie = False
+tie = True
 \end{lstlisting}
 \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
-tie = F 
+tie = T
 \end{lstlisting}
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
-d_approx = approx(d, margin, tie)
+d_approx = approx(d, margin, !tie)
 \end{lstlisting}
 %
 \en{Where the difference distribution \texttt{d} was initialized in code~\ref{lst:difference_performance}, and the variable \texttt{margin} in code~\ref{lst:draw}.}
@@ -2792,11 +2792,11 @@ posterior_s1_approx=post[[1]]
         
         \path[draw, ->, fill=black!50,sloped] (fd1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize  \texttt{lhood\_lose\_tb}} (tb);
         
-        \path[draw, ->, fill=black!50,sloped] (tb) edge[bend left,draw=black!50] node[midway,below,color=black!75] {\scriptsize \texttt{ \ posterior\_lose\_tb}} (fd1);
+        \path[draw, ->, fill=black!50,sloped] (tb) edge[bend left,draw=black!50] node[midway,below,color=black!75] {\scriptsize \texttt{ \ prior\_lose\_tb}} (fd1);
         
         \path[draw, ->, fill=black!50,sloped] (fd2) edge[bend right,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{lhood\_win\_tb}} (tb);
         
-        \path[draw, ->, fill=black!50,sloped] (tb) edge[bend right,draw=black!50] node[midway,below,color=black!75] {\scriptsize \texttt{posterior\_win\_tb}} (fd2);
+        \path[draw, ->, fill=black!50,sloped] (tb) edge[bend right,draw=black!50] node[midway,below,color=black!75] {\scriptsize \texttt{prior\_win\_tb}} (fd2);
         
         \path[draw, ->, fill=black!50,sloped] (fta) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{prior\_ta}} (ta);
         
@@ -2829,18 +2829,18 @@ posterior_s1_approx=post[[1]]
 \label{fig:ep_ts}
 \end{figure}
 
-\en{We will solve the convergence corresponding to the example shown at code~\ref{lst:multiple_team_game}.}
-\es{Vamos a resolver la convergencia correpodientes al ejemplo del código~\ref{lst:multiple_team_game}.}
+\en{We will make use of the example shown at code~\ref{lst:multiple_team_game}, where we have three teams \texttt{team\_a}, \texttt{team\_b} and \texttt{team\_c} composed of one, two and one player respectively.}
+\es{Vamos a hacer uso del ejemplo del código~\ref{lst:multiple_team_game}, donde tenemos tres equipos \texttt{team\_a}, \texttt{team\_b} y \texttt{team\_c} compuestos por uno, dos y un jugador respectivamente.}
 %
-\en{First we define the prior performance of the teams.}
-\es{Primero definimos el desempeño a prior de los equipos.}
+\en{First we compute the prior performance of the teams by using the function \texttt{performance()}.}
+\es{Primero computamos el desempeño a prior de los equipos usando la función \texttt{performance()}.}
 %
 \begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm]
 prior_ta= performance(team_a); prior_tb= performance(team_b); prior_tc= performance(team_c)
 \end{lstlisting}
 %
-\en{Messages that are not yet defined must be initialized with a neutral form, such as a Gaussian distribution with infinite variance.}
-\es{Los mensajes que a\'un no est\'an definidos se inicializan con una forma neutra, como una distribuci\'on gaussiana con varianza infinita.}
+\en{Before starting the convergence process, we initialize the messages that are not yet defined with a neutral form, such as a Gaussian distribution with infinite variance.}
+\es{Antes de empezar el proceso de convergencia, inicializamos los mensajes que a\'un no est\'an definidos con una forma neutra, como una distribuci\'on gaussiana con varianza infinita.}
 %
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
@@ -2856,73 +2856,104 @@ N_inf = Gaussian(0, Inf)
 \end{lstlisting}
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm]
-lhood_lose_ta = N_inf; lhood_win_ta = N_inf
-lhood_lose_tb = N_inf; lhood_win_tb = N_inf
-lhood_lose_tc = N_inf; lhood_win_tc = N_inf
+lhood_win_ta = N_inf; lhood_lose_tb = N_inf; lhood_win_tb = N_inf; lhood_lose_tc = N_inf
 \end{lstlisting}
 %
-\en{We compute the margins for each comparison, $d_j$.}
-\es{Calculamos el los margenes para cada comparaci\'on $d_j$.}
+\en{And we compute the margins for each comparison, $d_j$.}
+\es{Y calculamos los margenes de cada comparaci\'on $d_j$.}
 %
-\en{Since there are 3 players in both comparisons, we adjust both margins to that size.}
-\es{Como en ambas comparaciones hay 3 jugadores, ajustamos ambos margenes a ese tamaño.}
+\en{Since there are three players in both comparisons, we adjust both margins with the same size.}
+\es{Como en ambas comparaciones hay tres jugadores, ajustamos ambos margenes con ese mismo tamaño.}
 %
 \begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm]
 margin = compute_margin(p_draw, sqrt(3)*beta)
 \end{lstlisting}
+
+% Parrafo
+
+\en{Let's start the iterative process by approximating the distribution $d_1$.}
+\es{Empezmos el proceso iterativo aproximando la distribución $d_1$.}
 %
-\en{Let's start the iterative process by approximating the distributions $d_1$.}
-\es{Empezmos el proceso iterativo aproximando la distribuciones $d_1$.}
+\en{Remember the any marginal distribution is the product of the messages it receives from its neighbours.}
+\es{Recuerden que cualquier distribución marginal es el producto de los mensajes que esta recibe de sus vecinos.}
 %
 \begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm, label=lst:d1, caption={\en{Approximating the distribution $d_1$ with the last messages of $t_b$}\es{Aproximando la distribución $d_1$ con los últimos mensajes de $t_b$}},aboveskip=0.0 \baselineskip]
-posterior_win_ta = prior_ta * lhood_lose_ta 
-posterior_lose_tb = prior_tb * lhood_win_tb
-prior_d1 = posterior_win_ta - posterior_lose_tb
-lhood_d1_approx = approx(prior_d1, margin, not_tie) / prior_d1 
+prior_lose_tb = prior_tb * lhood_win_tb
+prior_d1 = prior_ta - prior_lose_tb
+lhood_d1_approx = approx(prior_d1, margin, !tie) / prior_d1 
 \end{lstlisting}
 %
-\en{The message \texttt{lhood\_d1\_approx} allows us to update the distribution of performance $p(t_b)$.}
-\es{El mensahe \texttt{lhood\_d1\_approx} nos permite actualizar la distribuci\'on de rendimietos $p(t_b)$.}
+\en{In the first line we initialize the message that the variable $t_b$ sends to the factor node $f_{d_1}$: the product of the messages received from behind.}
+\es{En la primera línea inicializamos el mensaje que las variable $t_b$ envía al nodo factor $f_{d_1}$: la multiplicación de los mensajes que reciben de atrás.}
 %
-\begin{lstlisting}[backgroundcolor=\color{all},label=lst:tb_lose, caption={\en{Updating the messages of $t_b$  with the last approximation of $d_1$}\es{Actualizando la distribución $t_b$ con la última aproximación de $d_1$}},aboveskip=0.0 \baselineskip]
-lhood_lose_tb = posterior_win_ta - lhood_d1_approx 
+\en{Note that in the first loop it is equivalent to \texttt{prior\_tb} because the variable \texttt{lhood\_win\_tb} has been defined with a neutral value.}
+\es{Notar que en la primera vuelta es equivalente a \texttt{prior\_tb} debido a que la variable \texttt{lhood\_win\_tb} ha sido definida con un valor neutro.}
+%
+\en{In the second line we compute the message sent by the factor $f_{d_1}$ to the variable $d_1$.}
+\es{En la segunda línea computamos el mensaje que envía el factor $f_{d_1}$ a la variable $d_1$.}
+%
+\en{In the last line, we compute the approximate message sent by the variable $d_1$ to the factor $f_{d_1}$.}
+\es{En la última línea, calculamos el mensaje aproximado enviado por la variable $d_1$ al factor $f_{d_1}$.}
+%
+\en{This allows us to update the message received by the variable $t_b$ from the factor $f_{d_1}$.}
+\es{Esto nos permite actualizar el mensaje que recibe la variable $t_b$ del factor $f_{d_1}$.}
+%
+\begin{lstlisting}[backgroundcolor=\color{all},label=lst:tb_lose, caption={\en{Updating the messages of $t_b$  with the last approximation of $d_1$}\es{Actualizando la distribución $t_b$ con la última aproximación de $d_1$}},aboveskip=0.0 \baselineskip,belowskip=0.1cm]
+lhood_lose_tb = prior_ta - lhood_d1_approx 
 \end{lstlisting}
 %
-\en{Then we approximate the distribution $d_2$ using the updated message \texttt{lhood\_lose\_tb}.}
-\es{Luego aproximamos la distribución $d_2$ usando el mensaje \texttt{lhood\_lose\_tb } actualizado.}
+\en{Here we compute the message sent by the factor $f_{d_1}$ to the variable $t_b$.}
+\es{Acá computamos el mensaje que envía el factor $f_{d_1}$ a la variable $t_b$.}
 %
-\begin{lstlisting}[backgroundcolor=\color{all},label=lst:d2, caption={\en{Approximating de distribution $d_2$ with the last messages of $t_b$}\es{Aproximando la distribución $d_2$ con lo últimos mensajes de $t_b$}},aboveskip=0.0 \baselineskip]
-posterior_win_tb = prior_tb * lhood_lose_tb
-posterior_lose_tc = prior_tc * lhood_win_tc 
-prior_d2 = posterior_win_tb - posterior_lose_tc
+\en{Then we approximate the distribution $d_2$ using the updated messages.}
+\es{Luego aproximamos la distribución $d_2$ usando los mensajes actualizados.}
+%
+\begin{lstlisting}[backgroundcolor=\color{all},label=lst:d2, caption={\en{Approximating de distribution $d_2$ with the last messages of $t_b$}\es{Aproximando la distribución $d_2$ con lo últimos mensajes de $t_b$}},aboveskip=0.0 \baselineskip,belowskip=0.1cm]
+prior_win_tb = prior_tb * lhood_lose_tb
+prior_d2 = prior_win_tb - prior_tc
 lhood_d2_approx = approx(prior_d2, margin, tie) / prior_d2 
 \end{lstlisting}
 %
-\en{The message \texttt{lhood\_d2\_approx} allows us to update the distribution of performance $t_b$.}
-\es{El mensaje \texttt{lhood\_d2\_approx} nos permite actualizar la distribuci\'on de rendimiento $t_b$.}
+\en{In the first line we initialize the message that the variable $t_b$ sends to the factor node $f_{d_d}$}
+\es{En la primera línea inicializamos el mensaje que las variable $t_b$ envía al nodo factor $f_{d_2}$.}
 %
-\begin{lstlisting}[backgroundcolor=\color{all},label=lst:tb_win, caption={\en{Updating la distribución $t_b$ with the approximation of $d_2$}\es{Actualizando la distribución $t_b$  con la aproximación de $d_2$}},aboveskip=0.0 \baselineskip]
-lhood_win_tb = posterior_lose_tc + lhood_d2_approx
+\en{In the second line we compute the message sent by the factor $f_{d_2}$ to the variable $d_2$.}
+\es{En la segunda línea computamos el mensaje que envía el factor $f_{d_2}$ a la variable $d_2$.}
+%
+\en{In the last line, we compute the approximate message sent by the variable $d_2$ to the factor $f_{d_2}$.}
+\es{En la última línea, calculamos el mensaje aproximado enviado por la variable $d_2$ al factor $f_{d_2}$.}
+%
+\en{This allows us to update the message received by the variable $t_b$ from the factor $f_{d_2}$.}
+\es{Esto nos permite actualizar el mensaje que recibe la variable $t_b$ del factor $f_{d_2}$.}
+%
+\begin{lstlisting}[backgroundcolor=\color{all},label=lst:tb_win, caption={\en{Updating la distribución $t_b$ with the approximation of $d_2$}\es{Actualizando la distribución $t_b$  con la aproximación de $d_2$}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
+lhood_win_tb = prior_lose_tc + lhood_d2_approx
 \end{lstlisting}
 %
-\en{Then, loop code \ref{lst:d1}, \ref{lst:tb_lose}, \ref{lst:d2}, \ref{lst:tb_win} until convergence.}
-\es{Entonces, repite los c\'odigos \ref{lst:d1}, \ref{lst:tb_lose}, \ref{lst:d2}, \ref{lst:tb_win} hasta alcanzar convergencia.}
+\en{Here we compute the message sent by the factor $f_{d_2}$ to the variable $t_b$.}
+\es{Acá computamos el mensaje que envía el factor $f_{d_2}$ a la variable $t_b$.}
 %
-\en{Once the iteration is finished, we send the last ascending message to the teams on the sides.}
-\es{Finalizada la iteraci\'on, enviamos los \'ultimos mensajes ascendentes a los equipos de los bordes.}
+\en{To achieve convergence, the codes \ref{lst:d1}, \ref{lst:tb_lose}, \ref{lst:d2}, \ref{lst:tb_win} must be iterated.}
+\es{Para alcanzar convergencia hay que iterar los c\'odigos \ref{lst:d1}, \ref{lst:tb_lose}, \ref{lst:d2}, \ref{lst:tb_win}.}
 %
-\begin{lstlisting}[backgroundcolor=\color{all}]
+\en{Once finished, we send the upstream messages to the teams at both ends.}
+\es{Una vez terminada, enviamos los mensajes ascendentes a los equipos de ambos extremos.}
+%
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm]
 lhood_win_ta = posterior_lose_tb + lhood_d1_approx
 lhood_lose_tc = posterior_win_tb - lhood_d2_approx
 \end{lstlisting}
 %
-\en{We are now able to compute the likelihood of each team.}
-\es{Ahora estamos en condiciones de computar los likelihood de cada equipo.}
+\en{These are the messages sent by the factors $f_{d_1}$ and $f_{d_2}$ to the variables $t_a$ and $t_c$ respectively.}
+\es{Estos son los mensajes que envían el factor $f_{d_1}$ y $f_{d_2}$ a la variable $t_a$ y $t_c$ respectivamente.}
 %
-\begin{lstlisting}[backgroundcolor=\color{all}]
-lhood_ta_approx = lhood_lose_ta * lhood_win_ta 
+\en{Finally, we compute the likelihood of each team.}
+\es{Finalmente computar los likelihood de cada equipo.}
+%
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm]
+lhood_ta_approx = lhood_win_ta 
 lhood_tb_approx = lhood_lose_tb * lhood_win_tb
-lhood_tc_approx = lhood_lose_tc * lhood_win_tc
+lhood_tc_approx = lhood_lose_tc
 \end{lstlisting}
 %
 % \en{As an example, we compute the posterior of player 2.}
@@ -2955,11 +2986,20 @@ lhood_tc_approx = lhood_lose_tc * lhood_win_tc
 
 \subsection{History} \label{sec:throguthTime}
 
-\en{In this section we will see how to find the best approximation to the exact posterior in a history of events in which $n$ players compete over a period of $T$ time steps or temporal batches (e.g. day, week, month, year).}
-\es{En esta secci\'on vamos a ver c\'omo se obtiene la mejor aproximaci\'on al posterior exacto en una historia de eventos en la que $n$ agentes compiten durante $T$ pasos temporales o \emph{batches} (e.g. d\'ia, semana, mes, a\~no).}
-% 
-\en{Within each time step $t$ an agent $i$ can participate in $K$ events, $K_{i,t}$.}
-\es{Al interior de cada paso temporal $t$ un agente $i$ puede participar en $K$ eventos, $K_{i_t}$}
+\en{The temporal causal model, known as TrueSkill Through Time, creates a single graphical model in which all historical activities are linked.}
+\es{El modelo causal temporal, conocido como TrueSkill Through Time, genera un único modelo gráfico en el que todas las actividades hist\'oricas quedan vinvuladas.}
+%
+\en{The model states that within each time step $t$ (e.g. day, week, month, year) each agent $i$ participate in all events, $K_{i_t}$, with the same prior skill $s_{i_t}$.}
+\es{El modelo establece que al interior de cada paso temporal $t$ (e.g. d\'ia, semana, mes, a\~no) cada agente $i$ participa en todos los eventos, $K_{i_t}$, con la misma habilidad $s_{i_t}$ a priori.}
+%
+\en{The skills of different players are connected to each other by games, and the skills of the same player are temporally connected to past and future skills.}
+\es{Las habilidades de los jugadores están conectadas entre sí por las partidas y las habilidades de un mismos jugador están conectadas temporalmente con las habilidad pasada y futura.}
+%
+\en{All this together forms a complex network that is difficult to show visually.}
+\es{Todo esto junto forma una red complejo difícil de mostrar visualmente.}
+%
+\en{In the Figure~\ref{fig:history} we show a schematic representation of the factor graph of a history of events.}
+\es{En la figura~\ref{fig:history} mostramos representaci\'on esquem\'atica del grafo de factorizaci\'on de un historia de eventos.}
 %
 \begin{figure}[h!]
   \centering
@@ -3022,12 +3062,20 @@ lhood_tc_approx = lhood_lose_tc * lhood_win_tc
 }
 \label{fig:history}
 \end{figure}
+\en{Performing inference in such a Bayesian network may seem an impossible task.}
+\es{Realizar inferencia en una red bayesiana de estas caracterísiticas puede quizás parecer un tarea imposible.}
 %
-\en{In the Figure~\ref{fig:history} we show a schematic representation of the factor graph of a history of events.}
-\es{En la figura~\ref{fig:history} mostramos representaci\'on esquem\'atica del grapho de factorizaci\'on de un historia de eventos.}
+\en{However, the use of an efficient algorithm that requires only a few linear iterations over the data, allows scaling to millions of observations in few minutes.}
+\es{El uso de un algoritmo eficiente, que requiere s\'olo unas pocas iteraciones lineales sobre los datos, permite escalar a millones de observaciones en pocos minutos.}
 %
+\en{In this section we will see how to find the best approximation to the exact posterior in a history of events.}
+\es{En esta secci\'on vamos a ver c\'omo se obtiene la mejor aproximaci\'on al posterior exacto en una historia de eventos.}
+
+% Parrafo
+
 \en{By the sum-product algorithm, we know that the marginal distribution of any variable is the product of the messages it receives from its neighbours.}
 \es{Mediante el algoritmo de sum-product, sabemos que la distribuci\'on marginal de cualquier variable es el producto de los mensajes que esta recibe de sus vecinos.}
+%
 \en{Replaced the messages by the selected names, the distribution can be expressed as,}
 \es{Remplazando los mensajes por los nombres seleccionados, esta distribuci\'on se puede expresar como,}
 %
@@ -3049,14 +3097,11 @@ lhood_tc_approx = lhood_lose_tc * lhood_win_tc
  \emph{withinPrior}_i(t,k) = \emph{prior}_i(t) \cdot \emph{inversePrior}_i(t) \cdot \prod_{\hfrac{q=1}{q\neq k}}^{K_{i_t}} \emph{likelihood}_i(t,q) = \frac{p(s_i^t) }{\emph{likelihood}_i(t,k)}
  \end{equation}
 % 
-\en{There is a mutual dependency between forward and backward messages that make imposible a one shot inference iteration.}
-\es{Existe una dependencia muta entre los mensajes hacia adelante y hacia atras, haciendo imposible una inferencia de \'unica iteraci\'on.}
+\en{To solve the mutual dependency between likelihoods, the idea is to update repeatedly forward and backward until convergence, making sure that the effect of the previous update is removed before the new effect is added.}
+\es{Para resolver la mutua dependencia entre verosimilitudes, la idea es actualizar repetidas veces los mensajes hacia adelante y hacia atras hasta alcanzar la convergencia, asegur\'andonos que el efecto de la actualizaci\'on previa sea removida antes de que el nuevo efecto se agregue.}
 %
-\en{The basic idea is to update repeatedly forward and backward until convergence, making sure that the effect of the previous update is removed before the new effect is added.}
-\es{La idea b\'asica es actualizar repetidas veces los mensajes hacia adelante y hacia atras hasta la convergencia, asegur\'andonos que el efecto de la actualizaci\'on previa sea removida antes de que el nuevo efecto se agregue.}
-%
-\en{The messages that are not yet defined, for example the inverse prior in the first forward pass, are replace it by a neutral form like a unit scalar or a Gaussian distribution with infinite variance.}
-\es{Los mensajes que no est\'an todav\'ia definidos, por ejemplo el prior inverso en la primer pasada hacia adelante, es remplazado por una forma neutral como un escalar unidad o una distribuci\'on gausiana con infinita varianza.}
+\en{The messages that are not yet defined, for example the inverse prior in the first forward pass, are replace it by a neutral form like a Gaussian distribution with infinite variance.}
+\es{Los mensajes que no est\'an todav\'ia definidos, por ejemplo el prior inverso en la primer pasada hacia adelante, es remplazado por una forma neutral como distribuci\'on gaussiana con infinita varianza.}
 %
 \en{Finally, the messages that the variable $s_{i_t}$ sends to the past and the future are,}
 \es{Finalmente, los mensajes que la variable $s_{i_t}$ env\'ia al pasado y al futuro son,}
@@ -3064,44 +3109,13 @@ lhood_tc_approx = lhood_lose_tc * lhood_win_tc
 \begin{equation*}
   \emph{posterior}_i(t-1) = \frac{p(s_{i_{t-1}})}{\emph{inversePrior}_i(t-1)} \ \ \ , \ \ \ \emph{inversePosterior}_i(t+1) = \frac{p(s_{i_{t+1}})}{\emph{prior}_i(t+1)}
 \end{equation*}
-
-
-
+% \en{At each forward pass we store each forward message, i.e. \emph{prior}$_i(t+1)$.}
+% \es{En cada pasada hacia adelante, guardamos cada mensaje hacia adelante, i.e. \emph{prior}$_i(t+1)$.}
+% %
+% \en{And at each backward pass we compute the backward message, i.e. \emph{inversePrior}$_i(t-1)$.}
+% \es{En cada pasada hacia atr\'as computamos el mensaje hacia atr\'as, i.e. \emph{inversePrior}$_i(t-1)$.}
 %
-
-\begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:posterior_s2_approx, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
-prior2 = r2.N
-ex = exclude(prior_tb,prior2)
-\end{lstlisting}
-\switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
-prior2 = r2.N
-ex = prior_tb.exclude(prior2)
-\end{lstlisting}
-\switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
-prior2 = r2$N
-ex = prior_tb$exclude(prior2)
-\end{lstlisting}
-\end{paracol}
-\begin{lstlisting}[backgroundcolor=\color{all}]
-team_b_without_s2 = ex
-lhood_s2_approx = lhood_ta_approx - team_b_without_s2 
-posterior_s2_approx = prior2 * lhood_s2_approx 
-\end{lstlisting}
-
-\en{At each forward pass we store each forward message, i.e. \emph{prior}$_i(t+1)$.}
-\es{En cada pasada hacia adelante, guardamos cada mensaje hacia adelante, i.e. \emph{prior}$_i(t+1)$.}
-%
-\en{And at each backward pass we compute the backward message, i.e. \emph{inversePrior}$_i(t-1)$.}
-\es{En cada pasada hacia atr\'as computamos el mensaje hacia atr\'as, i.e. \emph{inversePrior}$_i(t-1)$.}
-%
-\subsection{Data Structures} \label{sec:estructuras} 
-
+%\subsection{Data Structures} \label{sec:estructuras} 
 % 
 % 
 % 
