@@ -1152,7 +1152,7 @@ print(lhs[[1]][[1]]*p1$prior)
 \en{Unlike the previous example, we need to use a draw probability greater than zero.}
 \es{A diferencia del ejemplo anterior, ahora necesitamos usar una probabilidad de empate mayor a cero.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={\en{Games with multiple teams of different sizes and the possibility of ties}\es{Juegos con multiples equipos de diferente tamaño y posibilidad de empates}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:multiple_team_game, caption={\en{Games with multiple teams of different sizes and the possibility of ties}\es{Juegos con multiples equipos de diferente tamaño y posibilidad de empates}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
@@ -1994,10 +1994,10 @@ N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)
 \end{split}
 \end{equation}
 
-\subsection{\en{The team model and the exact solution}\es{El modelo de equipos y la solución exacta}}\label{sec:2vs2}
+\subsection{\en{The exact solution of the team model}\es{La solución exacta del modelo de equipos}}\label{sec:2vs2}
 
-\en{TrueSkill also allows modeling team games.}
-\es{TrueSkill también permite modelar partidas con equipos.}
+\en{TrueSkill allows to estimate the skill of individuals even when they play in teams.}
+\es{TrueSkill permite estimar la habilidad de los individuos incluso cuando estos juegan en equipo.}
 %
 \en{The model assumes that the team with the highest performance wins, $r = (t_i > t_j)$, where $t_i$ and $t_j$ represent the team performances.}
 \es{El modelo supone que gana el equipo con mayor rendimiento, $r = (t_i > t_j)$, donde $t_i$ y $t_j$ representan los desempeños de los equipos.}
@@ -2666,21 +2666,21 @@ posterior_s1_approx=post[[1]]
 \end{paracol}
 
 \subsection{\en{Multiple teams}\es{Varios equipos}} \label{sec:iterative_posterior} 
+
+\en{In cases where there are more than two teams, a mutual dependence between the results forces us to implement an iterative algorithm to approximate the posterior.}
+\es{Cuando estamos en presencia de m\'as de dos equipos, una dependencia mutua entre los resultados nos obliga a implementar un algoritmo iterativo para aproximar el posterior.}
 %
-\en{In this section we will see how to find the best approximation to the exact posterior in cases where we have more than two teams.}
-\es{En esta secci\'on veremos como encontrar la mejor aproximaci\'on al posterior exacto en casos en los que tenemos m\'as de dos equipos.}
+\en{Let's assume that $k$ teams participate in an event.}
+\es{Supongamos que $k$ equipos participan de un evento.}
 %
-\en{Let's assume that $n$ agents, organized in $k$ teams $\{1, \dots, k\}$, participate in an event.}
-\es{Supongamos que $n$ agentes, organizados en $k$ equipos $\{1, \dots, k\}$, participan de un evento.}
+\en{Due to the transitivity of the result, it is enough to evaluate $k-1$ differences $d_i$ between consecutive teams.}
+\es{Gracias a la transitividad de los resultados, es suficiente con evaluar $k-1$ diferencias $d_i$ entre equipos consecutivos.}
 %
-\en{The team assignment is represented by a partition of the set of agents, $A$, into $k$ non-overlapping subsets, $A_i$.}
-\es{La asignaci\'on de equipos se representa como una partici\'on del conjunto de agentes, $A$, en $k$ subconjuntos disjuntos, $A_i$.}
+\en{For this purpose we define a list, $o$, in which the teams are ordered according to the observed result, with $o_1$ the winning team, and in general $o_i$ representing the team placed in position $i$.}
+\es{Para ese propósito definimos una lista, $o$, en la que los equipos están ordenados según el resultado observdo, con $o_1$ el equipo ganador ,y en general con $o_i$ el equipo ubicado en la posición $i$.}
 %
-\en{Due to the transitivity of the result, it is enough to evaluate $k-1$ distribution of differences $d_i$ between consecutive teams in the ranking.}
-\es{Gracias a la transitividad de los resultados, es suficiente con evaluar $k-1$ distribuciones de diferencia $d_i$ entre equipos consecutivos en el ranking.}
-%
-\en{For that purpose we define the order of teams that arises from the observed result, $ o:= (o_1, \ dots, o_k) $, where $ o_1 $ indicates the winning team, and in general $ o_i = e $ indicates that the team $ e $ was located at position $ i $.}
-\es{Para ese prop\'osito definimos el orden de equipos que surge del resultado observdo, $o := (o_1, \dots, o_k)$, donde $o_1$ indica el equipo ganador, y en general $o_i = e$ indica que el equipo $e$ qued\'o ubicado en la posici\'on $i$.}
+\en{In Figure ~\ref{fig:factorGraph_trueskill} we show the factorization of the general TrueSkill model.}
+\es{En la figura~\ref{fig:factorGraph_trueskill} mostramos la factorizaci\'on del modelo general de TrueSkill.}
 %
 \begin{figure}[h!]
   \centering
@@ -2688,26 +2688,26 @@ posterior_s1_approx=post[[1]]
   \tikz{ %
         \node[factor] (fr) {} ;
         \node[const, above=of fr] (nfr) {$f_r$}; %
-	\node[const, above=of nfr] (dfr) {\large $\mathbb{I}(d_i>0)$}; %
+	\node[const, above=of nfr] (dfr) {\large $\mathbb{I}(d_j>0)$}; %
         \node[latent, left=of fr] (d) {$d_j$} ; %
         \node[factor, left=of d] (fd) {} ;
         \node[const, above=of fd] (nfd) {$f_d$}; %
-        \node[const, above=of nfd] (dfd) {\large $\mathbb{I}(d_i=t_{o_i} - t_{o_{i+1}})$}; %
+        \node[const, above=of nfd] (dfd) {\large $\delta(d_j=t_{o_j} - t_{o_{j+1}})$}; %
         
-        \node[latent, left=of fd,xshift=-0.9cm] (t) {$t_e$} ; %
+        \node[latent, left=of fd,xshift=-0.9cm] (t) {$t_{o_j}$} ; %
         \node[factor, left=of t] (ft) {} ;
         \node[const, above=of ft] (nft) {$f_t$}; %
-        \node[const, above=of nft,xshift=0.5cm] (dft) {\large $\mathbb{I}(t_e = \sum_{i \in A_e} p_i)$}; %
+        \node[const, above=of nft,xshift=0.5cm] (dft) {\large $\delta(t_{o_j} = \sum_{i} p_i)$}; %
 
         \node[latent, left=of ft] (p) {$p_i$} ; %
         \node[factor, left=of p] (fp) {} ;
         \node[const, above=of fp] (nfp) {$f_p$}; %
-        \node[const, above=of nfp] (dfp) {\large $N(p_i|s_i,\beta^2)$}; %
+        \node[const, above=of nfp] (dfp) {\large $\N(p_i|s_i,\beta^2)$}; %
 
         \node[latent, left=of fp] (s) {$s_i$} ; %
         \node[factor, left=of s] (fs) {} ;
         \node[const, above=of fs] (nfs) {$f_s$}; %
-        \node[const, above=of nfs] (dfs) {\large $N(s_i|\mu_i,\sigma^2)$}; %
+        \node[const, above=of nfs] (dfs) {\large $\N(s_i|\mu_i,\sigma^2)$}; %
 
         \edge[-] {d} {fr};
 	\edge[-] {fd} {d};
@@ -2718,83 +2718,47 @@ posterior_s1_approx=post[[1]]
         \edge[-] {fp} {s};
         \edge[-] {s} {fs};
 
-        \plate {personas} {(p)(s)(fs)(nfs)(dfp)(dfs)} {$i \in A_e$}; %
+        \plate {personas} {(p)(s)(fs)(nfs)(dfp)(dfs)} {$T_{o_j}\equiv$ \en{composition of team $o_j$}\es{composición del equipo $o_j$} \hspace{0.5cm} $i \in T_{o_j}$}; %
         \node[invisible, below=of ft, yshift=-0.6cm] (inv_below_e) {};
 	\node[invisible, above=of ft, yshift=1.1cm] (inv_above_e) {};
-	\plate {equipos} {(personas) (t)(ft)(dft) (inv_above_e) (inv_below_e)} {$  \text{\en{Let $A$ be a partition of agents }\es{Sea $A$ una partici\'on de agentes } }$  \hspace{3cm} $0 < e \leq |A|$}; %
-	\node[invisible, below=of fr, yshift=-0.6cm] (inv_below) {};
+	\plate {equipos} {(personas) (t)(ft)(dft) (inv_above_e) (inv_below_e)} {$o\equiv$ \en{list of teams ordered according to the results }\es{lista de equiois ordenada de acuerdo los resultados }  \hspace{0.3cm} $1 \leq j \leq |o|$}; %
+	\node[invisible, below=of fr, yshift=-0.7cm] (inv_below) {};
 	\node[invisible, above=of fr, yshift=1.1cm] (inv_above) {};
-	\plate {comparaciones} {(fd) (dfd) (d) (fr) (dfr) (inv_below) (inv_above)} {$o:=$\en{ observed order}\es{ orden observado} \hspace{1cm} $1 \leq i < |A|$};
+	\plate {comparaciones} {(fd) (dfd) (d) (fr) (dfr) (inv_below) (inv_above)} {$1 \leq j < |o|$};
     }  
     }
   \caption{
-  \en{Factorization of the generic multi-team model.}
-  \es{Factorizaci\'on del modelo de multiequipos gen\'erico.}
+  \en{General factor graph of the team model.}
+  \es{Factorizaci\'on general del modelo de equipos.}
   %
-  \en{Plates indicate replication.}
-  \es{Las placas indican replicaci\'on.}
+  \en{The subscripts appearing at the bottom right of the plates indicate replication.}
+  \es{Los subíndices que aparecen abajo a la derecha en las placas, indican replicaci\'on.}
   %
+  \en{The $j$ subscript of the left plate opens the $k$ team performances, and the $i$ subscript of the inner plate displays their players.}
+  \es{El subíndice $j$ de la placa izquierda abre los $k$ rendimientos de equipos, y el subíndice $i$ de la placa interna despliega sus jugadores.}
+  %
+  \en{The subscript $j$ of the right plate opens the $k-1$ comparisons between consecutive teams.}
+  \es{El subíndice $j$ de la placa derecha abre los $k-1$ comparaciones entre equipos consecutivos.}
   }
   \label{fig:factorGraph_trueskill}
 \end{figure}
 %
-\en{In Figure ~\ref{fig:factorGraph_trueskill} we show the factorization of the general TrueSkill model.}
-\es{En la figura~\ref{fig:factorGraph_trueskill} mostramos la factorizaci\'on del modelo general de TrueSkill.}
+\en{For a user of the package there is no difference regarding the previous case, as shown in code~\ref{lst:multiple_team_game}.}
+\es{Para un usuario del paquete no hay ninguna diferencia respecto del caso anterior, como se puede ver en el código~\ref{lst:multiple_team_game}.}
 %
-\en{Let's see how to solve a game with 3 teams.}
-\es{Veamos como se resuelve un caso de 3 equipos.}
+\en{However, mathematically it is impossible to perform a one-shot inference because of the mutual dependency between the distribution of difference, $p(d_j)$.}
+\es{Sin embargo, matemáticamente es imposible realizar la inference de una sola pasada por la dependencia mutua entre las distribuciones de diferencia, $p(d_j)$.}
 %
-\en{For the users of the package there is no difference regarding the previous case.}
-\es{Para los usuarios del paquete no hay ninguna diferencia respecto del caso anterior.}
+\en{Let's look at the algorithm involved in solving a game with 3 teams.}
+\es{Veamos el algoritmo involucrado en resolver una partida con 3 equipos.}
 %
-\vspace{-0.6cm}
-\begin{figure}[H]
-\begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:multi_team_game, caption=\relax, belowskip=-1.5 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{subfigure}[t]{0.32\textwidth}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
-team_a = [ r1 ]
-team_b = [ r2, r3 ]
-team_b = [ r4 ]
-teams= [team_a,team_b,team_c]
-result = [1,0,0]
-g = Game(teams,result,p_draw)
-p = posteriors(g)
-\end{lstlisting} 
-\end{subfigure}
-\begin{subfigure}[t]{0.32\textwidth}
-\begin{lstlisting}[backgroundcolor=\color{python}]
-team_a = [ r1 ]
-team_b = [ r2, r3 ]
-team_b = [ r4 ]
-teams= [team_a,team_b,team_c]
-result = [1,0,0]
-g = Game(teams,result,p_draw)
-p = g.posteriors()
-\end{lstlisting}
-\end{subfigure}
-\begin{subfigure}[t]{0.32\textwidth}
-\begin{lstlisting}[backgroundcolor=\color{r}]
-teams = list()
-teams$team_a = c(r1)
-teams$team_b = c(r2, r3)
-teams$team_c = c(r4)
-result = c(1,0,0)
-g = Game(teams,result,p_draw)
-p = g$posteriors()
-\end{lstlisting}   
-\end{subfigure}
-\end{figure}
-\vspace{-0.6cm}
+\en{The basic idea is to update repeatedly forward and backward all messages in the shortest path between any two marginals $p(d_j)$ until convergence.}
+\es{La idea b\'asica es actualizar repetidamente hacia adelante y hacia atr\'as todos los mensajes en el camino m\'as corto entre dos marginales $p(d_j)$ hasta la convergencia.}
 %
-\en{In these cases it is impossible to perform a one-shot inference because of the mutual dependency between the distribution of difference, $p(d_i)$.}
-\es{En estos caso es imposible realizar la inference de una sola pasada por la dependencia mutua entre las distribuciones de diferencia, $p(d_i)$.}
+\en{Instead of using the message notation proposed by the sum-product algorithm, we name the messages as shown in Figure~\ref{fig:ep_ts}.}
+\es{En vez de utilizar la notación de mensajes propuesta por el \emph{sum-product algorithm}, le ponemos nombres a los mensajes como se muestra en la figura~\ref{fig:ep_ts}.}
 %
-\en{The basic idea is to update repeatedly forward and backward all messages in the shortest path between any two marginals $p(d_i)$ until convergence, as shown in Figure~\ref{fig:ep_ts}.}
-\es{La idea b\'asica es actualizar repetidamente hacia adelante y hacia atr\'as todos los mensajes en el camino m\'as corto entre dos marginales $p(d_i)$ hasta la convergencia, como se muestra en la figura~\ref{fig:ep_ts}.}
-%
-\begin{figure}[H]
+\begin{figure}[h!]
   \centering
   \scalebox{.9}{
 \tikz{ %        
@@ -2826,28 +2790,28 @@ p = g$posteriors()
         \edge[-] {d1} {fd1,fr1}
         \edge[-] {d2} {fd2,fr2}
         
-        \path[draw, -latex, fill=black!50,sloped] (fd1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize  \texttt{lhood\_lose\_tb}} (tb);
+        \path[draw, ->, fill=black!50,sloped] (fd1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize  \texttt{lhood\_lose\_tb}} (tb);
         
-        \path[draw, -latex, fill=black!50,sloped] (tb) edge[bend left,draw=black!50] node[midway,below,color=black!75] {\scriptsize \texttt{ \ posterior\_lose\_tb}} (fd1);
+        \path[draw, ->, fill=black!50,sloped] (tb) edge[bend left,draw=black!50] node[midway,below,color=black!75] {\scriptsize \texttt{ \ posterior\_lose\_tb}} (fd1);
         
-        \path[draw, -latex, fill=black!50,sloped] (fd2) edge[bend right,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{lhood\_win\_tb}} (tb);
+        \path[draw, ->, fill=black!50,sloped] (fd2) edge[bend right,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{lhood\_win\_tb}} (tb);
         
-        \path[draw, -latex, fill=black!50,sloped] (tb) edge[bend right,draw=black!50] node[midway,below,color=black!75] {\scriptsize \texttt{posterior\_win\_tb}} (fd2);
+        \path[draw, ->, fill=black!50,sloped] (tb) edge[bend right,draw=black!50] node[midway,below,color=black!75] {\scriptsize \texttt{posterior\_win\_tb}} (fd2);
         
-        \path[draw, -latex, fill=black!50,sloped] (fta) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{prior\_ta}} (ta);
+        \path[draw, ->, fill=black!50,sloped] (fta) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{prior\_ta}} (ta);
         
-        \path[draw, -latex, fill=black!50,sloped] (fr1) edge[bend left,draw=black!50] node[midway,above,color=black!75, rotate=180] {\scriptsize \texttt{lhood\_d1}} (d1);
+        \path[draw, ->, fill=black!50,sloped] (fr1) edge[bend left,draw=black!50] node[midway,above,color=black!75, rotate=180] {\scriptsize \texttt{lhood\_d1}} (d1);
         
-        \path[draw, -latex, fill=black!50,sloped] (d1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{lhood\_d1\_approx}} (fd1);
+        \path[draw, ->, fill=black!50,sloped] (d1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{lhood\_d1\_approx}} (fd1);
         
-        \path[draw, -latex, fill=black!50,sloped] (fd1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{prior\_d1}} (d1);
+        \path[draw, ->, fill=black!50,sloped] (fd1) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{prior\_d1}} (d1);
         
-        \path[draw, -latex, fill=black!50,sloped] (tc) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{lhood\_tc\_approx}} (ftc);
+        \path[draw, ->, fill=black!50,sloped] (tc) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \texttt{lhood\_tc}} (ftc);
         
         
-        %\path[draw, -latex, fill=black!50,sloped] (fr2) edge[bend left,draw=black!50] node[midway,above,color=black!75, rotate=180] {\scriptsize \textbf{5:} \emph{likelihood}$(d_{0})$} (d2);
+        %\path[draw, ->, fill=black!50,sloped] (fr2) edge[bend left,draw=black!50] node[midway,above,color=black!75, rotate=180] {\scriptsize \textbf{5:} \emph{likelihood}$(d_{0})$} (d2);
         
-        %\path[draw, -latex, fill=black!50,sloped] (fd2) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \textbf{4:} \emph{prior}$(d_{0})$} (d2);
+        %\path[draw, ->, fill=black!50,sloped] (fd2) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \textbf{4:} \emph{prior}$(d_{0})$} (d2);
         
         
 } 
@@ -2864,23 +2828,20 @@ p = g$posteriors()
 }
 \label{fig:ep_ts}
 \end{figure}
+
+\en{We will solve the convergence corresponding to the example shown at code~\ref{lst:multiple_team_game}.}
+\es{Vamos a resolver la convergencia correpodientes al ejemplo del código~\ref{lst:multiple_team_game}.}
 %
-\en{First we define the Prior of the teams.}
-\es{Primero definimos el prior de los equipos.}
+\en{First we define the prior performance of the teams.}
+\es{Primero definimos el desempeño a prior de los equipos.}
 %
-\begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:team_prior, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{lstlisting}[backgroundcolor=\color{all}]
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm]
 prior_ta= performance(team_a); prior_tb= performance(team_b); prior_tc= performance(team_c)
 \end{lstlisting}
 %
-\en{Messages that are not yet defined are initialized with a neutral form, such as a Gaussian distribution with infinite variance.}
+\en{Messages that are not yet defined must be initialized with a neutral form, such as a Gaussian distribution with infinite variance.}
 \es{Los mensajes que a\'un no est\'an definidos se inicializan con una forma neutra, como una distribuci\'on gaussiana con varianza infinita.}
 %
-\begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:init_lhood, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
 N_inf = Gaussian(0., Inf)
@@ -2894,52 +2855,43 @@ N_inf = Gaussian(0, inf)
 N_inf = Gaussian(0, Inf)
 \end{lstlisting}
 \end{paracol}
-\begin{lstlisting}[backgroundcolor=\color{all}]
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm]
 lhood_lose_ta = N_inf; lhood_win_ta = N_inf
 lhood_lose_tb = N_inf; lhood_win_tb = N_inf
 lhood_lose_tc = N_inf; lhood_win_tc = N_inf
 \end{lstlisting}
 %
-\en{We compute the margins for each comparison, $d_i$.}
-\es{Calculamos el los margenes para cada comparaci\'on $d_1$.}
+\en{We compute the margins for each comparison, $d_j$.}
+\es{Calculamos el los margenes para cada comparaci\'on $d_j$.}
 %
-\begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:margin, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{lstlisting}[backgroundcolor=\color{all}]
-margin = compute_margin(p_draw, sqrt(3)*BETA)
+\en{Since there are 3 players in both comparisons, we adjust both margins to that size.}
+\es{Como en ambas comparaciones hay 3 jugadores, ajustamos ambos margenes a ese tamaño.}
+%
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm]
+margin = compute_margin(p_draw, sqrt(3)*beta)
 \end{lstlisting}
 %
-\en{Let's start the iterative process by computing the messages of one distributions of difference, for example $d_1$.}
-\es{Empezmos el proceso iterativo calculando una de las distribuciones de diferencia, por ejemplo $d_1$.}
+\en{Let's start the iterative process by approximating the distributions $d_1$.}
+\es{Empezmos el proceso iterativo aproximando la distribuciones $d_1$.}
 %
-\begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:d1, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{lstlisting}[backgroundcolor=\color{all}]
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm, label=lst:d1, caption={\en{Approximating the distribution $d_1$ with the last messages of $t_b$}\es{Aproximando la distribución $d_1$ con los últimos mensajes de $t_b$}},aboveskip=0.0 \baselineskip]
 posterior_win_ta = prior_ta * lhood_lose_ta 
 posterior_lose_tb = prior_tb * lhood_win_tb
 prior_d1 = posterior_win_ta - posterior_lose_tb
 lhood_d1_approx = approx(prior_d1, margin, not_tie) / prior_d1 
 \end{lstlisting}
 %
-\en{The message \texttt{lhood\_d1\_approx} allows us to update the distribution of performance $t_b$.}
-\es{El mensahe \texttt{lhood\_d1\_approx} nos permite actualizar la distribuci\'on de rendimietos $t_b$.}
+\en{The message \texttt{lhood\_d1\_approx} allows us to update the distribution of performance $p(t_b)$.}
+\es{El mensahe \texttt{lhood\_d1\_approx} nos permite actualizar la distribuci\'on de rendimietos $p(t_b)$.}
 %
-\begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:tb_lose, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{lstlisting}[backgroundcolor=\color{all}]
+\begin{lstlisting}[backgroundcolor=\color{all},label=lst:tb_lose, caption={\en{Updating the messages of $t_b$  with the last approximation of $d_1$}\es{Actualizando la distribución $t_b$ con la última aproximación de $d_1$}},aboveskip=0.0 \baselineskip]
 lhood_lose_tb = posterior_win_ta - lhood_d1_approx 
 \end{lstlisting}
 %
-\en{Then we compute the the messages of the next distribution of differences $d_2$.}
-\es{Luego computamos los mensajes de la siguiente distirbuci\'on de diferencia $d_2$.}
+\en{Then we approximate the distribution $d_2$ using the updated message \texttt{lhood\_lose\_tb}.}
+\es{Luego aproximamos la distribución $d_2$ usando el mensaje \texttt{lhood\_lose\_tb } actualizado.}
 %
-\begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:d2, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{lstlisting}[backgroundcolor=\color{all}]
+\begin{lstlisting}[backgroundcolor=\color{all},label=lst:d2, caption={\en{Approximating de distribution $d_2$ with the last messages of $t_b$}\es{Aproximando la distribución $d_2$ con lo últimos mensajes de $t_b$}},aboveskip=0.0 \baselineskip]
 posterior_win_tb = prior_tb * lhood_lose_tb
 posterior_lose_tc = prior_tc * lhood_win_tc 
 prior_d2 = posterior_win_tb - posterior_lose_tc
@@ -2949,10 +2901,7 @@ lhood_d2_approx = approx(prior_d2, margin, tie) / prior_d2
 \en{The message \texttt{lhood\_d2\_approx} allows us to update the distribution of performance $t_b$.}
 \es{El mensaje \texttt{lhood\_d2\_approx} nos permite actualizar la distribuci\'on de rendimiento $t_b$.}
 %
-\begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:tb_win, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{lstlisting}[backgroundcolor=\color{all}]
+\begin{lstlisting}[backgroundcolor=\color{all},label=lst:tb_win, caption={\en{Updating la distribución $t_b$ with the approximation of $d_2$}\es{Actualizando la distribución $t_b$  con la aproximación de $d_2$}},aboveskip=0.0 \baselineskip]
 lhood_win_tb = posterior_lose_tc + lhood_d2_approx
 \end{lstlisting}
 %
@@ -2962,9 +2911,6 @@ lhood_win_tb = posterior_lose_tc + lhood_d2_approx
 \en{Once the iteration is finished, we send the last ascending message to the teams on the sides.}
 \es{Finalizada la iteraci\'on, enviamos los \'ultimos mensajes ascendentes a los equipos de los bordes.}
 %
-\begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:te_side, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
 \begin{lstlisting}[backgroundcolor=\color{all}]
 lhood_win_ta = posterior_lose_tb + lhood_d1_approx
 lhood_lose_tc = posterior_win_tb - lhood_d2_approx
@@ -2973,42 +2919,39 @@ lhood_lose_tc = posterior_win_tb - lhood_d2_approx
 \en{We are now able to compute the likelihood of each team.}
 \es{Ahora estamos en condiciones de computar los likelihood de cada equipo.}
 %
-\begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:lhood_te_approx, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
 \begin{lstlisting}[backgroundcolor=\color{all}]
 lhood_ta_approx = lhood_lose_ta * lhood_win_ta 
 lhood_tb_approx = lhood_lose_tb * lhood_win_tb
 lhood_tc_approx = lhood_lose_tc * lhood_win_tc
 \end{lstlisting}
 %
-\en{As an example, we compute the posterior of player 2.}
-\es{A modo de ejemplo, computamos el posterior del jugador 2.}
-%
-\begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:posterior_s2_approx, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-\end{lstlisting}
-\begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
-prior2 = r2.N
-ex = exclude(prior_tb,prior2)
-\end{lstlisting}
-\switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
-prior2 = r2.N
-ex = prior_tb.exclude(prior2)
-\end{lstlisting}
-\switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
-prior2 = r2$N
-ex = prior_tb$exclude(prior2)
-\end{lstlisting}
-\end{paracol}
-\begin{lstlisting}[backgroundcolor=\color{all}]
-team_b_without_s2 = ex
-lhood_s2_approx = lhood_ta_approx - team_b_without_s2 
-posterior_s2_approx = prior2 * lhood_s2_approx 
-\end{lstlisting}
+% \en{As an example, we compute the posterior of player 2.}
+% \es{A modo de ejemplo, computamos el posterior del jugador 2.}
+% %
+% \begin{lstlisting}[backgroundcolor=\color
+% {white},label=lst:posterior_s2_approx, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+% \end{lstlisting}
+% \begin{paracol}{3}
+% \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
+% prior2 = r2.N
+% ex = exclude(prior_tb,prior2)
+% \end{lstlisting}
+% \switchcolumn
+% \begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
+% prior2 = r2.N
+% ex = prior_tb.exclude(prior2)
+% \end{lstlisting}
+% \switchcolumn
+% \begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
+% prior2 = r2$N
+% ex = prior_tb$exclude(prior2)
+% \end{lstlisting}
+% \end{paracol}
+% \begin{lstlisting}[backgroundcolor=\color{all}]
+% team_b_without_s2 = ex
+% lhood_s2_approx = lhood_ta_approx - team_b_without_s2 
+% posterior_s2_approx = prior2 * lhood_s2_approx 
+% \end{lstlisting}
 
 \subsection{History} \label{sec:throguthTime}
 
@@ -3047,7 +2990,7 @@ posterior_s2_approx = prior2 * lhood_s2_approx
         %\node[latent, below=of fp1] (p1) {\footnotesize$p_i^{t}(2)$} ; %
         \node[latent, below=of fp2] (p2) {\footnotesize$p_{i_t}(k)$} ; %
 
-        %\draw[bend right=90] (fs1) arc (s1) node[midway,above]{label};
+%         %\draw[bend right=90] (fs1) arc (s1) node[midway,above]{label};
         %\draw[bend left,->]  (fs1) to node [auto] {Link} (s1);
         \edge[-] {s1} {fp0,fp1,fp2};
         \edge[-] {fp0} {p0};
