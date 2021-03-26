@@ -3308,7 +3308,7 @@ information such as relative contributions of the authors may be added here
 \en{We attach the \proglang{Julia} and \proglang{R} codes that solve the example presented in the section \ref{sec:skill_evolution} about estimation the skill evolution of a new player.}
 \es{Adjuntamos los códigos de \proglang{Julia} y \proglang{R} que resuelven el ejemplo presentado en la sección \ref{sec:skill_evolution} sobre la evolución de habilidad de un jugador nuevo.}
 %
-\begin{lstlisting}[backgroundcolor=\color{julia},caption={\en{\prolang{Julia} code}\es{}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{julia},caption={\en{\proglang{Julia} code}\es{Código \proglang{Julia}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
 using Random; Random.seed!(999); N = 1000
 function skill(experience, middle, maximum, slope)
     return maximum/(1+exp(slope*(-experience+middle))) 
@@ -3327,7 +3327,7 @@ ttt.convergence(h)
 mu = [tp[2].mu for tp in ttt.learning_curves(h)["a"]]
 \end{lstlisting}
 %
-\begin{lstlisting}[backgroundcolor=\color{r},caption={\en{\prolang{R} code}\es{}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{r},caption={\en{\proglang{R} code}\es{Código \proglang{R}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
 N = 1000
 skill <- function(experience, middle, maximum, slope){
     return(maximum/(1+exp(slope*(-experience+middle)))) }
