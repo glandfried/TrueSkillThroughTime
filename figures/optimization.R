@@ -8,10 +8,10 @@ pdf(paste0(nombre,".pdf"), width = 8, height = 5  )
 setwd(this.dir)
 ###############################
 
-basic = read.csv("data/basic.csv", stringsAsFactors=FALSE)
+basic = read.csv("data/atp_optimization.csv", stringsAsFactors=FALSE)
 
 rows = basic[,1]
-cols = seq(6.0,12.0,0.2)
+cols = seq(0.3,1.2,0.1)
 
 basic = data.matrix(basic[,-1])
 rows 

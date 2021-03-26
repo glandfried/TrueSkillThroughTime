@@ -1003,8 +1003,9 @@ mu = 0.0; sigma = 6.0; beta = 1.0; gamma = 0.03; p_draw = 0.0
 %
 \en{With these default values we create four identical players.}
 \es{Con estos valores por defecto creamos cuatro jugadores idénticos.}
+%
 \begin{lstlisting}[backgroundcolor=\color{all},label=lst:player, caption={\en{Players initialization}\es{Inicializaci\'on de los jugadores}},aboveskip=0.1cm]
-p1 = Player(Gaussian(mu, sigma), beta, gamma); p2 = Player(); p3 = Player(); p4 = Player()
+a1 = Player(Gaussian(mu, sigma), beta, gamma); a2 = Player(); a3 = Player(); a4 = Player()
 \end{lstlisting}   
 %
 \en{The first player was created by making the constructor parameters explicit, while the rest were initialized with the default values.}
@@ -1023,20 +1024,20 @@ p1 = Player(Gaussian(mu, sigma), beta, gamma); p2 = Player(); p3 = Player(); p4 
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
-team_a = [ p1, p2 ]
-team_b = [ p3, p4 ]
+team_a = [ a1, a2 ]
+team_b = [ a3, a4 ]
 teams = [team_a, team_b]
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
-team_a = [ p1, p2 ]
-team_b = [ p3, p4 ]
+team_a = [ a1, a2 ]
+team_b = [ a3, a4 ]
 teams = [team_a, team_b]
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
-team_a = c(p1, p2)
-team_b = c(p3, p4)
+team_a = c(a1, a2)
+team_b = c(a3, a4)
 teams = list(team_a, team_b)
 \end{lstlisting}  
 \end{paracol}
@@ -1114,15 +1115,15 @@ print(pos[[1]][[1]])
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
-print(lhs[1][1] * p1.prior)
+print(lhs[1][1] * a1.prior)
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
-print(lhs[0][0] * p1.prior)
+print(lhs[0][0] * a1.prior)
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
-print(lhs[[1]][[1]]*p1$prior)
+print(lhs[[1]][[1]]*a1$prior)
 \end{lstlisting}  
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
@@ -1156,25 +1157,25 @@ print(lhs[[1]][[1]]*p1$prior)
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
-ta = [p1]
-tb = [p2, p3]
-tc = [p4]
+ta = [a1]
+tb = [a2, a3]
+tc = [a4]
 teams = [ta, tb, tc]
 result = [1., 0., 0.]
 \end{lstlisting}
   \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
-ta = [p1]
-tb = [p2, p3]
-tc = [p4]
+ta = [a1]
+tb = [a2, a3]
+tc = [a4]
 teams = [ta, tb, tc]
 result = [1, 0, 0]
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
-ta = c(p1)
-tb = c(p2, p3)
-tc = c(p4)
+ta = c(a1)
+tb = c(a2, a3)
+tc = c(a4)
 teams = list(ta, tb, tc)
 result = c(1, 0, 0)
 \end{lstlisting}  
@@ -1361,7 +1362,7 @@ lc_print(lc[["a"]])
 \en{TrueSkill Through Time not only returns correct estimates (the same for all players), they also have less uncertainty.}
 \es{TrueSkill Through Time no sólo devuelve las estimaciones correctas (la misma para todos los jugadores), también tienen menos incertidumbre.}
 
-\subsection{Skill evolution}
+\subsection{\en{Skill evolution}\es{Evolución de habilidad}} \label{sec:skill_evolution}
 
 \en{We now analyze a scenario in which a new player joins a large community of already known players.}
 \es{Ahora analizamos un escenario en el que un jugador nuevo se integra a una comunidad grande de jugadores ya conocidos.}
@@ -1386,8 +1387,8 @@ target = [skill(i, 500, 2, 0.0075) for i in range(N)]
 opponents = normal(target,scale=0.5)
 \end{lstlisting}
 %
-\en{Here we only include the \proglang{Python} version (\proglang{Julia} and \proglang{R} versions can be found in the appendix~\ref{AGREGA-CODE}).}
-\es{Aquí incluimos s\'olo la versi\'on de \proglang{Python} (las versiones de \proglang{Julia} y \proglang{R} se encuentran en el anexo \ref{AGREGA-CODIGO}).}
+\en{Here we only include the \proglang{Python} version (\proglang{Julia} and \proglang{R} versions can be found in the appendix~\ref{sec:appendix_skill_evolution}).}
+\es{Aquí incluimos s\'olo la versi\'on de \proglang{Python} (las versiones de \proglang{Julia} y \proglang{R} se encuentran en el anexo \ref{sec:appendix_skill_evolution}).}
 %
 \en{The list \texttt{target} has the agent's skills at each moment: the values start at zero and grow smoothly until the target player's skill reaches two.}
 \es{La lista \texttt{target} contiene la habilidad del agente en cada momento: los valores comienzan en cero y crecen suavemente hasta que la habilidad del jugador objetivo llega a dos.}
@@ -2144,8 +2145,8 @@ N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)
 m_{f_{p_i} \rightarrow p_i}(p_i) = \int \N(p_i| s_i, \beta^2) \N(s_i| \mu_i, \sigma_i^2) ds_i = \N(p_i|\mu_i,\beta^2 + \sigma_i^2)
 \end{equation}
 %
-\en{We have access to these messages through the \texttt{performance()} method of the \texttt{Agent} class.}
-\es{Tenemos acceso a estos mensajes mediante el método \texttt{performance()} de la clase \texttt{Agent}.}
+\en{We have access to these messages through the \texttt{performance()} method of the \texttt{Player} class.}
+\es{Tenemos acceso a estos mensajes mediante el método \texttt{performance()} de la clase \texttt{Player}.}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:performance, caption={\en{Computing the indivudal prior performance}\es{Computando el desempeño individual a priori}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
 \end{lstlisting}
@@ -2829,12 +2830,31 @@ posterior_s1_approx=post[[1]]
 \label{fig:ep_ts}
 \end{figure}
 
-\en{We will make use of the example shown at code~\ref{lst:multiple_team_game}, where we have three teams \texttt{team\_a}, \texttt{team\_b} and \texttt{team\_c} composed of one, two and one player respectively.}
-\es{Vamos a hacer uso del ejemplo del código~\ref{lst:multiple_team_game}, donde tenemos tres equipos \texttt{team\_a}, \texttt{team\_b} y \texttt{team\_c} compuestos por uno, dos y un jugador respectivamente.}
-%
+% \en{We will make use of the example shown at code~\ref{lst:multiple_team_game}, where we have three teams \texttt{team\_a}, \texttt{team\_b} and \texttt{team\_c} composed of one, two and one player respectively.}
+% \es{Vamos a hacer uso del ejemplo del código~\ref{lst:multiple_team_game}, donde tenemos tres equipos \texttt{team\_a}, \texttt{team\_b} y \texttt{team\_c} compuestos por uno, dos y un jugador respectivamente.}
+% %
 \en{First we compute the prior performance of the teams by using the function \texttt{performance()}.}
 \es{Primero computamos el desempeño a prior de los equipos usando la función \texttt{performance()}.}
 %
+\begin{paracol}{3}
+\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+team_a = [a1]
+team_b = [a2, a3]
+team_c = [a4]
+\end{lstlisting}
+  \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+team_a = [a1]
+team_b = [a2, a3]
+team_c = [a4]
+\end{lstlisting}
+   \switchcolumn
+\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+team_a = c(a1)
+team_b = c(a2, a3)
+team_c = c(a4)
+\end{lstlisting}  
+\end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm]
 prior_ta= performance(team_a); prior_tb= performance(team_b); prior_tc= performance(team_c)
 \end{lstlisting}
@@ -3283,9 +3303,47 @@ information such as relative contributions of the authors may be added here
 \newpage
 \section{Appendix} \label{app:technical}
 
-\subsection{Sequence of events}
+\subsection{\en{Skill evolution}\es{Evolución de habilidad}}\label{sec:appendix_skill_evolution}
 
-\todo[inline]{Código de Julia y R}
+\en{We attach the \proglang{Julia} and \proglang{R} codes that solve the example presented in the section \ref{sec:skill_evolution} about estimation the skill evolution of a new player.}
+\es{Adjuntamos los códigos de \proglang{Julia} y \proglang{R} que resuelven el ejemplo presentado en la sección \ref{sec:skill_evolution} sobre la evolución de habilidad de un jugador nuevo.}
+%
+\begin{lstlisting}[backgroundcolor=\color{julia},caption={\en{\prolang{Julia} code}\es{}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
+using Random; Random.seed!(999); N = 1000
+function skill(experience, middle, maximum, slope)
+    return maximum/(1+exp(slope*(-experience+middle))) 
+end
+target = skill.(1:N, 500, 2, 0.0075)
+opponents = Random.randn.(1000)*0.5 .+ target
+
+composition = [[["a"], [string(i)]] for i in 1:N]
+results = [r? [1.,0.]:[0.,1.] for r in (Random.randn(N).+target.>Random.randn(N).+opponents)]
+times = [i for i in 1:N]
+priors = Dict{String,ttt.Player}()
+for i in 1:N  priors[string(i)] = ttt.Player(ttt.Gaussian(opponents[i], 0.2))  end
+
+h = ttt.History(composition, results, times, priors, gamma=0.015)
+ttt.convergence(h)
+mu = [tp[2].mu for tp in ttt.learning_curves(h)["a"]]
+\end{lstlisting}
+%
+\begin{lstlisting}[backgroundcolor=\color{r},caption={\en{\prolang{R} code}\es{}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
+N = 1000
+skill <- function(experience, middle, maximum, slope){
+    return(maximum/(1+exp(slope*(-experience+middle)))) }
+target = skill(seq(N), 500, 2, 0.0075)
+opponents = rnorm(N,target,0.5)
+
+composition = list(); results = list(); times = c(); priors = hash()
+for(i in seq(N)){composition[[i]] = list(c("a"), c(toString(i)))}
+for(i in seq(N)){results[[i]]=if(rnorm(1,target[i])>rnorm(1,opponents[i])){c(1,0)}else{c(0,1)}}
+for(i in seq(N)){times = c(times,i)}
+for(i in seq(N)){priors[[toString(i)]] = Player(Gaussian(opponents[i],0.2))}
+    
+h = History(composition, results, times, priors, gamma=0.015)
+h$convergence(); lc_a = h$learning_curves()$a; mu = c()
+for(tp in lc_a){mu = c(mu,tp[[2]]$mu)}
+\end{lstlisting}
 
 \subsection{\en{The history of the Association of Tennis Professionals (ATP)}\es{Historia de la Asociación de Tenistas Profesionales (ATP)}}
 
