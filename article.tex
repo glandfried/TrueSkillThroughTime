@@ -47,9 +47,9 @@
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
-\definecolor{julia}{rgb}{1, 0.8, 1}
-\definecolor{python}{rgb}{0.8, 0.9, 1}
-\definecolor{r}{rgb}{0.8, 1, 0.8}
+\definecolor{julia}{rgb}{1, 0.5, 1}
+\definecolor{python}{rgb}{1, 1, 0.5}
+\definecolor{r}{rgb}{0.65, 0.65, 1}
 \definecolor{all}{rgb}{0.85, 0.85, 0.85}
 
 
@@ -966,22 +966,49 @@ R syntax
 
 \subsection{Single event} \label{sec:singleEvent}
 
-\en{The class \texttt{Game} is used to model events.}
-\es{La clase \texttt{Game} la utilizamos para modelar eventos.}
+\en{The class \texttt{Game} is used to model events and perform inference given the teams composition, the result, and the characteristic draw probability (\texttt{p\_draw}).}
+\es{La clase \texttt{Game} la utilizamos para modelar eventos realizar la inferencia a partir de los datos de los equipos, el resultado y la probabilidad de empate caracterísitica (\texttt{p_draw}).}
 %
-\en{The features of the players are defined within class \texttt{Player}: the prior Gaussian distribution characterized by the mean (\texttt{mu}) and the standard deviation (\texttt{sigma}), the standard deviation of the performance (\texttt{beta}), and the dynamic factor of the skill (\texttt{gamma}).}
-\es{Las caracterísiticas de los jugadores se definen al interior de la clase \texttt{Player}: la distribuci\'on gaussiana a priori caracterizada por la media (\texttt{mu}) y el desv\'io est\'andar (\texttt{sigma}); el desv\'io est\'andar de los rendimientos (\texttt{beta}); y el factor din\'amico de la habilidad (\texttt{gamma}).}
+\en{The features of the agents are defined within class \texttt{Player}: the prior Gaussian distribution characterized by the mean (\texttt{mu}) and the standard deviation (\texttt{sigma}), the standard deviation of the performance (\texttt{beta}), and the dynamic factor of the skill (\texttt{gamma}).}
+\es{Las caracterísiticas de los agentes se definen al interior de la clase \texttt{Player}: la distribuci\'on gaussiana a priori caracterizada por la media (\texttt{mu}) y el desv\'io est\'andar (\texttt{sigma}); el desv\'io est\'andar de los rendimientos (\texttt{beta}); y el factor din\'amico de la habilidad (\texttt{gamma}).}
+%
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+     \begin{tabular}{cc}
+    Parameter & Default value \\ \hline 
+    \texttt{mu} & $0.0$ \\ \hline
+    \texttt{sigma} & $6.0$ \\ \hline
+    \texttt{beta} & $1.0$ \\ \hline
+    \texttt{gamma} & $0.03$ \\ \hline
+    \texttt{p\_draw} & $0.0$ \\ \hline
+    \end{tabular}
+    \vspace{0.5cm}
+    \caption{Parameters}
+    \label{fig:default_values}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.32\textwidth}
+    \en{\includegraphics[page={1},width=.75\linewidth]{figures/optimization.pdf}}
+    \es{\includegraphics[page={1},width=.75\linewidth]{figures/optimization.pdf}}
+    \caption{
+    \en{Optimization}
+    \es{Optimización}
+    }
+    \label{fig:optimization}
+    \end{subfigure}
+    \caption{
+    \en{In Figure~\ref{fig:default_values} we present all the parameters of the model and their default values.}
+    \es{En la figura~\ref{fig:default_values} presentamos todos los parámetros del modelo y sus valores por defecto.}
+    %
+    \en{In figure \ref{fig:optimization} we search for the combination of values \texttt{sigma} and \texttt{gamma} that maximizes the model evidence.}
+    \es{En la figura \ref{fig:optimization} buscamos la combinación de valores \texttt{sigma} y \texttt{gamma} que maximice la evidencia del modelo.}
+    }
+    \label{fig:parameters}
+\end{figure}
 %
 \en{In the following code we define the variables that we will use later, assigning the default values of the packages.}
 \es{In the following code we define the variables that we will use later, assigning the default values of the packages.}
 %
-\todo[inline]{Armar una tabla con los par\'ametros default}
-\begin{figure}[h]
-    \centering
-    \includegraphics[page={1},width=.25\linewidth]{figures/optimization.pdf}
-    \caption{ATP}
-    \label{fig:atp}
-\end{figure}
 \begin{lstlisting}[backgroundcolor=\color{all},label=lst:parameters, caption={\en{Package parameters and their default values}\es{Parámetros de los paquetes y sus valores por defecto}},aboveskip=0.1cm]
 mu = 0.0; sigma = 6.0; beta = 1.0; gamma = 0.03; p_draw = 0.0
 \end{lstlisting}  

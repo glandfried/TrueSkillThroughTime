@@ -10,7 +10,7 @@ setwd(this.dir)
 
 data = read.csv("data/logisitc.csv", stringsAsFactors=FALSE)
 
-graficar <- function(xlab,ylab,legend1, legend2){
+graficar <- function(xlab,ylab,legend1, legend2, legend3, legend4){
     plot(data$true, type="l",lwd=3, axes = F,ann = F, ylim=c(-0.1,2.1) )
     lines(data$mu, lty=2)
     polygon(c(seq(1000),rev(seq(1000))),c(data$mu+data$sigma,rev(data$mu-data$sigma)),border=F, col=rgb(0,0,0,0.2))
@@ -27,9 +27,10 @@ graficar <- function(xlab,ylab,legend1, legend2){
 
     legend(0, 2, lwd=c(3,1.5), lty=c(1,2),
         legend = c(legend1,legend2),bty = "n",cex = 1.5)
+    legend(500,0.75, pch = 15 , col = c(rgb(0,0,0,0.5), rgb(0,0,0,0.2)),legend = c(legend3,legend4),bty = "n",cex = 1.5)
 }
-graficar("Events", "Skill", "True", "Estimated")
-graficar("Eventos", "Habilidad", "Verdadera", "Estimada")
+graficar("Events", "Skill", "True", "Estimated", "One standard deviation", "Two standard deviations")
+graficar("Eventos", "Habilidad", "Verdadera", "Estimada", "Un desvío estandar", "Dos desvíos estandar")
 
 
 data = read.csv("data/logisitcs_mu.csv", stringsAsFactors=FALSE)
@@ -50,8 +51,8 @@ graficar_mus <- function(xlab,ylab,legend1, legend2){
     legend(0, 2, lwd=c(3,1.5), lty=c(1,2),
     legend = c(legend1,legend2),bty = "n",cex = 1.5)
 }
-graficar_mus("Events", "Skill", "True", "Estimated")
-graficar_mus("Eventos", "Habilidad", "Verdadera", "Estimada")
+graficar_mus("Events", "Skill", "True", "Estimates")
+graficar_mus("Eventos", "Habilidad", "Verdadera", "Estimaciones")
 
 
 
