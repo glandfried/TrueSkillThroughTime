@@ -413,7 +413,7 @@
 
 % Parrafo
 
-\en{As an instance, let's consider a winning case ($p_i > p_j$) using a Gaussian prior (i.e. $\N(\,s\,|\,\mu, \sigma^2)$) for each of the skills.}
+\en{As an example, we consider a winning case ($p_i > p_j$) using a Gaussian prior (i.e. $\N(\,s\,|\,\mu, \sigma^2)$) for each of the skills.}
 \es{A modo de ejemplo, consideremos un caso ganador ($p_i > p_j$) usando priors Gaussianos, $\N(\,s\,|\,\mu, \sigma^2)$.}
 %
 \en{The difference of performances, $d=p_i-p_j$, can also be expressed as a Gaussian distribution, centered on the difference of the prior estimates ($\mu_i -\mu_j$), with a variance that incorporates the uncertainty of both estimates ($\sigma_i$ and $\sigma_j$) and the variance of both performances ($\beta$), $\N( d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
@@ -451,11 +451,11 @@
 % }
 % \end{equation}
 %
-\en{The normalized posterior can be found dividing the right hand by the evidence $P(r)$.}
+\en{The normalized posterior is found by dividing the right hand by the evidence $P(r)$.}
 \es{Donde el el posterior normalizado se obtiene dividiendo el lado derecho por la evidencia, $P(r)$.}
 %
 \en{It is interesting to note the similarities and differences between likelihood and evidence.}
-\es{Es interesante notar las similitudes y diferencias entre el likelihood y el evidencia.}
+\es{Es interesante notar las similitudes y diferencias entre el likelihood y la evidencia.}
 %
 \en{The likelihood quantifies the same cumulative density as the evidence but centered at the difference between the hypothesis we are evaluating $s_i$ and the opponent's mean estimate $\mu_j$, with a variance that includes all uncertainties except the one of $s_i$.}
 \es{La verosimilitud cuantifica la misma densidad acumulada que la evidencia, pero centrada ahora en la diferencia entre la hip\'otesis que estamos evaluando $s_i$ y la estimaci\'on media del oponente $\mu_j$ con una varianza que incluye todas las incertidumbres salvo la de la propia hip\'otesis $s_i$.}
@@ -478,13 +478,13 @@
     \en{Belief update for the winning case.}
     \es{Actualizaci\'on de creencias para el caso ganador.}
     %
-    \en{The proportinal posterior is obtained as the product of the prior (Gaussian) and the likelihood (cumulative Gaussian).}
+    \en{The proportional posterior is obtained as the product of the prior (Gaussian) and the likelihood (cumulative Gaussian).}
     \es{El posterior proporcional se obtiene como el producto de la distribuci\'on a priori (distribuci\'on gaussiana) y la verosimilitud (distribuci\'on gaussiana acumulada).}
     %
     \en{The evidence is the integral of the proportional posterior.}
     \es{La evidencia es la integral del posterior proporcional.}
     %
-    \en{The distributions are not neccesary on the same scale: the prior integrates 1, while the likelihood goes from 0 to 1.}
+    \en{The distributions are not necessarily on the same scale: the prior integrates to $1$, while the likelihood goes from $0$ to $1$.}
     \es{Las distribuciones no est\'an necesariamente en la misma escala: la distribuci\'on a priori integra 1, mientras que la verosimilitud va de 0 a 1.}
     }
     \label{fig:posterior_win}
@@ -499,13 +499,13 @@
 \en{At the region of very high skill hypotheses, where the winning result would have generated almost no surprise ($\lim_{s_i \to \infty}P(r|s_i) = 1$), the posterior receives all the prior's density.}
 \es{En la regi\'on de hip\'otesis de muy alta habilidad, donde el resultado ganador no nos hubiera generado casi ninguna sorpresa ($\lim_{s_i \to \infty}P(r|s_i) = 1$), el posterior recibe casi toda la masa del prior.}
 %
-\en{At the region of very low skill hypotheses, where the winning result would have generated huge surprise ($\lim_{s_i \to -\infty}P(r|s_i) = 0$), the posterior receive no density from the prior.}
+\en{At the region of very low skill hypotheses, a win would generate a great surprise ($\lim_{s_i \to -\infty}P(r|s_i) = 0$), and the posterior receives no density from the prior.}
 \es{En cambio, en la regi\'on de hip\'otesis de muy baja habilidad, donde el resultado habr\'ia generado mucha sorpresa ($\lim_{s_i \to -\infty}P(r|s_i) = 0$), el posterior no recibe casi nada de la masa del prior.}
 
 % Parrafo
 
-\en{It is important to stress that the posterior, although similar, is not a Gaussian distribution, preventing us from using equation~\ref{eq:posterior_win} iteratively.}
-\es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on gaussiana, lo que nos impedir\'a usar la ecuaci\'on~\ref{eq:posterior_win} iterativamente.}
+\en{It is important to stress that the posterior, although similar, is not a Gaussian distribution, preventing us from using equation~\eqref{eq:posterior_win} iteratively.}
+\es{Es importante remarcar que la posterior, aunque se parezca, no es una distribuci\'on gaussiana, lo que nos impedir\'a usar la ecuaci\'on~\eqref{eq:posterior_win} iterativamente.}
 %
 \en{But due to the shape of the exact posterior, a Gaussian distribution could be used as a good approximation, allowing us to avoid the computational cost of the sampling methodologies.}
 \es{Por la forma del posterior exacto, una gaussiana puede ser usada como una buena aproximaci\'on, permiti\'endonos evitar el costo computacional de las metodolog\'ias de sampleo.}
@@ -516,7 +516,7 @@
 \en{However, this method does not guarantee the quality of the approximation used.}
 \es{Sin embargo, este m\'etodo no garantiza que la distribuci\'on gaussiana seleccionada sea la que mejor aproxima.}
 %
-\en{The success of the TrueSkill solution~\citep{Herbrich2007} is based on the application of an efficient method for computing the Gaussian distribution that guarantees the approximation of the posterior (section~\ref{sec:approximate_posterior}),}
+\en{The success of the TrueSkill solution~\citep{Herbrich2007} is based on the usage of an efficient method for computing the Gaussian distribution that guarantees the approximation of the posterior~(see section~\ref{sec:approximate_posterior}),}
 \es{El \'exito de la soluci\'on TrueSkill~\citep{Herbrich2007} se basa en la aplicaci\'on de m\'etodo eficiente para calcular la gaussiana que mejor aproxima a la posterior exacta (secci\'on~\ref{sec:approximate_posterior}),}
 %
 \begin{equation} \label{eq:approx} 
@@ -526,7 +526,7 @@
 \en{which minimizes the Kullback-Leibler divergence between the true and the approximate distribution.}
 \es{que miniza la divergencia Kullback-Leibler entre la distribuci\'on verdadera y la aproximada.}
 %
-\en{This method allow as to efficiently apply equation~\eqref{eq:posterior_win} iteratively over a sequence of observations, which would otherwise be infeasible.}
+\en{This method allows us to efficiently apply equation~\eqref{eq:posterior_win} iteratively over a sequence of observations, which would otherwise be infeasible.}
 \es{Este método nos permite aplicar eficientemente la ecuaci\'on~\eqref{eq:posterior_win} iterativamente sobre una secuencia de observaciones, que de otra manera sería inviable.}
 %
 \en{The approach adopted by TrueSkill to treat the dynamical process, known as \emph{filtering}, uses the approximate posterior as the prior for the next event.}
@@ -542,7 +542,7 @@
 \en{where {\footnotesize $\widehat{\text{Posterior}}_i$} and {\footnotesize $\widehat{\text{Likelihood}}_i$} represent the approximations induced by the equation~\eqref{eq:approx} at the $i$-th event.}
 \es{Donde {\footnotesize $\widehat{\text{Posterior}}_i$} y {\footnotesize $\widehat{\text{Likelihood}}_i$} representan la aproximaciones inducidas por la ecuaci\'on~\eqref{eq:approx} en el $i$-\'esimo evento.}
 %
-\en{If we consider the likelihood as a filter of the prior, each posterior can be seen as an accumulation of all previous filters.}
+\en{If we consider the likelihood as a filter of the prior, each posterior is the accumulation of all previous filters.}
 \es{Si consideramos la verosimilitud como un filtro del prior, cada posterior puede ser visto como una acumulaci\'on de todos los filtros anterios.}
 %
 \en{In this way, information propagates from past to future estimates.}
@@ -1243,7 +1243,7 @@ g2 = Game(teams, result, p_draw=0.25)
 \en{In brief, all agents win one game and lose the other.}
 \es{En resumen, todos los agentes ganan una partida y pierden la otra.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:history, caption={\en{Initialization of a \texttt{History}'s instance with a three events sequence.}\es{Inicialización de una instancia de \texttt{History} con una secuencia de tres eventos}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:history, caption={\en{Initialization of a \texttt{History}'s instance with a three events sequence}\es{Inicialización de una instancia de \texttt{History} con una secuencia de tres eventos}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
@@ -1392,7 +1392,7 @@ lc_print(lc[["a"]])
 > [(1, Gaussian(mu=-0.0, sigma=2.395)), (3, Gaussian(mu=0.0, sigma=2.395))]
 \end{lstlisting}
 %
-\en{TrueSkill Through Time not only returns correct estimates (the same for all players), they also have less uncertainty.}
+\en{TrueSkill Through Time not only returns correct estimates (same for all players), they also have less uncertainty.}
 \es{TrueSkill Through Time no sólo devuelve las estimaciones correctas (la misma para todos los jugadores), también tienen menos incertidumbre.}
 
 \subsection{\en{Skill evolution}\es{Evolución de habilidad}} \label{sec:skill_evolution}
@@ -1499,7 +1499,7 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
     \en{The solid line represents the true skill of the target player while the dashed lines show the mean estimates.}
     \es{La línea continua representa la habilidad real del jugador objetivo, mientras que la línea discontinua muestra la estimación media.}
     %
-    \en{The dark and light gray areas show onnce and twice the uncertainty of one of the estimates.}
+    \en{The dark and light gray areas show one and two times the uncertainty of one of the estimates.}
     \es{Las zonas oscuras y claras ilustra una y dos veces la incertidumbre de la estimación.}
     }
     \label{fig:logistic}
@@ -1519,10 +1519,10 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \en{In this last example we use the entire history of matches of the Association of Tennis Professionals (ATP).}
 \es{En este último ejemplo utilizamos toda la historia de partidas de la Asociación de Tenistas Profesionales (ATP).}
 %
-\en{The database has \num{447000} games starting at year 1915 until 2020 with more than \num{19000} participating players.}
+\en{The database has \num{447000} games starting at year 1915 until 2020 with more than \num{19000} participating players and is publicly available\footnote{A zip file containing a csv file per year can be downloaded from \url{https://github.com/JeffSackmann/tennis_atp}}.}
 \es{La base de datos cuenta con \num{447000} mil partidas que van desde el año 1915 hasta el 2020, en las que participan \num{19000} jugadores.}
 %
-\en{The information contained in the \texttt{csv} files has both single and double matches: if the column \texttt{double} has the letter \texttt{t}, the game is a double match.}
+\en{The information is formatted and stored in a single \texttt{csv} file\footnote{Available at \url{https://github.com/glandfried/tennis_atp/releases/download/atp/history.csv.zip}} including both single and double matches: if the column \texttt{double} has the letter \texttt{t}, the game is a double match.}
 \es{La información contenida en los archivos \texttt{csv} contiene tanto partidas simples como dobles, indicado por la columna \texttt{double}.}
 %
 \en{Each game has a unique identifier (i.e. \texttt{match\_id}) and tournament's round number (i.e. \texttt{round\_number}) where 0 represents the final game, 1 the semi-final, and so on.}
@@ -2181,7 +2181,7 @@ m_{f_{p_i} \rightarrow p_i}(p_i) = \int \N(p_i| s_i, \beta^2) \N(s_i| \mu_i, \si
 \en{We have access to these messages through the \texttt{performance()} method of the \texttt{Player} class.}
 \es{Tenemos acceso a estos mensajes mediante el método \texttt{performance()} de la clase \texttt{Player}.}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:performance, caption={\en{Computing the indivudal prior performance}\es{Computando el desempeño individual a priori}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:performance, caption={\en{Computing the individual prior performance}\es{Computando el desempeño individual a priori}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}]
@@ -2388,7 +2388,7 @@ m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_
 % \end{lstlisting}   
 % \end{paracol}
 
-\subsection{\en{Elementary draw model}\es{Modelo b\'asico de empates}} \label{sec:empate}
+\subsection{\en{A Basic Draw Model}\es{Modelo b\'asico de empates}} \label{sec:empate}
 
 \en{The draw model assumes that a tie occur when the difference in performance does not exceed a certain margin, $|t_a > t_b| \leq \varepsilon$.}
 \es{El modelo supone que ocurre un empate cuando la diferencia de rendimientos no supera un cierto margen, $|t_a > t_b| \leq \varepsilon$.}
