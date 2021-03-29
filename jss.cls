@@ -439,8 +439,7 @@
 \definecolor{Red}{rgb}{0.5,0,0}
 \definecolor{Blue}{rgb}{0,0,0.5}
 \if@review
-  \hypersetup{%
-    hyperindex = {true},
+  \hypersetup{%hyperindex = {true},
     colorlinks = {true},
     linktocpage = {true},
     plainpages = {false},
@@ -452,8 +451,7 @@
     pdfview = {XYZ null null null}
   }
 \else
-  \hypersetup{%
-    hyperindex = {true},
+  \hypersetup{%hyperindex = {true},
     colorlinks = {true},
     linktocpage = {true},
     plainpages = {false},

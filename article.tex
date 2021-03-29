@@ -40,9 +40,16 @@
 \usepackage{csvsimple}
 \usepackage{listings}
 \renewcommand{\lstlistingname}{Code}% Listing -> Algorithm
-\usepackage{hyperref}
 \usepackage{todonotes}
 \usepackage[binary-units]{siunitx}
+
+ % by: https://tex.stackexchange.com/questions/87940/weird-warning-using-pdfx
+\RequirePackage{pdf14}
+
+% by: https://tex.stackexchange.com/questions/74636/mla-package-and-thumbpdf
+\makeatletter
+\@namedef{ver@thumbpdf.sty}{}
+\makeatother
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -244,7 +251,7 @@
 \en{All currently used skill estimators share some variant of the probabilistic model proposed by Elo~\citep{Glickman1999,Herbrich2007,VanDerLinden2016,Fox2010}.}
 \es{Todos los estimadores de habilidad ampliamente utilizados actualmente comparten alguna variante del modelo probabil\'istico propuesto por Elo~\cite{Glickman1999, Herbrich2007, VanDerLinden2016, Fox2010}.}
 %
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering \small
     \tikz{         
     \node[det, fill=black!10] (r) {$r$} ; 
@@ -585,7 +592,7 @@
 \en{This approach, known as \emph{smoothing}, is implemented by TrueSkill Through Time~\citep{Dangauthier2007}.}
 \es{Este enfoque, conocido como \emph{smoothing}, es el implementado por TrueSkill Through Time~\citep{Dangauthier2007}.}
 %
-% \begin{figure}[h!]
+% \begin{figure}[ht!]
 %   \centering
 %   \scalebox{.8}{
 %     \tikz{ %
@@ -664,7 +671,7 @@
 %
 \en{In Figure~\ref{fig:smooth_example} we show the estimation's behavior in a data set with two agents and two events.}
 \es{En la figura~\ref{fig:smooth_example} se muestra el comportamiento de las estimaciones en conjunto de datos de dos agentes y dos eventos.}
-\begin{figure}[h!]
+\begin{figure}[ht!]
   \centering
   \scalebox{.9}{
     \tikz{ %
@@ -988,8 +995,8 @@ R syntax
     \label{fig:default_values}
     \end{subfigure}
     \begin{subfigure}[b]{0.32\textwidth}
-    \en{\includegraphics[page={1},width=.75\linewidth]{figures/optimization.pdf}}
-    \es{\includegraphics[page={1},width=.75\linewidth]{figures/optimization.pdf}}
+    \en{\includegraphics[page={1},width=.7\linewidth]{figures/optimization.pdf}}
+    \es{\includegraphics[page={1},width=.7\linewidth]{figures/optimization.pdf}}
     \caption{
     \en{Optimization}
     \es{Optimización}
@@ -1519,10 +1526,10 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \en{In this last example we use the entire history of matches of the Association of Tennis Professionals (ATP).}
 \es{En este último ejemplo utilizamos toda la historia de partidas de la Asociación de Tenistas Profesionales (ATP).}
 %
-\en{The database has \num{447000} games starting at year 1915 until 2020 with more than \num{19000} participating players and is publicly available\footnote{A zip file containing a csv file per year can be downloaded from \url{https://github.com/JeffSackmann/tennis_atp}}.}
+\en{The database has \num{447000} games starting at year 1915 until 2020 with more than \num{19000} participating players and is publicly available\footnote{A zip file containing a csv file per year can be downloaded from \nolinkurl{https://github.com/JeffSackmann/tennis_atp}}.}
 \es{La base de datos cuenta con \num{447000} mil partidas que van desde el año 1915 hasta el 2020, en las que participan \num{19000} jugadores.}
 %
-\en{The information is formatted and stored in a single \texttt{csv} file\footnote{Available at \url{https://github.com/glandfried/tennis_atp/releases/download/atp/history.csv.zip}} including both single and double matches: if the column \texttt{double} has the letter \texttt{t}, the game is a double match.}
+\en{The information is formatted and stored in a single \texttt{csv} file\footnote{Available at \nolinkurl{https://github.com/glandfried/tennis_atp/releases/download/atp/history.csv.zip}} including both single and double matches: if the column \texttt{double} has the letter \texttt{t}, the game is a double match.}
 \es{La información contenida en los archivos \texttt{csv} contiene tanto partidas simples como dobles, indicado por la columna \texttt{double}.}
 %
 \en{Each game has a unique identifier (i.e. \texttt{match\_id}) and tournament's round number (i.e. \texttt{round\_number}) where 0 represents the final game, 1 the semi-final, and so on.}
@@ -1534,8 +1541,8 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \en{Finally, we have the name of the tournament (\texttt{tour\_name}), its identifier (\texttt{tour\_id}), the start date of the tournament (\texttt{time\_start}) and the type of surface (\texttt{ground}).}
 \es{Finalmente tenemos el nombre del torneo (\texttt{tour\_name}), su identificado (\texttt{tour\_id}), la fecha de inicio del torneo (\texttt{time\_start}) y el tipo de piso (\texttt{ground}).}
 %
-\en{Here we only show the \proglang{Julia} version because it is more efficient than \proglang{Python} and \proglang{R} versions, which can be also found in the appendix \ref{AGREGA-CODE}.}
-\es{Aquí mostramos solo la versión de \proglang{Julia} debido a que es la más eficiente, las versiones de \proglang{Python} y \proglang{R} se pueden entonrar en el anexo \ref{AGREGA-CODIGO}.}
+\en{Here we only show the \proglang{Julia} version because it is more efficient than \proglang{Python} and \proglang{R} versions, which can be also found in the appendix \ref{sec:appendix_atp_code}.}
+\es{Aquí mostramos solo la versión de \proglang{Julia} debido a que es la más eficiente, las versiones de \proglang{Python} y \proglang{R} se pueden entonrar en el anexo \ref{sec:appendix_atp_code}.}
 %
 \begin{lstlisting}[backgroundcolor=\color{julia},label=lst:atp, caption={\en{The history of the Association of Tennis Professionals}\es{Historia sintética}}, belowskip=0.1cm, aboveskip=0.1cm]
 using CSV; using Dates
@@ -1569,7 +1576,7 @@ convergence(h,epsilon=0.01, iterations=10)
 \en{Figure~\ref{fig:atp} presents the learning curves of eight famous players of the ATP's history.}
 \es{En la figura~\ref{fig:atp} graficamos las curvas de aprendizaje de ocho jugadores famosos de la historia de la ATP.}
 %
-\begin{figure}[h]
+\begin{figure}[ht!]
     \centering
     \includegraphics[page={1},width=.7\linewidth]{figures/atp}
     \caption{ATP}
@@ -1780,7 +1787,7 @@ convergence(h,epsilon=0.01, iterations=10)
 \en{The edge between node variables and node functions represent the mathematical relationship ``the variable $v$ is an argument of the function $f$''.}
 \es{Los ejes entre los nodos variables y los nodos funciones representan la relaci\'on matem\'atica ``la variable $v$ es argumento de la funci\'on $f$''.}
 %
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering \small
     \tikz{         
 %         \node[const, above=of fr] (nfr) {$f_r$}; %
@@ -1861,9 +1868,9 @@ convergence(h,epsilon=0.01, iterations=10)
 \en{The messages sent by the variable nodes encode a portion of the product rule.}
 \es{Los mensajes que env\'ian los nodos variables codifican una porci\'on de la regla del producto.}
 %
-\begin{equation}\label{eq:m_v_f} \tag{\text{product step}}
+\begin{equation*}\label{eq:m_v_f} \tag{\text{\en{product step}\es{paso productorial}}}
 m_{v \rightarrow f}(v) = \prod_{h \in n(v) \setminus \{f\} } m_{h \rightarrow v}(v)
-\end{equation}
+\end{equation*}
 %
 \en{Where $n(v)$ represents the set of node neighbors of $v$.}
 \es{Donde $n(v)$ representa el conjunto de vecinos del nodo $v$.}
@@ -1874,9 +1881,9 @@ m_{v \rightarrow f}(v) = \prod_{h \in n(v) \setminus \{f\} } m_{h \rightarrow v}
 \en{And the messages sent by the function nodes encode a portion of the sum rule.}
 \es{Y los mensajes que env\'ian los nodos funciones codifican una parte de la regla de la suma.}
 %
-\begin{equation}\label{eq:m_f_v}  \tag{\text{sum step}}
+\begin{equation*}\label{eq:m_f_v}  \tag{\text{\en{sum step}\es{paso sumatorial}}}
 m_{f \rightarrow v}(v) = \int \cdots \int \Big( f(\bm{h},v) \prod_{h \in n(f) \setminus \{v\} } m_{h \rightarrow f}(h) \Big) \,  d\bm{h}
-\end{equation}
+\end{equation*}
 %
 \en{Where $\bm{h} = n(f)\setminus \{v\}$ is the set of all of neighbors of $f$ except $v$, and $f(\bm{h},v)$ represents the function $f$, evaluated in all its arguments.}
 \es{Donde $\bm{h} = n(f)\setminus \{v\}$ es el conjunto de todos los vecinos de $f$ salvo $v$, y $f(\bm{h},v)$ represeta la funci\'on $f$, evaluada en todos sus argumentos.}
@@ -1890,9 +1897,9 @@ m_{f \rightarrow v}(v) = \int \cdots \int \Big( f(\bm{h},v) \prod_{h \in n(f) \s
 \en{Finally, the marginal probability distribution of a $v$ variable is simply the product of the messages that $v$ receives from its neighbors.}
 \es{Finalmente, la distribuci\'on de probabilidad marginal de una variable $v$ es simplemente la multiplicaci\'on de los mensajes que $v$ recibe de sus vecinos.}
 %
-\begin{equation}\label{eq:marginal}
-g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
-\end{equation}
+\begin{equation*}\label{eq:marginal}  \tag{\text{marginal}}
+p(v) = \prod_{h \in n(v)} m_{h \rightarrow v}
+\end{equation*}
 
 
 \subsection{\en{Mathematical properties and notation}\es{Propiedades matem\'aticas y notaci\'on}}\label{sec:propiedades}
@@ -1914,17 +1921,17 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 \en{The first property states that the product of two Gaussian distributions, both evaluated at the same point $x$, can be expressed as the product of two other Gaussian distributions, for which only one of them is evaluated at $x$.}
 \es{La primera propiedad establece que el producto de dos distribuciones Gaussianas, ambas evaluadas en el mismo punto $x$, pueden expresarse como la producto de otras dos distribuciones Gaussianas, para las que sólo una de ellas está evaluada en $x$.}
 %
-\begin{equation}\label{eq:gaussian_product} \tag{\text{\en{Gaussian product}\es{Producto de gaussianas}}}
+\begin{equation*}\label{eq:gaussian_product} \tag{\text{\en{Gaussian product}\es{Producto de gaussianas}}}
 \N(x|\mu_1,\sigma_1^2)\N(x|\mu_2,\sigma_2^2) \overset{\ref{multiplicacion_normales}}{=} \N(\mu_1|\mu_2,\sigma_1^2+\sigma_2^2) \N(x|\mu_{*},\sigma_{*}^2)
-\end{equation}
+\end{equation*}
 %
 \en{where}\es{con} $\mu_{*} = \frac{\mu_1}{\sigma_1^2} + \frac{\mu_2}{\sigma_2^2}$ y $\sigma_{*}^2 = \left(\frac{1}{\sigma_1^2} + \frac{1}{\sigma_2^2} \right)^{-1}$.
 %
 \en{Something similar occurs with the division of two Gaussian distributions, both evaluated at the same point $x$.}
 \es{Algo similar ocurre con la división de dos distribuciones Gaussianas, ambas evaluadas en el mismo punto $x$.}
-\begin{equation}\label{eq:gaussian_division} \tag{\text{\en{Gaussian division}\es{División de gaussianas}}}
+\begin{equation*}\label{eq:gaussian_division} \tag{\text{\en{Gaussian division}\es{División de gaussianas}}}
 \N(x|\mu_1,\sigma_1^2)/\N(x|\mu_2,\sigma_2^2) \overset{\ref{sec:division_normales}}{\propto} \N(x|\mu_{\div},\sigma_{\div}^2)/\N(\mu_1|\mu_2,\sigma_1^2+\sigma_2^2) 
-\end{equation}
+\end{equation*}
 %
 \en{where}\es{con} $\mu_{\div} = \frac{\mu_1}{\sigma_1^2} - \frac{\mu_2}{\sigma_2^2}$ y $\sigma_{\div}^2 = \left(\frac{1}{\sigma_1^2} - \frac{1}{\sigma_2^2} \right)^{-1}$ .
 %
@@ -1952,40 +1959,40 @@ g_i(x_i) = \prod_{h \in n(x_i)} m_{h \rightarrow x_i}
 \en{When we can use it to replace variable within an integral,}
 \es{Cuando podemos usarla para remplazar variable dentro de una integral,}
 %
-\begin{equation}\label{eq:integral_con_dirac} \tag{\text{\en{Dirac delta function}\es{Función delta de dirac}}}
+\begin{equation*}\label{eq:integral_con_dirac} \tag{\text{\en{Dirac delta function}\es{Función delta de dirac}}}
 \begin{split}
  \iint  \delta(x=h(y,z)) f(x) g(y)\, dx\, dy = \int f(h(y,z)) g(y) dy
  \end{split}
-\end{equation}
+\end{equation*}
 \en{the dimensionality of the problem is reduced.}
 \es{la dimensionalidad del problema se reduce.}
 %
 \en{We will also use the properties derived from the symmetry of Gaussians.}
 \es{Usaremos además las propiedades que se derivan de la simetría de Gaussianas.}
-\begin{equation}\label{eq:simetria} \tag{\text{\en{Gaussian symmentry}\es{Simetría de gaussianas}}}
+\begin{equation*}\label{eq:simetria} \tag{\text{\en{Gaussian symmentry}\es{Simetría de gaussianas}}}
  \N(x|\mu,\sigma^2) = \N(\mu|x,\sigma^2) = \N(-\mu|-x,\sigma^2) = \N(-x|-\mu,\sigma^2) 
-\end{equation}
+\end{equation*}
 %
 \en{The Gaussian standardization,}
 \es{La estandizarización de la Gaussiana,}
-\begin{equation}\label{eq:estandarizar} \tag{\text{\en{Gaussian standarization}\es{Estandarización de gaussianas}}}
+\begin{equation*}\label{eq:estandarizar} \tag{\text{\en{Gaussian standarization}\es{Estandarización de gaussianas}}}
   \N(x|\mu,\sigma^2) = \N((x-\mu)/\sigma | 0, 1)
-\end{equation}
+\end{equation*}
 %
 \en{Equality between the Gaussian distribution and the derivative of their cumulative distribution,}
 \es{La igualdad entre la distribución Gaussiana y la derivada de la acumulada,}
-\begin{equation}\label{eq:phi_norm} \tag{\text{\en{Derivative of the cumulative Gaussian}\es{Derivada de la gaussiana acumulada}}}
+\begin{equation*}\label{eq:phi_norm} \tag{\text{\en{Derivative of the cumulative Gaussian}\es{Derivada de la gaussiana acumulada}}}
  \frac{\partial}{\partial x} \Phi(x|\mu,\sigma^2) = \N(x|\mu,\sigma^2)
-\end{equation}
+\end{equation*}
 %
 \en{which is valid by definition.}
 \es{que vale por definición.}
 %
 \en{The symmetry of the cumulative Gaussian distribution.}
 \es{La simetría de la distribución Gaussiana acumulada.}
-\begin{equation}\label{eq:phi_simetria} \tag{\text{\en{Symmetry of the cumulative Gaussian}\es{Simetría de la gaussiana acumulada}}}
+\begin{equation*}\label{eq:phi_simetria} \tag{\text{\en{Symmetry of the cumulative Gaussian}\es{Simetría de la gaussiana acumulada}}}
 \Phi(0|\mu,\sigma^2) = 1-\Phi(0|-\mu,\sigma^2)
-\end{equation}
+\end{equation*}
 
 \subsection{Gaussian}\label{sec:Gasussian}
 
@@ -2004,29 +2011,29 @@ N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)
 \en{The class overwrites the operators addition (\texttt{+}), subtraction (\texttt{-}), product (\texttt{*}) and division (\texttt{/}) with the main properties required to compute the marginal distributions in the TrueSkill Through Time model.}
 \es{La clase sobreescribe los operadores suma (\texttt{+}), resta (\texttt{-}), producto (\texttt{*}) y divisi\'on (\texttt{/}) con las principales propiedades requeridas para computar las distribuciones marginales en el modelo TrueSkill Through Time.}
 %
-\begin{equation} \tag{\texttt{N1 * N2}}
+\begin{equation*} \tag{\texttt{N1 * N2}}
  \N(x|\mu_1,\sigma_1^2)\N(x|\mu_2,\sigma_2^2) \overset{\ref{multiplicacion_normales}}{\propto} \N(x|\mu_{*},\sigma_{*}^2)
-\end{equation}
+\end{equation*}
 %
-\begin{equation} \tag{\texttt{N1 / N2}}
+\begin{equation*} \tag{\texttt{N1 / N2}}
  \N(x|\mu_1,\sigma_1^2)/\N(x|\mu_2,\sigma_2^2)  \overset{\ref{sec:division_normales}}{\propto} \N(x|\mu_{\div},\sigma_{\div}^2)
-\end{equation} 
+\end{equation*} 
 %
 \vspace{-0.3cm}
 %
-\begin{equation} \tag{\texttt{N1 + N2}} \label{eq:suma_normales}
+\begin{equation*} \tag{\texttt{N1 + N2}} \label{eq:suma_normales}
 \begin{split}
 \iint \delta(t=x + y) \N(x|\mu_1, \sigma_1^2)\N(y|\mu_2, \sigma_2^2) dxdy \overset{\text{\ref{suma_normales_induccion}}}{=} \N(t|\mu_1+\mu_2,\sigma_1^2 + \sigma_2^2)
 \end{split}
-\end{equation}
+\end{equation*}
 %
 \vspace{-0.5cm}
 %
-\begin{equation} \tag{\texttt{N1 - N2}} \label{eq:resta_normales}
+\begin{equation*} \tag{\texttt{N1 - N2}} \label{eq:resta_normales}
 \begin{split}
 \iint \delta(t = x - y) \N(x|\mu_1, \sigma_1^2)\N(y|\mu_2, \sigma_2^2) dxdy \overset{\text{\ref{suma_normales_induccion}}}{=} \N(t|\mu_1 - \mu_2,\sigma_1^2 + \sigma_2^2)
 \end{split}
-\end{equation}
+\end{equation*}
 
 \subsection{\en{The exact solution of the team model}\es{La solución exacta del modelo de equipos}}\label{sec:2vs2}
 
@@ -2039,7 +2046,7 @@ N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)
 \en{In figure~\ref{fig:modelo_trueskill_2vs2} we show the factor graph.}
 \es{En la figura~\ref{fig:modelo_trueskill_2vs2} mostramos la factorizaci\'on gr\'afica.} 
 %
-\begin{figure}[h!]
+\begin{figure}[ht!]
   \centering
   \scalebox{.9}{
   \tikz{
@@ -2155,18 +2162,18 @@ N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)
 
 \paragraph{\en{Descending messages}\es{Mensajes descendentes}.}
 
-\en{Following the \ref{eq:m_f_v} of the sum-product algorithm and the factorization of the model displayed at Figure~\ref{fig:modelo_trueskill_2vs2}, the messages from the skill factors $f_{s_i}$ to their variable $s_i$ are just the priors.}
-\es{Siguiendo la regla~\ref{eq:m_f_v} del \emph{sum-product algorithm} y la factorizaci\'on del modelo presentado en la figura~\ref{fig:modelo_trueskill_2vs2}, los mensajes de los factores de habilidad $f_{s_i}$ a su variable $s_i$ no son otra cosa m\'as que el priors.}
+\en{Following the \ref*{eq:m_f_v} of the sum-product algorithm and the factorization of the model displayed at Figure~\ref{fig:modelo_trueskill_2vs2}, the messages from the skill factors $f_{s_i}$ to their variable $s_i$ are just the priors.}
+\es{Siguiendo el~\ref*{eq:m_f_v} del \emph{sum-product algorithm} y la factorizaci\'on del modelo presentado en la figura~\ref{fig:modelo_trueskill_2vs2}, los mensajes de los factores de habilidad $f_{s_i}$ a su variable $s_i$ no son otra cosa m\'as que el priors.}
 %
-\begin{equation}\label{eq:m_fs_s} \tag{\texttt{prior}}
+\begin{equation*}\label{eq:m_fs_s} \tag{\texttt{prior}}
  m_{f_{s_i} \rightarrow s_i}(s_i) = \N(s_i| \mu_i, \sigma_i^2)
-\end{equation}
+\end{equation*}
 %
 \en{We have access to this message by calling the \texttt{prior} attribute of the initialized \texttt{a} agent, \texttt{a.prior}.}
 \es{Tenemos acceso a este mensaje llamando al atributo \texttt{prior} de los jugadores \texttt{a} que se tengan inicializados, \texttt{a.prior}.}
 %
-\en{The next message, the one that the variable $s_i$ sends to the performance factor $f_{p_i}$ is also the prior, in this case due to the~\ref{eq:m_v_f} of the sum-product algorithm and the factorization of the model.}
-\es{El siguiente mensaje, el que la variable $s_i$ le env\'ia al factor rendimiento $f_{p_i}$ tambi\'en es el prior, en este caso debido al~\ref{eq:m_v_f} del \emph{sum-product algorithm} y la factorizacion del modelo.}
+\en{The next message, the one that the variable $s_i$ sends to the performance factor $f_{p_i}$ is also the prior, in this case due to the~\ref*{eq:m_v_f} of the sum-product algorithm and the factorization of the model.}
+\es{El siguiente mensaje, el que la variable $s_i$ le env\'ia al factor rendimiento $f_{p_i}$ tambi\'en es el prior, en este caso debido al~\ref*{eq:m_v_f} del \emph{sum-product algorithm} y la factorizacion del modelo.}
 %
 \en{Since it is trivial to calculate the messages sent by the variables (they are always the product of the messages they receive from behind), we will avoid writing them.}
 \es{Debido a que es trivial calcular los mensajes que envian las variables (siempre es el producto de los mensajes que reciben de atrás), vamos a evitar escribirlos.}
@@ -2174,9 +2181,9 @@ N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)
 \en{Let's see then the message that the performance factors $f_{p_i}$ send to their variable $p_i$.}
 \es{Veamos entonces el mensaje que env\'ian los factores rendimiento $f_{p_i}$ a su variable $p_i$.}
 %
-\begin{equation}\label{eq:m_fp_p} \tag{\texttt{performance()}}
+\begin{equation*}\label{eq:m_fp_p} \tag{\texttt{performance()}}
 m_{f_{p_i} \rightarrow p_i}(p_i) = \int \N(p_i| s_i, \beta^2) \N(s_i| \mu_i, \sigma_i^2) ds_i = \N(p_i|\mu_i,\beta^2 + \sigma_i^2)
-\end{equation}
+\end{equation*}
 %
 \en{We have access to these messages through the \texttt{performance()} method of the \texttt{Player} class.}
 \es{Tenemos acceso a estos mensajes mediante el método \texttt{performance()} de la clase \texttt{Player}.}
@@ -2212,11 +2219,11 @@ p4 = a4.performance()
 \en{The message sent by the team factors $f_{t_e}$ to the team variable $t_e$ is an integral over all the individual performance variables, with the sum being equal to a constant $t_e$ (constraint imposed by the Dirac delta function).}
 \es{El mensaje que envían los factores equipos $f_{t_e}$ a la variable equipo $t_e$ es una integral sobre todas las variables de rendimiento individuales, siendo la suma igual a una constante $t_e$ (restricción impuesta por la función delta de Dirac).}
 %
-\begin{equation} \label{eq:m_ft_t} \tag{\texttt{ta = p1 + p2}}
+\begin{equation*} \label{eq:m_ft_t} \tag{\texttt{ta = p1 + p2}}
 \begin{split}
  m_{f_{t_e} \rightarrow t_e}(t_e) &= \iint \delta(t_e = p_i + p_j) \N(p_i|\mu_i,\beta^2 + \sigma_i^2)\N(p_j|\mu_j,\beta^2 + \sigma_j^2) dp_idp_j  \\ &=  \N(t_e|\underbrace{\mu_i+\mu_j}_{\text{\normalsize $\mu_e\phantom{^2}$}}, \underbrace{2\beta^2 + \sigma_i^2 + \sigma_j^2}_{\text{\normalsize $\sigma_e^2$}})
 \end{split}
-\end{equation}
+\end{equation*}
 %
 \en{The prior performance of the teams is a Gaussian distribution centered on the sum of the mean estimates $\mu_e = \mu_i + \mu_j$ with a variance $\sigma_e^2$ that includes both the uncertainties of the estimates, $\sigma_i^2 + \sigma_j^2$, and the variance of the individual performances, $\beta^2 + \beta^2$.}
 \es{El desempeño a priori de los equipos es una distribución Gaussiana centrada en la suma de las estimaciones medias $\mu_e = \mu_i + \mu_j$ con una varianza que incluye tanto las incertidumbres de las estimaciones, $\sigma_i^2 + \sigma_j^2$, como la varianza de los rendimientos individuales, $\beta^2 + \beta^2$.}
@@ -2232,12 +2239,12 @@ ta = p1 + p2; tb = p3 + p4
 %
 \en{The next message, sent by the difference factor $f_{d_1}$ to the difference variable $d_1$ is,}
 \es{El siguiente mensaje, que env\'ia el factor diferencia $f_{d_1}$ a la variable diferencia $d_1$ es,}
-\begin{equation}\label{eq:m_fd_d} \tag{\texttt{d = ta - tb}}
+\begin{equation*}\label{eq:m_fd_d} \tag{\texttt{d = ta - tb}}
  \begin{split} 
   m_{f_{d} \rightarrow d}(d) & = \iint \delta(d = t_a - t_b) \N(t_a| \mu_a, \sigma_a^2)  \N(t_b| \mu_b, \sigma_b^2)  dt_adt_b \\[0.25cm]
   & = \N\big( d | \underbrace{\mu_a - \mu_b}_{\hfrac{\text{\en{Expected}\es{Differencia}}}{\text{\en{difference}\es{esperada}}}:  \ \psi}, \underbrace{\sigma_a^2 +\sigma_b^2}_{\hfrac{\text{\en{Total}\es{incertidumbre}}}{\text{\en{uncertainty}\es{total}}} : \ \vartheta^2}  \big) = \N(d | \psi, \, \vartheta^2)
  \end{split}
-\end{equation}
+\end{equation*}
 %
 \en{The prior difference of performance is a Gaussian distribution centered on the a priori expected difference between teams $\psi = \mu_a - \mu_b$ with variance $\vartheta^2 = \sigma_a^2 + \sigma_b^2$ that includes the uncertainty of both teams.}
 \es{La diferencia de desempeños a priori es una distribución gaussiana centrada en la diferencia esperada a priori $\psi = \mu_a - \mu_b$ con una varianza $\vartheta^2 = \sigma_a^2 + \sigma_b^2$ que incluye la incertidumbre de ambos equipos.}
@@ -2254,11 +2261,11 @@ d = ta - tb
 \en{The last descending message, sent by the factor $f_r$ to the variable $r$, is}
 \es{El último mensaje descendente, el que envía el factor $f_r$ a la variable $r$, permite computar la evidencia, es decir la predicción a priori del resultado observado}
 %
-\begin{equation}\label{eq:m_fr_r} \tag{\texttt{evidence}}
+\begin{equation*}\label{eq:m_fr_r} \tag{\texttt{evidence}}
 \begin{split}
  m_{f_{r} \rightarrow r}(r) = \int \mathbb{I}(d > 0) \N(d | \psi, \vartheta^2)  dd = 1 - \Phi(0|\psi, \vartheta^2)
 \end{split}
-\end{equation}
+\end{equation*}
 %
 \en{We have access to the prior probability of the observed result (or evidence) by computing the cumulative value from $0$ to $\infty$ of the team difference of performances distribution.}
 \es{Tenemos acceso a la probabilidad a priori del resultado observado (o evidencia) calculando el valor acumulado desde $0$ hasta $\infty$ de la distribución de diferencia de desempeños de los equipos.}
@@ -2396,7 +2403,7 @@ m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_
 \en{In the figure~\ref{fig:draw_a} we display in graphical terms the probabilities of the three possible outcomes.}
 \es{En la figura~\ref{fig:draw_a} se puede ver en t\'erminos gr\'aficos las probabilidades de los tres resultados posibles.}
 %
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \centering
 \begin{subfigure}[t]{0.48\textwidth}
  \includegraphics[width=1\textwidth]{figures/draw.pdf} 
@@ -2716,7 +2723,7 @@ posterior_s1_approx=post[[1]]
 \en{In Figure ~\ref{fig:factorGraph_trueskill} we show the factorization of the general TrueSkill model.}
 \es{En la figura~\ref{fig:factorGraph_trueskill} mostramos la factorizaci\'on del modelo general de TrueSkill.}
 %
-\begin{figure}[h!]
+\begin{figure}[ht!]
   \centering
   \scalebox{.9}{
   \tikz{ %
@@ -2792,7 +2799,7 @@ posterior_s1_approx=post[[1]]
 \en{Instead of using the message notation proposed by the sum-product algorithm, we name the messages as shown in Figure~\ref{fig:ep_ts}.}
 \es{En vez de utilizar la notación de mensajes propuesta por el \emph{sum-product algorithm}, le ponemos nombres a los mensajes como se muestra en la figura~\ref{fig:ep_ts}.}
 %
-\begin{figure}[h!]
+\begin{figure}[ht!]
   \centering
   \scalebox{.9}{
 \tikz{ %        
@@ -3054,7 +3061,7 @@ lhood_tc_approx = lhood_lose_tc
 \en{In the Figure~\ref{fig:history} we show a schematic representation of the factor graph of a history of events.}
 \es{En la figura~\ref{fig:history} mostramos representaci\'on esquem\'atica del grafo de factorizaci\'on de un historia de eventos.}
 %
-\begin{figure}[h!]
+\begin{figure}[ht!]
   \centering
   \scalebox{.9}{
 \tikz{ %
@@ -3378,13 +3385,18 @@ h$convergence(); lc_a = h$learning_curves()$a; mu = c()
 for(tp in lc_a){mu = c(mu,tp[[2]]$mu)}
 \end{lstlisting}
 
-\subsection{\en{The history of the Association of Tennis Professionals (ATP)}\es{Historia de la Asociación de Tenistas Profesionales (ATP)}}
+\subsection{\en{The history of the Association of Tennis Professionals (ATP)}\es{Historia de la Asociación de Tenistas Profesionales (ATP)}} \label{sec:appendix_atp_code}
 
 \todo[inline]{Código de Python y R}
 
-% Appendices can be included after the bibliography (with a page break). Each
-% section within the appendix should have a proper section title (rather than
-% just \emph{Appendix}).
+%
+\begin{lstlisting}[backgroundcolor=\color{python},caption={\en{\proglang{Python} code}\es{Código \proglang{Python}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
+Python
+\end{lstlisting}
+%
+\begin{lstlisting}[backgroundcolor=\color{r},caption={\en{\proglang{R} code}\es{Código \proglang{R}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
+R
+\end{lstlisting}
 
 
 \subsection{\en{Gaussian product}\es{Producto de gaussianas}}\label{multiplicacion_normales}
@@ -3686,5 +3698,4 @@ P(2) & := \iint \delta(t_2 = x_1 + x_2) \N(x_1|\mu_1, \sigma_1^2)\N(x_2|\mu_2, \
 
 %% -----------------------------------------------------------------------------
 
-\newpage
 \end{document}
