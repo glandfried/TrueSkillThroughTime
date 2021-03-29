@@ -1525,7 +1525,7 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \en{In this last example we use the entire history of matches of the Association of Tennis Professionals (ATP).}
 \es{En este último ejemplo utilizamos toda la historia de partidas de la Asociación de Tenistas Profesionales (ATP).}
 %
-\en{The database has \num{447000} games starting at year 1915 until 2020 with more than \num{19000} participating players and is publicly available\footnote{A zip file containing a csv file per year can be downloaded from \nolinkurl{https://github.com/JeffSackmann/tennis_atp}}.}
+\en{The database has \num{447000} games starting at year 1915 until 2020 with more than \num{19000} participating players and is publicly available\footnote{Source data at \nolinkurl{https://github.com/JeffSackmann/tennis_atp}}.}
 \es{La base de datos cuenta con \num{447000} mil partidas que van desde el año 1915 hasta el 2020, en las que participan \num{19000} jugadores.}
 %
 \en{The information is formatted and stored in a single \texttt{csv} file\footnote{Available at \nolinkurl{https://github.com/glandfried/tennis_atp/releases/download/atp/history.csv.zip}} including both single and double matches: if the column \texttt{double} has the letter \texttt{t}, the game is a double match.}
@@ -1550,7 +1550,7 @@ data = CSV.read("atp.csv")
 times = Dates.value.(data[:,"time_start"] .- Date("1900-1-1")) 
 composition = [ r.double == "t" ? [[r.w1_id,r.w2_id],[r.l1_id,r.l2_id]] : [[r.w1_id],[r.l1_id]] for r in eachrow(data) ]   
 
-h = History(composition=composition, times = times, sigma = 2.0, gamma = 0.02)
+h = History(composition=composition, times = times, sigma = 1.6, gamma = 0.036)
 convergence(h,epsilon=0.01, iterations=10)
 \end{lstlisting}
 %
@@ -1566,11 +1566,11 @@ convergence(h,epsilon=0.01, iterations=10)
 \en{The results are implied by the order in which we set the composition, always placing the winning team first.}
 \es{Los resultados quedan impl\'icitos por el orden en que armamos la composición, poniendo siempre primero al equipo ganador.}
 %
-\en{When initializing the class \texttt{History} we also modify the default values of \texttt{sigma} and \texttt{gamma} based on an optimization procedure previously performed (more details next).}
-\es{Al inicializar la clase \texttt{History} modificamos los valores por defecto de \texttt{sigma} y \texttt{gamma}, basados en un procedimiento de optimización realizado previamente (más detalles a continuación).}
+\en{When initializing the class \texttt{History} we set the values of \texttt{sigma} and \texttt{gamma} based on an optimization procedure previously performed (Figure~\ref{fig:optimization}).}
+\es{Al inicializar la clase \texttt{History} modificamos los valores de \texttt{sigma} y \texttt{gamma} basados en un procedimiento de optimización realizado previamente (figura~\ref{fig:optimization}).}
 %
-\en{Finally, we use the \texttt{convergence()} method to obtain TrueSkill Through Time estimates explicitly selecting the convergence criterion: when the change between iterations is less than $0.01$ or when $10$ iterations are performed.}
-\es{Finalmente, convergemos la historia para obtener las estimaciones de TrueSkill Through Time, indicando explícitamente el criterio de corte: cuando el cambio entre iteraciones sea menor a $0.01$, o cuando se alcanzan las $10$ iteraciones.}
+\en{Finally, we use \texttt{convergence()} method to obtain TrueSkill Through Time estimates explicitly selecting the convergence criterion: when the change between iterations is less than $0.01$ or when $10$ iterations are performed.}
+\es{Finalmente, usamos el método \texttt{convergence()} para obtener las estimaciones de TrueSkill Through Time, indicando explícitamente el criterio de corte: cuando el cambio entre iteraciones sea menor a $0.01$, o cuando se alcanzan las $10$ iteraciones.}
 %
 \en{Figure~\ref{fig:atp} presents the learning curves of eight famous players of the ATP's history.}
 \es{En la figura~\ref{fig:atp} graficamos las curvas de aprendizaje de ocho jugadores famosos de la historia de la ATP.}
@@ -1578,42 +1578,25 @@ convergence(h,epsilon=0.01, iterations=10)
 \begin{figure}[ht!]
     \centering
     \includegraphics[page={1},width=.7\linewidth]{figures/atp}
-    \caption{ATP}
+    \caption{
+    \en{Estimated learning curves of 8 famous players in ATP history.}
+    \es{Estimación de las curvas de aprendizaje de 8 jugadores famosos de la historia de la ATP.}
+    %
+    \en{The shaded area represents an uncertainty equivalent to one standard deviation.}
+    \es{El área sombrada representa una incertidumbre equivalente a un desvío estandar.}
+    }
+    
     \label{fig:atp}
 \end{figure}
-
-\todo[inline]{discusion}
-% 
-% \en{The parameter \texttt{epsilon} indicates the convergence condition, the maximum change in all posteriors before and after an iteration.}
-% \es{El parámetro \texttt{epsilon} indica la condici\'on de convergencia, el cambio máximo en todos los posteriors antes y despu\'es de una iteraci\'on.}
-% %
-% \en{Finally, the number of iterations \texttt{iter} functions as a cut-off condition in case convergence has not been reached.}
-% \es{Por \'ultimo, la cantidad de iteraciones \texttt{iter} funciona como condici\'on de corte en caso de no haber alcanzado la convergencia.}
-
-% \en{Immediately after the history is initialized, a summary of the data is printed.}
-% \es{Inmediatamente despu\'es de que se inicializa la historia, se imprime un resumen de los datos.}
 %
-% \en{In this case, 3 events, 3 batches and 3 agents are reported.}
-% \es{En este caso se reportan 3 eventos, 3 batches y 3 agentes.}
+\en{The advantage of TrueSkill Through Time, over TrueSkill, is that by modeling the entire dynamic process it allows us to make comparisons of skills over time.}
+\es{La ventaja de TrueSkill Through Time, respecto de TrueSkill, es que al modelar el proceso dinámico permite hacer comparaciones temporales de la habilidad.}
 %
-% \en{Batches are used to group events that happened at the same time.}
-% \es{Los batches sirven para agrupar eventos que ocurrieron al mismo tiempo.}
+\en{It is interesting to see that the skill of tennis players did not increase so much over the years: on the contrary the players of the 1980s were more skilled than those of the 1990s, and reached a skill similar to what Federer, Nadal and Djokovic had in 2020.}
+\es{Es interesante ver que la habilidad de los tenistas no aumentó tanto con los años: al contrario los jugadores de la década de los 80 fueron más habilidosos que aquellos de la década de los 90, y alcanzaron una habilidad similar a la que Federer, Nadal y Djokovic tuvieron en el año 2020.}
 %
-% \en{We will see an example with batches later on.}
-% \es{Ya veremos un ejemplo con batches más adelante.}
-%
-% \en{As we do not indicate the time of each game, the system places the games in different batches.}
-% \es{Como no le indicamos el tiempo de cada partida, el sistema ubica las partida en batches distintos.}
-
-
-
-
-
-
-
-
-
-
+\en{Perhaps the most notable change introduced by professionalism is the stability of learning curves, which is seen in today's players as opposed to the early players.}
+\es{Quizás el cambio más notable introducido por el profesionalismo sea la estabilidad de las curvas de aprendizaje, que se aprecia en los jugadores actuales a diferencia de los primeros jugadores.}
 
 
 
