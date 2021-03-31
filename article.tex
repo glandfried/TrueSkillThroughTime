@@ -457,11 +457,11 @@
 % }
 % \end{equation}
 %
-\en{The normalized posterior is found by dividing the right hand by the evidence $P(r)$.}
-\es{Donde el el posterior normalizado se obtiene dividiendo el lado derecho por la evidencia, $P(r)$.}
+\en{The normalized posterior is found by dividing the right hand with the evidence $P(r)$.}
+\es{Donde el posterior normalizado se obtiene dividiendo el lado derecho con la evidencia, $P(r)$.}
 %
 \en{It is interesting to note the similarities and differences between likelihood and evidence.}
-\es{Es interesante notar las similitudes y diferencias entre el likelihood y la evidencia.}
+\es{Es interesante notar las similitudes y diferencias entre la verosimilitud y la evidencia.}
 %
 \en{The likelihood quantifies the same cumulative density as the evidence but centered at the difference between the hypothesis we are evaluating $s_i$ and the opponent's mean estimate $\mu_j$, with a variance that includes all uncertainties except the one of $s_i$.}
 \es{La verosimilitud cuantifica la misma densidad acumulada que la evidencia, pero centrada ahora en la diferencia entre la hip\'otesis que estamos evaluando $s_i$ y la estimaci\'on media del oponente $\mu_j$ con una varianza que incluye todas las incertidumbres salvo la de la propia hip\'otesis $s_i$.}
@@ -1526,10 +1526,10 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \es{En este último ejemplo utilizamos toda la historia de partidas de la Asociación de Tenistas Profesionales (ATP).}
 %
 \en{The database has \num{447000} games starting at year 1915 until 2020 with more than \num{19000} participating players and is publicly available\footnote{Source data at \nolinkurl{https://github.com/JeffSackmann/tennis_atp}}.}
-\es{La base de datos cuenta con \num{447000} mil partidas que van desde el año 1915 hasta el 2020, en las que participan \num{19000} jugadores.}
+\es{La base de datos cuenta con \num{447000} mil partidas que van desde el año 1915 hasta el 2020, en las que participan \num{19000} jugadores\footnote{Fuente de datos\nolinkurl{https://github.com/JeffSackmann/tennis_atp}}.}
 %
 \en{The information is formatted and stored in a single \texttt{csv} file\footnote{Available at \nolinkurl{https://github.com/glandfried/tennis_atp/releases/download/atp/history.csv.zip}} including both single and double matches: if the column \texttt{double} has the letter \texttt{t}, the game is a double match.}
-\es{La información contenida en los archivos \texttt{csv} contiene tanto partidas simples como dobles, indicado por la columna \texttt{double}.}
+\es{La información contenida en los archivos \texttt{csv} contiene tanto partidas simples como dobles, indicado por la columna \texttt{double}\footnote{Disponible en \nolinkurl{https://github.com/glandfried/tennis_atp/releases/download/atp/history.csv.zip}}.}
 %
 \en{Each game has a unique identifier (i.e. \texttt{match\_id}) and tournament's round number (i.e. \texttt{round\_number}) where 0 represents the final game, 1 the semi-final, and so on.}
 \es{Tenemos un identificador por la partida (\texttt{match\_id}) y el número de ronda (\texttt{round\_number}) donde 0 representa la partida final, 1 la semi-final, etc.}
