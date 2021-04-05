@@ -70,7 +70,7 @@ axis(lwd=0,side=2,cex.axis=1.75,line=-0.45)
 mtext(text ="Skill" ,side =2 ,line=2,cex=1.75)
 mtext(text ="Time" ,side =1 ,line=2,cex=1.75)
 
-legend(35000,2.35, pch=19, col=c(rgb(0,0,1,0.75), rgb(0,1,0,0.75), rgb(1,0,0,0.75), rgb(0.8,0.8,0,0.75), rgb(0.8,0,0.8,0.75), rgb(0,0.8,0.8,0.75), rgb(0.5,0.2,0.2,0.75), rgb(0.2,0.5,0.2,0.75)), legend = c("Federer","Nadal", "Djokovic", "Sampras", "Aggasi", "McEnroe", "Borg", "Vilas"), bty = "n",cex = 1.25, ncol=2)
+legend(27500,1.8, pch=19, col=rev(c(rgb(1,0,0,0.75), rgb(0,1,0,0.75), rgb(0,0,1,0.75), rgb(0.8,0.8,0,0.75), rgb(0.8,0,0.8,0.75), rgb(0,0.8,0.8,0.75), rgb(0.5,0.2,0.2,0.75), rgb(0.2,0.5,0.2,0.75))), legend = rev(c("Djokovic", "Nadal", "Federer","Sampras", "Aggasi", "McEnroe", "Borg", "Vilas")), bty = "n",cex = 1.25, ncol=4)
 
 
 

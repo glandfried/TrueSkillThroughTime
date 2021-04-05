@@ -3356,6 +3356,16 @@ in an unnumbered section. Also, auxiliary packages (say, for visualizations,
 maps, tables, \dots) that are not cited in the main text can be credited here.
 \end{leftbar}
 
+
+Julia.1.5.3-labo: 138.5 segundos
+Julia.1.5.0-casa: 387.5 segundos
+
+Python.3.6.8-labo: 1368.6 segundos
+Python.3.6.9-casa: 
+
+R-labo.3.4.4: Corriendo
+
+
 The results in this paper were obtained using
 \proglang{R}~3.4.1 with the
 \pkg{MASS}~7.3.47 package. \proglang{R} itself
@@ -3445,16 +3455,43 @@ for(tp in lc_a){mu = c(mu,tp[[2]]$mu)}
 \end{lstlisting}
 
 \subsection{\en{The history of the Association of Tennis Professionals (ATP)}\es{Historia de la Asociación de Tenistas Profesionales (ATP)}} \label{sec:appendix_atp_code}
-
-\todo[inline]{Código de Python y R}
-
 %
 \begin{lstlisting}[backgroundcolor=\color{python},caption={\en{\proglang{Python} code}\es{Código \proglang{Python}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
-Python
+import pandas as pd
+df = pd.read_csv('input/history.csv', low_memory=False)
+
+columns = zip(df.w1_id, df.w2_id, df.l1_id, df.l2_id, df.double)
+composition = [[[w1,w2],[l1,l2]] if d == 't' else [[w1],[l1]] for w1, w2, l1, l2, d in columns ]
+
+tour_time = pd.to_datetime(df.time_start,format='%Y-%m-%d')
+base_time = pd.to_datetime('1910-01-01',format='%Y-%m-%d')
+times =  (tour_time-base_time).dt.days - df.round_number
+
+h = History(composition = composition, times = times, sigma = 1.6, gamma = 0.036)
+h.convergence(epsilon=0.01, iterations=10)
 \end{lstlisting}
 %
 \begin{lstlisting}[backgroundcolor=\color{r},caption={\en{\proglang{R} code}\es{Código \proglang{R}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
-R
+
+data = read.csv("input/history.csv", header=T)
+get_composition = function(x){
+    res = list()
+    if (x["double"]=="t"){
+        res[[1]] = c(x["w1_name"],x["w2_name"])
+        res[[2]] = c(x["l1_name"],x["l2_name"])
+    }else{
+        res[[1]] = c(x["w1_name"])
+        res[[2]] = c(x["l1_name"])
+    }
+    return(res)
+}
+composition =  apply(data, 1, get_composition ) 
+times = as.Date(data[,"time_start"], format = "%Y-%m-%d")
+times = times - as.Date("1910-01-01", format = "%Y-%m-%d")
+times = as.numeric(times )
+
+h = History(composition = composition, times = times, sigma = 1.6, gamma = 0.036)
+h$convergence(epsilon=0.01, iterations=10)
 \end{lstlisting}
 
 
