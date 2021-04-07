@@ -3348,44 +3348,97 @@ lhood_tc_approx = lhood_lose_tc
 %% -- Optional special unnumbered sections -------------------------------------
 
 \section*{Computational details}
+% 
+% \begin{leftbar}
+% If necessary or useful, information about certain computational details
+% such as version numbers, operating systems, or compilers could be included
+% in an unnumbered section. Also, auxiliary packages (say, for visualizations,
+% maps, tables, \dots) that are not cited in the main text can be credited here.
+% \end{leftbar}
 
-\begin{leftbar}
-If necessary or useful, information about certain computational details
-such as version numbers, operating systems, or compilers could be included
-in an unnumbered section. Also, auxiliary packages (say, for visualizations,
-maps, tables, \dots) that are not cited in the main text can be credited here.
-\end{leftbar}
 
+\begin{description}
+ \item[Labo] RAM 15.6G, Intel i5-3330, CPU 3.00GHz, cache 6144KB
+ \item[Home] RAM 3.3G, AMD A4-6210, CPU 1.00GHz, cache 2048 KB
+\end{description}
+
+
+En julia con \texttt{@time}
+En python fue analizado con timeit
+En R con microbenchmarck
+
+Game 2vs2:
+
+Python.3.6.9-casa (trueskill): 0.00145
+
+Julia.1.5.0-casa:  0.000064
+Python.3.6.9-casa: 0.00014
+R.3.4.4-casa:      0.03715286
+
+Game 1vs2vs1:
+
+Python.3.6.9-casa (trueskill):0.00245
+
+Julia.1.5.0-casa:  0.000096
+Python.3.6.9-casa: 0.00093
+R.3.4.4-casa: 0.3603933
+
+History:
+
+Initialization: 
+
+Julia.1.5.0-casa:  0.000309
+Python.3.6.9-casa: 0.001086
+R.3.4.4-casa: 0.2628356
+
+Iteration:
+Julia.1.5.0-casa: 0.000582
+
+Skill evolution, Initialization:
+
+Julia.1.5.0-casa:  0.038117
+Python.3.6.9-casa: 0.38026
+R.3.4.4-casa: 93 segundos
+
+Skill evolution, iteration:
+Julia.1.5.0-casa:  0.07570
+Python.3.6.9-casa: 0.87625
+R.3.4.4-casa: 149 segundos
+
+ATP:
 
 Julia.1.5.3-labo: 138.5 segundos
 Julia.1.5.0-casa: 387.5 segundos
 
 Python.3.6.8-labo: 1368.6 segundos
-Python.3.6.9-casa: 
+Python.3.6.9-casa: 4498.8 segundos
 
-R-labo.3.4.4: Corriendo
-
-
-The results in this paper were obtained using
-\proglang{R}~3.4.1 with the
-\pkg{MASS}~7.3.47 package. \proglang{R} itself
-and all packages used are available from the Comprehensive
-\proglang{R} Archive Network (CRAN) at
-\url{https://CRAN.R-project.org/}.
+R.3.4.4-labo: exede la RAM
+% 
+% The results in this paper were obtained using
+% \proglang{R}~3.4.1 with the
+% \pkg{MASS}~7.3.47 package. \proglang{R} itself
+% and all packages used are available from the Comprehensive
+% \proglang{R} Archive Network (CRAN) at
+% \url{https://CRAN.R-project.org/}.
 
 
 \section*{Acknowledgments}
 
-\begin{leftbar}
-All acknowledgments (note the AE spelling) should be collected in this
-unnumbered section before the references. It may contain the usual information
-about funding and feedback from colleagues/reviewers/etc. Furthermore,
-information such as relative contributions of the authors may be added here
-(if any).
-\end{leftbar}
+% \en{We thank the anonymous reviewers for their helpful feedback.}
+% \es{Agradecemos a revisores anónimos por su valiosos aportes.}
+%
+\en{Special thanks to Heungsub Lee for having published the basic TrueSkill model in Python.}
+\es{Agradecemos especialmente a Heungsub Lee por haber publicado el modelo básico de TrueSkill en Python.}
+% https://github.com/sublee/trueskill/issues/14
+\en{We also thank Matias Mazzanti for constructive discussions during the implementation of the method.}
+\es{También agradecemos a Matias Mazantti por las discusiones constructivas durante la implementación del método.}
+%
+\en{This work is supported by Universidad de Buenos Aires (UBACyT \todo{ubacyt}), CONICET (\todo{conicet}), and ANPCyT (\todo{ANPCyT}).}
+\es{Este trabajo fue apoyado por la Universidad de Buenos Aires (UBACyT \todo{ubacyt}), CONICET (\todo{conicet}), and ANPCyT (\todo{ANPCyT}).}
 
  
-\newpage
+%\newpage
 %% -- Bibliography -------------------------------------------------------------
 %% - References need to be provided in a .bib BibTeX database.
 %% - All references should be made with \cite, \citet, \citep, \citealp etc.
