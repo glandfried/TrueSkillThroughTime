@@ -970,7 +970,7 @@ R syntax
 \en{where the full line is used when the syntax of the three languages match, and the columns are used when the languages differ: \proglang{Julia} on the left, \proglang{Python} in the middle, and \proglang{R} on the right.}
 \es{donde la l\'inea completa la usamos cuando la sintaxis de los tres lenguajes coinciden, y las columnas las usamos cuando los lenguajes difieren: \proglang{Julia} a la izquierda, \proglang{Python} al centro, y \proglang{R} a la derecha.}
 
-\subsection{Single event} \label{sec:singleEvent}
+\subsection{\en{Single event}\es{Único evento}} \label{sec:singleEvent}
 
 \en{The class \texttt{Game} is used to model events and perform inference given the teams composition, the result, and the characteristic draw probability (\texttt{p\_draw}).}
 \es{La clase \texttt{Game} la utilizamos para modelar eventos realizar la inferencia a partir de los datos de los equipos, el resultado y la probabilidad de empate caracterísitica (\texttt{p_draw}).}
@@ -1235,7 +1235,7 @@ g2 = Game(teams, result, p_draw=0.25)
 \en{The evidence and the posteriors can be queried in the same way as before.}
 \es{La evidencia y el posterior se obtienen de la misma forma que hemos visto.}
 
-\subsection{Sequence of events}
+\subsection{\en{Sequence of events}\es{Secuencia de eventos}} \label{sec:sequence_of_events}
 
 \en{The class \texttt{History} is used to compute the posteriors and evidence of a sequence of events.}
 \es{La clase \texttt{History} se usa para computar los posteriors y la evidencia de secuencias de eventos.}
@@ -1520,7 +1520,7 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \en{This example exhibit that TrueSkill Through Time correctly estimates and follows the skill evolution of a new player.}
 \es{Este ejemplo evidencia que TrueSkill Through Time estima y sigue correctamente la evolución de las habilidades de los jugador nuevos.}
 
-\subsection{\en{The history of the Association of Tennis Professionals (ATP)}\es{Historia de la Asociación de Tenistas Profesionales (ATP)}}
+\subsection{\en{The history of the Association of Tennis Professionals (ATP)}\es{Historia de la Asociación de Tenistas Profesionales (ATP)}} \label{sec:atp}
 
 \en{In this last example we use the entire history of matches of the Association of Tennis Professionals (ATP).}
 \es{En este último ejemplo utilizamos toda la historia de partidas de la Asociación de Tenistas Profesionales (ATP).}
@@ -3356,65 +3356,140 @@ lhood_tc_approx = lhood_lose_tc
 % maps, tables, \dots) that are not cited in the main text can be credited here.
 % \end{leftbar}
 
+\en{In this section we report the execution times of the examples presented in Section \ref{sec:illustrations}.}
+\es{En esta sección reportamos los tiempos de ejecución de los ejemplos presentados en la sección \ref{sec:illustrations}.}
+%
+\en{For reference, our \proglang{Python} package is 10 times faster than the basic \pkg{trueskill}~$0.4.5$ package.}
+\es{Como referencia, nuestro paquete de \proglang{Python} es 10 veces más rápido que el paquete básico \pkg{trueskill}~$0.4.5$.}
+%
+\en{In turn, our \proglang{Julia} package is \num{10} times faster than our \proglang{Python} package (and \num{20} times faster than the basic \pkg{trueskill}~$0.4.5$ package).}
+\es{A su vez, nuestro paquete de \proglang{Julia} es \num{10} veces más rápido que nuestro paquete de \proglang{Python} (y 20 veces más rápido que el paquete básico \pkg{trueskill}~$0.4.5$).}
+%
+\en{In contrast, our \proglang{R} package is several times slower than the basic \pkg{trueskill}~$0.4.5$ package.}
+\es{Por el contrario, nuestro paquete de \proglang{R} es varias veces más lento que que el paquete básico \pkg{trueskill}~$0.4.5$.}
+%
+\en{The analysis was performed on two representative home computers.}
+\es{El análisis fue realizado en dos computadoras representativas de uso domiciliario.}
+%
+\en{Computer \textbf{A} has 15.6G of RAM and an Intel processor (i5-3330, 3.00GHz, cache 6144KB), and computer \textbf{B} has 3.33G of RAM and an AMD processor (A4-6210, CPU 1.00GHz, cache 2048 KB).}
+\es{La computadora \textbf{A} tiene 15.6G de RAM y un procesador Intel (i5-3330, 3.00GHz, cache 6144KB), y la computadora \textbf{B} tiene 3.33G de RAM y un procesador AMD (A4-6210, CPU 1.00GHz, cache 2048 KB).}
+%
+\en{The execution times in \proglang{Julia}, \proglang{Python} and \proglang{R} were analyzed with \texttt{@time}, \texttt{timeit} and \texttt{microbenchmarck} respectively.}
+\es{Los tiempos en \proglang{Julia}, \proglang{Python} y \proglang{R} fueron analizados con \texttt{@time}, \texttt{timeit} y \texttt{microbenchmarck} respectivamente.}
+%
+% \en{In the examples that handle single events we also analyze the runtimes of the basic package \pkg{trueskill}~0.4.5 of \proglang{Python}~\cite{}.}
+% \es{En los ejemplos que resuelven eventos individuales también analizamos los tiempos de ejecución del paquete básico \pkg{trueskill}~0.4.5 de \proglang{Python}~\cite{}.}
 
-\begin{description}
- \item[Labo] RAM 15.6G, Intel i5-3330, CPU 3.00GHz, cache 6144KB
- \item[Home] RAM 3.3G, AMD A4-6210, CPU 1.00GHz, cache 2048 KB
-\end{description}
-
-
-En julia con \texttt{@time}
-En python fue analizado con timeit
-En R con microbenchmarck
-
-Game 2vs2:
-
-Python.3.6.9-casa (trueskill): 0.00145
-
-Julia.1.5.0-casa:  0.000064
-Python.3.6.9-casa: 0.00014
-R.3.4.4-casa:      0.03715286
-
-Game 1vs2vs1:
-
-Python.3.6.9-casa (trueskill):0.00245
-
-Julia.1.5.0-casa:  0.000096
-Python.3.6.9-casa: 0.00093
-R.3.4.4-casa: 0.3603933
-
-History:
-
-Initialization: 
-
-Julia.1.5.0-casa:  0.000309
-Python.3.6.9-casa: 0.001086
-R.3.4.4-casa: 0.2628356
-
-Iteration:
-Julia.1.5.0-casa: 0.000582
-
-Skill evolution, Initialization:
-
-Julia.1.5.0-casa:  0.038117
-Python.3.6.9-casa: 0.38026
-R.3.4.4-casa: 93 segundos
-
-Skill evolution, iteration:
-Julia.1.5.0-casa:  0.07570
-Python.3.6.9-casa: 0.87625
-R.3.4.4-casa: 149 segundos
-
-ATP:
-
-Julia.1.5.3-labo: 138.5 segundos
-Julia.1.5.0-casa: 387.5 segundos
-
-Python.3.6.8-labo: 1368.6 segundos
-Python.3.6.9-casa: 4498.8 segundos
-
-R.3.4.4-labo: exede la RAM
+\textbf{\en{Single event}\es{Único evento}:}
+%
+\en{In section \ref{sec:singleEvent} we present two examples: in code \ref{lst:game} and \ref{lst:multiple_team_game} we present a game with two and three teams respectively.}
+\es{En la sección \ref{sec:singleEvent} presentamos dos ejemplos: en el código~\ref{lst:game} y \ref{lst:multiple_team_game} presentamos una partida con dos y tres equipos respectivamente.}
+%
+\en{The calculated execution times include the initialization of the class \texttt{Game} and the method \texttt{posteriors()}.}
+\es{Los tiempos de ejecución calculados incluyen la inicialización de la clase\texttt{Game} y el método \texttt{posteriors()}.}
+%
+\en{The basic TrueSkill package solves these two steps with the \texttt{rate()} function.}
+\es{En el paquete básico de TrueSkill estos dos pasos lo resuelve la función \texttt{rate()}.}
+%
+\en{In the two-team game, its execution time on computer B (\proglang{Python} version $3.6.9$) was $0.00145$ seconds.}
+\es{En la ppartida de dos equipos, su tiempo de ejecución en la computadora B, en la versión $3.6.9$ de \proglang{Python} fue $0.00145$ segundos.}
 % 
+\begin{table}[H] \centering
+  \begin{tabular}{cccc} 
+  \en{Computer}\es{Computadora} & \en{Language}\es{Lenguaje} & \en{Seconds}\es{Segundos} & \en{Improvement}\es{Mejora} \\ \hline 
+ B  & Julia.1.5.0 &  $0.000064$ & $\times22.7$\\ \hline
+B & Python.3.6.9 & $0.00014$ & $\times10.4$ \\ \hline
+B & R.3.4.4   & $0.0371$ & $\times0.04$ \\ \hline
+    \end{tabular}
+    \caption{
+     \en{Runtimes of both the initialization of the class \texttt{Game} and the method \texttt{posteriors()} for the two-team game, and the improvement over the basic TrueSkill package of \proglang{Python}.}
+     \es{Tiempos de ejecución de la inicialización de la clase\texttt{Game} y del método \texttt{posteriors()} para la partida de dos equipos, y la mejora respecto del paquete básico de TrueSkill de \proglang{Python}.}
+    }
+\end{table}
+%
+\en{For the three-team game, the execution time of function \texttt{rate()} of the basic \pkg{trueskill}~$0.4.5$ package (computer B \proglang{Python}, version $3.6.9$) was $0.00245$ seconds.}
+\es{Para el evento con tres equipos, el tiempo de ejecución de la función \texttt{rate()} del paquete básico \pkg{trueskill}~$0.4.5$ (computadora B, versión $3.6.9$ de \proglang{Python}) fue de $0.00245$ segundos.}
+%
+\begin{table}[H] \centering
+  \begin{tabular}{cccc} 
+  \en{Computer}\es{Computadora} & \en{Language}\es{Lenguaje} & \en{Seconds}\es{Segundos} & \en{Improvement}\es{Mejora} \\ \hline 
+ B  & Julia.1.5.0 &  $0.000096$ & $\times25.5$\\ \hline
+B & Python.3.6.9 & $0.00093$ & $\times 2.63$ \\ \hline
+B & R.3.4.4   & $0.3604$ & $\times 0.007$ \\ \hline
+    \end{tabular}
+    \caption{
+     \en{Runtimes of both the initialization of the class \texttt{Game} and the method \texttt{posteriors()} for the three-team game, and the improvement over the basic TrueSkill package of \proglang{Python}.}
+     \es{Tiempos de ejecución de la inicialización de la clase\texttt{Game} y del método \texttt{posteriors()} para la partida de dos equipos, y la mejora respecto del paquete básico de TrueSkill de \proglang{Python}.}
+    }
+\end{table}
+%
+\textbf{\en{Sequence of events}\es{Secuencia de eventos}:}
+%
+\en{In section \ref{sec:sequence_of_events} we present the initialization of the class \texttt{History} and the method \texttt{convergence()} in codes \ref{lst:history} and \ref{lst:ttt} respectively.}
+\es{En la sección \ref{sec:sequence_of_events} presentamos la inicialización de la clase \texttt{History} y el método \texttt{convergence()} en los códigos \ref{lst:history} y \ref{lst:ttt} respectivamente.}
+%
+\en{Although the initialization of the \texttt{History} class is equivalent to calculating the posteriors of the basic TrueSkill model, from now on we do not make further comparisons with the basic \pkg{trueskill}~$0.4.5$ package because it does not have a function to handle sequences of events.}
+\es{Si bien la inicialización de la clase \texttt{History} equivale a calcular los posteriors del modelo básico de TrueSkill, a partir de ahora no hamos más comparaciones con el paquete básico \pkg{trueskill}~$0.4.5$ debido a que no tiene una función para manejar secuencias de eventos.}
+%
+\en{The execution times to initialize the class \texttt{History} and perform a single \texttt{convergence()} iteration were,}
+\es{Los tiempos de ejecución para inicializar la clase \texttt{History} y realizar una única iteración del método \texttt{convergence()} fueron,}
+%
+\begin{table}[H] \centering
+  \begin{tabular}{cccc} 
+  \en{Computer}\es{Computadora} & \en{Language}\es{Lenguaje} & \texttt{History} & \texttt{convergence()} \\ \hline 
+ B  & Julia.1.5.0 &  $0.00031$ & $0.00058$ \\ \hline
+B & Python.3.6.9 & $0.00109$  & $0.00188$ \\ \hline
+B & R.3.4.4   & $0.2529$ & $0.2836$ \\ \hline
+    \end{tabular}
+    \caption{
+     \en{Initialization of the class \texttt{History} and a single iteration of the method \texttt{convergence()} with a sequence of three events of two teams.}
+     \es{Inicialización de la clase \texttt{History} y una única iteración del método \texttt{convergencia()} en la secuencia con tres eventos de dos equipos.}
+    }
+\end{table}
+%
+\textbf{\en{Skill evolution}\es{Evolución de habilidad}:} 
+%
+\en{In the section \ref{sec:skill_evolution} we analyze the skill evolution of a player playing against 1000 different opponents.}
+\es{En la sección \ref{sec:skill_evolution} analizamos la evolución de habilidad de un jugador que juega contra 1000 oponentes distintos.}
+%
+\en{The execution times to initialize the class \texttt{History} and to perform a single convergence iteration were,}
+\es{Los tiempos de ejecución para inicializar la clase \texttt{History} y para una única iteración de convergencia fueron,}
+%
+\begin{table}[H] \centering
+  \begin{tabular}{cccc} 
+  \en{Computer}\es{Computadora} & \en{Language}\es{Lenguaje} & \texttt{History} & \texttt{convergence()} \\ \hline 
+ B  & Julia.1.5.0 &  $0.0381$ & $0.0757$ \\ \hline
+B & Python.3.6.9 & $0.3802$ & $0.8763$ \\ \hline
+B & R.3.4.4   & $93$ & $149$ \\ \hline
+    \end{tabular}
+    \caption{
+     \en{Initialization of the class \texttt{History} and a single iteration of the method \texttt{convergence()} in a sequence of $1000$ games that a player has against different opponents.}
+     \es{Inicialización de la clase \texttt{History} y una única iteración del método \texttt{convergencia()} en una secuencia de $1000$ partidas que un jugador tiene contra oponentes distintos.}
+    }
+\end{table}
+%
+\textbf{\en{The history of the ATP}\es{Historia de la ATP}:} 
+%
+\en{In section \ref{sec:atp} we analyze a real database with \num{450000} events.}
+\es{En la sección \ref{sec:atp} analizamos una base de datos real con \num{450000} partidas.}
+%
+\en{The total runtimes for initialization of the \texttt{History} class and the \texttt{convergenc()} method were,}
+\es{Los tiempos totales de inicialización de la clase \texttt{History} y del método  \texttt{convergenc()} fueron,}
+%
+\begin{table}[H] \centering
+  \begin{tabular}{ccc} 
+  \en{Computer}\es{Computadora} & \en{Language}\es{Lenguaje} & \en{Seconds}\es{Segundos} \\ \hline 
+A & Julia.1.5.3 & 138.5 \\ \hline
+B & Julia.1.5.0 & 387.5 \\ \hline
+A & Python.3.6.8 & 1368.6 \\ \hline
+B & Python.3.6.9 & 4498.8 \\ \hline
+    \end{tabular}
+    \caption{
+     \en{Initialization of the class \texttt{History} and \num{10} iterations of the method \texttt{convergence()} of the ATP example.}
+     \es{Inicialiación de la clase \texttt{History} y \num{10} iteraciones del método \texttt{convergence()} del ejemplo ATP.}
+    }
+\end{table}
+ 
 % The results in this paper were obtained using
 % \proglang{R}~3.4.1 with the
 % \pkg{MASS}~7.3.47 package. \proglang{R} itself
