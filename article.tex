@@ -44,7 +44,7 @@
 \usepackage[binary-units]{siunitx}
 
  % by: https://tex.stackexchange.com/questions/87940/weird-warning-using-pdfx
-\RequirePackage{pdf14}
+% \RequirePackage{pdf14}
 
 % by: https://tex.stackexchange.com/questions/74636/mla-package-and-thumbpdf
 \makeatletter
@@ -981,21 +981,23 @@ R syntax
 \begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.32\textwidth}
-     \begin{tabular}{cc}
-    Parameter & Default value \\ \hline 
-    \texttt{mu} & $0.0$ \\ \hline
-    \texttt{sigma} & $6.0$ \\ \hline
-    \texttt{beta} & $1.0$ \\ \hline
-    \texttt{gamma} & $0.03$ \\ \hline
-    \texttt{p\_draw} & $0.0$ \\ \hline
-    \end{tabular}
+        \begin{tabular}{cc}
+        Parameter & Default value \\ \hline 
+        \texttt{mu} & $0.0$ \\ \hline
+        \texttt{sigma} & $6.0$ \\ \hline
+        \texttt{beta} & $1.0$ \\ \hline
+        \texttt{gamma} & $0.03$ \\ \hline
+        \texttt{p\_draw} & $0.0$ \\ \hline
+        \end{tabular}
     \vspace{0.5cm}
     \caption{Parameters}
     \label{fig:default_values}
     \end{subfigure}
+% 
     \begin{subfigure}[b]{0.32\textwidth}
-    \en{\includegraphics[page={1},width=.7\linewidth]{figures/optimization.pdf}}
-    \es{\includegraphics[page={1},width=.7\linewidth]{figures/optimization.pdf}}
+    \centering
+    \en{\includegraphics[page={1},width=.75\linewidth]{figures/optimization.pdf}}
+    \es{\includegraphics[page={1},width=.75\linewidth]{figures/optimization.pdf}}
     \caption{
     \en{Optimization}
     \es{Optimización}
@@ -3105,7 +3107,7 @@ lhood_tc_approx = lhood_lose_tc
 \label{fig:history}
 \end{figure}
 \en{Performing inference in such a Bayesian network may seem an impossible task.}
-\es{Realizar inferencia en una red bayesiana de estas caracterísiticas puede quizás parecer un tarea imposible.}
+\es{Realizar inferencia en una red bayesiana de estas características puede quizás parecer un tarea imposible.}
 %
 \en{However, the use of an efficient algorithm that requires only a few linear iterations over the data, allows scaling to millions of observations in few minutes.}
 \es{El uso de un algoritmo eficiente, que requiere s\'olo unas pocas iteraciones lineales sobre los datos, permite escalar a millones de observaciones en pocos minutos.}
@@ -3344,6 +3346,15 @@ lhood_tc_approx = lhood_lose_tc
 \en{By offering the packages in three of the main scientific programming languages together with their complete mathematical documentation, we are strongly supporting collaborative scientific work and the unification of the area of skill estimation, today scattered in the use of different algorithms that should already be deprecated.}
 \es{Al ofrecer los paquetes en tres de los principales lenguajes de programación científica junto con su documentación matemática completa, estamos apoyando fuertemente el trabajo científico colaborativo y la unificación del área de estimación de habilidad, hoy desperdigada en el uso de diferentes algoritmos que ya deberían ser deprecados.}
 %
+\en{Our \proglang{Python} package is 10 times faster than the basic \pkg{trueskill}~$0.4.5$ package~\cite{lee-trueskill}.}
+\es{Nuestro paquete de \proglang{Python} es 10 veces más rápido que el paquete básico \pkg{trueskill}~$0.4.5$ \cite{lee-trueskill}.}
+%
+\en{In turn, our \proglang{Julia} package is \num{10} times faster than our \proglang{Python} package (and \num{20} times faster than the basic \pkg{trueskill}~$0.4.5$ package).}
+\es{A su vez, nuestro paquete de \proglang{Julia} es \num{10} veces más rápido que nuestro paquete de \proglang{Python} (y 20 veces más rápido que el paquete básico \pkg{trueskill}~$0.4.5$).}
+%
+\en{In contrast, our \proglang{R} package is several times slower than the basic \pkg{trueskill}~$0.4.5$ package.}
+\es{Por el contrario, nuestro paquete de \proglang{R} es varias veces más lento que que el paquete básico \pkg{trueskill}~$0.4.5$.}
+%
 
 %% -- Optional special unnumbered sections -------------------------------------
 
@@ -3356,25 +3367,17 @@ lhood_tc_approx = lhood_lose_tc
 % maps, tables, \dots) that are not cited in the main text can be credited here.
 % \end{leftbar}
 
-\en{In this section we report the execution times of the examples presented in Section \ref{sec:illustrations}.}
-\es{En esta sección reportamos los tiempos de ejecución de los ejemplos presentados en la sección \ref{sec:illustrations}.}
+\en{In this section we report the execution times of the examples presented in Section~\ref{sec:illustrations}.}
+\es{En esta sección reportamos los tiempos de ejecución de los ejemplos presentados en la sección~\ref{sec:illustrations}.}
 %
-\en{For reference, our \proglang{Python} package is 10 times faster than the basic \pkg{trueskill}~$0.4.5$ package~\cite{lee-trueskill}.}
-\es{Como referencia, nuestro paquete de \proglang{Python} es 10 veces más rápido que el paquete básico \pkg{trueskill}~$0.4.5$ \cite{lee-trueskill}.}
-%
-\en{In turn, our \proglang{Julia} package is \num{10} times faster than our \proglang{Python} package (and \num{20} times faster than the basic \pkg{trueskill}~$0.4.5$ package).}
-\es{A su vez, nuestro paquete de \proglang{Julia} es \num{10} veces más rápido que nuestro paquete de \proglang{Python} (y 20 veces más rápido que el paquete básico \pkg{trueskill}~$0.4.5$).}
-%
-\en{In contrast, our \proglang{R} package is several times slower than the basic \pkg{trueskill}~$0.4.5$ package.}
-\es{Por el contrario, nuestro paquete de \proglang{R} es varias veces más lento que que el paquete básico \pkg{trueskill}~$0.4.5$.}
-%
-\en{The analysis was performed on two representative home computers.}
+
+
+\en{The analysis is performed using a low-end workstation with \SI{3.33}{\giga\byte} of RAM and an AMD processor (A4-6210, \SI{1.00}{\giga\hertz}, cache \SI{2048}{\kilo\byte}).}
 \es{El análisis fue realizado en dos computadoras representativas de uso domiciliario.}
+
+% \es{La computadora \textbf{A} tiene \SI{15.6}{\giga\byte} de RAM y un procesador Intel (i5-3330, \SI{3.00}{\giga\hertz}, cache \SI{6144}{\kilo\byte}), y la computadora \textbf{B} tiene \SI{3.33}{\giga\byte} de RAM y un procesador AMD (A4-6210, \SI{1.00}{\giga\hertz}, total cache \SI{2048}{\kilo\byte}). }
 %
-\en{Computer \textbf{A} has 15.6G of RAM and an Intel processor (i5-3330, 3.00GHz, cache 6144KB), and computer \textbf{B} has 3.33G of RAM and an AMD processor (A4-6210, CPU 1.00GHz, cache 2048 KB).}
-\es{La computadora \textbf{A} tiene 15.6G de RAM y un procesador Intel (i5-3330, 3.00GHz, cache 6144KB), y la computadora \textbf{B} tiene 3.33G de RAM y un procesador AMD (A4-6210, CPU 1.00GHz, cache 2048 KB).}
-%
-\en{The execution times in \proglang{Julia}, \proglang{Python} and \proglang{R} were analyzed with \texttt{@time}, \texttt{timeit} and \texttt{microbenchmarck} respectively.}
+\en{The execution times in \proglang{Julia}, \proglang{Python} and \proglang{R} are analyzed with \texttt{@time}, \texttt{timeit} and \texttt{microbenchmarck} respectively.}
 \es{Los tiempos en \proglang{Julia}, \proglang{Python} y \proglang{R} fueron analizados con \texttt{@time}, \texttt{timeit} y \texttt{microbenchmarck} respectivamente.}
 %
 % \en{In the examples that handle single events we also analyze the runtimes of the basic package \pkg{trueskill}~0.4.5 of \proglang{Python}~\cite{}.}
@@ -3395,11 +3398,11 @@ lhood_tc_approx = lhood_lose_tc
 \es{En la ppartida de dos equipos, su tiempo de ejecución en la computadora B, en la versión $3.6.9$ de \proglang{Python} fue $0.00145$ segundos.}
 % 
 \begin{table}[H] \centering
-  \begin{tabular}{cccc} 
-  \en{Computer}\es{Computadora} & \en{Language}\es{Lenguaje} & \en{Seconds}\es{Segundos} & \en{Improvement}\es{Mejora} \\ \hline 
- B  & Julia.1.5.0 &  $0.000064$ & $\times22.7$\\ \hline
-B & Python.3.6.9 & $0.00014$ & $\times10.4$ \\ \hline
-B & R.3.4.4   & $0.0371$ & $\times0.04$ \\ \hline
+    \begin{tabular}{ccc} 
+        \en{Language}\es{Lenguaje} & \en{Seconds}\es{Segundos} & \en{Improvement}\es{Mejora} \\ \hline
+        Julia.1.5.0 &  $0.000064$ & $\times22.7$\\ \hline
+        Python.3.6.9 & $0.00014$ & $\times10.4$ \\ \hline
+        R.3.4.4   & $0.0371$ & $\times0.04$ \\ \hline
     \end{tabular}
     \caption{
      \en{Runtimes of both the initialization of the class \texttt{Game} and the method \texttt{posteriors()} for the two-team game, and the improvement over the basic TrueSkill package of \proglang{Python}.}
@@ -3473,7 +3476,12 @@ B & R.3.4.4   & $93$ & $149$ \\ \hline
 \en{In section \ref{sec:atp} we analyze a real database with \num{450000} events.}
 \es{En la sección \ref{sec:atp} analizamos una base de datos real con \num{450000} partidas.}
 %
-\en{The total runtimes for initialization of the \texttt{History} class and the \texttt{convergence()} method were,}
+
+\en{In this case, we perform the analysis using an additional workstation to show the impact of different hardware in the execution time while treating a realistic case: Workstation \textbf{A} has \SI{15.6}{\giga\byte} of RAM and an Intel processor (i5-3330, \SI{3.00}{\giga\hertz}, total cache \SI{6144}{\kilo\byte}), and workstation \textbf{B} (same as before) has \SI{3.33}{\giga\byte} of RAM and an AMD processor (A4-6210, \SI{1.00}{\giga\hertz}, cache \SI{2048}{\kilo\byte}), which represents a low-end computer with few resources.}
+\es{El análisis fue realizado en dos computadoras representativas de uso domiciliario.}
+
+
+\en{The total runtime for initialization of the \texttt{History} class and the \texttt{convergence()} method are,}
 \es{Los tiempos totales de inicialización de la clase \texttt{History} y del método  \texttt{convergence()} fueron,}
 %
 \begin{table}[H] \centering
@@ -3485,8 +3493,8 @@ A & Python.3.6.8 & 1368.6 \\ \hline
 B & Python.3.6.9 & 4498.8 \\ \hline
     \end{tabular}
     \caption{
-     \en{Initialization of the class \texttt{History} and \num{10} iterations of the method \texttt{convergence()} of the ATP example.}
-     \es{Inicialiación de la clase \texttt{History} y \num{10} iteraciones del método \texttt{convergence()} del ejemplo ATP.}
+     \en{Initialization of the class \texttt{History} and ten iterations of the method \texttt{convergence()} of the ATP database.}
+     \es{Inicialiación de la clase \texttt{History} y diez iteraciones del método \texttt{convergence()} del ejemplo ATP.}
     }
 \end{table}
  
