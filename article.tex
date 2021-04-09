@@ -522,7 +522,7 @@
 \en{However, this method does not guarantee the quality of the approximation used.}
 \es{Sin embargo, este m\'etodo no garantiza que la distribuci\'on gaussiana seleccionada sea la que mejor aproxima.}
 %
-\en{The success of the TrueSkill solution~\citep{Herbrich2007} is based on the usage of an efficient method for computing the Gaussian distribution that guarantees the approximation of the posterior~(see section~\ref{sec:approximate_posterior}),}
+\en{The success of the TrueSkill solution~\citep{Herbrich2007} is based on the usage of an efficient method for computing the Gaussian distribution that best approximate the exact posterior~(see section~\ref{sec:approximate_posterior}),}
 \es{El \'exito de la soluci\'on TrueSkill~\citep{Herbrich2007} se basa en la aplicaci\'on de m\'etodo eficiente para calcular la gaussiana que mejor aproxima a la posterior exacta (secci\'on~\ref{sec:approximate_posterior}),}
 %
 \begin{equation} \label{eq:approx} 
@@ -535,11 +535,11 @@
 \en{This method allows us to efficiently apply equation~\eqref{eq:posterior_win} iteratively over a sequence of observations, which would otherwise be infeasible.}
 \es{Este método nos permite aplicar eficientemente la ecuaci\'on~\eqref{eq:posterior_win} iterativamente sobre una secuencia de observaciones, que de otra manera sería inviable.}
 %
-\en{The approach adopted by TrueSkill to treat the dynamical process, known as \emph{filtering}, uses the approximate posterior as the prior for the next event.}
-\es{El enfoque adoptado por TrueSkill para tratar el proceso din\'amico, conocido como \emph{filtering}, usa el posterior aproximado como prior del siguiente evento.}
+\en{The approach adopted by TrueSkill to treat the dynamical process, known as \emph{filtering}, uses the last approximate posterior as the prior for the next event.}
+\es{El enfoque adoptado por TrueSkill para tratar el proceso din\'amico, conocido como \emph{filtering}, usa el último posterior aproximado como prior del siguiente evento.}
 %
-\en{The approximate posterior at any given time is:}
-\es{Luego, el posterior aproximado en un determinado momento es,}
+\en{The approximate posterior at any given time is defined as:}
+\es{Luego, el posterior aproximado en un determinado momento se define como,}
 %
 \begin{equation}\label{eq:filter} %\tag{\text{filtering}}
  \widehat{\text{Posterior}}_t \propto \widehat{\text{Likelihood}}_t  \overbrace{\widehat{\text{Likelihood}}_{t-1} \dots \widehat{\text{Likelihood}}_{2} \underbrace{\widehat{\text{Likelihood}}_{1} \text{Prior}_1}_{\widehat{\text{Posterior}}_{1} \text{ \en{as}\es{como} } \text{Prior}_{2}} }^{\widehat{\text{Posterior}}_{t-1} \text{ \en{as}\es{como} } \text{Prior}_{t}} %= \text{Prior}_1 \prod_{i=1}^t \text{Likelihood}_i 
@@ -3473,8 +3473,8 @@ B & R.3.4.4   & $93$ & $149$ \\ \hline
 \en{In section \ref{sec:atp} we analyze a real database with \num{450000} events.}
 \es{En la sección \ref{sec:atp} analizamos una base de datos real con \num{450000} partidas.}
 %
-\en{The total runtimes for initialization of the \texttt{History} class and the \texttt{convergenc()} method were,}
-\es{Los tiempos totales de inicialización de la clase \texttt{History} y del método  \texttt{convergenc()} fueron,}
+\en{The total runtimes for initialization of the \texttt{History} class and the \texttt{convergence()} method were,}
+\es{Los tiempos totales de inicialización de la clase \texttt{History} y del método  \texttt{convergence()} fueron,}
 %
 \begin{table}[H] \centering
   \begin{tabular}{ccc} 
@@ -3584,23 +3584,20 @@ for(tp in lc_a){mu = c(mu,tp[[2]]$mu)}
 \subsection{\en{The history of the Association of Tennis Professionals (ATP)}\es{Historia de la Asociación de Tenistas Profesionales (ATP)}} \label{sec:appendix_atp_code}
 %
 \begin{lstlisting}[backgroundcolor=\color{python},caption={\en{\proglang{Python} code}\es{Código \proglang{Python}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
-import pandas as pd
-df = pd.read_csv('input/history.csv', low_memory=False)
+import pandas as pd; from datetime import datetime
+df = pd.read_csv('input/history.csv')
 
 columns = zip(df.w1_id, df.w2_id, df.l1_id, df.l2_id, df.double)
-composition = [[[w1,w2],[l1,l2]] if d == 't' else [[w1],[l1]] for w1, w2, l1, l2, d in columns ]
+composition = [[[w1,w2],[l1,l2]] if d=='t' else [[w1],[l1]] for w1, w2, l1, l2, d in columns]
+days = [ datetime.strptime(t, "%Y-%m-%d").timestamp()/(60*60*24) for t in df.time_start]
 
-tour_time = pd.to_datetime(df.time_start,format='%Y-%m-%d')
-base_time = pd.to_datetime('1910-01-01',format='%Y-%m-%d')
-times =  (tour_time-base_time).dt.days - df.round_number
-
-h = History(composition = composition, times = times, sigma = 1.6, gamma = 0.036)
+h = History(composition = composition, times = days, sigma = 1.6, gamma = 0.036)
 h.convergence(epsilon=0.01, iterations=10)
 \end{lstlisting}
 %
 \begin{lstlisting}[backgroundcolor=\color{r},caption={\en{\proglang{R} code}\es{Código \proglang{R}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
-
 data = read.csv("input/history.csv", header=T)
+
 get_composition = function(x){
     res = list()
     if (x["double"]=="t"){
@@ -3613,11 +3610,9 @@ get_composition = function(x){
     return(res)
 }
 composition =  apply(data, 1, get_composition ) 
-times = as.Date(data[,"time_start"], format = "%Y-%m-%d")
-times = times - as.Date("1910-01-01", format = "%Y-%m-%d")
-times = as.numeric(times )
+days = as.numeric(as.Date(data[,"time_start"], format = "%Y-%m-%d"))
 
-h = History(composition = composition, times = times, sigma = 1.6, gamma = 0.036)
+h = History(composition = composition, times = days, sigma = 1.6, gamma = 0.036)
 h$convergence(epsilon=0.01, iterations=10)
 \end{lstlisting}
 
