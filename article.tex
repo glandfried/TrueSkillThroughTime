@@ -1114,8 +1114,8 @@ ev = round(ev, 3)
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
-lhs = g$likelihoods
-ev = g$evidence
+lhs = g@likelihoods
+ev = g@evidence
 ev = round(ev, 3)
 \end{lstlisting}
 \end{paracol}
@@ -1147,7 +1147,7 @@ print(pos[0][0])
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
-pos = g$posteriors()
+pos = posteriors(g)
 print(pos[[1]][[1]])
 \end{lstlisting}  
 \end{paracol}
@@ -1164,7 +1164,7 @@ print(lhs[0][0] * a1.prior)
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
-print(lhs[[1]][[1]]*a1$prior)
+print(lhs[[1]][[1]]*a1@prior)
 \end{lstlisting}  
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
@@ -2190,10 +2190,10 @@ p4 = a4.performance()
 \end{lstlisting}
    \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}]
-p1 = a1.performance()
-p2 = a2.performance()
-p3 = a3.performance()
-p4 = a4.performance()
+p1 = performance(a1)
+p2 = performance(a2)
+p3 = performance(a3)
+p4 = performance(a4)
 \end{lstlisting}  
 \end{paracol}
 %
@@ -2266,7 +2266,7 @@ e = 1 - cdf(0,d.mu,d.sigma)
 \end{lstlisting} 
  \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}]
-e = 1 - cdf(0,d$mu,d$sigma) 
+e = 1 - cdf(0,d@mu,d@sigma) 
 \end{lstlisting}   
 \end{paracol}
 %
@@ -2508,7 +2508,7 @@ post = g.posteriors()
 \end{lstlisting}
 \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r}]
-post = g$posteriors()
+post = posteriors(g)
 \end{lstlisting}
 \end{paracol}
 %
@@ -2999,34 +2999,6 @@ lhood_ta_approx = lhood_win_ta
 lhood_tb_approx = lhood_lose_tb * lhood_win_tb
 lhood_tc_approx = lhood_lose_tc
 \end{lstlisting}
-%
-% \en{As an example, we compute the posterior of player 2.}
-% \es{A modo de ejemplo, computamos el posterior del jugador 2.}
-% %
-% \begin{lstlisting}[backgroundcolor=\color
-% {white},label=lst:posterior_s2_approx, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-% \end{lstlisting}
-% \begin{paracol}{3}
-% \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
-% prior2 = r2.N
-% ex = exclude(prior_tb,prior2)
-% \end{lstlisting}
-% \switchcolumn
-% \begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
-% prior2 = r2.N
-% ex = prior_tb.exclude(prior2)
-% \end{lstlisting}
-% \switchcolumn
-% \begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
-% prior2 = r2$N
-% ex = prior_tb$exclude(prior2)
-% \end{lstlisting}
-% \end{paracol}
-% \begin{lstlisting}[backgroundcolor=\color{all}]
-% team_b_without_s2 = ex
-% lhood_s2_approx = lhood_ta_approx - team_b_without_s2 
-% posterior_s2_approx = prior2 * lhood_s2_approx 
-% \end{lstlisting}
 
 \subsection{History} \label{sec:throguthTime}
 
@@ -3402,7 +3374,7 @@ lhood_tc_approx = lhood_lose_tc
         \en{Version}\es{Versi\'on} & \en{Runtime}\es{Tiempo} & \en{Speedup}\es{Mejora} \\ 
         \hline
         \pkg{trueskill} $0.4.5$     & \SI{1.45}{\ms}    & $1.0$X  \\ \hline
-        \proglang{R} $3.4.4$        & \SI{37.1}{\ms}    & $0.04$X \\ \hline
+        \proglang{R} $3.4.4$        & \SI{10.4}{\ms}    & $0.14$X \\ \hline
         \proglang{Python} $3.6.9$   & \SI{0.14}{\ms}    & $10.4$X \\ \hline
         \proglang{Julia} $1.5.0$    & \SI{0.064}{\ms}   & $22.7$X \\ \hline
     \end{tabular}
@@ -3425,7 +3397,7 @@ lhood_tc_approx = lhood_lose_tc
         \hline 
         \pkg{trueskill} $0.4.5$     & \SI{2.45}{\ms}    & $1.0$X  \\ 
         \hline
-        \proglang{R} $3.4.4$        & \SI{360.4}{\ms}   & $0.007$X \\ 
+        \proglang{R} $3.4.4$        & \SI{124.9}{\ms}   & $0.02$X \\ 
         \hline
         \proglang{Python} $3.6.9$   & \SI{0.93}{\ms}    & $2.63$X \\ 
         \hline
@@ -3455,7 +3427,7 @@ lhood_tc_approx = lhood_lose_tc
 \begin{table}[H] \centering
     \begin{tabular}{ccc} 
         \en{Version}\es{Versi\'on} & \texttt{History} & \texttt{convergence()} \\ \hline 
-        \proglang{R} $3.4.4$        & \SI{252.9}{\ms}   & \SI{283.6}{\ms} \\ 
+        \proglang{R} $3.4.4$        & \SI{110.3}{\ms}   & \SI{111.4}{\ms} \\ 
         \hline
         \proglang{Python} $3.6.9$   & \SI{1.09}{\ms}    & \SI{1.88}{\ms} \\ 
         \hline
@@ -3481,7 +3453,7 @@ lhood_tc_approx = lhood_lose_tc
 \begin{table}[H] \centering
     \begin{tabular}{rrr} 
         \en{Language}\es{Lenguaje} & \texttt{History} & \texttt{convergence()} \\ \hline 
-        \proglang{R} $3.4.4$        & \SI{93000}{\ms} & \SI{149000}{\ms} \\ 
+        \proglang{R} $3.4.4$        & \SI{43000}{\ms} & \SI{55000}{\ms} \\ 
         \hline
         \proglang{Python} $3.6.9$   & \SI{380.2}{\ms} & \SI{876.3}{\ms} \\ 
         \hline
@@ -3626,7 +3598,7 @@ for(i in seq(N)){priors[[toString(i)]] = Player(Gaussian(opponents[i],0.2))}
     
 h = History(composition, results, times, priors, gamma=0.015)
 h$convergence(); lc_a = h$learning_curves()$a; mu = c()
-for(tp in lc_a){mu = c(mu,tp[[2]]$mu)}
+for(tp in lc_a){mu = c(mu,tp[[2]]@mu)}
 \end{lstlisting}
 
 \subsection{\en{The history of the Association of Tennis Professionals (ATP)}\es{Historia de la Asociación de Tenistas Profesionales (ATP)}} \label{sec:appendix_atp_code}
