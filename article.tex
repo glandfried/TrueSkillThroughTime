@@ -210,6 +210,7 @@
 \shortcites{VanHorn2003}
 \shortcites{maystre2019-pairwise}
 \shortcites{Bishop2006}
+\shortcites{guo2012-scoreBasedTrueSkill}
 
 \begin{document}
 %\lstset{language=Python}
@@ -3343,11 +3344,8 @@ lhood_tc_approx = lhood_lose_tc
 \en{In this section we report the execution times of the examples presented in Section~\ref{sec:illustrations}.}
 \es{En esta sección reportamos los tiempos de ejecución de los ejemplos presentados en la sección~\ref{sec:illustrations}.}
 %
-
-
 \en{The analysis is performed using a low-end workstation with \SI{4}{\giga\byte} of RAM and an AMD processor (A4-6210, \SI{1.00}{\giga\hertz}, cache \SI{2048}{\kilo\byte}).}
 \es{El análisis fue realizado en dos computadoras representativas de uso domiciliario.}
-
 % \es{La computadora \textbf{A} tiene \SI{15.6}{\giga\byte} de RAM y un procesador Intel (i5-3330, \SI{3.00}{\giga\hertz}, cache \SI{6144}{\kilo\byte}), y la computadora \textbf{B} tiene \SI{3.33}{\giga\byte} de RAM y un procesador AMD (A4-6210, \SI{1.00}{\giga\hertz}, total cache \SI{2048}{\kilo\byte}). }
 %
 \en{The execution times in \proglang{Julia}, \proglang{Python} and \proglang{R} are analyzed with \texttt{@time}, \texttt{timeit} and \texttt{microbenchmarck} respectively.}
@@ -3372,7 +3370,7 @@ lhood_tc_approx = lhood_lose_tc
         \en{Version}\es{Versi\'on} & \en{Runtime}\es{Tiempo} & \en{Speedup}\es{Mejora} \\ 
         \hline
         \pkg{trueskill} $0.4.5$     & \SI{1.45}{\ms}    & $1.0$X  \\ \hline
-        \proglang{R} $3.4.4$        & \SI{10.4}{\ms}    & $0.14$X \\ \hline
+        \proglang{R} $3.4.4$        & \SI{5.43}{\ms}    & $0.27$X \\ \hline
         \proglang{Python} $3.6.9$   & \SI{0.14}{\ms}    & $10.4$X \\ \hline
         \proglang{Julia} $1.5.0$    & \SI{0.064}{\ms}   & $22.7$X \\ \hline
     \end{tabular}
@@ -3395,7 +3393,7 @@ lhood_tc_approx = lhood_lose_tc
         \hline 
         \pkg{trueskill} $0.4.5$     & \SI{2.45}{\ms}    & $1.0$X  \\ 
         \hline
-        \proglang{R} $3.4.4$        & \SI{124.9}{\ms}   & $0.02$X \\ 
+        \proglang{R} $3.4.4$        & \SI{68.9}{\ms}   & $0.036$X \\ 
         \hline
         \proglang{Python} $3.6.9$   & \SI{0.93}{\ms}    & $2.63$X \\ 
         \hline
@@ -3425,7 +3423,7 @@ lhood_tc_approx = lhood_lose_tc
 \begin{table}[H] \centering
     \begin{tabular}{ccc} 
         \en{Version}\es{Versi\'on} & \texttt{History} & \texttt{convergence()} \\ \hline 
-        \proglang{R} $3.4.4$        & \SI{110.3}{\ms}   & \SI{111.4}{\ms} \\ 
+        \proglang{R} $3.4.4$        & \SI{85.4}{\ms}   & \SI{68.1}{\ms} \\ 
         \hline
         \proglang{Python} $3.6.9$   & \SI{1.09}{\ms}    & \SI{1.88}{\ms} \\ 
         \hline
@@ -3451,7 +3449,7 @@ lhood_tc_approx = lhood_lose_tc
 \begin{table}[H] \centering
     \begin{tabular}{rrr} 
         \en{Language}\es{Lenguaje} & \texttt{History} & \texttt{convergence()} \\ \hline 
-        \proglang{R} $3.4.4$        & \SI{43000}{\ms} & \SI{55000}{\ms} \\ 
+        \proglang{R} $3.4.4$        & \SI{35000}{\ms} & \SI{36000}{\ms} \\ 
         \hline
         \proglang{Python} $3.6.9$   & \SI{380.2}{\ms} & \SI{876.3}{\ms} \\ 
         \hline
