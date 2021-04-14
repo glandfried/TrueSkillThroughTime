@@ -228,11 +228,14 @@
 
 %
 
-\en{Knowing how individual skills change over time is essential in Sports and Education.}
-\es{Conocer c\'omo cambian las habilidades individuales a lo largo del tiempo es esencial para en contextos deportivos y educativos.}
+\en{Knowing how individual skills change over time is essential in the educational system and in the labor market.}
+\es{Conocer c\'omo cambian las habilidades individuales a lo largo del tiempo es esencial para en el sistema educativo y laboral.}
 %
-\en{Since the skill is a hidden variable, the best we can do is to estimate it based on its direct observable consequences: the outcome of problem solving and competitions.}
+\en{Since skills are hidden variables, the best we can do is to estimate it based on its direct observable consequences: the outcome of problem solving and competitions.}
 \es{Dado que son variables ocultas, lo mejor que podemos hacer es estimarlas a partir de sus consecuencias observables directas: el producto de resoluci\'on de problemas y competencias.}
+%
+\en{However, estimating learning curves is a sensitive issue, especially when they are intended to be used to make decisions that may impact individuals.}
+\es{Sin embargo la estimación de curvas de aprendiaje es tema sensible, especialmente cuando se las pretende utilizar para tomar decisiones que pueden impactar a las personas.}
 %
 \en{Considering only the frequency of positive results as an indicator of the individuals' ability could lead to wrong approximations, mainly because the outcome also depends on the difficulty of the challenge.}
 \es{Considerar s\'olo la frecuencia de resultados positivos como indicador de la habilidad de los individuos puede conducir a aproximaciones erroneas, fundamentalmente porque su valor depende tambi\'en de la dificultad de los desaf\'ios.}
@@ -240,11 +243,11 @@
 \en{For this reason, all widely used skill estimators are based on pairwise comparisons.}
 \es{Por esta raz\'on, todos los estimadores de habilidad ampliamente usados se basan en comparaciones por pares.}
 %
-\en{Since the first generative models, proposed almost a century ago by~\cite{Thurstone1927} and~\cite{Zermelo1929}, it is assumed that the probability of the observed result $r$ depends on the performance $p$ of the agent $i$ and their opponent $j$, expressed as $P(\, r \,|\, p_i, \, p_j \,)$.}
+\en{Since the first generative models, proposed almost a century ago by~\cite{Thurstone1927} and~\cite{Zermelo1929}, it is assumed that the probability of the observed result $r$ depends on the performance $p$ of an agent $i$ and their opponent $j$, expressed as $P(\, r \,|\, p_i, \, p_j \,)$.}
 \es{Desde los primeros modelos generativos, propuestos hace casi un siglo por~\cite{Thurstone1927} y~\cite{Zermelo1929}, se supone que la probabilidad de un resultado observado, $r$, depende del rendimiento, $p$, del agente $i$ y de su oponente $j$, expresada como $P(\, r \,|\, p_i, \, p_j \,)$.}
 %
-\en{The field continued to progress with the work of~\cite{Bradley1952} and~\cite{Mosteller1951a,Mosteller1951b,Mosteller1951c}, leading to the breakthrough that took place with the methodology developed by~\cite{Elo2008} for the US Chess Federation (USCF), which is still used by the International Chess Federation (FIDE).}
-\es{El campo sigui\'o progresando con los trabajos de \cite{Bradley1952} y~\cite{Mosteller1951a,Mosteller1951b,Mosteller1951c}, que condujo al gran avance que tuvo lugar con la metodología desarrollada por~\cite{Elo2008} para la Federaci\'on de Ajedrez de los Estados Unidos (USCF), adoptada hasta el d\'ia de hoy por la Federaci\'on Internacional de Ajedrez (FIDE).}
+\en{The field continued to progress with the work of~\cite{Bradley1952} and~\cite{Mosteller1951a,Mosteller1951b,Mosteller1951c}, leading to a breakthrough that took place when~\cite{Elo2008} developed a methodology for the US Chess Federation (USCF), which is still used by the International Chess Federation (FIDE).}
+\es{El campo sigui\'o progresando con los trabajos de \cite{Bradley1952} y~\cite{Mosteller1951a,Mosteller1951b,Mosteller1951c}, que condujo al gran avance que tuvo lugar cuando~\cite{Elo2008} desarrolló su metodología para la Federaci\'on de Ajedrez de los Estados Unidos (USCF), adoptada hasta el d\'ia de hoy por la Federaci\'on Internacional de Ajedrez (FIDE).}
 
 % Parrafo
 
@@ -565,8 +568,8 @@
  \widehat{p}(s_{i_t}) = \N(s_{i_t} | \mu_{i_{t-1}}, \sigma_{i_{t-1}}^2 + \gamma^2 )
  \end{equation}
  %
-\en{Because the filtering approach does not arise from any probabilistic model, it suffers from some limitations related to the fact that the information propagates in only one direction through the system.}
-\es{Debido a que el enfoque de filtrado no se surge de ning\'un modelo probabil\'istico, sufre de un serie de problemas, todos relacionados con el hecho de que la informaci\'on se propaga en una sola direcci\'on a trav\'es del sistema.}
+\en{Because the filtering approach is an ad-hoc procedure that does not arise from any probabilistic model, its estimates exhibit a number of problems related to the fact that information propagates in only one direction through the system.}
+\es{Debido a que el enfoque de filtrado es un procedimiento ad-hoc que no surge de ningún modelo probabilistico, sus estimaciones exhiben una serie problemas  relacionados al hecho de que la información propaga en una sola dirección a través del sistema.}
 %
 \en{The most obvious is that the beginning of any sequence of estimates always has high uncertainty.}
 \es{El m\'as obvio es que el inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre.}
@@ -576,65 +579,28 @@
 %
 \en{Although the relative differences between current estimates within well-connected communities are correct, estimates separated in time and between poorly connected communities are often incorrect.}
 \es{Aunque la diferencias relativas entre estimaciones contempor\'aneas al interior de comunidades bien conectadas sean correctas, las estimaciones separadas en el tiempo y entre comunidades poco conectadas suelen ser incorrectas.}
-%
 
 % Parrafo
 
-\en{To obtain accurate initial estimates and ensure temporal and spatial comparability, we need a causal model of the dynamical process that links all historical activities.}
-\es{A fin de obtener buenas estimaciones iniciales y garantizar comparabilidad temporal y espacial, necesitamos un modelo causal del proceso temporal que vincule todas las actividades hist\'oricas.}
+\en{The TrueSkill Through Time model~\citep{Dangauthier2007}, being theoretically well-founded, corrects the biases estimation of previous models, making it a fundamental step in the direction of reliable estimates.}
+\es{El modelo TrueSkill Through Time~\citep{Dangauthier2007}, al estar teóricamente bien fundado, corrige los sesgos de estimación de los modelos previos, por lo que es un paso fundamental en la dirección de estimaciones confiables.}
 %
-\en{In any video game, this typically involves evaluating a complex network consisting of millions of events.}
-\es{En cualquier video juego esto típicamente implica evaluar una red compleja compuesta por millones de eventos.}
+\en{By having a probabilistic model of the entire history of events, we can perform inference without any ad-hoc procedure by strictly applying the rules of probability, guaranteeing both good initial estimates and the temporal and spatial comparability of the estimates.}
+\es{Al tener un modelo probabilísitico de toda la historia de eventos podemos realizar la inferencia sin ningún procedimiento ad-hoc aplicando estrictamente las reglas de la probabilidad, garantizando tanto buenas estimaciones iniciales y como la comparabilidad temporal y espacial de las estimaciones.}
 %
-% \en{For this reason, figure~\ref{fig:smoothing} shows only the closest neighbors of a sequence of estimates.}
-% \es{Por esta raz\'on, la figura~\ref{fig:smoothing} muestra s\'olo los vecinos m\'as pr\'oximos de una secuencia de estimaciones.}
-% %
-\en{This approach, known as \emph{smoothing}, is implemented by TrueSkill Through Time~\citep{Dangauthier2007}.}
-\es{Este enfoque, conocido como \emph{smoothing}, es el implementado por TrueSkill Through Time~\citep{Dangauthier2007}.}
+\en{This is a fundamental step in building reliable estimators for the development of ethical decision-making protocols in sensitive areas, as well as for the evaluation of scientific theories that use skill as observable data.}
+\es{Esto es un paso fundamental para construir estimadores confiables que sirvan para el desarrollo de protocolos éticos de toma de decisiones en áreas sensibles, como para la evaluación de teorías científicas que utilicen la habilidad como dato observable.}
+
+% Parrafo
+
+\en{The connectivity between events is generated by the basic assumption that a player's skill at time $t$ depends on his own skill at an earlier time $t-1$.}
+\es{La conectividad entre eventos se genera por el supuesto básico de que la habilidad de un jugador en un tiempo $t$ depende de su propia habilidad en un tiempo anterior $t-1$.}
 %
-% \begin{figure}[ht!]
-%   \centering
-%   \scalebox{.8}{
-%     \tikz{ %
-%       \node[latent] (s0) {$s_{i_0}$} ;
-%       
-%       \node[latent,right=of s0,xshift=-0.15cm] (s1) {$s_{i_1}$} ;
-%       \node[latent, below=of s1,yshift=0.3cm] (p1) {$p_{i_1}$};
-%       \node[const, below=of p1, yshift=-0.6cm] (t1) {\LARGE $\hfrac{}{\dots}$} ;
-% 
-%       \node[latent, right=of s1,xshift=-0.15cm] (s2) {$s_{i_2}$} ;
-%       \node[latent, below=of s2,yshift=0.3cm] (p2) {$p_{i_2}$};
-%       \node[const, below=of p2, yshift=-0.6cm] (t2) {\LARGE $\hfrac{}{\dots}$} ;
-%       
-%       \node[const, right=of s2, xshift=0.6cm] (s3) {$\dots$} ;
-% 
-%       \node[latent, right=of s3,xshift=-0.3cm] (sn) {$s_{i_n}$} ;
-%       \node[latent, below=of sn,yshift=0.3cm] (pn) {$p_{i_n}$};
-%       \node[const, below=of pn, yshift=-0.6cm] (tn) {\LARGE $\hfrac{}{\dots}$} ;
-%       
-%       \edge {s0} {s1};
-%       \edge {s1} {p1,s2};
-%       \edge {s2} {p2,s3};
-%       \edge {s3} {sn};
-%       \edge {sn} {pn};
-%       \edge {p1} {t1};
-%       \edge {p2} {t2};
-%       \edge {pn} {tn};
-%       
-%       }  
-%   }
-%   \caption{
-%   \en{Schematic representation of a single causal model for the entire history of events.}
-%   \es{Representaci\'on esquem\'atica de un \'unico modelo causal para toda la historia de eventos.}
-%   %
-%   \en{Only the neighbors of a sequence of estimates are displayed.}
-%   \es{S\'olo se muestra los vecinos de una secuencia de estimaciones.}
-%   }
-%   \label{fig:smoothing}
-% \end{figure}
+\en{Then, the temporally adjacent events of the players are linked, generating a network that acquires its structure depending on who participates in each event (similar approaches were developed by \cite{coulom2008-wholeHistoryRating} and \cite{maystre2019-pairwise}).}
+\es{Así, los eventos temporalmente adyacentes de los jugadores quedan vinculados, generando un red que adquiere su estructura dependiendo de quienes participan en cada evento (enfoques similares fueron desarrollados por \cite{coulom2008-wholeHistoryRating} y \cite{maystre2019-pairwise}).}
 %
-\en{By applying the rules of probability over the dynamical model, the historical information naturally propagates through the system, solving the issues caused by the filtering approach.}
-\es{Al aplicar las reglas de la probabilidad sobre este modelo temporal, la informaci\'on hist\'orica propaga naturalmente hacia todo el sistema, resolviendo los problemas del enfoque de filtro.}
+\en{Unlike neural networks that have regular structures, these Bayesian networks always acquire a complex structure, typically growing to millions of parameters (e.g. video game).}
+\es{A diferencia de las redes neuronales que tienen estructuras regulares, estas redes bayesianas adquieren siempre una estructura compleja, creciéndo tipícamente a millones de parámetros (e.g. videojuego).}
 %
 \en{Excluding the dynamic component, $\gamma = 0$, the prior of an agent $i$ at the $t$-eth event is just the product of all their likelihoods, except that of the $t$-eth event.}
 \es{Exluyendo el aspecto din\'amico, $\gamma = 0$, el prior de un agente $i$ en el $t$-\'esimo evento es el producto del todas sus verosimilitudes, salvo la del $t$-\'esimo evento.}
@@ -646,31 +612,14 @@
 \en{where $T_i$ is the total number of events in which the $i$ agent participated, with {\small Prior$_{i_0}$} the initial prior of agent $i$.}
 \es{Donde $T_i$ es la cantidad total de eventos del agente $i$, con {\small Prior$_{i_0}$} el prior inicial del agente $i$.}
 %
-\en{This procedure establishes a mutual dependency between likelihoods, forcing us to implement an iterative algorithm to solve the inference (details in section~\ref{sec:throguthTime}).}
-\es{Esto produce una mutua dependencia entre verosimilitudes, oblig\'andonos a implementar un algoritmo iterativo para resolver la inferencia (detalles en la secci\'on~\ref{sec:throguthTime}).}
+\en{This creates a mutual dependence between likelihoods that forces us to implement an iterative algorithm: in the first round we use only the past likelihoods to calculate the priors of each event, and in each new round (backwards and forwards) we use the last available likelihoods (details in section~\ref{sec:throguthTime}).}
+\es{Esto produce una mutua dependencia entre verosimilitudes que nos obliga a implementar un algoritmo iterativo: en la primera vuelta utilizamos sólo las verosimilitudes pasadas para calcular las priors de cada evento, y en cada nueva vuelta (para atrás y para adelante) usamos las últimas verosimilitudes disponibles (detalles en la secci\'on~\ref{sec:throguthTime}).}
 %
-\en{In the first pass, we use the past likelihoods to compute the priors of each event.}
-\es{En la primera pasada, utilizamos las verosimilitudes pasadas para calcular las priores de cada evento.}
+\en{The procedure converges with a few linear iterations over the data.}
+\es{El procedimiento converge con unas pocas iteraciones lineales sobre los datos.}
 %
-\en{Once all the likelihoods have been obtained, we can perform a new iteration using the recently computed likelihoods.}
-\es{Una vez calculadas todas las verosimilitudes, podemos realizar una nueva pasada usando las \'ultimas verosimilitudes disponibles.}
-%
-%\en{The first likelihoods will necessarily be incorrect because the priors had been partially defined.}
-%\es{Las primeras verosimilitudes necesariamente ser\'an incorrectas debido a que los priors habían sido definidos parcialmente.}
-%
-%\en{But so will be the likelihoods calculated in the second pass, because its outcome will depend partially on the likelihoods calculated in the previous pass.}
-%\es{Pero tambi\'en lo ser\'an las verosimilitudes calculadas en la segunda pasada, debido a que su resutado depender\'a parcialmente de las verosimilitudes calculadas en la pasada anterior.}
-%
-\en{This procedure converges with a few linear iterations over the data.}
-\es{Este procedimiento converge con unas pocas iteraciones lineales sobre los datos.}
-
-% Parrafo
-
-\en{TrueSkill Through Time outperforms TrueSkill and others filtering models.}
-\es{TrueSkill Through Time supera a TrueSkill y otros modelos de filtrado.}
-%
-\en{In Figure~\ref{fig:smooth_example} we show the estimation's behavior in a data set with two agents and two events.}
-\es{En la figura~\ref{fig:smooth_example} se muestra el comportamiento de las estimaciones en conjunto de datos de dos agentes y dos eventos.}
+\en{In Figure~\ref{fig:smooth_example} we show how the estimates converge in a Bayesian network with two agents and two events.}
+\es{En la figura~\ref{fig:smooth_example} mostramos como convergen las estimaciones en una red bayesiana dos agentes y dos eventos.}
 \begin{figure}[ht!]
   \centering
   \scalebox{.9}{
@@ -748,51 +697,35 @@
       }  
   }
   \caption{
-  \en{The convergence of TrueSkill Through Time in a history consisting of two events and two agents.}
-  \es{Convergencia de TrueSkill Through Time en una historia con s\'olo dos eventos y dos agentes.}
+  \en{Convergence of a Bayesian network consisting of two events and two agents: the first game is won by player $a$, and the second one is won by player $b$.}
+  \es{Convergencia de una red Bayesiana con dos eventos y dos agentes: la primera partida la gana el jugador $a$ y la segunda la gana el jugador $b$.}
   %
-  \en{The first game is won by player $a$, $p_{a_1} > p_{b_1}$, and the second one is won by player $b$, $p_{a_2} < p_{b_2}$.}
-  \es{La primera partida la gana el jugador $a$, $p_{a_1} > p_{b_1}$, y la segunda la gana el jugador $b$, $p_{a_2} < p_{b_2}$.}
-  %
-  \en{The brightness of the curves indicates the order of convergence: the darkest are the latest estimates.}
-  \es{La luminosidad de las curvas indican el orden en la convergencia.}
-  %
-  \en{The first one (the clearest) corresponds to the TrueSkill solution.}
-  \es{La primera (la m\'as clara) se correponde a la soluci\'on TrueSkill.}
-  %
-  \en{The last one (the darkest) corresponds to the TrueSkill Through Time solution.}
-  \es{La \'ultima (la m\'as oscura) se correponde a la soluci\'on TrueSkill Through Time.}
-  %
-  \en{Once convergence is reached, the posterior is centered at 0 for both players, indicating that they have the same skill.}
-  \es{Alcanzada la convergencia, el posterior se centra en 0 para ambos jugadores, indicando que tienen misma habilidad.}
+  \en{The brightness of the curves indicates the order: the first one (the clearest) corresponds to the TrueSkill estimates, and the last one (the darkest) corresponds to the TrueSkill Through Time estimates.}
+  \es{La luminosidad de las curvas indican el orden: la primera (la m\'as clara) correponde a las estimaciones de TrueSkill, y la última (la m\'as oscura) correponde con las estimaciones de TrueSkill Through Time.}
   }
   \label{fig:smooth_example}
 \end{figure}
+% 
+% \en{This approach, known as \emph{smoothing}, is implemented by TrueSkill Through Time~\citep{Dangauthier2007}.}
+% \es{Este enfoque, conocido como \emph{smoothing}, es el implementado por TrueSkill Through Time~\citep{Dangauthier2007}.}
 %
-\en{TrueSkill Through Time recovers the actual differences between hidden skills even at the beginning of the sequence.}
-\es{TrueSkill Through Time recupera las verdaderas diferencias entre habilidades ocultas incluso al principio de la secuencia.}
+\en{TrueSkill Through Time recovers the actual differences between hidden skills, unlike TrueSkill which provides biased estimates.}
+\es{TrueSkill Through Time recupera las verdaderas diferencias entre habilidades,  a diferencia de TrueSkill que ofrece estimaciones sesgadas.}
+%
+\en{According to what the data suggests (one win each), the final posteriors are centered on zero, indicating that both players have the same skill.}
+\es{De acuerdo a lo que sugieren los datos (una victoria cada uno), el posterior final está centrado en cero, indicando que ambos jugadores tienen misma habilidad.}
 %  
-\en{Similar methodologies to TrueSkill Through Time have been developed by \cite{coulom2008-wholeHistoryRating} and \cite{maystre2019-pairwise}.}
-\es{Metodologías similares a TrueSkill Through Time han sido desarrollads por \cite{coulom2008-wholeHistoryRating} y \cite{maystre2019-pairwise}.}
+\en{The advantage of TrueSkill Through Time lies in the fact that the temporal causal model allows the information to propagate correctly throughout the system.}
+\es{La ventaja de TrueSkill Through Time radica en que el modelo causal temporal permite que la información propage correctamente por todo el sistema.}
 %
-%\en{This methodology has not been available until now in any of the major programming languages.}
-%\es{Esta metodolog\'ia no hab\'ia estado hasta ahora disponible en ninguno de los principales lenguajes de programaci\'on.}
+\en{This is a major step towards making learning curve estimates reliable, a necessary prerequisite before they can be used by the scientific community as an empirical basis for decision making.}
+\es{Este es un gran paso para hacer que las estimaciones de curvas de aprendizaje sean confiables, un prerequisito necesario antes de que sean usadas por la comunidad científica como base empírica para la toma de decisiones.}
 %
-\en{Jointly with this work, we make available the first TrueSkill Through Time packages for \proglang{Julia}, \proglang{Python}, and \proglang{R}, together with its scientific documentation.}
+\en{In this work, we make available the first TrueSkill Through Time packages for \proglang{Julia}, \proglang{Python}, and \proglang{R}, together with its scientific documentation.}
 \es{Con este art\'iculo ponemos a disposici\'on los primeros paquetes de TrueSkill Through Time para \proglang{Julia}, \proglang{Python} y \proglang{R}, junto con su documentaci\'on cient\'ifica.}
-
-
 % \cite{A Guide to state-space modeling of ecological time series}
 
 
-%En este punto es razonable preguntarse si los priors de los \emph{state-space} model son priors honestos en el sentido de que desconocen la informacion del dato  para el que son priors.
-% 
-%Si bien en la ecuaci\'on~\ref{eq:smooth_prior} vimos que el prior efectivamente no se multiplica directamente por el likelihood presente, ¿Ser\'a que la informaci\'on de ese likelihood esta siendo incorporada de manera oculta por el algoritmo iterativo?
-%
-%Si esto fuera as\'i, entonces en cada paso de la convergencia deber\'ia ocurrir que la sorpresa disminuye.
-%
-%Para responder a este pregunta y para entender el funcionamiento general de los state-space models mostramos en la Figura~\ref{fig:smooth_example} una solcuci\'on de forma gr\'afica.
-%
 
 
 
@@ -896,10 +829,6 @@
 
 
 
-
-
-
-\newpage
 
 
 %% -- Illustrations ------------------------------------------------------------
@@ -3216,9 +3145,9 @@ lhood_tc_approx = lhood_lose_tc
 \section{Summary and discussion} \label{sec:summary}
 
 \todo[inline]{Falta poner una frase motivacional al principio, la que est'a no me parece adecuada}
-\en{The estimation of individual skills is a sensitive issue, especially when it is intended to be used for decision making in the educational system or in the labor market.}
-\es{La estimación de habilidades individuales es tema sensible, especialmente cuando se quiere utilizar para la toma de decisiones en el sistema educativo o laborales.}
-%
+% \en{The estimation of individual skills is a sensitive issue, especially when it is intended to be used for decision making in the educational system or in the labor market.}
+% \es{La estimación de habilidades individuales es tema sensible, especialmente cuando se quiere utilizar para la toma de decisiones en el sistema educativo o laborales.}
+% %
 \en{The objective is to develop an estimator of skill and learning curves that can be accepted as an ``empirical basis'' by the scientific community, and allow the creation of ethical protocols for decision making.}
 \es{El objetivo es desarrollar una estimador de habilidad y curvas de aprendizaje que pueda ser aceptado como ``base empírica'' por la comunidad científica, y permita crear protocolos éticos para toma de decisiones.}
 %
@@ -3300,35 +3229,31 @@ lhood_tc_approx = lhood_lose_tc
 
 % Parrafo
 
-\en{This work enables the incorporation of the extensions developed over the years for the TrueSkill and Item-Response Theory models into the temporal causal model.}
-\es{En primer lugar, se abre la posibilidad de incorporar al modelo causal temporal implementado aquí las extensiones que con los años se fueron desarrollando para los modelos TrueSkill e Item-Response Theory.}
+\en{The implementations made in this work open the possibility of incorporating into the temporal causal model the extensions that were developed over the years for the TrueSkill and Item-Response Theory models.}
+\es{Las implementaciones hechas en este trabajo abre la posibilidad de incorporar al modelo causal temporal las extensiones que con los años se fueron desarrollando para los modelos TrueSkill e Item-Response Theory.}
 %
-\en{For example, it can be used as observable not only the lose/tie/win results, but to consider the difference of the those results~\cite{guo2012-scoreBasedTrueSkill}.}
-\es{Un ejemplo es usar como observable no sólo los resultados perder/empatar/ganar, sino usar la diferencia de puntos de esos resuktados \cite{guo2012-scoreBasedTrueSkill}.}
+\en{For example, it would be possible to use as observable data not only the ordinal values of the results (lose/tie/win), but also the difference in points that those results had~\citep{guo2012-scoreBasedTrueSkill}.}
+\es{Por ejemplo, sería posible usar como datos observable no sólo los valores ordinales de los resultados (perder/empatar/ganar), sino también la diferencia de puntos que tuvieron esos resultados~\citep{guo2012-scoreBasedTrueSkill}.}
 %
-\en{Another example is to use causal models to link socio-cultural variables and individual abilities~\cite{VanDerLinden2016}.}
-\es{Otra ejemplo es usar un modelo causal que indique como las variables socio-cultural afectan la habilidad individual~\cite{VanDerLinden2016}.}
+\en{Another example would be to extend the causal model by taking into account that individual skills also depend on socio-cultural factors~\citep{VanDerLinden2016}.}
+\es{Otro ejemplo sería extender el modelo causal teniendo en cuenta que las habilidades individuales dependen también de factores socio-cultural~\citep{VanDerLinden2016}.}
 %
-\en{Finally, it is important to highlight the tool's potential for the educational system.}
-\es{Por último, es bueno notar la potencialidad del modelo como herramienta para el sistema educativo en tanto que los datos que se le proveen pueden provenir directamente de sistema educativo, de las evaluaciones de los proprios docentes.}
-%
-\en{The causal model can be used to consider that a student's performance depends not only on the difficulty of the evaluation but also on the strictness of the corrector.}
-\es{El modelo causal tiene en cuenta que el desempeño de un estudiante depende de la dificultad de la evaluación, pero también de la variabilidad que tiene cualquier docente a la hora de corregir.}
+\en{Finally, it is important to highlight the tool's potential for the educational system: observable data can come directly from the teachers' own evaluations, and the causal model will take into account not only the variability of student performance, but also the variability of the teachers in evaluating them.}
+\es{Por último, es bueno notar la potencialidad del modelo como herramienta para el sistema educativo: los datos observables pueden provenir directamente de las evaluaciones de los propios docentes, y el modelo causal tendrá en cuenta no solo la variabilidad de los desempeños de los estudiante, pero también la variabilidad de los docente al evaluarlos.}
 
 % Parrafo
 
+\en{Our \proglang{Python} package is near $10$ times faster than the original \pkg{trueskill}~$0.4.5$ package~\citep{lee-trueskill}.}
+\es{Nuestro paquete de \proglang{Python} es 10 veces más rápido que el paquete original \pkg{trueskill}~$0.4.5$ \citep{lee-trueskill}.}
 %
-\en{Our \proglang{Python} package is near $10$ times faster than the original \pkg{trueskill}~$0.4.5$ package~\cite{lee-trueskill}.}
-\es{Nuestro paquete de \proglang{Python} es 10 veces más rápido que el paquete básico \pkg{trueskill}~$0.4.5$ \cite{lee-trueskill}.}
-%
-\en{In turn, our \proglang{Julia} package is near $10$ times faster than our own \proglang{Python} package and $20$ times faster than the original \pkg{trueskill}~$0.4.5$ package).}
-\es{A su vez, nuestro paquete de \proglang{Julia} es \num{10} veces más rápido que nuestro paquete de \proglang{Python} (y 20 veces más rápido que el paquete básico \pkg{trueskill}~$0.4.5$).}
+\en{In turn, our \proglang{Julia} package is near $10$ times faster than our own \proglang{Python}.}
+\es{A su vez, nuestro paquete de \proglang{Julia} es $10$ veces más rápido que nuestro paquete de \proglang{Python}.}
 %
 \en{In contrast, our \proglang{R} package is slower than the other packages, including the original \pkg{trueskill}~$0.4.5$ package.}
 \es{Por el contrario, nuestro paquete de \proglang{R} es varias veces más lento que que el paquete básico \pkg{trueskill}~$0.4.5$.}
 %
-\en{By offering our package in three of the most widely used scientific programming languages jointly with their complete mathematical documentation, we are strongly supporting collaborative scientific work and the unification of the area of skill estimation which is today scattered in the use of different packages that could be deprecated and out of support.}
-\es{Al ofrecer los paquetes en tres de los principales lenguajes de programación científica junto con su documentación matemática completa, estamos apoyando fuertemente el trabajo científico colaborativo y la unificación del área de estimación de habilidad, hoy desperdigada en el uso de diferentes algoritmos que ya deberían ser deprecados.}
+\en{By offering the packages in three of the main scientific programming languages together with their complete mathematical documentation, we are strongly supporting the collaboration and unification of the scientific area of skill estimation, still scattered in the use of different models, some of them already obsolete.}
+\es{Al ofrecer los paquetes en tres de los principales lenguajes de programación científica junto con su documentación matemática completa, estamos apoyando fuertemente la colaboración y la unificación del área científica de estimación de habilidad, todavía desperdigada en el uso de diferentes modelos, algunos ya obsoletos.}
 
 %% -- Optional special unnumbered sections -------------------------------------
 
