@@ -183,8 +183,8 @@
  \en{The use of an efficient algorithm, that requires only a few linear iterations over the data, allows scaling to millions of observations in few seconds.}
  \es{El uso de un algoritmo eficiente, que requiere s\'olo unas pocas iteraciones lineales sobre los datos, permite escalar a millones de observaciones en pocos segundos.}
  %
-\en{In this paper we offer the first packages for \proglang{Julia}, \proglang{Python}, and \proglang{R}, together with its scientific documentation, supporting the use of reliable learning curve estimates.}
-\es{Al ofrecer los primeros paquetes para \proglang{Julia}, \proglang{Python} y \proglang{R}, junto con su documentaci\'on cient\'ifica, apoyando el uso de estimaciones de curvas de aprendizaje confiables.}
+ \en{In this paper we offer the first packages for \proglang{Julia}, \proglang{Python}, and \proglang{R}, together with its scientific documentation, supporting the use of reliable learning curve estimates.}
+ \es{Al ofrecer los primeros paquetes para \proglang{Julia}, \proglang{Python} y \proglang{R}, junto con su documentaci\'on cient\'ifica, apoyando el uso de estimaciones de curvas de aprendizaje confiables.}
 %  \en{The success of TrueSkill was based on the application of an efficient algorithm to find the best approximation of the exact posterior.}
 %  \es{El \'exito del TrueSkill se bas\'o en la aplicaci\'on de un algoritmo eficiente para encuentrar la mejor aproximaci\'on del posterior exacto.}
 }
@@ -3136,40 +3136,36 @@ lhood_tc_approx = lhood_lose_tc
 
 \section{Summary and discussion} \label{sec:summary}
 
-\todo[inline]{Falta poner una frase motivacional al principio, la que est'a no me parece adecuada}
-% \en{The estimation of individual skills is a sensitive issue, especially when it is intended to be used for decision making in the educational system or in the labor market.}
-% \es{La estimación de habilidades individuales es tema sensible, especialmente cuando se quiere utilizar para la toma de decisiones en el sistema educativo o laborales.}
+ \en{Estimating how complex skills evolves through time is essential in the educational system or in the labor market.}
+ \es{Estimarlas es esencial en los sistemas educativos, laborales y deportivos.}
+ %
+ \en{However, it is a sensitive issue when they are intended to be used to make decisions that may impact individuals.}
+ \es{Sin embargo, es un tema sensible cuando se las pretende usar para tomar decisiones que puede impactar a los individuos.}
+ %
+ \en{The TrueSkill Through Time model, being theoretically well-founded, corrects the biases estimation of previous models, making it a fundamental step in the direction of reliable estimates.}
+ \es{El modelo TrueSkill Through Time, al estar teóricamente bien fundado corrige los sesgos de estimación de los modelos previos, por lo que es un paso fundamental en la dirección de estimaciones confiables.}
+ %
+ \en{With this article we promote their adoption by providing the first packages for \proglang{Julia}, \proglang{Python} and \proglang{R}, together with the complete scientific documentation.}
+ \es{Con este artículo promovemos su uso poniendo a disposición los primeros paquetes para \proglang{Julia}, \proglang{Python} y \proglang{R}, junto con la documentación científica completa.}
+
+% Parrafo
+% 
+%  \en{The strict application of probability theory is essential to reach the agreements required in scientific activity.}
+% \es{La aplicación estricta de la teoría de la probabilidad esencial para alcanzar los acuerdos que se requieren en la actividad científica.}
 % %
-\en{The objective is to develop an estimator of skill and learning curves that can be accepted as an ``empirical basis'' by the scientific community, and allow the creation of ethical protocols for decision making.}
-\es{El objetivo es desarrollar una estimador de habilidad y curvas de aprendizaje que pueda ser aceptado como ``base empírica'' por la comunidad científica, y permita crear protocolos éticos para toma de decisiones.}
-%
-\en{The TrueSkill Through Time model, being theoretically well-founded, corrects the biases estimation of previous models, making it a fundamental step in the direction of reliable estimates.}
-\es{El modelo TrueSkill Through Time, al estar teóricamente bien fundado corrige los sesgos de estimación de los modelos previos, por lo que es un paso fundamental en la dirección de estimaciones confiables.}
-%
-\en{With this article we promote their adoption by providing the first packages for \proglang{Julia}, \proglang{Python} and \proglang{R}, together with the complete scientific documentation.}
-\es{Con este artículo promovemos su uso poniendo a disposición los primeros paquetes para \proglang{Julia}, \proglang{Python} y \proglang{R}, junto con la documentación científica completa.}
-
-% Parrafo
-
-\en{The principle of honesty, understood as maximization of uncertainty given the available information, is the source of validation of empirical knowledge, essential to reach the agreements required in scientific activity as well as in sensitive decision making.}
-\es{El principio de honestidad, entendido como maximización de incertidumbre dada la información disponible, es la fuente de validación del conocimiento empírico, esencial para alcanzar los acuerdos que se requieren en la actividad científica como en la toma de decisiones sensibles.}
-%
-\en{Unlike the vast number of algorithms that select a single point of the hypothesis space through ad-hoc optimizations, Bayesian inference understood as the strict application of probability theory guarantees to compute honest belief distributions given data and models.}
-\es{A diferencia de la gran cantidad de algoritmos que seleccionan un único punto del espacio de hipótesis mediante optimizaciones ad-hoc, la inferencia bayesiana entendida como la aplicación estricta de las reglas de la probabilidad garantiza computar distribución de creencias honestas dados los datos y modelos.}
-%
-% \en{Probability theory provides a generally applicable framework: all assumptions are made explicit through a causal model, which can be intuitively specified graphically; and all inference is made by applying the rules of probability, the sum and product rules, on the model.}
-% \es{La teoría de la probabilidad ofrece un marco de aplicación general: todos los supuestos se hacen expl\'icitos a trav\'es de un modelo causal, que puede ser especificado intuitivamente de forma gr\'afica; y toda inferencia se realiza aplicando las reglas de la probabilidad, las reglas de la suma y del producto, sobre el modelo.}
-%
-\en{However, this guarantee depends on the truth of the information on which the inference is conditioned (data and causal models).}
-\es{Sin embargo esta garantía depende de que sea verdadera la información sobre la que se condiciona la inferencia (datos y modelos causales).}
-
-% Parrafo
+% \en{Unlike the vast number of algorithms that select a single point of the hypothesis space through ad-hoc optimizations, Bayesian inference guarantees to compute honest belief distributions given data and models.}
+% \es{A diferencia de la gran cantidad de algoritmos que seleccionan un único punto del espacio de hipótesis mediante optimizaciones ad-hoc, la inferencia bayesiana garantiza computar distribución de creencias honestas dados los datos y modelos.}
+% %
+% \en{However, this guarantee depends on the truth of the information on which the inference is conditioned (data and causal models).}
+% \es{Sin embargo esta garantía depende de que sea verdadera la información sobre la que se condiciona la inferencia (datos y modelos causales).}
+% 
+% %
 
 \en{Bayesian skill estimators, such as TrueSkill, Glicko and Item-Response Theory, are based on an incomplete causal model that causes information to propagate in only one direction through the system, from the past to the future.}
 \es{Los estimadores de habilidad bayesianos como TrueSkill, Glicko e Item-Response Theory, están basados en un modelo causal incompleto que hace que la información propage sólo en una dirección a través del sistema, del pasado al futuro.}
 %
-\en{This is a source of error that can be very serious when estimating learning curves, preventing their use in sensitive activities such as decision making in educational or labor systems.}
-\es{Esta es un fuente de error que puede ser muy grave a la hora de estimar curvas de aprendizaje, impidiendo su uso en actividades sensibles como toma de decisiones en los sistemas educativos o laborales.}
+\en{This is a source of error that can be very serious when estimating learning curves, hindering their use in sensitive activities.}
+\es{Esta es un fuente de error que puede ser muy grave a la hora de estimar curvas de aprendizaje, impidiendo su uso en actividades sensibles.}
 %
 \en{The most obvious problem is that the beginning of any estimation sequence always has high uncertainty, which prevents estimating the actual progress made by individuals.}
 \es{El problema más obvio es que el inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre, lo que impide estimar el progreso real realizado por los individuos.}
@@ -3179,8 +3175,8 @@ lhood_tc_approx = lhood_lose_tc
 
 % Parrafo
 
-\en{The model we offer here, TrueSkill Through Time, is based on a causal model capable of explaining the behavior of individuals over time.}
-\es{El modelo que ofrecemos aquí, TrueSkill Through Time, está basado en un modelo causal capaz de explicar el comportamiento de los sujetos de estudio en el tiempo.}
+\en{TrueSkill Through Time is based on a causal model capable of explaining the behavior of individuals over time.}
+\es{TrueSkill Through Time está basado en un modelo causal capaz de explicar el comportamiento de los sujetos de estudio en el tiempo.}
 %
 \en{The advantage lies in its causal model that links all historical activities in the same Bayesian network, allowing the information to propagate correctly throughout the system, which guarantees both good initial estimates and the temporal and spatial comparability of the estimates.}
 \es{La ventaja radica en su modelo causal que vincula todas las actividades históricas en una misma red bayesiana, permitiendo que la información propage correctamente por todo el sistema, lo que garantiza tanto buenas estimaciones iniciales y como la comparabilidad temporal y espacial de las estimaciones.}
@@ -3199,8 +3195,8 @@ lhood_tc_approx = lhood_lose_tc
 \en{This particular model requires the implementation of an iterative message passing algorithm (\emph{loopy belief propagation}) to efficiently solve the inference process.}
 \es{Este modelo en particular requiere la implementación de un algoritmo iterativo de pasaje de mensajes (\emph{loopy belief propagation}) que permite resolver de forma eficiente el proceso de inferencia.}
 %
-\en{We have shown that although the model forces the implementation of an iterative algorithm, the procedure converges quickly even on large databases.}
-\es{Hemos mostrado que a pesar de que el modelo obliga a implementar un algoritmo iterativo, el procedimiento converge rápidamente incluso en bases de datos grandes.}
+\en{We have shown that this procedure converges quickly even on large databases.}
+\es{Hemos mostrado que este procedimiento converge rápidamente incluso en bases de datos grandes.}
 %
 \en{Therefore, the fact that it has not been implemented before is not justified by computational limitations, but seems to be a consequence of the scarcity of previously available documentation.}
 \es{Entonces, que no se haya implementado antes no se justifica por limitaciones computacionales, parece ser consecuencia de la escacés de documentación disponible previamente.}
@@ -3221,14 +3217,14 @@ lhood_tc_approx = lhood_lose_tc
 
 % Parrafo
 
-\en{The implementations made in this work open the possibility of incorporating into the temporal causal model the extensions that were developed over the years for the TrueSkill and Item-Response Theory models.}
-\es{Las implementaciones hechas en este trabajo abre la posibilidad de incorporar al modelo causal temporal las extensiones que con los años se fueron desarrollando para los modelos TrueSkill e Item-Response Theory.}
+\en{The implementations made in this work open the possibility of incorporating the extensions that were developed over the years for the TrueSkill and Item-Response Theory models.}
+\es{Las implementaciones hechas en este trabajo abre la posibilidad de incorporar las extensiones que con los años se fueron desarrollando para los modelos TrueSkill e Item-Response Theory.}
 %
 \en{For example, it would be possible to use as observable data not only the ordinal values of the results (lose/tie/win), but also the difference in points that those results had~\citep{guo2012-scoreBasedTrueSkill}.}
 \es{Por ejemplo, sería posible usar como datos observable no sólo los valores ordinales de los resultados (perder/empatar/ganar), sino también la diferencia de puntos que tuvieron esos resultados~\citep{guo2012-scoreBasedTrueSkill}.}
 %
-\en{Another example would be to extend the causal model by taking into account that individual skills also depend on socio-cultural factors~\citep{VanDerLinden2016}.}
-\es{Otro ejemplo sería extender el modelo causal teniendo en cuenta que las habilidades individuales dependen también de factores socio-cultural~\citep{VanDerLinden2016}.}
+\en{Sociocultural factors that affect individual abilities could also be taken into account ~\citep{VanDerLinden2016}.}
+\es{También se podría tener en cuenta factores socio-cultural que afectan las habilidades individuales~\citep{VanDerLinden2016}.}
 %
 \en{Finally, it is important to highlight the tool's potential for the educational system: observable data can come directly from the teachers' own evaluations, and the causal model will take into account not only the variability of student performance, but also the variability of the teachers in evaluating them.}
 \es{Por último, es bueno notar la potencialidad del modelo como herramienta para el sistema educativo: los datos observables pueden provenir directamente de las evaluaciones de los propios docentes, y el modelo causal tendrá en cuenta no solo la variabilidad de los desempeños de los estudiante, pero también la variabilidad de los docente al evaluarlos.}
