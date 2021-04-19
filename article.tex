@@ -163,38 +163,30 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 %% - \Abstract{} almost as usual
 \Abstract{
- \en{Humans develop complex skills through time.}
+\en{Humans develop complex skills through time.}
  \es{Los humanos desarrollan habilidades complejas a trav\'es del tiempo.}
  %
- \en{Knowing how they change is crucial in many areas, such as educational systems and the video game industry.}
- \es{Saber c\'omo cambian es crucial en muchas \'areas, como los sistemas educativos y la industria de los videojuegos.}
+ \en{Estimating them is essential in education, labor and sports systems.}
+ \es{Estimarlas es esencial en los sistemas educativos, laborales y deportivos.}
  %
- \en{All widely used skill estimators share the same underlying causal model, but differ in their inferential procedure.}
- \es{Todos los estimadores de habilidad ampliamente utilizados comparten el mismo modelo causal subyacente, pero se diferencian en sus procedimientos metodol\'ogicas.}
+ \en{However, it is a sensitive issue when they are intended to be used to make decisions that may impact individuals.}
+ \es{Sin embargo, es un tema sensible cuando se las pretende usar para tomar decisiones que puede impactar a los individuos.}
  %
- \en{The success of TrueSkill was based on the application of an efficient algorithm to find the best approximation of the exact posterior.}
- \es{El \'exito del TrueSkill se bas\'o en la aplicaci\'on de un algoritmo eficiente para encuentrar la mejor aproximaci\'on del posterior exacto.}
+ \en{None of the widely used skill estimators, such as TrueSkill, Glicko and Item-Response Theory, correctly models the temporal aspect, which prevents having both good initial estimates and comparability between estimates separated in time and space.}
+ \es{Ninguno de los estimadores habilidad ampliamente utilizados, como TrueSkill, Glicko e Item-Response Theory, modela correctamente el aspecto temporal, lo que impide tener tanto buenas estimaciones iniciales como comparabilidad entre estimaciones separadas en el tiempo y en el espacio.}
  %
- \en{TrueSkill Through Time is a major enhancement that uses a single generative model for the entire history of activities, rather than a sequence of independent observations, allowing historical information to propagate throughout the system, resulting in better estimates with even less data.}
- \es{TrueSkill Through Time utiliza un \'unico modelo generativo para toda la historia de las actividades, en lugar de una secuencia de observaciones independientes, lo que permite que la informaci\'on hist\'orica se propague por todo el sistema, lo que da lugar a mejores estimaciones con a\'un menos datos.}
+ \en{TrueSkill Through corrects the biases of previous models by modeling the entire history of activities using a single Bayesian network.}
+ \es{TrueSkill Through Time corrige los sesgos de los modelos anteriores al modelar toda la historia de las actividades mediante única red bayesian.}
  %
- \en{The use of an efficient algorithm, that requires only a few linear iterations over the data, allows scaling to millions of observations in few minutes.}
- \es{El uso de un algoritmo eficiente, que requiere s\'olo unas pocas iteraciones lineales sobre los datos, permite escalar a millones de observaciones en pocos minutos.}
+ \en{The use of an efficient algorithm, that requires only a few linear iterations over the data, allows scaling to millions of observations in few seconds.}
+ \es{El uso de un algoritmo eficiente, que requiere s\'olo unas pocas iteraciones lineales sobre los datos, permite escalar a millones de observaciones en pocos segundos.}
  %
- \en{This paper offer the first packages for \proglang{Julia}, \proglang{Python}, and \proglang{R} together with its scientific documentation.}
- \es{Mediante este art\'iculo ofrecemos los primeros paquetes para \proglang{Julia}, \proglang{Python} y \proglang{R}, junto con su documentaci\'on cient\'ifica.}
+\en{In this paper we offer the first packages for \proglang{Julia}, \proglang{Python}, and \proglang{R}, together with its scientific documentation, supporting the use of reliable learning curve estimates.}
+\es{Al ofrecer los primeros paquetes para \proglang{Julia}, \proglang{Python} y \proglang{R}, junto con su documentaci\'on cient\'ifica, apoyando el uso de estimaciones de curvas de aprendizaje confiables.}
+%  \en{The success of TrueSkill was based on the application of an efficient algorithm to find the best approximation of the exact posterior.}
+%  \es{El \'exito del TrueSkill se bas\'o en la aplicaci\'on de un algoritmo eficiente para encuentrar la mejor aproximaci\'on del posterior exacto.}
 }
 \Keywords{Learning, skill, inference, gaming, education, sports, \proglang{Julia}, \proglang{Python},  \proglang{R}}
 \Plainkeywords{}
