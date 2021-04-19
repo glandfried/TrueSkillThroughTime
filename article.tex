@@ -3223,7 +3223,7 @@ lhood_tc_approx = lhood_lose_tc
 \en{For example, it would be possible to use as observable data not only the ordinal values of the results (lose/tie/win), but also the difference in points that those results had~\citep{guo2012-scoreBasedTrueSkill}.}
 \es{Por ejemplo, sería posible usar como datos observable no sólo los valores ordinales de los resultados (perder/empatar/ganar), sino también la diferencia de puntos que tuvieron esos resultados~\citep{guo2012-scoreBasedTrueSkill}.}
 %
-\en{Sociocultural factors that affect individual abilities could also be taken into account ~\citep{VanDerLinden2016}.}
+\en{Sociocultural factors that affect individual abilities could also be taken into account~\citep{VanDerLinden2016}.}
 \es{También se podría tener en cuenta factores socio-cultural que afectan las habilidades individuales~\citep{VanDerLinden2016}.}
 %
 \en{Finally, it is important to highlight the tool's potential for the educational system: observable data can come directly from the teachers' own evaluations, and the causal model will take into account not only the variability of student performance, but also the variability of the teachers in evaluating them.}
@@ -3269,21 +3269,24 @@ lhood_tc_approx = lhood_lose_tc
 
 \textbf{\en{Single event}\es{Único evento}:}
 %
-\en{In section~\ref{sec:singleEvent} we present two examples: in code~\ref{lst:game} a game with two teams and in code~\ref{lst:multiple_team_game} one with three teams.}
+\en{In section~\ref{sec:singleEvent} we present two examples: a game with two teams in code~\ref{lst:game} and a game with three teams in code~\ref{lst:multiple_team_game}.}
 \es{En la sección \ref{sec:singleEvent} presentamos dos ejemplos: en el código~\ref{lst:game} y \ref{lst:multiple_team_game} presentamos una partida con dos y tres equipos respectivamente.}
 %
-\en{The execution time includes the initialization of the class \texttt{Game} and the call to the method \texttt{posteriors()}.}
-\es{Los tiempos de ejecución incluyen la inicialización de la clase\texttt{Game} y el método \texttt{posteriors()}.}
+\en{Here we evaluate the efficiency during the initialization of class \texttt{Game} and the application of method \texttt{posteriors()}.}
+\es{Aquí evaluamos la eficiencia de la inicialización de la clase\texttt{Game} y el método \texttt{posteriors()}.}
 %
 \en{The original \pkg{trueskill} $0.4.5$ package solves these two steps using the \texttt{rate()} function.}
 \es{En el paquete básico de TrueSkill estos dos pasos lo resuelve la función \texttt{rate()}.}
+%
+\en{Table~\ref{Tab:TwoTeams} shows the runtime values.}
+\es{La tabla~\ref{Tab:TwoTeams} muestra los tiempos de ejecución.}
 %
 \begin{table}[H] \centering
     \begin{tabular}{ccc} 
         \en{Version}\es{Versi\'on} & \en{Runtime}\es{Tiempo} & \en{Speedup}\es{Mejora} \\ 
         \hline
         \pkg{trueskill} $0.4.5$     & \SI{1.45}{\ms}    & $1.0$X  \\ \hline
-        \proglang{R} $3.4.4$        & \SI{5.43}{\ms}    & $0.27$X \\ \hline
+        \proglang{R} $3.4.4$        & \SI{4.35}{\ms}    & $0.33$X \\ \hline
         \proglang{Python} $3.6.9$   & \SI{0.14}{\ms}    & $10.4$X \\ \hline
         \proglang{Julia} $1.5.0$    & \SI{0.064}{\ms}   & $22.7$X \\ \hline
     \end{tabular}
@@ -3294,11 +3297,16 @@ lhood_tc_approx = lhood_lose_tc
     \label{Tab:TwoTeams}
 \end{table}
 %
-\todo[inline]{Esteban: agregar discusi\'on de la tabla remarcando los tiempos obtenidos}
-\en{Table~\ref{Tab:TwoTeams} shows the values }
+\en{Our \proglang{Python} and \proglang{Julia} packages are 10 and 20 times faster than the original \pkg{trueskill} package, while the \proglang{R} package is 3 times slower.}
+\es{Nuestros paquetes de \proglang{Python} y \proglang{Julia} son 10 y 20 veces más rápido que el paquete de \pkg{trueskill} original, mientras que el paquete de \proglang{R} es 3 veces más lento.}
 
-\en{Table~\ref{Tab:ThreeTeams} presents the execution times for the three-team game example., the execution time of function \texttt{rate()} of the basic \pkg{trueskill}~$0.4.5$ package (computer B \proglang{Python}, version $3.6.9$) was $0.00245$ seconds.}
-\es{Para el evento con tres equipos, el tiempo de ejecución de la función \texttt{rate()} del paquete básico \pkg{trueskill}~$0.4.5$ (computadora B, versión $3.6.9$ de \proglang{Python}) fue de $0.00245$ segundos.}
+%
+
+\en{Table~\ref{Tab:ThreeTeams} presents the execution times for the three-team game example.}
+\es{La table~\ref{Tab:ThreeTeams} presenta los tiempos de ejecución del evento con tres equipos.}
+%
+\en{Whenever there are more than two teams in the game it is necessary to run an iterative algorithm that increases the time required to compute the posteriors.}
+\es{Siempre que hay más de dos equipos en la partida es necesario ejecutar un algoritmo iterativo que aumenta los tiempos requiridos para computar los posterios.}
 %
 \begin{table}[H] \centering
     \begin{tabular}{ccc} 
@@ -3306,7 +3314,7 @@ lhood_tc_approx = lhood_lose_tc
         \hline 
         \pkg{trueskill} $0.4.5$     & \SI{2.45}{\ms}    & $1.0$X  \\ 
         \hline
-        \proglang{R} $3.4.4$        & \SI{68.9}{\ms}   & $0.036$X \\ 
+        \proglang{R} $3.4.4$        & \SI{31.3}{\ms}   & $0.078$X \\ 
         \hline
         \proglang{Python} $3.6.9$   & \SI{0.93}{\ms}    & $2.63$X \\ 
         \hline
@@ -3319,24 +3327,25 @@ lhood_tc_approx = lhood_lose_tc
     }
     \label{Tab:ThreeTeams}
 \end{table}
-\todo[inline]{Poner breve discusi\'on que relacione las dos tablas y la raz\'on por la que los tiempos son distintos}
-
+%
+\en{Again our \proglang{Python} and \proglang{Julia} packages are faster than the original \pkg{trueskill} package, while the \proglang{R} package is slower.}
+\es{Nuevamente nuestros paquetes de \proglang{Python} y \proglang{Julia} son más rápido que el paquete de \pkg{trueskill} original, mientras que el paquete de \proglang{R} es más lento.}
 
 \textbf{\en{Sequence of events}\es{Secuencia de eventos}:}
 %
 \en{In section \ref{sec:sequence_of_events} we present the initialization of the class \texttt{History} and the call to the method \texttt{convergence()} in codes \ref{lst:history} and \ref{lst:ttt} respectively.}
 \es{En la sección \ref{sec:sequence_of_events} presentamos la inicialización de la clase \texttt{History} y el método \texttt{convergence()} en los códigos \ref{lst:history} y \ref{lst:ttt} respectivamente.}
 %
-\en{Although the initialization of the \texttt{History} class can be obtained using the posteriors and priors of the original TrueSkill package, as it does not have a function to handle sequences of events we cannot compare our implementation with this package.}
-\es{Si bien la inicialización de la clase \texttt{History} equivale a calcular los posteriors del modelo básico de TrueSkill, a partir de ahora no hamos más comparaciones con el paquete básico \pkg{trueskill}~$0.4.5$ debido a que no tiene una función para manejar secuencias de eventos.}
+\en{Although the initialization of the \texttt{History} class calculates the estimates for which the original \pkg{trueskill}~$0.4.5$ package is intended, we do not make further time comparisons because this package does not have a function to automatically handle sequences of events.}
+\es{Si bien la inicialización de la clase \texttt{History} calcula las estimaciones para las cuales está pensado el paquete original \pkg{trueskill}~$0.4.5$, no hacer más comparaciones debido a que este paquete no cuenta con una función para resolver las secuencias de eventos automáticamente.}
 %
-\en{Table~\ref{Tab:Sequence} presents the execution times of the class \texttt{History} initialization and the call to a single \texttt{convergence()} iteration.}
-\es{Los tiempos de ejecución para inicializar la clase \texttt{History} y realizar una única iteración del método \texttt{convergence()} fueron,}
+\en{Table~\ref{Tab:Sequence} presents the execution times for the initialization  of the class \texttt{History} and the call of a single \texttt{convergence()} iteration.}
+\es{En la tabla~\ref{Tab:Sequence} presentamos los tiempos de ejecución para inicializar la clase \texttt{History} y realizar una única iteración del método \texttt{convergence()}.}
 %
 \begin{table}[H] \centering
     \begin{tabular}{ccc} 
         \en{Version}\es{Versi\'on} & \texttt{History} & \texttt{convergence()} \\ \hline 
-        \proglang{R} $3.4.4$        & \SI{85.4}{\ms}   & \SI{68.1}{\ms} \\ 
+        \proglang{R} $3.4.4$        & \SI{74.4}{\ms}   & \SI{46.8}{\ms} \\ 
         \hline
         \proglang{Python} $3.6.9$   & \SI{1.09}{\ms}    & \SI{1.88}{\ms} \\ 
         \hline
@@ -3344,12 +3353,24 @@ lhood_tc_approx = lhood_lose_tc
         \hline
     \end{tabular}
     \caption{
-     \en{Three events of two teams: execution time of the class \texttt{History} initialization and a single iteration of the method \texttt{convergence()}. The original trueskill package cannot be used as reference due to the lack of a function to handle a sequence of events directly.}
-     \es{Inicialización de la clase \texttt{History} y una única iteración del método \texttt{convergencia()} en la secuencia con tres eventos de dos equipos.}
+     \en{Three events of two teams: execution time for the initialization of the class \texttt{History} and a single iteration of the method \texttt{convergence()}.}
+     \es{Tres eventos de dos equipos: tiempos de ejecución de la inicialización de la clase \texttt{History} y una única iteración del método \texttt{convergencia()}.}
     }
     \label{Tab:Sequence}
 \end{table}
 %
+\en{The initialization of the class \texttt{History} includes the creation of the Bayesian network and one pass through all the events, while the convergence performs two passes through the sequence of events, one backward and one forward.}
+\es{La inicialización de la clase \texttt{History} incluye la creación de la red bayesiana y una pasada por todas las partidas, mientras que la convergencia realiza dos pasadas por la secuencia de eventos, una para atrás y otra para adelante.}
+%
+\en{The initialization in the \proglang{Python} package is even faster than the computation of a single isolated event using the original \pkg{trueskill} package.}
+\es{La inicializción en el paquete \proglang{Python} es todavía más rápida que el computo de un úninco evento aislado mediante el paquete original \pkg{trueskill}.}
+%
+\en{The \proglang{Julia} package increases the time difference with respect to our \proglang{Python} package.}
+\es{El paquete de \proglang{Julia} aumenta la velocidad respecto de nuestro paquete \proglang{Python}.}
+%
+\en{And the \proglang{R} package, while maintaining the time difference from \proglang{Python} during convergence, has an additional delay during initialization due to the creation of ``classes by reference''.}
+\es{Y el paquete de \proglang{R}, si bien mantiene la diferencia de tiempo respecto de \proglang{Python} durante la convergencia, tiene una demora adicional durante la incialización debida a la creación de ``clases por referencia''.}
+
 \textbf{\en{Skill evolution}\es{Evolución de habilidad}:} 
 %
 \en{In the section \ref{sec:skill_evolution} we analyze the skill evolution of a player playing against 1000 different opponents.}
@@ -3358,11 +3379,10 @@ lhood_tc_approx = lhood_lose_tc
 \en{The execution times to initialize the class \texttt{History} and to perform a single convergence iteration were,}
 \es{Los tiempos de ejecución para inicializar la clase \texttt{History} y para una única iteración de convergencia fueron,}
 %
-
 \begin{table}[H] \centering
     \begin{tabular}{rrr} 
         \en{Language}\es{Lenguaje} & \texttt{History} & \texttt{convergence()} \\ \hline 
-        \proglang{R} $3.4.4$        & \SI{35000}{\ms} & \SI{36000}{\ms} \\ 
+        \proglang{R} $3.4.4$        & \SI{31000}{\ms} & \SI{26000}{\ms} \\ 
         \hline
         \proglang{Python} $3.6.9$   & \SI{380.2}{\ms} & \SI{876.3}{\ms} \\ 
         \hline
@@ -3375,31 +3395,34 @@ lhood_tc_approx = lhood_lose_tc
     \label{Tab:Evolution}
 \end{table}
 %
+\en{Regarding the times of the previous sequence we can notice two big differences: the \proglang{Julia} package is now $10$ times faster than the \proglang{Python} package, and the initialization times of \proglang{R} become larger while keeping its convergence times stable.}
+\es{Respecto de los tiempos de la secuencia anterior podemos notar dos grandes diferencias: el paquete de \proglang{Julia} ahora es $10$ veces más rápido que el paquete de \proglang{Python}, y los tiempos de inicialización de \proglang{R} se hacen más grande mientras se mantienen estables sus tiempos de convergencia.}
+
 \textbf{\en{The history of the ATP}\es{Historia de la ATP}:} 
 %
 \en{In section \ref{sec:atp} we analyze a historical database with \num{447000} events.}
 \es{En la sección \ref{sec:atp} analizamos una base de datos real con \num{447000} partidas.}
 %
-
-\en{In this case, we perform the analysis using an additional workstation to show the impact of different hardware in the execution time while treating a realistic case: Workstation \textbf{A} has \SI{16}{\giga\byte} of RAM and an Intel processor (i5-3330, \SI{3.00}{\giga\hertz}, total cache \SI{6144}{\kilo\byte}). 
-We also include the result using the same workstation as before (called \textbf{B} in this section).}
-\es{El análisis fue realizado en dos computadoras representativas de uso domiciliario.}
-
-
+\en{In this realisitic scenario, we perform the analysis using an additional workstation to show the impact of different hardware in the execution time.}
+\es{En este escenario realista, realizamos el análisis utilizando una estación de trabajo adicional para mostrar el impacto de diferentes hardware en el tiempo de ejecución.}
+%
+\en{We include the same workstation as before (called \textbf{A} in this section), and a new workstation (called \textbf{B}) with \SI{16}{\giga\byte} of RAM and an Intel processor (i5-3330, \SI{3.00}{\giga\hertz}, total cache \SI{6144}{\kilo\byte}).}
+\es{Incluimos la misma computadora que antes (llamada \textbf{A} ahora), y una nueva computadora con (llamada \textbf{B}) con \SI{16}{\giga\byte} de RAM y un procesador Intel (i5-3330, \SI{3.00}{\giga\hertz}, cache total \SI{6144}{\kilo\byte}).}
+%
 \en{Table~\ref{Tab:ATP} presents the total runtime for the \texttt{History} class initialization and the call to the \texttt{convergence()} method.}
-\es{Los tiempos totales de inicialización de la clase \texttt{History} y del método  \texttt{convergence()} fueron,}
+\es{La table~\ref{Tab:ATP} presenta los tiempos de ejecuación totales de inicialización de la clase \texttt{History} y del método  \texttt{convergence()}.}
 %
 \begin{table}[H] \centering
     \begin{tabular}{ccc} 
         \en{Workstation}\es{Computadora} & \en{Version}\es{Versi\'on} & \en{Runtime}\es{Tiempo} \\ 
         \hline 
-        A & \proglang{Julia} $1.5.3$    & \SI{138.5}{\s} \\ 
+        A & \proglang{Python} $3.6.9$   & \SI{4498.8}{\s} \\ 
         \hline
-        B & \proglang{Julia} $1.5.0$    & \SI{387.5}{\s} \\ 
+        B & \proglang{Python} $3.6.8$   & \SI{1368.6}{\s} \\ 
         \hline
-        A & \proglang{Python} $3.6.8$   & \SI{1368.6}{\s} \\ 
+        A & \proglang{Julia} $1.5.0$    & \SI{387.5}{\s} \\ 
         \hline
-        B & \proglang{Python} $3.6.9$   & \SI{4498.8}{\s} \\ 
+        B & \proglang{Julia} $1.5.3$    & \SI{138.5}{\s} \\ 
         \hline
     \end{tabular}
     \caption{
@@ -3409,15 +3432,15 @@ We also include the result using the same workstation as before (called \textbf{
     \label{Tab:ATP}
 \end{table}
 %
-\en{}
+\en{The initialization and the ten convergence iterations evaluate approximately $447000 \times 21$ events: one pass over all events corresponding to computing TrueSkill estimates during initialization, and two passes over all items per iteration (backward and forward).}
 \es{La inicialización más las 10 iteraciones de convergencia evalúan en total $447000\times 21$ eventos: una pasada sobre todas las partidas correspondiente al computar la estimaciones de TrueSkill durante la inicialización, y dos pasadas sobre todas las partidas por cada iteración (backward y forward).}
 %
-\en{}
-\es{Multiplicando la cantidad de eventos a evaluar por el tiempo de ejecución de cada evento podemos ver que: nuestro paquete de \proglang{Julia} demora menos de lo esperado debido a optimizaciones que realiza \proglang{Julia}, demora $387.5$ segundos en la computadora B cuando debería demorar al menos $600$ segundos considerando que tarda $0.000064$ segundos por evento; y que nuestro paquete de \proglang{Python} dedica 30\% del tiempo ($1314.2$ segundos) a resolver eventos considerando que tarda $0.00014$ segundos por evento.}
+\en{Given the execution times of a single events listed in Table \ref{Tab:TwoTeams},  the minimum execution time it would take to compute the TrueSkill Through Time estimates using the original \pkg{trueskill}~$0.4.5$ package could not be less than \SI{13611}{\s} on computer A,  three times longer than it takes our \proglang{Python} package to perform the entire computation.}
+\es{Dados los tiempos de ejecución de los eventos reportados en la tabla \ref{Tab:TwoTeams}, el tiempo de ejecución mínimo que se necesitaría para computar las estimaciones TrueSkill Through Time mediante el paquete original \pkg{trueskill}~$0.4.5$ no podría ser menor a \SI{13611}{\s} en la computadora A, tres veces más de lo que tarda nuestro paquete \proglang{Python} para realizar la totalidad del computo.}
 %
-\en{}
-\es{Haciendo este mismo análisis, el tiempo de ejecución mínimo que requeriría computar las estimaciones TrueSkill Through Time mediante el paquete original \pkg{trueskill}~$0.4.5$ no podría ser menor a\num{13611} segundos en la computadora B considerando que tarda \num{0.00145} segundos por evento, tres veces más de lo que efectivamente tarda nuestro paquete \proglang{Python} para realizar la totalidad del computo, no sólo reducido a evaluar eventos.}
-
+\en{Our \proglang{Julia} package takes less time than expected considering the times reported in Table~\ref{Tab:TwoTeams} due to optimizations performed by the programming language \proglang{Julia}.}
+\es{Nuestro paquete de \proglang{Julia} demora menos de lo esperado considerando los tiempos reportados en la tabla \ref{Tab:TwoTeams} debido a optimizaciones que realiza \proglang{Julia}.}
+%
  
 % The results in this paper were obtained using
 % \proglang{R}~3.4.1 with the
