@@ -12,7 +12,7 @@ data = read.csv("data/atp_ground_learning_curves.csv", stringsAsFactors=FALSE)
 
 colnames(data)
 
-y_max = 5
+y_max = 6
 y_min = -1
 
 origin= as.Date("1900-01-01", format = "%Y-%m-%d")
@@ -33,16 +33,56 @@ graficar("nadal","hard",c(0,0,0.8))
 
 at = as.numeric(as.Date(c("2004-01-01","2008-01-01","2012-01-01","2016-01-01","2020-01-01"), format = "%Y-%m-%d"))
 
-axis(side=2, labels=NA,cex.axis=0.6,tck=0.015)
+axis(side=2, labels=NA,at=seq(-1,5),cex.axis=0.6,tck=0.015)
 axis(side=1, labels=NA, at = at, cex.axis=0.6,tck=0.015)
 axis(lwd=0,side=1, at = at, c("2004", "2008", "2012", "2016", "2020"), las=0,cex.axis=1.25,line=-0.45)
 axis(lwd=0,side=2, at= seq(-1,5), labels=NA,cex.axis=1.75,line=-0.45)
 
-mtext(text ="Skill difference" ,side =2 ,line=1.3,cex=1.75)
+segments(x0= as.numeric(as.Date("2001-09-01", format = "%Y-%m-%d")),x1= as.numeric(as.Date("2020-03-01", format = "%Y-%m-%d")), y0=seq(0,4),lty=2, col=rgb(0,0,0,0.15))
+mtext(text ="Skill difference      " ,side =2 ,line=0.7,cex=1.75)
 mtext(text ="Time" ,side =1 ,line=2,cex=1.75)
 
+legend(as.numeric(as.Date("2002-06-01", format = "%Y-%m-%d")) ,6.2, pch=c(19,19,19,19), col=c(rgb(1,1,1),rgb(0.8,0,0,0.75),rgb(0,0,0.8,0.75),rgb(0,0.8,0,0.75)), legend = c("Nadal:    ", "Clay", "Hard", "Grass"), bty = "n",cex = 1.33, ncol=4)
 
-legend(as.numeric(as.Date("2001-01-01", format = "%Y-%m-%d")) ,5.3, pch=19, col=c(rgb(0.8,0,0,0.75),rgb(0,0,0.8,0.75),rgb(0,0.8,0,0.75)), legend = c("Clay", "Hard", "Grass"), bty = "n",cex = 1.25, title="Nadal:  ")
+
+
+plot(-1000,-1000, ylim=c(y_min,y_max), xlim=c(x_min, x_max), axes = F,ann = F , col=rgb(0,0,1,0.75), lwd=2)
+graficar("federer","clay",c(0.8,0,0))
+graficar("federer","grass",c(0,0.8,0))
+graficar("federer","hard",c(0,0,0.8))
+
+at = as.numeric(as.Date(c("2004-01-01","2008-01-01","2012-01-01","2016-01-01","2020-01-01"), format = "%Y-%m-%d"))
+
+axis(side=2, labels=NA,at=seq(-1,5),cex.axis=0.6,tck=0.015)
+axis(side=1, labels=NA, at = at, cex.axis=0.6,tck=0.015)
+axis(lwd=0,side=1, at = at, c("2004", "2008", "2012", "2016", "2020"), las=0,cex.axis=1.25,line=-0.45)
+axis(lwd=0,side=2, at= seq(-1,5), labels=NA,cex.axis=1.75,line=-0.45)
+
+segments(x0= as.numeric(as.Date("2001-09-01", format = "%Y-%m-%d")),x1= as.numeric(as.Date("2020-03-01", format = "%Y-%m-%d")), y0=seq(0,4),lty=2, col=rgb(0,0,0,0.15))
+mtext(text ="Skill difference      " ,side =2 ,line=0.7,cex=1.75)
+mtext(text ="Time" ,side =1 ,line=2,cex=1.75)
+
+legend(as.numeric(as.Date("2002-06-01", format = "%Y-%m-%d")) ,6.2, pch=c(19,19,19,19), col=c(rgb(1,1,1),rgb(0.8,0,0,0.75),rgb(0,0,0.8,0.75),rgb(0,0.8,0,0.75)), legend = c("Federer:    ", "Clay", "Hard", "Grass"), bty = "n",cex = 1.33, ncol=4)
+
+
+
+plot(-1000,-1000, ylim=c(y_min,y_max), xlim=c(x_min, x_max), axes = F,ann = F , col=rgb(0,0,1,0.75), lwd=2)
+graficar("djokovic","clay",c(0.8,0,0))
+graficar("djokovic","grass",c(0,0.8,0))
+graficar("djokovic","hard",c(0,0,0.8))
+
+at = as.numeric(as.Date(c("2004-01-01","2008-01-01","2012-01-01","2016-01-01","2020-01-01"), format = "%Y-%m-%d"))
+
+axis(side=2, labels=NA,at=seq(-1,5),cex.axis=0.6,tck=0.015)
+axis(side=1, labels=NA, at = at, cex.axis=0.6,tck=0.015)
+axis(lwd=0,side=1, at = at, c("2004", "2008", "2012", "2016", "2020"), las=0,cex.axis=1.25,line=-0.45)
+axis(lwd=0,side=2, at= seq(-1,5), labels=NA,cex.axis=1.75,line=-0.45)
+
+segments(x0= as.numeric(as.Date("2001-09-01", format = "%Y-%m-%d")),x1= as.numeric(as.Date("2020-03-01", format = "%Y-%m-%d")), y0=seq(0,4),lty=2, col=rgb(0,0,0,0.15))
+mtext(text ="Skill difference      " ,side =2 ,line=0.7,cex=1.75)
+mtext(text ="Time" ,side =1 ,line=2,cex=1.75)
+
+legend(as.numeric(as.Date("2002-06-01", format = "%Y-%m-%d")) ,6.2, pch=c(19,19,19,19), col=c(rgb(1,1,1),rgb(0.8,0,0,0.75),rgb(0,0,0.8,0.75),rgb(0,0.8,0,0.75)), legend = c("Djokovic:   ", "Clay", "Hard", "Grass"), bty = "n",cex = 1.33, ncol=4)
 
 
 

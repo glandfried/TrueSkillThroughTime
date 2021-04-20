@@ -1523,21 +1523,63 @@ convergence(h,epsilon=0.01, iterations=10)
 
 % Parrafo
 
+\en{In this example we are summarizing the players' skill in a single dimension.}
+\es{En este ejemplo estamos resumiendo la habilidad de los jugadores en una única dimensión.} 
+%
+\en{We know, however, that the ability of players can vary significantly depending on the type of ground.}
+\es{Sabemos, sin embargo, que la habilidad de los jugadores puede variar significativamente según el tipo de suelo.}
+%
+\en{TrueSkill Through Time allows estimating this type of multi-dimensional skills.}
+\es{TrueSkill Through Time permite estimar este tipo de habilidades multi-dimensionales.}
+%
+\en{One option is to keep one skill variable per player that we include in all games, and one skill variable per ground that we add as a teammate depending on the type of game.}
+\es{Una opción es mantener una variable de habilidad respectiva al jugador que incluimos en todas las partidas, y una variable de habilidad por suelo que agregameos como compañero de equipo según el tipo de partida.}
+%
+\begin{lstlisting}[backgroundcolor=\color{julia},label=lst:atp_ground, caption={\en{Modeling multi-dimensional skills in ATP history}\es{Modelando habilidades multi-dimensionales en la historia de la ATP}}, belowskip=0.1cm, aboveskip=0.1cm]
+composition_g = [ r.double == "t" ? [[r.w1_id, r.w1_id*r.ground, r.w2_id, r.w2_id*r.ground],[r.l1_id, r.l1_id*r.ground, r.l2_id, r.l2_id*r.ground]] : [[r.w1_id, r.w1_id*r.ground],[r.l1_id, r.l1_id*r.ground]] for r in eachrow(data) ]   
+
+h_ground = History(composition=composition_g, times = times, sigma = 1.6, gamma = 0.036)
+convergence(h_ground,epsilon=0.01, iterations=10)
+\end{lstlisting}
+%
+\en{In Figure~\ref{fig:atp_ground} we show the skill difference that Nadal and Federer have in each of the three main types of ground.}
+\es{En la figura~\ref{fig:atp_ground} mostramos la diferencia de habilidad que Nadal y Federer tiene entre los tres tipos de piso principales.}
+%
 \begin{figure}[ht!]
     \centering
-    \includegraphics[page={1},width=.7\linewidth]{figures/atp_ground}
-    \caption{}
+    \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[page={1},width=\linewidth]{figures/atp_ground}
+    \caption{Nadal}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[page={2},width=\linewidth]{figures/atp_ground}
+    \caption{Federer}
+    \end{subfigure}
+    \caption{
+    \en{Skill difference on the three main types of ground.}
+    \es{Diferencia de habilidad en los tres tipos de suelo principales.}
+    %
+    \en{Each point on the $y$-axis represents a distance of one $\beta$, i.e. 76\% probability of winning.}
+    \es{Cada punto del eje $y$ representa una $\beta$ de distancia, es decir 76\% de probabilidad de ganar.}
+    }
     \label{fig:atp_ground}
 \end{figure}
 %
-
-
-
-
-
-
-
-
+\en{We can see that Nadal has a big skill difference between grounds, unlike Federer who has very similar skills on all three types of ground.}
+\es{Podemos ver que Nadal tiene una diferencia de habilidad grande entre suelos, a diferencia de Federer que tiene habilidades muy similares en los tres tipos de suelo.}
+%
+\en{The Nadal's skill difference between clay and grass gorunds is two or more $\beta$, which means a 92\% difference in probability of winning compared to itself.}
+\es{La diferencia de habilidad entre piso de polvo de ladrillo y pasto de dos o más $\beta$, lo que significa una diferencia de 92\% de probabilidad de ganar si lo comparamos consigo mismo.}
+%
+\en{In the case of Nadal it seems important to model the skill's multi-dimensionality.}
+\es{En el caso de Nadal parece importante modelar la multi-dimensionalidad de la habilidad.}
+%
+\en{In Federer's case, it seems reasonable to summarize it in a single dimension.}
+\es{En el caso de Federer parece razonable resumir la habilidad en una única dimensión.}
+%
+\en{To assess whether the complexity added by modeling multidimensionality is appropriate in general terms, we can compare the a priori prediction of the models.}
+\es{Para evaluar si la complejidad que se agrega al modelar la multidimensional conviene en términos generales, podemos comparar la predicción a priori de los modelos.}
+%
 
 
 

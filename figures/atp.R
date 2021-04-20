@@ -17,14 +17,14 @@ origin= as.Date("1900-01-01", format = "%Y-%m-%d")
 x_max = as.Date("2020-06-01", format = "%Y-%m-%d")
 x_min = as.Date("1968-06-01", format = "%Y-%m-%d")
 
-plot(as.Date(data[,"federer_time"], origin=origin), data$federer_mu , type="l", ylim=c(y_min,y_max), xlim=c(x_min, x_max), axes = F,ann = F , col=rgb(0,0,1,0.75), lwd=2)
-polygon(c(as.Date(data[,"federer_time"], origin=origin),rev(as.Date(data[,"federer_time"], origin=origin))), c(data$federer_mu+data$federer_sigma,rev(data$federer_mu-data$federer_sigma)), col=rgb(0,0,1,0.3), border=F )
-lines(as.Date(data[,"nadal_time"], origin=origin),data$nadal_mu, col=rgb(0,1,0,0.75), lwd=2)
+plot(as.Date(data[,"federer_time"], origin=origin), data$federer_mu , type="l", ylim=c(y_min,y_max), xlim=c(x_min, x_max), axes = F,ann = F , col=rgb(0,0,0.8,0.75), lwd=2)
+polygon(c(as.Date(data[,"federer_time"], origin=origin),rev(as.Date(data[,"federer_time"], origin=origin))), c(data$federer_mu+data$federer_sigma,rev(data$federer_mu-data$federer_sigma)), col=rgb(0,0,0.8,0.3), border=F )
+lines(as.Date(data[,"nadal_time"], origin=origin),data$nadal_mu, col=rgb(0,0.8,0,0.75), lwd=2)
 filtro=!is.na(data$nadal_mu-data$nadal_sigma)
-polygon(c(as.Date(data[,"nadal_time"], origin=origin)[filtro],rev(as.Date(data[,"nadal_time"], origin=origin)[filtro])), c(data$nadal_mu[filtro]+data$nadal_sigma[filtro],rev(data$nadal_mu[filtro]-data$nadal_sigma[filtro])), col=rgb(0,1,0,0.3), border=F )
-lines(as.Date(data[,"djokovic_time"], origin=origin),data$djokovic_mu, col=rgb(1,0,0,0.75), lwd=2)
+polygon(c(as.Date(data[,"nadal_time"], origin=origin)[filtro],rev(as.Date(data[,"nadal_time"], origin=origin)[filtro])), c(data$nadal_mu[filtro]+data$nadal_sigma[filtro],rev(data$nadal_mu[filtro]-data$nadal_sigma[filtro])), col=rgb(0,0.8,0,0.3), border=F )
+lines(as.Date(data[,"djokovic_time"], origin=origin),data$djokovic_mu, col=rgb(0.8,0,0,0.75), lwd=2)
 filtro=!is.na(data$djokovic_mu-data$djokovic_sigma)
-polygon(c(as.Date(data[,"djokovic_time"], origin=origin)[filtro],rev(as.Date(data[,"djokovic_time"], origin=origin)[filtro])), c(data$djokovic_mu[filtro]+data$djokovic_sigma[filtro],rev(data$djokovic_mu[filtro]-data$djokovic_sigma[filtro])), col=rgb(1,0,0,0.3), border=F )
+polygon(c(as.Date(data[,"djokovic_time"], origin=origin)[filtro],rev(as.Date(data[,"djokovic_time"], origin=origin)[filtro])), c(data$djokovic_mu[filtro]+data$djokovic_sigma[filtro],rev(data$djokovic_mu[filtro]-data$djokovic_sigma[filtro])), col=rgb(0.8,0,0,0.3), border=F )
 lines(as.Date(data[,"sampras_time"], origin=origin),data$sampras_mu, col=rgb(0.8,0.8,0,0.75), lwd=2) 
 filtro=!is.na(data$sampras_mu-data$sampras_sigma)
 polygon(c(as.Date(data[,"sampras_time"], origin=origin)[filtro],rev(as.Date(data[,"sampras_time"], origin=origin)[filtro])), c(data$sampras_mu[filtro]+data$sampras_sigma[filtro],rev(data$sampras_mu[filtro]-data$sampras_sigma[filtro])), col=rgb(0.8,0.8,0,0.3), border=F )
@@ -53,7 +53,7 @@ axis(lwd=0,side=2,at = c(1,3,5,7), labels= c(1,3,5,7),  cex.axis=1.75,line=-0.45
 mtext(text ="Skill" ,side =2 ,line=2,cex=1.75)
 mtext(text ="Time" ,side =1 ,line=2,cex=1.75)
 
-legend(27500,1.8, pch=19, col=rev(c(rgb(1,0,0,0.75), rgb(0,1,0,0.75), rgb(0,0,1,0.75), rgb(0.8,0.8,0,0.75), rgb(0.8,0,0.8,0.75), rgb(0,0.8,0.8,0.75), rgb(0.5,0.2,0.2,0.75), rgb(0.2,0.5,0.2,0.75))), legend = rev(c("Djokovic", "Nadal", "Federer","Sampras", "Aggasi", "McEnroe", "Borg", "Vilas")), bty = "n",cex = 1.25, ncol=4)
+legend(as.numeric(as.Date("1975-01-01", origin=origin, format = "%Y-%m-%d")),1.8, pch=19, col=rev(c(rgb(0.8,0,0,0.75), rgb(0,0.8,0,0.75), rgb(0,0,0.8,0.75), rgb(0.8,0.8,0,0.75), rgb(0.8,0,0.8,0.75), rgb(0,0.8,0.8,0.75), rgb(0.5,0.2,0.2,0.75), rgb(0.2,0.5,0.2,0.75))), legend = rev(c("Djokovic", "Nadal", "Federer","Sampras", "Aggasi", "McEnroe", "Borg", "Vilas")), bty = "n",cex = 1.25, ncol=4)
 
 
 
