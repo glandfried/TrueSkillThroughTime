@@ -7,7 +7,7 @@
 \newif\ifes
 \newcommand{\en}[1]{\ifen#1\fi}
 \newcommand{\es}[1]{\ifes#1\fi}
-\entrue
+\estrue
 \usepackage[utf8]{inputenc}
 \usepackage{paracol}
 %\newcommand{\jan}{%
@@ -166,7 +166,7 @@
 %% - \Abstract{} almost as usual
 \Abstract{
 \en{Humans develop complex skills through time.}
- \es{Los humanos desarrollan habilidades complejas a trav\'es del tiempo.}
+ \es{Los humanos desarrollamos habilidades complejas a trav\'es del tiempo.}
  %
  \en{Estimating them is essential in education, labor and sports systems.}
  \es{Estimarlas es esencial en los sistemas educativos, laborales y deportivos.}
@@ -175,20 +175,21 @@
  \es{Sin embargo, es un tema sensible cuando se las pretende usar para tomar decisiones que puede impactar a los individuos.}
  %
  \en{None of the widely used skill estimators, such as TrueSkill, Glicko and Item-Response Theory, correctly models the temporal aspect, which prevents having both good initial estimates and comparability between estimates separated in time and space.}
- \es{Ninguno de los estimadores habilidad ampliamente utilizados, como TrueSkill, Glicko e Item-Response Theory, modela correctamente el aspecto temporal, lo que impide tener tanto buenas estimaciones iniciales como comparabilidad entre estimaciones separadas en el tiempo y en el espacio.}
+ \es{Ninguno de los estimadores habilidad ampliamente utilizados, como TrueSkill, Glicko e Item-Response Theory, modela correctamente el aspecto temporal, lo que les impide tener tanto buenas estimaciones iniciales como comparabilidad entre estimaciones separadas en el tiempo y en el espacio.}
  %
- \en{TrueSkill Through corrects the biases of previous models by modeling the entire history of activities using a single Bayesian network.}
- \es{TrueSkill Through Time corrige los sesgos de los modelos anteriores al modelar toda la historia de las actividades mediante única red bayesian.}
+ \en{TrueSkill Through corrects those biases by modeling the entire history of activities using a single Bayesian network.}
+ \es{TrueSkill Through Time corrige esos sesgos al modelar toda la historia de actividades mediante única red bayesiana.}
  %
  \en{The use of an efficient algorithm, that requires only a few linear iterations over the data, allows scaling to millions of observations in few seconds.}
  \es{El uso de un algoritmo eficiente, que requiere s\'olo unas pocas iteraciones lineales sobre los datos, permite escalar a millones de observaciones en pocos segundos.}
  %
- \en{In this paper we offer the first packages for \proglang{Julia}, \proglang{Python}, and \proglang{R}, together with its scientific documentation, supporting the use of reliable learning curve estimates.}
- \es{Al ofrecer los primeros paquetes para \proglang{Julia}, \proglang{Python} y \proglang{R}, junto con su documentaci\'on cient\'ifica, apoyando el uso de estimaciones de curvas de aprendizaje confiables.}
-%  \en{The success of TrueSkill was based on the application of an efficient algorithm to find the best approximation of the exact posterior.}
-%  \es{El \'exito del TrueSkill se bas\'o en la aplicaci\'on de un algoritmo eficiente para encuentrar la mejor aproximaci\'on del posterior exacto.}
+ \en{In this paper we offer the first packages for \proglang{Julia}, \proglang{Python}, and \proglang{R}, together with its scientific documentation, supporting the use of reliable learning curve estimators.}
+ \es{En este artículo ofrecemos los primeros paquetes para \proglang{Julia}, \proglang{Python} y \proglang{R}, acompañada con su documentaci\'on cient\'ifica, apoyando el uso de estimadores de curvas de aprendizaje confiables.}
 }
-\Keywords{Learning, skill, inference, gaming, education, sports, \proglang{Julia}, \proglang{Python},  \proglang{R}}
+\Keywords{
+\en{Learning, skill, gaming, education, sports, \proglang{Julia}, \proglang{Python},  \proglang{R}}
+\es{Aprendizaje, habilidad, videojuego, educación, deporte, \proglang{Julia}, \proglang{Python},  \proglang{R}}
+}
 \Plainkeywords{}
 
 
@@ -207,13 +208,13 @@
 \begin{document}
 %\lstset{language=Python}
 
-\section[Introduction]{Introduction: } \label{sec:intro}
+\section{\en{Introduction}\es{Introducción}} \label{sec:intro}
 
 \en{Humans develop complex skills because of an special integration of biological, cognitive and social processes~\citep{Koster2020}.}
-\es{Los humanos desarrollan habilidades complejas gracias a una integraci\'on especial de los procesos biol\'ogicos, cognitivos y sociales~\citep{Koster2020}.}
+\es{Los humanos desarrollamos habilidades complejas gracias a una integraci\'on especial de los procesos biol\'ogicos, cognitivos y sociales~\citep{Koster2020}.}
 %
-\en{An exceptional cognitive ability to imitate, combined with long periods of juvenile dependency and postreproductive life span, allows humans to learn things from others and transmit innovations through generations~\citep{Richerson2020}.}
-\es{Una extraordinaria capacidad para imitar, combinada con los largos per\'iodos de aprendizaje juvenil y vida posreproductiva, permite a los humanos aprender de los dem\'as y transmitir las innovaci\'on a trav\'es de la generaciones~\citep{Richerson2020}.}
+\en{Our exceptional cognitive ability to imitate, combined with long periods of juvenile dependency and postreproductive life span, allows humans to learn things from others and transmit innovations through generations~\citep{Richerson2020}.}
+\es{Nuestra extraordinaria capacidad para imitar, combinada con los largos per\'iodos de aprendizaje juvenil y vida posreproductiva, permite a los humanos aprender de los dem\'as y transmitir las innovaci\'on a trav\'es de la generaciones~\citep{Richerson2020}.}
 %
 \en{As a population-based process, human adaptation is also affected by demographic characteristics, such as the size and structure of populations~\citep{Derex2020}.}
 \es{Al ser un proceso poblacional, la adaptaci\'on humana tambi\'en se ve afectada por caracter\'isticas demogr\'aficas, como el tama\~no y estructura de las poblaciones~\citep{Derex2020}.} 
@@ -221,7 +222,7 @@
 %
 
 \en{Knowing how individual skills change over time is essential in the educational system and in the labor market.}
-\es{Conocer c\'omo cambian las habilidades individuales a lo largo del tiempo es esencial para en el sistema educativo y laboral.}
+\es{Conocer c\'omo cambian las habilidades individuales a lo largo del tiempo es esencial en el sistema educativo y laboral.}
 %
 \en{Since skills are hidden variables, the best we can do is to estimate it based on its direct observable consequences: the outcome of problem solving and competitions.}
 \es{Dado que son variables ocultas, lo mejor que podemos hacer es estimarlas a partir de sus consecuencias observables directas: el producto de resoluci\'on de problemas y competencias.}
@@ -236,15 +237,15 @@
 \es{Por esta raz\'on, todos los estimadores de habilidad ampliamente usados se basan en comparaciones por pares.}
 %
 \en{Since the first generative models, proposed almost a century ago by~\cite{Thurstone1927} and~\cite{Zermelo1929}, it is assumed that the probability of the observed result $r$ depends on the performance $p$ of an agent $i$ and their opponent $j$, expressed as $P(\, r \,|\, p_i, \, p_j \,)$.}
-\es{Desde los primeros modelos generativos, propuestos hace casi un siglo por~\cite{Thurstone1927} y~\cite{Zermelo1929}, se supone que la probabilidad de un resultado observado, $r$, depende del rendimiento, $p$, del agente $i$ y de su oponente $j$, expresada como $P(\, r \,|\, p_i, \, p_j \,)$.}
+\es{Desde los primeros modelos generativos, propuestos hace casi un siglo por~\cite{Thurstone1927} y~\cite{Zermelo1929}, se supone que la probabilidad de un resultado observado $r$ depende del rendimiento $p$ del agente $i$ y de su oponente $j$, expresada como $P(\, r \,|\, p_i, \, p_j \,)$.}
 %
 \en{The field continued to progress with the work of~\cite{Bradley1952} and~\cite{Mosteller1951a,Mosteller1951b,Mosteller1951c}, leading to a breakthrough that took place when~\cite{Elo2008} developed a methodology for the US Chess Federation (USCF), which is still used by the International Chess Federation (FIDE).}
-\es{El campo sigui\'o progresando con los trabajos de \cite{Bradley1952} y~\cite{Mosteller1951a,Mosteller1951b,Mosteller1951c}, que condujo al gran avance que tuvo lugar cuando~\cite{Elo2008} desarrolló su metodología para la Federaci\'on de Ajedrez de los Estados Unidos (USCF), adoptada hasta el d\'ia de hoy por la Federaci\'on Internacional de Ajedrez (FIDE).}
+\es{El campo sigui\'o progresando con los trabajos de \cite{Bradley1952} y~\cite{Mosteller1951a,Mosteller1951b,Mosteller1951c}, que condujeron al gran avance que tuvo lugar cuando~\cite{Elo2008} desarrolló una metodología para la Federaci\'on de Ajedrez de los Estados Unidos (USCF), adoptada hasta el d\'ia de hoy por la Federaci\'on Internacional de Ajedrez (FIDE).}
 
 % Parrafo
 
 \en{All currently used skill estimators share some variant of the probabilistic model proposed by Elo~\citep{Glickman1999,Herbrich2007,VanDerLinden2016,Fox2010}.}
-\es{Todos los estimadores de habilidad ampliamente utilizados actualmente comparten alguna variante del modelo probabil\'istico propuesto por Elo~\cite{Glickman1999, Herbrich2007, VanDerLinden2016, Fox2010}.}
+\es{Todos los estimadores de habilidad ampliamente utilizados en la actualidad comparten alguna variante del modelo probabil\'istico propuesto por Elo~\citep{Glickman1999, Herbrich2007, VanDerLinden2016, Fox2010}.}
 %
 \begin{figure}[ht!]
 \centering \small
@@ -259,7 +260,7 @@
     
     \node[latent, above=of d, xshift=-0.8cm, yshift=-0.45cm] (p1) {$p_i$} ; %
     \node[latent, above=of d, xshift=0.8cm, yshift=-0.45cm] (p2) {$p_j$} ; %
-    \node[const, left=of p1, xshift=-0.55cm] (p_name) {\small \en{Performance}\es{Rendimiento}:}; 
+    \node[const, left=of p1, xshift=-0.55cm] (p_name) {\small \en{Performance}\es{Desempeño}:}; 
 
     \node[accion, above=of p1,yshift=0.3cm] (s1) {} ; %
     \node[const, right=of s1] (ds1) {$s_i$};
@@ -278,49 +279,49 @@
 }
      \caption{
      \en{Generative model in which skills cause the observable results mediated by the difference of hidden performances, $d =p_i - p_j$, both random variables around their unknown true skill, $p \sim \N(s,\beta^2)$.}
-    \es{Modelo generativo en el que las habilidades causan los resultados observables a trav\'es de la diferencia de rendimientos ocultos, $d=p_i-p_j$, ambas variables aleatorias centradas en la verdadera habilidad, $p \sim \N(s,\beta^2)$}
+    \es{Modelo generativo en el que las habilidades causan los resultados observables a trav\'es de la diferencia de rendimientos ocultos, $d=p_i-p_j$, ambas variables aleatorias centradas en la verdadera habilidad, $p \sim \N(s,\beta^2)$.}
     %
     \en{The one with the highest performance wins, $r = (d > 0)$.}
-    \es{Gana quien haya obtenido mayor rendimiento, $r = (d > 0)$.}
+    \es{Quien haya obtenido mayor rendimiento gana, $r = (d > 0)$.}
     %
     \en{Observable variables are painted gray, hidden in white, and constants are shown as black dots.}
-    \es{Las variables observables se pintan de gris, la ocultas en blanco, y las constantes se muestran como puntos negros.}
+    \es{Las variables observables se pintan de gris, las ocultas en blanco, y las constantes se muestran como puntos negros.}
     }
     \label{fig:generative_model}
 \end{figure}
 %
 \en{Figure~\ref{fig:generative_model} provides a causal model in which skills generates the observable result.}
-\es{La figura~\ref{fig:generative_model} ofrece un modelo causal en la que las habilidades generan el resultado observable.}
+\es{La figura~\ref{fig:generative_model} ofrece un modelo causal en el que las habilidades generan el resultado observable.}
 %
-\en{The agents exhibit different performances at each event, varying around their true skill, $\N(p_i\,|\,s_i,\beta^2)$.}
+\en{The agents exhibit different performances at each event, varying around their true skill, $\N(p\,|\,s,\beta^2)$.}
 \es{Los agentes exhiben distintos desempe\~nos en cada evento, que var\'ian alrededor de su verdadera habilidad, $\N(p\,|\,s,\beta^2)$.}
 %
 \en{The model assumes that the agent with the highest performance wins, $r = (p_i > p_j)$. In other words, whoever obtains a difference of performance greater than 0 wins, $r = (p_i - p_j > 0)$.}
-\es{El modelo supone que gana el agente con mayor rendimiento, $r = (p_i > p_j)$. En otras palabras, gana quien obtenga una diferencia de rendimiento mayor a 0, $r = (p_i - p_j > 0)$.}
+\es{El modelo supone que gana el agente con mayor rendimiento, $r = (p_i > p_j)$. En otras palabras, gana quien obtenga una diferencia de desempeño mayor a 0, $r = (p_i - p_j > 0)$.}
 %
 \en{The parameter $\beta^2$ is the same for all the agents and acts as the scale of the estimates: skills separated by a $\beta$ keep always the same probability of winning.}
 \es{El parámetro $\beta^2$, al ser el mismo para todos los agentes, act\'ua como la escala de las estimaciones: habilidades separada por un $\beta$ mantienen siempre la misma probabilidad de ganar.}
 
 % Parrafo
 
-\en{Using the graphical representation proposed in Fig.~\ref{fig:generative_model}, it is possible to derive the prediction of the result given the previous estimates, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$.}
-\es{A partir de su representaci\'on gr\'afica se puede derivar entre otras, la predicci\'on del resultado dadas las estimaciones previas, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$.}
+\en{Using the graphical representation proposed in Figure~\ref{fig:generative_model}, it is possible to derive the prediction of the result given the previous estimates, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$.}
+\es{A partir de la representaci\'on gr\'afica propuesta en la figura \ref{fig:generative_model}, se puede derivar la predicci\'on del resultado dadas las estimaciones previas, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$.}
 %
-\en{Elo's methodological solution is simple and smart: updates both previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, based on the surprise (i.e. the complement of the prediction of the observed result).}
-\es{La soluci\'on metodol\'ogica de Elo es simple y astuta: actualizar las estimaciones previas, $s_{i_\text{old}}$ y $s_{j_\text{old}}$, en base a la sorpresa (i.e. el complemento de la predicci\'on del resultado observado).}
+\en{Elo's methodological solution is simple and smart: updates both previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, based on the surprise, i.e. the complement of the prediction of the observed result.}
+\es{La soluci\'on metodol\'ogica de Elo es simple y astuta: actualizar las estimaciones previas, $s_{i_\text{old}}$ y $s_{j_\text{old}}$, en base a la sorpresa, i.e. el complemento de la predicci\'on del resultado observado.}
 %
 \begin{equation} \label{eq:elo_delta}
  \Delta = \underbrace{\left(1-P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)\right)}_{\text{\en{Surprise}\es{Sorpresa}}}
 \end{equation}
 %
-\en{where the probability arises from instantiating the previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, in the generative model (more details in section~\ref{sec:2vs2}).}
+\en{where the probability arises from instantiating the previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, in the generative model (details in section~\ref{sec:2vs2}).}
 \es{Donde la probabilidad surge de instanciar las estimaciones previas en el modelo generativo (detalles en la secci\'on~\ref{sec:2vs2}).}
 %
 \en{The idea is that the magnitude of the surprise $\Delta$ is related to the accuracy of the previous estimates and, therefore, can be used to update them.}
 \es{La idea es que la magnitud de la sorpresa $\Delta$ est\'a relacionada con cuan buenas son las estimaciones previas, y por lo tanto puede usarse para actualizarlas.}
 %
 \en{Unexpected results would indicate that current estimates should be updated to a greater extent than if they had occurred as expected.}
-\es{Los resultados inesperados indicar\'ian que las estimaciones actuales no son del todo correctas y deber\'ian actualizarse en mayor medida que si hubieran ocurrido como se esperaba.}
+\es{Resultados inesperados indicar\'ian que las estimaciones actuales no son del todo correctas y deber\'ian actualizarse en mayor medida que si hubieran ocurrido como se esperaba.}
 %
 \begin{equation}\label{eq:elo_update}
  s_{\text{winner}_\text{new}} = s_{\text{winner}_\text{old}} + \Delta \ \ \ \ \ s_{\text{loser}_\text{new}} = s_{\text{loser}_\text{old}} - \Delta 
@@ -330,36 +331,36 @@
 \es{Donde la sorpresa $\Delta$ act\'ua como factor de correcci\'on para ambas estimaciones previas.}
 %
 \en{This procedure can recover the relative scale of the agents, starting from arbitrary initial values.}
-\es{Esta soluci\'on puede recuperar la escala relativa de los agentes, partiendo de de valores iniciales arbitrarios.}
+\es{Esta soluci\'on puede recuperar la escala relativa de los agentes, partiendo de valores iniciales arbitrarios.}
 %
 \en{However, it does have a major weakness.}
 \es{Sin embargo, tiene algunas debilidades importantes.}
 %
 \en{The update rule (Eq.~\ref{eq:elo_update}) is symmetric: what one agent wins is lost by the other.}
-\es{La regla de actualizaci\'on (Eq.~\ref{eq:elo_update}) es sim\'etrica, as\'i que lo que un agente gana el otro lo pierde.}
+\es{La regla de actualizaci\'on (Eq.~\ref{eq:elo_update}) es sim\'etrica, as\'i que lo que gana un agente el otro lo pierde.}
 %
-\en{Because new agents start with arbitrary skills (the same initial value is used for all individuals), they tend to generate greater surprise values and abruptly modify estimates that had already converged.}
-\es{Debido a que a los agentes nuevos comienzan con estimaciones arbitrarias (el mismo valor inicial para cualquier individuo), ellas tienden a generan alta sorpresa y a modificar bruscamente estimaciones que ya hab\'ian convergido.}
+\en{Because new agents start with arbitrary skills (the same initial value is used for all individuals),  they tend to generate high surprise and therefore can abruptly modify their opponents' estimates even though they have already converged.}
+\es{Debido a que a los agentes nuevos comienzan con estimaciones arbitrarias (el mismo valor inicial para cualquier individuo), ellas tienden a generan alta sorpresa y por lo tanto pueden modificar bruscamente las estimaciones de sus oponentes a pesar de que ya hubieran convergido.}
 %
 \en{This weakness emerges because the uncertainties of the agent's estimates are not considered.}
-\es{Esta debilidad ocurre porque no se tiene en cuenta la incertidumbre sobre las estimaciones de los agentes.}
+\es{Esta debilidad ocurre por no tener en cuenta la incertidumbre sobre las estimaciones de los agentes.}
 %
 \en{An ad-hoc solution was proposed to solve this problem: reducing the impact of the surprise based on the number of times the agent has participated previously.}
-\es{Para resolver este problema, una soluci\'on ad-hoc fue propuesta: reducir el impacto de la sorpresa en funci\'on de la cantidad de veces que el agente ha participado previamente.}
+\es{Una soluci\'on ad-hoc fue propuesta para resolver este problema: reducir el impacto de la sorpresa en funci\'on de la cantidad de veces que el agente ha participado previamente.}
 %
 % \en{This is the role played by the K-factor used by FIDE,  $\Delta_i = \Delta \cdot K_i$.}
 % \es{Ese es rol que desempe\~na el K-factor usado por la FIDE, $\Delta_i = \Delta \cdot K_i$.}
 
 % Cambio de parrafo
 
-\en{Instead of selecting a single value as an estimate, an enhancement consists of distributing the certainty among all possible skill hypotheses.}
-\es{En vez de seleccionar un \'unico valor como estimaci\'on, una alternativa superadora consiste distribuir la certidumbre entre todas las posibles hip\'otesis de habilidad.}
+\en{A better alternative is to distribute our belief among all possible skill hypotheses, instead of selecting a single value as an estimate.}
+\es{Una alternativa superadora consiste en distribuir nuestra creencia entre todas las posibles hipótesis de habilidad, en vez de seleccionar un \'unico valor como estimaci\'on.}
 %
-\en{This approach known as \emph{Bayesian inference} has proven successful in practice~\citep{Bishop2006} and ensures consistent reasoning when handling uncertainty (plausible beliefs)~\citep{Jaynes2003,VanHorn2003}.}
-\es{Este enfoque conocido como inferencia bayesiana ha demostrado ser exitoso en la pr\'actica~\citep{Bishop2006} y garantiza un razonamiento consistente en el manejo de la incertidumbre (o creencias plausibles)~\citep{Jaynes2003,VanHorn2003}.}
+\en{This approach known as \emph{Bayesian inference} has proven successful in practice~\citep{Bishop2006} and ensures consistent reasoning in uncertainty contexts~\citep{Jaynes2003,VanHorn2003}.}
+\es{Este enfoque conocido como inferencia bayesiana ha demostrado ser exitoso en la pr\'actica~\citep{Bishop2006} y garantiza un razonamiento consistente en contextos de incertidumbre~\citep{Jaynes2003,VanHorn2003}.}
 %
-\en{Any inference, independently of its complexity, can be solved by the rules of probability: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
-\es{Toda inferencia, no importa cuan compleja sea, puede ser resuelta mediante las reglas de la probabilidad: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
+\en{Any inference of this type, independently of its complexity, can be solved by the rules of probability: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}.}
+\es{Toda inferencia de este tipo, no importa cuan compleja sea, puede ser resuelta mediante las reglas de la probabilidad: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
 %
 \en{The \ref{eq:sum_rule} states that any marginal distribution can be obtained by integrating, or summing up, the joint distribution:}
 \es{La \ref{eq:sum_rule} afirma que cualquier distribuci\'on marginal se puede obtener integrando o sumando la distribuci\'on conjunta.}
@@ -391,8 +392,8 @@
 % \en{The inferential use of Bayes' theorem plays a central role in modern statistical learning techniques.}
 % \es{El uso inferencial del teorema de bayes juega un rol central en las t\'ecnicas modernas de aprendizaje estad\'isitico.}
 %
-\en{The \ref{eq:bayes_theorem} allows us to optimally update our beliefs about the hypotheses, given a model and the data.}
-\es{El \ref{eq:bayes_theorem} permite actualizar de forma \'optima las creencia sobre las hip\'otesis, dado un modelo y los datos.}
+\en{The \ref{eq:bayes_theorem} optimally update our beliefs about the hypotheses, maximizes uncertainty given a model and the data.}
+\es{El \ref{eq:bayes_theorem} actualiza de forma \'optima las creencia sobre las hip\'otesis, maximiza la incertidumbre dado el modelo y los datos.}
 %
 \en{In our case, to quantify the relative certainty of the skill hypotheses using the information provided by the observed result and the described causal model, we need to solve:}
 \es{En nuestro caso, para cuantificar la certidumbre relativa de las hip\'otesis de habilidades utilizando la informaci\'on que nos ofrece el resultado observado y el modelo causal descrito, necesitamos resolver:}
@@ -404,11 +405,11 @@
 \en{where the only free variable is the skill hypothesis of agent $i$.}
 \es{Donde la \'unica variable libre es la hip\'otesis de habilidad del agente $i$.}
 %
-\en{The prior quantifies the uncertainty about the ability, and the posterior contains the uncertainty that remains after seeing the new data (i.e.~the result of the event).}
-\es{El prior cuantifica la incertidumbre sobre la habilidad, y el posterior contiene la incertidumbre que queda luego de ver el nuevo dato (i.e.~el resultado del evento).}
+\en{The prior quantifies the uncertainty about the skill before seeing the result, and the posterior quantifies the uncertainty after seeing the result.}
+\es{El prior cuantifica la incertidumbre sobre la habilidad antes de ver el resultado, y el posterior cuantifica la incertidumbre luego de ver el resultado.}
 %
 \en{The likelihood and the evidence are both probabilities of the observed result, so they can be seen as predictions (since the results are discrete variables, those probabilities are expressed using capital letters).}
-\es{La verosimilitud como la evidencia son ambas probabilidades del resultado observado, por lo que pueden ser vistas como predicciones (como los resultados son variables discretas, esas probabilidad se escribe con letras may\'usculas).}
+\es{La verosimilitud y la evidencia son ambas probabilidades del resultado observado, por lo que pueden ser vistas como predicciones (como los resultados son variables discretas, esas probabilidad se escribe con letras may\'usculas).}
 %
 \en{Because the evidence is the same for all hypotheses, the only factor that updates our beliefs is the likelihood.}
 \es{Debido a que la evidencia es la misma para todas las hip\'otesis, el \'unico factor que actualiza nuestras creencias es la verosimilitud.}
@@ -416,13 +417,13 @@
 % Parrafo
 
 \en{As an example, we consider a winning case ($p_i > p_j$) using a Gaussian prior (i.e. $\N(\,s\,|\,\mu, \sigma^2)$) for each of the skills.}
-\es{A modo de ejemplo, consideremos un caso ganador ($p_i > p_j$) usando priors Gaussianos, $\N(\,s\,|\,\mu, \sigma^2)$.}
+\es{A modo de ejemplo, consideremos un caso ganador ($p_i > p_j$) usando priors gaussianos, $\N(\,s\,|\,\mu, \sigma^2)$.}
 %
-\en{The difference of performances, $d=p_i-p_j$, can also be expressed as a Gaussian distribution, centered on the difference of the prior estimates ($\mu_i -\mu_j$), with a variance that incorporates the uncertainty of both estimates ($\sigma_i$ and $\sigma_j$) and the variance of both performances ($\beta$), $\N( d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
-\es{La diferencia de rendimientos, $d=p_i-p_j$, tambi\'en se puede expresar como una gaussiana centrada en la diferencia de las medias de las estimaciones a priori ($\mu_i - \mu_j$), con una varianza que incorpora la incertidumbre de ambas estimaciones ($\sigma$) y la varianza de ambos rendimientos ($\beta$), $\N(\, d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
+\en{The difference of performances, $d=p_i-p_j$, can be expressed as a Gaussian distribution, centered on the difference of the prior estimates ($\mu_i -\mu_j$), with a variance that incorporates the uncertainty of both estimates ($\sigma_i$ and $\sigma_j$) and the variance of both performances ($\beta$), $\N( d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
+\es{La diferencia de desempeños, $d=p_i-p_j$, se puede expresar como una gaussiana centrada en la diferencia de las medias de las estimaciones a priori ($\mu_i - \mu_j$), con una varianza que incorpora la incertidumbre de ambas estimaciones ($\sigma$) y la varianza de ambos rendimientos ($\beta$), $\N(\, d \, | \, \mu_i -\mu_j \, ,\ 2\beta^2 + \sigma_i^2 + \sigma_j^2 \,)$.}
 %
 \en{As we observed that agent $i$ won, we know from the causal model that the hidden difference of performances was positive.}
-\es{Como observamos que el agente $i$ gan\'o, sabemos por el modelo causal que la diferencia de rendimientos oculta fue en efecto positiva.}
+\es{Al observar que el agente $i$ gan\'o, sabemos por el modelo causal que la diferencia de desempeños oculta fue en efecto positiva.}
 %
 \en{Therefore, the prior prediction of the observed result (or evidence) is the cumulative density, $\Phi$, of all positive values of the difference of performances (Eq.~\ref{eq:evidence}).}
 \es{Por lo tanto, la predicci\'on a priori del resultado observado (o evidencia) es la densidad acumulada, $\Phi$, de todos los valores positivos de la diferencia de rendimientos (Eq.~\ref{eq:evidence}).}
@@ -447,12 +448,6 @@
 \underbrace{p(\,s_i\, | \, r \, )}_{\text{Posterior}} \propto \underbrace{1-\Phi(0 \, |  s_i - \mu_j , \, 2\beta^2 + \sigma_j^2)}_{\text{\en{Likelihood}\es{Verosimilitud}} \ P(r|s_i)} \,  \underbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}_{\text{Prior} \ p(s_i)} 
 \end{equation}
 %
-% \begin{equation}\label{eq:posterior_win}\tag{\text{mejor esta?}}
-% \textcolor{black!60}{
-% \underbrace{p(\,s_i\, | \, r \, )}_{\text{Posterior}} = \frac{ \overbrace{1-\Phi(0 \, | s_i^{\textcolor{white}{2}} - \mu_j , \, 2\beta^2 + \sigma_j^2)}^{\text{\en{Likelihood}\es{Verosimilitud}}} \,  \overbrace{\N(s_i \, | \, \mu_i,\, \sigma_i^2)}^{\text{Prior}} }{\underbrace{1-\Phi(0 \, | \mu_i - \mu_j , \, 2\beta^2 + \sigma_i^2+ \sigma_j^2)}_{\text{Evidenc\en{e}\es{ia}}}}
-% }
-% \end{equation}
-%
 \en{The normalized posterior is found by dividing the right hand with the evidence $P(r)$.}
 \es{Donde el posterior normalizado se obtiene dividiendo el lado derecho con la evidencia, $P(r)$.}
 %
@@ -464,14 +459,11 @@
 %
 \en{In other words, the likelihood is just the prior prediction of the observed result assuming true the skill hypothesis we are evaluating.}
 \es{En otras palabras, la verosimilitud no es m\'as que la predicci\'on a priori del resultado observado suponiendo verdadera la hip\'otesis de habilidad que estamos evaluando.}
-%, made with all the skill opponent's hypotheses,
-% \en{For each hypothesis $s_i$, the filtered density is exactly proportional to the magnitude of the surprise, defined as the complement of the likelihood.}
-% \es{Para cada hip\'otesis $s_i$, la masa filtrada es exactamente proporcional a la magnitud de la sorpresa, definida como el complemento de la verosimilitud.}
 %
 \en{Figure~\ref{fig:posterior_win} shows, in graphical terms, the updating procedure executed in equation~\ref{eq:posterior_win}.}
 \es{La figura~\ref{fig:posterior_win} muestra, en t\'erminos gr\'aficos, el procedimiento de actualizaci\'on que se realiza en la ecuaci\'on~\ref{eq:posterior_win}.}
 %
-\begin{figure}[H]
+\begin{figure}[ht!]
     \centering
     \en{\includegraphics[page={1},width=.6\linewidth]{figures/posterior_win}}
     \es{\includegraphics[page={2},width=.6\linewidth]{figures/posterior_win}}
@@ -499,10 +491,10 @@
 \es{El posterior no es m\'as que la densidad del prior no filtrada por la verosimilitud.}
 %    
 \en{At the region of very high skill hypotheses, where the winning result would have generated almost no surprise ($\lim_{s_i \to \infty}P(r|s_i) = 1$), the posterior receives all the prior's density.}
-\es{En la regi\'on de hip\'otesis de muy alta habilidad, donde el resultado ganador no nos hubiera generado casi ninguna sorpresa ($\lim_{s_i \to \infty}P(r|s_i) = 1$), el posterior recibe casi toda la masa del prior.}
+\es{En la regi\'on de hip\'otesis de muy alta habilidad, donde el resultado ganador no nos hubiera generado casi ninguna sorpresa ($\lim_{s_i \to \infty}P(r|s_i) = 1$), el posterior recibe casi toda la densidad del prior.}
 %
 \en{At the region of very low skill hypotheses, a win would generate a great surprise ($\lim_{s_i \to -\infty}P(r|s_i) = 0$), and the posterior receives no density from the prior.}
-\es{En cambio, en la regi\'on de hip\'otesis de muy baja habilidad, donde el resultado habr\'ia generado mucha sorpresa ($\lim_{s_i \to -\infty}P(r|s_i) = 0$), el posterior no recibe casi nada de la masa del prior.}
+\es{En cambio, en la regi\'on de hip\'otesis de muy baja habilidad, donde el resultado habr\'ia generado mucha sorpresa ($\lim_{s_i \to -\infty}P(r|s_i) = 0$), el posterior no recibe casi nada de la densidad del prior.}
 
 % Parrafo
 
@@ -895,7 +887,7 @@ R syntax
 \subsection{\en{Single event}\es{Único evento}} \label{sec:singleEvent}
 
 \en{The class \texttt{Game} is used to model events and perform inference given the teams composition, the result, and the characteristic draw probability (\texttt{p\_draw}).}
-\es{La clase \texttt{Game} la utilizamos para modelar eventos realizar la inferencia a partir de los datos de los equipos, el resultado y la probabilidad de empate caracterísitica (\texttt{p_draw}).}
+\es{La clase \texttt{Game} la utilizamos para modelar eventos realizar la inferencia a partir de los datos de los equipos, el resultado y la probabilidad de empate caracterísitica (\texttt{p\_draw}).}
 %
 \en{The features of the agents are defined within class \texttt{Player}: the prior Gaussian distribution characterized by the mean (\texttt{mu}) and the standard deviation (\texttt{sigma}), the standard deviation of the performance (\texttt{beta}), and the dynamic factor of the skill (\texttt{gamma}).}
 \es{Las caracterísiticas de los agentes se definen al interior de la clase \texttt{Player}: la distribuci\'on gaussiana a priori caracterizada por la media (\texttt{mu}) y el desv\'io est\'andar (\texttt{sigma}); el desv\'io est\'andar de los rendimientos (\texttt{beta}); y el factor din\'amico de la habilidad (\texttt{gamma}).}
