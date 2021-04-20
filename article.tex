@@ -1536,15 +1536,26 @@ convergence(h,epsilon=0.01, iterations=10)
 \es{Una opción es mantener una variable de habilidad respectiva al jugador que incluimos en todas las partidas, y una variable de habilidad por suelo que agregameos como compañero de equipo según el tipo de partida.}
 %
 \begin{lstlisting}[backgroundcolor=\color{julia},label=lst:atp_ground, caption={\en{Modeling multi-dimensional skills in ATP history}\es{Modelando habilidades multi-dimensionales en la historia de la ATP}}, belowskip=0.1cm, aboveskip=0.1cm]
-composition_g = [ r.double == "t" ? [[r.w1_id, r.w1_id*r.ground, r.w2_id, r.w2_id*r.ground],[r.l1_id, r.l1_id*r.ground, r.l2_id, r.l2_id*r.ground]] : [[r.w1_id, r.w1_id*r.ground],[r.l1_id, r.l1_id*r.ground]] for r in eachrow(data) ]   
+players = Set(vcat((composition...)...))
+priors = Dict([(p, ttt.Player(ttt.Gaussian(0., 1.6), 1.0, 0.036) ) for p in players])
 
-h_ground = History(composition=composition_g, times = times, sigma = 1.6, gamma = 0.036)
+composition_ground = [ r.double == "t" ? [[r.w1_id, r.w1_id*r.ground, r.w2_id, r.w2_id*r.ground],[r.l1_id, r.l1_id*r.ground, r.l2_id, r.l2_id*r.ground]] : [[r.w1_id, r.w1_id*r.ground],[r.l1_id, r.l1_id*r.ground]] for r in eachrow(data) ]   
+
+h_ground = History(composition=composition_ground, times = times, sigma = 1.0, gamma = 0.01, beta = 0.0, priors = priors)
 convergence(h_ground,epsilon=0.01, iterations=10)
 \end{lstlisting}
 %
-\en{In Figure~\ref{fig:atp_ground} we show the skill difference that Nadal and Federer have in each of the three main types of ground.}
-\es{En la figura~\ref{fig:atp_ground} mostramos la diferencia de habilidad que Nadal y Federer tiene entre los tres tipos de piso principales.}
+\en{In this example we keep the same prior as before for the players, this time defined in the variable \texttt{priors}.}
+\es{En este ejemplo mantenemos el mismo prior de los jugadores, esta vez definidos explícitamente mediante la variable \texttt{priors}.}
 %
+\en{In this way the values chosen to initialize the class \texttt{History} will only be used for the ground skill factors.}
+\es{De este modo los valores elegidos para inicializar la clase \texttt{History} sólo serán utilizdos para los factores de habilidad de piso.}
+%
+\en{For those factors we chose a null \texttt{beta} so as not to add more noise to the players' performance, keeping the scale of the estimates stable.}
+\es{Para ellos elegimos un \texttt{beta} nulo de modo tal de no agregar más ruido al rendimiento de los jugadores, manteniendo estable la escala de las estimaciones.}
+%
+\en{We choose a \texttt{sigma} that we consider sufficiently large and a dynamic factor \texttt{gamma} that represents 1\% of the a priori uncertainty.}
+\es{Elegimos un \texttt{sigma} que consideramos suficientemente grande y una factor dinámico \texttt{gamma} que represente el 1\% de la incertidumbre a priori.}
 \begin{figure}[ht!]
     \centering
     \begin{subfigure}[t]{0.48\textwidth}
@@ -1552,8 +1563,8 @@ convergence(h_ground,epsilon=0.01, iterations=10)
     \caption{Nadal}
     \end{subfigure}
     \begin{subfigure}[t]{0.48\textwidth}
-    \includegraphics[page={2},width=\linewidth]{figures/atp_ground}
-    \caption{Federer}
+    \includegraphics[page={3},width=\linewidth]{figures/atp_ground}
+    \caption{Djokovic}
     \end{subfigure}
     \caption{
     \en{Skill difference on the three main types of ground.}
@@ -1565,31 +1576,29 @@ convergence(h_ground,epsilon=0.01, iterations=10)
     \label{fig:atp_ground}
 \end{figure}
 %
-\en{We can see that Nadal has a big skill difference between grounds, unlike Federer who has very similar skills on all three types of ground.}
-\es{Podemos ver que Nadal tiene una diferencia de habilidad grande entre suelos, a diferencia de Federer que tiene habilidades muy similares en los tres tipos de suelo.}
+\en{In Figure~\ref{fig:atp_ground} we show the skill difference that Nadal and Djokovic have in each of the three types of ground.}
+\es{En la figura~\ref{fig:atp_ground} mostramos la diferencia de habilidad que Nadal y Djokovic tiene entre los tres tipos de piso.}
 %
-\en{The Nadal's skill difference between clay and grass gorunds is two or more $\beta$, which means a 92\% difference in probability of winning compared to itself.}
-\es{La diferencia de habilidad entre piso de polvo de ladrillo y pasto de dos o más $\beta$, lo que significa una diferencia de 92\% de probabilidad de ganar si lo comparamos consigo mismo.}
+\en{We can see that Nadal has a big skill difference between grounds, unlike Djokovic who has very similar skills on all three types of ground.}
+\es{Podemos ver que Nadal tiene una diferencia de habilidad grande entre suelos, a diferencia de Djokovic que tiene habilidades muy similares en los tres tipos de suelo.}
+%
+\en{The Nadal's skill difference between clay and grass gorunds is more than one $\beta$, which means at least 76\% difference in probability of winning compared to itself.}
+\es{La diferencia de habilidad entre piso de polvo de ladrillo y pasto de más de un $\beta$, lo que significa una diferencia de al menos 76\% de probabilidad de ganar si lo comparamos consigo mismo.}
 %
 \en{In the case of Nadal it seems important to model the skill's multi-dimensionality.}
 \es{En el caso de Nadal parece importante modelar la multi-dimensionalidad de la habilidad.}
 %
-\en{In Federer's case, it seems reasonable to summarize it in a single dimension.}
-\es{En el caso de Federer parece razonable resumir la habilidad en una única dimensión.}
+\en{In Djokovic's case, it seems reasonable to summarize it in a single dimension.}
+\es{En el caso de Djokovic parece razonable resumir la habilidad en una única dimensión.}
+%
+\en{Perhaps in tennis it is sufficient to summarize the skill in one dimension.}
+\es{Quizás en tenis sea suficiente resumir la habilidad en una dimensión.}
+%
+\en{In other examples where the multidimensionality of the skills is more relevant, it may be appropriate to separate the estimates into different components.}
+\es{En otros ejemplos donde la multidimensionalidad de las habilidades sea más relevante es posible que sea conveniente separar las estimaciones en diferentes componentes.}
 %
 \en{To assess whether the complexity added by modeling multidimensionality is appropriate in general terms, we can compare the a priori prediction of the models.}
 \es{Para evaluar si la complejidad que se agrega al modelar la multidimensional conviene en términos generales, podemos comparar la predicción a priori de los modelos.}
-%
-
-
-
-
-
-
-
-
-
-
 
 
 
