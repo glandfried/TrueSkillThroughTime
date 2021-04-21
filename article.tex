@@ -1679,14 +1679,14 @@ convergence(h_ground,epsilon=0.01, iterations=10)
 
 \section{Models and software} 
 
-\en{In this section we provide the complete mathematical documentation for implementing the TrueSkill Through Time model.}
-\es{En esta secci\'on ofrecemos la documentación matemática completa para implementar el modelo TrueSkill Through Time.}
+\en{In this section we provide the complete mathematical documentation of the TrueSkill Through Time model.}
+\es{En esta secci\'on ofrecemos la documentación matemática completa del modelo TrueSkill Through Time.}
 %
-\en{The advantage of TrueSkill Through Time over other models lies in the strict application of probability theory: all the assumptions are made explicit through a generative model, and inference is solved by applying the sum and product rules over model.}
-\es{La ventaja de TrueSkill Through Time respecto de otros modelos reside en la aplicación estricta la teoría de la probabilidad: todos los supuestos se hacen expl\'icitos a trav\'es de un modelo generativo, y la inferencia se resuelve aplicando las reglas de la suma y el producto sobre ese modelo.}
+\en{The advantage of this model lies in the strict application of probability theory: all the assumptions are made explicit through a generative model, and the inference is solved only with the rules of probability, nothing more than the sum and the product rules.}
+\es{La ventaja de este modelo reside en la aplicación estricta la teoría de la probabilidad: todos los supuestos se hacen expl\'icitos a trav\'es de un modelo generativo, y la inferencia se resuelve sólo con las regla de la probabilidad, nada más que las reglas de la suma y el producto.}
 %
-\en{In section~\ref{sec:sumProductAlgorithm} we introduce the \emph{sum-product algorithm}, which allows us to efficiently apply the sum and product rules to compute the marginal distribution, e.g. the posterior and the prior predicition.}
-\es{En la secci\'on~\ref{sec:sumProductAlgorithm} introducimos el \emph{sum-product algorithm}, que nos permite aplicar eficientemente las reglas de la suma y el producto para computar las distribuciones marginal, e.g. el posterior y la predicción a priori.}
+\en{In section~\ref{sec:sumProductAlgorithm} we introduce the \emph{sum-product algorithm}, which allows us to efficiently apply this rules to compute the marginal distributions, e.g. the posterior and the prior prediction.}
+\es{En la secci\'on~\ref{sec:sumProductAlgorithm} introducimos el \emph{sum-product algorithm}, que nos permite aplicar eficientemente estas reglas para computar las distribuciones marginales, e.g. el posterior y la predicción a priori.}
 %
 \en{In section~\ref{sec:propiedades} we list the properties that we will need to derive the marginal distributions of interest.}
 \es{En la secci\'on~\ref{sec:propiedades} enumeramos las propiedades que necesitaremos para derivar las distribuciones marginales de inter\'es.}
@@ -1694,48 +1694,46 @@ convergence(h_ground,epsilon=0.01, iterations=10)
 \en{In section \ref{sec:Gaussian} we introduce the operations of the class \texttt{Gaussian}, which does most of the computation.}
 \es{En las sección \ref{sec:Gaussian} introducimos las operaciones de la clases \texttt{Gaussian}, la que realiza la mayor parte del c\'omputo.}
 %
-\en{In sections \ref{sec:2vs2}, \ref{sec:empate}, and \ref{sec:approximate_posterior} we show respectively how to solve the prior prediction and the exact posterior of an event, we introduce the darw model, we explain how to approximate the posterior in events with two teams.}
-\es{En las secciones \ref{sec:2vs2}, \ref{sec:empate}, \ref{sec:approximate_posterior}, mostramos respectivamente c\'omo resolver la predicci\'on a priori y el posterior exacto de un evento, incorporamos empate al modelo y explicamos c\'omo aproximar el posterior en partidas con dos equipos.}
+\en{In sections \ref{sec:2vs2}, \ref{sec:empate}, and \ref{sec:approximate_posterior} we show how to solve the prior prediction and the exact posterior of an event, we introduce the darw model, we explain how to approximate the exact posterior in events with two teams.}
+\es{En las secciones \ref{sec:2vs2}, \ref{sec:empate}, \ref{sec:approximate_posterior}, mostramos c\'omo resolver la predicci\'on a priori y el posterior exacto de un evento, incorporamos empate al modelo y explicamos c\'omo aproximar el posterior exacto en partidas con dos equipos.}
 %
 \en{In section \ref{sec:iterative_posterior} we explain the general multi-team solution, which requires the application of an iterative algorithm.}
-\es{En la sección \ref{sec:iterative_posterior} explicamos la soluci\'on general multi-equipos que requiere la apliación de un algoritmo iterativo.}
+\es{En la sección \ref{sec:iterative_posterior} explicamos la soluci\'on general multi-equipos, que requiere la aplicación de un algoritmo iterativo.}
 %
 \en{In section~\ref{sec:throguthTime} we justify the mathematical steps required to solve the full TrueSkill Through Time model.}
 \es{En la secci\'on~\ref{sec:throguthTime} justificamos los pasos matemáticos requeridos para resolver el modelo TrueSkill Through Time completo.}
 
 \subsection{Sum-product algorithm} \label{sec:sumProductAlgorithm}
 
-\en{The \emph{sum-product algorithm}~\citep{Kschischang2001} is a general procedure that takes advantage of the structure of the joint probability distribution imposed by the causal model to efficiently apply the rules of probability, the \ref{eq:sum_rule} and the \ref{eq:product_rule}.}
-\es{El \emph{sum-product algorithm}~\citep{Kschischang2001} es un procedimiento general que aprovecha la estructura de la disstribuci\'on de probabilidad conjunta que impone el modelo causal para aplicar eficientemente las reglas de la probabilidad, la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}.}
+\en{The \emph{sum-product algorithm}~\citep{Kschischang2001} takes advantage of the structure of the joint probability distribution, imposed by the causal model, to efficiently apply the rules of probability.}
+\es{El \emph{sum-product algorithm}~\citep{Kschischang2001} aprovecha la estructura de la distribuci\'on de probabilidad conjunta, impuesta por el modelo causal, para aplicar eficientemente las reglas de la probabilidad.}
 %
 \en{Any model can be factored into the product of conditional probabilities.}
 \es{Cualquier modelo puede factorizarse en el producto de probabilidades condicionales.}
 %
-\en{By making use of the independencies between variables (figure~\ref{fig:generative_model}) our model can be factored as,}
-\es{Haciendo uso de las independencias entre las variables (figura~\ref{fig:generative_model}) nuestro modelo puede factorizarse como,}
+\en{By making use of the independencies between variables, our model (figure~\ref{fig:generative_model}) can be factorized as,}
+\es{Haciendo uso de las independencias entre las variables, nuestro modelo (figura~\ref{fig:generative_model}) puede factorizarse como,}
 %
 \begin{equation} \label{eq:factorization}
  p(\bm{s},\bm{p},d,r) = p(s_1)p(s_2)p(p_1|s_1)p(p_2|s_2)p(d|\bm{p})P(r|d)
 \end{equation}
 %
 \en{In figure~\ref{fig:factor_graph} we show this factorization graphically.}
-\es{En la figura~\ref{fig:factor_graph} mostramos gr\'aficamente la factorizaci\'on.}
+\es{En la figura~\ref{fig:factor_graph} mostramos esta factorizaci\'on graficamente.}
 %
 \en{These types of representations, known as \emph{factor graph}, are graphs with two types of nodes: variable nodes (white circles), and function nodes (black squares).}
-\es{A este tipo de representaciones, conocidas como \emph{factor graph}, son gr\'afos con dos tipos de nodos: los nodos variables (círculos blancos), y los nodos funciones (cuadrados negros).}
+\es{Este tipo de representaciones, conocidas como \emph{factor graph}, son gr\'afos con dos tipos de nodos: nodos variables (círculos blancos), y nodos funciones (cuadrados negros).}
 %
 \en{The edge between node variables and node functions represent the mathematical relationship ``the variable $v$ is an argument of the function $f$''.}
-\es{Los ejes entre los nodos variables y los nodos funciones representan la relaci\'on matem\'atica ``la variable $v$ es argumento de la funci\'on $f$''.}
+\es{Los ejes entre nodos variables y nodos funciones representan la relaci\'on matem\'atica ``la variable $v$ es argumento de la funci\'on $f$''.}
 %
 \begin{figure}[ht!]
 \centering \small
     \tikz{         
 %         \node[const, above=of fr] (nfr) {$f_r$}; %
 % 	\node[const, above=of nfr] (dfr) {\large $\mathbb{I}(d >0)$}; %
-    
-    
+        
     \node[factor] (fr) {} ; 
-    %\node[const, left=of fr, xshift=-1.35cm] (r_name) {\small \en{Result}\es{Resultado}:}; 
     \node[const, left=of fr] (nfr) {\normalsize $P(r|d)$}; 
     \node[const, right=of fr] (dfr) {\normalsize \hspace{2.4cm} $P(r|d)=\mathbb{I}(d>0)$}; 
 
@@ -1779,7 +1777,6 @@ convergence(h_ground,epsilon=0.01, iterations=10)
     \edge[-] {fp2} {p2,s2};
     \edge[-] {fs1} {s1};
     \edge[-] {fs2} {s2};
-    %\node[invisible, right=of p2, xshift=4.35cm] (s-dist) {};
 }
      \caption{
      \en{Graphical way of representing the factorization of joint distibution induced by the basic causal model (Eq.~\ref{eq:factorization}).}
@@ -1793,22 +1790,19 @@ convergence(h_ground,epsilon=0.01, iterations=10)
 \label{modelo}
 \end{figure} 
 %
-% \en{The structure encodes the minimum number of steps required to calculate any marginal probability distribution.}
-% \es{La estructura codifica la m\'inima cantidad de pasos que se requieren para calcular cualquier distribuci\'on de probabilidad marginal.}
-%
 \en{In our case we want to compute two marginals, the proportional posterior of the skills $p(s_i, r)$ and the a prior probability of the result $p(r)$.}
-\es{En nuestro caso querermos computar dos marginales, el posterior de las habilidades $p(s_i, r)$ y la probabilidad a priori del resultado $p(r)$.}
+\es{En nuestro caso querermos computar dos marginales, el posterior proprocional de las habilidades $p(s_i, r)$ y la probabilidad a priori del resultado $p(r)$.}
 %
 \en{The \emph{sum-product algorithm} is a general way of breaking down the rules of probability as messages that are sent locally between the nodes of the \emph{factor graph}.}
-\es{El \emph{sum-product algorithm} es una forma general de descomponer las reglas de la probabilidad como mensajes que se env\'ian localmente los nodos del \emph{factor graph}.}
+\es{El \emph{sum-product algorithm} es una forma general de descomponer las reglas de la probabilidad como mensajes que se env\'ian los nodos del \emph{factor graph}.}
 %
 \en{There are two types of messages: the messages that variable nodes send to their functions neighbors ($m_{v \rightarrow f}(v)$); and the messages that function nodes send to their variable neighbors ($m_{f \rightarrow v}(v)$).}
 \es{Hay dos tipos de mensajes: los mensajes que envian los nodos variables a sus funciones vecinas ($m_{v \rightarrow f}(v)$); y los mensajes que envian los nodos funciones a sus variables vecinas ($m_{f \rightarrow v}(v)$).}
 %
-\en{The messages sent by the variable nodes encode a portion of the product rule.}
-\es{Los mensajes que env\'ian los nodos variables codifican una porci\'on de la regla del producto.}
+\en{The former encodes a portion of the product rule.}
+\es{El primero codifica una porci\'on de la regla del producto.}
 %
-\begin{equation*}\label{eq:m_v_f} \tag{\text{\en{product step}\es{paso productorial}}}
+\begin{equation*}\label{eq:m_v_f} \tag{\text{\en{product step}\es{paso del producto}}}
 m_{v \rightarrow f}(v) = \prod_{h \in n(v) \setminus \{f\} } m_{h \rightarrow v}(v)
 \end{equation*}
 %
@@ -1818,48 +1812,40 @@ m_{v \rightarrow f}(v) = \prod_{h \in n(v) \setminus \{f\} } m_{h \rightarrow v}
 \en{In short, the messages sent by a $v$ variable is simply the product of the messages that $v$ received from the rest of their neighbors $h \in n(v)$ except $f$.}
 \es{En pocas palabras, los mensajes que env\'ia una variables $v$ es simplemente la multiplicaci\'on de los mensajes que recibi\'o del resto de sus vecinos $h \in n(v)$ salvo $f$.}
 %
-\en{And the messages sent by the function nodes encode a portion of the sum rule.}
-\es{Y los mensajes que env\'ian los nodos funciones codifican una parte de la regla de la suma.}
+\en{The messages sent by the function nodes encodes a portion of the sum rule.}
+\es{Los mensajes que env\'ian los nodos funciones codifican una parte de la regla de la suma.}
 %
-\begin{equation*}\label{eq:m_f_v}  \tag{\text{\en{sum step}\es{paso sumatorial}}}
+\begin{equation*}\label{eq:m_f_v}  \tag{\text{\en{sum step}\es{paso de la suma}}}
 m_{f \rightarrow v}(v) = \int \cdots \int \Big( f(\bm{h},v) \prod_{h \in n(f) \setminus \{v\} } m_{h \rightarrow f}(h) \Big) \,  d\bm{h}
 \end{equation*}
 %
 \en{Where $\bm{h} = n(f)\setminus \{v\}$ is the set of all of neighbors of $f$ except $v$, and $f(\bm{h},v)$ represents the function $f$, evaluated in all its arguments.}
 \es{Donde $\bm{h} = n(f)\setminus \{v\}$ es el conjunto de todos los vecinos de $f$ salvo $v$, y $f(\bm{h},v)$ represeta la funci\'on $f$, evaluada en todos sus argumentos.}
 %
-\en{In short, the messages sent by a function $f$ to a neighboring variable $v$ is simply the integration over $\bm{h}$ of the product of itself and all the messages that $f$ receives from the rest of its neighbors $\bm{h}$ except $v$.}
-\es{En pocas palabras, los mensajes que enviado por una funci\'on $f$ a una variable vecina $v$ es simplemente la integraci\'on sobre $\bm{h}$ del producto de si mismo con todos los mensajes que $f$ recibe del resto de sus vecinos $\bm{h}$ salvo $v$.}
+\en{In short, the messages sent by a function $f$ to a neighboring variable $v$ is simply the integration (or sum) over $\bm{h}$ of the product of itself and all the messages that $f$ receives from the rest of its neighbors $\bm{h}$ except $v$.}
+\es{En pocas palabras, los mensajes que envía una funci\'on $f$ a una variable vecina $v$ es simplemente la integraci\'on (o suma) sobre $\bm{h}$ del producto de sí mismo con todos los mensajes que $f$ recibe del resto de sus vecinos $\bm{h}$ salvo $v$.}
 %
-% \en{The composition of messages generates a partial computation.}
-% \es{La composici\'on de mensajes va generando un computo parcial.}
-% %
-\en{Finally, the marginal probability distribution of a $v$ variable is simply the product of the messages that $v$ receives from its neighbors.}
-\es{Finalmente, la distribuci\'on de probabilidad marginal de una variable $v$ es simplemente la multiplicaci\'on de los mensajes que $v$ recibe de sus vecinos.}
+\en{Finally, the marginal probability distribution of a variable $v$ is simply the product of the messages that $v$ receives from all its neighbors.}
+\es{Finalmente, la distribuci\'on de probabilidad marginal de una variable $v$ es simplemente la multiplicaci\'on de los mensajes que $v$ recibe de todos sus vecinos.}
 %
-\begin{equation*}\label{eq:marginal}  \tag{\text{marginal}}
+\begin{equation*}\label{eq:marginal}  \tag{\text{\en{marginal probability}\es{probabilidad marginal}}}
 p(v) = \prod_{h \in n(v)} m_{h \rightarrow v}
 \end{equation*}
+%
+\en{This algorithm encodes the minimum number of steps required to calculate any marginal probability distribution.}
+\es{Este algoritmo codifica la m\'inima cantidad de pasos que se requieren para calcular cualquier distribuci\'on de probabilidad marginal.}
 
 
 \subsection{\en{Mathematical properties and notation}\es{Propiedades matem\'aticas y notaci\'on}}\label{sec:propiedades}
 
-\en{The efficiency of TrueSkill Through Time is achieved because the marginals are computed analytically.}
-\es{La eficiencia de TrueSkill Through Time se obtiene gracias que las marginales se computan de forma analítica.}
+\en{The efficiency of TrueSkill Through Time is achieved because the marginals can be computed analytically.}
+\es{La eficiencia de TrueSkill Through Time se obtiene gracias que las marginales se pueden computar de forma analítica.}
 %
-\en{In this section we list the properties that we will use to derive the exact and the approxiamte messages that arise from the sum-product algorithm.}
-\es{En esta secci\'on enumeramos las propiedades que usaremos para derivar los mensajes exactos y aproximados que surgen del \emph{sum-product algorithm}.}
+\en{In this section we list the properties that we need to derive the exact and the approxiamte messages that arise from the sum-product algorithm.}
+\es{En esta secci\'on enumeramos las propiedades que necesitamos para derivar los mensajes exactos y aproximados que surgen del \emph{sum-product algorithm}.}
 %
-\en{Although these properties are widely known, we attach their full demonstrations in the supplemental material.}
-\es{Aunque estas propiedades son ampliamente conocidas, adjuntamos sus demostraciones completas en material suplementario.}
-
-% Parrafo
-
-% \en{Let $\N$ be the Gaussian probability distribution, $\Phi$ the cumulative Gaussian distribution, $\mathbb{I}$ the indicator function.}
-% \es{Sea $\N$ la ditribuci\'on de probabilidad gaussiana, $\Phi$ la acumulada de una distribuc\'on gaussiana, $\mathbb{I}$ la funci\'on indicadora.}
-%
-\en{The first property states that the product of two Gaussian distributions, both evaluated at the same point $x$, can be expressed as the product of two other Gaussian distributions, for which only one of them is evaluated at $x$.}
-\es{La primera propiedad establece que el producto de dos distribuciones Gaussianas, ambas evaluadas en el mismo punto $x$, pueden expresarse como la producto de otras dos distribuciones Gaussianas, para las que sólo una de ellas está evaluada en $x$.}
+\en{The first property states that the product of two Gaussian distributions, both evaluated at the same point $x$, can be expressed as the product of two other Gaussian distributions with only one of them evaluated at $x$.}
+\es{La primera propiedad establece que el producto de dos distribuciones gaussianas, ambas evaluadas en el mismo punto $x$, pueden expresarse como la producto de otras dos distribuciones gaussianas con sólo una de ellas evaluada en $x$.}
 %
 \begin{equation*}\label{eq:gaussian_product} \tag{\text{\en{Gaussian product}\es{Producto de gaussianas}}}
 \N(x|\mu_1,\sigma_1^2)\N(x|\mu_2,\sigma_2^2) \overset{\ref{multiplicacion_normales}}{=} \N(\mu_1|\mu_2,\sigma_1^2+\sigma_2^2) \N(x|\mu_{*},\sigma_{*}^2)
@@ -1868,13 +1854,13 @@ p(v) = \prod_{h \in n(v)} m_{h \rightarrow v}
 \en{where}\es{con} $\mu_{*} = \frac{\mu_1}{\sigma_1^2} + \frac{\mu_2}{\sigma_2^2}$ y $\sigma_{*}^2 = \left(\frac{1}{\sigma_1^2} + \frac{1}{\sigma_2^2} \right)^{-1}$.
 %
 \en{Something similar occurs with the division of two Gaussian distributions, both evaluated at the same point $x$.}
-\es{Algo similar ocurre con la división de dos distribuciones Gaussianas, ambas evaluadas en el mismo punto $x$.}
+\es{Algo similar ocurre con la división de dos distribuciones gaussianas, ambas evaluadas en el mismo punto $x$.}
 \begin{equation*}\label{eq:gaussian_division} \tag{\text{\en{Gaussian division}\es{División de gaussianas}}}
 \N(x|\mu_1,\sigma_1^2)/\N(x|\mu_2,\sigma_2^2) \overset{\ref{sec:division_normales}}{\propto} \N(x|\mu_{\div},\sigma_{\div}^2)/\N(\mu_1|\mu_2,\sigma_1^2+\sigma_2^2) 
 \end{equation*}
 %
-\en{where}\es{con} $\mu_{\div} = \frac{\mu_1}{\sigma_1^2} - \frac{\mu_2}{\sigma_2^2}$ y $\sigma_{\div}^2 = \left(\frac{1}{\sigma_1^2} - \frac{1}{\sigma_2^2} \right)^{-1}$ .
-%
+\en{where}\es{con} $\mu_{\div} = \frac{\mu_1}{\sigma_1^2} - \frac{\mu_2}{\sigma_2^2}$ y $\sigma_{\div}^2 = \left(\frac{1}{\sigma_1^2} - \frac{1}{\sigma_2^2} \right)^{-1}$.
+
 \en{The indicator function $\mathbb{I}(\cdot=\cdot)$ is worth $1$ when equality is true and $0$ otherwise.}
 \es{La funci\'on indicadora $\mathbb{I}(\cdot=\cdot)$ vale $1$ cuando la igualdad es verdadera y $0$ en caso contrario.}
 %
@@ -1890,37 +1876,39 @@ p(v) = \prod_{h \in n(v)} m_{h \rightarrow v}
 % \en{the dimensionality of the problem is reduced.}
 % \es{la dimensionalidad del problema se reduce.}
 % %
-\en{The indicator function is used to represent probability distributions of non-random discrete variables, as the result of the games given the difference of performances $p(r|d)$.}
-\es{La función indicadora se usa para representar distribuciones de probabilidad de variables discretas no aleatoria, como el resultado de los juegos dada la diferencia de rendimientos $p(r|d)$}
+\en{It is used to represent probabilities distributions of non-random discrete variables, such as the result of the games given the difference of performances $p(r|d)$.}
+\es{Se usa para representar distribuciones de probabilidad de variables discretas no aleatorias, como el resultado de las partidas dada la diferencia de desempeños $p(r|d)$.}
 %
-\en{Similarly, the dirac delta function, $\delta(\cdot=\cdot)$, which is used to represent probability distributions of non-random continuous variables, such as the difference of performances given the agents' performances $p(d|\bm{p})$.}
-\es{De la misma forma, la función delta de dirac, $\delta(\cdot=\cdot)$, que se usa para representar distribuciones de probabilidad de variables continuas no aleatoria como la diferencia de rendimiento dados rendimientos $p(d|\bm{p})$.}
+\en{Similarly, the dirac delta function $\delta(\cdot=\cdot)$ is used to represent probabilities distributions of non-random continuous variables, such as the difference of performances given the agents' performances $p(d|\bm{p})$.}
+\es{De la misma forma, la función delta de dirac $\delta(\cdot=\cdot)$ se usa para representar distribuciones de probabilidad de variables continuas no aleatoria, es la diferencia de desempeños dados los rendimientos de los agentes $p(d|\bm{p})$.}
 %
 \en{When we can use it to replace variable within an integral,}
-\es{Cuando podemos usarla para remplazar variable dentro de una integral,}
+\es{Cuando permite remplazar variable dentro de una integral,}
 %
 \begin{equation*}\label{eq:integral_con_dirac} \tag{\text{\en{Dirac delta function}\es{Función delta de dirac}}}
 \begin{split}
  \iint  \delta(x=h(y,z)) f(x) g(y)\, dx\, dy = \int f(h(y,z)) g(y) dy
  \end{split}
 \end{equation*}
+%
 \en{the dimensionality of the problem is reduced.}
 \es{la dimensionalidad del problema se reduce.}
 %
 \en{We will also use the properties derived from the symmetry of Gaussians.}
-\es{Usaremos además las propiedades que se derivan de la simetría de Gaussianas.}
+\es{Usaremos además las propiedades que se derivan de la simetría de gaussianas.}
+%
 \begin{equation*}\label{eq:simetria} \tag{\text{\en{Gaussian symmentry}\es{Simetría de gaussianas}}}
  \N(x|\mu,\sigma^2) = \N(\mu|x,\sigma^2) = \N(-\mu|-x,\sigma^2) = \N(-x|-\mu,\sigma^2) 
 \end{equation*}
 %
 \en{The Gaussian standardization,}
-\es{La estandizarización de la Gaussiana,}
+\es{La estandizarización de la gaussiana,}
 \begin{equation*}\label{eq:estandarizar} \tag{\text{\en{Gaussian standarization}\es{Estandarización de gaussianas}}}
   \N(x|\mu,\sigma^2) = \N((x-\mu)/\sigma | 0, 1)
 \end{equation*}
 %
 \en{Equality between the Gaussian distribution and the derivative of their cumulative distribution,}
-\es{La igualdad entre la distribución Gaussiana y la derivada de la acumulada,}
+\es{La igualdad entre la distribución gaussiana y la derivada de la su acumulada,}
 \begin{equation*}\label{eq:phi_norm} \tag{\text{\en{Derivative of the cumulative Gaussian}\es{Derivada de la gaussiana acumulada}}}
  \frac{\partial}{\partial x} \Phi(x|\mu,\sigma^2) = \N(x|\mu,\sigma^2)
 \end{equation*}
@@ -1929,7 +1917,7 @@ p(v) = \prod_{h \in n(v)} m_{h \rightarrow v}
 \es{que vale por definición.}
 %
 \en{The symmetry of the cumulative Gaussian distribution.}
-\es{La simetría de la distribución Gaussiana acumulada.}
+\es{La simetría de la distribución gaussiana acumulada.}
 \begin{equation*}\label{eq:phi_simetria} \tag{\text{\en{Symmetry of the cumulative Gaussian}\es{Simetría de la gaussiana acumulada}}}
 \Phi(0|\mu,\sigma^2) = 1-\Phi(0|-\mu,\sigma^2)
 \end{equation*}
@@ -1974,17 +1962,20 @@ N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)
 \iint \delta(t = x - y) \N(x|\mu_1, \sigma_1^2)\N(y|\mu_2, \sigma_2^2) dxdy \overset{\text{\ref{suma_normales_induccion}}}{=} \N(t|\mu_1 - \mu_2,\sigma_1^2 + \sigma_2^2)
 \end{split}
 \end{equation*}
-
-\subsection{\en{The exact solution of the team model}\es{La solución exacta del modelo de equipos}}\label{sec:2vs2}
-
-\en{TrueSkill allows to estimate the skill of individuals even when they play in teams.}
-\es{TrueSkill permite estimar la habilidad de los individuos incluso cuando estos juegan en equipo.}
 %
-\en{The model assumes that the team with the highest performance wins, $r = (t_i > t_j)$, where $t_i$ and $t_j$ represent the team performances.}
-\es{El modelo supone que gana el equipo con mayor rendimiento, $r = (t_i > t_j)$, donde $t_i$ y $t_j$ representan los desempeños de los equipos.}
+\en{Although these properties are widely known, we attach their full demonstrations in the supplemental material.}
+\es{Aunque estas propiedades son ampliamente conocidas, adjuntamos sus demostraciones completas en el material suplementario.}
+
+\subsection{\en{The exact solution for events with two teams}\es{La solución exacta para eventos con dos equipos}}\label{sec:2vs2}
+
+% \en{TrueSkill allows to estimate the skill of individuals even when they play in teams.}
+% \es{TrueSkill permite estimar la habilidad de los individuos incluso cuando estos juegan en equipo.}
 %
-\en{In figure~\ref{fig:modelo_trueskill_2vs2} we show the factor graph.}
-\es{En la figura~\ref{fig:modelo_trueskill_2vs2} mostramos la factorizaci\'on gr\'afica.} 
+\en{In the presence of teams, the Elo model assumes that the performance of the teams $t$ is the sum of the performances of their members, and that the team with the highest performance wins, $r = (t_i> t_j)$.}
+\es{En presencia de equipos, el modelo Elo supone que el desempeño de los equipos $t$ es la suma de los desempeños de sus integrantes, y que el equipo con mayor desempeño gana, $r = (t_i > t_j)$.}
+%
+\en{In Figure~\ref{fig:modelo_trueskill_2vs2} we show the graphical factorization of the Elo team model.}
+\es{En la figura~\ref{fig:modelo_trueskill_2vs2} mostramos la factorizaci\'on gr\'afica del modelo Elo que incorpora equipos.} 
 %
 \begin{figure}[ht!]
   \centering
@@ -2074,51 +2065,53 @@ N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)
    }
    }
   \caption{
-  \en{Factor graph of a 2 vs 2 game.}
-  \es{Factorizaci\'on gr\'afica de una partida 2 vs 2.}
+  \en{Factor graph of game with two teams with two players each.}
+  \es{Factorizaci\'on gr\'afica de una partida con dos equipos de dos jugadores.}
   %
-  \en{We incorporated a new variable, $t$, that models the team performance.}
-  \es{Incorporamos una variable nueva, $t$, que modela el desempeño de los equipos.}
+  \en{The Elo's team model incorporate a new variable, $t$, that models the team performance.}
+  \es{El modelo Elo incorpora una variable nueva, $t$, que modela el desempeño de los equipos.}
   }
   \label{fig:modelo_trueskill_2vs2}
 \end{figure}
 %
-\en{In Figure~\ref{fig:modelo_trueskill_2vs2}, team performance is modeled as the sum of the individual performances of its members.}
-\es{En la figura~\ref{fig:modelo_trueskill_2vs2}, el desempeño de los equipos se modela como una suma de los desempeños de sus integrantes.}
+\en{In this example, we have two teams with two players each.}
+\es{En este ejemplo, tenemos dos equipos con dos jugadores cada uno.}
 %
-\en{Every game with two teams has an analytical solution.}
-\es{Toda partida con dos equipos tiene soluci\'on analítica.}
+\en{Every game with two teams has an exact analytical solution.}
+\es{Toda partida con dos equipos tiene soluci\'on analítica exacta.}
+
 
 % Parrafo
 
-\en{In this section we will show the steps to compute the exact evidence and the exact likelihoods of a game with two teams of two players.}
-\es{En esta secci\'on vamos a mostrar los pasos para calcular la evidencia exacta y los likelihoods exactos de una partida con dos equipos de dos jugadores.}
+%
+\en{In this section we show the steps to compute the exact evidence and the exact likelihoods of a game with two teams.}
+\es{En esta secci\'on mostramos los pasos para calcular la evidencia exacta y los likelihoods exactos de una partida con dos equipos.}
 %
 \en{We only need the \emph{sum-product algorithm} and the properties mentioned above.}
 \es{Sólo necesitamos el \emph{sum-product algorithm} y las propiedades arriba mencionadas.}
 %
 \en{We will start first with the ``descending'' messages, from the priors to the result until compute the evidence, and then we will continue with the ``ascending'' messages, from the observed result and to the priors until compute the posterior of each agent.}
-\es{Empezaremos primero con los mensajes ``descendentes'', desde los priors a el resultado hasta calcular la evidencia, y seguiremos con los mensajes ``ascendentes'', desde el resultado observado a los priors hasta calcular el posterior de cada agente.}
+\es{Empezaremos primero con los mensajes ``descendentes'', desde los priors al resultado, hasta calcular la evidencia, y seguiremos con los mensajes ``ascendentes'', desde el resultado observado a los priors, hasta calcular el posterior de cada agente.}
 
 \paragraph{\en{Descending messages}\es{Mensajes descendentes}.}
 
-\en{Following the \ref*{eq:m_f_v} of the sum-product algorithm and the factorization of the model displayed at Figure~\ref{fig:modelo_trueskill_2vs2}, the messages from the skill factors $f_{s_i}$ to their variable $s_i$ are just the priors.}
-\es{Siguiendo el~\ref*{eq:m_f_v} del \emph{sum-product algorithm} y la factorizaci\'on del modelo presentado en la figura~\ref{fig:modelo_trueskill_2vs2}, los mensajes de los factores de habilidad $f_{s_i}$ a su variable $s_i$ no son otra cosa m\'as que el priors.}
+\en{Following the \ref{eq:m_f_v} of the sum-product algorithm and the factorization of the model displayed at Figure~\ref{fig:modelo_trueskill_2vs2}, we can see that the messages sent by the skill factors $f_{s_i}$ to the variable $s_i$ are just the priors.}
+\es{Siguiendo el~\ref{eq:m_f_v} del \emph{sum-product algorithm} y la factorizaci\'on del modelo presentado en la figura~\ref{fig:modelo_trueskill_2vs2}, podemos ver que los mensajes que envían los factores de habilidad $f_{s_i}$ a la variable $s_i$ no son otra cosa m\'as que el prior.}
 %
 \begin{equation*}\label{eq:m_fs_s} \tag{\texttt{prior}}
  m_{f_{s_i} \rightarrow s_i}(s_i) = \N(s_i| \mu_i, \sigma_i^2)
 \end{equation*}
 %
-\en{We have access to this message by calling the \texttt{prior} attribute of the initialized \texttt{a} agent, \texttt{a.prior}.}
-\es{Tenemos acceso a este mensaje llamando al atributo \texttt{prior} de los jugadores \texttt{a} que se tengan inicializados, \texttt{a.prior}.}
+\en{We have access to this message by calling the \texttt{prior} attribute of the class \texttt{Player}.}
+\es{Tenemos acceso a este mensaje llamando al atributo \texttt{prior} de la clase \texttt{Player}.}
 %
-\en{The next message, the one that the variable $s_i$ sends to the performance factor $f_{p_i}$ is also the prior, in this case due to the~\ref*{eq:m_v_f} of the sum-product algorithm and the factorization of the model.}
-\es{El siguiente mensaje, el que la variable $s_i$ le env\'ia al factor rendimiento $f_{p_i}$ tambi\'en es el prior, en este caso debido al~\ref*{eq:m_v_f} del \emph{sum-product algorithm} y la factorizacion del modelo.}
+\en{We can also see, following the~\ref{eq:m_v_f} of the sum-product algorithm and the factorization of the model, that the message sent by the variable $s_i$ to the performance factor $f_{p_i}$ is again the prior.}
+\es{Podemos ver también, siguiendo el~\ref{eq:m_v_f} del \emph{sum-product algorithm} y la factorizacion del modelo, que el mensaje que envía la variable $s_i$ al factor rendimiento $f_{p_i}$ es nuevamente el prior.}
 %
 \en{Since it is trivial to calculate the messages sent by the variables (they are always the product of the messages they receive from behind), we will avoid writing them.}
-\es{Debido a que es trivial calcular los mensajes que envian las variables (siempre es el producto de los mensajes que reciben de atrás), vamos a evitar escribirlos.}
+\es{Debido a que es trivial calcular los mensajes que envían las variables (siempre es el producto de los mensajes que reciben de atrás), vamos a evitar escribirlos.}
 %
-\en{Let's see then the message that the performance factors $f_{p_i}$ send to their variable $p_i$.}
+\en{Let's see then the message that the performance factors $f_{p_i}$ send to the variable $p_i$.}
 \es{Veamos entonces el mensaje que env\'ian los factores rendimiento $f_{p_i}$ a su variable $p_i$.}
 %
 \begin{equation*}\label{eq:m_fp_p} \tag{\texttt{performance()}}
@@ -2156,8 +2149,8 @@ p4 = performance(a4)
 \en{Where the agents \texttt{a1}, \texttt{a2}, \texttt{a3}, and \texttt{a4} were initialized at code~\ref{lst:player}.}
 \es{Donde los agentes \texttt{a1}, \texttt{a2}, \texttt{a3} y \texttt{a4}, fueron inicializados en el código~\ref{lst:player}.}
 %
-\en{The message sent by the team factors $f_{t_e}$ to the team variable $t_e$ is an integral over all the individual performance variables, with the sum being equal to a constant $t_e$ (constraint imposed by the Dirac delta function).}
-\es{El mensaje que envían los factores equipos $f_{t_e}$ a la variable equipo $t_e$ es una integral sobre todas las variables de rendimiento individuales, siendo la suma igual a una constante $t_e$ (restricción impuesta por la función delta de Dirac).}
+\en{The message sent by the team factors $f_{t_e}$ to the team variable $t_e$ is an integral over all the individual performance variables,}
+\es{El mensaje que envían los factores equipos $f_{t_e}$ a la variable equipo $t_e$ es una integral sobre todas las variables de desempeño individual,}
 %
 \begin{equation*} \label{eq:m_ft_t} \tag{\texttt{ta = p1 + p2}}
 \begin{split}
@@ -2165,8 +2158,11 @@ p4 = performance(a4)
 \end{split}
 \end{equation*}
 %
-\en{The prior performance of the teams is a Gaussian distribution centered on the sum of the mean estimates $\mu_e = \mu_i + \mu_j$ with a variance $\sigma_e^2$ that includes both the uncertainties of the estimates, $\sigma_i^2 + \sigma_j^2$, and the variance of the individual performances, $\beta^2 + \beta^2$.}
-\es{El desempeño a priori de los equipos es una distribución Gaussiana centrada en la suma de las estimaciones medias $\mu_e = \mu_i + \mu_j$ con una varianza que incluye tanto las incertidumbres de las estimaciones, $\sigma_i^2 + \sigma_j^2$, como la varianza de los rendimientos individuales, $\beta^2 + \beta^2$.}
+\en{where the Dirac delta function imposes the constraint that the sum of the individual performances equals a constant team performance value $t_e$.}
+\es{donde la función delta de Dirac impone la restricción de que la suma de los desempeños individuales sea igual a un valor de rendimiento del equipo $t_e$ constante.}
+%
+\en{Using the properties we can solve this integral analytically, obtaining as a result that the prior performance of the teams is a Gaussian distribution centered on the sum of the mean estimates $\mu_e = \mu_i + \mu_j$ with a variance $\sigma_e^2$ that includes both the uncertainties of the estimates, $\sigma_i^2 + \sigma_j^2$, and the variance of the individual performances, $\beta^2 + \beta^2$.}
+\es{Haciendo uso de las propiedades podemos resolver esta integral de forma analítica, obteniendo como resultado que el desempeño a priori de los equipos es una distribución gaussiana centrada en la suma de las estimaciones medias $\mu_e = \mu_i + \mu_j$ con una varianza que incluye tanto las incertidumbres de las estimaciones, $\sigma_i^2 + \sigma_j^2$, como la varianza de los rendimientos individuales, $\beta^2 + \beta^2$.}
 %
 \en{We have access to this message when we use the operator \texttt{+} of the class \texttt{Gaussian} to sum the agents' performances,}
 \es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{+} de la clase \texttt{Gaussian} para sumar los desempeños de los agentes,}
@@ -2189,8 +2185,8 @@ ta = p1 + p2; tb = p3 + p4
 \en{The prior difference of performance is a Gaussian distribution centered on the a priori expected difference between teams $\psi = \mu_a - \mu_b$ with variance $\vartheta^2 = \sigma_a^2 + \sigma_b^2$ that includes the uncertainty of both teams.}
 \es{La diferencia de desempeños a priori es una distribución gaussiana centrada en la diferencia esperada a priori $\psi = \mu_a - \mu_b$ con una varianza $\vartheta^2 = \sigma_a^2 + \sigma_b^2$ que incluye la incertidumbre de ambos equipos.}
 %
-\en{We have access to this message using the operator \texttt{-} of the class \texttt{Gaussian} to get de difference of teams' performances, \texttt{d = ta - tb}.}
-\es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{-} de la clase \texttt{Gaussian} para la diferencia de los desempeños de los equipos, \texttt{d = ta - tb}.}
+\en{We have access to this message using the operator \texttt{-} of the class \texttt{Gaussian} to get de difference of teams' performances,}
+\es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{-} de la clase \texttt{Gaussian} para obtener la diferencia de los desempeños de los equipos,}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:difference_performance, caption={\en{Computing the prior difference of performances}\es{Computando la diferencia de desempeños a priori}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
 \end{lstlisting}
@@ -2198,8 +2194,8 @@ ta = p1 + p2; tb = p3 + p4
 d = ta - tb 
 \end{lstlisting}
 %
-\en{The last descending message, sent by the factor $f_r$ to the variable $r$, is}
-\es{El último mensaje descendente, el que envía el factor $f_r$ a la variable $r$, permite computar la evidencia, es decir la predicción a priori del resultado observado}
+\en{The last descending message, sent by the factor $f_r$ to the variable $r$, allows to compute the evidence, i.e. the a priori prediction of the observed result.}
+\es{El último mensaje descendente, el que envía el factor $f_r$ a la variable $r$, permite computar la evidencia, es decir la predicción a priori del resultado observado.}
 %
 \begin{equation*}\label{eq:m_fr_r} \tag{\texttt{evidence}}
 \begin{split}
@@ -2207,8 +2203,8 @@ d = ta - tb
 \end{split}
 \end{equation*}
 %
-\en{We have access to the prior probability of the observed result (or evidence) by computing the cumulative value from $0$ to $\infty$ of the team difference of performances distribution.}
-\es{Tenemos acceso a la probabilidad a priori del resultado observado (o evidencia) calculando el valor acumulado desde $0$ hasta $\infty$ de la distribución de diferencia de desempeños de los equipos.}
+\en{We have access to this message by computing the cumulative value from $0$ to $\infty$ of the team difference of performances distribution.}
+\es{Tenemos acceso a este mensaje calculando el valor acumulado desde $0$ hasta $\infty$ de la distribución de diferencia de desempeños de los equipos.}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:difference, caption={\en{Computing the prior prediction of the oberved result (or evidence)}\es{Computando la predicción a priori del resultado observado (o evidencia)}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
 \end{lstlisting}
@@ -2228,15 +2224,14 @@ e = 1 - cdf(0,d@mu,d@sigma)
 %
 \en{Where \texttt{e} contains the value of \texttt{evidence}.}
 \es{Donde \texttt{e} contiene el valor de \texttt{evidence}.}
-
-
+%
 \paragraph{\en{Ascending messages}\es{Mensajes ascendentes}.}
 %
 \en{Let us now examine the ascending messages.}
 \es{Examinemos ahora los mensajes ascendentes.}
 %
-\en{Just as downward messages could be interpreted as priors, in this case the upward messages can also be interpreted as likelihoods, because they transmit the information of the observed result.}
-\es{Así como los mensajes descendente podíamos interpretarlos como priors, en este caso los mensajes ascendentes van a poder ser interprestados como likelihoods, debido a que transmiten la información del resultado observado.}
+% \en{Just as downward messages could be interpreted as priors, in this case the upward messages can also be interpreted as likelihoods, because they transmit the information of the observed result.}
+% \es{Así como los mensajes descendente podíamos interpretarlos como priors, en este caso los mensajes ascendentes van a poder ser interprestados como likelihoods, debido a que transmiten la información del resultado observado.}
 %
 \en{The first ascending message is sent by the result factor $f_r$ to the difference variable $d$.}
 \es{El primer mensaje ascendentes lo envía el factor de resultados $f_r$ a la variable de diferencia $d$.}
@@ -2247,19 +2242,15 @@ m_{f_r \rightarrow d}(d) & = \mathbb{I}(d>0)
 \end{split}
 \end{equation}
 %
-\en{The message contains just the indicator function of the factor $f_r$.}
-\es{El mensaje sólo contiene la función indicadora propia del factor $f_r$.}
-%
-% \en{The ascending messages will not be computed step by step, we will give the code at the end.}
-% \es{Los mensajes ascendentes no los vamos a ir computando paso a paso, daremos el código al final.}
+\en{The message contains the indicator function of the factor $f_r$, that transmit the information of the observed result.}
+\es{El mensaje contiene la función indicadora del factor $f_r$, que transite la información del resultado observado.}
 %
 \en{The message sent by difference factor $f_d$ to the winning team performance variables $t_e$ is,}
 \es{El mensaje que el factor diferencia $f_d$ envía la variables de desempeño del equipo ganador $t_a$ es,}
 \begin{equation}%\label{eq:m_fd_ta} \tag{\texttt{exact\_lhood\_ta}}
 \begin{split}
 m_{f_{d} \rightarrow t_a}(t_a) & = \iint \delta(d = t_a - t_b) \mathbb{I}(d > 0) \N(t_b | \mu_b , \sigma_b^2 ) \, dd\,dt_b \\
-& = \int \mathbb{I}( t_a > t_b)  \N(t_b | \mu_b , \sigma_b^2 ) \,dt_b  \\
-& = 1 - \Phi (0| t_a -\mu_b, \sigma_b^2) = \Phi (t_a| \mu_b, \sigma_b^2)
+& = \int \mathbb{I}( t_a > t_b)  \N(t_b | \mu_b , \sigma_b^2 ) \,dt_b  = 1 - \Phi (0| t_a -\mu_b, \sigma_b^2) = \Phi (t_a| \mu_b, \sigma_b^2)
 \end{split}
 \end{equation}
 %
@@ -2295,48 +2286,11 @@ m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_
 & = 1 - \Phi(0 | \underbrace{(s_1 + \mu_2) - (\mu_3 + \mu_4)}_{\hfrac{\text{\en{Expected difference}\es{Diferencia esperada}}}{\text{\en{parameterized in }\es{parametrizada en }$s_1$}} } \ , \underbrace{\ \ \ \ \vartheta^2 - \sigma_1^2 \ \ \ \ }_{\hfrac{\text{\en{Total uncertainty}\es{Incertidumbre total}}}{\text{\en{except the one of }\es{salvo la de }$s_1$}}})\end{split}
 \end{equation}
 %
-\en{This is the exact likelihood, and computes the prior probability of winning result if the player's true skill was $s_1$.}
-\es{Este es el likelihood exacto, y computa la probabilidad a priori de un resultado ganador si la verdadera habilidad del jugador fuera $s_1$.}
-%
-\en{By assuming that the skill is known, we replace the average estimate $\mu_1$ by the hypothesis $s_1$ in the expected difference $\psi$, and remove its own uncertainty from the total uncertainty $\vartheta^2$.}
-\es{Al suponer conocida la habilidad, remplazamos su estimaci\'on media $\mu_1$ por la hip\'otesis $s_1$ en la diferencia esperada $\psi$, y eliminamos su incertidumbre de la incertidumbre total $\vartheta^2$.}
-%
-% \begin{lstlisting}[backgroundcolor=\color{white},label=lst:delta_1, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
-% \end{lstlisting}
-% \begin{paracol}{3}
-% \begin{lstlisting}[backgroundcolor=\color{julia}]
-% theta1 = d.sigma^2-a1.sigma^2
-% theta1 = sqrt(theta1)
-% function exact_lhood_s1(s)
-%   psi1 = d.mu - a1.mu + s
-%   N= Gaussian(psi1,theta1)
-%   return 1-cdf(N,0.0)
-% end
-% \end{lstlisting}  
-%  \switchcolumn
-% \begin{lstlisting}[backgroundcolor=\color{python}]
-% theta1 = theta**2 - sigma1**2
-% theta1 = sqrt(theta1)
-% def exact_lhood_s1(s):
-%     delta1 = delta - mu1 + s1 
-%     res=1-cdf(0,delta1,theta1)
-%     return res
-%     
-% \end{lstlisting} 
-%  \switchcolumn
-% \begin{lstlisting}[backgroundcolor=\color{r}]
-% theta1 = theta^2 - sigma1^2
-% theta1 = sqrt(theta1)
-% exact_lhood_s1 =function(s){
-%   delta1 = delta - mu1 + s 
-%   res=1-cdf(0,delta1,theta1)
-%   return(res)
-% }
-% \end{lstlisting}   
-% \end{paracol}
+\en{This is the exact likelihood discussed in equation \ref{eq:posterior_win}, that computes the prior probability of winning result if the player's true skill was $s_1$.}
+\es{Esta es la verosimilitud exacta discutida en la ecuación \ref{eq:posterior_win}, que computa la probabilidad a priori de un resultado ganador si la verdadera habilidad del jugador fuera $s_1$.}
 
 \subsection{\en{A Basic Draw Model}\es{Modelo b\'asico de empates}} \label{sec:empate}
-
+%
 \en{The draw model assumes that a tie occur when the difference in performance does not exceed a certain margin, $|t_a > t_b| \leq \varepsilon$.}
 \es{El modelo supone que ocurre un empate cuando la diferencia de rendimientos no supera un cierto margen, $|t_a > t_b| \leq \varepsilon$.}
 %
@@ -2377,18 +2331,14 @@ m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_
 \en{This elementary model requires determining the size of the margin.}
 \es{Este modelo b\'asico requiere determinar el largo del margen.}
 %
-\en{The original paper~\citep{Herbrich2007} proposed to use the empirical frequency of ties as clue to define it.}
-\es{El art\'iculo original~\citep{Herbrich2007} propon\'ia usar la frecuencia emp\'irica de empates como indicio para definirlo.}
+\en{The original paper~\citep{Herbrich2007} proposes to use the empirical frequency of ties as clue to define it.}
+\es{El art\'iculo original~\citep{Herbrich2007} propone usar la frecuencia emp\'irica de empates como indicio para definirlo.}
 %
 \en{However, this value depends on the actual skill difference, which we just don't know.}
 \es{Sin embargo, este valor depende de la diferencia de habilidad real, que justamente no conocemos.}
 %
-% \en{In section~\ref{sec:ttt-d} we present the Bayesian solution to the darw model.}
-% \es{En la secci\'on~\ref{sec:ttt-d} presentamos la soluci\'on bayesiana al modelo de empates.}
-%
-%
 \en{Assuming that we can define the ``probability of a draw between teams with same skill'', it is important to note that the margin also depends on the number of players.}
-\es{Suponiendo que podemos definir esa la ``probabilidad de empate entre equipos con misma habilidad'', es importante tener en cuenta que el margen tambi\'en depende de la cantidad de jugadores.}
+\es{Suponiendo que podemos definir la ``probabilidad de empate entre equipos con misma habilidad'', es importante notar que el margen tambi\'en depende de la cantidad de jugadores.}
 %
 \en{In the figure~\ref{fig:draw_b} you can see that to keep the tie area constant it is necessary to adapt the margin according to the uncertainty.}
 \es{En la figura~\ref{fig:draw_b} se puede ver que para mantener el \'area de empates constante, es necesario adaptar el margen dependiendo de la incertidumbre.}
@@ -2471,8 +2421,8 @@ post = posteriors(g)
 \en{Where the variable \texttt{teams} was initialized in code \ref{lst:game}.}
 \es{Donde la variable \texttt{teams} fue inicializada en el código~\ref{lst:game}.}
 %
-\en{The need to approximate the posterior occurs because the probability distribution of the difference is a truncated Gaussian (Eq.~\ref{eq:p_d}).}
-\es{La necesidad de aproximar el posterior ocurre debido a que la distribuci\'on de probabilidad de la diferencia es una gaussian truncada (Eq.~\ref{eq:p_d}).}
+\en{The need to approximate the posterior occurs because the distribution of the difference of performances is a truncated Gaussian.}
+\es{La necesidad de aproximar el posterior ocurre debido a que la distribuci\'on de diferencia de desempeños es una gaussiana truncada.}
 %
 \begin{equation}\label{eq:p_d}
 p(d) =
@@ -2518,7 +2468,7 @@ p(d) =
 \end{equation}
 %
 \begin{lstlisting}[backgroundcolor=\color
-{white},label=lst:d_approx, caption=\relax, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
+{white},label=lst:d_approx, caption={\en{Computing the approximation of the difference of performances}\es{Computando la aproximación de la diferencia de desempeños}}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
@@ -2540,8 +2490,8 @@ d_approx = approx(d, margin, !tie)
 \en{Where the difference distribution \texttt{d} was initialized in code~\ref{lst:difference_performance}, and the variable \texttt{margin} in code~\ref{lst:draw}.}
 \es{Donde la distribución de diferencias \texttt{d} fue inicializada en el código~\ref{lst:difference_performance}, y \texttt{margin} en el código~\ref{lst:draw}.}
 %
-\en{Given $\widehat{p}(d)$, we can compute the approximate ascending message.}
-\es{Dada $\widehat{p}(d)$, podemos calcular el mensaje ascendentes aproximado.}
+\en{Given $\widehat{p}(d)$, we can compute the approximate ascending message using the operations ot the class \texttt{Gaussian}.}
+\es{Dada $\widehat{p}(d)$, podemos calcular el resto de los mensaje ascendentes usando las operaciones de la clase \texttt{Gaussian}.}
 %
 \en{Recall that any marginal distribution can be calculated as the product of the messages received from all its neighboring factors, and that in this case due to the factorization of the model, it holds that $ m_{f_r \rightarrow d}(d) = m_{d \rightarrow f_{d}}(d)$.}
 \es{Recordar que la distribución marginal se puede calcular como el producto de los mensajes que le envían todos los factores vecinos, y que en este caso por la factorización del modelo, el mensaje $ m_{f_r \rightarrow d}(d) = m_{d \rightarrow f_{d}}(d)$.}
@@ -2558,8 +2508,8 @@ d_approx = approx(d, margin, !tie)
 \end{split}
 \end{equation}
 %
-\en{with}\es{con} $\psi_{\div} = \frac{\widehat{\psi}}{\widehat{\vartheta}^2} - \frac{\psi}{\vartheta^2}$ \en{and}\es{y} $\vartheta_{\div}^2 = (\frac{1}{\widehat{\vartheta}^2} - \frac{1}{\vartheta^2})^{-1}$ .
-%
+% \en{with}\es{con} $\psi_{\div} = \frac{\widehat{\psi}}{\widehat{\vartheta}^2} - \frac{\psi}{\vartheta^2}$ \en{and}\es{y} $\vartheta_{\div}^2 = (\frac{1}{\widehat{\vartheta}^2} - \frac{1}{\vartheta^2})^{-1}$ .
+% %
 \en{We have access to this message when we use the \texttt{/} operator of the \texttt{Gaussian} class to divide the indicated Gaussians,}
 \es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{/} de la clase \texttt{Gaussian}, para dividir las gaussianas indicadas,}
 %
