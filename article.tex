@@ -1109,7 +1109,7 @@ print(lhs[[1]][[1]]*a1@prior)
 ta = [a1]
 tb = [a2, a3]
 tc = [a4]
-teams = [ta, tb, tc]
+teams_3 = [ta, tb, tc]
 result = [1., 0., 0.]
 \end{lstlisting}
   \switchcolumn
@@ -1117,7 +1117,7 @@ result = [1., 0., 0.]
 ta = [a1]
 tb = [a2, a3]
 tc = [a4]
-teams = [ta, tb, tc]
+teams_3 = [ta, tb, tc]
 result = [1, 0, 0]
 \end{lstlisting}
    \switchcolumn
@@ -1125,12 +1125,12 @@ result = [1, 0, 0]
 ta = c(a1)
 tb = c(a2, a3)
 tc = c(a4)
-teams = list(ta, tb, tc)
+teams_3 = list(ta, tb, tc)
 result = c(1, 0, 0)
 \end{lstlisting}  
 \end{paracol}
 \begin{lstlisting}[backgroundcolor=\color{all}]
-g2 = Game(teams, result, p_draw=0.25)
+g = Game(teams_3, result, p_draw=0.25)
 \end{lstlisting}
 %
 \en{where \texttt{teams} contains the players distributed in different teams, while \texttt{result} now indicates the score obtained by each team.}
@@ -1522,7 +1522,7 @@ convergence(h,epsilon=0.01, iterations=10)
 %
 \begin{lstlisting}[backgroundcolor=\color{julia},label=lst:atp_ground, caption={\en{Modeling multi-dimensional skills in ATP history}\es{Modelando habilidades multi-dimensionales en la historia de la ATP}}, belowskip=0.1cm, aboveskip=0.1cm]
 players = Set(vcat((composition...)...))
-priors = Dict([(p, ttt.Player(ttt.Gaussian(0., 1.6), 1.0, 0.036) ) for p in players])
+priors = Dict([(p, Player(Gaussian(0., 1.6), 1.0, 0.036) ) for p in players])
 
 composition_ground = [ r.double == "t" ? [[r.w1_id, r.w1_id*r.ground, r.w2_id, r.w2_id*r.ground],[r.l1_id, r.l1_id*r.ground, r.l2_id, r.l2_id*r.ground]] : [[r.w1_id, r.w1_id*r.ground],[r.l1_id, r.l1_id*r.ground]] for r in eachrow(data) ]   
 
@@ -1683,7 +1683,7 @@ convergence(h_ground,epsilon=0.01, iterations=10)
 \es{En esta secci\'on ofrecemos la documentación matemática completa del modelo TrueSkill Through Time.}
 %
 \en{The advantage of this model lies in the strict application of probability theory: all the assumptions are made explicit through a generative model, and the inference is solved only with the rules of probability, nothing more than the sum and the product rules.}
-\es{La ventaja de este modelo reside en la aplicación estricta la teoría de la probabilidad: todos los supuestos se hacen expl\'icitos a trav\'es de un modelo generativo, y la inferencia se resuelve sólo con las regla de la probabilidad, nada más que las reglas de la suma y el producto.}
+\es{La ventaja de este modelo reside en la aplicación estricta de la teoría de la probabilidad: todos los supuestos se hacen expl\'icitos a trav\'es de un modelo generativo, y la inferencia se resuelve sólo con las regla de la probabilidad, nada más que las reglas de la suma y el producto.}
 %
 \en{In section~\ref{sec:sumProductAlgorithm} we introduce the \emph{sum-product algorithm}, which allows us to efficiently apply this rules to compute the marginal distributions, e.g. the posterior and the prior prediction.}
 \es{En la secci\'on~\ref{sec:sumProductAlgorithm} introducimos el \emph{sum-product algorithm}, que nos permite aplicar eficientemente estas reglas para computar las distribuciones marginales, e.g. el posterior y la predicción a priori.}
@@ -2222,8 +2222,8 @@ e = 1 - cdf(0,d@mu,d@sigma)
 \end{lstlisting}   
 \end{paracol}
 %
-\en{Where \texttt{e} contains the value of \texttt{evidence}.}
-\es{Donde \texttt{e} contiene el valor de \texttt{evidence}.}
+\en{Where \texttt{e} contains the value of equation \texttt{evidence}.}
+\es{Donde \texttt{e} contiene el valor de la ecuación \texttt{evidence}.}
 %
 \paragraph{\en{Ascending messages}\es{Mensajes ascendentes}.}
 %
@@ -2375,8 +2375,8 @@ sd = math.sqrt(na + nb)*beta
 \end{lstlisting}
 \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
-na = length(team_a)
-nb = length(team_b)
+na = length([a1, a2])
+nb = length([a3, a4])
 sd = sqrt(na + nb)*beta
 \end{lstlisting}
 \end{paracol}
@@ -2385,8 +2385,8 @@ p_draw = 0.25
 margin = compute_margin(p_draw, sd)
 \end{lstlisting}
 %
-\en{Where \texttt{team\_a} and \texttt{team\_b} were initialized in code~\ref{lst:game}, and \texttt{beta} in the code~\ref{lst:parameters}.}
-\es{Donde \texttt{team\_a} y \texttt{team\_b} fueron inicializadas en el c\'odigo \ref{lst:game}, y \texttt{beta} en el código~\ref{lst:parameters}.}
+\en{Where the agents \texttt{a} were initialized in code~\ref{lst:player}, and \texttt{beta} in the code~\ref{lst:parameters}.}
+\es{Donde los agentes \texttt{a} fueron inicializados en el c\'odigo \ref{lst:player}, y \texttt{beta} en el código~\ref{lst:parameters}.}
 
 \subsection{\en{Optimal approximation of the exact posterior}\es{Aproximaci\'on \'optima del posterior exacto}} \label{sec:approximate_posterior}
 %
@@ -2490,16 +2490,13 @@ d_approx = approx(d, margin, !tie)
 \en{Where the difference distribution \texttt{d} was initialized in code~\ref{lst:difference_performance}, and the variable \texttt{margin} in code~\ref{lst:draw}.}
 \es{Donde la distribución de diferencias \texttt{d} fue inicializada en el código~\ref{lst:difference_performance}, y \texttt{margin} en el código~\ref{lst:draw}.}
 %
-\en{Given $\widehat{p}(d)$, we can compute the approximate ascending message using the operations ot the class \texttt{Gaussian}.}
+\en{Given $\widehat{p}(d)$, we can compute the approximate ascending message using the operations of the class \texttt{Gaussian}.}
 \es{Dada $\widehat{p}(d)$, podemos calcular el resto de los mensaje ascendentes usando las operaciones de la clase \texttt{Gaussian}.}
 %
-\en{Recall that any marginal distribution can be calculated as the product of the messages received from all its neighboring factors, and that in this case due to the factorization of the model, it holds that $ m_{f_r \rightarrow d}(d) = m_{d \rightarrow f_{d}}(d)$.}
-\es{Recordar que la distribución marginal se puede calcular como el producto de los mensajes que le envían todos los factores vecinos, y que en este caso por la factorización del modelo, el mensaje $ m_{f_r \rightarrow d}(d) = m_{d \rightarrow f_{d}}(d)$.}
+\en{To derive the first ascending message, recall that any marginal distribution can be calculated as the product of the messages received from all its neighboring factors.}
+\es{Para derivar el primer mensaje ascendente aproximado, recordar que cualquier distribución marginal se puede calcular como el producto de los mensajes que le envían todos los factores vecinos.}
 %
-\en{Then, the approximate ascending message is,}
-\es{Luego, el mensaje aproximado ascendente es,}
-%
-\begin{equation}\label{eq:m^_d_fd} \tag{\texttt{approx\_lhood\_d}}
+\begin{equation}\label{eq:m^_d_fd} \tag{\texttt{approx\_lh\_d}}
 \begin{split}
  m_{d \rightarrow f_{d}}(d)   = \frac{p(d)}{m_{f_{d} \rightarrow d}(d)} 
  & \approx \frac{\widehat{p}(d)}{m_{f_{d} \rightarrow d}(d)}  \\
@@ -2508,35 +2505,20 @@ d_approx = approx(d, margin, !tie)
 \end{split}
 \end{equation}
 %
-% \en{with}\es{con} $\psi_{\div} = \frac{\widehat{\psi}}{\widehat{\vartheta}^2} - \frac{\psi}{\vartheta^2}$ \en{and}\es{y} $\vartheta_{\div}^2 = (\frac{1}{\widehat{\vartheta}^2} - \frac{1}{\vartheta^2})^{-1}$ .
-% %
+\en{where $m_{f_r \rightarrow d}(d) = m_{d \rightarrow f_{d}}(d)$ holds due to the factorization of the model.}
+\es{donde $m_{f_r \rightarrow d}(d) = m_{d \rightarrow f_{d}}(d)$ vale por la factorización del modelo.}
+%
 \en{We have access to this message when we use the \texttt{/} operator of the \texttt{Gaussian} class to divide the indicated Gaussians,}
 \es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{/} de la clase \texttt{Gaussian}, para dividir las gaussianas indicadas,}
 %
 \begin{lstlisting}[backgroundcolor=\color{white}, label=lst:d_div, caption={\en{Computing the first approximate message}\es{Computando el primer mensaje aproximado}}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
-\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.0 \baselineskip]
-approx_lhood_d = d_approx / d
-\end{lstlisting}  
-% \begin{paracol}{3}
-% \begin{lstlisting}[backgroundcolor=\color{julia}]
-% d_div = approx_lhood_d1.mu
-% v_div = approx_lhood_d1.sigma
-% \end{lstlisting}
-% \switchcolumn
-% \begin{lstlisting}[backgroundcolor=\color{python}]
-% d_div = lhood_d1_approx.mu
-% v_div = lhood_d1_approx.sigma
-% \end{lstlisting}
-% \switchcolumn
-% \begin{lstlisting}[backgroundcolor=\color{r}]
-% d_div = lhood_d1_approx$mu
-% v_div = lhood_d1_approx$sigma
-% \end{lstlisting}
-% \end{paracol}
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=-0 \baselineskip]
+approx_lh_d = d_approx / d
+\end{lstlisting}
 %
-\en{All these messages can be interpreted as approximate likelihoods via Guassian distributions.}
-\es{Todos estos mensajes pueden ser interpretados como verosimilitudes aproximadas mediante distribuciones guassianas.}
+\en{All these approximate messages can be interpreted as likelihoods because they transmit the information of the observed result.}
+\es{Todos estos mensajes aproximados pueden ser interpretados como verosimilitudes  porque contienen la información del resultado observado.}
 %
 \en{The approximate message sent by difference factor $f_d$ to the winning team performance variables $t_a$ is,}
 \es{El mensaje aproximado que el factor diferencia $f_d$ envía a la variables de desempeño del equipo ganador $t_a$ es,}
@@ -2544,8 +2526,7 @@ approx_lhood_d = d_approx / d
 \begin{equation}%\label{eq:^m_fd_ta} \tag{\texttt{approx\_lhood\_ta}}
 \begin{split}
 \widehat{m}_{f_{d} \rightarrow t_a}(t_a) & =  \iint \delta(d = t_a - t_b) \N(d_1 | \psi_{\div}, \vartheta_{\div}^2) \N(t_b | \mu_b , \sigma_b^2 )  \, d{d} \,dt_b \\
-& = \int  \N( t_a-t_b | \psi_{\div}, \vartheta_{\div}^2) \N(t_b | \mu_b , \sigma_b^2 )  \,  d_{t_b} \\
-& = \N(t_a \, | \, \mu_b + \psi_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) \\
+& = \int  \N( t_a-t_b | \psi_{\div}, \vartheta_{\div}^2) \N(t_b | \mu_b , \sigma_b^2 )  \,  d_{t_b} = \N(t_a \, | \, \mu_b + \psi_{\div} \, , \, \vartheta_{\div}^2 + \sigma_b^2) \\
 \end{split}
 \end{equation}
 %
@@ -2573,42 +2554,75 @@ approx_lhood_d = d_approx / d
 \en{Finally, the approximate proportional posterior of the variable $s_1$ is obtained by multiplying the messages it receives from its neighboring factors.}
 \es{Finalmente, el posterior proporcional aproximado de la variable $s_1$ se obtiene multiplicando los mensajes que recibe de sus factores vecinos.}
 %
-\begin{equation}\label{eq:^p_s} \tag{\texttt{posterior\_s1\_approx}}
- \widehat{p}(s_1) = \N(s_1|\mu_1, \sigma_1^2) \N(s_1| \mu_1 - \psi + \psi_{\div}, \vartheta_{\div}^2 + \vartheta^2 - \sigma_1^2)
+\begin{equation}\label{eq:^p_s} \tag{\texttt{posterior}}
+ \widehat{p}(s_1, r) = \N(s_1|\mu_1, \sigma_1^2) \N(s_1| \mu_1 - \psi + \psi_{\div}, \vartheta_{\div}^2 + \vartheta^2 - \sigma_1^2)
 \end{equation}
 %
-\en{We have access to this message when we use the \texttt{*} operator of the \texttt{Gaussian} class to multiply the indicated Gaussians, or getting the first element of the list \texttt{post} computed in code~\ref{lst:post_2vs2}.}
-\es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{*} de la clase \texttt{Gaussian} para multiplicar las gaussianas indicadas, o tomando el primer elemento de la lista \texttt{post} computada en el código~\ref{lst:post_2vs2}.}
+\en{We have access to the normalized posterior using the operator \texttt{*} of the class \texttt{Gaussian}, or getting the first element of the list \texttt{post} computed in code~\ref{lst:post_2vs2}.}
+\es{Tenemos acceso al posterior normalizado usando el operador \texttt{*} de la clase \texttt{Gaussian}, o tomando el primer elemento de la lista \texttt{post} computada en el código~\ref{lst:post_2vs2}.}
 %
 \begin{lstlisting}[backgroundcolor=\color{white}, label=lst:posterior_s1_approx, caption={\en{Accessing the approximate posterior}\es{Accediendo al posterior aproximado}}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
-posterior_s1_approx = post[1]
+mu = a1.prior.mu
+sigma2 = a1.prior.sigma^2
+phi = d.mu
+v2 = d.sigma^2
+phi_div = approx_lh_d.mu
+v2_div = approx_lh_d.sigma^2
+prior = a1.prior
+posterior = post[1][1]
 \end{lstlisting}
 \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
-posterior_s1_approx = post[0]
+mu = a1.prior.mu
+sigma2 = a1.prior.sigma**2
+phi = d.mu
+v = d.sigma**2
+phi_div = approx_lh_d.mu
+v2_div =approx_lh_d.sigma**2
+prior = a1.prior
+posterior = post[0][0]
 \end{lstlisting}
 \switchcolumn
 \begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
-posterior_s1_approx=post[[1]]
+mu = a1@prior@mu
+sigma2 = a1@prior@sigma^2
+phi = d@mu
+v2 = d@sigma^2
+phi_div = approx_lh_d@mu
+v2_div = approx_lh_d@sigma^2
+prior = a1@prior
+posterior = post[[1]][[1]]
 \end{lstlisting}
 \end{paracol}
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.0 \baselineskip]
+print( prior * Gaussian(mu-phi+phi_div, sqrt(v2 + v2_div - sigma2)) )
+> Gaussian(mu=2.461, sigma=5.507)
+print(posterior)
+> Gaussian(mu=2.461, sigma=5.507)
+\end{lstlisting}
+%
+\en{With \texttt{a1}, \texttt{d}, and \texttt{approx\_lh\_d} computed in codes\ref{lst:player}, \ref{lst:difference_performance}, and \ref{lst:d_div}.}
+\es{Con \texttt{a1}, \texttt{d} y \texttt{approx\_lh\_d} computadas en los códigos \ref{lst:player}, \ref{lst:difference_performance} y \ref{lst:d_div}.}
+%
+\en{It can be seen that the posterior we have computed is the same as the one returned by the class \texttt{Gaussian}.}
+\es{Se puede ver que el posterior que nosotros hemos computado es el mismo que devuelve la clase \texttt{Gaussian}.}
 
 \subsection{\en{Multiple teams}\es{Varios equipos}} \label{sec:iterative_posterior} 
 
-\en{In cases where there are more than two teams, a mutual dependence between the results forces us to implement an iterative algorithm to approximate the posterior.}
-\es{Cuando estamos en presencia de m\'as de dos equipos, una dependencia mutua entre los resultados nos obliga a implementar un algoritmo iterativo para aproximar el posterior.}
+\en{The interface of the packages do not exhibit any difference between two-team and multiple-team games, as can be seen in the example codes \ref{lst:game} and \ref{lst:multiple_team_game}.}
+\es{La interfaz de los paquetes exhiben ninguna diferencia entre partidas de dos equipos o de varios equipos, como se puede ver en los códigos de ejemplo \ref{lst:game} y \ref{lst:multiple_team_game}.}
 %
-\en{Let's assume that $k$ teams participate in an event.}
-\es{Supongamos que $k$ equipos participan de un evento.}
+\en{However, in cases where there are more than two teams we are forced to implement an iterative algorithm due to a mutual dependency between results.}
+\es{Sin embargo, en presencia de más de dos equipos nos vemos obligados a implementar un algoritmo iterativo debido a una dependencia mutua entre resultados.}
 %
-\en{Due to the transitivity of the result, it is enough to evaluate $k-1$ differences $d_i$ between consecutive teams.}
-\es{Gracias a la transitividad de los resultados, es suficiente con evaluar $k-1$ diferencias $d_i$ entre equipos consecutivos.}
+\en{Thanks to the transitivity of results, if $k$ teams participate in an event, it is sufficient to evaluate $k-1$ differences of performances $d_i$ between teams in consecutive positions.}
+\es{Gracias a la transitividad de los resultados, si participan $k$ equipos en un evento, es suficiente con evaluar $k-1$ diferencias de desemepño $d_i$ entre equipos en posiciones consecutivas.}
 %
-\en{For this purpose we define a list, $o$, in which the teams are ordered according to the observed result, with $o_1$ the winning team, and in general $o_i$ representing the team placed in position $i$.}
-\es{Para ese propósito definimos una lista, $o$, en la que los equipos están ordenados según el resultado observdo, con $o_1$ el equipo ganador ,y en general con $o_i$ el equipo ubicado en la posición $i$.}
+\en{For this purpose we define a list $o$ in which the teams are ordered according to the observed result, with $o_1$ the winning team, and in general $o_i$ representing the team placed in position $i$.}
+\es{Para ello definimos una lista $o$ en la que los equipos están ordenados según el resultado observdo, con $o_1$ el equipo ganador, y en general con $o_i$ el equipo ubicado en la posición $i$.}
 %
 \en{In Figure ~\ref{fig:factorGraph_trueskill} we show the factorization of the general TrueSkill model.}
 \es{En la figura~\ref{fig:factorGraph_trueskill} mostramos la factorizaci\'on del modelo general de TrueSkill.}
@@ -2649,10 +2663,10 @@ posterior_s1_approx=post[[1]]
         \edge[-] {fp} {s};
         \edge[-] {s} {fs};
 
-        \plate {personas} {(p)(s)(fs)(nfs)(dfp)(dfs)} {$T_{o_j}\equiv$ \en{composition of team $o_j$}\es{composición del equipo $o_j$} \hspace{0.5cm} $i \in T_{o_j}$}; %
+        \plate {personas} {(p)(s)(fs)(nfs)(dfp)(dfs)} {\en{Members of team $o_j$}\es{Miembros del equipo $o_j$} \hspace{0.5cm} $i \in \text{\en{Team}\es{Equipo}}_{o_j}$}; %
         \node[invisible, below=of ft, yshift=-0.6cm] (inv_below_e) {};
 	\node[invisible, above=of ft, yshift=1.1cm] (inv_above_e) {};
-	\plate {equipos} {(personas) (t)(ft)(dft) (inv_above_e) (inv_below_e)} {$o\equiv$ \en{list of teams ordered according to the results }\es{lista de equiois ordenada de acuerdo los resultados }  \hspace{0.3cm} $1 \leq j \leq |o|$}; %
+	\plate {equipos} {(personas) (t)(ft)(dft) (inv_above_e) (inv_below_e)} {$o\equiv$ \en{list of teams ordered according to the results }\es{lista de equipos ordenados de acuerdo al resultado }  \hspace{0.3cm} $1 \leq j \leq |o|$}; %
 	\node[invisible, below=of fr, yshift=-0.7cm] (inv_below) {};
 	\node[invisible, above=of fr, yshift=1.1cm] (inv_above) {};
 	\plate {comparaciones} {(fd) (dfd) (d) (fr) (dfr) (inv_below) (inv_above)} {$1 \leq j < |o|$};
@@ -2674,17 +2688,13 @@ posterior_s1_approx=post[[1]]
   \label{fig:factorGraph_trueskill}
 \end{figure}
 %
-\en{For a user of the package there is no difference regarding the previous case, as shown in code~\ref{lst:multiple_team_game}.}
-\es{Para un usuario del paquete no hay ninguna diferencia respecto del caso anterior, como se puede ver en el código~\ref{lst:multiple_team_game}.}
-%
-\en{However, mathematically it is impossible to perform a one-shot inference because of the mutual dependency between the distribution of difference, $p(d_j)$.}
-\es{Sin embargo, matemáticamente es imposible realizar la inference de una sola pasada por la dependencia mutua entre las distribuciones de diferencia, $p(d_j)$.}
-%
-\en{Let's look at the algorithm involved in solving a game with 3 teams.}
-\es{Veamos el algoritmo involucrado en resolver una partida con 3 equipos.}
-%
 \en{The basic idea is to update repeatedly forward and backward all messages in the shortest path between any two marginals $p(d_j)$ until convergence.}
 \es{La idea b\'asica es actualizar repetidamente hacia adelante y hacia atr\'as todos los mensajes en el camino m\'as corto entre dos marginales $p(d_j)$ hasta la convergencia.}
+
+% Parrafo
+
+\en{Let's look at the algorithm involved in solving a game with 3 teams.}
+\es{Veamos el algoritmo involucrado en resolver una partida con 3 equipos.}
 %
 \en{Instead of using the message notation proposed by the sum-product algorithm, we name the messages as shown in Figure~\ref{fig:ep_ts}.}
 \es{En vez de utilizar la notación de mensajes propuesta por el \emph{sum-product algorithm}, le ponemos nombres a los mensajes como se muestra en la figura~\ref{fig:ep_ts}.}
@@ -2755,17 +2765,16 @@ posterior_s1_approx=post[[1]]
  \es{Mostramos s\'olo factores desde los equipos hasta los resultados.}
  %
  \en{The names will be used to explain the iterative procedure known as loopy belief propagation.}
- \es{Los nombres se usar\'an para explicar el procedimiento iterativo conocido como \emph{loopy belief propagatiion}.}
+ \es{Los nombres se usar\'an para explicar el procedimiento iterativo conocido como \emph{loopy belief propagation}.}
 }
 \label{fig:ep_ts}
 \end{figure}
-
-% \en{We will make use of the example shown at code~\ref{lst:multiple_team_game}, where we have three teams \texttt{team\_a}, \texttt{team\_b} and \texttt{team\_c} composed of one, two and one player respectively.}
-% \es{Vamos a hacer uso del ejemplo del código~\ref{lst:multiple_team_game}, donde tenemos tres equipos \texttt{team\_a}, \texttt{team\_b} y \texttt{team\_c} compuestos por uno, dos y un jugador respectivamente.}
-% %
-\en{First we compute the prior performance of the teams by using the function \texttt{performance()}.}
-\es{Primero computamos el desempeño a prior de los equipos usando la función \texttt{performance()}.}
 %
+\en{Before we start, we set the landscape: we compute the prior performance of the teams using the function \texttt{performance()}; we initialize the messages that are not yet defined with a neutral form, such as a Gaussian distribution with infinite variance; and we compute the margins for each comparison $d_j$.}
+\es{Antes de empezar preparamos el escenario: computamos el desempeño a priori de los equipos usando la función \texttt{performance()}; inicializamos los mensajes que a\'un no est\'an definidos con una forma neutra, como una distribuci\'on gaussiana con varianza infinita; y calculamos los márgenes de cada comparaci\'on $d_j$.}
+%
+\begin{lstlisting}[backgroundcolor=\color{all}, label=lst:graphical_model, caption={\en{Setting the landscape}\es{Preparación del escenario}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+\end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
 team_a = [a1]
@@ -2785,13 +2794,9 @@ team_b = c(a2, a3)
 team_c = c(a4)
 \end{lstlisting}  
 \end{paracol}
-\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=-0.77 \baselineskip]
 prior_ta= performance(team_a); prior_tb= performance(team_b); prior_tc= performance(team_c)
 \end{lstlisting}
-%
-\en{Before starting the convergence process, we initialize the messages that are not yet defined with a neutral form, such as a Gaussian distribution with infinite variance.}
-\es{Antes de empezar el proceso de convergencia, inicializamos los mensajes que a\'un no est\'an definidos con una forma neutra, como una distribuci\'on gaussiana con varianza infinita.}
-%
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
 N_inf = Gaussian(0., Inf)
@@ -2805,29 +2810,26 @@ N_inf = Gaussian(0, inf)
 N_inf = Gaussian(0, Inf)
 \end{lstlisting}
 \end{paracol}
-\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=-0.77 \baselineskip]
 lhood_win_ta = N_inf; lhood_lose_tb = N_inf; lhood_win_tb = N_inf; lhood_lose_tc = N_inf
 \end{lstlisting}
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm]
+margin = compute_margin(p_draw, sqrt(3)*beta)
+\end{lstlisting}
 %
-\en{And we compute the margins for each comparison, $d_j$.}
-\es{Y calculamos los margenes de cada comparaci\'on $d_j$.}
+\en{Where the agents \texttt{a} were defined in the codex \ref{lst:player}.}
+\es{Los agentes \texttt{a} fueron definidos en el cófigo \ref{lst:player}.}
 %
 \en{Since there are three players in both comparisons, we adjust both margins with the same size.}
 \es{Como en ambas comparaciones hay tres jugadores, ajustamos ambos margenes con ese mismo tamaño.}
 %
-\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm]
-margin = compute_margin(p_draw, sqrt(3)*beta)
-\end{lstlisting}
-
-% Parrafo
-
 \en{Let's start the iterative process by approximating the distribution $d_1$.}
-\es{Empezmos el proceso iterativo aproximando la distribución $d_1$.}
+\es{Empecemos el proceso iterativo aproximando la distribución $d_1$.}
 %
-\en{Remember the any marginal distribution is the product of the messages it receives from its neighbours.}
+\en{Remember that any marginal distribution is the product of the messages it receives from its neighbours.}
 \es{Recuerden que cualquier distribución marginal es el producto de los mensajes que esta recibe de sus vecinos.}
 %
-\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm, label=lst:d1, caption={\en{Approximating the distribution $d_1$ with the last messages of $t_b$}\es{Aproximando la distribución $d_1$ con los últimos mensajes de $t_b$}},aboveskip=0.0 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm, label=lst:d1, caption={\en{Approximating the distribution $d_1$ with the last message sent by $t_b$}\es{Aproximando la distribución $d_1$ con el último mensajes enviado por $t_b$}},aboveskip=0.0 \baselineskip]
 prior_lose_tb = prior_tb * lhood_win_tb
 prior_d1 = prior_ta - prior_lose_tb
 lhood_d1_approx = approx(prior_d1, margin, !tie) / prior_d1 
@@ -2858,14 +2860,14 @@ lhood_lose_tb = prior_ta - lhood_d1_approx
 \en{Then we approximate the distribution $d_2$ using the updated messages.}
 \es{Luego aproximamos la distribución $d_2$ usando los mensajes actualizados.}
 %
-\begin{lstlisting}[backgroundcolor=\color{all},label=lst:d2, caption={\en{Approximating de distribution $d_2$ with the last messages of $t_b$}\es{Aproximando la distribución $d_2$ con lo últimos mensajes de $t_b$}},aboveskip=0.0 \baselineskip,belowskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{all},label=lst:d2, caption={\en{Approximating de distribution $d_2$ with the last messages sent by $t_b$}\es{Aproximando la distribución $d_2$ con el último mensaje enviado por $t_b$}},aboveskip=0.0 \baselineskip,belowskip=0.1cm]
 prior_win_tb = prior_tb * lhood_lose_tb
 prior_d2 = prior_win_tb - prior_tc
 lhood_d2_approx = approx(prior_d2, margin, tie) / prior_d2 
 \end{lstlisting}
 %
 \en{In the first line we initialize the message that the variable $t_b$ sends to the factor node $f_{d_d}$}
-\es{En la primera línea inicializamos el mensaje que las variable $t_b$ envía al nodo factor $f_{d_2}$.}
+\es{En la primera línea inicializamos el mensaje que la variable $t_b$ envía al nodo factor $f_{d_2}$.}
 %
 \en{In the second line we compute the message sent by the factor $f_{d_2}$ to the variable $d_2$.}
 \es{En la segunda línea computamos el mensaje que envía el factor $f_{d_2}$ a la variable $d_2$.}
@@ -2876,7 +2878,7 @@ lhood_d2_approx = approx(prior_d2, margin, tie) / prior_d2
 \en{This allows us to update the message received by the variable $t_b$ from the factor $f_{d_2}$.}
 \es{Esto nos permite actualizar el mensaje que recibe la variable $t_b$ del factor $f_{d_2}$.}
 %
-\begin{lstlisting}[backgroundcolor=\color{all},label=lst:tb_win, caption={\en{Updating la distribución $t_b$ with the approximation of $d_2$}\es{Actualizando la distribución $t_b$  con la aproximación de $d_2$}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{all},label=lst:tb_win, caption={\en{Updating la distribución $t_b$ with the last approximation of $d_2$}\es{Actualizando la distribución $t_b$  con la última aproximación de $d_2$}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
 lhood_win_tb = prior_lose_tc + lhood_d2_approx
 \end{lstlisting}
 %
@@ -2889,7 +2891,7 @@ lhood_win_tb = prior_lose_tc + lhood_d2_approx
 \en{Once finished, we send the upstream messages to the teams at both ends.}
 \es{Una vez terminada, enviamos los mensajes ascendentes a los equipos de ambos extremos.}
 %
-\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{all}, label=lst:multi_bordes, caption={\en{Computing the messages received by the $f_t$ factors of the winning and losing teams}\es{Cómputo de los mensajes que reciben los factores $f_t$ del equipo ganador y perdedor}}, belowskip=0.0 \baselineskip, aboveskip=0.1 \baselineskip]
 lhood_win_ta = posterior_lose_tb + lhood_d1_approx
 lhood_lose_tc = posterior_win_tb - lhood_d2_approx
 \end{lstlisting}
@@ -2900,28 +2902,38 @@ lhood_lose_tc = posterior_win_tb - lhood_d2_approx
 \en{Finally, we compute the likelihood of each team.}
 \es{Finalmente computar los likelihood de cada equipo.}
 %
-\begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm]
-lhood_ta_approx = lhood_win_ta 
-lhood_tb_approx = lhood_lose_tb * lhood_win_tb
-lhood_tc_approx = lhood_lose_tc
+\begin{lstlisting}[backgroundcolor=\color{all}, label=lst:multi_ascendente, caption={\en{Ascending messages sent by the factors $f_t$ to the variables $t$}\es{Mensajes ascendentes de los factores $f_t$ a las variables $t$}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
+lhood_ta = lhood_win_ta 
+lhood_tb = lhood_lose_tb * lhood_win_tb
+lhood_tc = lhood_lose_tc
 \end{lstlisting}
+%
+\en{The following ascending messages are calculated as described in section \ref{sec:approximate_posterior}.}
+\es{Los siguientes mensajes ascendentes se calculan como se describe en la sección \ref{sec:approximate_posterior}.}
 
 \subsection{\en{The History class}\es{La clase History}} \label{sec:throguthTime}
 
-\en{The temporal causal model, known as TrueSkill Through Time, creates a single graphical model in which all historical activities are linked.}
-\es{El modelo causal temporal, conocido como TrueSkill Through Time, genera un único modelo gráfico en el que todas las actividades hist\'oricas quedan vinvuladas.}
+\en{In this section we will see how to find the best approximation to the exact posterior in a history of events.}
+\es{En esta secci\'on vamos a ver c\'omo se obtiene la mejor aproximaci\'on al posterior exacto en una historia de eventos.}
 %
-\en{The model states that within each time step $t$ (e.g. day, week, month, year) each agent $i$ participate in all events, $K_{i_t}$, with the same prior skill $s_{i_t}$.}
-\es{El modelo establece que al interior de cada paso temporal $t$ (e.g. d\'ia, semana, mes, a\~no) cada agente $i$ participa en todos los eventos, $K_{i_t}$, con la misma habilidad $s_{i_t}$ a priori.}
+\en{TrueSkill Through Time generates a unique causal model in which all historical activities are linked.}
+\es{TrueSkill Through Time genera un modelo causal único en el que todas las actividades históricas quedan vinculadas.}
 %
-\en{The skills of different players are connected to each other by games, and the skills of the same player are temporally connected to past and future skills.}
-\es{Las habilidades de los jugadores están conectadas entre sí por las partidas y las habilidades de un mismos jugador están conectadas temporalmente con las habilidad pasada y futura.}
+\en{The connectivity between events is generated by the basic assumption that a player's skill at time $t$ depends on his own skill at an earlier time $t-1$.}
+\es{La conectividad entre eventos surge de suponer que la habilidad de un jugador en un tiempo $t$ depende de su propia habilidad en un tiempo anterior $t-1$.}
 %
-\en{All this together forms a complex network that is difficult to show visually.}
-\es{Todo esto junto forma una red complejo difícil de mostrar visualmente.}
+\en{The model states that within each time step $t$ (e.g. day, week, month, year) each agent $i$ participate in all events.}
+\es{El modelo admite que en un mismo paso temporal $t$ (e.g. d\'ia, semana, mes, a\~no) un agente $i$ participe en más de un evento.}
 %
-\en{In the Figure~\ref{fig:history} we show a schematic representation of the factor graph of a history of events.}
-\es{En la figura~\ref{fig:history} mostramos representaci\'on esquem\'atica del grafo de factorizaci\'on de un historia de eventos.}
+% \en{The skills of different players are connected to each other by games, and the skills of the same player are temporally connected to past and future skills.}
+% \es{Las habilidades de los jugadores están conectadas entre sí por las partidas y las habilidades de un mismos jugador están conectadas temporalmente con las habilidad pasada y futura.}
+% %
+% \en{All this together forms a complex network that is difficult to show visually.}
+% \es{Todo esto junto forma una red complejo difícil de mostrar visualmente.}
+% %
+%
+\en{In the Figure~\ref{fig:history} we show a part of the graphical factorization of the event history: the neighboring nodes to a skill variable and the messages between these nodes.}
+\es{La figura~\ref{fig:history} mostramos una parte de la factorizaci\'on gráfica de la historia de eventos: los nodos vecinos a una variable de habilidad y los mensajes entre estos nodos.}
 %
 \begin{figure}[ht!]
   \centering
@@ -2970,10 +2982,10 @@ lhood_tc_approx = lhood_lose_tc
 }
 }
 \caption{
-\en{Factor graph of a history of events around a skill variable $s$ of an agent $i$ at a time step $t$.}
-\es{Grafo de factorizaci\'on de una historia de eventos alrededor de la habilidad $s$ de un agente $i$ en el paso temporal $t$}
+\en{Nodes of the factor graph of a history of events that are neighbors to an agent's skill variable $i$ at time step $t$.}
+\es{Nodos del grafo de factorizaci\'on de la historia de eventos que son vecinos a la variable de habilidad de un agente $i$ en el paso temporal $t$.}
 %
-\en{The variables $ p_ {i_t} (j) $ represents the performance $ p $ that player $i$ had in their $j$-th game within the time step $ t $.}
+\en{The variables $p_{i_t}(j)$ represents the performance $p$ that player $i$ had in their $j$-th game within the time step $t$.}
 \es{Las variables $p_{i_t}(j)$ representa el rendimiento $p$ que ese jugador tuvo en la $j$-\'esima partida al interior del paso temporal $t$.}
 %
 \en{The arrows represents messages computed by the sum-product algorithm.}
@@ -2984,46 +2996,53 @@ lhood_tc_approx = lhood_lose_tc
 }
 \label{fig:history}
 \end{figure}
-\en{Performing inference in such a Bayesian network may seem an impossible task.}
-\es{Realizar inferencia en una red bayesiana de estas características puede quizás parecer un tarea imposible.}
 %
-\en{However, the use of an efficient algorithm that requires only a few linear iterations over the data, allows scaling to millions of observations in few minutes.}
-\es{El uso de un algoritmo eficiente, que requiere s\'olo unas pocas iteraciones lineales sobre los datos, permite escalar a millones de observaciones en pocos minutos.}
-%
-\en{In this section we will see how to find the best approximation to the exact posterior in a history of events.}
-\es{En esta secci\'on vamos a ver c\'omo se obtiene la mejor aproximaci\'on al posterior exacto en una historia de eventos.}
-
-% Parrafo
-
 \en{By the sum-product algorithm, we know that the marginal distribution of any variable is the product of the messages it receives from its neighbours.}
-\es{Mediante el algoritmo de sum-product, sabemos que la distribuci\'on marginal de cualquier variable es el producto de los mensajes que esta recibe de sus vecinos.}
+\es{Por el \emph{sum-product algorithm} sabemos que la distribución marginal de cualquier variable es el producto de los mensajes que esta recibe de sus vecinos.}
 %
-\en{Replaced the messages by the selected names, the distribution can be expressed as,}
-\es{Remplazando los mensajes por los nombres seleccionados, esta distribuci\'on se puede expresar como,}
+\en{Using the names selected in Figure \ref{fig:history}, we know that the posteriori distribution of an agent's skill $i$ at time $t$ is,}
+\es{Usando los nombres seleccionados en la figura \ref{fig:history}, sabemos que la distribución posteriori de la habilidad de un agente $i$ en un tiempo $t$ es,}
 %
 \begin{equation}
- p(s_{i_t}) = \emph{prior}_i(t) \cdot \emph{inversePrior}_i(t) \cdot \prod_{k=1}^{K_{i_t}} \emph{likelihood}_i(t,k)
+ p(s_{i_t}) = \emph{prior}(t) \cdot \emph{inversePrior}(t) \cdot \prod_{k=1}^{K_{i_t}} \emph{likelihood}(t,k)
 \end{equation}
 %
-\en{The \emph{prior} and \emph{inversePrior} messages are the neighboring skill estimates, to which some uncertainty $\gamma$ is added due to the time step.}
-\es{Los mensajes \emph{prior} e \emph{inversePrior} son las estimaciones de habilidad vecinas, a las que se le agrega cierta incertidumbre $\gamma$ por el paso temporal.}
+\en{Where $K_{i_t}$ is the number of events in which agent $i$ participates in time step $t$.}
+\es{Donde $K_{i_t}$ es la cantidad de eventos en los que participa el agente $i$ en el paso temporal $t$.}
+%
+\en{The \emph{likelihood} messages are the likelihoods of the events and were described in sections \ref{sec:approximate_posterior} and \ref{sec:iterative_posterior}, and the \emph{prior} and \emph{inversePrior} messages are the neighboring skill estimates, to which some uncertainty $\gamma$ is added due to the time step.}
+\es{Los mensajes \emph{likelihood} son las verosimilitudes de los eventos descritas en la secciones \ref{sec:approximate_posterior} y \ref{sec:iterative_posterior}, y los mensajes \emph{prior} e \emph{inversePrior} son las estimaciones de habilidad vecinas, a las que se le agrega cierta incertidumbre $\gamma$ por el paso temporal.}
 %
 \begin{equation*}
 \emph{prior}_i(t) = \N(s_{i_t}|s_{i_{t-1}}, \gamma^2) \ \ \ \ \ \ \emph{inversePrior}_i(t) = \N(s_{i_t}|s_{i_{t+1}}, \gamma^2)
 \end{equation*}
 %
-\en{And the likelihoods of events are computed following the section~\ref{sec:iterative_posterior}, using as prior all the information except that of the event of interest.}
-\es{Y las verosimilituides se computan siguiendo la secci\'on~\ref{sec:iterative_posterior}, usando como prior toda la informaci\'on salvo la de la partida de inter\'es.}
+\en{The message \emph{prior} matches the definition of prior in the basic TrueSkill model: it is the \emph{posterior} of the previous step after the dynamic uncertainty $\gamma$ is added.}
+\es{El mensaje \emph{prior} coincide con la definción de prior que tiene el modelo básico de TrueSkill: es el \emph{posterior} del paso anterior luego de que se le agrega la incertidumbre dinámica $\gamma$.}
+%
+\en{This coincidence arises from applying the sum-product algorithm.}
+\es{Esta coincidencia surge de aplicar el \emph{sum-product algorithm}.}
+%
+\en{But from its application also emerges the existence of the message \emph{inversePrior}, which can be seen as the posterior of the next event after the dynamic uncertainty $\gamma$ is added to it.}
+\es{Pero de su aplicación también aparece la existencia del mensaje~\emph{inversePrior}, que puede ser visto como el posterior del siguiente evento luego de que se le agrega la incertidumbre dinámica $\gamma$.}
+%
+\en{These three messages, multiplied, compute the marginal distribution $p(s_{i_t})$.}
+\es{Estos tres mensajes, multiplicados, computan la distribución marginal $p(s_{i_t})$.}
+
+%
+
+\en{The priors which are used to compute the likelihoods of the event are the descending messages \emph{withinPrior}.}
+\es{Los priors que se usan para computar las verosimilitudes de los evento son los mensajes descendentes \emph{withinPrior}.}
+%
+\en{Following the sum-product algorithm we know that the messages sent by the variable are the product of the messages they received from behind, so the message \emph{withinPrior} is,}
+\es{Siguiendo el \emph{sum-product algorithm} sabemos que los mensajes que envían las variable son la mutliplicación de los mensajes que reciben de atrás, por lo que el mensaje \emph{withinPrior} es,}
 %
  \begin{equation}
- \emph{withinPrior}_i(t,k) = \emph{prior}_i(t) \cdot \emph{inversePrior}_i(t) \cdot \prod_{\hfrac{q=1}{q\neq k}}^{K_{i_t}} \emph{likelihood}_i(t,q) = \frac{p(s_i^t) }{\emph{likelihood}_i(t,k)}
+ \emph{withinPrior}_i(t,k) = \emph{prior}_i(t) \cdot \emph{inversePrior}_i(t) \cdot \prod_{\hfrac{q=1}{q\neq k}}^{K_{i_t}} \emph{likelihood}_i(t,q) = \frac{p(s_{i_t}) }{\emph{likelihood}_i(t,k)}
  \end{equation}
-% 
-\en{To solve the mutual dependency between likelihoods, the idea is to update repeatedly forward and backward until convergence, making sure that the effect of the previous update is removed before the new effect is added.}
-\es{Para resolver la mutua dependencia entre verosimilitudes, la idea es actualizar repetidas veces los mensajes hacia adelante y hacia atras hasta alcanzar la convergencia, asegur\'andonos que el efecto de la actualizaci\'on previa sea removida antes de que el nuevo efecto se agregue.}
 %
-\en{The messages that are not yet defined, for example the inverse prior in the first forward pass, are replace it by a neutral form like a Gaussian distribution with infinite variance.}
-\es{Los mensajes que no est\'an todav\'ia definidos, por ejemplo el prior inverso en la primer pasada hacia adelante, es remplazado por una forma neutral como distribuci\'on gaussiana con infinita varianza.}
+\en{The \emph{withinPrior} contain the same information as the maringal distribution $p(s_{i_t})$ except that which comes from the likelihood of the event for which they are priors.}
+\es{Los \emph{withinPrior} contienen toda la informaci\'on de la distribución marginal $p(s_{i_t})$ salvo la que proviene de la verosimilitud de la partida para la que son priors.}
 %
 \en{Finally, the messages that the variable $s_{i_t}$ sends to the past and the future are,}
 \es{Finalmente, los mensajes que la variable $s_{i_t}$ env\'ia al pasado y al futuro son,}
@@ -3031,15 +3050,19 @@ lhood_tc_approx = lhood_lose_tc
 \begin{equation*}
   \emph{posterior}_i(t-1) = \frac{p(s_{i_{t-1}})}{\emph{inversePrior}_i(t-1)} \ \ \ , \ \ \ \emph{inversePosterior}_i(t+1) = \frac{p(s_{i_{t+1}})}{\emph{prior}_i(t+1)}
 \end{equation*}
-% \en{At each forward pass we store each forward message, i.e. \emph{prior}$_i(t+1)$.}
-% \es{En cada pasada hacia adelante, guardamos cada mensaje hacia adelante, i.e. \emph{prior}$_i(t+1)$.}
-% %
-% \en{And at each backward pass we compute the backward message, i.e. \emph{inversePrior}$_i(t-1)$.}
-% \es{En cada pasada hacia atr\'as computamos el mensaje hacia atr\'as, i.e. \emph{inversePrior}$_i(t-1)$.}
 %
-%\subsection{Data Structures} \label{sec:estructuras} 
-% 
-% 
+\en{The messages that are not yet defined, for example the \emph{inversePrior} in the first forward pass, are replace it by a neutral form like a Gaussian distribution with infinite variance.}
+\es{Los mensajes que no est\'an todav\'ia definidos, por ejemplo el \emph{inversePrior} en la primer pasada, son remplazados por una forma neutral como la distribución gaussiana con varianza infinita.}
+%
+\en{To solve the mutual dependency between likelihoods, the idea is to update repeatedly forward and backward until convergence.}
+\es{Para resolver la mutua dependencia entre verosimilitudes, actualizamos repetidas veces los mensajes hacia adelante y hacia atras hasta alcanzar convergencia.}
+%
+\en{At each forward pass we keep track the last forward message of each agent \emph{prior}$_i(t+1)$, and at each backward pass we keep track the last backward message of each agent, \emph{inversePrior}$_i(t-1)$.}
+\es{En cada pasada hacia adelante guardamos el último mensajes que los agentes envían para adelante, \emph{prior}$_i(t+1)$, y en cada pasada hacia atrás guardamos el último mensajes que los agentes envían para atrás, \emph{prior}$_i(t+1)$.}
+%
+\en{This algorithm requires only a few linear iterations on the data and allows scaling to millions of observations in a few seconds.}
+\es{Este algoritmo requiere s\'olo unas pocas iteraciones lineales sobre los datos y permite escalar a millones de observaciones en pocos minutos.}
+
 % 
 % \begin{leftbar}
 % Note that around the \verb|{equation}| above there should be no spaces (avoided
@@ -3251,7 +3274,7 @@ lhood_tc_approx = lhood_lose_tc
 % \en{In the examples that handle single events we also analyze the runtimes of the basic package \pkg{trueskill}~0.4.5 of \proglang{Python}~\cite{}.}
 % \es{En los ejemplos que resuelven eventos individuales también analizamos los tiempos de ejecución del paquete básico \pkg{trueskill}~0.4.5 de \proglang{Python}~\cite{}.}
 
-\textbf{\en{Single event}\es{Único evento}:}
+\textbf{\en{Single event}\es{Evento único}:}
 %
 \en{In section~\ref{sec:singleEvent} we present two examples: a game with two teams in code~\ref{lst:game} and a game with three teams in code~\ref{lst:multiple_team_game}.}
 \es{En la sección \ref{sec:singleEvent} presentamos dos ejemplos: en el código~\ref{lst:game} y \ref{lst:multiple_team_game} presentamos una partida con dos y tres equipos respectivamente.}
@@ -3491,12 +3514,12 @@ opponents = Random.randn.(1000)*0.5 .+ target
 composition = [[["a"], [string(i)]] for i in 1:N]
 results = [r? [1.,0.]:[0.,1.] for r in (Random.randn(N).+target.>Random.randn(N).+opponents)]
 times = [i for i in 1:N]
-priors = Dict{String,ttt.Player}()
-for i in 1:N  priors[string(i)] = ttt.Player(ttt.Gaussian(opponents[i], 0.2))  end
+priors = Dict{String,Player}()
+for i in 1:N  priors[string(i)] = Player(Gaussian(opponents[i], 0.2))  end
 
-h = ttt.History(composition, results, times, priors, gamma=0.015)
-ttt.convergence(h)
-mu = [tp[2].mu for tp in ttt.learning_curves(h)["a"]]
+h = History(composition, results, times, priors, gamma=0.015)
+convergence(h)
+mu = [tp[2].mu for tp in learning_curves(h)["a"]]
 \end{lstlisting}
 %
 \begin{lstlisting}[backgroundcolor=\color{r},caption={\en{\proglang{R} code}\es{Código \proglang{R}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
