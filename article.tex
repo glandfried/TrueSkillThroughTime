@@ -7,7 +7,7 @@
 \newif\ifes
 \newcommand{\en}[1]{\ifen#1\fi}
 \newcommand{\es}[1]{\ifes#1\fi}
-\estrue
+\entrue
 \usepackage[utf8]{inputenc}
 \usepackage{paracol}
 %\newcommand{\jan}{%
@@ -80,6 +80,12 @@
   showlines=true
 }
 
+\hypersetup{
+    colorlinks,
+    linkcolor={black!50!black},
+    citecolor={black!50!black},
+    urlcolor={black!80!black}
+}
 
 %% -- LaTeX packages and custom commands ---------------------------------------
 
@@ -107,7 +113,7 @@
 %% - \title{} in title case
 %% - \Plaintitle{} without LaTeX markup (if any)
 %% - \Shorttitle{} with LaTeX markup (if any), used as running title
-\title{TrueSkill Through Time: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages}
+\title{Skill estimation using TrueSkill Through Time: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages}
 \Plaintitle{TrueSkill Through Time: the Julia, Python and R packages}
 \Shorttitle{TrueSkill Through Time: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages (Draft)}
 
@@ -1431,13 +1437,13 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 
 \subsection{\en{The history of the Association of Tennis Professionals (ATP)}\es{Historia de la Asociación de Tenistas Profesionales (ATP)}} \label{sec:atp}
 
-\en{In this last example we use the entire history of matches of the Association of Tennis Professionals (ATP).}
+\en{In this last example, we analyze the complete history of the Association of Tennis Professionals (ATP) registered matches.}
 \es{En este último ejemplo utilizamos toda la historia de partidas de la Asociación de Tenistas Profesionales (ATP).}
 %
 \en{The database has \num{447000} games starting at year 1915 until 2020 with more than \num{19000} participating players and is publicly available.}
 \es{La base de datos cuenta con \num{447000} mil partidas que van desde el año 1915 hasta el 2020, en las que participan \num{19000} jugadores.}
 %
-\en{The information is stored in a single \texttt{csv} file\footnote{File available at \nolinkurl{https://github.com/glandfried/tennis_atp/releases/download/atp/history.csv.zip}. An updated data source at \nolinkurl{https://github.com/JeffSackmann/tennis_atp}.} including both single and double matches: if the column \texttt{double} has the letter \texttt{t}, the game is a double match.}
+\en{The information is obtained and stored in a single \texttt{csv} file\footnote{Available at \url{https://github.com/glandfried/tennis_atp/releases/download/atp/history.csv.zip}. Additional data at Jeff Sackmann's site: \url{https://github.com/JeffSackmann/tennis_atp}.} including both single and double matches: if the column \texttt{double} has the letter \texttt{t}, the game is a double match.}
 \es{La información resumida en una archivo \texttt{csv}\footnote{Archivo disponible en \nolinkurl{https://github.com/glandfried/tennis_atp/releases/download/atp/history.csv.zip}. Una fuente de datos actualizada en \nolinkurl{https://github.com/JeffSackmann/tennis_atp}} contiene tanto partidas simples como dobles: si la columna \texttt{double} tiene la letra \texttt{t} la partida es doble.}
 %
 \en{Each game has an identifier (i.e. \texttt{match\_id}) and its tournament's round number (i.e. \texttt{round\_number}), where 0 represents the final game, 1 the semi-final, and so on.}
@@ -1449,27 +1455,27 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \en{Finally, we have the name of the tournament (\texttt{tour\_name}), its identifier (\texttt{tour\_id}), the start date of the tournament (\texttt{time\_start}) and the type of surface (\texttt{ground}).}
 \es{Finalmente tenemos el nombre del torneo (\texttt{tour\_name}), su identificado (\texttt{tour\_id}), la fecha de inicio del torneo (\texttt{time\_start}) y el tipo de piso (\texttt{ground}).}
 %
-\en{Here we only show the \proglang{Julia} version because it is more efficient than \proglang{Python} and \proglang{R} versions, which can be also found in the appendix \ref{sec:appendix_atp_code}.}
+\en{Here we only show the \proglang{Julia} code because it is far more efficient than \proglang{Python} and \proglang{R} versions (in section~\ref{sec:computationDetails} we show performance comparison of the three versions) which can also be found in the appendix~\ref{sec:appendix_atp_code}.}
 \es{Aquí mostramos solo la versión de \proglang{Julia} debido a que es la más eficiente, las versiones de \proglang{Python} y \proglang{R} se pueden entonrar en el anexo \ref{sec:appendix_atp_code}.}
 %
 \begin{lstlisting}[backgroundcolor=\color{julia},label=lst:atp, caption={\en{The history of the Association of Tennis Professionals}\es{La historia de la Asociación de Tenistas Profesionales}}, belowskip=0.1cm, aboveskip=0.1cm]
 using CSV; using Dates
 data = CSV.read("atp.csv")
 
-times = Dates.value.(data[:,"time_start"] .- Date("1900-1-1")) 
-composition = [ r.double == "t" ? [[r.w1_id,r.w2_id],[r.l1_id,r.l2_id]] : [[r.w1_id],[r.l1_id]] for r in eachrow(data) ]   
+dates = Dates.value.(data[:,"time_start"] .- Date("1900-1-1")) 
+matches = [ r.double == "t" ? [[r.w1_id,r.w2_id],[r.l1_id,r.l2_id]] : [[r.w1_id],[r.l1_id]] for r in eachrow(data) ]   
 
-h = History(composition=composition, times = times, sigma = 1.6, gamma = 0.036)
-convergence(h,epsilon=0.01, iterations=10)
+h = History(composition = matches, times = dates, sigma = 1.6, gamma = 0.036)
+convergence(h, epsilon = 0.01, iterations = 10)
 \end{lstlisting}
 %
 \en{In this code we open the file \texttt{atp.csv}, create the variables \texttt{times} and \texttt{composition}, and instantiate the class \texttt{History}.}
 \es{En este código abrimos el archivo \texttt{csv}, creamos las variables \texttt{times} y \texttt{composition} e instanciamos la clase \texttt{History}.}
 %
-\en{Temporal batches are defined as days elapsed since a reference date to the tournament start.}
+\en{We assume the skill of each player does not change during a tournament and we add uncertainty (based on $\gamma$ parameter) before each tournament according to the elapsed time between competitions.}
 \es{Los lotes temporales se definen como días transcurridos desde una fecha de referencia hasta el inicio del torneo.}
 %
-\en{When generating the list \texttt{composition} we discriminate whether the games are double or single based on the column \texttt{double}.}
+\en{When generating the list \texttt{composition} we discriminate whether the games are doubles or singles using the column \texttt{double}.}
 \es{Al generar la lista \texttt{composition} discriminamos si los juegos son dobles o individuales en base a la columna \texttt{double}.}
 %
 \en{The results are implied by the order in which we set the composition, always placing the winning team first.}
@@ -1497,8 +1503,8 @@ convergence(h,epsilon=0.01, iterations=10)
     \label{fig:atp}
 \end{figure}
 %
-\en{The advantage of TrueSkill Through Time, over TrueSkill, is that by modeling the entire dynamic process it allows us to make comparisons of skills over time.}
-\es{La ventaja de TrueSkill Through Time, respecto de TrueSkill, es que al modelar el proceso dinámico permite hacer comparaciones temporales de la habilidad.}
+% \en{The advantage of TrueSkill Through Time, over TrueSkill, is that by modeling the entire dynamic process it allows us to make comparisons of skills over time.}
+% \es{La ventaja de TrueSkill Through Time, respecto de TrueSkill, es que al modelar el proceso dinámico permite hacer comparaciones temporales de la habilidad.}
 %
 \en{It is interesting to see that the skill of tennis players did not increase so much over the years: on the contrary the players of the 1980s were more skilled than those of the 1990s, and reached a skill similar to what Federer, Nadal and Djokovic had in 2020.}
 \es{Es interesante ver que la habilidad de los tenistas no aumentó tanto con los años: al contrario los jugadores de la década de los 80 fueron más habilidosos que aquellos de la década de los 90, y alcanzaron una habilidad similar a la que Federer, Nadal y Djokovic tuvieron en el año 2020.}
@@ -3256,7 +3262,7 @@ lhood_tc = lhood_lose_tc
 
 %% -- Optional special unnumbered sections -------------------------------------
 
-\section*{Computational details}
+\section*{Computational details}\label{sec:computationDetails}
 % 
 % \begin{leftbar}
 % If necessary or useful, information about certain computational details
