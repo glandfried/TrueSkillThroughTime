@@ -3176,27 +3176,78 @@ lhood_tc = lhood_lose_tc
 \en{Then, the predictions evaluated with those messages have the rest of the data in the conditional, $p(d_i| d_1 \dots d_{i-1}, d_{i+1} \dots d_n , M)$.}
 \es{Entonces, las predicciones evaluadas con esos mensajes tienen el resto de los datos en el condicional, $p(d_i| d_1 \dots d_{i-1}, d_{i+1} \dots d_n , M)$.}
 %, por lo que su multiplicación no se corresponde con la probabilidad conjunta de los datos
-\begin{equation} \label{eq:loocv}
- \prod_i p(d_i|\wedge_{j\neq i} d_j , M) = \text{LOOCV}
+% \begin{equation} \label{eq:loocv}
+%  \prod_i p(d_i|\wedge_{j\neq i} d_j , M) = \text{LOOCV}
+% \end{equation}
+% %
+%
+\en{This expression matches a technique known as \emph{leave-one-out croos-validation} (LOOCV).}
+\es{Esta expresión coincide con una técnica de validación cruzada conocida como \emph{leave-one-out croos-validation} (LOOCV).}
+%
+\en{The \texttt{log_evidence()} method of the \texttt{History} class returns by default the product of all these elements in logarithmic scale.}
+\es{El método \texttt{log\_evidence()} de la clase \texttt{History} devuelve por defecto el producto de todos estos elementos en escala logarítmica.}
+%
+\begin{equation} \label{eq:log_evidence_default}
+\sum_i \log p(d_i|\wedge_{j\neq i} d_j , \text{M})
 \end{equation}
 %
 \en{where we use the symbol $\wedge_{j\neq i}$ to incorporate in the conditional all the data $d_j$ except the $i$-th.}
 \es{donde el símbolo $\wedge_{j\neq i}$ lo usamos para incorporar en el condicional todos los datos $d_j$ salvo el $i$-ésimo.}
 %
-\en{This expression \ref{eq:loocv} matches a technique known as \emph{leave-one-out croos-validation} (LOOCV).}
-\es{Esta expresión \ref{eq:loocv} coincide con una técnica de validación cruzada conocida como \emph{leave-one-out croos-validation} (LOOCV).}
+\en{To compute the a priori prediction using only the past information, it is necessary that the message sent to the events does not receive the information of the future, dividing the \emph{withinPrior} by the \emph{backwardPrior}.}
+\es{Para computar la predicción a priori usando sólo la información pasada, es necesario que el mensaje que se le envía a los eventos no reciba la información del futuro, dividiendo el \emph{withinPrior} por el \emph{backwardPrior}.}
+%
+\en{The variable \texttt{online} of the method \texttt{log_evidence()}, when assigned a true value, returns in logarithmic scale the product of the predictions made with past information.}
+\es{La variable \texttt{online} del método \texttt{log\_evidence()}, cuando se le asigna un valor verdadero, devuelve el en escala logarítmica el producto de las predicciones hechas con información del pasada.}
+%
+\begin{equation} \label{eq:log_evidence_online}
+\log \widehat{P}(\text{D}|\text{M}) = \sum_i \log p(d_i|\wedge_{j < i} d_j , \text{M})
+\end{equation}
+%
+\en{We say that it approximates the probability $P(\text{D}|\text{M})$ because although the messages sent to the events as prior contain only past estimates, they arise from the convergence that uses all the historical information.}
+\es{Decimos que aproxima a la probabilidad $P(\text{D}|\text{M})$ porque si bien los mensajes enviados hacia los eventos como prior contienen sólo las estimaciones pasadas, ellas surgen de la convergencia que usa toda la información histórica.}
+%
+\en{We do not implement the exact solution because its computational complexity is quadratic: it would be necessary to upload the data one by one and perform a convergence at each step.}
+\es{No implementamos la solución exacta debido a que su complejidad computacional es cuadrática: sería necesario subir los datos de a uno y realizar una convergencia en cada paso.}
+%
+\en{Someone might suspect that the expressions \ref{eq:log_evidence_online} and \ref{eq:log_evidence_online} are unreliable because they might indirectly use past information to correctly predict the result of events.}
+\es{Alguien podría sospechar que las expresiones \ref{eq:log_evidence_online} y \ref{eq:log_evidence_online} no son confiables porque podrían usar indirectamente la información pasada para predecir correctamente el resultado de los eventos.}
+%
+\en{However, in the example presented in the introduction (figure \ref{fig:smooth_example}) these expressions return much more pessimistic values than the exact solution.}
+\es{Sin embargo, en el ejemplo presentado en la introducción (figura \ref{fig:smooth_example}) estas expresiones devuelven valores mucho más pesimistas que la solución exacta.}
+%
+\begin{table}[ht!]\centering
+\begin{tabular}{l|l|l|l|l|}
+\multicolumn{1}{c}{} & \multicolumn{2}{|c|}{Event\es{o} 1}                        & \multicolumn{2}{c|}{Event\es{o} 2}                        \\ 
+\multicolumn{1}{c}{} & \multicolumn{1}{|c|}{\en{Message}\es{Mensaje}} & \multicolumn{1}{c|}{Evidenc\en{e}\es{ia}} & \multicolumn{1}{c|}{\en{Message}\es{Mensaje}} & \multicolumn{1}{c|}{Evidenc\en{e}\es{ia}} \\ \hline
+ $P(\text{D}|\text{M})$ & Prior & $0.5$ & Prior $\cdot$ likelihood$_1^1$ & $0.177 $\\ \hline
+ $\widehat{P}(\text{D}|\text{M})$ &  Prior & $0.5$ & Prior $\cdot$ likelihood$_1^k$ & $0.002$ \\ \hline
+ LOOCV & Prior $\cdot$ likelihood$_2^k$ & $0.002$ & Prior $\cdot$ likelihood$_1^k$ & $0.002$ \\ \hline               
+\end{tabular}
+\caption{
+\en{Three types of a priori predictions evaluated on the example presented in the introduction.}
+\es{Evaluación de los tres tipos de predicciones a priori sobre el ejemplo presentado en la introducción.}
+%
+\en{The $P(\text{D}|\text{M})$ is the exact solution.}
+\es{La $P(\text{D}|\text{M})$ es la solución exacta.}
+%
+\en{This extreme example shows that their approximations do not indirectly use information from the future to artificially improve their predictions.}
+\es{En este ejemplo extremo muestra que sus aproximaciones no usan la información del futuro para mejorar artificialmente las predicciones.}
+}
+\label{tab:evidence}
+\end{table}
+%
+\en{In this extreme case it can be seen that expressions \ref{eq:log_evidence_online} and \ref{eq:log_evidence_online}, that use as prior messages containing converged estimates over all data, are not using information from the future in an indirect way to artificially improve their predictions.}
+\es{En este caso extremo se puede ver que las expresiones \ref{eq:log_evidence_online} y \ref{eq:log_evidence_online}, que usan como prior mensajes que contienen estimaciones convergidas sobre todo los datos, no están usando la información del futuro de manera indirecta para artificialmente mejorar sus predicciones.}
+%
+\en{Both avoid overfitting and penalize sufficiently to avoid selecting unnecessarily complex models.}
+\es{Ambas evitan el sobreajuste y penalizan lo suficientemente para evitar seleccionar modelos innecesariamente complejos.}
 %
 \en{}
-\es{Para computar en TrueSkill Through Time la predicción a priori usando sólo la información pasada sería necesario subir los datos de a uno y converger cada vez.}
+\es{De hecho, en este caso, la evidencia conjunta exacta de TrueSkill Through Time coincide con la evidencia conjunta de TrueSkill.}
 %
 \en{}
-\es{Si bien esto se puede resolver en principio, su complejidad computacional es factorial por lo que es prohibitivo en bases de datos grandes.}
-%
-\en{}
-\es{Por este motivo decidimos que el método \texttt{log\_evidence()} de la clase \texttt{History}, que usamos para evaluar modelos, devuelva el valor calculado en la parte derecha de la ecuación \ref{eq:loocv}.}
-%
-\en{}
-\es{Si bien el producto de las validaciones cruzadas \emph{leave-one-out} no se correponde con la predicción conjunta de los datos, funciona muy bien en la práctica para seleccionar modelo.}
+\es{Es importante esta aclaración que no está tratada en el papar original de TrueSkill Through Time.}
 
 
 % 

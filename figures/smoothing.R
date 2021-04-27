@@ -11,6 +11,14 @@ setwd(this.dir)
 par(mar=c(2.5,0.5,0.5,0.5))
 
 data = read.csv("data/smoothing.csv", stringsAsFactors=FALSE)
+colnames(data)
+
+p_d_m = 0 # p(D|M) & d1: prior & d2: likelihood_1^1 
+p_d_m_approx = 0 # \widehat{p}(D|M) & d1: prior & d2: prior*likelihood_1^k 
+loocv = 0 # LOOCV & d1: prior*likelihood_2^k & d2: prior*likelihood_1^k
+
+
+
 sigma0 <- 3.0
 beta <- 0.5
 ds <- 0.1
@@ -45,7 +53,7 @@ data$wp_a_2_mu < data$wp_b_1_mu + data$d_div_1_mu
 # A1
 # Post
 plot(s,dnorm(s, data$p_a_1_mu[n], data$p_a_1_sigma[n]),type="l"
-     ,ylim=c(-0.05,max(dnorm(s, data$p_a_2_mu[n], data$p_a_2_sigma[n]))),axes = F, ann = F, lwd=7)
+     ,ylim=c(-0.05,max(dnorm(s, data$p_a_1_mu[n], data$p_a_1_sigma[n]))),axes = F, ann = F, lwd=7)
 axis(side=1, labels=NA,cex.axis=0.6,tck=0.015, line=-2.2)
 axis(lwd=0,side=1, at=0,cex.axis=5,line=-0.5,tck=0.015)
 for (i in seq(1,n-1)){
