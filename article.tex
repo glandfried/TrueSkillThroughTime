@@ -7,7 +7,7 @@
 \newif\ifes
 \newcommand{\en}[1]{\ifen#1\fi}
 \newcommand{\es}[1]{\ifes#1\fi}
-\entrue
+\estrue
 \usepackage[utf8]{inputenc}
 \usepackage{paracol}
 %\newcommand{\jan}{%
@@ -3095,98 +3095,95 @@ lhood_tc = lhood_lose_tc
 
 \subsection{\en{Model evaluation}\es{Evaluación de modelos}} \label{sec:evidence}
 
-\en{}
-\es{En esta sección discutiremos sobre como evaluar modelos.}
+\en{In this section we will discuss how to evaluate models.}
+\es{En esta sección discutiremos sobre cómo evaluar modelos.}
 %
-\en{}
-\es{Qusieramos tener una medida que nos permita decidir si TrueSkill Through Time es mejor a TrueSkill, pero también que nos permita decidir los valores de los parámetros $\sigma$ y $\gamma$, o que nos permita decidir si conviene modelar habilidades multi-dimensionales, como hicimos en el código \ref{}, o no.}
+\en{We would like to have a measure that allows us to decide: whether TrueSkill Through Time is better than TrueSkill, the optimal values of the parameters $\sigma$ and $\gamma$ (figure \ref{fig:optimization}), and whether to model multi-dimensional skills (code \ref{lst:atp_ground}).}
+\es{Qusiéramos tener una medida que nos permita decidir: si TrueSkill Through Time es mejor a TrueSkill, los valores óptimos de los parámetros $\sigma$ y $\gamma$ (figura \ref{fig:optimization}), y si conviene modelar habilidades multi-dimensionales (código \ref{lst:atp_ground}).}
 %
-\en{}
+\en{In the same way that we use probability theory to evaluate the hypotheses of a model given the data, we can also evaluate different models given the data.}
 \es{Del mismo modo que usamos la teoría de la probabilidad para evaluar las hipótesis de un modelo dado los datos, también podemos evaluar los distintos modelos dado los datos.}
 %
 \begin{equation}
  P(\text{Model\es{o}}|\text{Dat\en{a}\es{os}}) = \frac{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}})P(\text{Model\es{o}})}{P(\text{Dat\en{a}\es{os}})}
 \end{equation}
 %
-\en{}
-\es{donde $P(\text{Modelo})$ es el prior de los modelos, que definimos nosotros, y $P(\text{Datos}|\text{Modelo})$ es la evidencia, el denominador del teorema de bayes cuando evaluamos hipótesis, que en un evento de TrueSkill coincide con la ecuación \ref{eq:evidence}.}
+\en{where $P(\text{Model})$ is the prior of the models, which we define, and $P(\text{Data}|\text{Model})$ is the evidence, which in our case is computed with the equation \ref{eq:evidence}.}
+\es{donde $P(\text{Modelo})$ es el prior de los modelos, el cual definimos nosotros, y $P(\text{Datos}|\text{Modelo})$ es la evidencia, que en nuestro caso se computa con la ecuación \ref{eq:evidence}.}
 %
-\en{}
-\es{Si ambas expresiones podemos calcularlas para todo el espacio de modelos alternativos que estamos evaluando, entonces también podemos calcular el denominador $P(\text{Datos})$.}
+\en{If both expressions can be evaluated for the entire model space, then we can also compute the denominator $P(\text{Data})$.}
+\es{Si ambas expresiones podemos evaluarlas para todo el espacio de modelos, entonces también podemos calcular el denominador $P(\text{Datos})$.}
 %
 \begin{equation}
  P(\text{Dat\en{a}\es{os}}) = \sum_j P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_j)P(\text{Model\es{o}}_j)
 \end{equation}
 %
-\en{}
+\en{where we add the above expressions for all alternative models.}
 \es{donde sumamos las expresiones arriba mencionadas para todos los modelos alternativos.}
-% Parrafo
-\en{}
-\es{La probabilidad del modelo $P(\text{Modelo}|\text{Datos})$ solo puede computarse cuando tenemos acceso a todo el espacio modelos.}
 %
-\en{}
-\es{Cuando nos falta alguno, podemos comparar modelos.}
+\en{When we do not have access to all models, we will not be able to calculate the probability $P(\text{Model}|\text{Data})$, but we will be able to compare models.}
+\es{Cuando no tenemos acceso a todos los modelos, no podremos calcular la probabilidad $P(\text{Modelo}|\text{Datos})$, pero sí podremos comparar modelos.}
 %
 \begin{equation}
  \frac{P(\text{Model\es{o}}_i|\text{Dat\en{a}\es{os}})}{P(\text{Model\es{o}}_j|\text{Dat\en{a}\es{os}})} = \frac{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_i)P(\text{Model\es{o}}_i)}{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_j)P(\text{Model\es{o}}_j)}
 \end{equation}
 %
-\en{}
+\en{This expression is known as \emph{Bayes factor}, and can be computed whenever we can compute the a priori prediction (or evidence) of both models.}
 \es{Esta expresión se conoce como \emph{Bayes factor}, y se puede computar siempre que podamos calcular la predicción a priori (o evidencia) de ambos modelos.}
 %
-\en{}
-\es{En el caso especial en el que no tengamos preferencia a priori sobre ningún modelo, comparar modelos se reduce a comparar predicciones a priori de los modelos.}
+\en{In the special case where we have no a priori preference over any model, we need only compare the a priori predictions of the models.}
+\es{En el caso especial en el que no tenemos preferencia a priori sobre ningún modelo, sólo debemos comparar las predicciones a priori de los modelos.}
 %
 \begin{equation}
  \frac{P(\text{Model\es{o}}_i|\text{Dat\en{a}\es{os}})}{P(\text{Model\es{o}}_j|\text{Dat\en{a}\es{os}})} = \frac{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_i)}{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_j)}
 \end{equation}
 %
-\en{}
+\en{In other words, we prefer the model with the best prior prediction.}
 \es{Es decir, preferimos el modelo que tenga mejor predicción a priori.}
 %
-\en{}
-\es{Usando la regla del producto, sabemos que siempr podemos descomponer la probabilidad conjunta de los datos como el producto de probabilidades condicionales unidimensionales.}
+\en{By the product rule, we know that we can always decompose the joint probability as the product of one-dimensional conditional probabilities.}
+\es{Por la regla del producto, sabemos que siempre podemos descomponer la probabilidad conjunta como el producto de probabilidades condicionales unidimensionales.}
 %
 \begin{equation}\label{eq:evidencia_conjunta}
  P(\text{D}|\text{M}) = P(d_1|\text{M})P(d_2|d_1,\text{M}) \dots P(d_n|d_{n-1} \dots d_1, \text{M})
 \end{equation}
 %
-\en{}
+\en{where D represents the data set, M the model, and $d_i$ individual data points.}
 \es{donde D representa el conjunto de los datos, M el modelo, y $d_i$ los datos individuales.}
 %
-\en{}
+\en{In our case, the individual data are the results of the games, and the probabilities that are being multiplied in the equation \ref{eq:joint_evidence} are the prior predictions of the observed result using estimates that were obtained with past information.}
 \es{En nuestro caso, los datos individuales son los resultados de las partidas, y las probabilidades que se están multiplicando en la ecuación \ref{eq:evidencia_conjunta} son las predicciones a priori del resultado observado usando estimaciones que se obtuvieron con la información pasada.}
 %
-\en{}
+\en{In large database, the joint probability of the data (equation \ref{eq:joint_evidence}) is always close to $0$ because it is the product of probabilities ranging from $0$ to $1$.}
 \es{En base de datos grandes, la probabilidad conjunta de los datos (ecuación \ref{eq:evidencia_conjunta}) es siempre cercana a $0$ debido que es el producto de probabilidades que van entre $0$ y $1$.}
 %
-\en{}
-\es{Para evaluar esta expresión conviene calcular su valor en escala logarítmica.}
+\en{To evaluate this expression it is convenient to work in logarithmic scale.}
+\es{Para evaluar esta expresión conviene trabajar en escala logarítmica.}
 %
 \begin{equation}\label{eq:log_evidencia_conjunta}
  \log P(\text{D}|\text{M}) = \log P(d_1|\text{M}) + \dots + \log P(d_n|d_{n-1} \dots d_1, \text{M})
 \end{equation}
 %
-\en{}
-\es{En TrueSkill, esta expresión se obtiene sumando el logaritmo de todas las predicción a priori que se hacen siguiendo la ecuación \ref{eq:evidence} usando el último posterior como prior de esa partida.}
+\en{In TrueSkill, this expression is the sum of all the logarithmic prior predictions, using the last posterior of each agent as the prior for the new game.}
+\es{En TrueSkill, esta expresión es la suma del todos los predicción a priori logaritmica, usando el último posterior de los agentes como prior de la nueva partida.}
 %
-\en{}
-\es{En TrueSkill Through Time, en cambio, computar esta exresión resulta computacionalmente más complicado.}
+\en{In TrueSkill Through Time, however, evaluating this expression is computationally complex.}
+\es{En TrueSkill Through Time, en cambio, evaluar esta exresión resulta computacionalmente complejo.}
 %
-\en{}
-\es{En la sección \ref{sec:throughTime} vimos que cuando modelamos correctamente la historia, el prior de los eventos se corresponde con el mensaje \emph{whitinPrior}, que contienen la información histórica del resto de los eventos, pasados y futuros.}
+\en{In section \ref{sec:throughTime} we have shown that in the temporal model the prior of the events (the message \emph{whitinPrior}) contains all the historical information except the one coming from that event.}
+\es{En la sección \ref{sec:throughTime} hemos mostrado que en el modelo temporal el prior de los eventos (el mensaje \emph{whitinPrior}) contiene toda la información histórica salvo la que proviene de ese evento.}
 %
-\en{}
-\es{Entonces, todas las predicciones a priori calculada con esos mensajes están condicionadas sobre el resto de los datos, $p(d_i| d_1 \dots d_{i-1}, d_{i+1} \dots d_n , M)$, por lo que su multiplicación no se corresponde con la probabilidad conjunta de los datos.}
-%
+\en{Then, the predictions evaluated with those messages have the rest of the data in the conditional, $p(d_i| d_1 \dots d_{i-1}, d_{i+1} \dots d_n , M)$.}
+\es{Entonces, las predicciones evaluadas con esos mensajes tienen el resto de los datos en el condicional, $p(d_i| d_1 \dots d_{i-1}, d_{i+1} \dots d_n , M)$.}
+%, por lo que su multiplicación no se corresponde con la probabilidad conjunta de los datos
 \begin{equation} \label{eq:loocv}
- P(\text{D}|\text{M}) \neq \prod_i p(d_i|\wedge_{j\neq i} d_j , M) = \text{LOOCV}
+ \prod_i p(d_i|\wedge_{j\neq i} d_j , M) = \text{LOOCV}
 \end{equation}
 %
-\en{}
+\en{where we use the symbol $\wedge_{j\neq i}$ to incorporate in the conditional all the data $d_j$ except the $i$-th.}
 \es{donde el símbolo $\wedge_{j\neq i}$ lo usamos para incorporar en el condicional todos los datos $d_j$ salvo el $i$-ésimo.}
 %
-\en{}
+\en{This expression \ref{eq:loocv} matches a technique known as \emph{leave-one-out croos-validation} (LOOCV).}
 \es{Esta expresión \ref{eq:loocv} coincide con una técnica de validación cruzada conocida como \emph{leave-one-out croos-validation} (LOOCV).}
 %
 \en{}
