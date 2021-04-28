@@ -114,7 +114,7 @@
 %% - \Plaintitle{} without LaTeX markup (if any)
 %% - \Shorttitle{} with LaTeX markup (if any), used as running title
 \title{Skill estimation using TrueSkill Through Time: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages}
-\Plaintitle{TrueSkill Through Time: the Julia, Python and R packages}
+\Plaintitle{Skill estimation using TrueSkill Through Time: the Julia, Python and R packages}
 \Shorttitle{TrueSkill Through Time: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages (Draft)}
 
 %% - \Address{} of at least one author
@@ -864,15 +864,15 @@ before and after code input/output should be avoided (see above).
 Syntax common to Julia, Python and R
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
+\begin{lstlisting}[backgroundcolor=\color{julia!60}]
 Julia syntax
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
+\begin{lstlisting}[backgroundcolor=\color{python!60}]
 Python syntax
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
+\begin{lstlisting}[backgroundcolor=\color{r!50}]
 R syntax
 \end{lstlisting}  
 \end{paracol}
@@ -978,19 +978,19 @@ a1 = Player(Gaussian(mu, sigma), beta, gamma); a2 = Player(); a3 = Player(); a4 
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:game, caption={\en{Teams and game initialization}\es{Equipos e inicializaci\'on del juego}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia!60}, belowskip=-0.77 \baselineskip]
 team_a = [ a1, a2 ]
 team_b = [ a3, a4 ]
 teams = [team_a, team_b]
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python!60}, belowskip=-0.77 \baselineskip]
 team_a = [ a1, a2 ]
 team_b = [ a3, a4 ]
 teams = [team_a, team_b]
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{r!50}, belowskip=-0.77 \baselineskip]
 team_a = c(a1, a2)
 team_b = c(a3, a4)
 teams = list(team_a, team_b)
@@ -1015,19 +1015,19 @@ g = Game(teams)
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:evidence_likelihoods, caption={\en{Evidence and likelihoods queries}\es{Consulta de la evidencia y las verosimilitudes}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia!60}, belowskip=-0.77 \baselineskip]
 lhs = g.likelihoods[1][1]
 ev = g.evidence
 ev = round(ev, digits=3)
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python!60}, belowskip=-0.77 \baselineskip]
 lhs = g.likelihoods[0][0]
 ev = g.evidence
 ev = round(ev, 3)
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{r!50}, belowskip=-0.77 \baselineskip]
 lhs = g@likelihoods
 ev = g@evidence
 ev = round(ev, 3)
@@ -1050,17 +1050,17 @@ print(ev)
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:game_posterior, caption={\en{Posteriors query and their manual computation}\es{Consulta de los posteriors y su cómputo manual}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia!60}, belowskip=-0.77 \baselineskip]
 pos = posteriors(g)
 print(pos[1][1])
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python!60}, belowskip=-0.77 \baselineskip]
 pos = g.posteriors()
 print(pos[0][0])
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{r!50}, belowskip=-0.77 \baselineskip]
 pos = posteriors(g)
 print(pos[[1]][[1]])
 \end{lstlisting}  
@@ -1069,15 +1069,15 @@ print(pos[[1]][[1]])
 > Gaussian(mu=2.361, sigma=5.516)
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia!60}, belowskip=-0.77 \baselineskip]
 print(lhs[1][1] * a1.prior)
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python!60}, belowskip=-0.77 \baselineskip]
 print(lhs[0][0] * a1.prior)
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{r!50}, belowskip=-0.77 \baselineskip]
 print(lhs[[1]][[1]]*a1@prior)
 \end{lstlisting}  
 \end{paracol}
@@ -1111,7 +1111,7 @@ print(lhs[[1]][[1]]*a1@prior)
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:multiple_team_game, caption={\en{Game with multiple teams of different sizes and the possibility of tie}\es{Juego con múltiples equipos de diferente tamaño y posibilidad de empate}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia!60}, belowskip=-0.77 \baselineskip]
 ta = [a1]
 tb = [a2, a3]
 tc = [a4]
@@ -1119,7 +1119,7 @@ teams_3 = [ta, tb, tc]
 result = [1., 0., 0.]
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python!60}, belowskip=-0.77 \baselineskip]
 ta = [a1]
 tb = [a2, a3]
 tc = [a4]
@@ -1127,7 +1127,7 @@ teams_3 = [ta, tb, tc]
 result = [1, 0, 0]
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{r!50}, belowskip=-0.77 \baselineskip]
 ta = c(a1)
 tb = c(a2, a3)
 tc = c(a4)
@@ -1168,21 +1168,21 @@ g = Game(teams_3, result, p_draw=0.25)
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:history, caption={\en{Initialization of a \texttt{History}'s instance with a three events sequence}\es{Inicialización de una instancia de \texttt{History} con una secuencia de tres eventos}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia!60},belowskip=-0.77 \baselineskip]
 c1 = [["a"],["b"]]
 c2 = [["b"],["c"]]
 c3 = [["c"],["a"]]
 composition = [c1, c2, c3]
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python!60},belowskip=-0.77 \baselineskip]
 c1 = [["a"],["b"]]
 c2 = [["b"],["c"]]
 c3 = [["c"],["a"]]
 composition = [c1, c2, c3]
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{r!50},belowskip=-0.77 \baselineskip]
 c1 = list(c("a"),c("b"))
 c2 = list(c("b"),c("c"))
 c3 = list(c("c"),c("a"))
@@ -1219,17 +1219,17 @@ h = History(composition, gamma=0.0)
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:trueskill, caption={\en{Learning curves of players participating in a sequence of events}\es{Curvas de aprendizaje de los jugadores que participan en una secuencia de eventos}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia!60}, belowskip=-0.77 \baselineskip]
 lc = learning_curves(h)
 print(lc["a"])
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python!60}, belowskip=-0.77 \baselineskip]
 lc = h.learning_curves()
 print(lc["a"])
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{r!50}, belowskip=-0.77 \baselineskip]
 lc = h$learning_curves()
 lc_print(lc[["a"]])
 \end{lstlisting}
@@ -1238,15 +1238,15 @@ lc_print(lc[["a"]])
 > [(1, Gaussian(mu=3.339, sigma=4.985)), (3, Gaussian(mu=-2.688, sigma=3.779))]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia!60}, belowskip=-0.77 \baselineskip]
 print(lc["b"])
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python!60}, belowskip=-0.77 \baselineskip]
 print(lc["b"])
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{r!50}, belowskip=-0.77 \baselineskip]
 lc_print(lc[["b"]])
 \end{lstlisting}
 \end{paracol}
@@ -1278,19 +1278,19 @@ lc_print(lc[["b"]])
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:ttt, caption={\en{Computing TrueSkill Through Time learning curves}\es{Computo de curvas de aprendizaje de TrueSkill Through Time}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia!60}, belowskip=-0.77 \baselineskip]
 convergence(h)
 lc = learning_curves(h)
 print(lc["a"])
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python!60}, belowskip=-0.77 \baselineskip]
 h.convergence()
 lc = h.learning_curves()
 print(lc["a"])
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{r!50}, belowskip=-0.77 \baselineskip]
 h$convergence()
 lc = h.learning_curves()
 lc_print(lc[["a"]])
@@ -1300,15 +1300,15 @@ lc_print(lc[["a"]])
 > [(1, Gaussian(mu=0.0, sigma=2.395)), (3, Gaussian(mu=-0.0, sigma=2.395))]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia!60}, belowskip=-0.77 \baselineskip]
 print(lc["b"])
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python!60}, belowskip=-0.77 \baselineskip]
 print(lc["a"])
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{r!50}, belowskip=-0.77 \baselineskip]
 lc_print(lc[["a"]])
 \end{lstlisting}
 \end{paracol}
@@ -1336,7 +1336,7 @@ lc_print(lc[["a"]])
 \en{In the following code, we generate the target player's learning curve and 1000 random opponents.}
 \es{En el siguiente código generamos la curva de aprendizaje del agente objetivo y 1000 oponentes aleatorios.}
 %
-\begin{lstlisting}[backgroundcolor=\color{python}, label=lst:simulated_skill, caption={\en{Initialization of the target's learning curve and the community of opponents}\es{Inicialización de la curva de aprendizaje objetivo y la comunidad de oponentes}}, belowskip=0.1cm, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{python!60}, label=lst:simulated_skill, caption={\en{Initialization of the target's learning curve and the community of opponents}\es{Inicialización de la curva de aprendizaje objetivo y la comunidad de oponentes}}, belowskip=0.1cm, aboveskip=0.1cm]
 import math; from numpy.random import normal, seed; seed(99); N = 1000
 def skill(experience, middle, maximum, slope):
     return maximum/(1+math.exp(slope*(-experience+middle)))
@@ -1353,7 +1353,7 @@ opponents = normal(target,scale=0.5)
 \en{The list \texttt{opponents} includes the randomly generated opponents' skills following a Gaussian distribution centered on each of the target's skills and a standard deviation of $0.5$.}
 \es{La lista \texttt{opponents} incluye los oponentes generadas mediante una distribuci\'on gaussiana centrada en cada una de las habilidades del jugador objetivo con un desvío estandar de $0.5$.}
 %
-\begin{lstlisting}[backgroundcolor=\color{python},label=lst:estimating_the_simulated, caption={\en{Estimating the simulated learning curve from random results}\es{Estimando la curva de aprendizaje simulada a partir de los resultados aleatorios}}, belowskip=0.1cm, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{python!60},label=lst:estimating_the_simulated, caption={\en{Estimating the simulated learning curve from random results}\es{Estimando la curva de aprendizaje simulada a partir de los resultados aleatorios}}, belowskip=0.1cm, aboveskip=0.1cm]
 composition = [[["a"], [str(i)]] for i in range(N)]
 results = [[1,0] if normal(target[i]) > normal(opponents[i]) else [0,1] for i in range(N)]
 times = [i for i in range(N)]
@@ -1443,7 +1443,7 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \en{The database has \num{447000} games starting at year 1915 until 2020 with more than \num{19000} participating players and is publicly available.}
 \es{La base de datos cuenta con \num{447000} mil partidas que van desde el año 1915 hasta el 2020, en las que participan \num{19000} jugadores.}
 %
-\en{The information is obtained and stored in a single \texttt{csv} file\footnote{Available at \url{https://github.com/glandfried/tennis_atp/releases/download/atp/history.csv.zip}. Additional data at Jeff Sackmann's site: \url{https://github.com/JeffSackmann/tennis_atp}.} including both single and double matches: if the column \texttt{double} has the letter \texttt{t}, the game is a double match.}
+\en{The information stored in a single \texttt{csv} file\footnote{Available at \url{https://github.com/glandfried/tennis_atp/releases/download/atp/history.csv.zip}. Additional data at Jeff Sackmann's site: \url{https://github.com/JeffSackmann/tennis_atp}.} includes both single and double matches: if the column \texttt{double} has the letter \texttt{t}, the game is a double match.}
 \es{La información resumida en una archivo \texttt{csv}\footnote{Archivo disponible en \nolinkurl{https://github.com/glandfried/tennis_atp/releases/download/atp/history.csv.zip}. Una fuente de datos actualizada en \nolinkurl{https://github.com/JeffSackmann/tennis_atp}} contiene tanto partidas simples como dobles: si la columna \texttt{double} tiene la letra \texttt{t} la partida es doble.}
 %
 \en{Each game has an identifier (i.e. \texttt{match\_id}) and its tournament's round number (i.e. \texttt{round\_number}), where 0 represents the final game, 1 the semi-final, and so on.}
@@ -1455,10 +1455,10 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \en{Finally, we have the name of the tournament (\texttt{tour\_name}), its identifier (\texttt{tour\_id}), the start date of the tournament (\texttt{time\_start}) and the type of surface (\texttt{ground}).}
 \es{Finalmente tenemos el nombre del torneo (\texttt{tour\_name}), su identificado (\texttt{tour\_id}), la fecha de inicio del torneo (\texttt{time\_start}) y el tipo de piso (\texttt{ground}).}
 %
-\en{Here we only show the \proglang{Julia} code because it is far more efficient than \proglang{Python} and \proglang{R} versions (in section~\ref{sec:computationDetails} we show performance comparison of the three versions) which can also be found in the appendix~\ref{sec:appendix_atp_code}.}
-\es{Aquí mostramos solo la versión de \proglang{Julia} debido a que es la más eficiente, las versiones de \proglang{Python} y \proglang{R} se pueden entonrar en el anexo \ref{sec:appendix_atp_code}.}
+\en{Here we only show the \proglang{Julia} code because it is far more efficient than \proglang{Python} and \proglang{R} versions (the c\proglang{Python} and \proglang{R} codes can be found in appendix \ref{sec:appendix_atp_code}, and the performance comparison can be found in section \ref{sec:computationDetails}).}
+\es{Aquí mostramos sólo el código de \proglang{Julia} debido a que es la versión más eficiente (los códigos de \proglang{Python} y \proglang{R} se pueden encontrar en el anexo \ref{sec:appendix_atp_code}, y la comparación de rendimiento se puede encontrar en la sección \ref{sec:computationDetails}).}
 %
-\begin{lstlisting}[backgroundcolor=\color{julia},label=lst:atp, caption={\en{The history of the Association of Tennis Professionals}\es{La historia de la Asociación de Tenistas Profesionales}}, belowskip=0.1cm, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{julia!60},label=lst:atp, caption={\en{The history of the Association of Tennis Professionals}\es{La historia de la Asociación de Tenistas Profesionales}}, belowskip=0.1cm, aboveskip=0.1cm]
 using CSV; using Dates
 data = CSV.read("atp.csv")
 
@@ -1472,8 +1472,8 @@ convergence(h, epsilon = 0.01, iterations = 10)
 \en{In this code we open the file \texttt{atp.csv}, create the variables \texttt{times} and \texttt{composition}, and instantiate the class \texttt{History}.}
 \es{En este código abrimos el archivo \texttt{csv}, creamos las variables \texttt{times} y \texttt{composition} e instanciamos la clase \texttt{History}.}
 %
-\en{We assume the skill of each player does not change during a tournament and we add uncertainty (based on $\gamma$ parameter) before each tournament according to the elapsed time between competitions.}
-\es{Los lotes temporales se definen como días transcurridos desde una fecha de referencia hasta el inicio del torneo.}
+\en{Event times are defined as the days elapsed from a reference date to the tournament start date, assuming that the skill is the same within each tournament.}
+\es{Los tiempos de los eventos se definen como los días transcurridos desde una fecha de referencia hasta el inicio del torneo, asumiendo que la habilidad es la misma al interior de cada torneo.}
 %
 \en{When generating the list \texttt{composition} we discriminate whether the games are doubles or singles using the column \texttt{double}.}
 \es{Al generar la lista \texttt{composition} discriminamos si los juegos son dobles o individuales en base a la columna \texttt{double}.}
@@ -1487,18 +1487,21 @@ convergence(h, epsilon = 0.01, iterations = 10)
 \en{Finally, we use \texttt{convergence()} method to obtain TrueSkill Through Time estimates explicitly selecting the convergence criterion: when the change between iterations is less than $0.01$ or when $10$ iterations are performed.}
 \es{Finalmente, usamos el método \texttt{convergence()} para obtener las estimaciones de TrueSkill Through Time, indicando explícitamente el criterio de corte: cuando el cambio entre iteraciones sea menor a $0.01$, o cuando se alcanzan las $10$ iteraciones.}
 %
-\en{Figure~\ref{fig:atp} presents the learning curves of eight famous players of the ATP's history.}
-\es{En la figura~\ref{fig:atp} graficamos las curvas de aprendizaje de ocho jugadores famosos de la historia de la ATP.}
+\en{Figure~\ref{fig:atp} presents the learning curves of some famous players in ATP history.}
+\es{En la figura~\ref{fig:atp} graficamos las curvas de aprendizaje algunos jugadores famosos de la historia de la ATP.}
 %
 \begin{figure}[ht!]
     \centering
-    \includegraphics[page={1},width=.7\linewidth]{figures/atp}
+    \includegraphics[page={1},width=.8\linewidth]{figures/atp}
     \caption{
-    \en{Estimated learning curves of 8 famous players in ATP history.}
-    \es{Estimación de las curvas de aprendizaje de 8 jugadores famosos de la historia de la ATP.}
+    \en{Estimated learning curves some famous players in ATP history.}
+    \es{Estimación de las curvas de aprendizaje de algunos jugadores famosos de la historia de la ATP.}
     %
     \en{The shaded area represents an uncertainty equivalent to one standard deviation.}
     \es{El área sombrada representa una incertidumbre equivalente a un desvío estandar.}
+    %
+    \en{The top bar indicates which player was at the top of the ATP ranking.}
+    \es{La barra superior indica que jugador estaba en el primer puesto del ranking ATP.}
     }
     \label{fig:atp}
 \end{figure}
@@ -1506,19 +1509,35 @@ convergence(h, epsilon = 0.01, iterations = 10)
 % \en{The advantage of TrueSkill Through Time, over TrueSkill, is that by modeling the entire dynamic process it allows us to make comparisons of skills over time.}
 % \es{La ventaja de TrueSkill Through Time, respecto de TrueSkill, es que al modelar el proceso dinámico permite hacer comparaciones temporales de la habilidad.}
 %
+\en{Those who know the history of tennis will be able to recognize the periods of crisis, stability and success of the players, but they will also find some surprises.}
+\es{Quien conozca la historia del tenis podrá reconocer los períodos de aprendizaje, éxito, estabilidad y caída de los jugadores.}
+%
+
+\en{There is a relative coincidence between skill and who is at any given moment at the top of the ATP rankings, it is possible to observe the effects of injuries, and even the effect of emotional slumps such as those that Aggasi and Djockovic had.}
+\es{Existe una relativa coincidencia entre la habilidad y quién está en cada momento en el primer puesto del ranking ATP, es posible observar los efectos de las lesiones, e incluso el efecto de los bajones emocionales como los que tuvieron Aggasi y Djockovic.}
+%
+\en{But you may also find some surprises.}
+\es{Pero quizás usted también encuentre algunas sorpresas.}
+%
 \en{It is interesting to see that the skill of tennis players did not increase so much over the years: on the contrary the players of the 1980s were more skilled than those of the 1990s, and reached a skill similar to what Federer, Nadal and Djokovic had in 2020.}
 \es{Es interesante ver que la habilidad de los tenistas no aumentó tanto con los años: al contrario los jugadores de la década de los 80 fueron más habilidosos que aquellos de la década de los 90, y alcanzaron una habilidad similar a la que Federer, Nadal y Djokovic tuvieron en el año 2020.}
 %
-\en{Perhaps the most notable change introduced by professionalism is the stability of learning curves, which is seen in today's players as opposed to the early players.}
-\es{Quizás el cambio más notable introducido por el profesionalismo sea la estabilidad de las curvas de aprendizaje, que se aprecia en los jugadores actuales a diferencia de los primeros jugadores.}
+\en{There are also some differences between players' skills and the ATP ranking, especially with respect to the historical ranking (based on the total number of weeks at the top of the ranking): the 10th-ranked player, Hewitt, actually has relatively low skill; and the fourth most skilled player, Murray, is ranked 14th, just one place above Nastase.}
+\es{Existen también algunas diferencias entre las habilidades de los jugadores y el ranking de la ATP, en especial respecto al ranking histórico (basado en la cantidad total de semanas en el tope del ranking): el jugador que aparecen en el puesto 10, Hewitt, tiene en realidad una habilidad relativamente baja; y el cuarto jugador con mayor habilidad, Murray, aparece en el puesto 14, sólo un lugar arriba de Nastase.}
+%
+\en{TrueSkill Through Time, unlike ATP ranking and estimators based on the filtering approach (such as TrueSkill, Glicko and IRT) allows comparing the relative ability of players over time.}
+\es{TrueSkill Through Time, a diferencia del ranking ATP y de los estimadores basados en el enfoque de filtrado (como TrueSkill, Glicko e IRT) permite comparar la habilidad relativa de los jugadores en el tiempo.}
+
+% \en{Perhaps the most notable change introduced by professionalism is the stability of learning curves, which is seen in today's players as opposed to the early players.}
+% \es{Quizás el cambio más notable introducido por el profesionalismo sea la estabilidad de las curvas de aprendizaje, que se aprecia en los jugadores actuales a diferencia de los primeros jugadores.}
 
 % Parrafo
 
 \en{In this example we are summarizing the players' skill in a single dimension.}
 \es{En este ejemplo estamos resumiendo la habilidad de los jugadores en una única dimensión.} 
 %
-\en{We know, however, that the ability of players can vary significantly depending on the type of ground.}
-\es{Sabemos, sin embargo, que la habilidad de los jugadores puede variar significativamente según el tipo de suelo.}
+\en{We know, however, that the ability of tennis players can vary significantly depending on the type of ground.}
+\es{Sabemos, sin embargo, que la habilidad de los jugadores de tenis puede variar significativamente según el tipo de suelo.}
 %
 \en{TrueSkill Through Time allows estimating this type of multi-dimensional skills.}
 \es{TrueSkill Through Time permite estimar este tipo de habilidades multi-dimensionales.}
@@ -1526,21 +1545,21 @@ convergence(h, epsilon = 0.01, iterations = 10)
 \en{One option is to keep one skill variable per player, that we include in all games, and one skill variable per ground, that we add as their teammate depending on the type of game.}
 \es{Una opción es mantener una variable de habilidad respectiva al jugador, que incluimos en todas las partidas, y una variable de habilidad por suelo, que agregameos como su compañero de equipo según el tipo de partida.}
 %
-\begin{lstlisting}[backgroundcolor=\color{julia},label=lst:atp_ground, caption={\en{Modeling multi-dimensional skills in ATP history}\es{Modelando habilidades multi-dimensionales en la historia de la ATP}}, belowskip=0.1cm, aboveskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{julia!60},label=lst:atp_ground, caption={\en{Modeling multi-dimensional skills in ATP history}\es{Modelando habilidades multi-dimensionales en la historia de la ATP}}, belowskip=0.1cm, aboveskip=0.1cm]
 players = Set(vcat((composition...)...))
 priors = Dict([(p, Player(Gaussian(0., 1.6), 1.0, 0.036) ) for p in players])
 
 composition_ground = [ r.double == "t" ? [[r.w1_id, r.w1_id*r.ground, r.w2_id, r.w2_id*r.ground],[r.l1_id, r.l1_id*r.ground, r.l2_id, r.l2_id*r.ground]] : [[r.w1_id, r.w1_id*r.ground],[r.l1_id, r.l1_id*r.ground]] for r in eachrow(data) ]   
 
-h_ground = History(composition=composition_ground, times = times, sigma = 1.0, gamma = 0.01, beta = 0.0, priors = priors)
-convergence(h_ground,epsilon=0.01, iterations=10)
+h_ground = History(composition = composition_ground, times = dates, sigma = 1.0, gamma = 0.01, beta = 0.0, priors = priors)
+convergence(h_ground, epsilon = 0.01, iterations=10)
 \end{lstlisting}
 %
 \en{In this example we keep the same prior as before for the players, this time defined in the variable \texttt{priors}.}
 \es{En este ejemplo mantenemos el mismo prior de los jugadores, esta vez definidos explícitamente mediante la variable \texttt{priors}.}
 %
-\en{In this way the values chosen to initialize the class \texttt{History} will only be used for the ground skill factors.}
-\es{De este modo los valores elegidos para inicializar la clase \texttt{History} sólo serán utilizdos para los factores de habilidad de piso.}
+\en{In this way, the values chosen to initialize the class \texttt{History} will only be used for the ground skill factors.}
+\es{De este modo, los valores elegidos para inicializar la clase \texttt{History} sólo serán utilizdos para los factores de habilidad de piso.}
 %
 \en{For those factors we chose a null \texttt{beta} so as not to add more noise to the players' performance, keeping the scale of the estimates stable.}
 \es{Para ellos elegimos un \texttt{beta} nulo de modo tal de no agregar más ruido al rendimiento de los jugadores, manteniendo estable la escala de las estimaciones.}
@@ -1579,14 +1598,20 @@ convergence(h_ground,epsilon=0.01, iterations=10)
 \en{In the case of Nadal it seems important to model the skill's multi-dimensionality, while in Djokovic's case it seems reasonable to summarize it in a single dimension.}
 \es{En el caso de Nadal parece importante modelar la multi-dimensionalidad de la habilidad, mientras que en el caso de Djokovic parece razonable resumir la habilidad en una única dimensión.}
 %
-\en{Perhaps in tennis it is sufficient to summarize the skill in one dimension.}
-\es{Quizás en tenis sea suficiente resumir la habilidad en una dimensión.}
-%
-\en{In other examples, where the multidimensionality of the skills is more relevant, it may be appropriate to separate the estimates into different components.}
-\es{En otros ejemplos, donde la multidimensionalidad de las habilidades sea más relevante, es posible que convenga separar las estimaciones en diferentes componentes.}
-%
 \en{To assess whether the complexity added by modeling multidimensionality is appropriate in general terms, we can compare the joint priori prediction of the models, calling the method \texttt{log\_evidence()} of the class \texttt{History}.}\es{Para evaluar si la complejidad que se agrega al modelar la multidimensional conviene en términos generales, podemos comparar la predicción a priori conjunta de los modelos, llamando al método \texttt{log\_evidence()} de la clase \texttt{History}.}
-
+%
+\en{In tennis it is sufficient to summarize the skills in a single dimension, since the a priori prediction is maximized when the parameters of the ground factors, $\sigma$ and $\gamma$, vanish.}
+\es{En tenis es suficiente resumir las habilidades en una única dimensión, dado que la predicción a priori se maximiza cuando los parámetros de los factores de piso, $\sigma$ y $\gamma$, se desvanecen.}
+%
+\en{If we consider only the games in which Nadal participates, optimality is achieved when the parameters take the values $\sigma=0.35$ and $\gamma=0$, meaning that it is necessary to model multidimensional skills ($\sigma>0$) but considering that their effect does not change over time ($\gamma = 0$).}
+\es{Si consideramos sólo las partidas en las que participa Nadal, la optimización se alcanza cuando los parámetros toman los valores $\sigma=0.35$ y $\gamma=0$, indicando que conivene modelar habilidades multidimensionales ($\sigma>0$) pero considerando que su efecto no cambia en el tiempo ($\gamma = 0$).}
+%
+\en{In this scenario, Nadal's ability on Clay is $0.87\beta$ higher than on Hard, and $1.05\beta$ higher than on Grass.}
+\es{En este escenario, la habilidad de Nadal en polvo de ladrillo es $0.87\beta$ mayor a la de cemento, y $1.05\beta$ mayor a la de pasto.}
+%
+\en{In other examples, where the multidimensionality of skills is more relevant, it may be appropriate to separate the skills of all agents into different components.}
+\es{En otros ejemplos, donde la multidimensionalidad de las habilidades sea más relevante, convendrá separar la habildiad de todos los agente en diferentes componentes.}
+%
 
 
 
@@ -2130,21 +2155,21 @@ m_{f_{p_i} \rightarrow p_i}(p_i) = \int \N(p_i| s_i, \beta^2) \N(s_i| \mu_i, \si
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:performance, caption={\en{Computing the individual prior performance}\es{Computando el desempeño individual a priori}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
+\begin{lstlisting}[backgroundcolor=\color{julia!60}]
 p1 = performance(a1)
 p2 = performance(a2)
 p3 = performance(a3)
 p4 = performance(a4)
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
+\begin{lstlisting}[backgroundcolor=\color{python!60}]
 p1 = a1.performance()
 p2 = a2.performance()
 p3 = a3.performance()
 p4 = a4.performance()
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
+\begin{lstlisting}[backgroundcolor=\color{r!50}]
 p1 = performance(a1)
 p2 = performance(a2)
 p3 = performance(a3)
@@ -2215,15 +2240,15 @@ d = ta - tb
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:difference, caption={\en{Computing the prior prediction of the oberved result (or evidence)}\es{Computando la predicción a priori del resultado observado (o evidencia)}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
+\begin{lstlisting}[backgroundcolor=\color{julia!60}]
 e = 1.0 - cdf(d, 0.0)
 \end{lstlisting}  
  \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
+\begin{lstlisting}[backgroundcolor=\color{python!60}]
 e = 1 - cdf(0,d.mu,d.sigma) 
 \end{lstlisting} 
  \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
+\begin{lstlisting}[backgroundcolor=\color{r!50}]
 e = 1 - cdf(0,d@mu,d@sigma) 
 \end{lstlisting}   
 \end{paracol}
@@ -2368,19 +2393,19 @@ m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_
 \begin{lstlisting}[backgroundcolor=\color{white}, label=lst:draw, caption={\en{Computing the draw margin}\es{Computando el margen de empate}}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia!60},belowskip=-0.77 \baselineskip]
 na = length(team_a)
 nb = length(team_b)
 sd = sqrt(na + nb)*beta
 \end{lstlisting}
 \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python!60},belowskip=-0.77 \baselineskip]
 na = len(team_a)
 nb = len(team_b)
 sd = math.sqrt(na + nb)*beta
 \end{lstlisting}
 \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{r!50},belowskip=-0.77 \baselineskip]
 na = length([a1, a2])
 nb = length([a3, a4])
 sd = sqrt(na + nb)*beta
@@ -2411,15 +2436,15 @@ margin = compute_margin(p_draw, sd)
 g = Game(teams, p_draw = 0.25)
 \end{lstlisting}  
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}]
+\begin{lstlisting}[backgroundcolor=\color{julia!60}]
 post = posteriors(g)
 \end{lstlisting}
 \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}]
+\begin{lstlisting}[backgroundcolor=\color{python!60}]
 post = g.posteriors()
 \end{lstlisting}
 \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}]
+\begin{lstlisting}[backgroundcolor=\color{r!50}]
 post = posteriors(g)
 \end{lstlisting}
 \end{paracol}
@@ -2477,15 +2502,15 @@ p(d) =
 {white},label=lst:d_approx, caption={\en{Computing the approximation of the difference of performances}\es{Computando la aproximación de la diferencia de desempeños}}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia!60},belowskip=-0.77 \baselineskip]
 tie = true
 \end{lstlisting}
 \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python!60},belowskip=-0.77 \baselineskip]
 tie = True
 \end{lstlisting}
 \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{r!50},belowskip=-0.77 \baselineskip]
 tie = T
 \end{lstlisting}
 \end{paracol}
@@ -2570,7 +2595,7 @@ approx_lh_d = d_approx / d
 \begin{lstlisting}[backgroundcolor=\color{white}, label=lst:posterior_s1_approx, caption={\en{Accessing the approximate posterior}\es{Accediendo al posterior aproximado}}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia!60},belowskip=-0.77 \baselineskip]
 mu = a1.prior.mu
 sigma2 = a1.prior.sigma^2
 phi = d.mu
@@ -2581,7 +2606,7 @@ prior = a1.prior
 posterior = post[1][1]
 \end{lstlisting}
 \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python!60},belowskip=-0.77 \baselineskip]
 mu = a1.prior.mu
 sigma2 = a1.prior.sigma**2
 phi = d.mu
@@ -2592,7 +2617,7 @@ prior = a1.prior
 posterior = post[0][0]
 \end{lstlisting}
 \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{r!50},belowskip=-0.77 \baselineskip]
 mu = a1@prior@mu
 sigma2 = a1@prior@sigma^2
 phi = d@mu
@@ -2782,19 +2807,19 @@ print(posterior)
 \begin{lstlisting}[backgroundcolor=\color{all}, label=lst:graphical_model, caption={\en{Setting the landscape}\es{Preparación del escenario}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia!60}, belowskip=-0.77 \baselineskip]
 team_a = [a1]
 team_b = [a2, a3]
 team_c = [a4]
 \end{lstlisting}
   \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python!60}, belowskip=-0.77 \baselineskip]
 team_a = [a1]
 team_b = [a2, a3]
 team_c = [a4]
 \end{lstlisting}
    \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r}, belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{r!50}, belowskip=-0.77 \baselineskip]
 team_a = c(a1)
 team_b = c(a2, a3)
 team_c = c(a4)
@@ -2804,15 +2829,15 @@ team_c = c(a4)
 prior_ta= performance(team_a); prior_tb= performance(team_b); prior_tc= performance(team_c)
 \end{lstlisting}
 \begin{paracol}{3}
-\begin{lstlisting}[backgroundcolor=\color{julia},belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{julia!60},belowskip=-0.77 \baselineskip]
 N_inf = Gaussian(0., Inf)
 \end{lstlisting}
 \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{python},belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{python!60},belowskip=-0.77 \baselineskip]
 N_inf = Gaussian(0, inf)
 \end{lstlisting}
 \switchcolumn
-\begin{lstlisting}[backgroundcolor=\color{r},belowskip=-0.77 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{r!50},belowskip=-0.77 \baselineskip]
 N_inf = Gaussian(0, Inf)
 \end{lstlisting}
 \end{paracol}
@@ -3702,7 +3727,7 @@ lhood_tc = lhood_lose_tc
 \en{We attach the \proglang{Julia} and \proglang{R} codes that solve the example presented in the section \ref{sec:skill_evolution} about estimation the skill evolution of a new player.}
 \es{Adjuntamos los códigos de \proglang{Julia} y \proglang{R} que resuelven el ejemplo presentado en la sección \ref{sec:skill_evolution} sobre la evolución de habilidad de un jugador nuevo.}
 %
-\begin{lstlisting}[backgroundcolor=\color{julia},caption={\en{\proglang{Julia} code}\es{Código \proglang{Julia}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{julia!60},caption={\en{\proglang{Julia} code}\es{Código \proglang{Julia}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
 using Random; Random.seed!(999); N = 1000
 function skill(experience, middle, maximum, slope)
     return maximum/(1+exp(slope*(-experience+middle))) 
@@ -3721,7 +3746,7 @@ convergence(h)
 mu = [tp[2].mu for tp in learning_curves(h)["a"]]
 \end{lstlisting}
 %
-\begin{lstlisting}[backgroundcolor=\color{r},caption={\en{\proglang{R} code}\es{Código \proglang{R}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{r!50},caption={\en{\proglang{R} code}\es{Código \proglang{R}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
 N = 1000
 skill <- function(experience, middle, maximum, slope){
     return(maximum/(1+exp(slope*(-experience+middle)))) }
@@ -3741,7 +3766,7 @@ for(tp in lc_a){mu = c(mu,tp[[2]]@mu)}
 
 \subsection{\en{The history of the Association of Tennis Professionals (ATP)}\es{Historia de la Asociación de Tenistas Profesionales (ATP)}} \label{sec:appendix_atp_code}
 %
-\begin{lstlisting}[backgroundcolor=\color{python},caption={\en{\proglang{Python} code}\es{Código \proglang{Python}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{python!60},caption={\en{\proglang{Python} code}\es{Código \proglang{Python}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
 import pandas as pd; from datetime import datetime
 df = pd.read_csv('input/history.csv')
 
@@ -3753,7 +3778,7 @@ h = History(composition = composition, times = days, sigma = 1.6, gamma = 0.036)
 h.convergence(epsilon=0.01, iterations=10)
 \end{lstlisting}
 %
-\begin{lstlisting}[backgroundcolor=\color{r},caption={\en{\proglang{R} code}\es{Código \proglang{R}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
+\begin{lstlisting}[backgroundcolor=\color{r!50},caption={\en{\proglang{R} code}\es{Código \proglang{R}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
 data = read.csv("input/history.csv", header=T)
 
 get_composition = function(x){

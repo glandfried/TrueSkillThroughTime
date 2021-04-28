@@ -43,7 +43,7 @@ axis(lwd=0,side=1, at = at, c("2004", "2008", "2012", "2016", "2020"), las=0,cex
 axis(lwd=0,side=2, at=at_y, labels=NA,cex.axis=1.75,line=-0.45)
 
 segments(x0= as.numeric(as.Date("2001-09-01", format = "%Y-%m-%d")),x1= as.numeric(as.Date("2020-03-01", format = "%Y-%m-%d")), y0=at_y,lty=2, col=rgb(0,0,0,0.15))
-mtext(text =expression(beta~"         ") ,side =2 ,line=0.7,cex=1.75)
+mtext(text =expression(beta~"      ") ,side =2 ,line=0.7,cex=1.75)
 mtext(text ="Time" ,side =1 ,line=2,cex=1.75)
 
 legend(as.numeric(as.Date("2002-06-01", format = "%Y-%m-%d")) ,2.5, pch=c(19,19,19,19), col=c(rgb(1,1,1),rgb(0.8,0,0,0.75),rgb(0,0,0.8,0.75),rgb(0,0.8,0,0.75)), legend = c("Nadal:    ", "Clay", "Hard", "Grass"), bty = "n",cex = 1.33, ncol=4)
@@ -63,7 +63,7 @@ axis(lwd=0,side=1, at = at, c("2004", "2008", "2012", "2016", "2020"), las=0,cex
 axis(lwd=0,side=2, at= at_y, labels=NA,cex.axis=1.75,line=-0.45)
 
 segments(x0= as.numeric(as.Date("2001-09-01", format = "%Y-%m-%d")),x1= as.numeric(as.Date("2020-03-01", format = "%Y-%m-%d")), y0=at_y,lty=2, col=rgb(0,0,0,0.15))
-mtext(text ="Skill difference      " ,side =2 ,line=0.7,cex=1.75)
+mtext(text =expression(beta~"      ") ,side =2 ,line=0.7,cex=1.75)
 mtext(text ="Time" ,side =1 ,line=2,cex=1.75)
 
 legend(as.numeric(as.Date("2002-06-01", format = "%Y-%m-%d")) ,2.5, pch=c(19,19,19,19), col=c(rgb(1,1,1),rgb(0.8,0,0,0.75),rgb(0,0,0.8,0.75),rgb(0,0.8,0,0.75)), legend = c("Federer:    ", "Clay", "Hard", "Grass"), bty = "n",cex = 1.33, ncol=4)
@@ -83,7 +83,7 @@ axis(lwd=0,side=1, at = at, c("2004", "2008", "2012", "2016", "2020"), las=0,cex
 axis(lwd=0,side=2, at= at_y, labels=NA,cex.axis=1.75,line=-0.45)
 
 segments(x0= as.numeric(as.Date("2001-09-01", format = "%Y-%m-%d")),x1= as.numeric(as.Date("2020-03-01", format = "%Y-%m-%d")), y0=at_y,lty=2, col=rgb(0,0,0,0.15))
-mtext(text =expression(beta~"         ") ,side =2 ,line=0.7,cex=1.75)
+mtext(text =expression(beta~"      ") ,side =2 ,line=0.7,cex=1.75)
 mtext(text ="Time" ,side =1 ,line=2,cex=1.75)
 
 legend(as.numeric(as.Date("2002-06-01", format = "%Y-%m-%d")) ,2.5, pch=c(19,19,19,19), col=c(rgb(1,1,1),rgb(0.8,0,0,0.75),rgb(0,0,0.8,0.75),rgb(0,0.8,0,0.75)), legend = c("Djokovic:   ", "Clay", "Hard", "Grass"), bty = "n",cex = 1.33, ncol=4)
