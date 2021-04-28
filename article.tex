@@ -3213,8 +3213,8 @@ lhood_tc = lhood_lose_tc
 \en{Someone might suspect that the expressions \ref{eq:log_evidence_online} and \ref{eq:log_evidence_online} are unreliable because they might indirectly use past information to correctly predict the result of events.}
 \es{Alguien podría sospechar que las expresiones \ref{eq:log_evidence_online} y \ref{eq:log_evidence_online} no son confiables porque podrían usar indirectamente la información pasada para predecir correctamente el resultado de los eventos.}
 %
-\en{However, in the example presented in the introduction (figure \ref{fig:smooth_example}) these expressions return much more pessimistic values than the exact solution.}
-\es{Sin embargo, en el ejemplo presentado en la introducción (figura \ref{fig:smooth_example}) estas expresiones devuelven valores mucho más pesimistas que la solución exacta.}
+\en{However, in the example presented in the introduction (figure \ref{fig:smooth_example}) these expressions return more pessimistic values than the exact solution.}
+\es{Sin embargo, en el ejemplo presentado en la introducción (figura \ref{fig:smooth_example}) estas expresiones devuelven valores más pesimistas que la solución exacta.}
 %
 \begin{table}[ht!]\centering
 \begin{tabular}{l|l|l|l|l|}
@@ -3225,29 +3225,41 @@ lhood_tc = lhood_lose_tc
  LOOCV & Prior $\cdot$ likelihood$_2^k$ & $0.002$ & Prior $\cdot$ likelihood$_1^k$ & $0.002$ \\ \hline               
 \end{tabular}
 \caption{
-\en{Three types of a priori predictions evaluated on the example presented in the introduction.}
-\es{Evaluación de los tres tipos de predicciones a priori sobre el ejemplo presentado en la introducción.}
+\en{Three types of prior predictions evaluated on the example presented in the introduction.}
+\es{Evaluación de tres tipos de predicciones a priori sobre el ejemplo presentado en la introducción.}
 %
 \en{The $P(\text{D}|\text{M})$ is the exact solution.}
 \es{La $P(\text{D}|\text{M})$ es la solución exacta.}
 %
-\en{This extreme example shows that their approximations do not indirectly use information from the future to artificially improve their predictions.}
-\es{En este ejemplo extremo muestra que sus aproximaciones no usan la información del futuro para mejorar artificialmente las predicciones.}
+\en{The approximations do not use information from the future to artificially improve their predictions.}
+\es{Las aproximaciones no usan la información del futuro para mejorar artificialmente sus predicciones.}
+%
+\en{The subscript indicates the event, the superscript the convergence number.}
+\es{El subíndice indica la partida, el supraíndice el número de convergencia.}
 }
 \label{tab:evidence}
 \end{table}
 %
-\en{In this extreme case it can be seen that expressions \ref{eq:log_evidence_online} and \ref{eq:log_evidence_online}, that use as prior messages containing converged estimates over all data, are not using information from the future in an indirect way to artificially improve their predictions.}
-\es{En este caso extremo se puede ver que las expresiones \ref{eq:log_evidence_online} y \ref{eq:log_evidence_online}, que usan como prior mensajes que contienen estimaciones convergidas sobre todo los datos, no están usando la información del futuro de manera indirecta para artificialmente mejorar sus predicciones.}
+\en{The exact solution $P(\text{D}|\text{M})$ uses as prior of the events messages containing completely ignorant estimates of the future: the likelihood$_1^1$ is obtained from the first event in the first iteration of the convergence, before the information from the second event has been incorporated.}
+\es{La solución exacta $P(\text{D}|\text{M})$ usa como prior de los eventos mensajes que contienen estimaciones totalmente ignorantes del futuro: el likelihood$_1^1$ se obtiene del primer evento en la primera iteración de la convergencia, antes de que se hay incorporado la información del segundo evento.}
 %
-\en{Both avoid overfitting and penalize sufficiently to avoid selecting unnecessarily complex models.}
-\es{Ambas evitan el sobreajuste y penalizan lo suficientemente para evitar seleccionar modelos innecesariamente complejos.}
+\en{In this extreme case the exact joint evidence of TrueSkill Through Time and TrueSkill are the same, so there is no preference for one of the models.}
+\es{En este caso extremo la evidencia conjunta exacta de TrueSkill Through Time y de TrueSkill son iguales, por lo que no hay preferencia por uno de los modelos.}
 %
-\en{}
-\es{De hecho, en este caso, la evidencia conjunta exacta de TrueSkill Through Time coincide con la evidencia conjunta de TrueSkill.}
+\en{The $\widehat{P}(\text{D}|\text{M})$ and LOOCV approximations use as prior of the events messages with estimates containing information of the future: the likelihood$_1^k$ is obtained from the first event in the last convergence iteration, which uses information from the second event.}
+\es{Las aproximaciones $\widehat{P}(\text{D}|\text{M})$ y LOOCV usan como prior de los eventos mensajes con estimaciones que contienen información del futuro: el likelihood$_1^k$ es obtiene del primer evento en la última iteración de convergencia, usando información del segundo evento.}
 %
-\en{}
-\es{Es importante esta aclaración que no está tratada en el papar original de TrueSkill Through Time.}
+\en{However, if we use some of them to approximate the a priori predictions we would believe that the TrueSkill model is better, even though TrueSkill Through Time recovers the correct posteriors.}
+\es{Sin embargo, si usamos algunas de ellas para aproximar las predicciones a priori creeríamos que conviene el modelo TrueSkill, a pesar de que TrueSkill Through Time recupera los posteriors correctos.}
+%
+\en{This is just an extreme example to illustrate that the \ref{eq:log_evidence_online} and \ref{eq:log_evidence_online} expressions do not use information about the future indirectly to artificially improve their predictions.}
+\es{Este no es más que un ejemplo extremo para ilustrar que las expresiones \ref{eq:log_evidence_online} y \ref{eq:log_evidence_online} no usan la información del futuro de manera indirecta para artificialmente mejorar sus predicciones.}
+%
+\en{Both avoid overfitting and penalize sufficiently unnecessarily complex models.}
+\es{Ambas evitan el sobreajuste y penalizan suficientemente los modelos innecesariamente complejos.}
+%
+\en{This is an important clarification, which is not addressed in the original TrueSkill Through Time paper.}
+\es{Es importante esta aclaración, que no está tratada en el papar original de TrueSkill Through Time.}
 
 
 % 
