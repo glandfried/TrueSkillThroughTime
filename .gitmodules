@@ -1,0 +1,9 @@
+[submodule "TrueSkillThroughTime.R"]
+	path = TrueSkillThroughTime.R
+	url = https://github.com/glandfried/TrueSkillThroughTime.R
+[submodule "TrueSkillThroughTime.jl"]
+	path = TrueSkillThroughTime.jl
+	url = https://github.com/glandfried/TrueSkillThroughTime.jl
+[submodule "TrueSkillThroughTime.py"]
+	path = TrueSkillThroughTime.py
+	url = https://github.com/glandfried/TrueSkillThroughTime.py
