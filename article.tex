@@ -578,7 +578,7 @@
 \es{TrueSkill Through Time~\citep{Dangauthier2007} corrige los sesgos de los modelos previos mediante utilización de un único modelo probabilísitico para toda la historia de eventos.}
 %
 \en{Being theoretically well-founded we can perform inference strictly applying the rules of probability, guaranteeing both good initial estimates and the temporal and spatial comparability of the estimates.}
-\es{Al estar teóricamente bien fundado podemos realizar la inferencia aplicando estrictamente las reglas de la probabilidad, lo que garantiza tanto buenas estimaciones iniciales y como la comparabilidad temporal y espacial de las estimaciones.}
+\es{Al estar teóricamente bien fundado podemos realizar la inferencia aplicando estrictamente las reglas de la probabilidad, lo que garantiza tanto buenas estimaciones iniciales como la comparabilidad temporal y espacial de las estimaciones.}
 %
 \en{Excluding the dynamic component, $\gamma = 0$, the prior of an agent $i$ at the $t$-eth event is just the product of all their likelihoods, except that of the $t$-eth event.}
 \es{Exluyendo el aspecto din\'amico, $\gamma = 0$, el prior de un agente $i$ en el $t$-\'esimo evento es el producto del todas sus verosimilitudes, salvo la del $t$-\'esimo evento.}
@@ -3219,8 +3219,8 @@ lhood_tc = lhood_lose_tc
 \en{where we use the symbol $\wedge_{j\neq i}$ to incorporate in the conditional all the data $d_j$ except the $i$-th.}
 \es{donde el símbolo $\wedge_{j\neq i}$ lo usamos para incorporar en el condicional todos los datos $d_j$ salvo el $i$-ésimo.}
 %
-\en{To compute the a priori prediction using only the past information, it is necessary that the message sent to the events does not receive the information of the future, dividing the \emph{withinPrior} by the \emph{backwardPrior}.}
-\es{Para computar la predicción a priori usando sólo la información pasada, es necesario que el mensaje que se le envía a los eventos no reciba la información del futuro, dividiendo el \emph{withinPrior} por el \emph{backwardPrior}.}
+\en{To compute the a priori prediction using only the past information, it is necessary to send only the \emph{forwardPrior} as a message to the events.}
+\es{Para computar la predicción a priori usando sólo la información pasada, es necesario enviar como mensaje a los eventos unicamente el \emph{forwardPrior}.}
 %
 \en{The variable \texttt{online} of the method \texttt{log_evidence()}, when assigned a true value, returns in logarithmic scale the product of the predictions made with past information.}
 \es{La variable \texttt{online} del método \texttt{log\_evidence()}, cuando se le asigna un valor verdadero, devuelve el en escala logarítmica el producto de las predicciones hechas con información del pasada.}
@@ -3392,14 +3392,17 @@ lhood_tc = lhood_lose_tc
 
 \section{Summary and discussion} \label{sec:summary}
 
- \en{Estimating how complex skills evolves through time is essential in the educational system or in the labor market.}
- \es{Estimarlas es esencial en los sistemas educativos, laborales y deportivos.}
+ \en{Estimating how individual skills evolves through time is essential in the educational system or in the labor market.}
+ \es{Estimar como evolucionan las habilidades individuales en el tiempo es esencial en los sistemas educativos, laborales y deportivos.}
  %
- \en{However, it is a sensitive issue when they are intended to be used to make decisions that may impact individuals.}
- \es{Sin embargo, es un tema sensible cuando se las pretende usar para tomar decisiones que puede impactar a los individuos.}
+ \en{The models commonly used in industry and academia (TrueSkill, Glicko, Item-Response Theory) are based on an ad-hoc solution that prevents them both from having good initial estimates and from guaranteeing comparability between estimates separated in time.}
+ \es{Los modelos normalmente usados en la industria y la academia (TrueSkill, Glicko, Item-Response Theory), están basados en una solución ad-hoc que les impide tener tanto buenas estimaciones iniciales como garantizar la comparabiilidad entre estimaciones separadas en el tiempo.}
  %
  \en{The TrueSkill Through Time model, being theoretically well-founded, corrects the biases estimation of previous models, making it a fundamental step in the direction of reliable estimates.}
- \es{El modelo TrueSkill Through Time, al estar teóricamente bien fundado corrige los sesgos de estimación de los modelos previos, por lo que es un paso fundamental en la dirección de estimaciones confiables.}
+ \es{El modelo TrueSkill Through Time, al estar teóricamente bien fundado corrigelos los sesgos de los modelos previos, siendo un paso fundamental en la dirección de estimaciones confiables.}
+ %
+ \en{Although this improvement was published more than a decade ago, it had not been implemented until in the programming languages noted for having the largest scientific software development communities.}
+ \es{Si bien esta mejora fue publicado hace más una década, no había sido implementado hasta ahora en los lenguajes de programación destacados por tener las mayores comunidades de desarrollo de software centífico.}%
  %
  \en{With this article we promote their adoption by providing the first packages for \proglang{Julia}, \proglang{Python} and \proglang{R}, together with the complete scientific documentation.}
  \es{Con este artículo promovemos su uso poniendo a disposición los primeros paquetes para \proglang{Julia}, \proglang{Python} y \proglang{R}, junto con la documentación científica completa.}
@@ -3416,49 +3419,49 @@ lhood_tc = lhood_lose_tc
 % \es{Sin embargo esta garantía depende de que sea verdadera la información sobre la que se condiciona la inferencia (datos y modelos causales).}
 % 
 % %
-
-\en{Bayesian skill estimators, such as TrueSkill, Glicko and Item-Response Theory, are based on an incomplete causal model that causes information to propagate in only one direction through the system, from the past to the future.}
-\es{Los estimadores de habilidad bayesianos como TrueSkill, Glicko e Item-Response Theory, están basados en un modelo causal incompleto que hace que la información propage sólo en una dirección a través del sistema, del pasado al futuro.}
-%
-\en{This is a source of error that can be very serious when estimating learning curves, hindering their use in sensitive activities.}
-\es{Esta es un fuente de error que puede ser muy grave a la hora de estimar curvas de aprendizaje, impidiendo su uso en actividades sensibles.}
-%
-\en{The most obvious problem is that the beginning of any estimation sequence always has high uncertainty, which prevents estimating the actual progress made by individuals.}
-\es{El problema más obvio es que el inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre, lo que impide estimar el progreso real realizado por los individuos.}
-%
-\en{But it also suffers from temporal and spatial decouplings that prevent comparability between loosely connected contemporary groups and between cohorts separated in time.}
-\es{Pero también sufre de desacoplamientos' temporales y espaciales que impiden la comparabilidad entre grupos contemporaneos poco conectados y entre cohortes separadas en el tiempo.}
-
-% Parrafo
-
-\en{TrueSkill Through Time is based on a causal model capable of explaining the behavior of individuals over time.}
-\es{TrueSkill Through Time está basado en un modelo causal capaz de explicar el comportamiento de los sujetos de estudio en el tiempo.}
-%
-\en{The advantage lies in its causal model that links all historical activities in the same Bayesian network, allowing the information to propagate correctly throughout the system, which guarantees both good initial estimates and the temporal and spatial comparability of the estimates.}
-\es{La ventaja radica en su modelo causal que vincula todas las actividades históricas en una misma red bayesiana, permitiendo que la información propage correctamente por todo el sistema, lo que garantiza tanto buenas estimaciones iniciales y como la comparabilidad temporal y espacial de las estimaciones.}
-%
-\en{This is a fundamental step in building reliable estimators for the development of ethical decision-making protocols in sensitive areas, as well as for the evaluation of scientific theories that use skill as observable data.}
-\es{Esto es un paso fundamental para construir estimadores confiables que sirvan para el desarrollo de protocolos éticos de toma de decisiones en áreas sensibles, como para la evaluación de teorías científicas que utilicen la habilidad como dato observable.}
+% 
+% \en{Bayesian skill estimators, such as TrueSkill, Glicko and Item-Response Theory, are based on an incomplete causal model that causes information to propagate in only one direction through the system, from the past to the future.}
+% \es{Los estimadores de habilidad bayesianos como TrueSkill, Glicko e Item-Response Theory, están basados en un modelo causal incompleto que hace que la información propage sólo en una dirección a través del sistema, del pasado al futuro.}
+% %
+% \en{This is a source of error that can be very serious when estimating learning curves, hindering their use in sensitive activities.}
+% \es{Esta es un fuente de error que puede ser muy grave a la hora de estimar curvas de aprendizaje, impidiendo su uso en actividades sensibles.}
+% %
+% \en{The most obvious problem is that the beginning of any estimation sequence always has high uncertainty, which prevents estimating the actual progress made by individuals.}
+% \es{El problema más obvio es que el inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre, lo que impide estimar el progreso real realizado por los individuos.}
+% %
+% \en{But it also suffers from temporal and spatial decouplings that prevent comparability between loosely connected contemporary groups and between cohorts separated in time.}
+% \es{Pero también sufre de desacoplamientos' temporales y espaciales que impiden la comparabilidad entre grupos contemporaneos poco conectados y entre cohortes separadas en el tiempo.}
 
 % Parrafo
 
-\en{Although the model was published a decade ago, it had not been implemented until now in \proglang{Julia}, \proglang{Python} or \proglang{R}, programming languages noted for having the largest scientific software development communities.}
-\es{Si bien el modelo fue publicado hace una década, no había sido implementado hasta ahora en \proglang{Julia}, \proglang{Python} ni \proglang{R}, lenguajes de programación destacados por tener las mayores comunidades de desarrollo de software centífico.}
+\en{The advantage of TrueSkill Through Time lies in its temporal causal model, that links all historical activities in the same Bayesian network, allowing the information to propagate correctly throughout the system, which guarantees both good initial estimates and the temporal and spatial comparability of the estimates.}
+\es{La ventaja TrueSkill Through Time radica en su modelo causal temporal, que vincula todas las actividades históricas en una misma red bayesiana, permitiendo que la información propage correctamente por todo el sistema, lo que garantiza tanto buenas estimaciones iniciales como la comparabilidad temporal y espacial de las estimaciones.}
 %
-\en{One of the historical bottlenecks to the strict application of probability theory was the technical difficulty in solving the integrals that compute marginal probabilities: the posterior and the a priori prediction.}
-\es{Uno de los cuello de botella hist\'orico para la aplicación estricta de la teoría de la probabilidad fue la dificultad técnica para resolver las integrales que computan las probabilidades marginales: el posterior y la predicción a priori.}
+% \en{One of the historical bottlenecks to the strict application of probability theory was the technical difficulty in solving the integrals that compute marginal probabilities: the posterior and the a priori prediction.}
+% \es{Uno de los cuello de botella hist\'orico para la aplicación estricta de la teoría de la probabilidad fue la dificultad técnica para resolver las integrales que computan las probabilidades marginales: el posterior y la predicción a priori.}
 %
-\en{This particular model requires the implementation of an iterative message passing algorithm (\emph{loopy belief propagation}) to efficiently solve the inference process.}
-\es{Este modelo en particular requiere la implementación de un algoritmo iterativo de pasaje de mensajes (\emph{loopy belief propagation}) que permite resolver de forma eficiente el proceso de inferencia.}
+\en{This model requires the implementation of an iterative message passing algorithm to efficiently solve the inference process.}
+\es{Este modelo requiere la implementación de un algoritmo iterativo de pasaje de mensajes que permite resolver de forma eficiente el proceso de inferencia.}
+%
+\en{Our \proglang{Python} package solves individual events 10 times faster than the original \pkg{trueskill}~$0.4.5$ \citep{lee-trueskill} package.}
+\es{Nuestro paquete de \proglang{Python} resuelve los eventos individuales 10 veces más rápido que el paquete original \pkg{trueskill}~$0.4.5$ \citep{lee-trueskill}.}
+%
+\en{In turn, our \proglang{Julia} package solves event sequences $10$ times faster than our \proglang{Python} package.}
+\es{A su vez, nuestro paquete de \proglang{Julia} resuelve las secuencias de eventos $10$ veces más rápido  que nuestro paquete de \proglang{Python}.}
+%
+\en{In contrast, our \proglang{R} package is slower than the other packages, including the original \pkg{trueskill}~$0.4.5$ package.}
+\es{Por el contrario, nuestro paquete de \proglang{R} es varias veces más lento que que el paquete básico \pkg{trueskill}~$0.4.5$.}
 %
 \en{We have shown that this procedure converges quickly even on large databases.}
 \es{Hemos mostrado que este procedimiento converge rápidamente incluso en bases de datos grandes.}
+
 %
-\en{Therefore, the fact that it has not been implemented before is not justified by computational limitations, but seems to be a consequence of the scarcity of previously available documentation.}
-\es{Entonces, que no se haya implementado antes no se justifica por limitaciones computacionales, parece ser consecuencia de la escacés de documentación disponible previamente.}
-
-% Parrafo
-
+\en{Bias correction and computational efficiency are critical for estimates to be used in sensitive areas of industry and academia.}
+\es{La corrección de los sesgos y la eficiencia computacional son fundamentales para que las estimaciones sean usadas en áreas sensibles de la industria y la academia.}
+%
+\en{The fact that it has not been implemented before seems to be a consequence of the scarcity of previously available documentation.}
+\es{Que no se haya implementado antes parece ser consecuencia de la escacés de documentación disponible previamente.}
+%
 \en{In this article we offer the first complete mathematical documentation.}
 \es{En este artículo ofrecemos la primera documentación matemática completa.}
 %
@@ -3473,7 +3476,8 @@ lhood_tc = lhood_lose_tc
 
 % Parrafo
 
-\en{The implementations made in this work open the possibility of incorporating the extensions that were developed over the years for the TrueSkill and Item-Response Theory models.}
+\en{The implementations made in this work open the possibility of incorporating the extensions that were developed over the years for the TrueSkill and Item-Re
+sponse Theory models.}
 \es{Las implementaciones hechas en este trabajo abre la posibilidad de incorporar las extensiones que con los años se fueron desarrollando para los modelos TrueSkill e Item-Response Theory.}
 %
 \en{For example, it would be possible to use as observable data not only the ordinal values of the results (lose/tie/win), but also the difference in points that those results had~\citep{guo2012-scoreBasedTrueSkill}.}
@@ -3487,14 +3491,6 @@ lhood_tc = lhood_lose_tc
 
 % Parrafo
 
-\en{Our \proglang{Python} package is near $10$ times faster than the original \pkg{trueskill}~$0.4.5$ package~\citep{lee-trueskill}.}
-\es{Nuestro paquete de \proglang{Python} es 10 veces más rápido que el paquete original \pkg{trueskill}~$0.4.5$ \citep{lee-trueskill}.}
-%
-\en{In turn, our \proglang{Julia} package is near $10$ times faster than our own \proglang{Python}.}
-\es{A su vez, nuestro paquete de \proglang{Julia} es $10$ veces más rápido que nuestro paquete de \proglang{Python}.}
-%
-\en{In contrast, our \proglang{R} package is slower than the other packages, including the original \pkg{trueskill}~$0.4.5$ package.}
-\es{Por el contrario, nuestro paquete de \proglang{R} es varias veces más lento que que el paquete básico \pkg{trueskill}~$0.4.5$.}
 %
 \en{By offering the packages in three of the main scientific programming languages together with their complete mathematical documentation, we are strongly supporting the collaboration and unification of the scientific area of skill estimation, still scattered in the use of different models, some of them already obsolete.}
 \es{Al ofrecer los paquetes en tres de los principales lenguajes de programación científica junto con su documentación matemática completa, estamos apoyando fuertemente la colaboración y la unificación del área científica de estimación de habilidad, todavía desperdigada en el uso de diferentes modelos, algunos ya obsoletos.}
