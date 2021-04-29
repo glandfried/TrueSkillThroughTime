@@ -1,4 +1,7 @@
-all: compile
+all: fig compile
+
+fig:
+	make -C figures
 
 compile: clean pdfclean article-es.pdf article-en.pdf
 
