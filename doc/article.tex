@@ -1504,7 +1504,6 @@ convergence(h, epsilon = 0.01, iterations = 10)
 \en{Those who know the history of tennis will be able to recognize the periods of crisis, stability and success of the players, but they will also find some surprises.}
 \es{Quien conozca la historia del tenis podrá reconocer los períodos de aprendizaje, éxito, estabilidad y caída de los jugadores.}
 %
-
 \en{There is a relative coincidence between skill and who is at any given moment at the top of the ATP rankings, it is possible to observe the effects of injuries, and even the effect of emotional slumps such as those that Aggasi and Djockovic had.}
 \es{Existe una relativa coincidencia entre la habilidad y quién está en cada momento en el primer puesto del ranking ATP, es posible observar los efectos de las lesiones, e incluso el efecto de los bajones emocionales como los que tuvieron Aggasi y Djockovic.}
 %
@@ -3781,7 +3780,7 @@ for(tp in lc_a){mu = c(mu,tp[[2]]@mu)}
 %
 \begin{lstlisting}[backgroundcolor=\color{python!60},caption={\en{\proglang{Python} code}\es{Código \proglang{Python}}},aboveskip=0.0 \baselineskip, belowskip=0.1cm]
 import pandas as pd; from datetime import datetime
-df = pd.read_csv('input/history.csv')
+df = pd.read_csv('atp.csv')
 
 columns = zip(df.w1_id, df.w2_id, df.l1_id, df.l2_id, df.double)
 composition = [[[w1,w2],[l1,l2]] if d=='t' else [[w1],[l1]] for w1, w2, l1, l2, d in columns]
