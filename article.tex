@@ -7,7 +7,7 @@
 \newif\ifes
 \newcommand{\en}[1]{\ifen#1\fi}
 \newcommand{\es}[1]{\ifes#1\fi}
-\estrue
+\entrue
 \usepackage[utf8]{inputenc}
 \usepackage{paracol}
 %\newcommand{\jan}{%
@@ -3209,7 +3209,7 @@ lhood_tc = lhood_lose_tc
 \en{This expression matches a technique known as \emph{leave-one-out croos-validation} (LOOCV).}
 \es{Esta expresión coincide con una técnica de validación cruzada conocida como \emph{leave-one-out croos-validation} (LOOCV).}
 %
-\en{The \texttt{log_evidence()} method of the \texttt{History} class returns by default the product of all these elements in logarithmic scale.}
+\en{The \texttt{log\_evidence()} method of the \texttt{History} class returns by default the product of all these elements in logarithmic scale.}
 \es{El método \texttt{log\_evidence()} de la clase \texttt{History} devuelve por defecto el producto de todos estos elementos en escala logarítmica.}
 %
 \begin{equation} \label{eq:log_evidence_default}
@@ -3222,7 +3222,7 @@ lhood_tc = lhood_lose_tc
 \en{To compute the a priori prediction using only the past information, it is necessary to send only the \emph{forwardPrior} as a message to the events.}
 \es{Para computar la predicción a priori usando sólo la información pasada, es necesario enviar como mensaje a los eventos unicamente el \emph{forwardPrior}.}
 %
-\en{The variable \texttt{online} of the method \texttt{log_evidence()}, when assigned a true value, returns in logarithmic scale the product of the predictions made with past information.}
+\en{The variable \texttt{online} of the method \texttt{log\_evidence()}, when assigned a true value, returns in logarithmic scale the product of the predictions made with past information.}
 \es{La variable \texttt{online} del método \texttt{log\_evidence()}, cuando se le asigna un valor verdadero, devuelve el en escala logarítmica el producto de las predicciones hechas con información del pasada.}
 %
 \begin{equation} \label{eq:log_evidence_online}
