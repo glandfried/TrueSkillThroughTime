@@ -3232,14 +3232,17 @@ lhood_tc = lhood_lose_tc
 \en{We say that it approximates the probability $P(\text{D}|\text{M})$ because although the messages sent to the events as prior contain only past estimates, they arise from the convergence that uses all the historical information.}
 \es{Decimos que aproxima a la probabilidad $P(\text{D}|\text{M})$ porque si bien los mensajes enviados hacia los eventos como prior contienen sólo las estimaciones pasadas, ellas surgen de la convergencia que usa toda la información histórica.}
 %
+\en{Something similar happens with the expression \ref{eq:log_evidence_default}, so it would also be convenient to write it as an approximation, {\small$\widehat{\text{LOOCV}}$}.}
+\es{Algo similar ocurre con la expresión \ref{eq:log_evidence_default}, por lo que convendría también escribirla como una aproximación, {\small$\widehat{\text{LOOCV}}$}.}
+%
 \en{We do not implement the exact solution because its computational complexity is quadratic: it would be necessary to upload the data one by one and perform a convergence at each step.}
 \es{No implementamos la solución exacta debido a que su complejidad computacional es cuadrática: sería necesario subir los datos de a uno y realizar una convergencia en cada paso.}
 %
-\en{Someone might suspect that the expressions \ref{eq:log_evidence_online} and \ref{eq:log_evidence_online} are unreliable because they might indirectly use past information to correctly predict the result of events.}
-\es{Alguien podría sospechar que las expresiones \ref{eq:log_evidence_online} y \ref{eq:log_evidence_online} no son confiables porque podrían usar indirectamente la información pasada para predecir correctamente el resultado de los eventos.}
+\en{Someone might suspect that the expressions \ref{eq:log_evidence_online} and \ref{eq:log_evidence_online} are unreliable because they might indirectly use information from the future to correctly predict the result of events.}
+\es{Alguien podría sospechar que las expresiones \ref{eq:log_evidence_online} y \ref{eq:log_evidence_online} no son confiables porque podrían usar indirectamente información del futuro para predecir correctamente el resultado de los eventos.}
 %
-\en{However, in the example presented in the introduction (figure \ref{fig:smooth_example}) these expressions return more pessimistic values than the exact solution.}
-\es{Sin embargo, en el ejemplo presentado en la introducción (figura \ref{fig:smooth_example}) estas expresiones devuelven valores más pesimistas que la solución exacta.}
+\en{Conversely, in the example presented in the introduction (figure \ref{fig:smooth_example}) these expressions return more pessimistic values than the exact solution.}
+\es{Por el contrario, en el ejemplo presentado en la introducción (figura \ref{fig:smooth_example}) estas expresiones devuelven valores más pesimistas que la solución exacta.}
 %
 \begin{table}[ht!]\centering
 \begin{tabular}{l|l|l|l|l|}
@@ -3247,7 +3250,7 @@ lhood_tc = lhood_lose_tc
 \multicolumn{1}{c}{} & \multicolumn{1}{|c|}{\en{Message}\es{Mensaje}} & \multicolumn{1}{c|}{Evidenc\en{e}\es{ia}} & \multicolumn{1}{c|}{\en{Message}\es{Mensaje}} & \multicolumn{1}{c|}{Evidenc\en{e}\es{ia}} \\ \hline
  $P(\text{D}|\text{M})$ & Prior & $0.5$ & Prior $\cdot$ likelihood$_1^1$ & $0.177 $\\ \hline
  $\widehat{P}(\text{D}|\text{M})$ &  Prior & $0.5$ & Prior $\cdot$ likelihood$_1^k$ & $0.002$ \\ \hline
- LOOCV & Prior $\cdot$ likelihood$_2^k$ & $0.002$ & Prior $\cdot$ likelihood$_1^k$ & $0.002$ \\ \hline               
+ {\small$\widehat{\text{LOOCV}}$} & Prior $\cdot$ likelihood$_2^k$ & $0.002$ & Prior $\cdot$ likelihood$_1^k$ & $0.002$ \\ \hline               
 \end{tabular}
 \caption{
 \en{Three types of prior predictions evaluated on the example presented in the introduction.}
@@ -3265,20 +3268,42 @@ lhood_tc = lhood_lose_tc
 \label{tab:evidence}
 \end{table}
 %
-\en{The exact solution $P(\text{D}|\text{M})$ uses as prior of the events messages containing completely ignorant estimates of the future: the likelihood$_1^1$ is obtained from the first event in the first iteration of the convergence, before the information from the second event has been incorporated.}
-\es{La solución exacta $P(\text{D}|\text{M})$ usa como prior de los eventos mensajes que contienen estimaciones totalmente ignorantes del futuro: el likelihood$_1^1$ se obtiene del primer evento en la primera iteración de la convergencia, antes de que se hay incorporado la información del segundo evento.}
+\en{In the table \ref{tab:evidence} we can see that the exact solution $P(\text{D}|\text{M})$ uses as prior of the events messages containing completely ignorant estimates of the future: the likelihood$_1^1$ is obtained from the first event in the first iteration of the convergence, before the information from the second event has been incorporated.}
+\es{En la tabla \ref{tab:evidence} podemos ver que la solución exacta $P(\text{D}|\text{M})$ usa como prior de los eventos mensajes que contienen estimaciones totalmente ignorantes del futuro: el likelihood$_1^1$ se obtiene del primer evento en la primera iteración de la convergencia, antes de que se haya incorporado la información del segundo evento.}
 %
-\en{In this extreme case the exact joint evidence of TrueSkill Through Time and TrueSkill are the same, so there is no preference for one of the models.}
-\es{En este caso extremo la evidencia conjunta exacta de TrueSkill Through Time y de TrueSkill son iguales, por lo que no hay preferencia por uno de los modelos.}
+\en{In this extreme case the exact joint evidence of TrueSkill Through Time and TrueSkill are the same, so there is no preference for any of the models.}
+\es{En este caso extremo la evidencia conjunta exacta de TrueSkill Through Time y de TrueSkill son iguales, por lo que no hay preferencia por ninguno de los modelos.}
 %
-\en{The $\widehat{P}(\text{D}|\text{M})$ and LOOCV approximations use as prior of the events messages with estimates containing information of the future: the likelihood$_1^k$ is obtained from the first event in the last convergence iteration, which uses information from the second event.}
-\es{Las aproximaciones $\widehat{P}(\text{D}|\text{M})$ y LOOCV usan como prior de los eventos mensajes con estimaciones que contienen información del futuro: el likelihood$_1^k$ es obtiene del primer evento en la última iteración de convergencia, usando información del segundo evento.}
+\en{The $\widehat{P}(\text{D}|\text{M})$ and {\small$\widehat{\text{LOOCV}}$} approximations use as prior of the events messages with estimates containing information of the future: the likelihood$_1^k$ is obtained from the first event in the last convergence iteration, which uses information from the second event.}
+\es{Las aproximaciones $\widehat{P}(\text{D}|\text{M})$ y {\small$\widehat{\text{LOOCV}}$} usan como prior de los eventos mensajes con estimaciones que contienen información del futuro: el likelihood$_1^k$ es obtiene del primer evento en la última iteración de convergencia, usando información del segundo evento.}
 %
-\en{However, if we use some of them to approximate the a priori predictions we would believe that the TrueSkill model is better, even though TrueSkill Through Time recovers the correct posteriors.}
-\es{Sin embargo, si usamos algunas de ellas para aproximar las predicciones a priori creeríamos que conviene el modelo TrueSkill, a pesar de que TrueSkill Through Time recupera los posteriors correctos.}
+\en{In this extreme case, if we use some of them to approximate the a priori predictions we would believe that the TrueSkill model is better, even though TrueSkill Through Time recovers the correct posteriors.}
+\es{En este caso extremo si usamos algunas de ellas para aproximar las predicciones a priori creeríamos que conviene el modelo TrueSkill, a pesar de que TrueSkill Through Time recupera los posteriors correctos.}
 %
-\en{This is just an extreme example to illustrate that the \ref{eq:log_evidence_online} and \ref{eq:log_evidence_online} expressions do not use information about the future indirectly to artificially improve their predictions.}
-\es{Este no es más que un ejemplo extremo para ilustrar que las expresiones \ref{eq:log_evidence_online} y \ref{eq:log_evidence_online} no usan la información del futuro de manera indirecta para artificialmente mejorar sus predicciones.}
+\en{It is interesting to note why this occurs.}
+\es{Es interesante notar por qué ocurre eso.}
+%
+\en{If we extend the example, adding one game at a time, alternating the wins between the two players, the situation is quickly reversed: both the exact solution and its approximations provide better prior predictions than TrueSkill.}
+\es{Si extendemos el ejemplo, agregando partidas de a una, alternando las victorias entre los dos jugadores, la situación rápidamente se invierte: tanto la solcución exacta como sus aproximaciones proveen mejores predicciones a priori que TrueSkill.}
+%
+\en{In Figure \ref{fig:log_evidence_behavior} we can see the prediction difference between the exact solution with respect to its approximations and TrueSkill.}
+\es{En la figura \ref{fig:log_evidence_behavior} podemos la diferencia de predicción entre la solución exacta respecto de sus aproximaciones y de TrueSkill.}
+%
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[page={1},width=.7\linewidth]{figures/prior_predictions}
+    \caption{
+    \en{Prediction difference between the exact solution $ P (D | M) $ with respect to TrueSkill and the approximate solutions, {\small$\widehat{\text{LOOCV}}$} and $ \widehat{P}(D | M) $, as we add more events to the example presented in the introduction (Figure \ref{fig:smooth_example}).}
+    \es{Diferencia de predicción entre la solución exacta $P(D|M)$ respecto de TrueSkill y las solcuiones aproximadas, {\small$\widehat{\text{LOOCV}}$} y $\widehat{P}(D|M)$, a medida que agregamos más eventos al ejemplo presentado en la introducción (figura \ref{fig:smooth_example}).}
+    }
+    \label{fig:log_evidence_behavior}
+\end{figure}
+%
+\en{It is interesting to note that the exact solution is always greater than TrueSkill and $\widehat{P}(D|M)$, and even though the solution {\small$\widehat{\text{LOOCV}}$} slightly exceeds it in a moment it is at the same time the one that best approximates it.}
+\es{Es interesante notar que la solución exacta siempre es mayor a TrueSkill y a $\widehat{P}(D|M)$, y a pesar de que la solución {\small$\widehat{\text{LOOCV}}$} la supera levemente en un momento es al mismo tiempo la que mejor la aproxima.}
+%
+\en{This example illustrate that the \ref{eq:log_evidence_online} and \ref{eq:log_evidence_online} expressions do not use information about the future indirectly to artificially improve their predictions.}
+\es{Este ejemplo ilustra que las expresiones \ref{eq:log_evidence_online} y \ref{eq:log_evidence_online} no usan la información del futuro de manera indirecta para artificialmente mejorar sus predicciones.}
 %
 \en{Both avoid overfitting and penalize sufficiently unnecessarily complex models.}
 \es{Ambas evitan el sobreajuste y penalizan suficientemente los modelos innecesariamente complejos.}
