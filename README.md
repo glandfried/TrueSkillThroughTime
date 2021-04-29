@@ -6,16 +6,14 @@ However, it is a sensitive issue when they are intended to be used to make decis
 
 None of the widely used skill estimators, such as TrueSkill, Glicko and Item-Response Theory, correctly models the temporal aspect, which prevents having both good initial estimates and comparability between estimates separated in time and space.
 
-TrueSkill Through corrects those biases by modeling the entire history of activities using a single Bayesian network.
+TrueSkill Through Time corrects those biases by modeling the entire history of activities using a single Bayesian network.
 The use of an efficient algorithm, that requires only a few linear iterations over the data, allows scaling to millions of observations in few seconds.
 
-In this paper we offer the first packages for \proglang{Julia}, \proglang{Python}, and \proglang{R}, together with its scientific documentation, supporting the use of reliable learning curve estimators.
-
-![ss](static/atp.png)
+In this paper we offer the first packages for `Julia`, `Python`, `R`, together with its scientific documentation, supporting the use of a reliable learning curve estimators.
 
 ### Scientific article
 
-Full scientific documentation of the Julia, Python and R packages of the Bayesian skill estimator TrueSkill Through Time.
+You can find the full scientific documentation of TrueSkill Through Time packages at:
 
 0.  [English version](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc.0.0.0/article-en.pdf)
 
@@ -27,6 +25,25 @@ Full scientific documentation of the Julia, Python and R packages of the Bayesia
 0. Python Package: [https://github.com/glandfried/TrueSkillThroughTime.py](https://github.com/glandfried/TrueSkillThroughTime.py)
 0. R package: [https://github.com/glandfried/TrueSkillThroughTime.R](https://github.com/glandfried/TrueSkillThroughTime.R)
 
+### The History of the ATP
+
+The following figure presents the learning curves of some famous players in ATP history.
+
+![atp](static/atp.png)
+
+Those who know the history of tennis will be able to recognize the periods of crisis, stability and success of the players.
+
+There is a relative coincidence between skill and who is at any given moment at the top of the ATP rankings, it is possible to observe the effects of injuries, and even the effect of emotional slumps such as those that Aggasi and Djockovic had.
+
+It is interesting to see that the skill of tennis players did not increase so much over the years: on the contrary the players of the 1980s were more skilled than those of the 1990s, and reached a skill similar to what Federer, Nadal and Djokovic had in 2020.
+
+TrueSkill Through Time, unlike estimators based on the filtering approach (such as TrueSkill, Glicko and IRT) allows comparing the relative ability of players over time.
+
+The following figure shows the estimates obtained with TrueSkill.
+
+![atp](static/atp_trueskill.png)
+
+The advantage of TrueSkill Through Time lies in its temporal causal model, that links all historical activities in the same Bayesian network, which guarantees both good initial estimates and the temporal and spatial comparability of the estimates.
 
 
 
