@@ -42,6 +42,9 @@ The **models commonly used in industry and academia** (TrueSkill, Glicko, Item-R
 ![atp](static/atp_trueskill.png)
 
 The advantage of TrueSkill Through Time lies in its temporal causal model, that links all historical activities in the same Bayesian network, which guarantees both good initial estimates and the temporal and spatial comparability of the estimates.
+We have shown that this procedure converges quickly even on large databases.
+
+With this article we promote their adoption by providing the first packages for Julia, Python and R, together with the complete scientific documentation.
 
 
 
