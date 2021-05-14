@@ -23,7 +23,6 @@
   }%
 }
 
-\usepackage{wrapfig}
 \usepackage{caption}
 \usepackage[labelformat=simple]{subcaption}
 \renewcommand\thesubfigure{(\alph{subfigure})}
@@ -44,6 +43,9 @@
 \renewcommand{\lstlistingname}{Code}% Listing -> Algorithm
 \usepackage{todonotes}
 \usepackage[binary-units]{siunitx}
+
+
+
 
  % by: https://tex.stackexchange.com/questions/87940/weird-warning-using-pdfx
 % \RequirePackage{pdf14}
@@ -145,55 +147,38 @@
   E-mail: \texttt{emocskos@dc.uba.ar}\\
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 %% - \Abstract{} almost as usual
 \Abstract{
-\en{Humans develop complex skills through time. }%
-\es{Los humanos desarrollamos habilidades complejas a través del tiempo. }%
+\en{Humans develop and acquire complex skills through time. }%
+\es{Los humanos desarrollamos y adquirimos habilidades complejas a través del tiempo. }%
 %
 \en{Knowing how individual abilities change is essential in a wide range of activities. }%
 \es{Saber cómo cambian las capacidades individuales es esencial en diversas actividades. }%
 %
-\en{All widely used skill estimators, such as TrueSkill, Glicko and Item-Response Theory, are based on the outcome of problem-solving and competitions. }%
-\es{Todos los estimadores de habilidades ampliamente utilizados, como TrueSkill, Glicko e Item-Response Theory, se basan en el producto de resolucion de problemas y competencias. }%
+\en{However, skill cannot be directly measured and we have to estimate it based on problem-solving and competition outcomes. }%
+\es{Sin embargo, las habilidades no pueden medirse directamente y deben estimarse a partir de la resoluci\'on de problemas y competencias. }%
 %
-\en{However, they do not properly model the temporal aspect, which prevents them from achieving both good initial estimates and comparability between distant estimates. }%
-\es{Sin embargo, ellos no modelan apropiadamente el aspecto temporal, lo que les impide alcanzar tanto buenas estimaciones iniciales como comparabilidad entre estimaciones distantes. }%
+\en{Without properly considering the temporal aspect of the learning processes, we cannot obtain reliable initial estimates and ensure comparability between distant estimates. }%
+\es{Sin considerar adecuadamente el aspecto temporal del proceso de aprendizaje, no podemos obtener estimaciones iniciales fiables ni garantizar la comparabilidad entre estimaciones distantes. }%
 %
-\en{TrueSkill Through Time correct those issues by modeling the entire history of activities using a single Bayesian network. }%
-\es{TrueSkill Through Time corrige esos sesgos modelando toda la historia de actividades mediante una única red bayesiana. }%
+\en{TrueSkill Through Time fulfills these objectives by modeling the entire history of activities using a single Bayesian network. }%
+\es{TrueSkill Through Time satisface estos objetivos modelando toda la historia de actividades mediante una única red bayesiana. }%
 %
-\en{In this paper we offer the first packages for \proglang{Julia}, \proglang{Python}, and \proglang{R}, together with the scientific documentation, supporting the adoption of a reliable learning estimator. }%
-\es{En este artículo ofrecemos los primeros paquetes para \proglang{Julia}, \proglang{Python} y \proglang{R}, acompañada con su documentaci\'on cient\'ifica, apoyando el uso de un estimador de aprendizaje confiable. }%
+\en{In this paper, we present TrueSkill Through Time's first implementation in \proglang{Julia}, \proglang{Python}, and \proglang{R}, together with the complete technical documentation. }%
+\es{En este artículo, ofrecemos los primeros paquetes de TrueSkill Through Time para \proglang{Julia}, \proglang{Python} y \proglang{R}, junto con su documentaci\'on técnica completa. }%
 %
-\en{We illustrate how to use them in typical cases, and show the actual learning curves of historical players of the Association of Tennis Professionals (ATP). }%
-\es{Ilustramos cómo usarlos en casos típicos, y mostramos las curvas de aprendizaje reales de los jugadores históricos de la Asociación de Tenistas Profesionales (ATP).  }%
+\en{We illustrate how to use them with typical cases and show the actual learning curves of historical players of the Association of Tennis Professionals (ATP), supporting the adoption of a reliable learning estimator. }%
+\es{Ilustramos cómo usarlos en casos típicos, y mostramos las curvas de aprendizaje reales de los jugadores históricos de la Asociación de Tenistas Profesionales (ATP), apoyando el uso de un estimador de aprendizaje confiable. }%
 %
-\en{This algorithm requires only a few iterations over the data, allowing it to scale to millions of observations in a few seconds. }%
-\es{Este algoritmo requiere sólo unas pocas iteraciones sobre los datos, permitiendo escalar a millones de observaciones en pocos segundos. }%
-}
+\en{This algorithm requires only a few iterations to converge, allowing millions of observations to be analyzed using any low-end computer. }%
+\es{Este algoritmo requiere sólo unas pocas iteraciones para converger , permitiendo analizar millones de observaciones usando cualquier ordenador de gama baja. }%
+} 
 \Keywords{%
 \en{Learning, skill, gaming, education, sports, \proglang{Julia}, \proglang{Python},  \proglang{R}}%
 \es{Aprendizaje, habilidad, videojuego, educación, deporte, \proglang{Julia}, \proglang{Python},  \proglang{R}}%
 }
 \Plainkeywords{%
-\en{Learning, skill, gaming, education, sports, Julia, Python,  R}%
+\en{Learning, skill, gaming, education, sports, Julia, Python, R}%
 \es{Aprendizaje, habilidad, videojuego, educación, deporte, Julia, Python, R}%
 }
 
@@ -204,18 +189,17 @@
 \shortcites{Kschischang2001}
 \shortcites{Herbrich2007}
 \shortcites{Dangauthier2007}
-% \shortcites{jaynes2003-bookProbabilityTheory}
 \shortcites{VanHorn2003}
-\shortcites{maystre2019-pairwise}
+\shortcites{Maystre2019}
 \shortcites{Bishop2006}
-\shortcites{guo2012-scoreBasedTrueSkill}
+\shortcites{Guo2012}
 
 \begin{document}
 %\lstset{language=Python}
 
 \section{\en{Introduction}\es{Introducción}} \label{sec:intro}
 
-\en{Humans develop complex skills because of an special integration of biological, cognitive and social processes~\citep{Koster2020}. }%
+\en{Humans develop and acquire complex skills because of an special integration of biological, cognitive and social processes~\citep{Koster2020}. }%
 \es{Los humanos desarrollamos habilidades complejas gracias a una integraci\'on especial de los procesos biol\'ogicos, cognitivos y sociales~\citep{Koster2020}. }%
 %
 \en{Our exceptional cognitive ability to imitate, combined with long periods of juvenile dependency and postreproductive life span, allows humans to learn things from others and transmit innovations through generations~\citep{Richerson2020}. }%
@@ -310,7 +294,7 @@
 
 % Parrafo
 
-\en{Using the graphical representation proposed in Figure~\ref{fig:generative_model}, it is possible to derive the prediction of the result given the previous estimates, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$. }%
+\en{Using the graphical representation proposed in Fig.~\ref{fig:generative_model}, it is possible to derive the prediction of the result given the previous estimates, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$. }%
 \es{A partir de la representaci\'on gr\'afica propuesta en la figura \ref{fig:generative_model}, se puede derivar la predicci\'on del resultado dadas las estimaciones previas, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$. }%
 %
 \en{Elo's methodological solution is simple and smart: updates both previous estimates, $s_{i_\text{old}}$ and $s_{j_\text{old}}$, based on the surprise, i.e. the complement of the prediction of the observed result. }%
@@ -514,8 +498,8 @@
 \en{But due to the shape of the exact posterior, a Gaussian distribution could be used as a good approximation, allowing us to avoid the computational cost of the sampling methodologies. }%
 \es{Por la forma del posterior exacto, una gaussiana puede ser usada como una buena aproximaci\'on, permiti\'endonos evitar el costo computacional de las metodolog\'ias de sampleo. }%
 %
-\en{One of the main contributions of the Glicko system~\citep{glikman_gliko_2} is the development of an efficient method to approximate the exact posterior using a Gaussian distribution. }%
-\es{Uno de los principales aportes del sistema Glicko~\citep{glikman_gliko_2} fue el desarroll\'o de un m\'etodo eficiente para aproximar la posterior exacta con una distribuci\'on gaussiana. }%
+\en{One of the main contributions of the Glicko system~\citep{Glikman2013} is the development of an efficient method to approximate the exact posterior using a Gaussian distribution. }%
+\es{Uno de los principales aportes del sistema Glicko~\citep{Glikman2013} fue el desarroll\'o de un m\'etodo eficiente para aproximar la posterior exacta con una distribuci\'on gaussiana. }%
 %
 \en{However, this method does not guarantee the quality of the approximation used. }%
 \es{Sin embargo, este m\'etodo no garantiza que la distribuci\'on gaussiana seleccionada sea la que mejor aproxima. }%
@@ -592,8 +576,8 @@
 \en{The connectivity between events is generated by the basic assumption that a player's skill at time $t$ depends on his own skill at an earlier time $t-1$,  generating a network that acquires its structure depending on who participates in each event. }%
 \es{La conectividad entre eventos surge de suponer que la habilidad de un jugador en un tiempo $t$ depende de su propia habilidad en un tiempo anterior $t-1$, generando un red que adquiere su estructura dependiendo de quienes participan en cada evento. }%
 %
-\en{Similar algorithms were implemented by \cite{coulom2008-wholeHistoryRating} and \cite{maystre2019-pairwise} based on Laplacian approximations and Gaussian processes, respectively. }%
-\es{Algoritmos similares fueron implementados por \cite{coulom2008-wholeHistoryRating} y \cite{maystre2019-pairwise} basados en aproximaciones laplacianas y procesos gaussianos respectivamente. }%
+\en{Similar algorithms were implemented by \cite{Coulom2008} and \cite{Maystre2019} based on Laplacian approximations and Gaussian processes, respectively. }%
+\es{Algoritmos similares fueron implementados por \cite{Coulom2008} y \cite{Maystre2019} basados en aproximaciones laplacianas y procesos gaussianos respectivamente. }%
 %
 \en{This produces a mutual dependence between estimates that forces us to iteratively use the last available likelihoods until convergence is reached (details in section~\ref{sec:throughTime}). }%
 \es{Esto produce una mutua dependencia entre estimaciones que nos obliga a usar iterativamente las últimas verosimilitudes disponibles hasta alcanzar convergencia (detalles en la secci\'on~\ref{sec:throughTime}). }%
@@ -1344,13 +1328,13 @@ target = [skill(i, 500, 2, 0.0075) for i in range(N)]
 opponents = normal(target,scale=0.5)
 \end{lstlisting}
 %
-\en{Here we only include the \proglang{Python} version (\proglang{Julia} and \proglang{R} versions can be found in the appendix~\ref{sec:appendix_skill_evolution}). }%
+\en{Here we only include the \proglang{Python} version (Appendix~\ref{sec:appendix_skill_evolution} includes \proglang{Julia} and \proglang{R} versions). }%
 \es{Aquí incluimos s\'olo la versi\'on de \proglang{Python} (las versiones de \proglang{Julia} y \proglang{R} se encuentran en el anexo \ref{sec:appendix_skill_evolution}). }%
 %
 \en{The list \texttt{target} has the agent's skills at each moment: the values start at zero and grow smoothly until the target player's skill reaches two. }%
 \es{La lista \texttt{target} contiene la habilidad del agente en cada momento: los valores comienzan en cero y crecen suavemente hasta que la habilidad del jugador objetivo llega a dos. }%
 %
-\en{The list \texttt{opponents} includes the randomly generated opponents' skills following a Gaussian distribution centered on each of the target's skills and a standard deviation of $0.5$. }%
+\en{The list \texttt{opponents} includes the randomly generated opponents' skills following a Gaussian distribution centered on each target's skills and a standard deviation of $0.5$. }%
 \es{La lista \texttt{opponents} incluye los oponentes generadas mediante una distribuci\'on gaussiana centrada en cada una de las habilidades del jugador objetivo con un desvío estandar de $0.5$. }%
 %
 \begin{lstlisting}[backgroundcolor=\color{python!60},label=lst:estimating_the_simulated, caption={\en{Estimating the simulated learning curve from random results}\es{Estimando la curva de aprendizaje simulada a partir de los resultados aleatorios}}, belowskip=0.1cm, aboveskip=0.1cm]
@@ -1364,33 +1348,33 @@ h.convergence()
 mu = [tp[1].mu for tp in h.learning_curves()["a"]] 
 \end{lstlisting}
 %
-\en{In this code we define four variables to instantiate the class \texttt{History} in order to compute the target's learning curve. }%
+\en{In this code, we define four variables to instantiate the class \texttt{History} to compute the target's learning curve. }%
 \es{En este código definimos cuatro variables para instanciar la clase \texttt{History} con el objetivo de obtener la curva de aprendizaje del agente. }%
 %
 \en{The variable \texttt{composition} contains 1000 games between the target player and different opponents. }%
 \es{La variable \texttt{composition} contiene 1000 partidas entre el jugador objetivo y los distintos oponentes. }%
 %
-\en{The results of the list \texttt{results} are obtained randomly, sampling the performance of the players through Gaussian distributions centered on their skills, with the winner being the player with the highest performance. }%
+\en{The list \texttt{results} is generated randomly by sampling the agents' performance following Gaussian distributions centered on their skills. The winner is the player with the highest performance. }%
 \es{Los resultados de la lista \texttt{results} se obtienen de forma aleatoria, muestreando los desempeños de los jugadores a través de distribuciones gaussianas centradas en sus habilidades, siendo ganador el jugador con mayor rendimiento. }%
 %
-\en{The variable \texttt{time} is a list of integer values ranging from 0 to 999 representing the time batch in which each game is located: the class \texttt{History} uses the temporal distance between events to determine the amount of dynamic uncertainty ($\gamma^2$) that is added between games. }%
+\en{The variable \texttt{time} is a list of integer values ranging from 0 to 999 representing the time batch in which each game is located: the class \texttt{History} uses the temporal distance between events to determine the amount of dynamic uncertainty ($\gamma^2$) to be added between games. }%
 \es{La variable \texttt{tiempo} es una lista de valores enteros que van de 0 a 999 y que representan el lote temporal en el que está ubicada cada partida: la clase \texttt{History} utiliza la distancia temporal entre eventos para determinar la cantidad de incertidumbre dinámica ($\gamma^2$) que se añade entre partidas. }%
 %
-\en{The variable \texttt{priors} is a dictionary used to customize player attributes: we assign low uncertainty to the opponents' priors pretending that we know their skills beforehand. }%
+\en{The variable \texttt{priors} is a dictionary used to customize player attributes: we assign low uncertainty to the opponents' priors as we know their skills beforehand. }%
 \es{La variable \texttt{priors} es un diccionario usado para personalizar los atributos de los jugadores: asignamos baja incertidumbre a los priors de los oponentes, simuando que conocemos sus habilidades de antemano. }%
 
 % Parrafo
 
-\en{The class \texttt{History} receives this four parameters and initializes the target player using the default values and a dynamic uncertainty \texttt{gamma=0.015}. }%
+\en{The class \texttt{History} receives these four parameters and initializes the target player using the default values and a dynamic uncertainty \texttt{gamma=0.015}. }%
 \es{La clase \texttt{History} recibe estos cuatro parámetros e inicializa al agente objetivo con los valores por defecto y una incertidumbre dinámica \texttt{gamma=0.015}. }%
 %
-\en{Using the method \texttt{convergence()} we obtain the TrueSkill Through Time estimates and the target's learning curve. }%
+\en{Using the method \texttt{convergence()}, we obtain the TrueSkill Through Time estimates and the target's learning curve. }%
 \es{Usando el m\'etodo \texttt{convergence()} obtenemos las estimaciones de TrueSkill Through Time y la curva de aprendizaje del agente objetivo. }%
 %
-\en{Because the estimates depend on random results, we repeatedly execute the code~\ref{lst:estimating_the_simulated} to account for their variability. }%
+\en{Because the estimates depend on random results, we repeatedly execute code~\ref{lst:estimating_the_simulated} to consider their variability. }%
 \es{Debido a que las estimaciones dependen de los resultados aleatorios, repetimos la ejecución del código~\ref{lst:estimating_the_simulated} para tener en cuenta su variabilidad. }%
 %
-\en{The Figure~\ref{fig:logistic} shows the evolution of the true (solid line) and estimated (dotted line) learning curves of the target player. }%
+\en{Figure~\ref{fig:logistic} shows the evolution of the true (solid line) and estimated (dotted line) target player's learning curves. }%
 \es{La figura~\ref{fig:logistic} muestra la evolución de la curva de aprendizaje real (línea sólida) y estimada (línea punteada) del jugador objetivo. }%
 %
 \begin{figure}[ht!]
@@ -1417,7 +1401,7 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
     \en{True and estimated learning curves of a new player that joins a large community of already known players. }%
     \es{Curva de aprendizaje sintética y estimada de un jugador nuevo que se incorpora a una comunidad grande de jugadores ya conocidos. }%
     %
-    \en{The solid line represents the true skill of the target player while the dashed lines show the mean estimates. }%
+    \en{The solid line represents the target player's actual skill while the dashed lines show the mean estimates. }%
     \es{La línea continua representa la habilidad real del jugador objetivo, mientras que la línea discontinua muestra la estimación media. }%
     %
     \en{The dark and light gray areas show one and two times the uncertainty of one of the estimates. }%
@@ -1429,10 +1413,10 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \en{The estimated learning curves remain close to the actual skill during the whole evolution as can be seen in Fig~\ref{fig:logistic_mu}. }%
 \es{En la figura~\ref{fig:logistic_mu} vemos que las medias de las curvas de aprendizaje estimada se mantienen siempre cerca de la habilidad real durante toda la evolución. }%
 %
-\en{For the Fig~\ref{fig:logistic_sigma}, we select one of the estimated learning curves and present its uncertainty, showing that the actual learning curve is contained in the uncertainty interval. }%
+\en{For Fig.~\ref{fig:logistic_sigma}, we select one of the estimated learning curves and present its uncertainty, showing that the actual learning curve is contained in the uncertainty interval. }%
 \es{En la figura~\ref{fig:logistic_sigma} vemos que la curva real esta siempre contenida en el intervalo de incertidumbre de cualquiera de las estimaciones. }%
 %
-\en{This example exhibit that TrueSkill Through Time is able to follow the evolution of new player's skill. }%
+\en{This example exhibit that TrueSkill Through Time can follow the evolution of a new player's skill. }%
 \es{Este ejemplo evidencia que TrueSkill Through Time es capaz de seguir la evolución de las habilidades de los jugador nuevos. }%
 
 \subsection{\en{The history of the Association of Tennis Professionals (ATP)}\es{Historia de la Asociación de Tenistas Profesionales (ATP)}} \label{sec:atp}
@@ -1440,22 +1424,22 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \en{In this last example, we analyze the complete history of the Association of Tennis Professionals (ATP) registered matches. }%
 \es{En este último ejemplo utilizamos toda la historia de partidas de la Asociación de Tenistas Profesionales (ATP). }%
 %
-\en{The database has \num{447000} games starting at year 1915 until 2020 with more than \num{19000} participating players and is publicly available. }%
+\en{The database has \num{447000} games starting in 1915 until 2020 with more than \num{19000} participating players and is publicly available. }%
 \es{La base de datos cuenta con \num{447000} mil partidas que van desde el año 1915 hasta el 2020, en las que participan \num{19000} jugadores. }%
 %
-\en{The information stored in a single \texttt{csv} file\footnote{Available at \url{https://github.com/glandfried/tennis_atp/releases/download/atp/history.csv.zip}. Additional data at Jeff Sackmann's site: \url{https://github.com/JeffSackmann/tennis_atp}.} includes both single and double matches: if the column \texttt{double} has the letter \texttt{t}, the game is a double match. }%
+\en{The information stored in a single \texttt{CSV} file\footnote{Available at \url{https://github.com/glandfried/tennis_atp/releases/download/atp/history.csv.zip}. Additional data at Jeff Sackmann's site: \url{https://github.com/JeffSackmann/tennis_atp}.} includes both single and double matches: if the column \texttt{double} has the letter \texttt{t}, the game is a double match. }%
 \es{La información resumida en una archivo \texttt{csv}\footnote{Archivo disponible en \nolinkurl{https://github.com/glandfried/tennis_atp/releases/download/atp/history.csv.zip}. Una fuente de datos actualizada en \nolinkurl{https://github.com/JeffSackmann/tennis_atp}} contiene tanto partidas simples como dobles: si la columna \texttt{double} tiene la letra \texttt{t} la partida es doble. }%
 %
 \en{Each game has an identifier (i.e. \texttt{match\_id}) and its tournament's round number (i.e. \texttt{round\_number}), where 0 represents the final game, 1 the semi-final, and so on. }%
 \es{Cada partida tiene un identificador (\texttt{match\_id}) y su número de ronda (\texttt{round\_number}), donde 0 representa la partida final, 1 la semi-final, etc. }%
 %
-\en{The file also contains players' identifiers and names: for example column \texttt{w2\_id} is the identifier of the second player of the winning team and \texttt{l1\_name} is the name of the first player of the losing team. }%
+\en{The file also contains players’ identifiers and names. For example, column \texttt{w2\_id} is the second player's identifier of the winning team, and \texttt{l1\_name} is the first player's name of the losing team. }%
 \es{The file also contains the identifiers and names of the players: por ejemplo \texttt{w2\_id} es el identificador del segundo jugador del equipo ganador y \texttt{l1\_name} es el nombre del primer jugador del equipo perdedor. }%
 %
-\en{Finally, we have the name of the tournament (\texttt{tour\_name}), its identifier (\texttt{tour\_id}), the start date of the tournament (\texttt{time\_start}) and the type of surface (\texttt{ground}). }%
+\en{Finally, we have the tournament's name (\texttt{tour\_name}), its identifier (\texttt{tour\_id}), the tournament's starting date (\texttt{time\_start}), and the type of surface (\texttt{ground}). }%
 \es{Finalmente tenemos el nombre del torneo (\texttt{tour\_name}), su identificado (\texttt{tour\_id}), la fecha de inicio del torneo (\texttt{time\_start}) y el tipo de piso (\texttt{ground}). }%
 %
-\en{Here we only show the \proglang{Julia} code because it is far more efficient than \proglang{Python} and \proglang{R} versions (the \proglang{Python} and \proglang{R} codes can be found in appendix \ref{sec:appendix_atp_code}, and the performance comparison can be found in section \ref{sec:computationDetails}). }%
+\en{Here we only show the \proglang{Julia} code because it is far more efficient than \proglang{Python} and \proglang{R} versions (Appendix~\ref{sec:appendix_atp_code} shows the \proglang{Python} and \proglang{R} codes and Section~\ref{sec:computationDetails} compares the performance between them). }%
 \es{Aquí mostramos sólo el código de \proglang{Julia} debido a que es la versión más eficiente (los códigos de \proglang{Python} y \proglang{R} se pueden encontrar en el anexo \ref{sec:appendix_atp_code}, y la comparación de rendimiento se puede encontrar en la sección \ref{sec:computationDetails}). }%
 %
 \begin{lstlisting}[backgroundcolor=\color{julia!60},label=lst:atp, caption={\en{The history of the Association of Tennis Professionals}\es{La historia de la Asociación de Tenistas Profesionales}}, belowskip=0.1cm, aboveskip=0.1cm]
@@ -1469,83 +1453,147 @@ h = History(composition = matches, times = dates, sigma = 1.6, gamma = 0.036)
 convergence(h, epsilon = 0.01, iterations = 10)
 \end{lstlisting}
 %
-\en{In this code we open the file \texttt{atp.csv}, create the variables \texttt{times} and \texttt{composition}, and instantiate the class \texttt{History}. }%
+\en{In this code, we open the file \texttt{atp.csv}, create the variables \texttt{times} and \texttt{composition}, and instantiate the class \texttt{History}. }%
 \es{En este código abrimos el archivo \texttt{csv}, creamos las variables \texttt{times} y \texttt{composition} e instanciamos la clase \texttt{History}. }%
 %
-\en{Event times are defined as the days elapsed from a reference date to the tournament start date, assuming that the skill is the same within each tournament. }%
+\en{We define the event times as the days elapsed from a reference date to the tournament start date, assuming that the skill is the same within each tournament. }%
 \es{Los tiempos de los eventos se definen como los días transcurridos desde una fecha de referencia hasta el inicio del torneo, asumiendo que la habilidad es la misma al interior de cada torneo. }%
 %
 \en{When generating the list \texttt{composition} we discriminate whether the games are doubles or singles using the column \texttt{double}. }%
 \es{Al generar la lista \texttt{composition} discriminamos si los juegos son dobles o individuales en base a la columna \texttt{double}. }%
 %
-\en{The results are implied by the order in which we set the composition, always placing the winning team first. }%
-\es{Los resultados quedan impl\'icitos por el orden en que armamos la composición, poniendo siempre primero al equipo ganador. }%
+\en{The results are determined by the composition's order, placing the winning team first. }%
+\es{Los resultados se determinan por el orden de la composición, poniendo siempre primero al equipo ganador. }%
 %
-\en{When initializing the class \texttt{History} we set the values of \texttt{sigma} and \texttt{gamma} based on an optimization procedure previously performed (Figure~\ref{fig:optimization}). }%
+\en{When initializing the class \texttt{History} we set the values of \texttt{sigma} and \texttt{gamma} based on an optimization procedure previously performed (recall Figure~\ref{fig:optimization}). }%
 \es{Al inicializar la clase \texttt{History} modificamos los valores de \texttt{sigma} y \texttt{gamma} basados en un procedimiento de optimización realizado previamente (figura~\ref{fig:optimization}). }%
 %
-\en{Finally, we use \texttt{convergence()} method to obtain TrueSkill Through Time estimates explicitly selecting the convergence criterion: when the change between iterations is less than $0.01$ or when $10$ iterations are performed. }%
+\en{Finally, we use the \texttt{convergence()} method to obtain TrueSkill Through Time estimates explicitly selecting the convergence criterion: when the change between iterations is less than $0.01$ or when ten iterations are performed. }%
 \es{Finalmente, usamos el método \texttt{convergence()} para obtener las estimaciones de TrueSkill Through Time, indicando explícitamente el criterio de corte: cuando el cambio entre iteraciones sea menor a $0.01$, o cuando se alcanzan las $10$ iteraciones. }%
 %
-\en{Figure~\ref{fig:atp} presents the learning curves of some famous players in ATP history. }%
-\es{En la figura~\ref{fig:atp} graficamos las curvas de aprendizaje algunos jugadores famosos de la historia de la ATP. }%
-%
-
 \begin{figure}[ht!]
-    \centering
-    \includegraphics[page={1},width=.8\linewidth]{figures/atp}
+% \centering
+\begin{subtable}[b]{0.29\textwidth}
+    \scriptsize
+    \begin{tabular}{c | c | c}
+    Pos. &  Player                  &   Weeks\\
+    \hline
+    1       &   Novak Djokovic      &   320\\
+    2       &   Roger Federer       &	310\\
+    3       &	Pete Sampras        &   286\\
+    4       &   Ivan Lendl          &   270\\
+    5       &   Jimmy Connors       &   268\\
+    6       &   Rafael Nadal        &   209\\
+    7       &   John McEnroe        &   170\\
+    8       &   Bj\"orn Borg        &   109\\
+    9       &   Andre Agassi        &   101\\
+    10      &   Lleyton Hewitt      &   80 \\
+    11 	    &   Stefan Edberg       & 	72\\
+    12 	    &   Jim Courier         & 	58\\
+    13 	    &   Gustavo Kuerten     & 	43\\
+    14 	    &   Andy Murray         & 	41\\
+    15 	    &   Ilie N\u{a}stase    & 	40\\
+    16 	    &   Mats Wilander       & 	20 \\
+    \end{tabular}
     \caption{
-    \en{Estimated learning curves some famous players in ATP history. }%
-    \es{Estimación de las curvas de aprendizaje de algunos jugadores famosos de la historia de la ATP. }%
-    %
-    \en{The shaded area represents an uncertainty equivalent to one standard deviation. }%
-    \es{El área sombrada representa una incertidumbre equivalente a un desvío estandar. }%
-    %
-    \en{The top bar indicates which player was at the top of the ATP ranking. }%
-    \es{La barra superior indica que jugador estaba en el primer puesto del ranking ATP. }%
+    \en{Weeks at No. 1 }%
+    \es{Semanas como No. 1 }%
+    }
+    \label{tab:atp_weeks}
+\end{subtable}
+%
+\begin{subfigure}[b]{0.7\linewidth}
+    \centering
+    \includegraphics[width=.98\linewidth]{figures/atp}
+    \caption{
+    \en{Estimated learning curves for some famous male players. }%
+    \es{Curvas de aprendizaje estimadas de algunos jugadores masculinos. }%
     }
     \label{fig:atp}
+\end{subfigure}
+\caption{
+\en{\subref{tab:atp_weeks} Historical ranking according to the number of weeks that players reached the first position in the ATP's ranking until March 10, 2020. }%
+\es{\subref{tab:atp_weeks} Ranking histórico de acuerdo a la cantidad de semanas que los jugadores alcanzaron la primera posición del ranking ATP hasta el 10 de marzo del 2020. }%
+%
+\en{\subref{fig:atp} Estimated skill of some of the historical ATP's leaders. }%
+\es{\subref{fig:atp} Habilidad estimada de algunos de los líderes históricos de la ATP. }%
+%
+\en{The shaded area represents a standard deviation of uncertainty. }% 
+\es{El área sombrada representa un desvío estandar de incertidumbre. }%
+%
+\en{The top bar indicates which player was at the top of the ATP's ranking. }%
+\es{La barra superior indica cual jugador estaba en el primer puesto del ranking ATP. }%
+%
+\en{The dotted line, located at 6 skill points, is included to help compare the curves. }%
+\es{La línea punteada, ubicada a los seis puntos de habilidad, se incluye para ayudar a comparar las curvas. }%
+}
 \end{figure}
 %
-% \en{The advantage of TrueSkill Through Time, over TrueSkill, is that by modeling the entire dynamic process it allows us to make comparisons of skills over time. }%
-% \es{La ventaja de TrueSkill Through Time, respecto de TrueSkill, es que al modelar el proceso dinámico permite hacer comparaciones temporales de la habilidad. }%
+\en{Table~\ref{tab:atp_weeks} shows the historical ranking of players in the top position of the ATP's ranking according to the number of weeks occupying the first position. The table is updated to the date of writing this manuscript and, as the ATP's tour was suspended due to the COVID-19, 22 weeks are excluded from consideration. }%
+\es{La tabla~\ref{tab:atp_weeks} presenta el ranking histórico de acuerdo a la cantidad de semanas que los jugadores alcanzaron la primera posición del ranking ATP hasta el d\'ia de confecci\'on del presente documento. }%
 %
-\en{Those who know the history of tennis will be able to recognize the periods of crisis, stability and success of the players, but they will also find some surprises. }%
-\es{Quien conozca la historia del tenis podrá reconocer los períodos de aprendizaje, éxito, estabilidad y caída de los jugadores. }%
+\en{Figure~\ref{fig:atp} presents the estimated learning curves of some famous male players in ATP's history which we identified using different colors. }%
+\es{En la figura~\ref{fig:atp} graficamos las curvas de aprendizaje de algunos jugadores famosos de la historia de la ATP, que identificamos usando diferentes colores. }%
 %
+\en{The top bar indicates which player was at the top of the ATP's ranking (the bar has no color when player number 1 is not included in our analysis). }%
+\es{La barra superior indica cual jugador estaba en el primer puesto del ranking ATP (la barra no tiene color cuando el jugador numero 1 no está incluido en nuestro análisis). }%
 
-\en{There is a relative coincidence between skill and who is at any given moment at the top of the ATP rankings, it is possible to observe the effects of injuries, and even the effect of emotional slumps such as those that Aggasi and Djockovic had. }%
-\es{Existe una relativa coincidencia entre la habilidad y quién está en cada momento en el primer puesto del ranking ATP, es posible observar los efectos de las lesiones, e incluso el efecto de los bajones emocionales como los que tuvieron Aggasi y Djockovic. }%
-%
-\en{But you may also find some surprises. }%
-\es{Pero quizás usted también encuentre algunas sorpresas. }%
-%
-\en{It is interesting to see that the skill of tennis players did not increase so much over the years: on the contrary the players of the 1980s were more skilled than those of the 1990s, and reached a skill similar to what Federer, Nadal and Djokovic had in 2020. }%
-\es{Es interesante ver que la habilidad de los tenistas no aumentó tanto con los años: al contrario los jugadores de la década de los 80 fueron más habilidosos que aquellos de la década de los 90, y alcanzaron una habilidad similar a la que Federer, Nadal y Djokovic tuvieron en el año 2020. }%
-%
-\en{There are also some differences between players' skills and the ATP ranking, especially with respect to the historical ranking (based on the total number of weeks at the top of the ranking): the 10th-ranked player, Hewitt, actually has relatively low skill; and the fourth most skilled player, Murray, is ranked 14th, just one place above Nastase. }%
-\es{Existen también algunas diferencias entre las habilidades de los jugadores y el ranking de la ATP, en especial respecto al ranking histórico (basado en la cantidad total de semanas en el tope del ranking): el jugador que aparecen en el puesto 10, Hewitt, tiene en realidad una habilidad relativamente baja; y el cuarto jugador con mayor habilidad, Murray, aparece en el puesto 14, sólo un lugar arriba de Nastase. }%
-%
-\en{TrueSkill Through Time, unlike ATP ranking and estimators based on the filtering approach (such as TrueSkill, Glicko and IRT) allows comparing the relative ability of players over time. }%
-\es{TrueSkill Through Time, a diferencia del ranking ATP y de los estimadores basados en el enfoque de filtrado (como TrueSkill, Glicko e IRT) permite comparar la habilidad relativa de los jugadores en el tiempo. }%
 
-% \en{Perhaps the most notable change introduced by professionalism is the stability of learning curves, which is seen in today's players as opposed to the early players. }%
-% \es{Quizás el cambio más notable introducido por el profesionalismo sea la estabilidad de las curvas de aprendizaje, que se aprecia en los jugadores actuales a diferencia de los primeros jugadores. }%
+% Parrafo
+\en{ATP's ranking points are updated every Monday according to the prestige of the tournament and the stage reached. }%
+\es{Los puntos de la clasificación de la ATP se actualizan semanalmente en función del prestigio del torneo y la fase alcanzada. }%
+%
+\en{Only during brief periods there is no coincidence between the estimated skill and the player who is at the top of the ATP's ranking, showing a good agreement between both methodologies. }%
+\es{Hay una buena concordancia entre ambas metodologías respecto de la detección de quién es el mejor jugador en cada momento. }%
+%
+\en{The ATP's ranking take time to identify the best player because the points are dropped a year after being awarded. }%
+\es{La clasificación de la ATP tarda en identificar al mejor jugador debido que su método retira los puntos un año después de ser otorgados. }%
+\en{Perhaps more interesting are the differences with respect to the historical ranking shown in Table~\ref{tab:atp_weeks}. }%
+\es{Quizás más interesante sean las diferencia respecto del ranking histórico que se muestra en la tabla~\ref{tab:atp_weeks}. }%
+%\en{Notwithstanding, there are some differences between players' skills and the ATP's ranking, especially concerning the historical ranking shown in Table~\ref{tab:atp_weeks}. }%
+%
+\en{For example, Lleyton Hewitt's position in the historical ranking is the product of a window of opportunity opened around the year 2000, since his ability is relatively low in historical terms. }%
+\es{La posición que obtiene Lleyton Hewitt en el ranking histórico de la ATP es producto de una ventana de oportunidad abierta cerca del año 2000, pues su habilidad es relativamente baja en términos históricos. }% 
+%
+\en{On the other hand, Andy Murray is the fourth most skilled player according to our estimations, but he only reaches 14th place in the historical ranking, just one place above Ilie N\u{a}stase. }%
+\es{Por otro lado, Andy Murray, siendo el cuarto jugador más hábil, sólo ocupa el puesto 14 en la clasificación histórica de la ATP, sólo un lugar por encima de Ilie N\u{a}stase. }%
 
 % Parrafo
 
-\en{In this example we are summarizing the players' skill in a single dimension. }%
-\es{En este ejemplo estamos resumiendo la habilidad de los jugadores en una única dimensión. }% 
+\en{TrueSkill Through Time allows comparing the relative ability of players over time, unlike historical ATP's ranking and estimators based on the filtering approach (such as TrueSkill, Glicko, and IRT). }%
+\es{TrueSkill Through Time permite comparar la habilidad relativa de los jugadores en el tiempo, a diferencia del ranking histórico de la ATP y de los estimadores basados en el enfoque de filtrado (como TrueSkill, Glicko e IRT). }%
 %
-\en{We know, however, that the ability of tennis players can vary significantly depending on the type of ground. }%
-\es{Sabemos, sin embargo, que la habilidad de los jugadores de tenis puede variar significativamente según el tipo de suelo. }%
+\en{The learning curves share a similar pattern: they begin with rapid growth, reach an unstable plateau, and end with a slow decline (we hidden the last portion of the players who have long final stages for visualization purposes). }%
+\es{Estas curvas de aprendizaje comparten un patrón similar: comienzan con un crecimiento rápido, alcanzan una meseta inestable, y terminan con una caída lenta (por razones de visualización hemos ocultado la última porción de los jugadores que tienen etapas finales largas). }%
 %
-\en{TrueSkill Through Time allows estimating this type of multi-dimensional skills. }%
-\es{TrueSkill Through Time permite estimar este tipo de habilidades multi-dimensionales. }%
+\en{Individual learning curves enable recognizing special periods of crisis and prolonged stability of the professional players, and even the effects of emotional slumps such as those suffered by Aggasi and Djokovic. }%
+\es{Las curvas de aprendizaje individuales permiten reconocer los períodos de crisis, estabilidad y éxito de los jugadores, e incluso los efectos de los bajones emocionales como los que sufrieron Aggasi y Djokovic. }%
 %
-\en{One option is to keep one skill variable per player, that we include in all games, and one skill variable per ground, that we add as their teammate depending on the type of game. }%
-\es{Una opción es mantener una variable de habilidad respectiva al jugador, que incluimos en todas las partidas, y una variable de habilidad por suelo, que agregameos como su compañero de equipo según el tipo de partida. }%
+% \en{Three major stages can be distinguished in Figure~\ref{fig:atp}: from the beginning until 1990, ii) between 1990 and 2003, iii) from 2003 onwards. }%
+% \es{En la figura~\ref{fig:atp} se pueden observar tres grandes etapas: i) desde el comienzo hasta 1990, ii) entre 1990 y 2003, iii) desde 2003 en adelante. }%
+% %
+\en{It is worthwhile to note that the skill of tennis players did not increase abruptly over the years: contrary to what might have been expected, the players of the 1980s were more skilled than those of the 1990s, and reached a skill similar to what Federer, Nadal and Djokovic had in 2020, even though the latter reached higher values for a longer time.}%the players of the first zone are far more skilled than those of the 1990s (second zone), and those of the third zone noticeably surpassed all previous players in the history of ATP. }%
+\es{Cabe destacar que la habilidad de los tenistas no aumentó bruscamente a lo largo de los años: en contra de lo que cabría esperar, los jugadores de la década de 1980 eran más hábiles que los de la década de 1990, y alcanzaron una habilidad similar a la que tenían Federer, Nadal y Djokovic en 2020, aunque estos últimos alcanzaron valores más altos durante más tiempo. }%
+% \en{There is another difference in the third zone compared to the others regarding the duration of top players' careers: they can maintain their skill much longer than before. }%
+% \es{COMPLETAR }%
+
+% Parrafo
+
+\en{In the previous example, we summarize the players' skills in a single dimension. }%
+\es{En el ejemplo anterior resumimos la habilidad de los jugadores en una única dimensión. }% 
 %
+\en{TrueSkill Through Time allows estimating multi-dimensional skills. }%
+\es{TrueSkill Through Time permite estimar habilidades multi-dimensionales. }%
+%
+\en{It is known that the ability of certain tennis players varies significantly depending on the surface. }%
+\es{Sabemos que la habilidad de los jugadores de tenis puede variar significativamente según el tipo de suelo. }%
+%
+\en{To quantify this phenomenon, we propose modeling each player as a team composed of a generic player, who is included in all the games, and another player representing the ability of the player on a particular surface. } %
+\es{Para cuantificar este fenómeno, proponemos modelar cada jugador como un equipo compuesto por un jugador genérico, que se incluye en todos los eventos, y otro jugador que representa la habilidad del jugador en una superficie particular. }% 
+%
+\en{For example, Nadal will be represented as a two-player team: \emph{Nadal\_generic} and \emph{Nadal\_clay} when playing on this kind of surface, and \emph{Nadal\_generic} and \emph{Nadal\_grass} when participating in the Wimbledon tournament. }%
+\es{Por ejemplo, Nadal se representará como un equipo de dos jugadores: \emph{Nadal\_generic} y \emph{Nadal\_clay} cuando juegue en este tipo de superficie, y \emph{Nadal\_generic} y \emph{Nadal\_grass} cuando participe en el torneo de Wimbledon. }% 
+
 \begin{lstlisting}[backgroundcolor=\color{julia!60},label=lst:atp_ground, caption={\en{Modeling multi-dimensional skills in ATP history}\es{Modelando habilidades multi-dimensionales en la historia de la ATP}}, belowskip=0.1cm, aboveskip=0.1cm]
 players = Set(vcat((composition...)...))
 priors = Dict([(p, Player(Gaussian(0., 1.6), 1.0, 0.036) ) for p in players])
@@ -1556,16 +1604,19 @@ h_ground = History(composition = composition_ground, times = dates, sigma = 1.0,
 convergence(h_ground, epsilon = 0.01, iterations=10)
 \end{lstlisting}
 %
-\en{In this example we keep the same prior as before for the players, this time defined in the variable \texttt{priors}. }%
-\es{En este ejemplo mantenemos el mismo prior de los jugadores, esta vez definidos explícitamente mediante la variable \texttt{priors}. }%
+\en{In this example we keep the same prior as before for all the generic players, but this time we define them using the variable \texttt{priors}. }%
+\es{En este ejemplo mantenemos el mismo prior para todos los jugadores genéricos, pero en esta ocasión los definidos usando la variable \texttt{priors}. }%
 %
-\en{In this way, the values chosen to initialize the class \texttt{History} will only be used for the ground skill factors. }%
-\es{De este modo, los valores elegidos para inicializar la clase \texttt{History} sólo serán utilizdos para los factores de habilidad de piso. }%
+\en{Just as in the previous code (\ref{lst:atp}), we create the teams depending on whether the game is double or single, but now adding the specific skills of each player as their teammate (we use the operator \texttt{*} to concatenate strings). }%
+\es{Al igual que en el código anterior (\ref{lst:atp}), creamos los equipos en función de si la partida es doble o simple, pero ahora añadiendo las habilidades específicas de cada jugador como su compañero de equipo (usamos el operador \texttt{*} para concatenar strings). }%
+%
+\en{As the specific skills are not defined in the dictionary \texttt{prior}, they will be initialized with the default values indicated in the class \texttt{History}. }%
+\es{Como las habilidades específicas no están definidas en el diccionario \texttt{prior}, ellas van a ser inicializadas con los valores por defecto que le indicamos a la clase \texttt{History}. }%
 %
 \en{For those factors we chose a null \texttt{beta} so as not to add more noise to the players' performance, keeping the scale of the estimates stable. }%
 \es{Para ellos elegimos un \texttt{beta} nulo de modo tal de no agregar más ruido al rendimiento de los jugadores, manteniendo estable la escala de las estimaciones. }%
 %
-\en{We choose a \texttt{sigma} that we consider sufficiently large and a dynamic factor \texttt{gamma} that represents 1\% of the a priori uncertainty. }%
+\en{We choose a \texttt{sigma} that we consider sufficiently large and a dynamic factor \texttt{gamma} that represents \SI{1}{\percent} of the a priori uncertainty. }%
 \es{Elegimos un \texttt{sigma} que consideramos suficientemente grande y una factor dinámico \texttt{gamma} que represente el 1\% de la incertidumbre a priori. }%
 \begin{figure}[ht!]
     \centering
@@ -1599,23 +1650,20 @@ convergence(h_ground, epsilon = 0.01, iterations=10)
 \en{In the case of Nadal it seems important to model the skill's multi-dimensionality, while in Djokovic's case it seems reasonable to summarize it in a single dimension. }%
 \es{En el caso de Nadal parece importante modelar la multi-dimensionalidad de la habilidad, mientras que en el caso de Djokovic parece razonable resumir la habilidad en una única dimensión. }%
 %
-\en{To assess whether the complexity added by modeling multidimensionality is appropriate in general terms, we can compare the joint priori prediction of the models, calling the method \texttt{log\_evidence()} of the class \texttt{History}. }%
+\en{To assess whether the complexity added by modeling multidimensionality is appropriate in general terms, we can compare the joint prior prediction of the models, calling the method \texttt{log\_evidence()} of the class \texttt{History}. }%
 \es{Para evaluar si la complejidad que se agrega al modelar la multidimensional conviene en términos generales, podemos comparar la predicción a priori conjunta de los modelos, llamando al método \texttt{log\_evidence()} de la clase \texttt{History}. }%
 %
-\en{In tennis it is sufficient to summarize the skills in a single dimension, since the a priori prediction is maximized when the parameters of the ground factors, $\sigma$ and $\gamma$, vanish. }%
+\en{In tennis it is sufficient to summarize the skills in a single dimension, since the a prior prediction is maximized when the parameters of the ground factors, $\sigma$ and $\gamma$, vanish. }%
 \es{En tenis es suficiente resumir las habilidades en una única dimensión, dado que la predicción a priori se maximiza cuando los parámetros de los factores de piso, $\sigma$ y $\gamma$, se desvanecen. }%
+%
+\en{In other examples, where the multidimensionality of skills is more relevant, it may be appropriate to separate the skills of all agents into different components. }%
+\es{En otros ejemplos, donde la multidimensionalidad de las habilidades sea más relevante, convendrá separar la habildiad de todos los agente en diferentes componentes. }%
 %
 \en{If we consider only the games in which Nadal participates, optimality is achieved when the parameters take the values $\sigma=0.35$ and $\gamma=0$, meaning that it is necessary to model multidimensional skills ($\sigma>0$) but considering that their effect does not change over time ($\gamma = 0$). }%
 \es{Si consideramos sólo las partidas en las que participa Nadal, la optimización se alcanza cuando los parámetros toman los valores $\sigma=0.35$ y $\gamma=0$, indicando que conivene modelar habilidades multidimensionales ($\sigma>0$) pero considerando que su efecto no cambia en el tiempo ($\gamma = 0$). }%
 %
 \en{In this scenario, Nadal's ability on Clay is $0.87\beta$ higher than on Hard, and $1.05\beta$ higher than on Grass. }%
 \es{En este escenario, la habilidad de Nadal en polvo de ladrillo es $0.87\beta$ mayor a la de cemento, y $1.05\beta$ mayor a la de pasto. }%
-%
-\en{In other examples, where the multidimensionality of skills is more relevant, it may be appropriate to separate the skills of all agents into different components. }%
-\es{En otros ejemplos, donde la multidimensionalidad de las habilidades sea más relevante, convendrá separar la habildiad de todos los agente en diferentes componentes. }%
-%
-
-
 
 
 
@@ -2465,8 +2513,8 @@ p(d) =
 \end{cases}
 \end{equation}
 %
-\en{It is known that the exponential family, to which the Gaussian distribution belongs, minimizes the Kullback-Leibler divergence with respect to the true distribution $p$, $KL(p||q)$, when both have the same moments~\citep{minka2005-divergences}. }%
-\es{Se sabe que la familia exponencial, a la que pertenece la distribución gaussianas, minimizan la divergencia Kullback-Leibler respecto de la verdadera distribución $p$, $KL(p||q)$, cuando ambas tienen mismos momentos~\citep{minka2005-divergences}. }%
+\en{It is known that the exponential family, to which the Gaussian distribution belongs, minimizes the Kullback-Leibler divergence with respect to the true distribution $p$, $KL(p||q)$, when both have the same moments~\citep{Minka2005}. }%
+\es{Se sabe que la familia exponencial, a la que pertenece la distribución gaussianas, minimizan la divergencia Kullback-Leibler respecto de la verdadera distribución $p$, $KL(p||q)$, cuando ambas tienen mismos momentos~\citep{Minka2005}. }%
 %
 \en{The expectation and variance of a truncated Gaussian $\N(x|\mu,\sigma^2)$ in a $[a,b]$ interval are,}
 \es{La esperanza y la varianza de una gaussiana truncada $\N(x|\mu,\sigma^2)$ en un intervalo $[a,b]$ son,}
@@ -3482,8 +3530,8 @@ lhood_tc = lhood_lose_tc
 sponse Theory models. }%
 \es{Las implementaciones hechas en este trabajo abre la posibilidad de incorporar las extensiones que con los años se fueron desarrollando para los modelos TrueSkill e Item-Response Theory. }%
 %
-\en{For example, it would be possible to use as observable data not only the ordinal values of the results (lose/tie/win), but also the difference in points that those results had~\citep{guo2012-scoreBasedTrueSkill}. }%
-\es{Por ejemplo, sería posible usar como datos observable no sólo los valores ordinales de los resultados (perder/empatar/ganar), sino también la diferencia de puntos que tuvieron esos resultados~\citep{guo2012-scoreBasedTrueSkill}. }%
+\en{For example, it would be possible to use as observable data not only the ordinal values of the results (lose/tie/win), but also the difference in points that those results had~\citep{Guo2012}. }%
+\es{Por ejemplo, sería posible usar como datos observable no sólo los valores ordinales de los resultados (perder/empatar/ganar), sino también la diferencia de puntos que tuvieron esos resultados~\citep{Guo2012}. }%
 %
 \en{Sociocultural factors that affect individual abilities could also be taken into account~\citep{VanDerLinden2016}. }%
 \es{También se podría tener en cuenta factores socio-cultural que afectan las habilidades individuales~\citep{VanDerLinden2016}. }%
@@ -3729,7 +3777,7 @@ sponse Theory models. }%
 %% - Titles in the .bib should be in title case.
 %% - DOIs should be included where available.
 
-\bibliography{../../bibliografia/journalsAbbr,../../bibliografia/Gaming/gaming}
+\bibliography{journalsAbbr,gaming}
 % All references should be made with \verb|\cite|, \verb|\citet|, \verb|\citep|,
 % \verb|\citealp|
 % \begin{itemize}
@@ -3823,6 +3871,13 @@ days = as.numeric(as.Date(data[,"time_start"], format = "%Y-%m-%d"))
 h = History(composition = composition, times = days, sigma = 1.6, gamma = 0.036)
 h$convergence(epsilon=0.01, iterations=10)
 \end{lstlisting}
+
+\begin{figure}[ht!]
+ \centering
+  \includegraphics[page={1},width=.8\linewidth]{figures/atp_trueskill}
+  \caption{ATP TrueSkill}
+  \label{atp_trueskill}
+\end{figure}
 
 
 \subsection{\en{Gaussian product}\es{Producto de gaussianas}}\label{multiplicacion_normales}

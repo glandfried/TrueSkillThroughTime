@@ -1,7 +1,4 @@
-all: fig compile
-
-fig:
-	make -C figures
+all: compile
 
 compile: clean pdfclean article-es.pdf article-en.pdf
 
@@ -11,7 +8,7 @@ article-es.pdf:
 	bibtex article.aux
 	pdflatex article.tex
 	pdflatex article.tex
-	mv article.pdf article-es.pdf
+	mv article.pdf article-es-`date +'%y.%m.%d'`.pdf
 
 article-en.pdf:
 	sed -i 's/\\estrue/\\entrue/g' article.tex
@@ -19,7 +16,7 @@ article-en.pdf:
 	bibtex article.aux
 	pdflatex article.tex
 	pdflatex article.tex
-	cp article.pdf article-en.pdf
+	cp article.pdf article-en-`date +'%y.%m.%d'`.pdf
 
 pdfclean:
 	- rm -f article*.pdf
