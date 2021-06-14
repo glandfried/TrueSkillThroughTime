@@ -1135,7 +1135,7 @@ g = Game(teams_3, result, p_draw=0.25)
 \en{The evidence and posteriors can be queried in the same way as before. }%
 \es{La evidencia y el posterior se obtienen de la misma forma que hemos visto. }%
 
-\subsection{\en{Sequence of events}\es{Secuencia de eventos}} \label{sec:sequence_of_events}
+\subsection{\en{Sequence of Events}\es{Secuencia de eventos}} \label{sec:sequence_of_events}
 
 \en{We can use the class \texttt{History} to compute the posteriors and evidence of a sequence of events. }%
 \es{La clase \texttt{History} se usa para computar los posteriors y la evidencia de secuencias de eventos. }%
@@ -1419,7 +1419,7 @@ mu = [tp[1].mu for tp in h.learning_curves()["a"]]
 \en{This example exhibit that TrueSkill Through Time can follow the evolution of a new player's skill. }%
 \es{Este ejemplo evidencia que TrueSkill Through Time es capaz de seguir la evolución de las habilidades de los jugador nuevos. }%
 
-\subsection{\en{The history of the Association of Tennis Professionals (ATP)}\es{Historia de la Asociación de Tenistas Profesionales (ATP)}} \label{sec:atp}
+\subsection{\en{The History of the Association of Tennis Professionals (ATP)}\es{Historia de la Asociación de Tenistas Profesionales (ATP)}} \label{sec:atp}
 
 \en{In this last example, we analyze the complete history of the Association of Tennis Professionals (ATP) registered matches. }%
 \es{En este último ejemplo utilizamos toda la historia de partidas de la Asociación de Tenistas Profesionales (ATP). }%
@@ -1544,15 +1544,12 @@ convergence(h, epsilon = 0.01, iterations = 10)
 \es{Los puntos de la clasificación de la ATP se actualizan semanalmente en función del prestigio del torneo y la fase alcanzada. }%
 %
 \en{Only during brief periods there is no coincidence between the estimated skill and the player who is at the top of the ATP's ranking, showing a good agreement between both methodologies. }%
-\es{Hay una buena concordancia entre ambas metodologías respecto de la detección de quién es el mejor jugador en cada momento. }%
+\es{Sólo durante cortos períodos de tiempo no hay concordancia entre las estimaciones de habilidad y quién está en el primer puesto del ranking ATP, mostrando una buen acuerdo entre ambas metodologías. }%
 %
-\en{The ATP's ranking take time to identify the best player because the points are dropped a year after being awarded. }%
-\es{La clasificación de la ATP tarda en identificar al mejor jugador debido que su método retira los puntos un año después de ser otorgados. }%
-\en{Perhaps more interesting are the differences with respect to the historical ranking shown in Table~\ref{tab:atp_weeks}. }%
-\es{Quizás más interesante sean las diferencia respecto del ranking histórico que se muestra en la tabla~\ref{tab:atp_weeks}. }%
-%\en{Notwithstanding, there are some differences between players' skills and the ATP's ranking, especially concerning the historical ranking shown in Table~\ref{tab:atp_weeks}. }%
+\en{Notwithstanding, there are some notorious differences between estimated players' skills and the ATP's ranking, especially concerning the historical ranking shown in Table~\ref{tab:atp_weeks}. }%
+\es{Sin embargo, hay algunas diferencias notables con respecto al ranking histórico que se muestra en la tabla~\ref{tab:atp_weeks}. }%
 %
-\en{For example, Lleyton Hewitt's position in the historical ranking is the product of a window of opportunity opened around the year 2000, since his ability is relatively low in historical terms. }%
+\en{On the one hand, Lleyton Hewitt's position in the historical ranking is the product of a window of opportunity opened around the year 2000, since his ability is relatively low in historical terms. }%
 \es{La posición que obtiene Lleyton Hewitt en el ranking histórico de la ATP es producto de una ventana de oportunidad abierta cerca del año 2000, pues su habilidad es relativamente baja en términos históricos. }% 
 %
 \en{On the other hand, Andy Murray is the fourth most skilled player according to our estimations, but he only reaches 14th place in the historical ranking, just one place above Ilie N\u{a}stase. }%
@@ -1604,19 +1601,19 @@ h_ground = History(composition = composition_ground, times = dates, sigma = 1.0,
 convergence(h_ground, epsilon = 0.01, iterations=10)
 \end{lstlisting}
 %
-\en{In this example we keep the same prior as before for all the generic players, but this time we define them using the variable \texttt{priors}. }%
+\en{In this example, we keep the same prior as in code~\ref{lst:atp} for all the generic players, but in this code, we define them using the variable \texttt{priors}. }%
 \es{En este ejemplo mantenemos el mismo prior para todos los jugadores genéricos, pero en esta ocasión los definidos usando la variable \texttt{priors}. }%
 %
-\en{Just as in the previous code (\ref{lst:atp}), we create the teams depending on whether the game is double or single, but now adding the specific skills of each player as their teammate (we use the operator \texttt{*} to concatenate strings). }%
+\en{We create the teams depending on whether the game is double or single similarly to code~\ref{lst:atp}, but now adding the specific surface skills of each player as their teammate (we use the operator \texttt{*} to concatenate strings). }%
 \es{Al igual que en el código anterior (\ref{lst:atp}), creamos los equipos en función de si la partida es doble o simple, pero ahora añadiendo las habilidades específicas de cada jugador como su compañero de equipo (usamos el operador \texttt{*} para concatenar strings). }%
 %
-\en{As the specific skills are not defined in the dictionary \texttt{prior}, they will be initialized with the default values indicated in the class \texttt{History}. }%
+\en{As the specific surface skills are not defined in the variable \texttt{prior}, they are initialized using the default values defined in the class \texttt{History}. }%
 \es{Como las habilidades específicas no están definidas en el diccionario \texttt{prior}, ellas van a ser inicializadas con los valores por defecto que le indicamos a la clase \texttt{History}. }%
 %
-\en{For those factors we chose a null \texttt{beta} so as not to add more noise to the players' performance, keeping the scale of the estimates stable. }%
+\en{We also define \texttt{beta} as null for specific surface skills to avoid adding additional noise to the players' performance, keeping the scale of the estimates stable. }%
 \es{Para ellos elegimos un \texttt{beta} nulo de modo tal de no agregar más ruido al rendimiento de los jugadores, manteniendo estable la escala de las estimaciones. }%
 %
-\en{We choose a \texttt{sigma} that we consider sufficiently large and a dynamic factor \texttt{gamma} that represents \SI{1}{\percent} of the a priori uncertainty. }%
+\en{We select a \texttt{sigma} that we consider sufficiently large and a dynamic factor \texttt{gamma} representing \SI{1}{\percent} of the prior uncertainty. }%
 \es{Elegimos un \texttt{sigma} que consideramos suficientemente grande y una factor dinámico \texttt{gamma} que represente el 1\% de la incertidumbre a priori. }%
 \begin{figure}[ht!]
     \centering
@@ -1629,7 +1626,7 @@ convergence(h_ground, epsilon = 0.01, iterations=10)
     \caption{Djokovic}
     \end{subfigure}
     \caption{
-    \en{Skill difference on the three main types of ground. }%
+    \en{Skill difference on the three main types of surface. }%
     \es{Diferencia de habilidad en los tres tipos de suelo principales. }%
     %
     \en{Each point on the $y$-axis represents a distance of one $\beta$, i.e. 76\% probability of winning. }%
@@ -1637,32 +1634,35 @@ convergence(h_ground, epsilon = 0.01, iterations=10)
     }
     \label{fig:atp_ground}
 \end{figure}
+
 %
-\en{In Figure~\ref{fig:atp_ground} we show the skill difference that Nadal and Djokovic have in each of the three types of ground. }%
+\en{In Figure~\ref{fig:atp_ground}, we show the skill difference that Nadal and Djokovic have in each of the three types of ground. }%
 \es{En la figura~\ref{fig:atp_ground} mostramos la diferencia de habilidad que Nadal y Djokovic tiene entre los tres tipos de piso. }%
 %
-\en{We can see that Nadal has a big skill difference between grounds, unlike Djokovic who has very similar skills on all three types of ground. }%
+\en{Nadal has a notorious skill difference when playing on different surfaces. On the contrary, Djokovic has very similar skills in the three types. }%
 \es{Podemos ver que Nadal tiene una diferencia de habilidad grande entre suelos, a diferencia de Djokovic que tiene habilidades muy similares en los tres tipos de suelo. }%
 %
 \en{The Nadal's skill difference between clay and grass grounds is greater than one $\beta$, which means at least 76\% difference in probability of winning compared to itself. }%
 \es{La diferencia de habilidad de Nadal entre piso de polvo de ladrillo y pasto es mayor a un $\beta$, lo que significa una diferencia de al menos 76\% de probabilidad de ganar si lo comparamos consigo mismo. }%
 %
-\en{In the case of Nadal it seems important to model the skill's multi-dimensionality, while in Djokovic's case it seems reasonable to summarize it in a single dimension. }%
+\en{In the case of Nadal, it seems important to model the skill's multi-dimensionality, while in Djokovic's case it seems reasonable to summarize it in a single dimension. }%
 \es{En el caso de Nadal parece importante modelar la multi-dimensionalidad de la habilidad, mientras que en el caso de Djokovic parece razonable resumir la habilidad en una única dimensión. }%
 %
-\en{To assess whether the complexity added by modeling multidimensionality is appropriate in general terms, we can compare the joint prior prediction of the models, calling the method \texttt{log\_evidence()} of the class \texttt{History}. }%
+\en{To assess whether the complexity added by modeling multi-dimensionality is appropriate in general terms, we can compare the joint prior prediction of the models, calling the method \texttt{log\_evidence()} of the class \texttt{History}. }%
 \es{Para evaluar si la complejidad que se agrega al modelar la multidimensional conviene en términos generales, podemos comparar la predicción a priori conjunta de los modelos, llamando al método \texttt{log\_evidence()} de la clase \texttt{History}. }%
-%
-\en{In tennis it is sufficient to summarize the skills in a single dimension, since the a prior prediction is maximized when the parameters of the ground factors, $\sigma$ and $\gamma$, vanish. }%
+
+%Parrafo
+
+\en{In tennis, it is sufficient to summarize the skills in a single dimension since the prior prediction is maximized when the parameters of the surface's factors (i.e. $\sigma$ and $\gamma$) vanish. }%
 \es{En tenis es suficiente resumir las habilidades en una única dimensión, dado que la predicción a priori se maximiza cuando los parámetros de los factores de piso, $\sigma$ y $\gamma$, se desvanecen. }%
 %
-\en{In other examples, where the multidimensionality of skills is more relevant, it may be appropriate to separate the skills of all agents into different components. }%
+\en{In other examples, where the multi-dimensionality of skills could be more relevant, it should be necessary to model the skills of all agents using different components. }%
 \es{En otros ejemplos, donde la multidimensionalidad de las habilidades sea más relevante, convendrá separar la habildiad de todos los agente en diferentes componentes. }%
 %
 \en{If we consider only the games in which Nadal participates, optimality is achieved when the parameters take the values $\sigma=0.35$ and $\gamma=0$, meaning that it is necessary to model multidimensional skills ($\sigma>0$) but considering that their effect does not change over time ($\gamma = 0$). }%
 \es{Si consideramos sólo las partidas en las que participa Nadal, la optimización se alcanza cuando los parámetros toman los valores $\sigma=0.35$ y $\gamma=0$, indicando que conivene modelar habilidades multidimensionales ($\sigma>0$) pero considerando que su efecto no cambia en el tiempo ($\gamma = 0$). }%
 %
-\en{In this scenario, Nadal's ability on Clay is $0.87\beta$ higher than on Hard, and $1.05\beta$ higher than on Grass. }%
+\en{In this scenario, Nadal's ability on Clay is $0.87\beta$ higher than on Hard and $1.05\beta$ higher than on Grass. }%
 \es{En este escenario, la habilidad de Nadal en polvo de ladrillo es $0.87\beta$ mayor a la de cemento, y $1.05\beta$ mayor a la de pasto. }%
 
 
@@ -1760,52 +1760,52 @@ convergence(h_ground, epsilon = 0.01, iterations=10)
 
 \section{Models and software} 
 
-\en{In this section we provide the complete mathematical documentation of the TrueSkill Through Time model. }%
+\en{In this section, we provide the complete mathematical documentation of the TrueSkill Through Time model. }%
 \es{En esta secci\'on ofrecemos la documentación matemática completa del modelo TrueSkill Through Time. }%
 %
 \en{The advantage of this model lies in the strict application of probability theory: all the assumptions are made explicit through a generative model, and the inference is solved only with the rules of probability, nothing more than the sum and the product rules. }%
 \es{La ventaja de este modelo reside en la aplicación estricta de la teoría de la probabilidad: todos los supuestos se hacen expl\'icitos a trav\'es de un modelo generativo, y la inferencia se resuelve sólo con las regla de la probabilidad, nada más que las reglas de la suma y el producto. }%
 %
-\en{In section~\ref{sec:sumProductAlgorithm} we introduce the \emph{sum-product algorithm}, which allows us to efficiently apply this rules to compute the marginal distributions, e.g. the posterior and the prior prediction. }%
+\en{In section~\ref{sec:sumProductAlgorithm}, we introduce the \emph{sum-product algorithm}, which allows us to apply these rules to compute the marginal distributions, e.g. the posterior and the prior prediction. }%
 \es{En la secci\'on~\ref{sec:sumProductAlgorithm} introducimos el \emph{sum-product algorithm}, que nos permite aplicar eficientemente estas reglas para computar las distribuciones marginales, e.g. el posterior y la predicción a priori. }%
 %
-\en{In section~\ref{sec:propiedades} we list the properties that we will need to derive the marginal distributions of interest. }%
+\en{In section~\ref{sec:propiedades}, we list the properties that we will need to derive the marginal distributions of interest. }%
 \es{En la secci\'on~\ref{sec:propiedades} enumeramos las propiedades que necesitaremos para derivar las distribuciones marginales de inter\'es. }%
 %
-\en{In section \ref{sec:Gaussian} we introduce the operations of the class \texttt{Gaussian}, which does most of the computation. }%
+\en{In section \ref{sec:Gaussian}, we introduce the operations of the class \texttt{Gaussian}, which does most of the computation. }%
 \es{En las sección \ref{sec:Gaussian} introducimos las operaciones de la clases \texttt{Gaussian}, la que realiza la mayor parte del c\'omputo. }%
 %
-\en{In sections \ref{sec:2vs2}, \ref{sec:empate}, and \ref{sec:approximate_posterior} we show how to solve the prior prediction and the exact posterior of an event, we introduce the darw model, we explain how to approximate the exact posterior in events with two teams. }%
+\en{In sections \ref{sec:2vs2}, \ref{sec:empate}, and \ref{sec:approximate_posterior}, we show how to solve the prior prediction and the exact posterior of an event, we introduce the model for a draw, and we explain how to approximate the exact posterior in events with two teams. }%
 \es{En las secciones \ref{sec:2vs2}, \ref{sec:empate}, \ref{sec:approximate_posterior}, mostramos c\'omo resolver la predicci\'on a priori y el posterior exacto de un evento, incorporamos empate al modelo y explicamos c\'omo aproximar el posterior exacto en partidas con dos equipos. }%
 %
-\en{In section \ref{sec:iterative_posterior} we explain the general multi-team solution, which requires the application of an iterative algorithm. }%
+\en{In section \ref{sec:iterative_posterior}, we explain the general multi-team solution which requires using an iterative algorithm. }%
 \es{En la sección \ref{sec:iterative_posterior} explicamos la soluci\'on general multi-equipos, que requiere la aplicación de un algoritmo iterativo. }%
 %
-\en{In section~\ref{sec:throughTime} we justify the mathematical steps required to solve the full TrueSkill Through Time model. }%
+\en{In section~\ref{sec:throughTime}, we justify the mathematical steps required to solve the full TrueSkill Through Time model. }%
 \es{En la secci\'on~\ref{sec:throughTime} justificamos los pasos matemáticos requeridos para resolver el modelo TrueSkill Through Time completo. }%
 
-\subsection{Sum-product algorithm} \label{sec:sumProductAlgorithm}
+\subsection{Sum-product Algorithm} \label{sec:sumProductAlgorithm}
 
 \en{The \emph{sum-product algorithm}~\citep{Kschischang2001} takes advantage of the structure of the joint probability distribution, imposed by the causal model, to efficiently apply the rules of probability. }%
 \es{El \emph{sum-product algorithm}~\citep{Kschischang2001} aprovecha la estructura de la distribuci\'on de probabilidad conjunta, impuesta por el modelo causal, para aplicar eficientemente las reglas de la probabilidad. }%
 %
-\en{Any model can be factored into the product of conditional probabilities. }%
+\en{Any model can be factorized into the product of conditional probabilities. }%
 \es{Cualquier modelo puede factorizarse en el producto de probabilidades condicionales. }%
 %
-\en{By making use of the independencies between variables, our model (figure~\ref{fig:generative_model}) can be factorized as,}
+\en{As the variables are independent, our model (figure~\ref{fig:generative_model}) can be factorized as,}
 \es{Haciendo uso de las independencias entre las variables, nuestro modelo (figura~\ref{fig:generative_model}) puede factorizarse como,}
 %
 \begin{equation} \label{eq:factorization}
  p(\bm{s},\bm{p},d,r) = p(s_1)p(s_2)p(p_1|s_1)p(p_2|s_2)p(d|\bm{p})P(r|d)
 \end{equation}
 %
-\en{In figure~\ref{fig:factor_graph} we show this factorization graphically. }%
+\en{In Fig.~\ref{fig:factor_graph}, we show this factorization graphically. }%
 \es{En la figura~\ref{fig:factor_graph} mostramos esta factorizaci\'on graficamente. }%
 %
-\en{These types of representations, known as \emph{factor graph}, are graphs with two types of nodes: variable nodes (white circles), and function nodes (black squares). }%
+\en{These representations, known as \emph{factor graphs}, have two kinds of nodes: variable-type nodes (white circles) and function-type nodes (black squares). }%
 \es{Este tipo de representaciones, conocidas como \emph{factor graph}, son gr\'afos con dos tipos de nodos: nodos variables (círculos blancos), y nodos funciones (cuadrados negros). }%
 %
-\en{The edge between node variables and node functions represent the mathematical relationship ``the variable $v$ is an argument of the function $f$''. }%
+\en{The edge between node variables and node functions represents the mathematical relationship ``the variable $v$ is an argument of the function $f$''. }%
 \es{Los ejes entre nodos variables y nodos funciones representan la relaci\'on matem\'atica ``la variable $v$ es argumento de la funci\'on $f$''. }%
 %
 \begin{figure}[ht!]
@@ -1859,11 +1859,11 @@ convergence(h_ground, epsilon = 0.01, iterations=10)
     \edge[-] {fs1} {s1};
     \edge[-] {fs2} {s2};
 }
-     \caption{
-     \en{Graphical way of representing the factorization of joint distibution induced by the basic causal model (Eq.~\ref{eq:factorization}). }%
+     \caption{%
+     \en{Graphical way of representing the factorization of joint distribution induced by the basic causal model, represented by Eq.~\eqref{eq:factorization}. }%
      \es{Forma gráfica de representar la factorizaci\'on de la distribución conjunta inducida por el modelo causal básico (ecuación~\eqref{eq:factorization}). }%
      %
-     \en{Black squares represent the functions, white circles represent the variable, and the edges between them represent the mathematical relationship ``the variable is argument of the function''. }%
+     \en{Black squares represent the functions, white circles represent the variables, and the edges between them represent the mathematical relationship ``the variable is the argument of the function''. }%
      \es{Los cuadrados negros representan las funciones, los c\'irculos blancos representan las variable, y los ejes entre ellos representan la relaci\'on matem\'atica ``la variable es argumento de la funci\'on''. }%
      %
      }
@@ -1871,39 +1871,39 @@ convergence(h_ground, epsilon = 0.01, iterations=10)
 \label{modelo}
 \end{figure} 
 %
-\en{In our case we want to compute two marginals, the proportional posterior of the skills $p(s_i, r)$ and the a prior probability of the result $p(r)$. }%
+\en{In our case, we want to compute two marginals, the proportional posterior of the skills $p(s_i, r)$ and the prior probability of the result $p(r)$. }%
 \es{En nuestro caso querermos computar dos marginales, el posterior proprocional de las habilidades $p(s_i, r)$ y la probabilidad a priori del resultado $p(r)$. }%
 %
-\en{The \emph{sum-product algorithm} is a general way of breaking down the rules of probability as messages that are sent locally between the nodes of the \emph{factor graph}. }%
+\en{The \emph{sum-product algorithm} is a general way of breaking down the rules of probability as messages locally sent between the nodes of the \emph{factor graph}. }%
 \es{El \emph{sum-product algorithm} es una forma general de descomponer las reglas de la probabilidad como mensajes que se env\'ian los nodos del \emph{factor graph}. }%
 %
-\en{There are two types of messages: the messages that variable nodes send to their functions neighbors ($m_{v \rightarrow f}(v)$); and the messages that function nodes send to their variable neighbors ($m_{f \rightarrow v}(v)$). }%
-\es{Hay dos tipos de mensajes: los mensajes que envian los nodos variables a sus funciones vecinas ($m_{v \rightarrow f}(v)$); y los mensajes que envian los nodos funciones a sus variables vecinas ($m_{f \rightarrow v}(v)$). }%
+\en{There are two types of messages: those sent by variable-type nodes to their function-type neighbors ($m_{v \rightarrow f}(v)$) and the ones that function-type nodes send to their variable-type neighbors ($m_{f \rightarrow v}(v)$). }%
+\es{Hay dos tipos de mensajes: los mensajes que envian los nodos variables a sus funciones vecinas ($m_{v \rightarrow f}(v)$); y los mensajes que env\'ian los nodos funciones a sus variables vecinas ($m_{f \rightarrow v}(v)$). }%
 %
-\en{The former encodes a portion of the product rule. }%
+\en{The former partially performs the product rule. }%
 \es{El primero codifica una porci\'on de la regla del producto. }%
 %
 \begin{equation*}\label{eq:m_v_f} \tag{\text{\en{product step}\es{paso del producto}}}
 m_{v \rightarrow f}(v) = \prod_{h \in n(v) \setminus \{f\} } m_{h \rightarrow v}(v)
 \end{equation*}
 %
-\en{Where $n(v)$ represents the set of node neighbors of $v$. }%
-\es{Donde $n(v)$ representa el conjunto de vecinos del nodo $v$. }%
+\en{where $n(v)$ represents the set of neighbor nodes to $v$. }%
+\es{donde $n(v)$ representa el conjunto de vecinos del nodo $v$. }%
 %
-\en{In short, the messages sent by a $v$ variable is simply the product of the messages that $v$ received from the rest of their neighbors $h \in n(v)$ except $f$. }%
+\en{In a brief, the messages sent by the variable-type node $v$ are simply the product of the messages that $v$ receives from the rest of their neighbors $h \in n(v)$ except $f$. }%
 \es{En pocas palabras, los mensajes que env\'ia una variables $v$ es simplemente la multiplicaci\'on de los mensajes que recibi\'o del resto de sus vecinos $h \in n(v)$ salvo $f$. }%
 %
-\en{The messages sent by the function nodes encodes a portion of the sum rule. }%
+\en{The messages sent by the function-type nodes encode a portion of the sum rule. }%
 \es{Los mensajes que env\'ian los nodos funciones codifican una parte de la regla de la suma. }%
 %
 \begin{equation*}\label{eq:m_f_v}  \tag{\text{\en{sum step}\es{paso de la suma}}}
 m_{f \rightarrow v}(v) = \int \cdots \int \Big( f(\bm{h},v) \prod_{h \in n(f) \setminus \{v\} } m_{h \rightarrow f}(h) \Big) \,  d\bm{h}
 \end{equation*}
 %
-\en{Where $\bm{h} = n(f)\setminus \{v\}$ is the set of all of neighbors of $f$ except $v$, and $f(\bm{h},v)$ represents the function $f$, evaluated in all its arguments. }%
-\es{Donde $\bm{h} = n(f)\setminus \{v\}$ es el conjunto de todos los vecinos de $f$ salvo $v$, y $f(\bm{h},v)$ represeta la funci\'on $f$, evaluada en todos sus argumentos. }%
+\en{where $\bm{h} = n(f)\setminus \{v\}$ is the set of all neighbors to $f$ except $v$, and $f(\bm{h},v)$ represents the function $f$, evaluated in all its arguments. }%
+\es{donde $\bm{h} = n(f)\setminus \{v\}$ es el conjunto de todos los vecinos de $f$ salvo $v$, y $f(\bm{h},v)$ representa la funci\'on $f$, evaluada en todos sus argumentos. }%
 %
-\en{In short, the messages sent by a function $f$ to a neighboring variable $v$ is simply the integration (or sum) over $\bm{h}$ of the product of itself and all the messages that $f$ receives from the rest of its neighbors $\bm{h}$ except $v$. }%
+\en{The messages sent by the function-type node $f$ to a neighboring variable-type node $v$ is simply the integration (or sum) over $\bm{h}$ of the product of itself and all the messages that $f$ receives from the rest of its neighbors $\bm{h}$ except $v$. }%
 \es{En pocas palabras, los mensajes que envía una funci\'on $f$ a una variable vecina $v$ es simplemente la integraci\'on (o suma) sobre $\bm{h}$ del producto de sí mismo con todos los mensajes que $f$ recibe del resto de sus vecinos $\bm{h}$ salvo $v$. }%
 %
 \en{Finally, the marginal probability distribution of a variable $v$ is simply the product of the messages that $v$ receives from all its neighbors. }%
@@ -1917,12 +1917,12 @@ p(v) = \prod_{h \in n(v)} m_{h \rightarrow v}
 \es{Este algoritmo codifica la m\'inima cantidad de pasos que se requieren para calcular cualquier distribuci\'on de probabilidad marginal. }%
 
 
-\subsection{\en{Mathematical properties and notation}\es{Propiedades matem\'aticas y notaci\'on}}\label{sec:propiedades}
+\subsection{\en{Mathematical Properties and Notation}\es{Propiedades matem\'aticas y notaci\'on}}\label{sec:propiedades}
 
-\en{The efficiency of TrueSkill Through Time is achieved because the marginals can be computed analytically. }%
+\en{The efficiency of TrueSkill Through Time is based on the analytical computation of marginal probabilities. }%
 \es{La eficiencia de TrueSkill Through Time se obtiene gracias que las marginales se pueden computar de forma analítica. }%
 %
-\en{In this section we list the properties that we need to derive the exact and the approxiamte messages that arise from the sum-product algorithm. }%
+\en{In this section, we list the properties that we need to derive the exact and the approximate messages that arise from the sum-product algorithm. }%
 \es{En esta secci\'on enumeramos las propiedades que necesitamos para derivar los mensajes exactos y aproximados que surgen del \emph{sum-product algorithm}. }%
 %
 \en{The first property states that the product of two Gaussian distributions, both evaluated at the same point $x$, can be expressed as the product of two other Gaussian distributions with only one of them evaluated at $x$. }%
@@ -1942,7 +1942,7 @@ p(v) = \prod_{h \in n(v)} m_{h \rightarrow v}
 %
 \en{where}\es{con} $\mu_{\div} = \frac{\mu_1}{\sigma_1^2} - \frac{\mu_2}{\sigma_2^2}$ y $\sigma_{\div}^2 = \left(\frac{1}{\sigma_1^2} - \frac{1}{\sigma_2^2} \right)^{-1}$.
 
-\en{The indicator function $\mathbb{I}(\cdot=\cdot)$ is worth $1$ when equality is true and $0$ otherwise. }%
+\en{The indicator function $\mathbb{I}(\cdot=\cdot)$ is $1$ when equality is true and $0$ otherwise. }%
 \es{La funci\'on indicadora $\mathbb{I}(\cdot=\cdot)$ vale $1$ cuando la igualdad es verdadera y $0$ en caso contrario. }%
 %
 % \en{When we can use it to replace variable within an integral,}
@@ -1957,13 +1957,13 @@ p(v) = \prod_{h \in n(v)} m_{h \rightarrow v}
 % \en{the dimensionality of the problem is reduced. }%
 % \es{la dimensionalidad del problema se reduce. }%
 % %
-\en{It is used to represent probabilities distributions of non-random discrete variables, such as the result of the games given the difference of performances $p(r|d)$. }%
+\en{It represents probabilities distributions of non-random discrete variables, such as the result of the games given the difference of performances $p(r|d)$. }%
 \es{Se usa para representar distribuciones de probabilidad de variables discretas no aleatorias, como el resultado de las partidas dada la diferencia de desempeños $p(r|d)$. }%
 %
-\en{Similarly, the dirac delta function $\delta(\cdot=\cdot)$ is used to represent probabilities distributions of non-random continuous variables, such as the difference of performances given the agents' performances $p(d|\bm{p})$. }%
-\es{De la misma forma, la función delta de dirac $\delta(\cdot=\cdot)$ se usa para representar distribuciones de probabilidad de variables continuas no aleatoria, es la diferencia de desempeños dados los rendimientos de los agentes $p(d|\bm{p})$. }%
+\en{Similarly, the Dirac delta function $\delta(\cdot=\cdot)$ represents probabilities distributions of non-random continuous variables, such as the difference of performances given the agents' performances $p(d|\bm{p})$. }%
+\es{De la misma forma, la función delta de Dirac $\delta(\cdot=\cdot)$ se usa para representar distribuciones de probabilidad de variables continuas no aleatoria, es la diferencia de desempeños dados los rendimientos de los agentes $p(d|\bm{p})$. }%
 %
-\en{When we can use it to replace variable within an integral,}
+\en{If we can use it to replace variable within an integral,}
 \es{Cuando permite remplazar variable dentro de una integral,}
 %
 \begin{equation*}\label{eq:integral_con_dirac} \tag{\text{\en{Dirac delta function}\es{Función delta de dirac}}}
@@ -2003,12 +2003,12 @@ p(v) = \prod_{h \in n(v)} m_{h \rightarrow v}
 \Phi(0|\mu,\sigma^2) = 1-\Phi(0|-\mu,\sigma^2)
 \end{equation*}
 
-\subsection{\en{The Gaussian class}\es{La clase gaussiana}}\label{sec:Gaussian}
+\subsection{\en{The Gaussian Class}\es{La clase gaussiana}}\label{sec:Gaussian}
 
 \en{The \texttt{Gaussian} class does most of the computation of the packages. }%
 \es{La clase \texttt{Gaussian} realiza la mayor parte del c\'omputo en todos los paquetes. }%
 %
-\en{It is represented by two parameters, the mean (\texttt{mu}) and the standard deviation (\texttt{sigma}). }%
+\en{It is characterized by the mean (\texttt{mu}) and the standard deviation (\texttt{sigma}). }%
 \es{Se representa mediante dos par\'ametros, la media y el desv\'io estandar. }%
 % %
 \begin{lstlisting}[backgroundcolor=\color{all},label=lst:N1_N2, caption={\en{Initialization of Gaussians distributions}\es{Inicialización de distirbuciones gaussianas}}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
@@ -2017,7 +2017,7 @@ p(v) = \prod_{h \in n(v)} m_{h \rightarrow v}
 N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)  
 \end{lstlisting}
 %
-\en{The class overwrites the operators addition (\texttt{+}), subtraction (\texttt{-}), product (\texttt{*}) and division (\texttt{/}) with the main properties required to compute the marginal distributions in the TrueSkill Through Time model. }%
+\en{The class overwrites the addition (\texttt{+}), subtraction (\texttt{-}), product (\texttt{*}), and division (\texttt{/}) to compute the marginal distributions used in the TrueSkill Through Time model. }%
 \es{La clase sobreescribe los operadores suma (\texttt{+}), resta (\texttt{-}), producto (\texttt{*}) y divisi\'on (\texttt{/}) con las principales propiedades requeridas para computar las distribuciones marginales en el modelo TrueSkill Through Time. }%
 %
 \begin{equation*} \tag{\texttt{N1 * N2}}
@@ -2044,18 +2044,18 @@ N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)
 \end{split}
 \end{equation*}
 %
-\en{Although these properties are widely known, we attach their full demonstrations in the supplemental material. }%
+\en{Although these properties are widely known, we attach their complete demonstrations in the supplemental material. }%
 \es{Aunque estas propiedades son ampliamente conocidas, adjuntamos sus demostraciones completas en el material suplementario. }%
 
-\subsection{\en{The exact solution for events with two teams}\es{La solución exacta para eventos con dos equipos}}\label{sec:2vs2}
+\subsection{\en{The Exact Solution for Events with Two Teams}\es{La solución exacta para eventos con dos equipos}}\label{sec:2vs2}
 
 % \en{TrueSkill allows to estimate the skill of individuals even when they play in teams. }%
 % \es{TrueSkill permite estimar la habilidad de los individuos incluso cuando estos juegan en equipo. }%
 %
-\en{In the presence of teams, the Elo model assumes that the performance of the teams $t$ is the sum of the performances of their members, and that the team with the highest performance wins, $r = (t_i> t_j)$. }%
+\en{In the presence of teams, the Elo model assumes that a team's performance is the sum of the performance of its members. The team with the highest performance wins, $r = (t_i> t_j)$. }%
 \es{En presencia de equipos, el modelo Elo supone que el desempeño de los equipos $t$ es la suma de los desempeños de sus integrantes, y que el equipo con mayor desempeño gana, $r = (t_i > t_j)$. }%
 %
-\en{In Figure~\ref{fig:modelo_trueskill_2vs2} we show the graphical factorization of the Elo team model. }%
+\en{In Fig.~\ref{fig:modelo_trueskill_2vs2}, we show the graphical factorization of the Elo team model. }%
 \es{En la figura~\ref{fig:modelo_trueskill_2vs2} mostramos la factorizaci\'on gr\'afica del modelo Elo que incorpora equipos. }% 
 %
 \begin{figure}[ht!]
@@ -2146,7 +2146,7 @@ N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)
    }
    }
   \caption{
-  \en{Factor graph of game with two teams with two players each. }%
+  \en{Factor graph of a game with two teams with two players each. }%
   \es{Factorizaci\'on gr\'afica de una partida con dos equipos de dos jugadores. }%
   %
   \en{The Elo's team model incorporate a new variable, $t$, that models the team performance. }%
@@ -2158,41 +2158,41 @@ N1 = Gaussian(mu = 1.0, sigma = 1.0); N2 = Gaussian(1.0, 2.0)
 \en{In this example, we have two teams with two players each. }%
 \es{En este ejemplo, tenemos dos equipos con dos jugadores cada uno. }%
 %
-\en{Every game with two teams has an exact analytical solution. }%
+\en{Every game with two teams has an analytical solution. }%
 \es{Toda partida con dos equipos tiene soluci\'on analítica exacta. }%
 
 
 % Parrafo
 
 %
-\en{In this section we show the steps to compute the exact evidence and the exact likelihoods of a game with two teams. }%
+\en{In this section, we show the steps to compute the exact evidence and likelihoods for a game with two teams. }%
 \es{En esta secci\'on mostramos los pasos para calcular la evidencia exacta y los likelihoods exactos de una partida con dos equipos. }%
 %
 \en{We only need the \emph{sum-product algorithm} and the properties mentioned above. }%
 \es{Sólo necesitamos el \emph{sum-product algorithm} y las propiedades arriba mencionadas. }%
 %
-\en{We will start first with the ``descending'' messages, from the priors to the result until compute the evidence, and then we will continue with the ``ascending'' messages, from the observed result and to the priors until compute the posterior of each agent. }%
+\en{We will start first with the ``descending'' messages, from the priors to the result until computing the evidence. Then, we continue with the ``ascending'' messages, from the observed result and to the priors until compute the posterior of each agent. }%
 \es{Empezaremos primero con los mensajes ``descendentes'', desde los priors al resultado, hasta calcular la evidencia, y seguiremos con los mensajes ``ascendentes'', desde el resultado observado a los priors, hasta calcular el posterior de cada agente. }%
 
 \paragraph{\en{Descending messages}\es{Mensajes descendentes}. }%
 
-\en{Following the \ref{eq:m_f_v} of the sum-product algorithm and the factorization of the model displayed at Figure~\ref{fig:modelo_trueskill_2vs2}, we can see that the messages sent by the skill factors $f_{s_i}$ to the variable $s_i$ are just the priors. }%
+\en{Following the \ref{eq:m_f_v} of the sum-product algorithm and the factorization of the model displayed in Fig.~\ref{fig:modelo_trueskill_2vs2}, we can see that the messages sent by the skill factors $f_{s_i}$ to the variable $s_i$ are just the priors. }%
 \es{Siguiendo el~\ref{eq:m_f_v} del \emph{sum-product algorithm} y la factorizaci\'on del modelo presentado en la figura~\ref{fig:modelo_trueskill_2vs2}, podemos ver que los mensajes que envían los factores de habilidad $f_{s_i}$ a la variable $s_i$ no son otra cosa m\'as que el prior. }%
 %
 \begin{equation*}\label{eq:m_fs_s} \tag{\texttt{prior}}
  m_{f_{s_i} \rightarrow s_i}(s_i) = \N(s_i| \mu_i, \sigma_i^2)
 \end{equation*}
 %
-\en{We have access to this message by calling the \texttt{prior} attribute of the class \texttt{Player}. }%
+\en{We have access to this message by calling the \texttt{prior} attribute of the \texttt{Player} class. }%
 \es{Tenemos acceso a este mensaje llamando al atributo \texttt{prior} de la clase \texttt{Player}. }%
 %
-\en{We can also see, following the~\ref{eq:m_v_f} of the sum-product algorithm and the factorization of the model, that the message sent by the variable $s_i$ to the performance factor $f_{p_i}$ is again the prior. }%
+\en{Following the~\ref{eq:m_v_f} of the sum-product algorithm and the factorization of the model, the message sent by the variable $s_i$ to the performance factor $f_{p_i}$ is the prior. }%
 \es{Podemos ver también, siguiendo el~\ref{eq:m_v_f} del \emph{sum-product algorithm} y la factorizacion del modelo, que el mensaje que envía la variable $s_i$ al factor rendimiento $f_{p_i}$ es nuevamente el prior. }%
 %
-\en{Since it is trivial to calculate the messages sent by the variables (they are always the product of the messages they receive from behind), we will avoid writing them. }%
+\en{Since it is trivial to calculate the messages sent by the variables (they are the product of the messages received from behind), we do not include them. }%
 \es{Debido a que es trivial calcular los mensajes que envían las variables (siempre es el producto de los mensajes que reciben de atrás), vamos a evitar escribirlos. }%
 %
-\en{Let's see then the message that the performance factors $f_{p_i}$ send to the variable $p_i$. }%
+\en{Then, the message sent by the performance factors $f_{p_i}$ to the variable $p_i$ is: }%
 \es{Veamos entonces el mensaje que env\'ian los factores rendimiento $f_{p_i}$ a su variable $p_i$. }%
 %
 \begin{equation*}\label{eq:m_fp_p} \tag{\texttt{performance()}}
@@ -2227,8 +2227,8 @@ p4 = performance(a4)
 \end{lstlisting}  
 \end{paracol}
 %
-\en{Where the agents \texttt{a1}, \texttt{a2}, \texttt{a3}, and \texttt{a4} were initialized at code~\ref{lst:player}. }%
-\es{Donde los agentes \texttt{a1}, \texttt{a2}, \texttt{a3} y \texttt{a4}, fueron inicializados en el código~\ref{lst:player}. }%
+\en{where the agents \texttt{a1}, \texttt{a2}, \texttt{a3}, and \texttt{a4} were initialized in code~\ref{lst:player}. }%
+\es{donde los agentes \texttt{a1}, \texttt{a2}, \texttt{a3} y \texttt{a4}, fueron inicializados en el código~\ref{lst:player}. }%
 %
 \en{The message sent by the team factors $f_{t_e}$ to the team variable $t_e$ is an integral over all the individual performance variables,}
 \es{El mensaje que envían los factores equipos $f_{t_e}$ a la variable equipo $t_e$ es una integral sobre todas las variables de desempeño individual,}
@@ -2242,10 +2242,10 @@ p4 = performance(a4)
 \en{where the Dirac delta function imposes the constraint that the sum of the individual performances equals a constant team performance value $t_e$. }%
 \es{donde la función delta de Dirac impone la restricción de que la suma de los desempeños individuales sea igual a un valor de rendimiento del equipo $t_e$ constante. }%
 %
-\en{Using the properties we can solve this integral analytically, obtaining as a result that the prior performance of the teams is a Gaussian distribution centered on the sum of the mean estimates $\mu_e = \mu_i + \mu_j$ with a variance $\sigma_e^2$ that includes both the uncertainties of the estimates, $\sigma_i^2 + \sigma_j^2$, and the variance of the individual performances, $\beta^2 + \beta^2$. }%
+\en{Applying the already presented properties, we can solve this integral analytically, obtaining the prior performance of the teams, which is a Gaussian distribution centered on the sum of the mean estimates $\mu_e = \mu_i + \mu_j$ with a variance $\sigma_e^2$ including both the uncertainties of the estimates (i.e. $\sigma_i^2 + \sigma_j^2$) and the variance of the individual performances (i.e. 2$\beta^2$). }%
 \es{Haciendo uso de las propiedades podemos resolver esta integral de forma analítica, obteniendo como resultado que el desempeño a priori de los equipos es una distribución gaussiana centrada en la suma de las estimaciones medias $\mu_e = \mu_i + \mu_j$ con una varianza que incluye tanto las incertidumbres de las estimaciones, $\sigma_i^2 + \sigma_j^2$, como la varianza de los rendimientos individuales, $\beta^2 + \beta^2$. }%
 %
-\en{We have access to this message when we use the operator \texttt{+} of the class \texttt{Gaussian} to sum the agents' performances,}
+\en{We have access to this message using the operator \texttt{+} of the class \texttt{Gaussian} to sum the agents' performances,}
 \es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{+} de la clase \texttt{Gaussian} para sumar los desempeños de los agentes,}
 %
 \begin{lstlisting}[backgroundcolor=\color{white},label=lst:team_performance, caption={\en{Computing the team prior performance}\es{Computando el desempeño a priori de los equipos}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
@@ -2254,7 +2254,7 @@ p4 = performance(a4)
 ta = p1 + p2; tb = p3 + p4
 \end{lstlisting}
 %
-\en{The next message, sent by the difference factor $f_{d_1}$ to the difference variable $d_1$ is,}
+\en{The next message, sent by the difference factor $f_{d_1}$ to the difference variable $d_1$, is:}
 \es{El siguiente mensaje, que env\'ia el factor diferencia $f_{d_1}$ a la variable diferencia $d_1$ es,}
 \begin{equation*}\label{eq:m_fd_d} \tag{\texttt{d = ta - tb}}
  \begin{split} 
@@ -2263,19 +2263,19 @@ ta = p1 + p2; tb = p3 + p4
  \end{split}
 \end{equation*}
 %
-\en{The prior difference of performance is a Gaussian distribution centered on the a priori expected difference between teams $\psi = \mu_a - \mu_b$ with variance $\vartheta^2 = \sigma_a^2 + \sigma_b^2$ that includes the uncertainty of both teams. }%
+\en{The prior difference of performance is a Gaussian distribution centered on the prior expected difference between teams $\psi = \mu_a - \mu_b$ with variance $\vartheta^2 = \sigma_a^2 + \sigma_b^2$ that includes the uncertainty of both teams. }%
 \es{La diferencia de desempeños a priori es una distribución gaussiana centrada en la diferencia esperada a priori $\psi = \mu_a - \mu_b$ con una varianza $\vartheta^2 = \sigma_a^2 + \sigma_b^2$ que incluye la incertidumbre de ambos equipos. }%
 %
-\en{We have access to this message using the operator \texttt{-} of the class \texttt{Gaussian} to get de difference of teams' performances,}
+\en{We have access to this message using the operator \texttt{-} of the class \texttt{Gaussian} to get the difference of teams' performances,}
 \es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{-} de la clase \texttt{Gaussian} para obtener la diferencia de los desempeños de los equipos,}
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:difference_performance, caption={\en{Computing the prior difference of performances}\es{Computando la diferencia de desempeños a priori}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:difference_performance, caption={\en{Computing the prior perfomance' difference}\es{Computando la diferencia de desempeños a priori}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
 \end{lstlisting}
 \begin{lstlisting}[backgroundcolor=\color{all}]
 d = ta - tb 
 \end{lstlisting}
 %
-\en{The last descending message, sent by the factor $f_r$ to the variable $r$, allows to compute the evidence, i.e. the a priori prediction of the observed result. }%
+\en{The last descending message, sent by the factor $f_r$ to the variable $r$, allows to compute the evidence, i.e. the prior prediction of the observed result. }%
 \es{El último mensaje descendente, el que envía el factor $f_r$ a la variable $r$, permite computar la evidencia, es decir la predicción a priori del resultado observado. }%
 %
 \begin{equation*}\label{eq:m_fr_r} \tag{\texttt{evidence}}
@@ -2287,7 +2287,7 @@ d = ta - tb
 \en{We have access to this message by computing the cumulative value from $0$ to $\infty$ of the team difference of performances distribution. }%
 \es{Tenemos acceso a este mensaje calculando el valor acumulado desde $0$ hasta $\infty$ de la distribución de diferencia de desempeños de los equipos. }%
 %
-\begin{lstlisting}[backgroundcolor=\color{white},label=lst:difference, caption={\en{Computing the prior prediction of the oberved result (or evidence)}\es{Computando la predicción a priori del resultado observado (o evidencia)}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
+\begin{lstlisting}[backgroundcolor=\color{white},label=lst:difference, caption={\en{Computing the prior prediction of the observed result (or evidence)}\es{Computando la predicción a priori del resultado observado (o evidencia)}}, belowskip=-1.0 \baselineskip, aboveskip=0.0 \baselineskip]
 \end{lstlisting}
 \begin{paracol}{3}
 \begin{lstlisting}[backgroundcolor=\color{julia!60}]
@@ -2308,13 +2308,13 @@ e = 1 - cdf(0,d@mu,d@sigma)
 %
 \paragraph{\en{Ascending messages}\es{Mensajes ascendentes}. }%
 %
-\en{Let us now examine the ascending messages. }%
+\en{Now, we examine the ascending messages. }%
 \es{Examinemos ahora los mensajes ascendentes. }%
 %
 % \en{Just as downward messages could be interpreted as priors, in this case the upward messages can also be interpreted as likelihoods, because they transmit the information of the observed result. }%
 % \es{Así como los mensajes descendente podíamos interpretarlos como priors, en este caso los mensajes ascendentes van a poder ser interprestados como likelihoods, debido a que transmiten la información del resultado observado. }%
 %
-\en{The first ascending message is sent by the result factor $f_r$ to the difference variable $d$. }%
+\en{The result factor $f_r$ sends to the difference variable $d$ the first ascending message. }%
 \es{El primer mensaje ascendentes lo envía el factor de resultados $f_r$ a la variable de diferencia $d$. }%
 %
 \begin{equation}%\label{eq:m_fr_d} \tag{\texttt{exact\_lhood\_d}}
@@ -2323,10 +2323,10 @@ m_{f_r \rightarrow d}(d) & = \mathbb{I}(d>0)
 \end{split}
 \end{equation}
 %
-\en{The message contains the indicator function of the factor $f_r$, that transmit the information of the observed result. }%
+\en{This message contains the indicator function of the factor $f_r$ that transmits the information of the observed result. }%
 \es{El mensaje contiene la función indicadora del factor $f_r$, que transite la información del resultado observado. }%
 %
-\en{The message sent by difference factor $f_d$ to the winning team performance variables $t_e$ is,}
+\en{The message sent by difference factor $f_d$ to the winning team performance variables $t_e$ is:}
 \es{El mensaje que el factor diferencia $f_d$ envía la variables de desempeño del equipo ganador $t_a$ es,}
 \begin{equation}%\label{eq:m_fd_ta} \tag{\texttt{exact\_lhood\_ta}}
 \begin{split}
@@ -2339,9 +2339,9 @@ m_{f_{d} \rightarrow t_a}(t_a) & = \iint \delta(d = t_a - t_b) \mathbb{I}(d > 0)
 \es{En este caso se integra el mensaje ascendente anterior junto con el mensaje descendente del otro equipo. }%
 %
 \en{This message, parametrized at $t_a$, is the cumulative of the Gaussian distribution of the opposing team's performances from $t_a$ to $\infty$, and encodes the likelihood of the winning team performance hypotheses. }%
-\es{Este mensaje, paramtrizado en $t_a$, es la acumulada de la distribución gaussiana de los rendimientos del equipo contrario desde $t_a$ hasta $\infty$, y codifica la verosimilitud de las hipótesis de rendimiento de equipo ganador. }%
+\es{Este mensaje, parametrizado en $t_a$, es la acumulada de la distribución gaussiana de los rendimientos del equipo contrario desde $t_a$ hasta $\infty$, y codifica la verosimilitud de las hipótesis de rendimiento de equipo ganador. }%
 %
-\en{The message sent by team performance factor $f_{t_a}$ to the variable of the individual performance $p_1$ is,}
+\en{The message sent by team performance factor $f_{t_a}$ to the variable of the individual performance $p_1$ is:}
 \es{El mensaje enviado por el factor de rendimiento del equipo $f_{t_a}$ a la variable del rendimiento individual $p_1$ es,}
 %
 \begin{equation}%\label{eq:m_fta_p_inicial} \tag{\texttt{exact\_lhood\_p1}}
@@ -2358,8 +2358,8 @@ m_{f_{t_a} \rightarrow p_1}(p_1)  & = \iint \delta( t_a = p_1 + p_2) \, N(p_2| \
 \en{The message, parameterized at $p1$, encodes the likelihood of the individual performance hypotheses of the winning player. }%
 \es{El mensaje, parametrizado en $p1$, codifica la verosimilitud de las hipótesis de rendimiento individual del jugador ganador. }%
 %
-\en{The last message, sent by indivudal performance factor $f_{p_1}$ to the skill variable $s_1$ is,}
-\es{El mensaje enviado por el factor de rendimiento individual $f_{p_1}$ a la variable del hbilidad $s_1$ es,}
+\en{The last message, sent by individual performance factor $f_{p_1}$ to the skill variable $s_1$ is:}
+\es{El mensaje enviado por el factor de rendimiento individual $f_{p_1}$ a la variable del habilidad $s_1$ es,}
 %
 \begin{equation}%\label{eq:m_fp_s1} \tag{\texttt{exact\_lhood\_s1}}
 \begin{split}
@@ -2367,15 +2367,15 @@ m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_
 & = 1 - \Phi(0 | \underbrace{(s_1 + \mu_2) - (\mu_3 + \mu_4)}_{\hfrac{\text{\en{Expected difference}\es{Diferencia esperada}}}{\text{\en{parameterized in }\es{parametrizada en }$s_1$}} } \ , \underbrace{\ \ \ \ \vartheta^2 - \sigma_1^2 \ \ \ \ }_{\hfrac{\text{\en{Total uncertainty}\es{Incertidumbre total}}}{\text{\en{except the one of }\es{salvo la de }$s_1$}}})\end{split}
 \end{equation}
 %
-\en{This is the exact likelihood discussed in equation \ref{eq:posterior_win}, that computes the prior probability of winning result if the player's true skill was $s_1$. }%
-\es{Esta es la verosimilitud exacta discutida en la ecuación \ref{eq:posterior_win}, que computa la probabilidad a priori de un resultado ganador si la verdadera habilidad del jugador fuera $s_1$. }%
+\en{This corresponds to the exact likelihood presented in equation~\eqref{eq:posterior_win}, which computes the prior probability of winning result if the player's actual skill was $s_1$. }%
+\es{Esta es la verosimilitud exacta discutida en la ecuación~\eqref{eq:posterior_win}, que computa la probabilidad a priori de un resultado ganador si la verdadera habilidad del jugador fuera $s_1$. }%
 
-\subsection{\en{A Basic Draw Model}\es{Modelo b\'asico de empates}} \label{sec:empate}
+\subsection{\en{A Basic Model for a Draw}\es{Modelo b\'asico de empates}} \label{sec:empate}
 %
-\en{The draw model assumes that a tie occur when the difference in performance does not exceed a certain margin, $|t_a - t_b| \leq \varepsilon$. }%
+\en{The model for a draw assumes that a tie occurs when the difference in performance does not exceed a threshold, $|t_a - t_b| \leq \varepsilon$. }%
 \es{El modelo supone que ocurre un empate cuando la diferencia de rendimientos no supera un cierto margen, $|t_a - t_b| \leq \varepsilon$. }%
 %
-\en{In the figure~\ref{fig:draw_a} we display in graphical terms the probabilities of the three possible outcomes. }%
+\en{In Fig.~\ref{fig:draw_a}, we graphically display the probabilities of the three possible outcomes. }%
 \es{En la figura~\ref{fig:draw_a} se puede ver en t\'erminos gr\'aficos las probabilidades de los tres resultados posibles. }%
 %
 \begin{figure}[ht!]
@@ -2408,36 +2408,37 @@ m_{f_{p_1} \rightarrow s_1}(s_1) & = \int N(p_1| s_1, \beta^2) \, \Phi(p_1| \mu_
   }
   \label{fig:draw}
 \end{figure}
+
 %
-\en{This elementary model requires determining the size of the margin. }%
+\en{This model requires establishing the threshold for considering a draw. }%
 \es{Este modelo b\'asico requiere determinar el largo del margen. }%
 %
-\en{The original paper~\citep{Herbrich2007} proposes to use the empirical frequency of ties as clue to define it. }%
+\en{Herbrich et al.~\citep{Herbrich2007} propose using the empirical frequency of ties to define it. }%
 \es{El art\'iculo original~\citep{Herbrich2007} propone usar la frecuencia emp\'irica de empates como indicio para definirlo. }%
 %
-\en{However, this value depends on the actual skill difference, which we just don't know. }%
+\en{However, this value depends on the actual skill difference, which is unknown. }%
 \es{Sin embargo, este valor depende de la diferencia de habilidad real, que justamente no conocemos. }%
 %
-\en{Assuming that we can define the ``probability of a draw between teams with same skill'', it is important to note that the margin also depends on the number of players. }%
+\en{Assuming that we can define the ``probability of a draw between teams with the same skill'' then the threshold also depends on the number of players. }%
 \es{Suponiendo que podemos definir la ``probabilidad de empate entre equipos con misma habilidad'', es importante notar que el margen tambi\'en depende de la cantidad de jugadores. }%
 %
-\en{In the figure~\ref{fig:draw_b} you can see that to keep the tie area constant it is necessary to adapt the margin according to the uncertainty. }%
+\en{Figure~\ref{fig:draw_b} shows that to keep the tie area constant, it is necessary to adapt the threshold according to the uncertainty. }%
 \es{En la figura~\ref{fig:draw_b} se puede ver que para mantener el \'area de empates constante, es necesario adaptar el margen dependiendo de la incertidumbre. }%
 %
 %\en{This is because the actual distribution of performance differences depends on how many players are in the game. }%
 %\es{Esto es as\'i porque la distribuci\'on de diferencias de rendimientos real depende de cu\'antos jugadores hay en la partida. }%
 %
-\en{Since the observed results are independent of our beliefs, the only source of uncertainty comes from the variance of individual perfomance $\beta$. }%
+\en{Since the observed results are independent of our beliefs, the only source of uncertainty is the variance of individual performance $\beta$. }%
 \es{Como los resultados observados son independientes de nuestras creencias, la \'unica fuente de incertidumbre proviene de varianza de los rendimientos $\beta$. }%
 %
-\en{This is how we can define an expression that links the margin with the probability of a tie. }%
+\en{Then, we can define an expression that links the threshold $\varepsilon$ with the probability of a tie: }%
 \es{As\'i es que podemos definir una ecuaci\'on que vincula el margen con la probabilidades de empate. }%
 %
 \begin{equation}
  \text{Draw probability} = \Phi(\frac{\varepsilon}{\sqrt{n_1+n_2}\beta}) - \Phi(\frac{-\varepsilon}{\sqrt{n_1+n_2}\beta})
 \end{equation}
 %
-\en{In the following code we use the function \texttt{compute\_margin()} to get the size of the margin. }%
+\en{In the code~\ref{lst:draw}, we use the function \texttt{compute\_margin()} to get the size of the margin. }%
 \es{En el siguiente código usamos la función \texttt{compute\_margin()} para calcular el tamaño del margen de empate. }%
 
 \begin{lstlisting}[backgroundcolor=\color{white}, label=lst:draw, caption={\en{Computing the draw margin}\es{Computando el margen de empate}}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
@@ -2466,18 +2467,18 @@ p_draw = 0.25
 margin = compute_margin(p_draw, sd)
 \end{lstlisting}
 %
-\en{Where the agents \texttt{a} were initialized in code~\ref{lst:player}, and \texttt{beta} in the code~\ref{lst:parameters}. }%
-\es{Donde los agentes \texttt{a} fueron inicializados en el c\'odigo \ref{lst:player}, y \texttt{beta} en el código~\ref{lst:parameters}. }%
+\en{where the individual agents (\texttt{a1} to \texttt{a4}) were initialized in code~\ref{lst:player} and \texttt{beta} in code~\ref{lst:parameters}. }%
+\es{donde los agentes \texttt{a} fueron inicializados en el c\'odigo \ref{lst:player}, y \texttt{beta} en el código~\ref{lst:parameters}. }%
 
-\subsection{\en{Optimal approximation of the exact posterior}\es{Aproximaci\'on \'optima del posterior exacto}} \label{sec:approximate_posterior}
+\subsection{\en{Optimal Approximation of the Exact Posterior}\es{Aproximaci\'on \'optima del posterior exacto}} \label{sec:approximate_posterior}
 %
-\en{In the section~\ref{sec:2vs2} we have seen how to find the exact posterior. }%
+\en{In section~\ref{sec:2vs2}, we presented the procedure to obtain the exact posterior. }%
 \es{En la secci\'on~\ref{sec:2vs2} hemos visto como encontrar el posterior exacto. }%
 %
-\en{In this section we will show how to find the Gaussian distribution that best approximates the exact posterior, considering the possibility of ties. }%
+\en{In this section, we show how to obtain the Gaussian distribution that best approximates the exact posterior, considering the possibility of ties. }%
 \es{En esta secci\'on mostraremos c\'omo encontrar la distribuci\'on gaussiana que mejor aproxima al posterior exacto, considerando la posibilidad de empates. }%
 %
-\en{The packages solve it with the following two lines of code. }%
+\en{The packages solve it with the two lines of code~\ref{lst:post_2vs2}. }%
 \es{Los paquetes lo resuelven con las siguientes dos l\'ineas de c\'odigo. }%
 %
 \begin{lstlisting}[backgroundcolor=\color{white}, label=lst:post_2vs2, caption={\en{Computing the approximate posterior}\es{Computando el posterior aproximado}}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
@@ -2499,7 +2500,7 @@ post = posteriors(g)
 \end{lstlisting}
 \end{paracol}
 %
-\en{Where the variable \texttt{teams} was initialized in code \ref{lst:game}. }%
+\en{where the variable \texttt{teams} was initialized in code~\ref{lst:game}. }%
 \es{Donde la variable \texttt{teams} fue inicializada en el código~\ref{lst:game}. }%
 %
 \en{The need to approximate the posterior occurs because the distribution of the difference of performances is a truncated Gaussian. }%
@@ -2513,10 +2514,10 @@ p(d) =
 \end{cases}
 \end{equation}
 %
-\en{It is known that the exponential family, to which the Gaussian distribution belongs, minimizes the Kullback-Leibler divergence with respect to the true distribution $p$, $KL(p||q)$, when both have the same moments~\citep{Minka2005}. }%
+\en{It is known that the exponential family, to which the Gaussian distribution belongs, minimizes the Kullback-Leibler divergence with respect to the true distribution $p$, $KL(p||q)$ when both have the same moments~\citep{Minka2005}. }%
 \es{Se sabe que la familia exponencial, a la que pertenece la distribución gaussianas, minimizan la divergencia Kullback-Leibler respecto de la verdadera distribución $p$, $KL(p||q)$, cuando ambas tienen mismos momentos~\citep{Minka2005}. }%
 %
-\en{The expectation and variance of a truncated Gaussian $\N(x|\mu,\sigma^2)$ in a $[a,b]$ interval are,}
+\en{The expectation and variance of a truncated Gaussian $\N(x|\mu,\sigma^2)$ in the range from $a$ to $b$ are:}
 \es{La esperanza y la varianza de una gaussiana truncada $\N(x|\mu,\sigma^2)$ en un intervalo $[a,b]$ son,}
 %
 \begin{equation}\label{eq:mean_aprox_double}
@@ -2530,14 +2531,14 @@ p(d) =
 \en{where $\beta = \frac{b-\mu}{\sigma}$ and $\alpha = \frac{a-\mu}{\sigma}$. }%
 \es{donde $\beta = \frac{b-\mu}{\sigma}$ y $\alpha = \frac{a-\mu}{\sigma}$. }%
 %
-\en{With a single-sided truncation, they can be simplified as,}
+\en{With a single-sided truncation, they can be simplified as:}
 \es{Con un \'unico truncamiento, se pueden simplificar como,}
 %
 \begin{equation*}
  E(X| a < X )   =  \mu + \sigma \frac{\N(\alpha)}{1 - \Phi(\alpha) } \ \ , \ \ V(X| a < X )  = \sigma^2 \Bigg( 1 + \bigg(\frac{\alpha \N(\alpha)}{1 - \Phi(\alpha) }\bigg) - \bigg(\frac{\N(\alpha)}{1 - \Phi(\alpha) }\bigg)^2 \Bigg) 
 \end{equation*}
 %
-\en{Then, the Gaussian that best approximates $p(d)$ is}
+\en{Then, the Gaussian that best approximates $p(d)$ is:}
 \es{Luego, la gaussiana que mejor aproxima a $p(d)$ es}
 %
 \begin{equation}\label{eq:p*_d} \tag{\texttt{approx()}}
@@ -2568,10 +2569,10 @@ tie = T
 d_approx = approx(d, margin, !tie)
 \end{lstlisting}
 %
-\en{Where the difference distribution \texttt{d} was initialized in code~\ref{lst:difference_performance}, and the variable \texttt{margin} in code~\ref{lst:draw}. }%
-\es{Donde la distribución de diferencias \texttt{d} fue inicializada en el código~\ref{lst:difference_performance}, y \texttt{margin} en el código~\ref{lst:draw}. }%
+\en{where the difference distribution \texttt{d} was initialized in code~\ref{lst:difference_performance} and the variable \texttt{margin} in code~\ref{lst:draw}. }%
+\es{donde la distribución de diferencias \texttt{d} fue inicializada en el código~\ref{lst:difference_performance}, y \texttt{margin} en el código~\ref{lst:draw}. }%
 %
-\en{Given $\widehat{p}(d)$, we can compute the approximate ascending message using the operations of the class \texttt{Gaussian}. }%
+\en{Given $\widehat{p}(d)$, we can compute the approximate ascending message using the methods of the \texttt{Gaussian} class. }%
 \es{Dada $\widehat{p}(d)$, podemos calcular el resto de los mensaje ascendentes usando las operaciones de la clase \texttt{Gaussian}. }%
 %
 \en{To derive the first ascending message, recall that any marginal distribution can be calculated as the product of the messages received from all its neighboring factors. }%
@@ -2589,7 +2590,7 @@ d_approx = approx(d, margin, !tie)
 \en{where $m_{f_r \rightarrow d}(d) = m_{d \rightarrow f_{d}}(d)$ holds due to the factorization of the model. }%
 \es{donde $m_{f_r \rightarrow d}(d) = m_{d \rightarrow f_{d}}(d)$ vale por la factorización del modelo. }%
 %
-\en{We have access to this message when we use the \texttt{/} operator of the \texttt{Gaussian} class to divide the indicated Gaussians,}
+\en{We have access to this message when we use the \texttt{/} operator of the \texttt{Gaussian} class to divide the distributions:}
 \es{Tenemos acceso a este mensaje cuando usamos el operador \texttt{/} de la clase \texttt{Gaussian}, para dividir las gaussianas indicadas,}
 %
 \begin{lstlisting}[backgroundcolor=\color{white}, label=lst:d_div, caption={\en{Computing the first approximate message}\es{Computando el primer mensaje aproximado}}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
@@ -2601,7 +2602,7 @@ approx_lh_d = d_approx / d
 \en{All these approximate messages can be interpreted as likelihoods because they transmit the information of the observed result. }%
 \es{Todos estos mensajes aproximados pueden ser interpretados como verosimilitudes  porque contienen la información del resultado observado. }%
 %
-\en{The approximate message sent by difference factor $f_d$ to the winning team performance variables $t_a$ is,}
+\en{The approximate message sent by difference factor $f_d$ to the winning team performance variables $t_a$ is:}
 \es{El mensaje aproximado que el factor diferencia $f_d$ envía a la variables de desempeño del equipo ganador $t_a$ es,}
 %
 \begin{equation}%\label{eq:^m_fd_ta} \tag{\texttt{approx\_lhood\_ta}}
@@ -2611,7 +2612,7 @@ approx_lh_d = d_approx / d
 \end{split}
 \end{equation}
 %
-\en{The approximate message sent by team performance factor $f_{t_a}$ to the winning individual performance variables $p_1$ is,}
+\en{The approximate message sent by team performance factor $f_{t_a}$ to the winning individual performance variables $p_1$ is:}
 \es{El mensaje aproximado que el factor desempeño de equipo $f_{t_a}$ envía a la variables de desempeño individual $p_1$ es,}
 %
 \begin{equation}%\label{eq:^m_fta_p} \tag{\texttt{lhood\_p1\_approx}}
@@ -2632,14 +2633,14 @@ approx_lh_d = d_approx / d
 \end{split}
 \end{equation}
 %
-\en{Finally, the approximate proportional posterior of the variable $s_1$ is obtained by multiplying the messages it receives from its neighboring factors. }%
+\en{Finally, the approximate proportional posterior of the variable $s_1$ is obtained by multiplying the messages received from its neighboring factors. }%
 \es{Finalmente, el posterior proporcional aproximado de la variable $s_1$ se obtiene multiplicando los mensajes que recibe de sus factores vecinos. }%
 %
 \begin{equation}\label{eq:^p_s} \tag{\texttt{posterior}}
  \widehat{p}(s_1, r) = \N(s_1|\mu_1, \sigma_1^2) \N(s_1| \mu_1 - \psi + \psi_{\div}, \vartheta_{\div}^2 + \vartheta^2 - \sigma_1^2)
 \end{equation}
 %
-\en{We have access to the normalized posterior using the operator \texttt{*} of the class \texttt{Gaussian}, or getting the first element of the list \texttt{post} computed in code~\ref{lst:post_2vs2}. }%
+\en{We have access to the normalized posterior using the operator \texttt{*} of the \texttt{Gaussian} class, or getting the first element of the list \texttt{post} computed in code~\ref{lst:post_2vs2}. }%
 \es{Tenemos acceso al posterior normalizado usando el operador \texttt{*} de la clase \texttt{Gaussian}, o tomando el primer elemento de la lista \texttt{post} computada en el código~\ref{lst:post_2vs2}. }%
 %
 \begin{lstlisting}[backgroundcolor=\color{white}, label=lst:posterior_s1_approx, caption={\en{Accessing the approximate posterior}\es{Accediendo al posterior aproximado}}, belowskip=-1.0 \baselineskip, aboveskip=-0 \baselineskip]
@@ -2685,27 +2686,27 @@ print(posterior)
 > Gaussian(mu=2.461, sigma=5.507)
 \end{lstlisting}
 %
-\en{With \texttt{a1}, \texttt{d}, and \texttt{approx\_lh\_d} computed in codes \ref{lst:player}, \ref{lst:difference_performance}, and \ref{lst:d_div}. }%
-\es{Con \texttt{a1}, \texttt{d} y \texttt{approx\_lh\_d} computadas en los códigos \ref{lst:player}, \ref{lst:difference_performance} y \ref{lst:d_div}. }%
+\en{with \texttt{a1}, \texttt{d}, and \texttt{approx\_lh\_d} computed in codes \ref{lst:player}, \ref{lst:difference_performance}, and \ref{lst:d_div}. }%
+\es{con \texttt{a1}, \texttt{d} y \texttt{approx\_lh\_d} computadas en los códigos \ref{lst:player}, \ref{lst:difference_performance} y \ref{lst:d_div}. }%
 %
-\en{It can be seen that the posterior we have computed is the same as the one returned by the class \texttt{Gaussian}. }%
+\en{The obtained posterior is the same as the one returned by the \texttt{Gaussian} class. }%
 \es{Se puede ver que el posterior que nosotros hemos computado es el mismo que devuelve la clase \texttt{Gaussian}. }%
 
-\subsection{\en{Multiple teams}\es{Varios equipos}} \label{sec:iterative_posterior} 
+\subsection{\en{Multiple Teams}\es{Varios equipos}} \label{sec:iterative_posterior} 
 
-\en{The interface of the packages do not exhibit any difference between two-team and multiple-team games, as can be seen in the example codes \ref{lst:game} and \ref{lst:multiple_team_game}. }%
+\en{The interface of the packages does not show any difference between two-team and multiple-team games, as can be seen in codes~\ref{lst:game} and \ref{lst:multiple_team_game}. }%
 \es{La interfaz de los paquetes exhiben ninguna diferencia entre partidas de dos equipos o de varios equipos, como se puede ver en los códigos de ejemplo \ref{lst:game} y \ref{lst:multiple_team_game}. }%
 %
-\en{However, in cases where there are more than two teams we are forced to implement an iterative algorithm due to a mutual dependency between results. }%
+\en{However, in cases where there are more than two teams we need to implement an iterative algorithm due to a mutual dependency between results. }%
 \es{Sin embargo, en presencia de más de dos equipos nos vemos obligados a implementar un algoritmo iterativo debido a una dependencia mutua entre resultados. }%
 %
-\en{Thanks to the transitivity of results, if $k$ teams participate in an event, it is sufficient to evaluate $k-1$ differences of performances $d_i$ between teams in consecutive positions. }%
+\en{Thanks to the transitivity of results, if $k$ teams participate in an event, it is sufficient to evaluate $k-1$ differences of performance $d_i$ between teams in consecutive positions. }%
 \es{Gracias a la transitividad de los resultados, si participan $k$ equipos en un evento, es suficiente con evaluar $k-1$ diferencias de desempeño $d_i$ entre equipos en posiciones consecutivas. }%
 %
-\en{For this purpose we define a list $o$ in which the teams are ordered according to the observed result, with $o_1$ the winning team, and in general $o_i$ representing the team placed in position $i$. }%
+\en{For this purpose, we define a list $o$ in which the teams are ordered according to the observed result with $o_1$ the winning team, and in general, $o_i$ represents the team placed in position $i$. }%
 \es{Para ello definimos una lista $o$ en la que los equipos están ordenados según el resultado observado, con $o_1$ el equipo ganador, y en general con $o_i$ el equipo ubicado en la posición $i$. }%
 %
-\en{In Figure ~\ref{fig:factorGraph_trueskill} we show the factorization of the general TrueSkill model. }%
+\en{In Fig.~\ref{fig:factorGraph_trueskill} we show the factorization of the general TrueSkill model. }%
 \es{En la figura~\ref{fig:factorGraph_trueskill} mostramos la factorizaci\'on del modelo general de TrueSkill. }%
 %
 \begin{figure}[ht!]
@@ -2769,15 +2770,15 @@ print(posterior)
   \label{fig:factorGraph_trueskill}
 \end{figure}
 %
-\en{The basic idea is to update repeatedly forward and backward all messages in the shortest path between any two marginals $p(d_j)$ until convergence. }%
+\en{The general idea is to repeatedly update forward and backward all messages in the shortest path between any two marginals $p(d_j)$ until convergence. }%
 \es{La idea b\'asica es actualizar repetidamente hacia adelante y hacia atr\'as todos los mensajes en el camino m\'as corto entre dos marginales $p(d_j)$ hasta la convergencia. }%
 
 % Parrafo
 
-\en{Let's look at the algorithm involved in solving a game with 3 teams. }%
-\es{Veamos el algoritmo involucrado en resolver una partida con 3 equipos. }%
+\en{Let's analyze the algorithm involved in solving a game with three teams. }%
+\es{Veamos el algoritmo involucrado en resolver una partida con tres equipos. }%
 %
-\en{Instead of using the message notation proposed by the sum-product algorithm, we name the messages as shown in Figure~\ref{fig:ep_ts}. }%
+\en{Instead of using the message notation proposed by the sum-product algorithm, we name the messages following the criteria shown in Fig.~\ref{fig:ep_ts}. }%
 \es{En vez de utilizar la notación de mensajes propuesta por el \emph{sum-product algorithm}, le ponemos nombres a los mensajes como se muestra en la figura~\ref{fig:ep_ts}. }%
 %
 \begin{figure}[ht!]
@@ -2833,25 +2834,23 @@ print(posterior)
         
         %\path[draw, ->, fill=black!50,sloped] (fr2) edge[bend left,draw=black!50] node[midway,above,color=black!75, rotate=180] {\scriptsize \textbf{5:} \emph{likelihood}$(d_{0})$} (d2);
         
-        %\path[draw, ->, fill=black!50,sloped] (fd2) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \textbf{4:} \emph{prior}$(d_{0})$} (d2);
-        
-        
+        %\path[draw, ->, fill=black!50,sloped] (fd2) edge[bend left,draw=black!50] node[midway,above,color=black!75] {\scriptsize \textbf{4:} \emph{prior}$(d_{0})$} (d2);       
 } 
 }
 \caption{
- \en{Factorization of a game with 3 teams. }%
- \es{Factorizaci\'on de una partida con 3 equipos. }%
+ \en{Factorization of a game with three teams. }%
+ \es{Factorizaci\'on de una partida con tres equipos. }%
  %
  \en{We only show factors from the teams to the results. }%
  \es{Mostramos s\'olo factores desde los equipos hasta los resultados. }%
  %
- \en{The names will be used to explain the iterative procedure known as loopy belief propagation. }%
+ \en{The names describe the iterative procedure known as \emph{loopy belief propagation}. }%
  \es{Los nombres se usar\'an para explicar el procedimiento iterativo conocido como \emph{loopy belief propagation}. }%
 }
 \label{fig:ep_ts}
 \end{figure}
-%
-\en{Before we start, we set the landscape: we compute the prior performance of the teams using the function \texttt{performance()}; we initialize the messages that are not yet defined with a neutral form, such as a Gaussian distribution with infinite variance; and we compute the margins for each comparison $d_j$. }%
+
+\en{Before we start, we set the landscape: we compute the prior performance of the teams using the function \texttt{performance()}; we initialize the undefined messages using a neutral form, such as a Gaussian distribution with an infinite variance; and we compute the margins for each comparison $d_j$. }%
 \es{Antes de empezar preparamos el escenario: computamos el desempeño a priori de los equipos usando la función \texttt{performance()}; inicializamos los mensajes que a\'un no est\'an definidos con una forma neutra, como una distribuci\'on gaussiana con varianza infinita; y calculamos los márgenes de cada comparaci\'on $d_j$. }%
 %
 \begin{lstlisting}[backgroundcolor=\color{all}, label=lst:graphical_model, caption={\en{Setting the landscape}\es{Preparación del escenario}}, belowskip=-1.0 \baselineskip, aboveskip=0.1cm]
@@ -2898,16 +2897,16 @@ lhood_win_ta = N_inf; lhood_lose_tb = N_inf; lhood_win_tb = N_inf; lhood_lose_tc
 margin = compute_margin(p_draw, sqrt(3)*beta)
 \end{lstlisting}
 %
-\en{Where the agents \texttt{a} were defined in the code~ \ref{lst:player}. }%
-\es{Los agentes \texttt{a} fueron definidos en el código~\ref{lst:player}. }%
+\en{where the teams are defined in code~\ref{lst:game}. }%
+\es{donde los equipos fueron definidos en el código~\ref{lst:game}. }%
 %
 \en{Since there are three players in both comparisons, we adjust both margins with the same size. }%
 \es{Como en ambas comparaciones hay tres jugadores, ajustamos ambos margenes con ese mismo tamaño. }%
 %
-\en{Let's start the iterative process by approximating the distribution $d_1$. }%
+\en{We start the iterative process by approximating the distribution $d_1$. }%
 \es{Empecemos el proceso iterativo aproximando la distribución $d_1$. }%
 %
-\en{Remember that any marginal distribution is the product of the messages it receives from its neighbours. }%
+\en{Note that any marginal distribution is the product of the received messages from the neighbors. }%
 \es{Recuerden que cualquier distribución marginal es el producto de los mensajes que esta recibe de sus vecinos. }%
 %
 \begin{lstlisting}[backgroundcolor=\color{all},belowskip=0.1cm, label=lst:d1, caption={\en{Approximating the distribution $d_1$ with the last message sent by $t_b$}\es{Aproximando la distribución $d_1$ con el último mensajes enviado por $t_b$}},aboveskip=0.0 \baselineskip]
@@ -2916,13 +2915,13 @@ prior_d1 = prior_ta - prior_lose_tb
 lhood_d1_approx = approx(prior_d1, margin, !tie) / prior_d1 
 \end{lstlisting}
 %
-\en{In the first line we initialize the message that the variable $t_b$ sends to the factor node $f_{d_1}$: the product of the messages received from behind. }%
+\en{In the first line, we initialize the message that the variable $t_b$ sends to the factor node $f_{d_1}$: the product of the messages received from behind. }%
 \es{En la primera línea inicializamos el mensaje que las variable $t_b$ envía al nodo factor $f_{d_1}$: la multiplicación de los mensajes que reciben de atrás. }%
 %
-\en{Note that in the first loop it is equivalent to \texttt{prior\_tb} because the variable \texttt{lhood\_win\_tb} has been defined with a neutral value. }%
+\en{Note that in the first loop, it is equivalent to \texttt{prior\_tb} because the variable \texttt{lhood\_win\_tb} has a neutral value. }%
 \es{Notar que en la primera vuelta es equivalente a \texttt{prior\_tb} debido a que la variable \texttt{lhood\_win\_tb} ha sido definida con un valor neutro. }%
 %
-\en{In the second line we compute the message sent by the factor $f_{d_1}$ to the variable $d_1$. }%
+\en{In the second line, we compute the message sent by the factor $f_{d_1}$ to the variable $d_1$. }%
 \es{En la segunda línea computamos el mensaje que envía el factor $f_{d_1}$ a la variable $d_1$. }%
 %
 \en{In the last line, we compute the approximate message sent by the variable $d_1$ to the factor $f_{d_1}$. }%
@@ -2947,10 +2946,10 @@ prior_d2 = prior_win_tb - prior_tc
 lhood_d2_approx = approx(prior_d2, margin, tie) / prior_d2 
 \end{lstlisting}
 %
-\en{In the first line we initialize the message that the variable $t_b$ sends to the factor node $f_{d_2}$}
+\en{In the first line, we initialize the message sent by variable $t_b$ to the factor node $f_{d_2}$. }%
 \es{En la primera línea inicializamos el mensaje que la variable $t_b$ envía al nodo factor $f_{d_2}$. }%
 %
-\en{In the second line we compute the message sent by the factor $f_{d_2}$ to the variable $d_2$. }%
+\en{In the second line, we compute the message sent by the factor $f_{d_2}$ to the variable $d_2$. }%
 \es{En la segunda línea computamos el mensaje que envía el factor $f_{d_2}$ a la variable $d_2$. }%
 %
 \en{In the last line, we compute the approximate message sent by the variable $d_2$ to the factor $f_{d_2}$. }%
@@ -2966,7 +2965,7 @@ lhood_win_tb = prior_lose_tc + lhood_d2_approx
 \en{Here we compute the message sent by the factor $f_{d_2}$ to the variable $t_b$. }%
 \es{Acá computamos el mensaje que envía el factor $f_{d_2}$ a la variable $t_b$. }%
 %
-\en{To achieve convergence, the codes \ref{lst:d1}, \ref{lst:tb_lose}, \ref{lst:d2}, \ref{lst:tb_win} must be iterated. }%
+\en{The codes \ref{lst:d1} to \ref{lst:tb_win} must be included in a cycle until reaching convergence. }%
 \es{Para alcanzar convergencia hay que iterar los c\'odigos \ref{lst:d1}, \ref{lst:tb_lose}, \ref{lst:d2}, \ref{lst:tb_win}. }%
 %
 \en{Once finished, we send the upstream messages to the teams at both ends. }%
@@ -2989,21 +2988,21 @@ lhood_tb = lhood_lose_tb * lhood_win_tb
 lhood_tc = lhood_lose_tc
 \end{lstlisting}
 %
-\en{The following ascending messages are calculated as described in section \ref{sec:approximate_posterior}. }%
+\en{The following ascending messages are obtained as described in section \ref{sec:approximate_posterior}. }%
 \es{Los siguientes mensajes ascendentes se calculan como se describe en la sección \ref{sec:approximate_posterior}. }%
 
-\subsection{\en{Information propagation in the class History}\es{Propagación de la información en la clase History}} \label{sec:throughTime}
+\subsection{\en{Information Propagation in the History Class}\es{Propagación de la información en la clase History}} \label{sec:throughTime}
 
-\en{In this section we explain how the information provided by the data propagates throughout the Bayesian network containing the history of events. }%
+\en{In this section, we explain how the information provided by the data propagates throughout the Bayesian network containing the history of events. }%
 \es{En esta secci\'on explicamos cómo la información provista por los datos se propaga por toda la red bayesiana que contiene la historia de los eventos. }%
 %
 \en{TrueSkill Through Time creates a unique causal model in which all historical activities are linked. }%
 \es{TrueSkill Through Time crea un modelo causal único en el que todas las actividades históricas están vinculadas. }%
 %
-\en{The connectivity between events is generated by the basic assumption that a player's skill at time $t$ depends on his own skill at an earlier time $t-1$. }%
+\en{The connectivity between events is generated by the basic assumption that a player's skill at time $t$ depends on his skill at an earlier time $t-1$. }%
 \es{La conectividad entre eventos surge de suponer que la habilidad de un jugador en un tiempo $t$ depende de su propia habilidad en un tiempo anterior $t-1$. }%
 %
-\en{The model states that within each time step $t$ (e.g. day, week, month, year) each agent $i$ participate in all events. }%
+\en{The model states that within each time step $t$ (e.g. day, week, month, year) each agent $i$ participates in all events. }%
 \es{El modelo admite que en un mismo paso temporal $t$ (e.g. d\'ia, semana, mes, a\~no) un agente $i$ participe en más de un evento. }%
 %
 % \en{The skills of different players are connected to each other by games, and the skills of the same player are temporally connected to past and future skills. }%
@@ -3013,7 +3012,7 @@ lhood_tc = lhood_lose_tc
 % \es{Todo esto junto forma una red complejo difícil de mostrar visualmente. }%
 % %
 %
-\en{In the Figure~\ref{fig:history} we show a part of the graphical factorization of the event history: the neighboring nodes to a skill variable and the messages between these nodes. }%
+\en{In Fig.~\ref{fig:history}, we show a part of the graphical factorization of the event history: the neighboring nodes to a skill variable and the messages between these nodes. }%
 \es{La figura~\ref{fig:history} mostramos una parte de la factorizaci\'on gráfica de la historia de eventos: los nodos vecinos a una variable de habilidad y los mensajes entre estos nodos. }%
 %
 \begin{figure}[ht!]
@@ -3069,26 +3068,26 @@ lhood_tc = lhood_lose_tc
 \en{The variables $p_t(j)$ represents the performance $p$ that the agent had in their $j$-th game within the time step $t$. }%
 \es{Las variables $p_t(j)$ representa el rendimiento $p$ que ese agente tuvo en la $j$-\'esima partida al interior del paso temporal $t$. }%
 %
-\en{The names of the arrows represents the messages computed by the sum-product algorithm. }%
+\en{The names of the arrows represent the messages computed by the sum-product algorithm. }%
 \es{Los nombres de las flechas representan los mensajes computados por el algoritmo de sum-product. }%
 }
 \label{fig:history}
 \end{figure}
 %
-\en{By the sum-product algorithm, we know that the marginal distribution of any variable is the product of the messages it receives from its neighbours. }%
+\en{By the sum-product algorithm, we know that the marginal distribution of any variable is the product of the messages it receives from its neighbors. }%
 \es{Por el \emph{sum-product algorithm} sabemos que la distribución marginal de cualquier variable es el producto de los mensajes que esta recibe de sus vecinos. }%
 %
-\en{Using the names selected in Figure \ref{fig:history}, we know that the posteriori distribution of an agent's skill $i$ at time $t$ is,}
-\es{Usando los nombres seleccionados en la figura \ref{fig:history}, sabemos que la distribución posteriori de la habilidad de un agente $i$ en un tiempo $t$ es,}
+\en{Using the names presented in Fig.~\ref{fig:history}, we know that the posterior distribution of an agent's skill $i$ at time $t$ is: }%
+\es{Usando los nombres seleccionados en la figura \ref{fig:history}, sabemos que la distribución posteriori de la habilidad de un agente $i$ en un tiempo $t$ es: }%
 %
 \begin{equation} \label{eq:posterior_history}
  \text{posterior}(s_t) = \emph{forwardPrior}(s_t) \cdot \emph{backwardPrior}(s_t) \cdot \prod_{k=1}^{K_t} \emph{likelihood}_k(s_t)
 \end{equation}
 %
-\en{Where $K_t$ is the number of events in which the agent participates in time step $t$. }%
-\es{Donde $K_t$ es la cantidad de eventos en los que participa el agente en el paso temporal $t$. }%
+\en{where $K_t$ is the number of events in which the agent participates in time step $t$. }%
+\es{donde $K_t$ es la cantidad de eventos en los que participa el agente en el paso temporal $t$. }%
 %
-\en{The \emph{likelihood} messages are the likelihoods of the events described in sections \ref{sec:approximate_posterior} and \ref{sec:iterative_posterior}, and the \emph{forwardPrior} and \emph{backwardPrior} messages are the neighboring skill estimates, to which some uncertainty $\gamma$ is added due to the time step. }%
+\en{The \emph{likelihood} messages are the likelihoods of the events described in sections \ref{sec:approximate_posterior} and \ref{sec:iterative_posterior}, and the \emph{forwardPrior} and \emph{backwardPrior} messages are the neighboring skill estimates, to which some uncertainty $\gamma$ is added in each time step. }%
 \es{Los mensajes \emph{likelihood} son las verosimilitudes de los eventos descritas en la secciones \ref{sec:approximate_posterior} y \ref{sec:iterative_posterior}, y los mensajes \emph{forwardPrior} y \emph{backwardPrior} son las estimaciones de habilidad vecinas, a las que se le agrega cierta incertidumbre $\gamma$ por el paso temporal. }%
 %
 \begin{equation} \label{eq:dynamic_history}
@@ -3109,13 +3108,13 @@ lhood_tc = lhood_lose_tc
 \en{The coincidence arises from applying the sum-product algorithm. }%
 \es{La coincidencia surge de aplicar el \emph{sum-product algorithm}. }%
 %
-\en{But from its application also emerges the existence of the \emph{backwardPrior}$(s_t)$ message, which is the \emph{backwardPosterior}$(s_{t+1})$ after the dynamic uncertainty of time $t+1$ is added, $f_{s_{t+1}}$. }%
+\en{But from its application also emerges the \emph{backwardPrior}$(s_t)$ message, which is the \emph{backwardPosterior}$(s_{t+1})$ after the dynamic uncertainty of time $t+1$ is added, $f_{s_{t+1}}$. }%
 \es{Pero de su aplicación también aparece la existencia del mensaje~\emph{backwardPrior}$(s_t)$, que es el \emph{backwardPosterior}$(s_{t+1})$ luego de que se le agrega la incertidumbre dinámica del tiempo $t+1$, $f_{s_{t+1}}$. }%
 
 %
 
-\en{The amount of dynamic uncertainty added to the \emph{forwardPrior} and \emph{backwardPrior} messages in equation \ref{eq:dynamic_history} was the same. }%
-\es{La cantidad de incertidumbre dinámica agregada a los mensajes \emph{forwardPrior} y \emph{backwardPrior} en la ecuación \ref{eq:dynamic_history} es la misma. }%
+\en{The amount of dynamic uncertainty added to the \emph{forwardPrior} and \emph{backwardPrior} messages in equation~\eqref{eq:dynamic_history} was the same. }%
+\es{La cantidad de incertidumbre dinámica agregada a los mensajes \emph{forwardPrior} y \emph{backwardPrior} en la ecuación \eqref{eq:dynamic_history} es la misma. }%
 %
 \en{However, sometimes we would like the dynamic uncertainty to depend on the temporal distance between adjacent skill variables. }%
 \es{Sin embargo, a veces quisiéramos que la incertidumbre dinamica dependa de la distancia temporal entre variables de habilidad adyacentes. }%
@@ -3123,20 +3122,20 @@ lhood_tc = lhood_lose_tc
 \en{Our packages support both options. }%
 \es{Nuestros paquetes admiten ambas opciones. }%
 %
-\en{When we initialize the class \texttt{History} without specifying the time of the events, as we did in codes \ref{lst:history} and \ref{lst:estimating_the_simulated}, the dynamic factors always incorporate a single $\gamma^2$ between variables that are adjacent according to the composition of the events. }%
+\en{When we initialize the class \texttt{History} without specifying the time of the events, as we did in codes~\ref{lst:history} and \ref{lst:estimating_the_simulated}, the dynamic factors always incorporate a single $\gamma^2$ between variables that are adjacent according to the composition of the events. }%
 \es{Cuando inicializamos la clase \texttt{History} sin especificar el tiempo de los eventos, como hicimos en los códigos \ref{lst:history} y \ref{lst:estimating_the_simulated}, los factores dinámicos incorporan siempre un $\gamma$ entre variables que son adyacentes según la composición de los eventos. }%
 %
-\en{When we specify the time of the events, as we did in the code \ref{lst:atp}, the adjacency depends on those times and the dynamic uncertainty depends on the elapsed time between two adjacent variables $s_t$ and $s_{t-1}$. }%
+\en{When we specify the time of the events, as we did in code~\ref{lst:atp}, the adjacency depends on those times, and the dynamic uncertainty depends on the elapsed time between two adjacent variables $s_t$ and $s_{t-1}$. }%
 \es{Cuando especificamos el tiempo de los eventos, como hicimos en el código \ref{lst:atp}, la adyacencia depende de esos tiempos y la incertidumbre dinámica depende de la distancia temporal entre dos variables adyacentes $s_t$ y $s_{t-1}$. }%
 %
 \begin{equation}
  f_{s_t} = \N(s_t | s_{t-1}, \text{\en{elapsedTime}\es{distanciaTemporal}}(s_t,s_{t-1})\cdot \gamma^2 )
 \end{equation}
 %
-\en{The priors which are used to compute the likelihoods of the event are the descending messages \emph{withinPrior}. }%
+\en{The priors, used to compute the likelihoods of the event, are the descending messages \emph{withinPrior}. }%
 \es{Los priors que se usan para computar las verosimilitudes de los evento son los mensajes descendentes \emph{withinPrior}. }%
 %
-\en{Following the sum-product algorithm we know that the messages sent by the variable are the product of the messages they received from behind, so the message \emph{withinPrior} is,}
+\en{Following the sum-product algorithm, we know that the messages sent by the variable are the product of the messages they received from behind, so the message \emph{withinPrior} is:}
 \es{Siguiendo el \emph{sum-product algorithm} sabemos que los mensajes que envían las variable son la mutliplicación de los mensajes que reciben de atrás, por lo que el mensaje \emph{withinPrior} es,}
 %
  \begin{equation}
@@ -3146,13 +3145,13 @@ lhood_tc = lhood_lose_tc
  \end{split}
  \end{equation}
 %
-\en{The \emph{withinPrior} contains all the information of the posterior$(s_t)$, except the information coming from the likelihood of the event $q$ for which it is prior. }%
+\en{The \emph{withinPrior} contains the information of the posterior$(s_t)$, except for the event's likelihood$_q$ for which it is prior. }%
 \es{El \emph{withinPrior} contiene toda la información del posterior$(s_t)$, salvo la información que proviene de la verosimilitud del evento $q$ para la que es prior. }%
 %
-\en{To solve the mutual dependency between likelihoods, we repeatedly update the messages forward and backward until convergence is reached. }%
+\en{To solve the mutual dependency between likelihoods, we repeatedly update the forward and backward messages until reaching convergence. }%
 \es{Para resolver la mutua dependencia entre verosimilitudes, actualizamos repetidas veces los mensajes hacia adelante y hacia atras hasta alcanzar convergencia. }%
 %
-\en{At each forward pass we keep track the last forward message of each agent \emph{forwardPosterior}, and at each backward pass we keep track the last backward message of each agent, \emph{backwardPosterior}. }%
+\en{At each forward pass, we keep track of the last forward message of each agent \emph{forwardPosterior}, and at each backward pass, we keep track of the last backward message of each agent, \emph{backwardPosterior}. }%
 \es{En cada pasada hacia adelante guardamos el último mensajes que los agentes envían para adelante, \emph{forwardPosterior}, y en cada pasada hacia atrás guardamos el último mensajes que los agentes envían para atrás, \emph{backwardPosterior}. }%
 %
 \begin{equation}
@@ -3168,12 +3167,12 @@ lhood_tc = lhood_lose_tc
 \en{This algorithm requires only a few linear iterations on the data to converge and allows scaling to millions of observations in a few seconds. }%
 \es{Este algoritmo requiere s\'olo unas pocas iteraciones lineales sobre los datos para converger y permite escalar a millones de observaciones en pocos minutos. }%
 
-\subsection{\en{Model evaluation}\es{Evaluación de modelos}} \label{sec:evidence}
+\subsection{\en{Model Evaluation}\es{Evaluación de modelos}} \label{sec:evidence}
 
-\en{In this section we will discuss how to evaluate models. }%
+\en{In this section, we discuss how to evaluate models. }%
 \es{En esta sección discutiremos sobre cómo evaluar modelos. }%
 %
-\en{We would like to have a measure that allows us to decide: whether TrueSkill Through Time is better than TrueSkill, the optimal values of the parameters $\sigma$ and $\gamma$ (figure \ref{fig:optimization}), and whether to model multi-dimensional skills (code \ref{lst:atp_ground}). }%
+\en{We would like to have a procedure to decide whether TrueSkill Through Time is better than TrueSkill, the optimal values of the parameters $\sigma$ and $\gamma$ (Fig.~\ref{fig:optimization}), and whether to model multi-dimensional skills (code~\ref{lst:atp_ground}). }%
 \es{Qusiéramos tener una medida que nos permita decidir: si TrueSkill Through Time es mejor a TrueSkill, los valores óptimos de los parámetros $\sigma$ y $\gamma$ (figura \ref{fig:optimization}), y si conviene modelar habilidades multi-dimensionales (código \ref{lst:atp_ground}). }%
 %
 \en{In the same way that we use probability theory to evaluate the hypotheses of a model given the data, we can also evaluate different models given the data. }%
@@ -3183,30 +3182,30 @@ lhood_tc = lhood_lose_tc
  P(\text{Model\es{o}}|\text{Dat\en{a}\es{os}}) = \frac{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}})P(\text{Model\es{o}})}{P(\text{Dat\en{a}\es{os}})}
 \end{equation}
 %
-\en{where $P(\text{Model})$ is the prior of the models, which we define, and $P(\text{Data}|\text{Model})$ is the evidence, which in our case is computed with the equation \ref{eq:evidence}. }%
+\en{where $P(\text{Model})$ is the prior of the models, which we define, and $P(\text{Data}|\text{Model})$ is the evidence computed using equation~\eqref{eq:evidence}. }%
 \es{donde $P(\text{Modelo})$ es el prior de los modelos, el cual definimos nosotros, y $P(\text{Datos}|\text{Modelo})$ es la evidencia, que en nuestro caso se computa con la ecuación \ref{eq:evidence}. }%
 %
-\en{If both expressions can be evaluated for the entire model space, then we can also compute the denominator $P(\text{Data})$. }%
+\en{If both expressions can be evaluated for the entire model space, then we can also compute $P(\text{Data})$. }%
 \es{Si ambas expresiones podemos evaluarlas para todo el espacio de modelos, entonces también podemos calcular el denominador $P(\text{Datos})$. }%
 %
 \begin{equation}
  P(\text{Dat\en{a}\es{os}}) = \sum_j P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_j)P(\text{Model\es{o}}_j)
 \end{equation}
 %
-\en{where we add the above expressions for all alternative models. }%
+\en{where we perform the summation of the alternative models. }%
 \es{donde sumamos las expresiones arriba mencionadas para todos los modelos alternativos. }%
 %
-\en{When we do not have access to all models, we will not be able to calculate the probability $P(\text{Model}|\text{Data})$, but we will be able to compare models. }%
+\en{When we do not have access to all models, we cannot compute the probability $P(\text{Model}|\text{Data})$, but we can compare models. }%
 \es{Cuando no tenemos acceso a todos los modelos, no podremos calcular la probabilidad $P(\text{Modelo}|\text{Datos})$, pero sí podremos comparar modelos. }%
 %
 \begin{equation}
  \frac{P(\text{Model\es{o}}_i|\text{Dat\en{a}\es{os}})}{P(\text{Model\es{o}}_j|\text{Dat\en{a}\es{os}})} = \frac{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_i)P(\text{Model\es{o}}_i)}{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_j)P(\text{Model\es{o}}_j)}
 \end{equation}
 %
-\en{This expression is known as \emph{Bayes factor}, and can be computed whenever we can compute the a priori prediction (or evidence) of both models. }%
+\en{This expression is known as the \emph{Bayes factor} and can be obtained if we can compute the prior prediction (or evidence) of both models. }%
 \es{Esta expresión se conoce como \emph{Bayes factor}, y se puede computar siempre que podamos calcular la predicción a priori (o evidencia) de ambos modelos. }%
 %
-\en{In the special case where we have no a priori preference over any model, we need only compare the a priori predictions of the models. }%
+\en{In the special case where we have no prior preference over any model, we need only compare the prior predictions of the models. }%
 \es{En el caso especial en el que no tenemos preferencia a priori sobre ningún modelo, sólo debemos comparar las predicciones a priori de los modelos. }%
 %
 \begin{equation}
@@ -3220,23 +3219,23 @@ lhood_tc = lhood_lose_tc
 \es{Por la regla del producto, sabemos que siempre podemos descomponer la probabilidad conjunta como el producto de probabilidades condicionales unidimensionales. }%
 %
 \begin{equation}\label{eq:evidencia_conjunta}
- P(\text{D}|\text{M}) = P(d_1|\text{M})P(d_2|d_1,\text{M}) \dots P(d_n|d_{n-1} \dots d_1, \text{M})
+ P(\text{D}|\text{M}) = P(d_1|\text{M})P(d_2|d_1,\text{M}) \dots P(d_n|d_{n-1}, \dots, d_1, \text{M})
 \end{equation}
 %
-\en{where D represents the data set, M the model, and $d_i$ individual data points. }%
+\en{where D represents the data set, M the model, and $d_i$ the individual data points. }%
 \es{donde D representa el conjunto de los datos, M el modelo, y $d_i$ los datos individuales. }%
 %
 \en{In our case, the individual data are the results of the games, and the probabilities that are being multiplied in the equation~\eqref{eq:evidencia_conjunta} are the prior predictions of the observed result using estimates that were obtained with past information. }%
 \es{En nuestro caso, los datos individuales son los resultados de las partidas, y las probabilidades que se están multiplicando en la ecuación~\eqref{eq:evidencia_conjunta} son las predicciones a priori del resultado observado usando estimaciones que se obtuvieron con la información pasada. }%
 %
-\en{In large database, the joint probability of the data (equation~\eqref{eq:evidencia_conjunta}) is always close to $0$ because it is the product of probabilities ranging from $0$ to $1$. }%
+\en{In a large database, the joint probability of the data (equation~\eqref{eq:evidencia_conjunta}) is always close to $0$ because it is the product of probabilities ranging from $0$ to $1$. }%
 \es{En base de datos grandes, la probabilidad conjunta de los datos (ecuación~\eqref{eq:evidencia_conjunta}) es siempre cercana a $0$ debido que es el producto de probabilidades que van entre $0$ y $1$. }%
 %
-\en{To evaluate this expression it is convenient to work in logarithmic scale. }%
+\en{It is convenient to use a logarithmic scale to analyze $P(\text{D}|\text{M})$:}%
 \es{Para evaluar esta expresión conviene trabajar en escala logarítmica. }%
 %
 \begin{equation}\label{eq:log_evidencia_conjunta}
- \log P(\text{D}|\text{M}) = \log P(d_1|\text{M}) + \dots + \log P(d_n|d_{n-1} \dots d_1, \text{M})
+ \log P(\text{D}|\text{M}) = \log P(d_1|\text{M}) + \dots + \log P(d_n|d_{n-1}, \dots, d_1, \text{M})
 \end{equation}
 %
 \en{In TrueSkill, this expression is the sum of all the logarithmic prior predictions, using the last posterior of each agent as the prior for the new game. }%
@@ -3248,8 +3247,8 @@ lhood_tc = lhood_lose_tc
 \en{In section \ref{sec:throughTime} we have shown that in the temporal model the prior of the events (the message \emph{whitinPrior}) contains all the historical information except the one coming from that event. }%
 \es{En la sección \ref{sec:throughTime} hemos mostrado que en el modelo temporal el prior de los eventos (el mensaje \emph{whitinPrior}) contiene toda la información histórica salvo la que proviene de ese evento. }%
 %
-\en{Then, the predictions evaluated with those messages have the rest of the data in the conditional, $p(d_i| d_1 \dots d_{i-1}, d_{i+1} \dots d_n , M)$. }%
-\es{Entonces, las predicciones evaluadas con esos mensajes tienen el resto de los datos en el condicional, $p(d_i| d_1 \dots d_{i-1}, d_{i+1} \dots d_n , M)$. }%
+\en{Then, the predictions evaluated with those messages have the rest of the data in the conditional, $p(d_i| d_1, \dots, d_{i-1}, d_{i+1}, \dots, d_n , M)$. }%
+\es{Entonces, las predicciones evaluadas con esos mensajes tienen el resto de los datos en el condicional, $p(d_i| d_1, \dots, d_{i-1}, d_{i+1}, \dots, d_n , M)$. }%
 %, por lo que su multiplicación no se corresponde con la probabilidad conjunta de los datos
 % \begin{equation} \label{eq:loocv}
 %  \prod_i p(d_i|\wedge_{j\neq i} d_j , M) = \text{LOOCV}
@@ -3259,7 +3258,7 @@ lhood_tc = lhood_lose_tc
 \en{This expression matches a technique known as \emph{leave-one-out cross-validation} (LOOCV). }%
 \es{Esta expresión coincide con una técnica de validación cruzada conocida como \emph{leave-one-out croos-validation} (LOOCV). }%
 %
-\en{The \texttt{log\_evidence()} method of the \texttt{History} class returns by default the product of all these elements in logarithmic scale. }%
+\en{The \texttt{log\_evidence()} method of the \texttt{History} class returns the product of all these elements using a logarithmic scale. }%
 \es{El método \texttt{log\_evidence()} de la clase \texttt{History} devuelve por defecto el producto de todos estos elementos en escala logarítmica. }%
 %
 \begin{equation} \label{eq:log_evidence_default}
@@ -3269,10 +3268,10 @@ lhood_tc = lhood_lose_tc
 \en{where we use the symbol $\wedge_{j\neq i}$ to incorporate in the conditional all the data $d_j$ except the $i$-th. }%
 \es{donde el símbolo $\wedge_{j\neq i}$ lo usamos para incorporar en el condicional todos los datos $d_j$ salvo el $i$-ésimo. }%
 %
-\en{To compute the a priori prediction using only the past information, it is necessary to send only the \emph{forwardPrior} as a message to the events. }%
+\en{To compute the prior prediction using only the past information, it is necessary to send only the \emph{forwardPrior} as a message to the events. }%
 \es{Para computar la predicción a priori usando sólo la información pasada, es necesario enviar como mensaje a los eventos unicamente el \emph{forwardPrior}. }%
 %
-\en{The variable \texttt{online} of the method \texttt{log\_evidence()}, when assigned a true value, returns in logarithmic scale the product of the predictions made with past information. }%
+\en{When the parameter \texttt{online} of the method \texttt{log\_evidence()} is \texttt{true}, this function returns the product of the predictions made with past information using a logarithmic scale. }%
 \es{La variable \texttt{online} del método \texttt{log\_evidence()}, cuando se le asigna un valor verdadero, devuelve el en escala logarítmica el producto de las predicciones hechas con información del pasada. }%
 %
 \begin{equation} \label{eq:log_evidence_online}
@@ -3288,10 +3287,10 @@ lhood_tc = lhood_lose_tc
 \en{We do not implement the exact solution because its computational complexity is quadratic: it would be necessary to upload the data one by one and perform a convergence at each step. }%
 \es{No implementamos la solución exacta debido a que su complejidad computacional es cuadrática: sería necesario subir los datos de a uno y realizar una convergencia en cada paso. }%
 %
-\en{Someone might suspect that the expressions \ref{eq:log_evidence_default} and \ref{eq:log_evidence_online} are unreliable because they might indirectly use information from the future to correctly predict the result of events. }%
+\en{Someone might suspect that the expressions \ref{eq:log_evidence_default} and \ref{eq:log_evidence_online} are unreliable because they might indirectly use information from the future to predict the result of current events. }%
 \es{Alguien podría sospechar que las expresiones \ref{eq:log_evidence_default} y \ref{eq:log_evidence_online} no son confiables porque podrían usar indirectamente información del futuro para predecir correctamente el resultado de los eventos. }%
 %
-\en{Conversely, in the example presented in the introduction (figure \ref{fig:smooth_example}) these expressions return more pessimistic values than the exact solution. }%
+\en{Conversely, in the example presented in the introduction (Fig.~\ref{fig:smooth_example}), these expressions return more pessimistic values than the exact solution. }%
 \es{Por el contrario, en el ejemplo presentado en la introducción (figura \ref{fig:smooth_example}) estas expresiones devuelven valores más pesimistas que la solución exacta. }%
 %
 \begin{table}[ht!]\centering
@@ -3318,47 +3317,47 @@ lhood_tc = lhood_lose_tc
 \label{tab:evidence}
 \end{table}
 %
-\en{In the table \ref{tab:evidence} we can see that the exact solution $P(\text{D}|\text{M})$ uses as prior of the events messages containing completely ignorant estimates of the future: the likelihood$_1^1$ is obtained from the first event in the first iteration of the convergence, before the information from the second event has been incorporated. }%
+\en{Table~\ref{tab:evidence} shows that the exact solution $P(\text{D}|\text{M})$ uses messages which ignore the estimates from the future. The likelihood$_1^1$ is obtained from the first event of the first iteration before the information from the second event is incorporated. }%
 \es{En la tabla \ref{tab:evidence} podemos ver que la solución exacta $P(\text{D}|\text{M})$ usa como prior de los eventos mensajes que contienen estimaciones totalmente ignorantes del futuro: el likelihood$_1^1$ se obtiene del primer evento en la primera iteración de la convergencia, antes de que se haya incorporado la información del segundo evento. }%
 %
-\en{In this extreme case the exact joint evidence of TrueSkill Through Time and TrueSkill are the same, so there is no preference for any of the models. }%
+\en{In this extreme case the exact joint evidence of TrueSkill Through Time and TrueSkill is the same, so there is no preference for any model. }%
 \es{En este caso extremo la evidencia conjunta exacta de TrueSkill Through Time y de TrueSkill son iguales, por lo que no hay preferencia por ninguno de los modelos. }%
 %
 \en{The $\widehat{P}(\text{D}|\text{M})$ and {\small$\widehat{\text{LOOCV}}$} approximations use as prior of the events messages with estimates containing information of the future: the likelihood$_1^k$ is obtained from the first event in the last convergence iteration, which uses information from the second event. }%
 \es{Las aproximaciones $\widehat{P}(\text{D}|\text{M})$ y {\small$\widehat{\text{LOOCV}}$} usan como prior de los eventos mensajes con estimaciones que contienen información del futuro: el likelihood$_1^k$ es obtiene del primer evento en la última iteración de convergencia, usando información del segundo evento. }%
 %
-\en{In this extreme case, if we use some of them to approximate the a priori predictions we would believe that the TrueSkill model is better, even though TrueSkill Through Time recovers the correct posteriors. }%
+\en{In this extreme case, if we use some of them to approximate the prior predictions we would believe that the TrueSkill model is better, even though TrueSkill Through Time recovers the correct posteriors. }%
 \es{En este caso extremo si usamos algunas de ellas para aproximar las predicciones a priori creeríamos que conviene el modelo TrueSkill, a pesar de que TrueSkill Through Time recupera los posteriors correctos. }%
 %
 \en{It is interesting to note why this occurs. }%
 \es{Es interesante notar por qué ocurre eso. }%
 %
-\en{If we extend the example, adding one game at a time, alternating the wins between the two players, the situation is quickly reversed: both the exact solution and its approximations provide better prior predictions than TrueSkill. }%
+\en{The situation turns around quickly when adding one game at a time, alternating the wins between the two players. The exact solution and its approximations provide better predictions than TrueSkill. }%
 \es{Si extendemos el ejemplo, agregando partidas de a una, alternando las victorias entre los dos jugadores, la situación rápidamente se invierte: tanto la solcución exacta como sus aproximaciones proveen mejores predicciones a priori que TrueSkill. }%
 %
-\en{In Figure \ref{fig:log_evidence_behavior} we can see the prediction difference between the exact solution with respect to its approximations and TrueSkill. }%
+\en{Figure~\ref{fig:log_evidence_behavior} compares the exact solution with the approximations and the TrueSkill prediction. }%
 \es{En la figura \ref{fig:log_evidence_behavior} podemos la diferencia de predicción entre la solución exacta respecto de sus aproximaciones y de TrueSkill. }%
 %
 \begin{figure}[ht!]
     \centering
     \includegraphics[page={1},width=.7\linewidth]{figures/prior_predictions}
     \caption{
-    \en{Prediction difference between the exact solution $ P (D | M) $ with respect to TrueSkill and the approximate solutions, {\small$\widehat{\text{LOOCV}}$} and $ \widehat{P}(D | M) $, as we add more events to the example presented in the introduction (Figure \ref{fig:smooth_example}). }%
+    \en{Difference between the exact solution $ P (D | M) $ and TrueSkill, the approximate solutions ({\small$\widehat{\text{LOOCV}}$}), and $ \widehat{P}(D | M) $ as we add more events to the example presented in the introduction (Fig.~\ref{fig:smooth_example}). }%
     \es{Diferencia de predicción entre la solución exacta $P(D|M)$ respecto de TrueSkill y las solcuiones aproximadas, {\small$\widehat{\text{LOOCV}}$} y $\widehat{P}(D|M)$, a medida que agregamos más eventos al ejemplo presentado en la introducción (figura \ref{fig:smooth_example}). }%
     }
     \label{fig:log_evidence_behavior}
 \end{figure}
 %
-\en{It is interesting to note that the exact solution is always greater than TrueSkill and $\widehat{P}(D|M)$, and even though the solution {\small$\widehat{\text{LOOCV}}$} slightly exceeds it in a moment it is at the same time the one that best approximates it. }%
-\es{Es interesante notar que la solución exacta siempre es mayor a TrueSkill y a $\widehat{P}(D|M)$, y a pesar de que la solución {\small$\widehat{\text{LOOCV}}$} la supera levemente en un momento es al mismo tiempo la que mejor la aproxima. }%
+\en{The exact solution is always greater than TrueSkill and $\widehat{P}(D|M)$, and even though the solution {\small$\widehat{\text{LOOCV}}$} briefly surpasses it, is the one that best approximates it. }%
+\es{Es interesante notar que la solución exacta siempre es mayor a TrueSkill y a $\widehat{P}(D|M)$, y a pesar de que la solución {\small$\widehat{\text{LOOCV}}$} la supera levemente en un momento, es al mismo tiempo la que mejor la aproxima. }%
 %
-\en{This example illustrate that the \ref{eq:log_evidence_default} and \ref{eq:log_evidence_online} expressions do not use information about the future indirectly to artificially improve their predictions. }%
+\en{This example illustrates that the expressions~\eqref{eq:log_evidence_default} and \eqref{eq:log_evidence_online} do not use information from the future to improve their predictions artificially. }%
 \es{Este ejemplo ilustra que las expresiones \ref{eq:log_evidence_default} y \ref{eq:log_evidence_online} no usan la información del futuro de manera indirecta para artificialmente mejorar sus predicciones. }%
 %
-\en{Both avoid overfitting and penalize sufficiently unnecessarily complex models. }%
+\en{In both cases, they avoid overfitting and penalize unnecessarily complex models. }%
 \es{Ambas evitan el sobreajuste y penalizan suficientemente los modelos innecesariamente complejos. }%
 %
-\en{This is an important clarification, which is not addressed in the original TrueSkill Through Time paper. }%
+\en{The original TrueSkill Through Time work does not include this clarification. }%
 \es{Es importante esta aclaración, que no está tratada en el papar original de TrueSkill Through Time. }%
 
 
@@ -3440,22 +3439,22 @@ lhood_tc = lhood_lose_tc
 
 
 
-\section{Summary and discussion} \label{sec:summary}
+\section{Summary and Discussion} \label{sec:summary}
 
- \en{Estimating how individual skills evolve through time is essential in the educational system or in the labor market. }%
- \es{Estimar como evolucionan las habilidades individuales en el tiempo es esencial en los sistemas educativos, laborales y deportivos. }%
- %
- \en{The models commonly used in industry and academia (TrueSkill, Glicko, Item-Response Theory) are based on an ad-hoc solution that prevents them both from having good initial estimates and from guaranteeing comparability between estimates separated in time. }%
- \es{Los modelos normalmente usados en la industria y la academia (TrueSkill, Glicko, Item-Response Theory), están basados en una solución ad-hoc que les impide tener tanto buenas estimaciones iniciales como garantizar la comparabiilidad entre estimaciones separadas en el tiempo. }%
- %
- \en{The TrueSkill Through Time model, being theoretically well-founded, corrects the biases estimation of previous models, making it a fundamental step in the direction of reliable estimates. }%
- \es{El modelo TrueSkill Through Time, al estar teóricamente bien fundado corrigelos los sesgos de los modelos previos, siendo un paso fundamental en la dirección de estimaciones confiables. }%
- %
- \en{Although this improvement was published more than a decade ago, it had not been implemented until now in the programming languages noted for having the largest scientific software development communities. }%
- \es{Si bien esta mejora fue publicado hace más una década, no había sido implementado hasta ahora en los lenguajes de programación destacados por tener las mayores comunidades de desarrollo de software centífico. }%
- %
- \en{With this article we promote their adoption by providing the first packages for \proglang{Julia}, \proglang{Python} and \proglang{R}, together with the complete scientific documentation. }%
- \es{Con este artículo promovemos su uso poniendo a disposición los primeros paquetes para \proglang{Julia}, \proglang{Python} y \proglang{R}, junto con la documentación científica completa. }%
+\en{Estimating how individual skills evolve through time is essential in the educational system and labor market. }%
+\es{Estimar como evolucionan las habilidades individuales en el tiempo es esencial en los sistemas educativos, laborales y deportivos. }%
+%
+\en{The models commonly used in industry and academia (TrueSkill, Glicko, Item-Response Theory) are based on ad-hoc solutions preventing good initial estimates and comparability between estimates separated in time. }%
+\es{Los modelos normalmente usados en la industria y la academia (TrueSkill, Glicko, Item-Response Theory), están basados en una solución ad-hoc que les impide tener tanto buenas estimaciones iniciales como garantizar la comparabiilidad entre estimaciones separadas en el tiempo. }%
+%
+\en{The TrueSkill Through Time model, being theoretically well-founded, corrects the biases' estimation of previous models, making it a fundamental step towards reliable estimates. }%
+\es{El modelo TrueSkill Through Time, al estar teóricamente bien fundado corrigelos los sesgos de los modelos previos, siendo un paso fundamental en la dirección de estimaciones confiables. }%
+%
+\en{Although this improvement was published more than a decade ago, it is still not implemented using the programming languages with large scientific software development communities. }%
+\es{Si bien esta mejora fue publicado hace más una década, no había sido implementado hasta ahora en los lenguajes de programación destacados por tener las mayores comunidades de desarrollo de software centífico. }%
+%
+\en{This article promotes its adoption by providing the first packages for \proglang{Julia}, \proglang{Python}, and \proglang{R}, jointly with the scientific documentation. }%
+\es{Con este artículo promovemos su uso poniendo a disposición los primeros paquetes para \proglang{Julia}, \proglang{Python} y \proglang{R}, junto con la documentación científica completa. }%
 
 % Parrafo
 % 
@@ -3484,70 +3483,67 @@ lhood_tc = lhood_lose_tc
 
 % Parrafo
 
-\en{The advantage of TrueSkill Through Time lies in its temporal causal model, that links all historical activities in the same Bayesian network, allowing the information to propagate correctly throughout the system, which guarantees both good initial estimates and the temporal and spatial comparability of the estimates. }%
+\en{The advantage of TrueSkill Through Time lies in its temporal causal model, which links all historical activities in the same Bayesian network, allowing the information to propagate correctly throughout the system guaranteeing good initial estimates and the temporal and spatial comparability of the estimates. }%
 \es{La ventaja TrueSkill Through Time radica en su modelo causal temporal, que vincula todas las actividades históricas en una misma red bayesiana, permitiendo que la información propage correctamente por todo el sistema, lo que garantiza tanto buenas estimaciones iniciales como la comparabilidad temporal y espacial de las estimaciones. }%
 %
-% \en{One of the historical bottlenecks to the strict application of probability theory was the technical difficulty in solving the integrals that compute marginal probabilities: the posterior and the a priori prediction. }%
+% \en{One of the historical bottlenecks to the strict application of probability theory was the technical difficulty in solving the integrals that compute marginal probabilities: the posterior and the prior prediction. }%
 % \es{Uno de los cuello de botella hist\'orico para la aplicación estricta de la teoría de la probabilidad fue la dificultad técnica para resolver las integrales que computan las probabilidades marginales: el posterior y la predicción a priori. }%
 %
-\en{This model requires the implementation of an iterative message passing algorithm to efficiently solve the inference process. }%
+\en{This model requires the implementation of an iterative message-passing algorithm to efficiently solve the inference process. }%
 \es{Este modelo requiere la implementación de un algoritmo iterativo de pasaje de mensajes que permite resolver de forma eficiente el proceso de inferencia. }%
 %
-\en{Our \proglang{Python} package solves individual events 10 times faster than the original \pkg{trueskill}~$0.4.5$ \citep{lee-trueskill} package. }%
-\es{Nuestro paquete de \proglang{Python} resuelve los eventos individuales 10 veces más rápido que el paquete original \pkg{trueskill}~$0.4.5$ \citep{lee-trueskill}. }%
+\en{Our \proglang{Python} package solves individual events ten times faster than the original \pkg{trueskill}~$0.4.5$ \citep{lee-trueskill} package. }%
+\es{Nuestro paquete de \proglang{Python} resuelve los eventos individuales diez veces más rápido que el paquete original \pkg{trueskill}~$0.4.5$ \citep{lee-trueskill}. }%
 %
-\en{In turn, our \proglang{Julia} package solves event sequences $10$ times faster than our \proglang{Python} package. }%
-\es{A su vez, nuestro paquete de \proglang{Julia} resuelve las secuencias de eventos $10$ veces más rápido  que nuestro paquete de \proglang{Python}. }%
+\en{In turn, our \proglang{Julia} package solves event sequences ten times faster than our \proglang{Python} package. }%
+\es{A su vez, nuestro paquete de \proglang{Julia} resuelve las secuencias de eventos diez veces más rápido  que nuestro paquete de \proglang{Python}. }%
 %
 \en{In contrast, our \proglang{R} package is slower than the other packages, including the original \pkg{trueskill}~$0.4.5$ package. }%
 \es{Por el contrario, nuestro paquete de \proglang{R} es varias veces más lento que que el paquete básico \pkg{trueskill}~$0.4.5$. }%
 %
-\en{We have shown that this procedure converges quickly even on large databases. }%
+\en{We have shown that this procedure converges quickly on large databases. }%
 \es{Hemos mostrado que este procedimiento converge rápidamente incluso en bases de datos grandes. }%
 
 %
-\en{Bias correction and computational efficiency are critical for estimates to be used in sensitive areas of industry and academia. }%
+\en{Bias correction and computational efficiency are critical for estimates to increase the adoption in sensitive areas of industry and academia. }%
 \es{La corrección de los sesgos y la eficiencia computacional son fundamentales para que las estimaciones sean usadas en áreas sensibles de la industria y la academia. }%
 %
-\en{The fact that it has not been implemented before seems to be a consequence of the scarcity of previously available documentation. }%
+\en{The fact that it has not been implemented before seems to be a consequence of the scarcely available documentation. }%
 \es{Que no se haya implementado antes parece ser consecuencia de la escacés de documentación disponible previamente. }%
 %
-\en{In this article we offer the first complete mathematical documentation. }%
-\es{En este artículo ofrecemos la primera documentación matemática completa. }%
-%
-\en{While the TrueSkill and TrueSkill Through Time papers publish the update functions, they were not accompanied with all the mathematical arguments needed to make sense of them. }%
+\en{While the TrueSkill and TrueSkill Through Time papers present the update functions, they were not accompanied with all the mathematical arguments needed to make sense of them. }%
 \es{Si bien los papers de TrueSkill y TrueSkill Through Time publican las funciones de actualización, ellos no estuvieron acompañados con todos los argumentos matemáticos que se necesitan para darles sentido. }%
 %
-\en{The official TrueSkill website referred to an informal text that despite promising ``the math behind TrueSkill'' did not contain the minimum necessary elements either. }%
+\en{The official TrueSkill website refers to an informal text that promises ``the math behind TrueSkill'' but did not contain all the necessary elements. }%
 \es{La página web oficial de trueskill hacía referencia a un texto informal que a pesar de prometer ``la matemática detrtás de TrueSkill'' no contenía tampoco los elementos mínimos necesarios. }%
 %
-\en{The comprehensive documentation provided not only helps to understand the implemented code, but also assists scientists in understanding the epistemological, methodological and technical aspects necessary to make the estimates sufficiently reliable, secure and robust. }%
+\en{The comprehensive documentation helps to understand the implemented code and assists scientists in understanding the epistemological and technical aspects necessary to make the estimates sufficiently reliable, secure, and robust. }%
 \es{La exhaustiva documentación ofrecida ayuda no sólo a comprender el código implementado, asiste también a los científicos a comprender los aspectos epistemológicos, metodológicos y técnicos necesarios para que las estimaciones sean suficientemente confiables, seguras y robustas. }%
 
 % Parrafo
 
-\en{The implementations made in this work open the possibility of incorporating the extensions that were developed over the years for the TrueSkill and Item-Re
-sponse Theory models. }%
+\en{The implementations presented in this work open the possibility of incorporating the extensions developed over the years for the TrueSkill and Item-Response Theory models. }%
 \es{Las implementaciones hechas en este trabajo abre la posibilidad de incorporar las extensiones que con los años se fueron desarrollando para los modelos TrueSkill e Item-Response Theory. }%
 %
-\en{For example, it would be possible to use as observable data not only the ordinal values of the results (lose/tie/win), but also the difference in points that those results had~\citep{Guo2012}. }%
+\en{For example, it would be possible to complement the game result (i.e. lose/tie/win) with the points in the scorecard~\citep{Guo2012}. }%
 \es{Por ejemplo, sería posible usar como datos observable no sólo los valores ordinales de los resultados (perder/empatar/ganar), sino también la diferencia de puntos que tuvieron esos resultados~\citep{Guo2012}. }%
 %
-\en{Sociocultural factors that affect individual abilities could also be taken into account~\citep{VanDerLinden2016}. }%
+\en{Our tool can consider the sociocultural factors that may affect individual abilities~\citep{VanDerLinden2016}. }%
 \es{También se podría tener en cuenta factores socio-cultural que afectan las habilidades individuales~\citep{VanDerLinden2016}. }%
 %
-\en{Finally, it is important to highlight the tool's potential for the educational system: observable data can come directly from the teachers' own evaluations, and the causal model will take into account not only the variability of student performance, but also the variability of the teachers in evaluating them. }%
+\en{Finally, our tool has potential for the educational system. 
+The observable data used to feed the model can come directly from the teachers’ evaluationsm and the model will consider the variable performance of students and teachers. }%
 \es{Por último, es bueno notar la potencialidad del modelo como herramienta para el sistema educativo: los datos observables pueden provenir directamente de las evaluaciones de los propios docentes, y el modelo causal tendrá en cuenta no solo la variabilidad de los desempeños de los estudiante, pero también la variabilidad de los docente al evaluarlos. }%
 
 % Parrafo
 
 %
-\en{By offering the packages in three of the main scientific programming languages together with the complete mathematical documentation, we are strongly supporting the collaboration and unification of the scientific area of skill estimation, still scattered in the use of different models, some of them already obsolete. }%
+\en{By offering the packages in three of the widest-used scientific programming languages together with the complete mathematical documentation, we are strongly supporting the collaboration and unification of the scientific area of skill estimation, still scattered using different models, some of them already obsolete. }%
 \es{Al ofrecer los paquetes en tres de los principales lenguajes de programación científica junto con su documentación matemática completa, estamos apoyando fuertemente la colaboración y la unificación del área científica de estimación de habilidad, todavía desperdigada en el uso de diferentes modelos, algunos ya obsoletos. }%
 
 %% -- Optional special unnumbered sections -------------------------------------
 
-\section*{Computational details}\label{sec:computationDetails}
+\section*{Computational Details}\label{sec:computationDetails}
 % 
 % \begin{leftbar}
 % If necessary or useful, information about certain computational details
@@ -3556,15 +3552,15 @@ sponse Theory models. }%
 % maps, tables, \dots) that are not cited in the main text can be credited here.
 % \end{leftbar}
 
-\en{In this section we report the execution times of the examples presented in Section~\ref{sec:illustrations}. }%
+\en{In this section, we report the execution times of the examples presented in Section~\ref{sec:illustrations}. }%
 \es{En esta sección reportamos los tiempos de ejecución de los ejemplos presentados en la sección~\ref{sec:illustrations}. }%
 %
 \en{The analysis is performed using a low-end workstation with \SI{4}{\giga\byte} of RAM and an AMD processor (A4-6210, \SI{1.00}{\giga\hertz}, cache \SI{2048}{\kilo\byte}). }%
 \es{El análisis fue realizado en dos computadoras representativas de uso domiciliario. }%
 % \es{La computadora \textbf{A} tiene \SI{15.6}{\giga\byte} de RAM y un procesador Intel (i5-3330, \SI{3.00}{\giga\hertz}, cache \SI{6144}{\kilo\byte}), y la computadora \textbf{B} tiene \SI{3.33}{\giga\byte} de RAM y un procesador AMD (A4-6210, \SI{1.00}{\giga\hertz}, total cache \SI{2048}{\kilo\byte}). }
 %
-\en{The execution times in \proglang{Julia}, \proglang{Python} and \proglang{R} are analyzed with \texttt{@time}, \texttt{timeit} and \texttt{microbenchmarck} respectively. }%
-\es{Los tiempos en \proglang{Julia}, \proglang{Python} y \proglang{R} fueron analizados con \texttt{@time}, \texttt{timeit} y \texttt{microbenchmarck} respectivamente. }%
+\en{The execution times in \proglang{Julia}, \proglang{Python}, and \proglang{R} are analyzed with \texttt{@time}, \texttt{timeit}, and \texttt{microbenchmark} respectively. }%
+\es{Los tiempos en \proglang{Julia}, \proglang{Python} y \proglang{R} fueron analizados con \texttt{@time}, \texttt{timeit} y \texttt{microbenchmark} respectivamente. }%
 %
 % \en{In the examples that handle single events we also analyze the runtimes of the basic package \pkg{trueskill}~0.4.5 of \proglang{Python}~\cite{}. }%
 % \es{En los ejemplos que resuelven eventos individuales también analizamos los tiempos de ejecución del paquete básico \pkg{trueskill}~0.4.5 de \proglang{Python}~\cite{}. }%
@@ -3574,8 +3570,8 @@ sponse Theory models. }%
 \en{In section~\ref{sec:singleEvent} we present two examples: a game with two teams in code~\ref{lst:game} and a game with three teams in code~\ref{lst:multiple_team_game}. }%
 \es{En la sección \ref{sec:singleEvent} presentamos dos ejemplos: en el código~\ref{lst:game} y \ref{lst:multiple_team_game} presentamos una partida con dos y tres equipos respectivamente. }%
 %
-\en{Here we evaluate the efficiency during the initialization of class \texttt{Game} and the application of method \texttt{posteriors()}. }%
-\es{Aquí evaluamos la eficiencia de la inicialización de la clase\texttt{Game} y el método \texttt{posteriors()}. }%
+\en{Here we evaluate the efficiency during the initialization of the \texttt{Game} class and the application of method \texttt{posteriors()}. }%
+\es{Aquí evaluamos la eficiencia de la inicialización de la clase \texttt{Game} y el método \texttt{posteriors()}. }%
 %
 \en{The original \pkg{trueskill} $0.4.5$ package solves these two steps using the \texttt{rate()} function. }%
 \es{En el paquete básico de TrueSkill estos dos pasos lo resuelve la función \texttt{rate()}. }%
@@ -3593,21 +3589,21 @@ sponse Theory models. }%
         \proglang{Julia} $1.5.0$    & \SI{0.064}{\ms}   & $22.7$X \\ \hline
     \end{tabular}
     \caption{
-     \en{Two-team game: execution time of the class \texttt{Game} initialization and the call to the method \texttt{posteriors()}. The reference is included in the first row and corresponds to the original package running with \proglang{Python} $3.6.9$. }%
-     \es{Tiempos de ejecución de la inicialización de la clase\texttt{Game} y del método \texttt{posteriors()} para la partida de dos equipos, y la mejora respecto del paquete básico de TrueSkill de \proglang{Python}. }%
+     \en{Two-teams game: execution time of the \texttt{Game} class initialization and call to the \texttt{posteriors()} method. The reference is the original \pkg{trueskill}~$0.4.5$ package running with \proglang{Python}~$3.6.9$. }%
+     \es{Tiempos de ejecución de la inicialización de la clase \texttt{Game} y del método \texttt{posteriors()} para la partida de dos equipos, y la mejora es respecto al paquete original \pkg{trueskill} $0.4.5$ de \proglang{Python}. }%
     }
     \label{Tab:TwoTeams}
 \end{table}
 %
-\en{Our \proglang{Python} and \proglang{Julia} packages are 10 and 20 times faster than the original \pkg{trueskill} package, while the \proglang{R} package is 3 times slower. }%
-\es{Nuestros paquetes de \proglang{Python} y \proglang{Julia} son 10 y 20 veces más rápido que el paquete de \pkg{trueskill} original, mientras que el paquete de \proglang{R} es 3 veces más lento. }%
+\en{Our \proglang{Python} and \proglang{Julia} packages are 10 and 20 times faster than the original \pkg{trueskill} package, while the \proglang{R} package is three times slower. }%
+\es{Nuestros paquetes de \proglang{Python} y \proglang{Julia} son 10 y 20 veces más rápido que el paquete de \pkg{trueskill} original, mientras que el paquete de \proglang{R} es tres veces más lento. }%
 
 %
 
 \en{Table~\ref{Tab:ThreeTeams} presents the execution times for the three-team game example. }%
 \es{La table~\ref{Tab:ThreeTeams} presenta los tiempos de ejecución del evento con tres equipos. }%
 %
-\en{Whenever there are more than two teams in the game it is necessary to run an iterative algorithm that increases the time required to compute the posteriors. }%
+\en{Whenever there are more than two teams in the game, it is necessary to run an iterative algorithm that increases the time required to compute the posteriors. }%
 \es{Siempre que hay más de dos equipos en la partida es necesario ejecutar un algoritmo iterativo que aumenta los tiempos requiridos para computar los posterios. }%
 %
 \begin{table}[H] \centering
@@ -3624,24 +3620,24 @@ sponse Theory models. }%
         \hline
     \end{tabular}
     \caption{
-     \en{Three-team game: execution time of the class \texttt{Game} initialization and the call to the method \texttt{posteriors()}. The reference is included in the first row and corresponds to the original package running with \proglang{Python} $3.6.9$. }%
-     \es{Tiempos de ejecución de la inicialización de la clase\texttt{Game} y del método \texttt{posteriors()} para la partida de dos equipos, y la mejora respecto del paquete básico de TrueSkill de \proglang{Python}. }%
+     \en{Three-teams game: execution time of the \texttt{Game} class initialization and call to the \texttt{posteriors()} method. The reference is included in the first row and corresponds to the original package running with \proglang{Python} $3.6.9$. }%
+     \es{Tiempos de ejecución de la inicialización de la clase \texttt{Game} y del método \texttt{posteriors()} para la partida de dos equipos, y la mejora respecto del paquete básico de TrueSkill de \proglang{Python}. }%
     }
     \label{Tab:ThreeTeams}
 \end{table}
 %
-\en{Again our \proglang{Python} and \proglang{Julia} packages are faster than the original \pkg{trueskill} package, while the \proglang{R} package is slower. }%
-\es{Nuevamente nuestros paquetes de \proglang{Python} y \proglang{Julia} son más rápido que el paquete de \pkg{trueskill} original, mientras que el paquete de \proglang{R} es más lento. }%
+\en{Again, our \proglang{Python} and \proglang{Julia} packages are faster than the original \pkg{trueskill} package, while the \proglang{R} package is slower. }%
+\es{Nuevamente, nuestros paquetes de \proglang{Python} y \proglang{Julia} son más rápido que el paquete de \pkg{trueskill} original, mientras que el paquete de \proglang{R} es más lento. }%
 
 \textbf{\en{Sequence of events}\es{Secuencia de eventos}:}
 %
 \en{In section \ref{sec:sequence_of_events} we present the initialization of the class \texttt{History} and the call to the method \texttt{convergence()} in codes \ref{lst:history} and \ref{lst:ttt} respectively. }%
 \es{En la sección \ref{sec:sequence_of_events} presentamos la inicialización de la clase \texttt{History} y el método \texttt{convergence()} en los códigos \ref{lst:history} y \ref{lst:ttt} respectivamente. }%
 %
-\en{Although the initialization of the \texttt{History} class calculates the estimates for which the original \pkg{trueskill}~$0.4.5$ package is intended, we do not make further time comparisons because this package does not have a function to automatically handle sequences of events. }%
+\en{Although the initialization of the \texttt{History} class computes the estimates that can be obtained with the original \pkg{trueskill}~$0.4.5$ package, we do not compare them because this package does not have a function to handle sequences of events automatically.  }%
 \es{Si bien la inicialización de la clase \texttt{History} calcula las estimaciones para las cuales está pensado el paquete original \pkg{trueskill}~$0.4.5$, no hacer más comparaciones debido a que este paquete no cuenta con una función para resolver las secuencias de eventos automáticamente. }%
 %
-\en{Table~\ref{Tab:Sequence} presents the execution times for the initialization  of the class \texttt{History} and the call of a single \texttt{convergence()} iteration. }%
+\en{Table~\ref{Tab:Sequence} presents the execution times for the initialization of the \texttt{History} class and call of a single \texttt{convergence()} iteration. }%
 \es{En la tabla~\ref{Tab:Sequence} presentamos los tiempos de ejecución para inicializar la clase \texttt{History} y realizar una única iteración del método \texttt{convergence()}. }%
 %
 \begin{table}[H] \centering
@@ -3655,19 +3651,19 @@ sponse Theory models. }%
         \hline
     \end{tabular}
     \caption{
-     \en{Three events of two teams: execution time for the initialization of the class \texttt{History} and a single iteration of the method \texttt{convergence()}. }%
+     \en{Three events of two teams: execution time for the initialization of the \texttt{History} class and a single iteration of the method \texttt{convergence()}. }%
      \es{Tres eventos de dos equipos: tiempos de ejecución de la inicialización de la clase \texttt{History} y una única iteración del método \texttt{convergencia()}. }%
     }
     \label{Tab:Sequence}
 \end{table}
 %
-\en{The initialization of the class \texttt{History} includes the creation of the Bayesian network and one pass through all the events, while the convergence performs two passes through the sequence of events, one backward and one forward. }%
+\en{The initialization of the \texttt{History} class includes the creation of the Bayesian network and one sweep through all the events, while the convergence performs two passes through the sequence of events, one backward and one forward. }%
 \es{La inicialización de la clase \texttt{History} incluye la creación de la red bayesiana y una pasada por todas las partidas, mientras que la convergencia realiza dos pasadas por la secuencia de eventos, una para atrás y otra para adelante. }%
 %
 \en{The initialization in the \proglang{Python} package is even faster than the computation of a single isolated event using the original \pkg{trueskill} package. }%
 \es{La inicializción en el paquete \proglang{Python} es todavía más rápida que el computo de un úninco evento aislado mediante el paquete original \pkg{trueskill}. }%
 %
-\en{The \proglang{Julia} package increases the time difference with respect to our \proglang{Python} package. }%
+\en{The \proglang{Julia} package increases the time difference with our \proglang{Python} package. }%
 \es{El paquete de \proglang{Julia} aumenta la velocidad respecto de nuestro paquete \proglang{Python}. }%
 %
 \en{And the \proglang{R} package, while maintaining the time difference from \proglang{Python} during convergence, has an additional delay during initialization due to the creation of ``classes by reference''. }%
@@ -3675,10 +3671,10 @@ sponse Theory models. }%
 
 \textbf{\en{Skill evolution}\es{Evolución de habilidad}:} 
 %
-\en{In the section \ref{sec:skill_evolution} we analyze the skill evolution of a player playing against 1000 different opponents. }%
+\en{In section \ref{sec:skill_evolution}, we analyze the skill evolution of a player playing against $1000$ different opponents. }%
 \es{En la sección \ref{sec:skill_evolution} analizamos la evolución de habilidad de un jugador que juega contra 1000 oponentes distintos. }%
 %
-\en{The execution times to initialize the class \texttt{History} and to perform a single convergence iteration were,}
+\en{Table~\ref{Tab:Evolution} presents the execution times to initialize the class \texttt{History} and perform a single convergence iteration.}
 \es{Los tiempos de ejecución para inicializar la clase \texttt{History} y para una única iteración de convergencia fueron,}
 %
 \begin{table}[H] \centering
@@ -3691,24 +3687,30 @@ sponse Theory models. }%
         \proglang{Julia} $1.5.0$    & \SI{38.1}{\ms}  & \SI{75.7}{\ms}\\ 
     \end{tabular}
     \caption{
-     \en{Initialization of the class \texttt{History} and a single iteration of the method \texttt{convergence()} in a sequence of $1000$ games that a player has against different opponents. }%
+     \en{Initialization of the \texttt{History} class and a single iteration of the \texttt{convergence()} method in a sequence of $1000$ games of a player against different opponents. }%
      \es{Inicialización de la clase \texttt{History} y una única iteración del método \texttt{convergencia()} en una secuencia de $1000$ partidas que un jugador tiene contra oponentes distintos. }%
     }
     \label{Tab:Evolution}
 \end{table}
 %
-\en{Regarding the times of the previous sequence we can notice two big differences: the \proglang{Julia} package is now $10$ times faster than the \proglang{Python} package, and the initialization times of \proglang{R} become larger while keeping its convergence times stable. }%
-\es{Respecto de los tiempos de la secuencia anterior podemos notar dos grandes diferencias: el paquete de \proglang{Julia} ahora es $10$ veces más rápido que el paquete de \proglang{Python}, y los tiempos de inicialización de \proglang{R} se hacen más grande mientras se mantienen estables sus tiempos de convergencia. }%
+\en{In this case, the \proglang{Julia} package is ten times faster than the \proglang{Python} package in the initialization and singe iteration. }%
+\es{En este caso el paquete de \proglang{Julia} es $10$ veces más rápido que el paquete de \proglang{Python}. }%
+%
+\en{This suggests that having more workload improves the relative performance of the \proglang{Julia} package. }%
+\es{Esto sugiere que la cantidad de trabajo mejora la eficiencia relativa del paquete de \proglang{Julia}. }%
+%
+\en{In contrast to the behavior of the \proglang{Julia} package and \proglang{Python} packages, the \proglang{R} version does not increase its execution time during convergence, highlighting the relative impact of class initialization in this language. }%
+\es{La versión \proglang{R} no aumenta su tiempo de ejecución durante la convergencia, lo que pone de manifiesto el impacto que tiene la inicialización de la clase en este lenguaje. }%
 
 \textbf{\en{The history of the ATP}\es{Historia de la ATP}:} 
 %
-\en{In section \ref{sec:atp} we analyze a historical database with \num{447000} events. }%
+\en{In section~\ref{sec:atp}, we analyze a historical database with \num{447000} events. }%
 \es{En la sección \ref{sec:atp} analizamos una base de datos real con \num{447000} partidas. }%
 %
-\en{In this realisitic scenario, we perform the analysis using an additional workstation to show the impact of different hardware in the execution time. }%
+\en{In this real-life scenario, we perform the analysis using an additional workstation to show the impact of different hardware on the execution time. }%
 \es{En este escenario realista, realizamos el análisis utilizando una estación de trabajo adicional para mostrar el impacto de diferentes hardware en el tiempo de ejecución. }%
 %
-\en{We include the same workstation as before (called \textbf{A} in this section), and a new workstation (called \textbf{B}) with \SI{16}{\giga\byte} of RAM and an Intel processor (i5-3330, \SI{3.00}{\giga\hertz}, total cache \SI{6144}{\kilo\byte}). }%
+\en{We include the same workstation as before (called \textbf{A} in this section) and a new workstation (called \textbf{B}) with \SI{16}{\giga\byte} of RAM and an Intel processor (i5-3330, \SI{3.00}{\giga\hertz}, total cache \SI{6144}{\kilo\byte}). }%
 \es{Incluimos la misma computadora que antes (llamada \textbf{A} ahora), y una nueva computadora con (llamada \textbf{B}) con \SI{16}{\giga\byte} de RAM y un procesador Intel (i5-3330, \SI{3.00}{\giga\hertz}, cache total \SI{6144}{\kilo\byte}). }%
 %
 \en{Table~\ref{Tab:ATP} presents the total runtime for the \texttt{History} class initialization and the call to the \texttt{convergence()} method. }%
@@ -3734,14 +3736,14 @@ sponse Theory models. }%
     \label{Tab:ATP}
 \end{table}
 %
-\en{The initialization and the ten convergence iterations evaluate approximately $447000 \times 21$ events: one pass over all events corresponding to computing TrueSkill estimates during initialization, and two passes over all items per iteration (backward and forward). }%
+\en{The initialization and the ten convergence iterations evaluate approximately $447000 \times 21$ events: one sweep over all events corresponding to computing TrueSkill estimates during initialization, and two passes over all items per iteration (backward and forward). }%
 \es{La inicialización más las 10 iteraciones de convergencia evalúan en total $447000\times 21$ eventos: una pasada sobre todas las partidas correspondiente al computar la estimaciones de TrueSkill durante la inicialización, y dos pasadas sobre todas las partidas por cada iteración (backward y forward). }%
 %
-\en{Given the execution times of a single events listed in Table \ref{Tab:TwoTeams},  the minimum execution time it would take to compute the TrueSkill Through Time estimates using the original \pkg{trueskill}~$0.4.5$ package could not be less than \SI{13611}{\s} on computer A,  three times longer than it takes our \proglang{Python} package to perform the entire computation. }%
+\en{Given the execution times of a single event included in Table~\ref{Tab:TwoTeams}, the minimum execution time it would take to compute the TrueSkill Through Time estimates using the original \pkg{trueskill}~$0.4.5$ package could not be less than \SI{13611}{\s} on computer A, three times longer than it takes our \proglang{Python} package to perform the entire computation. }%
 \es{Dados los tiempos de ejecución de los eventos reportados en la tabla \ref{Tab:TwoTeams}, el tiempo de ejecución mínimo que se necesitaría para computar las estimaciones TrueSkill Through Time mediante el paquete original \pkg{trueskill}~$0.4.5$ no podría ser menor a \SI{13611}{\s} en la computadora A, tres veces más de lo que tarda nuestro paquete \proglang{Python} para realizar la totalidad del computo. }%
 %
-\en{Our \proglang{Julia} package takes less time than expected considering the times reported in Table~\ref{Tab:TwoTeams} due to optimizations performed by the programming language \proglang{Julia}. }%
-\es{Nuestro paquete de \proglang{Julia} demora menos de lo esperado considerando los tiempos reportados en la tabla \ref{Tab:TwoTeams} debido a optimizaciones que realiza \proglang{Julia}. }%
+\en{Our \proglang{Julia} package takes less time than expected if we compare it to the values reported in Table \ref{Tab:TwoTeams}. This improvement is based on the optimizations performed automatically by the \proglang{Julia} runtime support. } %
+\es{Nuestro paquete de \proglang{Julia} demora menos de lo esperado considerando los tiempos reportados en la tabla \ref{Tab:TwoTeams} debido a optimizaciones que automáticamente realiza \proglang{Julia}. }%
 %
  
 % The results in this paper were obtained using
@@ -3764,8 +3766,8 @@ sponse Theory models. }%
 \en{We also thank Matias Mazzanti for constructive discussions during the implementation of the method. }%
 \es{También agradecemos a Matias Mazantti por las discusiones constructivas durante la implementación del método. }%
 %
-% \en{This work is supported by Universidad de Buenos Aires (UBACyT \todo{ubacyt}), CONICET (\todo{conicet}), and ANPCyT (\todo{ANPCyT}). }%
-% \es{Este trabajo fue apoyado por la Universidad de Buenos Aires (UBACyT \todo{ubacyt}), CONICET (\todo{conicet}), and ANPCyT (\todo{ANPCyT}). }%
+\en{This work is partially supported by grants from Universidad de Buenos Aires UBACYT 13320150100020CO, and Agencia Nacional de Promoci\'on Cient\'ifica y Tecnol\'ogica (ANPCYT) PICT-2015-2761.}
+\es{Este trabajo cuenta con el apoyo parcial de la Universidad de Buenos Aires UBACYT 13320150100020CO, y Agencia Nacional de Promoci\'on Cient\'ifica y Tecnol\'ogica (ANPCYT) PICT-2015-2761.}
 
  
 %\newpage
