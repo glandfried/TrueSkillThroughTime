@@ -60,7 +60,7 @@
 
 \definecolor{julia}{rgb}{1, 0.5, 1}
 \definecolor{python}{rgb}{1, 1, 0.5}
-\definecolor{r}{rgb}{0.65, 0.65, 1}
+\definecolor{r}{rgb}{0.70, 0.80, 1}
 \definecolor{all}{rgb}{0.85, 0.85, 0.85}
 
 
@@ -117,8 +117,8 @@
 %% - \title{} in title case
 %% - \Plaintitle{} without LaTeX markup (if any)
 %% - \Shorttitle{} with LaTeX markup (if any), used as running title
-\title{Skill estimation using TrueSkill Through Time: \\ the \proglang{Julia}, \proglang{Python} and \proglang{R} packages (Draft)}
-\Plaintitle{Skill estimation using TrueSkill Through Time: the Julia, Python and R packages (Draft)}
+\title{TrueSkill Through Time: \\ the \proglang{Julia}, \proglang{Python} and \proglang{R} packages}
+\Plaintitle{TrueSkill Through Time: the Julia, Python and R packages}
 \Shorttitle{TrueSkill Through Time: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages (Draft)}
 
 %% - \Address{} of at least one author
@@ -149,29 +149,30 @@
 
 %% - \Abstract{} almost as usual
 \Abstract{
-\en{Humans develop and acquire complex skills through time. }%
-\es{Los humanos desarrollamos y adquirimos habilidades complejas a través del tiempo. }%
+\en{Humans develop complex skills through time. }%
+\es{Los humanos desarrollamos habilidades complejas a través del tiempo. }%
 %
 \en{Knowing how individual abilities change is essential in a wide range of activities. }%
-\es{Saber cómo cambian las capacidades individuales es esencial en diversas actividades. }%
+\es{Saber cómo cambian las capacidades individuales es esencial en varias actividades. }%
 %
-\en{However, skill cannot be directly measured and we have to estimate it based on problem-solving and competition outcomes. }%
-\es{Sin embargo, las habilidades no pueden medirse directamente y deben estimarse a partir de la resoluci\'on de problemas y competencias. }%
+\en{Most estimators implemented for the video game industry cannot obtain reliable initial estimates or guarantee comparability between distant estimates because they do not properly model the temporal aspect of the learning process. }%
+\es{La mayoría de los estimadores implementados para la industria del video juego no pueden obtener estimaciones iniciales fiables ni garantizar la comparabilidad entre estimaciones distantes debido a que no modelan adecuadamente el aspecto temporal del proceso de aprendizaje. }%
 %
-\en{Without properly considering the temporal aspect of the learning processes, we cannot obtain reliable initial estimates and ensure comparability between distant estimates. }%
-\es{Sin considerar adecuadamente el aspecto temporal del proceso de aprendizaje, no podemos obtener estimaciones iniciales fiables ni garantizar la comparabilidad entre estimaciones distantes. }%
+\en{TrueSkill Through Time solves all these problems by modeling the entire history of activities using a single Bayesian network. }%
+\es{TrueSkill Through Time resuelve todos estos problemas modelando toda la historia de actividades mediante una única red bayesiana. }%
 %
-\en{TrueSkill Through Time fulfills these objectives by modeling the entire history of activities using a single Bayesian network. }%
-\es{TrueSkill Through Time satisface estos objetivos modelando toda la historia de actividades mediante una única red bayesiana. }%
-%
-\en{In this paper, we present TrueSkill Through Time's first implementation in \proglang{Julia}, \proglang{Python}, and \proglang{R}, together with the complete technical documentation. }%
-\es{En este artículo, ofrecemos los primeros paquetes de TrueSkill Through Time para \proglang{Julia}, \proglang{Python} y \proglang{R}, junto con su documentaci\'on técnica completa. }%
-%
-\en{We illustrate how to use them with typical cases and show the actual learning curves of historical players of the Association of Tennis Professionals (ATP), supporting the adoption of a reliable learning estimator. }%
-\es{Ilustramos cómo usarlos en casos típicos, y mostramos las curvas de aprendizaje reales de los jugadores históricos de la Asociación de Tenistas Profesionales (ATP), apoyando el uso de un estimador de aprendizaje confiable. }%
+\en{To support the use of reliable learning estimators, we provide the first implementations of TrueSkill Through Time for \proglang{Julia}, \proglang{Python} and \proglang{R}. }%
+\es{Para apoyar el uso de estimadores de aprendizaje confiables, ofrecemos las primeras implementaciones de TrueSkill Through Time para \proglang{Julia}, \proglang{Python} y \proglang{R}. }%
 %
 \en{This algorithm requires only a few iterations to converge, allowing millions of observations to be analyzed using any low-end computer. }%
-\es{Este algoritmo requiere sólo unas pocas iteraciones para converger , permitiendo analizar millones de observaciones usando cualquier ordenador de gama baja. }%
+\es{Este algoritmo requiere sólo unas pocas iteraciones para converger, permitiendo analizar millones de observaciones usando cualquier ordenador de gama baja. }%
+%
+\en{After illustrating its basic mode of use, we show how to estimate the learning curves of historical players of the Association of Tennis Professionals (ATP). }%
+\es{Luego de ilustrar su modo de uso básico, mostramos cómo estimar la curvas de aprendizaje de los jugadores históricas de la Asociación de Tenistas Profesionales (ATP). }%
+%
+\en{A complete scientific documentation allows scientists to make sense of all epistemological and technical aspects of the estimation process. }%
+\es{Una documentación científica completa permite a los científicos dar sentido a todos los aspectos epistemológicos y técnicos del proceso de estimación. }%
+
 } 
 \Keywords{%
 \en{Learning, skill, gaming, education, sports, \proglang{Julia}, \proglang{Python},  \proglang{R}}%
@@ -3335,18 +3336,18 @@ lhood_tc = lhood_lose_tc
 \en{The situation turns around quickly when adding one game at a time, alternating the wins between the two players. The exact solution and its approximations provide better predictions than TrueSkill. }%
 \es{Si extendemos el ejemplo, agregando partidas de a una, alternando las victorias entre los dos jugadores, la situación rápidamente se invierte: tanto la solcución exacta como sus aproximaciones proveen mejores predicciones a priori que TrueSkill. }%
 %
-\en{Figure~\ref{fig:log_evidence_behavior} compares the exact solution with the approximations and the TrueSkill prediction. }%
-\es{En la figura \ref{fig:log_evidence_behavior} podemos la diferencia de predicción entre la solución exacta respecto de sus aproximaciones y de TrueSkill. }%
-%
 \begin{figure}[ht!]
     \centering
-    \includegraphics[page={1},width=.7\linewidth]{figures/prior_predictions}
+    \includegraphics[page={1},width=.6\linewidth]{figures/prior_predictions}
     \caption{
-    \en{Difference between the exact solution $ P (D | M) $ and TrueSkill, the approximate solutions ({\small$\widehat{\text{LOOCV}}$}), and $ \widehat{P}(D | M) $ as we add more events to the example presented in the introduction (Fig.~\ref{fig:smooth_example}). }%
-    \es{Diferencia de predicción entre la solución exacta $P(D|M)$ respecto de TrueSkill y las solcuiones aproximadas, {\small$\widehat{\text{LOOCV}}$} y $\widehat{P}(D|M)$, a medida que agregamos más eventos al ejemplo presentado en la introducción (figura \ref{fig:smooth_example}). }%
+    \en{Difference between the exact solution $ P (D | M) $ with respect to TrueSkill and the approximate solutions, ({\small$\widehat{\text{LOOCV}}$}) and $ \widehat{P}(D | M) $, as we add more events to the Figure~\ref{fig:smooth_example}. }%
+    \es{Diferencia de predicción entre la solución exacta $P(D|M)$ respecto de TrueSkill y las solcuiones aproximadas, {\small$\widehat{\text{LOOCV}}$} y $\widehat{P}(D|M)$, a medida que agregamos más eventos en la figura~\ref{fig:smooth_example}. }%
     }
     \label{fig:log_evidence_behavior}
 \end{figure}
+%
+\en{Figure~\ref{fig:log_evidence_behavior} compares the exact solution with the approximations and the TrueSkill prediction. }%
+\es{En la figura \ref{fig:log_evidence_behavior} podemos la diferencia de predicción entre la solución exacta respecto de sus aproximaciones y de TrueSkill. }%
 %
 \en{The exact solution is always greater than TrueSkill and $\widehat{P}(D|M)$, and even though the solution {\small$\widehat{\text{LOOCV}}$} briefly surpasses it, is the one that best approximates it. }%
 \es{Es interesante notar que la solución exacta siempre es mayor a TrueSkill y a $\widehat{P}(D|M)$, y a pesar de que la solución {\small$\widehat{\text{LOOCV}}$} la supera levemente en un momento, es al mismo tiempo la que mejor la aproxima. }%
@@ -3359,49 +3360,6 @@ lhood_tc = lhood_lose_tc
 %
 \en{The original TrueSkill Through Time work does not include this clarification. }%
 \es{Es importante esta aclaración, que no está tratada en el papar original de TrueSkill Through Time. }%
-
-
-% 
-% \begin{leftbar}
-% Note that around the \verb|{equation}| above there should be no spaces (avoided
-% in the {\LaTeX} code by \verb|%| lines) so that ``normal'' spacing is used and
-% not a new paragraph started.
-% \end{leftbar}
-% 
-% 
-% \begin{leftbar}
-% As the synopsis above is a code listing that is not meant to be executed,
-% one can use either the dedicated \verb|{Code}| environment or a simple
-% \verb|{verbatim}| environment for this. Again, spaces before and after should be
-% avoided.
-% 
-% Finally, there might be a reference to a \verb|{table}| such as
-% Table~\ref{tab:overview}. Usually, these are placed at the top of the page
-% (\verb|[t!]|), centered (\verb|\centering|), with a caption below the table,
-% column headers and captions in sentence style, and if possible avoiding vertical
-% lines.
-% \end{leftbar}
-
-% \begin{table}[t!]
-% \centering
-% \begin{tabular}{lllp{7.4cm}}
-% \hline
-% Type           & Distribution & Method   & Description \\ \hline
-% GLM            & Poisson      & ML       & Poisson regression: classical GLM,
-%                                            estimated by maximum likelihood (ML) \\
-% \end{tabular}
-% \caption{\label{tab:overview} Overview of various count regression models. The
-% table is usually placed at the top of the page (\texttt{[t!]}), centered
-% (\texttt{centering}), has a caption below the table, column headers and captions
-% are in sentence style, and if possible vertical lines should be avoided. }%
-% \end{table}
-%
-
-
-
-
-
-
 
 
 
@@ -3504,7 +3462,8 @@ lhood_tc = lhood_lose_tc
 \en{We have shown that this procedure converges quickly on large databases. }%
 \es{Hemos mostrado que este procedimiento converge rápidamente incluso en bases de datos grandes. }%
 
-%
+% Parrafo
+
 \en{Bias correction and computational efficiency are critical for estimates to increase the adoption in sensitive areas of industry and academia. }%
 \es{La corrección de los sesgos y la eficiencia computacional son fundamentales para que las estimaciones sean usadas en áreas sensibles de la industria y la academia. }%
 %

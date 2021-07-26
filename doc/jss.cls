@@ -49,7 +49,7 @@
 \@softwarereviewfalse
 \@reviewfalse
 \@shortnamesfalse
-\@nojssfalse
+\@nojsstrue
 \@notitlefalse
 \@noheadingsfalse
 \@nofooterfalse
