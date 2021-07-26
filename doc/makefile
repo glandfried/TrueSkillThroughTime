@@ -8,7 +8,7 @@ article-es.pdf:
 	bibtex article.aux
 	pdflatex article.tex
 	pdflatex article.tex
-	mv article.pdf article-es-`date +'%y.%m.%d'`.pdf
+	mv article.pdf landfried`date +'%Y.%m.%d'`-aprendizaje.pdf
 
 article-en.pdf:
 	sed -i 's/\\estrue/\\entrue/g' article.tex
@@ -16,11 +16,12 @@ article-en.pdf:
 	bibtex article.aux
 	pdflatex article.tex
 	pdflatex article.tex
-	cp article.pdf article-en-`date +'%y.%m.%d'`.pdf
+	cp article.pdf landfried`date +'%Y.%m.%d'`-learning.pdf
 
 pdfclean:
 	- rm -f article*.pdf
-
+	- rm -f landfried*.pdf
+	
 clean:
 	- rm -f *.log
 	- rm -f *.soc

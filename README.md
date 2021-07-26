@@ -15,9 +15,9 @@ In this paper we offer the first packages for `Julia`, `Python`, `R`, together w
 
 You can find the full scientific documentation of TrueSkill Through Time packages at:
 
-0.  [English version](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc.0.0.0/article-en.pdf) (Last version 2021-06-10)
+0.  [English version](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc.0.0.0/landfried2021.07.26-learning.pdf) (Last version 2021-07-26)
 
-0.  [Versión en español](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc.0.0.0/article-es.pdf) (Última versión 2021-06-10)
+0.  [Versión en español](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc.0.0.0/landfried2021.07.26-aprendizaje.pdf) (Última versión 2021-07-26)
 
 ### Packages
 
