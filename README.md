@@ -14,8 +14,8 @@ A complete scientific documentation allows scientists to make sense of all epist
 
 You can find the full scientific documentation of TrueSkill Through Time packages at:
 
-0.  English. [Last version](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc.0.0.0/landfried2021.07.26-learning.pdf) 2021-07-26
-0.  Español. [Última versión](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc.0.0.0/landfried2021.07.26-aprendizaje.pdf) 2021-07-26
+0.  English. [Last version](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc/landfried-learning.pdf) 2021-07-26
+0.  Español. [Última versión](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc/landfried-aprendizaje.pdf) 2021-07-26
 
 ### Packages
 
@@ -49,3 +49,7 @@ The **models commonly used in industry and academia** (TrueSkill, Glicko, Item-R
 ![atp](static/atp_trueskill.png)
 
 The advantage of TrueSkill Through Time lies in its temporal causal model, that links all historical activities in the same Bayesian network, which guarantees both good initial estimates and the temporal and spatial comparability of the estimates.
+
+### Acknowledgments
+
+Special thanks to Heungsub Lee for having published the [basic TrueSkill model in Python](https://github.com/sublee/trueskill).
