@@ -1,22 +1,22 @@
 all: compile
 
-compile: clean pdfclean article-es.pdf article-en.pdf
+compile: clean pdfclean landfried-aprendizaje.pdf landfried-learning.pdf
 
-article-es.pdf:
+landfried-aprendizaje.pdf:
 	sed -i 's/\\entrue/\\estrue/g' article.tex
 	pdflatex article.tex
 	bibtex article.aux
 	pdflatex article.tex
 	pdflatex article.tex
-	mv article.pdf landfried`date +'%Y.%m.%d'`-aprendizaje.pdf
+	mv article.pdf landfried-aprendizaje.pdf
 
-article-en.pdf:
+landfried-learning.pdf:
 	sed -i 's/\\estrue/\\entrue/g' article.tex
 	pdflatex article.tex
 	bibtex article.aux
 	pdflatex article.tex
 	pdflatex article.tex
-	cp article.pdf landfried`date +'%Y.%m.%d'`-learning.pdf
+	cp article.pdf landfried-learning.pdf
 
 pdfclean:
 	- rm -f article*.pdf
