@@ -53,3 +53,6 @@ The advantage of TrueSkill Through Time lies in its temporal causal model, that 
 ### Acknowledgments
 
 Special thanks to Heungsub Lee for having published the [basic TrueSkill model in Python](https://github.com/sublee/trueskill).
+
+    google-site-verification: googleb664ba180e853ccb.html
+
