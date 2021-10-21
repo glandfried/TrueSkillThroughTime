@@ -1,10 +1,10 @@
 # TrueSkill Through Time: the Julia, Python and R packages.
 
-**TrueSkill Through Time**: individual learning curves with good initial estimates and guaranteed comparability between distant estimates.
+_Individual learning curves with good initial estimates and guaranteed comparability between distant estimates._
 
---
+An implementation of the state-of-the-art skill model.
 
-This is a meta repository, containing the packages mentioned as submodules, which was created with the objective of producing a complete theoretical documentation of the TrueSkill Through Time model.
+This is a repository about the complete theoretical documentation of the TrueSkill Through Time model, containing the packages just as submodules.
 
 ## Packages 
 
@@ -26,6 +26,8 @@ In contrast, our `R` package is slower than the other packages, including the or
 
 #### Issues
 
+Since we have three packages (Julia, Python and R) and one article, we have four repositories where to do it. You must decide where to open an issue.
+You must decide where to do it according to the type of question, if it is particular to the implementation of one of the packages or if it is general related to theoretical issues.
 
 ## Technical documentation
 
@@ -64,5 +66,5 @@ The advantage of TrueSkill Through Time lies in its temporal causal model, that 
 
 ### Acknowledgments
 
-Special thanks to Heungsub Lee for having published the [basic TrueSkill model in Python](https://github.com/sublee/trueskill).
-
+Special thanks to the authors of the original paper [Ralf Herbrich](https://herbrich.me/), [Tom Minka](tminka.github.io), [Thore Graepel](thoregraepel.github.io), and Pierre Dangauthier.
+And special thanks to Heungsub Lee for having published the [basic TrueSkill model in Python](https://github.com/sublee/trueskill).
