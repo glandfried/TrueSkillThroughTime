@@ -2,9 +2,8 @@
 
 _Individual learning curves with good initial estimates and guaranteed comparability between distant estimates._
 
-An implementation of the state-of-the-art skill model.
-
-This is a repository about the complete theoretical documentation of the TrueSkill Through Time model, containing the packages just as submodules.
+This is a repository containing a complete theoretical documentation of the TrueSkill Through Time model.
+The packages are just attached as submodules.
 
 ## Packages 
 
@@ -24,9 +23,9 @@ The `Julia` package is the most efficient, ten times faster than our `Python` pa
 Our `Python` package is also efficient, ten times faster than the original `trueskill 0.4.5` (Lee 2012) package.
 In contrast, our `R` package is slower than the other packages, including the original `trueskill 0.4.5` package.
 
-#### Issues
+### Issues
 
-Since we have three packages (Julia, Python and R) and one article, we have four repositories where to do it. You must decide where to open an issue.
+Since we have three packages (Julia, Python and R) and one article, we have four repositories to open an issue.
 You must decide where to do it according to the type of question, if it is particular to the implementation of one of the packages or if it is general related to theoretical issues.
 
 ## Technical documentation
