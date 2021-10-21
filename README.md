@@ -1,4 +1,4 @@
-# TrueSkill Through Time: the state-of-the-art skill model.
+## TrueSkill Through Time: the state-of-the-art skill model.
 
 _Individual learning curves with good initial estimates and guaranteed comparability between distant estimates._
 
