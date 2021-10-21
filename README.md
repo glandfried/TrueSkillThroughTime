@@ -37,7 +37,7 @@ You can find the full scientific documentation of TrueSkill Through Time package
 0.  English. [Last version](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc/landfried-learning.pdf) 2021-07-26
 0.  Español. [Última versión](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc/landfried-aprendizaje.pdf) 2021-07-26 
 
-Our paper explains all the theoretical details involved in the original TrueSkill and TrueSkill Through Time papers.[TrueSkill](https://www.microsoft.com/en-us/research/wp-content/uploads/2007/01/NIPS2006_0688.pdf) and [TrueSkill Through Time](https://www.microsoft.com/en-us/research/wp-content/uploads/2008/01/NIPS2007_0931.pdf) papers.
+Our paper explains all the theoretical details involved in the original [TrueSkill](https://www.microsoft.com/en-us/research/wp-content/uploads/2007/01/NIPS2006_0688.pdf) and [TrueSkill Through Time](https://www.microsoft.com/en-us/research/wp-content/uploads/2008/01/NIPS2007_0931.pdf) papers.
 
 Special thanks to its authors: [Ralf Herbrich](https://herbrich.me/), [Tom Minka](tminka.github.io), [Thore Graepel](thoregraepel.github.io), and Pierre Dangauthier.
 
