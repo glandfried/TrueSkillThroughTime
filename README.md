@@ -18,6 +18,8 @@ If you are looking for the [`python` package](https://github.com/glandfried/True
 If you are looking for the [`R` package](https://github.com/glandfried/TrueSkillThroughTime.py), go to:
     
     github.com/glandfried/TrueSkillThroughTime.R
+
+### Computational details
     
 The `Julia` package is the most efficient, ten times faster than our `Python` package.
 Our `Python` package is also efficient, ten times faster than the original `trueskill 0.4.5` (Lee 2012) package.
