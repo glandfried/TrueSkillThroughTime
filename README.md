@@ -1,36 +1,48 @@
-## TrueSkill Through Time: the Julia, Python and R packages.
+# TrueSkill Through Time: the Julia, Python and R packages.
 
-Humans develop complex skills through time.
-Knowing how individual abilities change is essential in a wide range of activities.
-Most estimators implemented for the video game industry cannot obtain reliable initial estimates nor guarantee comparability between distant estimates.
+**TrueSkill Through Time**: individual learning curves with good initial estimates and guaranteed comparability between distant estimates.
 
-TrueSkill Through Time solves all these problems by modeling the entire history of activities using a single Bayesian network.
-This algorithm requires a few iterations to converge, allowing millions of observations to be analyzed using any low-end computer.
+--
 
-To support the use of reliable learning estimators, we provide the first implementations of TrueSkill Through Time for  `Julia`, `Python` and `R`.
-A complete scientific documentation allows scientists to make sense of all epistemological and technical aspects of the estimation process.
+This is a meta repository, containing the packages mentioned as submodules, which was created with the objective of producing a complete theoretical documentation of the TrueSkill Through Time model.
 
-### Scientific article
+## Packages 
+
+If you are looking for the [`Julia` package](https://github.com/glandfried/TrueSkillThroughTime.jl), go to:
+    
+    github.com/glandfried/TrueSkillThroughTime.jl
+
+If you are looking for the [`python` package](https://github.com/glandfried/TrueSkillThroughTime.py), go to:
+    
+    github.com/glandfried/TrueSkillThroughTime.py
+
+If you are looking for the [`R` package](https://github.com/glandfried/TrueSkillThroughTime.py), go to:
+    
+    github.com/glandfried/TrueSkillThroughTime.R
+    
+The `Julia` package is the most efficient, ten times faster than our `Python` package.
+Our `Python` package is also efficient, ten times faster than the original `trueskill 0.4.5` (Lee 2012) package.
+In contrast, our `R` package is slower than the other packages, including the original `trueskill 0.4.5` package.
+
+#### Issues
+
+
+## Technical documentation
 
 You can find the full scientific documentation of TrueSkill Through Time packages at:
 
 0.  English. [Last version](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc/landfried-learning.pdf) 2021-07-26
-0.  Español. [Última versión](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc/landfried-aprendizaje.pdf) 2021-07-26
+0.  Español. [Última versión](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc/landfried-aprendizaje.pdf) 2021-07-26 
 
-### Packages
+Our paper explains all the theoretical details involved in the original TrueSkill and TrueSkill Through Time papers.[TrueSkill](https://www.microsoft.com/en-us/research/wp-content/uploads/2007/01/NIPS2006_0688.pdf) and [TrueSkill Through Time](https://www.microsoft.com/en-us/research/wp-content/uploads/2008/01/NIPS2007_0931.pdf) papers.
 
-0. Julia Package: [https://github.com/glandfried/TrueSkillThroughTime.jl](https://github.com/glandfried/TrueSkillThroughTime.jl)
-0. Python Package: [https://github.com/glandfried/TrueSkillThroughTime.py](https://github.com/glandfried/TrueSkillThroughTime.py)
-0. R package: [https://github.com/glandfried/TrueSkillThroughTime.R](https://github.com/glandfried/TrueSkillThroughTime.R)
-
-### Computational details
-
-Our Python package solves individual events ten times faster than the original trueskill 0.4.5 (Lee 2012) package.
-In turn, our Julia package converge a history of events ten times faster than our Python package.
-In contrast, our R package is slower than the other packages, including the original trueskill 0.4.5
-package.
+Special thanks to its authors: [Ralf Herbrich](https://herbrich.me/), [Tom Minka](tminka.github.io), [Thore Graepel](thoregraepel.github.io), and Pierre Dangauthier.
 
 ### The History of the ATP
+
+Humans develop complex skills through time.
+Most estimators implemented for the video game industry cannot obtain reliable initial estimates nor guarantee comparability between distant estimates.
+TrueSkill Through Time solves all these problems by modeling the entire history of activities using a single Bayesian network.
 
 The following figure presents **the learning curves of some famous players in ATP history**.
 A one-point difference between skills is equivalent to 76% probability of winning.
@@ -53,3 +65,4 @@ The advantage of TrueSkill Through Time lies in its temporal causal model, that 
 ### Acknowledgments
 
 Special thanks to Heungsub Lee for having published the [basic TrueSkill model in Python](https://github.com/sublee/trueskill).
+
