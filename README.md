@@ -15,7 +15,7 @@ If you are looking for the [`python` package](https://github.com/glandfried/True
     
     github.com/glandfried/TrueSkillThroughTime.py
 
-If you are looking for the [`R` package](https://github.com/glandfried/TrueSkillThroughTime.py), go to:
+If you are looking for the [`R` package](https://github.com/glandfried/TrueSkillThroughTime.R), go to:
     
     github.com/glandfried/TrueSkillThroughTime.R
 

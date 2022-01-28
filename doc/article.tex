@@ -10,6 +10,8 @@
 \entrue
 \usepackage[utf8]{inputenc}
 \usepackage{paracol}
+\usepackage{multirow}
+\usepackage{booktabs}
 %\newcommand{\jan}{%
 %  \en{January}%
 %  \es{Enero}
@@ -116,9 +118,12 @@
 %% - \title{} in title case
 %% - \Plaintitle{} without LaTeX markup (if any)
 %% - \Shorttitle{} with LaTeX markup (if any), used as running title
-\title{TrueSkill Through Time: \\ the \proglang{Julia}, \proglang{Python} and \proglang{R} packages}
-\Plaintitle{TrueSkill Through Time: the Julia, Python and R packages}
-\Shorttitle{TrueSkill Through Time: the \proglang{Julia}, \proglang{Python} and \proglang{R} packages}
+\title{
+%TrueSkill Through Time: \\ the \proglang{Julia}, \proglang{Python} and \proglang{R} packages
+TrueSkill Through Time: reliable initial skill estimates and historical comparability in \proglang{Julia}, \proglang{Python} and \proglang{R}
+}
+\Plaintitle{TrueSkill Through Time: enabling reliable initial skill estimates and historical comparability}
+\Shorttitle{TrueSkill Through Time}
 
 %% - \Address{} of at least one author
 %% - May contain multiple affiliations for each author
@@ -157,11 +162,14 @@
 \en{Most estimators implemented for the video game industry cannot obtain reliable initial estimates or guarantee comparability between distant estimates because they do not properly model the temporal aspect of the learning process. }%
 \es{La mayoría de los estimadores implementados para la industria del video juego no pueden obtener estimaciones iniciales fiables ni garantizar la comparabilidad entre estimaciones distantes debido a que no modelan adecuadamente el aspecto temporal del proceso de aprendizaje. }%
 %
-\en{TrueSkill Through Time solves all these problems by modeling the entire history of activities using a single Bayesian network. }%
-\es{TrueSkill Through Time resuelve todos estos problemas modelando toda la historia de actividades mediante una única red bayesiana. }%
+\en{Here we provide the first implementations of TrueSkill Through Time for \proglang{Julia}, \proglang{Python} and \proglang{R}, a model that solves all these problems by propagating historical information correctly, outperforming even more complex approaches. }%
+\es{Aquí ofrecemos las primeras implementaciones de TrueSkill Through Time para \proglang{Julia}, \proglang{Python} y \proglang{R}, un modelo que resuelve todos estos problemas propagando correctamente la información histórica, superando incluso a enfoques similares más complejos. }%
 %
-\en{To support the use of reliable learning estimators, we provide the first implementations of TrueSkill Through Time for \proglang{Julia}, \proglang{Python} and \proglang{R}. }%
-\es{Para apoyar el uso de estimadores de aprendizaje confiables, ofrecemos las primeras implementaciones de TrueSkill Through Time para \proglang{Julia}, \proglang{Python} y \proglang{R}. }%
+\en{In such a sensitive problem as the estimation of people's ability, it is imperative to offer an explanation that is both intuitive and complete. }%
+\es{En un problema tan sensible para las personas, como es la estimación de su habilidad es imperativo ofrecer una explicación que sea al mismo tiempo intuitiva y completa. }%
+%
+\en{In this paper we offer a technical report accessible to the general public without omitting any theoretical and technical details, material that is not available in the scientific literature. }%
+\es{En este trabajo ofrecemos una reporte técnico accesible al público en general sin omitir ningún detalle téoricos y técnicos, material que no está disponible hasta ahora en la literatura científica. }%
 %
 \en{This algorithm requires only a few iterations to converge, allowing millions of observations to be analyzed using any low-end computer. }%
 \es{Este algoritmo requiere sólo unas pocas iteraciones para converger, permitiendo analizar millones de observaciones usando cualquier ordenador de gama baja. }%
@@ -169,8 +177,8 @@
 \en{After illustrating its basic mode of use, we show how to estimate the learning curves of historical players of the Association of Tennis Professionals (ATP). }%
 \es{Luego de ilustrar su modo de uso básico, mostramos cómo estimar la curvas de aprendizaje de los jugadores históricas de la Asociación de Tenistas Profesionales (ATP). }%
 %
-\en{A complete scientific documentation allows scientists to make sense of all epistemological and technical aspects of the estimation process. }%
-\es{Una documentación científica completa permite a los científicos dar sentido a todos los aspectos epistemológicos y técnicos del proceso de estimación. }%
+\en{A complete scientific documentation allows scientists to make sense of all epistemological and technical aspects. }%
+\es{Una documentación científica completa permite a los científicos dar sentido a todos los aspectos epistemológicos y técnicos. }%
 
 } 
 \Keywords{%
@@ -179,9 +187,8 @@
 }
 \Plainkeywords{%
 \en{Learning, skill, bayesian inference, gaming, education, sports, Julia, Python, R}%
-\es{Aprendizaje, habilidad, bayes videojuego, educación, deporte, Julia, Python, R}%
+\es{Aprendizaje, habilidad, bayes, videojuego, educación, deporte, Julia, Python, R}%
 }
-
 
 % Para fijar que la siguiente cita la incluya como primer autor y et al. Usar con citas de muchos autores.
 \shortcites{Koster2020}
@@ -197,7 +204,8 @@
 \begin{document}
 %\lstset{language=Python}
 
-\section{\en{Introduction}\es{Introducción}} \label{sec:intro}
+
+\section{\en{Introduction}\es{Introduccion}} \label{sec:intro}
 
 \en{Humans develop and acquire complex skills because of an special integration of biological, cognitive and social processes~\citep{Koster2020}. }%
 \es{Los humanos desarrollamos habilidades complejas gracias a una integraci\'on especial de los procesos biol\'ogicos, cognitivos y sociales~\citep{Koster2020}. }%
@@ -208,8 +216,8 @@
 \en{As a population-based process, human adaptation is also affected by demographic characteristics, such as the size and structure of populations~\citep{Derex2020}. }%
 \es{Al ser un proceso poblacional, la adaptaci\'on humana tambi\'en se ve afectada por caracter\'isticas demogr\'aficas, como el tama\~no y estructura de las poblaciones~\citep{Derex2020}. }%
 
-%
-%
+% Parrafo
+
 \en{Knowing how individual skills change over time is essential in the educational system and in the labor market. }%
 \es{Conocer c\'omo cambian las habilidades individuales a lo largo del tiempo es esencial en el sistema educativo y laboral. }%
 %
@@ -234,8 +242,8 @@
 
 % Parrafo
 
-\en{All currently used skill estimators share some variant of the probabilistic model proposed by Elo~\citep{Glickman1999,Herbrich2007,VanDerLinden2016,Fox2010}. }%
-\es{Todos los estimadores de habilidad ampliamente utilizados en la actualidad comparten alguna variante del modelo probabil\'istico propuesto por Elo~\citep{Glickman1999, Herbrich2007, VanDerLinden2016, Fox2010}. }%
+\en{All currently used skill estimators share some variant of the probabilistic model proposed by Elo. }%
+\es{Todos los estimadores de habilidad ampliamente utilizados en la actualidad comparten alguna variante del modelo probabil\'istico propuesto por Elo~\citep{Glickman1999, Herbrich2007, VanDerLinden2016}. }%
 %
 \begin{figure}[ht!]
 \centering \small
@@ -294,6 +302,163 @@
 
 % Parrafo
 
+\en{The leading skill estimators used in the video game industry and academia, such as Elo, Glicko~\citep{Glickman1999}, TrueSkill~\citep{Herbrich2007} and IRT~\citep{VanDerLinden2016}, implemts a \emph{filtering} approach that propagate information incompletely, which prevents them from providing good initial estimates and ensuring comparability between estimates that are far away in time and space. }%
+\es{Los principales estimadores de habilidad utilizados en la industria del video juego y la academia, como Elo, Glicko~\citep{Glickman1999}, TrueSkill \citep{Herbrich2007} e IRT \citep{Fox2010,VanDerLinden2016}, implementan un enfoque de \emph{filtrado} que propaga la información de manera incompleta, lo que les impide ofrecer buenas estimaciones iniciales y garantizar comparabilidad entre estimaciones alejadas en el tiempo y el espacio. }%
+\en{The TrueSkill Through Time (TTT) model~\citep{Dangauthier2007} implemts a \emph{smoothing} approach that performs inference using a single Bayesian network that includes all historical events, allowing information to be propagated throughout the system, ensuring reliable initial estimates and comparability between distant estimates. }%
+\es{El modelo TrueSkill Through Time (TTT)~\citep{Dangauthier2007} implementa una enfoque de \emph{smoothing} que realiza la inferencia usando una única red bayesiana que incluye todos los eventos históricos, lo que permite que la información se propague por todo el sistema, garantizando estimaciones iniciales fiables y comparabilidad entre estimaciones distantes. }%
+%
+\en{Similar approaches were implemented by \cite{Coulom2008} (Whole History Rating) and \cite{Maystre2019} (KickScore), based on Laplacian aproximations and Gaussian processess respectively. }%
+\es{Enfoque similares fueron implementados por \cite{Coulom2008} (Whole History Rating) y \cite{Maystre2019} (KickScore), basados en aproximaciones laplacianas y procesos gaussianos respectivamente. }%
+
+% Parrafo
+
+\en{In table~\ref{Tab:Models} we compare our implementation of the TTT algorithm against Elo, TrueSkill, Constant and KickScore. The first two are versions of the ``filtering'' approaches and the second two are versions of the ``smoothing'' approach. }%
+\es{En la tabla~\ref{Tab:Models} comparamos nuestra implementación del algoritmo TTT contra Elo, TrueSkill, Constant y  KickScore. Las primeras dos son versiones de los enfoques de ``filtering'' y las segundas dos son versiones de ``smoothing''. }%
+%
+\en{To evaluate the models we must calculate their probability given the data, }%
+\es{Para evaluar los modelos debemos calcular su probabilidad dados los datos, }%
+%
+\begin{equation}
+ P(\text{Model\es{o}}|\text{Dat\en{a}\es{os}}) = \frac{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}})P(\text{Model\es{o}})}{P(\text{Dat\en{a}\es{os}})}
+\end{equation}
+%
+\en{When we do not have access to all models, we cannot compute the probability $P(\text{Model}|\text{Data})$, but we can compare models. }%
+\es{Cuando no tenemos acceso a todos los modelos, no podremos calcular la probabilidad $P(\text{Modelo}|\text{Datos})$, pero sí podremos comparar modelos. }%
+%
+\begin{equation}\label{eq:bayes_factor}
+ \frac{P(\text{Model\es{o}}_i|\text{Dat\en{a}\es{os}})}{P(\text{Model\es{o}}_j|\text{Dat\en{a}\es{os}})} = \frac{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_i)P(\text{Model\es{o}}_i)}{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_j)P(\text{Model\es{o}}_j)} \overset{\text{\en{if}\es{si} } *}{=} \frac{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_i)}{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_j)} 
+\end{equation}
+%
+\en{This expression is known as the \emph{Bayes factor}, which is usually expressed on a logarithmic scale to report the difference in orders of magnitude. }%
+\es{Esta expresión se conoce como el \emph{Bayes factor}, el cual se suele expresar en escala logaritmica para reportar la diferencia en órdenes de magnitud. }%
+%
+\en{In the special case where we have no prior preference over any model ($\overset{\text{\en{if}\es{si} } *}{=}$), we need only to compare the prior predictions of the models. }%
+\es{En el caso especial en el que no tenemos preferencia a priori sobre ningún modelo ($\overset{\text{\en{if}\es{si} } *}{=}$), sólo debemos comparar las predicciones a priori de los modelos. }%
+%
+\begin{equation}
+P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}) = P(d_1|\text{Model\es{o}})P(d_2|d_1,\text{Model\es{o}}) \dots P(d_n|d_1,\dots, d_{n-1},\text{Model\es{o}})
+\end{equation}
+%
+\en{where each element of the product is a prediction of the next data point based on the previous data set and the model. }%
+\es{donde cada elementos de la productoria es una predicción del siguiente dato en base a los datos previos y el modelo. }%
+%
+\en{In this work, we report the geometric mean because it can be interpreted as the ``characteristic'' prediction of the model, }%
+\es{En este trabajo también vamos a reportare la media geométrica debido a que puede interpretarse como la predicción ``característica'' del modelo, }%
+%
+\begin{equation}\label{eq:gmean}
+P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}) = \text{geometric mean}(P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}))^{|\text{Dat\en{a}\es{os}}|}
+\end{equation}
+%
+\en{where $|\text{Data}|$ represents the size of the data set. }%
+\es{donde $|\text{Datos}|$ representa el tamaño del conjunto de datos. }%
+\en{To make the comparison we will follow the methodology employed by \cite{Maystre2019} over the four databases on which they report their prior predictions: ATP (tennis), NBA (basketball), FIFA (football), and FIDE (chess). }%
+\es{Para realizar la comparación seguiremos la metodología empleada por \cite{Maystre2019} sobre las cuatro base de datos sobre las que reportan sus predicciones a priori: ATP (tenis), NBA (baloncesto), FIFA (f\'utbol), y FIDE (ajedrez). }%
+\en{This methodology consists of splitting the data in two subsets: the initial \SI{70}{\percent} used to train the hyperparameters and the last \SI{30}{\percent} to evaluate the models. }%
+\es{Usamos el \SI{70}{\percent} inicial de la base de datos para entrenar los hiperparámetros y el \SI{30}{\percent} final para evaluar los modelos. }%
+%
+\en{To predict the outcome of an observation at time $t$, all the data up to the day preceding $t$ is used (in both training and test sets). }%
+\es{Para predecir el resultado de una observación en el tiempo $t$, ellos utilizan todos los datos (en los conjuntos de entrenamiento y de prueba) hasta el día anterior a $t$. }%
+%
+\en{Table~\ref{Tab:Models} summarizes the model comparisons in each of the four databases. }%
+\es{La table~\ref{Tab:Models} se resumen las comparaciones de los modelos en las cuatro base de datos. }%
+%
+\begin{table}[ht!] \centering
+  \scriptsize
+  \begin{tabular}{c|cc|cc|cc|cc|c||c} 
+ \multirow{2}{*}{$\hfrac{\text{\scriptsize Dataset}}{\text{Test size}}$} & \multicolumn{2}{c|}{Constant\es{e}$^\dagger$}& \multicolumn{2}{c|}{Elo$^\dagger$} & \multicolumn{2}{c|}{TrueSkill} & \multicolumn{2}{c|}{KickScore$^\dagger$} &  \multicolumn{2}{c}{TTT} \\
+ & GM & $\log_2$BF & GM & $\log_2$BF & GM & $\log_2$BF & GM & $\log_2$BF & GM & LOOCV \\ \hline
+\multirow{2}{*}{$\hfrac{\text{\scriptsize Ten\en{n}is}}{\num{186361}}$} & \multirow{2}{*}{$0.5593$} & \multirow{2}{*}{\num{7910}} & \multirow{2}{*}{$0.5695$} & \multirow{2}{*}{\num{3051}} & \multirow{2}{*}{$0.5722$} & \multirow{2}{*}{\num{1780}} & \multirow{2}{*}{$0.5758$} & \multirow{2}{*}{\num{93}} & \multirow{2}{*}{$\bm{0.5760}$} & \multirow{2}{*}{${0.5908}$} \\
+%ttt: 0.576047 %ks: 0.5758245946309177
+ & & & & & & & & & & \\
+ \multirow{2}{*}{$\hfrac{\text{\scriptsize Basketball}}{\num{20300}}$} & \multirow{2}{*}{$0.5006$} & \multirow{2}{*}{\num{1771}} & \multirow{2}{*}{$0.5305$} & \multirow{2}{*}{\num{72}} & \multirow{2}{*}{$0.5316$} & \multirow{2}{*}{\num{11}} & \multirow{2}{*}{$\bm{0.5328}$} & \multirow{2}{*}{-55} & \multirow{2}{*}{${0.5318}$} & \multirow{2}{*}{${0.5382}$} \\
+%ttt: 0.5317903539908228 %ks: 0.532802033269822 %ks_integrado: 0.5327914819          
+  & & & & & & & & & & \\
+ \multirow{2}{*}{$\hfrac{\text{\scriptsize Chess}}{\num{92004}}$} & \multirow{2}{*}{$0.3570$} & \multirow{2}{*}{\num{520}} & \multirow{2}{*}{$0.3552$} & \multirow{2}{*}{\num{1190}} & \multirow{2}{*}{$0.3580$} & \multirow{2}{*}{\num{148}} & \multirow{2}{*}{$\bm{0.3584}$} & \multirow{2}{*}{0} & \multirow{2}{*}{$\bm{0.3584}$} & \multirow{2}{*}{${0.3641}$} \\
+ %ttt: 0.358379593836443  %ks: 0.358397563993023 %ks_integrado: 0.3583680733
+ & & & & & & & & & \\
+ \multirow{2}{*}{$\hfrac{\text{\scriptsize \en{Football}\es{Fútbol}}}{\num{5759}}$} & \multirow{2}{*}{$0.3949$} & \multirow{2}{*}{\num{30}} & \multirow{2}{*}{$0.3867$} & \multirow{2}{*}{\num{204}} & \multirow{2}{*}{$0.3921$} & \multirow{2}{*}{\num{89}} & \multirow{2}{*}{$\bm{0.3961}$} & \multirow{2}{*}{\num{4}} & \multirow{2}{*}{$\bm{0.3963}$} &  \multirow{2}{*}{${0.3974}$} \\
+ %ttt: 0.39627670749811733 ks: 0.39629097832609717 ks_integrado: 0.39619785744480546
+  & & & & & & & & & & \\ \hline
+  \end{tabular}
+  \caption{
+  \en{Comparisons between TTT, KickScore, TrueSkill, Elo and Constant models in four databases. }%
+  \es{Comparaciones entre los modelos TTT, KickScore, TrueSkill, Elo y Constant en cuatro base de datos. }%
+  %
+  \en{The GM columns report the geometric mean of the a priori predictions of the models (Eq.~\ref{eq:gmean}). }%
+  \es{Las columnas GM reportan la media geométrica de las predicciones a priori de los modelos (ecuación \ref{eq:gmean}). }%
+  %
+  \en{The $\text{log}_2$BF columns report the Bayes Factor (Eq.~\ref{eq:bayes_factor}) between TTT and the other models in logarithmic scale. }%
+  \es{Las columnas $\text{log}_2$BF reportan el Bayes Factor (ecuación \ref{eq:bayes_factor}) entre TTT y otros modelos en escala logarítmica. }%
+  %
+  \en{For reference, LOOCV column reports the geometric mean of the predictions using all historical data, $p(d_i| d_1, \dots, d_{i-1}, d_{i+1}, \dots, d_n , M)$. }%
+  \es{Como referencia, la columna LOOCV reporta la media geométrica de las predicciones usando toda la información histórica, $p(d_i| d_1, \dots, d_{i-1}, d_{i+1}, \dots, d_n , M)$. }%
+  %
+  \en{The geometric mean of the models indicated with the symbol $\dagger$ were computed by \cite{Maystre2019}. }%
+  \es{La media geométrica de los modelos señalados con el símbolo $\dagger$ fueron computadas por \cite{Maystre2019}. }%
+  }
+  \label{Tab:Models}
+\end{table}
+%
+\en{The TTT model outperforms KickScore in the tennis database by almost $100$ orders of magnitude, while KickScore outperforms TTT in the chess database by near $50$ orders of magnitude. }%
+\es{El modelo TTT supera KickScore en la base de datos de tenis por $\sim100$ órdenes de magnitud, mientras que KickScore supera a TTT en la base de ajedrez por $\sim50$ órdenes de magnitud. }%
+%
+\en{We consider that there is a tie in the chess and football databases as long as the difference between TTT and KickScore is less than 10 orders of magnitude. }%
+\es{Consideramos que hay un empate en las bases de datos de ajedrez y de fotball en tanto la diferencia entre TTT y KickScore es menor a 10 órdenes de magnitud. }%
+%
+\en{Unifying the four databases into one, the TTT model outperforms KickScore by a few tens of orders of magnitude. }%
+\es{Unificando las cuatro base de datos en una sola, el modelo TTT supera a KickScore por algunas decenas de órdenes de magnitud. }%
+% 
+\en{To compute the predictions~\cite{Maystre2019} use a HPC cluster to create, in parallel, a different model per day, each requiring about $100$ iterations to reach convergence. }%
+\es{Para computar las predicciones ellos utilizan un cluster para crear en paralelo un modelo diferente por cada día $t$, que requieren cada uno cerca de 100 iteraciones para alcanzar convergencia. }%
+%
+\en{Instead, it was sufficient for us to use a desktop computer to create a single model adding data day by day and performing a single iteration at each step. }%
+\es{En cambio, para nosotros fue suficiente usar una computadora de escritorio para crear un único modelo al que le agregamos las datos día a día, realizando una única iteración en cada paso. }%
+%
+\en{The model selection was made by optimizing the hyperparameters, but a full Bayesian model selection should compute predictions by integrating the entire hyperparameter space.  }%
+\es{La selección de modelo la hemos realizado optimizando los hiperparámetros, pero una selección de modelo bayesiana completa debería computar las predicciones integrando todo el espacio de hiperparámetros. }%
+%
+\en{This procedure usually penalizes complex models when the search in the hyperparameter space is unnecessary. }%
+\es{Este procedimiento suele penalizar a los modelos complejos cuando la búsqueda en el espacio de hiperparámetros es innecesaria. }%
+%
+\en{With no more than 3 intuitive hyperparameters, the TTT model achieves similar or even better results than KickScore more efficiently, because the latter must optimize on a much larger hyperparameter space, which includes the definition of a Kernel (a statistical trick not always intuitive\footnote{\href{https://stats.stackexchange.com/questions/152897/how-to-intuitively-explain-what-a-kernel-is}{Stackexchange: ``How to intuitively explain what a kernel is.'' (question 152897)}}) and then the hyperparameters specific to that Kernel. }%
+\es{Con no más de 3 hiperparámetros intuitivos, el modelo TTT logra resultados similares y hasta mejores que KickScore de forma más eficiente, debido a que el último debe optimizar en un espacio de parámetros mucho más grande, que incluye la definción de un Kernel (un truco estadísitico no siempre intuitivo\footnote{\href{https://stats.stackexchange.com/questions/152897/how-to-intuitively-explain-what-a-kernel-is}{Stackexchange: ``How to intuitively explain what a kernel is.'' (question 152897)}}) y luego los hiperparámetros específicos a ese Kernel. }%
+
+% Parrafo
+
+\en{Often the objective is to estimate learning curves over time and not the online predictions that we have computed to compare models. }%
+\es{Muchas veces el objetivo es estimar las curvas de aprendizaje en el tiempo y no las predicciones en línea que hemos computado para comparar modelos. }%
+%
+\en{In these cases we want to find the best estimates of skill, from the first to the last event of the learning curve. }%
+\es{En estos casos queremos encontrar las mejores estimaciones de habilidad, desde el primer hasta el último evento de la curva de aprendizaje. }%
+%
+\en{Online predictions generate poor initial estimates because we force the model to perform inference using only past information. }%
+\es{Las predicciones en línea generan malas estimaciones iniciales debido a que forzamos al modelo a realizar la inferencia usando solamente la información del pasado. }%
+%
+\en{However, nothing prevents probabilistic models from making inference using information from the future, something we intuitively do when we suspect that prominent athletes were also skilled some time before they became famous. }%
+\es{Sin embargo, nada impide que los modelos probabilísiticos realicen inferencia usando información del futuro, algo que intuitivamente hacemos cuando sospechamos que los deportistas destacados también eran hábiles un tiempo antes de hacerse conocidos. }%
+%
+\en{The LOOCV column of Table~\ref{Tab:Models} reports the geometric mean of the predictions when the skill estimation is performed using all historical information except the event we are predicting, $p(d_i| d_1, \dots, d_{i-1}, d_{i+1}, \dots, d_n , M)$. }.
+\es{La columna LOOCV de la tabla~\ref{Tab:Models} reporta la media geométrica de las predicciones cuando la estimación de la habilidades se realiza usando toda la información histórica salvo el evento que estamos prediciendo, $p(d_i| d_1, \dots, d_{i-1}, d_{i+1}, \dots, d_n , M)$. }%
+%
+\en{While we do not calculate the Bayes Factor, these estimates are hundreds of orders of magnitude better than estimates made using only past information. }%
+\es{Si bien no calculamos el Bayes Factor, estas estimaciones son centenas de órdenes de magnitud mejores que las estimaciones hechas usando sólo la información del pasado. }%
+
+% Parrafo
+
+\en{In such a sensitive problem as the estimation of people's ability, it is imperative to offer an explanation that is both intuitive and complete. }%
+\es{En un problema tan sensible para las personas, como es la estimación de su habilidad es imperativo ofrecer una explicación que sea al mismo tiempo intuitiva y completa. }%
+%
+\en{There is a very large population, both in the video game industry and in the educational systems, that needs to know how the algorithm that measures their skills works. }%
+\es{Hay una población muy grande, tanto en la industria del video juego como en los sistemas educativos, que necesita conocer cómo funciona el algoritmo que mide su habilidad. }%
+%
+\en{This paper aims to provide a technical report, with all the theoretical and technical details, in the most accessible way possible for the general public. }%
+\es{El objetivo de este trabajo es ofrecer una reporte técnico con todos los detalles téoricos y técnicos de la forma más accesible posible al público en general. }%
+
+
+\subsection{Elo Model}
+
+% Parrafo
+
 \en{Using the graphical representation proposed in Fig.~\ref{fig:generative_model}, it is possible to derive the prediction of the result given the previous estimates, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$. }%
 \es{A partir de la representaci\'on gr\'afica propuesta en la figura \ref{fig:generative_model}, se puede derivar la predicci\'on del resultado dadas las estimaciones previas, $P(\,r\,|\,s_{i_\text{old}},s_{j_\text{old}}\,)$. }%
 %
@@ -343,14 +508,16 @@
 
 % Cambio de parrafo
 
-\en{A better alternative is to distribute our belief among all possible skill hypotheses, instead of selecting a single value as an estimate. }%
-\es{Una alternativa superadora consiste en distribuir nuestra creencia entre todas las posibles hipótesis de habilidad, en vez de seleccionar un \'unico valor como estimaci\'on. }%
+\subsection{TrueSkill Model}
+
+\en{To correct the problems of the Elo algorithm it is necessary to compute the uncertainty of the estimates. }%
+\es{Para corregir los problemas del algoritmo Elo es necesario computar la incertidumbre de las estimaciones. }%
 %
 \en{This approach known as \emph{Bayesian inference} has proven successful in practice~\citep{Bishop2006} and ensures consistent reasoning in uncertainty contexts~\citep{Jaynes2003,VanHorn2003}. }%
 \es{Este enfoque conocido como inferencia bayesiana ha demostrado ser exitoso en la pr\'actica~\citep{Bishop2006} y garantiza un razonamiento consistente en contextos de incertidumbre~\citep{Jaynes2003,VanHorn2003}. }%
 %
-\en{Any inference of this type, independently of its complexity, can be solved by the rules of probability: the~\ref{eq:sum_rule} and the~\ref{eq:product_rule}. }%
-\es{Toda inferencia de este tipo, no importa cuan compleja sea, puede ser resuelta mediante las reglas de la probabilidad: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}. }%
+\en{The whole probability theory can be summarized in two rules: the \ref{eq:sum_rule} and the ~\ref{eq:product_rule}. }%
+\es{Toda la teoría de la probabilidad puede resumirse en dos reglas: la~\ref{eq:sum_rule} y la~\ref{eq:product_rule}. }%
 %
 \en{The \ref{eq:sum_rule} states that any marginal distribution can be obtained by integrating, or summing up, the joint distribution: }%
 \es{La \ref{eq:sum_rule} afirma que cualquier distribuci\'on marginal se puede obtener integrando o sumando la distribuci\'on conjunta. }%
@@ -382,7 +549,7 @@
 % \en{The inferential use of Bayes' theorem plays a central role in modern statistical learning techniques. }%
 % \es{El uso inferencial del teorema de bayes juega un rol central en las t\'ecnicas modernas de aprendizaje estad\'isitico. }%
 %
-\en{The \ref{eq:bayes_theorem} optimally updates our beliefs about the hypotheses,  maximizing uncertainty after incorporating the information provided by the model and the data. }%
+\en{The \ref{eq:bayes_theorem} optimally updates our beliefs about the hypotheses, maximizing uncertainty after incorporating the information provided by the model and the data. }%
 \es{El \ref{eq:bayes_theorem} actualiza de forma \'optima las creencia sobre las hip\'otesis, maximizando la incertidumbre luego de haber incorporar la información provista por el modelo y los datos. }%
 %
 \en{To quantify the uncertainty of our skill hypotheses using the information provided by the observed result and the described causal model, we need to solve:}
@@ -450,12 +617,6 @@
 \en{The likelihood quantifies the same cumulative density as the evidence but centered at the difference between the hypothesis we are evaluating $s_i$ and the opponent's mean estimate $\mu_j$, with a variance that includes all uncertainties except the one of $s_i$. }%
 \es{La verosimilitud cuantifica la misma densidad acumulada que la evidencia, pero centrada ahora en la diferencia entre la hip\'otesis que estamos evaluando $s_i$ y la estimaci\'on media del oponente $\mu_j$, con una varianza que incluye todas las incertidumbres salvo la de la propia hip\'otesis $s_i$. }%
 %
-\en{In other words, the likelihood is just the prior prediction of the observed result assuming true the skill hypothesis we are evaluating. }%
-\es{En otras palabras, la verosimilitud no es m\'as que la predicci\'on a priori del resultado observado suponiendo verdadera la hip\'otesis de habilidad que estamos evaluando. }%
-%
-\en{Figure~\ref{fig:posterior_win} shows in graphical terms the updating procedure performed by equation~\eqref{eq:posterior_win}. }%
-\es{La figura~\ref{fig:posterior_win} muestra en t\'erminos gr\'aficos el procedimiento de actualizaci\'on que realiza la ecuaci\'on~\eqref{eq:posterior_win}. }%
-%
 \begin{figure}[ht!]
     \centering
     \en{\includegraphics[page={1},width=.6\linewidth]{figures/posterior_win}}
@@ -476,7 +637,6 @@
     }
     \label{fig:posterior_win}
 \end{figure}
-
 
 \en{The posterior is just the prior's density that is not filtered by the likelihood. }%
 \es{El posterior no es m\'as que la densidad del prior no filtrada por la verosimilitud. }%
@@ -555,13 +715,19 @@
 \en{All of these issues are related to the fact that information propagates in only one direction through the system, and can be solved if inference is made with all available information from events occurring in parallel as well as from future events. }%
 \es{Todos estos problemas están relacionados al hecho de que la información propaga en una sola dirección a través del sistema, cuando la inferencia debería realizarse con toda la información disponible, también de eventos que ocurren de forma paralela como de eventos futuros disponibles. }%
 
-% Parrafo
+\subsection{TrueSkill Through Time Model}
 
-\en{The TrueSkill Through Time model~\citep{Dangauthier2007} corrects the biases of previous models by using a single probabilistic model of the entire history of events. }%
-\es{TrueSkill Through Time~\citep{Dangauthier2007} corrige los sesgos de los modelos previos mediante utilización de un único modelo probabilísitico para toda la historia de eventos. }%
+\en{To correct the problems of the TrueSkill algorithm, it is necessary to perform the inference within a Bayesian network that includes all historical activities, so that the information can propagate throughout the system. }%
+\es{Para corregir los problemas del algoritmo TrueSkill es necesario realizar la inferencia dentro de una red bayesiana que inlcuya todas las actividades históricas, de modo que la información pueda propagar por todo el sistema. }%
 %
-\en{Being theoretically well-founded, we can perform inference strictly applying the rules of probability, guaranteeing both good initial estimates and the temporal and spatial comparability of the estimates. }%
-\es{Al estar teóricamente bien fundado podemos realizar la inferencia aplicando estrictamente las reglas de la probabilidad, lo que garantiza tanto buenas estimaciones iniciales como la comparabilidad temporal y espacial de las estimaciones. }%
+\en{This ensures both good initial estimates and comparability of estimates that are separated in time and space. }%
+\es{De esta forma se garantiza tanto buenas estimaciones iniciales como la comparabilidad de las estimaciones que están separadas en el tiempo y el espacio. }%
+%
+\en{The connectivity between events is generated by the basic assumption that a player's skill at time $t$ depends on his own skill at an earlier time $t-1$, generating a network that acquires its structure depending on who participates in each event. }%
+\es{La conectividad entre eventos surge de suponer que la habilidad de un jugador en un tiempo $t$ depende de su propia habilidad en un tiempo anterior $t-1$, generando un red que adquiere su estructura dependiendo de quienes participan en cada evento. }%
+%
+\en{Similar algorithms were implemented by \cite{Coulom2008} and \cite{Maystre2019} based on Laplacian approximations and Gaussian processes, respectively. }%
+\es{Algoritmos similares fueron implementados por \cite{Coulom2008} y \cite{Maystre2019} basados en aproximaciones laplacianas y procesos gaussianos respectivamente. }%
 %
 \en{Excluding the dynamic component, $\gamma = 0$, the prior of an agent $i$ at the $t$-eth event is just the product of all their likelihoods, except that of the $t$-eth event. }%
 \es{Exluyendo el aspecto din\'amico, $\gamma = 0$, el prior de un agente $i$ en el $t$-\'esimo evento es el producto del todas sus verosimilitudes, salvo la del $t$-\'esimo evento. }%
@@ -572,12 +738,6 @@
 %
 \en{where $T_i$ is the total number of events in which the agent $i$ participated, being {\small Prior$_{i_0}$} its initial prior. }%
 \es{Donde $T_i$ es la cantidad total de eventos del agente $i$, siendo {\small Prior$_{i_0}$} su prior inicial. }%
-%
-\en{The connectivity between events is generated by the basic assumption that a player's skill at time $t$ depends on his own skill at an earlier time $t-1$,  generating a network that acquires its structure depending on who participates in each event. }%
-\es{La conectividad entre eventos surge de suponer que la habilidad de un jugador en un tiempo $t$ depende de su propia habilidad en un tiempo anterior $t-1$, generando un red que adquiere su estructura dependiendo de quienes participan en cada evento. }%
-%
-\en{Similar algorithms were implemented by \cite{Coulom2008} and \cite{Maystre2019} based on Laplacian approximations and Gaussian processes, respectively. }%
-\es{Algoritmos similares fueron implementados por \cite{Coulom2008} y \cite{Maystre2019} basados en aproximaciones laplacianas y procesos gaussianos respectivamente. }%
 %
 \en{This produces a mutual dependence between estimates that forces us to iteratively use the last available likelihoods until convergence is reached (details in section~\ref{sec:throughTime}). }%
 \es{Esto produce una mutua dependencia entre estimaciones que nos obliga a usar iterativamente las últimas verosimilitudes disponibles hasta alcanzar convergencia (detalles en la secci\'on~\ref{sec:throughTime}). }%
@@ -3166,200 +3326,200 @@ lhood_tc = lhood_lose_tc
 %
 \en{This algorithm requires only a few linear iterations on the data to converge and allows scaling to millions of observations in a few seconds. }%
 \es{Este algoritmo requiere s\'olo unas pocas iteraciones lineales sobre los datos para converger y permite escalar a millones de observaciones en pocos minutos. }%
-
-\subsection{\en{Model Evaluation}\es{Evaluación de modelos}} \label{sec:evidence}
-
-\en{In this section, we discuss how to evaluate models. }%
-\es{En esta sección discutiremos sobre cómo evaluar modelos. }%
-%
-\en{We would like to have a procedure to decide whether TrueSkill Through Time is better than TrueSkill, the optimal values of the parameters $\sigma$ and $\gamma$ (Fig.~\ref{fig:optimization}), and whether to model multi-dimensional skills (code~\ref{lst:atp_ground}). }%
-\es{Qusiéramos tener una medida que nos permita decidir: si TrueSkill Through Time es mejor a TrueSkill, los valores óptimos de los parámetros $\sigma$ y $\gamma$ (figura \ref{fig:optimization}), y si conviene modelar habilidades multi-dimensionales (código \ref{lst:atp_ground}). }%
-%
-\en{In the same way that we use probability theory to evaluate the hypotheses of a model given the data, we can also evaluate different models given the data. }%
-\es{Del mismo modo que usamos la teoría de la probabilidad para evaluar las hipótesis de un modelo dado los datos, también podemos evaluar los distintos modelos dado los datos. }%
-%
-\begin{equation}
- P(\text{Model\es{o}}|\text{Dat\en{a}\es{os}}) = \frac{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}})P(\text{Model\es{o}})}{P(\text{Dat\en{a}\es{os}})}
-\end{equation}
-%
-\en{where $P(\text{Model})$ is the prior of the models, which we define, and $P(\text{Data}|\text{Model})$ is the evidence computed using equation~\eqref{eq:evidence}. }%
-\es{donde $P(\text{Modelo})$ es el prior de los modelos, el cual definimos nosotros, y $P(\text{Datos}|\text{Modelo})$ es la evidencia, que en nuestro caso se computa con la ecuación \ref{eq:evidence}. }%
-%
-\en{If both expressions can be evaluated for the entire model space, then we can also compute $P(\text{Data})$. }%
-\es{Si ambas expresiones podemos evaluarlas para todo el espacio de modelos, entonces también podemos calcular el denominador $P(\text{Datos})$. }%
-%
-\begin{equation}
- P(\text{Dat\en{a}\es{os}}) = \sum_j P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_j)P(\text{Model\es{o}}_j)
-\end{equation}
-%
-\en{where we perform the summation of the alternative models. }%
-\es{donde sumamos las expresiones arriba mencionadas para todos los modelos alternativos. }%
-%
-\en{When we do not have access to all models, we cannot compute the probability $P(\text{Model}|\text{Data})$, but we can compare models. }%
-\es{Cuando no tenemos acceso a todos los modelos, no podremos calcular la probabilidad $P(\text{Modelo}|\text{Datos})$, pero sí podremos comparar modelos. }%
-%
-\begin{equation}
- \frac{P(\text{Model\es{o}}_i|\text{Dat\en{a}\es{os}})}{P(\text{Model\es{o}}_j|\text{Dat\en{a}\es{os}})} = \frac{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_i)P(\text{Model\es{o}}_i)}{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_j)P(\text{Model\es{o}}_j)}
-\end{equation}
-%
-\en{This expression is known as the \emph{Bayes factor} and can be obtained if we can compute the prior prediction (or evidence) of both models. }%
-\es{Esta expresión se conoce como \emph{Bayes factor}, y se puede computar siempre que podamos calcular la predicción a priori (o evidencia) de ambos modelos. }%
-%
-\en{In the special case where we have no prior preference over any model, we need only compare the prior predictions of the models. }%
-\es{En el caso especial en el que no tenemos preferencia a priori sobre ningún modelo, sólo debemos comparar las predicciones a priori de los modelos. }%
-%
-\begin{equation}
- \frac{P(\text{Model\es{o}}_i|\text{Dat\en{a}\es{os}})}{P(\text{Model\es{o}}_j|\text{Dat\en{a}\es{os}})} = \frac{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_i)}{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_j)}
-\end{equation}
-%
-\en{In other words, we prefer the model with the best prior prediction. }%
-\es{Es decir, preferimos el modelo que tenga mejor predicción a priori. }%
-%
-\en{By the product rule, we know that we can always decompose the joint probability as the product of one-dimensional conditional probabilities. }%
-\es{Por la regla del producto, sabemos que siempre podemos descomponer la probabilidad conjunta como el producto de probabilidades condicionales unidimensionales. }%
-%
-\begin{equation}\label{eq:evidencia_conjunta}
- P(\text{D}|\text{M}) = P(d_1|\text{M})P(d_2|d_1,\text{M}) \dots P(d_n|d_{n-1}, \dots, d_1, \text{M})
-\end{equation}
-%
-\en{where D represents the data set, M the model, and $d_i$ the individual data points. }%
-\es{donde D representa el conjunto de los datos, M el modelo, y $d_i$ los datos individuales. }%
-%
-\en{In our case, the individual data are the results of the games, and the probabilities that are being multiplied in the equation~\eqref{eq:evidencia_conjunta} are the prior predictions of the observed result using estimates that were obtained with past information. }%
-\es{En nuestro caso, los datos individuales son los resultados de las partidas, y las probabilidades que se están multiplicando en la ecuación~\eqref{eq:evidencia_conjunta} son las predicciones a priori del resultado observado usando estimaciones que se obtuvieron con la información pasada. }%
-%
-\en{In a large database, the joint probability of the data (equation~\eqref{eq:evidencia_conjunta}) is always close to $0$ because it is the product of probabilities ranging from $0$ to $1$. }%
-\es{En base de datos grandes, la probabilidad conjunta de los datos (ecuación~\eqref{eq:evidencia_conjunta}) es siempre cercana a $0$ debido que es el producto de probabilidades que van entre $0$ y $1$. }%
-%
-\en{It is convenient to use a logarithmic scale to analyze $P(\text{D}|\text{M})$:}%
-\es{Para evaluar esta expresión conviene trabajar en escala logarítmica. }%
-%
-\begin{equation}\label{eq:log_evidencia_conjunta}
- \log P(\text{D}|\text{M}) = \log P(d_1|\text{M}) + \dots + \log P(d_n|d_{n-1}, \dots, d_1, \text{M})
-\end{equation}
-%
-\en{In TrueSkill, this expression is the sum of all the logarithmic prior predictions, using the last posterior of each agent as the prior for the new game. }%
-\es{En TrueSkill, esta expresión es la suma del todos los predicción a priori logaritmica, usando el último posterior de los agentes como prior de la nueva partida. }%
-%
-\en{In TrueSkill Through Time, however, evaluating this expression is computationally complex. }%
-\es{En TrueSkill Through Time, en cambio, evaluar esta exresión resulta computacionalmente complejo. }%
-%
-\en{In section \ref{sec:throughTime} we have shown that in the temporal model the prior of the events (the message \emph{whitinPrior}) contains all the historical information except the one coming from that event. }%
-\es{En la sección \ref{sec:throughTime} hemos mostrado que en el modelo temporal el prior de los eventos (el mensaje \emph{whitinPrior}) contiene toda la información histórica salvo la que proviene de ese evento. }%
-%
-\en{Then, the predictions evaluated with those messages have the rest of the data in the conditional, $p(d_i| d_1, \dots, d_{i-1}, d_{i+1}, \dots, d_n , M)$. }%
-\es{Entonces, las predicciones evaluadas con esos mensajes tienen el resto de los datos en el condicional, $p(d_i| d_1, \dots, d_{i-1}, d_{i+1}, \dots, d_n , M)$. }%
-%, por lo que su multiplicación no se corresponde con la probabilidad conjunta de los datos
-% \begin{equation} \label{eq:loocv}
-%  \prod_i p(d_i|\wedge_{j\neq i} d_j , M) = \text{LOOCV}
+% 
+% \subsection{\en{Model Evaluation}\es{Evaluación de modelos}} \label{sec:evidence}
+% 
+% \en{In this section, we discuss how to evaluate models. }%
+% \es{En esta sección discutiremos sobre cómo evaluar modelos. }%
+% %
+% \en{We would like to have a procedure to decide whether TrueSkill Through Time is better than TrueSkill, the optimal values of the parameters $\sigma$ and $\gamma$ (Fig.~\ref{fig:optimization}), and whether to model multi-dimensional skills (code~\ref{lst:atp_ground}). }%
+% \es{Qusiéramos tener una medida que nos permita decidir: si TrueSkill Through Time es mejor a TrueSkill, los valores óptimos de los parámetros $\sigma$ y $\gamma$ (figura \ref{fig:optimization}), y si conviene modelar habilidades multi-dimensionales (código \ref{lst:atp_ground}). }%
+% %
+% \en{In the same way that we use probability theory to evaluate the hypotheses of a model given the data, we can also evaluate different models given the data. }%
+% \es{Del mismo modo que usamos la teoría de la probabilidad para evaluar las hipótesis de un modelo dado los datos, también podemos evaluar los distintos modelos dado los datos. }%
+% %
+% \begin{equation}
+%  P(\text{Model\es{o}}|\text{Dat\en{a}\es{os}}) = \frac{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}})P(\text{Model\es{o}})}{P(\text{Dat\en{a}\es{os}})}
 % \end{equation}
 % %
-%
-\en{This expression matches a technique known as \emph{leave-one-out cross-validation} (LOOCV). }%
-\es{Esta expresión coincide con una técnica de validación cruzada conocida como \emph{leave-one-out croos-validation} (LOOCV). }%
-%
-\en{The \texttt{log\_evidence()} method of the \texttt{History} class returns the product of all these elements using a logarithmic scale. }%
-\es{El método \texttt{log\_evidence()} de la clase \texttt{History} devuelve por defecto el producto de todos estos elementos en escala logarítmica. }%
-%
-\begin{equation} \label{eq:log_evidence_default}
-\sum_i \log p(d_i|\wedge_{j\neq i} d_j , \text{M})
-\end{equation}
-%
-\en{where we use the symbol $\wedge_{j\neq i}$ to incorporate in the conditional all the data $d_j$ except the $i$-th. }%
-\es{donde el símbolo $\wedge_{j\neq i}$ lo usamos para incorporar en el condicional todos los datos $d_j$ salvo el $i$-ésimo. }%
-%
-\en{To compute the prior prediction using only the past information, it is necessary to send only the \emph{forwardPrior} as a message to the events. }%
-\es{Para computar la predicción a priori usando sólo la información pasada, es necesario enviar como mensaje a los eventos unicamente el \emph{forwardPrior}. }%
-%
-\en{When the parameter \texttt{online} of the method \texttt{log\_evidence()} is \texttt{true}, this function returns the product of the predictions made with past information using a logarithmic scale. }%
-\es{La variable \texttt{online} del método \texttt{log\_evidence()}, cuando se le asigna un valor verdadero, devuelve el en escala logarítmica el producto de las predicciones hechas con información del pasada. }%
-%
-\begin{equation} \label{eq:log_evidence_online}
-\log \widehat{P}(\text{D}|\text{M}) = \sum_i \log p(d_i|\wedge_{j < i} d_j , \text{M})
-\end{equation}
-%
-\en{We say that it approximates the probability $P(\text{D}|\text{M})$ because although the messages sent to the events as prior contain only past estimates, they arise from the convergence that uses all the historical information. }%
-\es{Decimos que aproxima a la probabilidad $P(\text{D}|\text{M})$ porque si bien los mensajes enviados hacia los eventos como prior contienen sólo las estimaciones pasadas, ellas surgen de la convergencia que usa toda la información histórica. }%
-%
-\en{Something similar happens with the expression \ref{eq:log_evidence_default}, so it would also be convenient to write it as an approximation, {\small$\widehat{\text{LOOCV}}$}. }%
-\es{Algo similar ocurre con la expresión \ref{eq:log_evidence_default}, por lo que convendría también escribirla como una aproximación, {\small$\widehat{\text{LOOCV}}$}. }%
-%
-\en{We do not implement the exact solution because its computational complexity is quadratic: it would be necessary to upload the data one by one and perform a convergence at each step. }%
-\es{No implementamos la solución exacta debido a que su complejidad computacional es cuadrática: sería necesario subir los datos de a uno y realizar una convergencia en cada paso. }%
-%
-\en{Someone might suspect that the expressions \ref{eq:log_evidence_default} and \ref{eq:log_evidence_online} are unreliable because they might indirectly use information from the future to predict the result of current events. }%
-\es{Alguien podría sospechar que las expresiones \ref{eq:log_evidence_default} y \ref{eq:log_evidence_online} no son confiables porque podrían usar indirectamente información del futuro para predecir correctamente el resultado de los eventos. }%
-%
-\en{Conversely, in the example presented in the introduction (Fig.~\ref{fig:smooth_example}), these expressions return more pessimistic values than the exact solution. }%
-\es{Por el contrario, en el ejemplo presentado en la introducción (figura \ref{fig:smooth_example}) estas expresiones devuelven valores más pesimistas que la solución exacta. }%
-%
-\begin{table}[ht!]\centering
-\begin{tabular}{l|l|l|l|l|}
-\multicolumn{1}{c}{} & \multicolumn{2}{|c|}{Event\es{o} 1}                        & \multicolumn{2}{c|}{Event\es{o} 2}                        \\ 
-\multicolumn{1}{c}{} & \multicolumn{1}{|c|}{\en{Message}\es{Mensaje}} & \multicolumn{1}{c|}{Evidenc\en{e}\es{ia}} & \multicolumn{1}{c|}{\en{Message}\es{Mensaje}} & \multicolumn{1}{c|}{Evidenc\en{e}\es{ia}} \\ \hline
- $P(\text{D}|\text{M})$ & Prior & $0.5$ & Prior $\cdot$ likelihood$_1^1$ & $0.177 $\\ \hline
- $\widehat{P}(\text{D}|\text{M})$ &  Prior & $0.5$ & Prior $\cdot$ likelihood$_1^k$ & $0.002$ \\ \hline
- {\small$\widehat{\text{LOOCV}}$} & Prior $\cdot$ likelihood$_2^k$ & $0.002$ & Prior $\cdot$ likelihood$_1^k$ & $0.002$ \\ \hline               
-\end{tabular}
-\caption{
-\en{Three types of prior predictions evaluated on the example presented in the introduction. }%
-\es{Evaluación de tres tipos de predicciones a priori sobre el ejemplo presentado en la introducción. }%
-%
-\en{The $P(\text{D}|\text{M})$ is the exact solution. }%
-\es{La $P(\text{D}|\text{M})$ es la solución exacta. }%
-%
-\en{The approximations do not use information from the future to artificially improve their predictions. }%
-\es{Las aproximaciones no usan la información del futuro para mejorar artificialmente sus predicciones. }%
-%
-\en{The subscript indicates the event, the superscript the convergence number. }%
-\es{El subíndice indica la partida, el supraíndice el número de convergencia. }%
-}
-\label{tab:evidence}
-\end{table}
-%
-\en{Table~\ref{tab:evidence} shows that the exact solution $P(\text{D}|\text{M})$ uses messages which ignore the estimates from the future. The likelihood$_1^1$ is obtained from the first event of the first iteration before the information from the second event is incorporated. }%
-\es{En la tabla \ref{tab:evidence} podemos ver que la solución exacta $P(\text{D}|\text{M})$ usa como prior de los eventos mensajes que contienen estimaciones totalmente ignorantes del futuro: el likelihood$_1^1$ se obtiene del primer evento en la primera iteración de la convergencia, antes de que se haya incorporado la información del segundo evento. }%
-%
-\en{In this extreme case the exact joint evidence of TrueSkill Through Time and TrueSkill is the same, so there is no preference for any model. }%
-\es{En este caso extremo la evidencia conjunta exacta de TrueSkill Through Time y de TrueSkill son iguales, por lo que no hay preferencia por ninguno de los modelos. }%
-%
-\en{The $\widehat{P}(\text{D}|\text{M})$ and {\small$\widehat{\text{LOOCV}}$} approximations use as prior of the events messages with estimates containing information of the future: the likelihood$_1^k$ is obtained from the first event in the last convergence iteration, which uses information from the second event. }%
-\es{Las aproximaciones $\widehat{P}(\text{D}|\text{M})$ y {\small$\widehat{\text{LOOCV}}$} usan como prior de los eventos mensajes con estimaciones que contienen información del futuro: el likelihood$_1^k$ es obtiene del primer evento en la última iteración de convergencia, usando información del segundo evento. }%
-%
-\en{In this extreme case, if we use some of them to approximate the prior predictions we would believe that the TrueSkill model is better, even though TrueSkill Through Time recovers the correct posteriors. }%
-\es{En este caso extremo si usamos algunas de ellas para aproximar las predicciones a priori creeríamos que conviene el modelo TrueSkill, a pesar de que TrueSkill Through Time recupera los posteriors correctos. }%
-%
-\en{It is interesting to note why this occurs. }%
-\es{Es interesante notar por qué ocurre eso. }%
-%
-\en{The situation turns around quickly when adding one game at a time, alternating the wins between the two players. The exact solution and its approximations provide better predictions than TrueSkill. }%
-\es{Si extendemos el ejemplo, agregando partidas de a una, alternando las victorias entre los dos jugadores, la situación rápidamente se invierte: tanto la solcución exacta como sus aproximaciones proveen mejores predicciones a priori que TrueSkill. }%
-%
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[page={1},width=.6\linewidth]{figures/prior_predictions}
-    \caption{
-    \en{Difference between the exact solution $ P (D | M) $ with respect to TrueSkill and the approximate solutions, ({\small$\widehat{\text{LOOCV}}$}) and $ \widehat{P}(D | M) $, as we add more events to the Figure~\ref{fig:smooth_example}. }%
-    \es{Diferencia de predicción entre la solución exacta $P(D|M)$ respecto de TrueSkill y las solcuiones aproximadas, {\small$\widehat{\text{LOOCV}}$} y $\widehat{P}(D|M)$, a medida que agregamos más eventos en la figura~\ref{fig:smooth_example}. }%
-    }
-    \label{fig:log_evidence_behavior}
-\end{figure}
-%
-\en{Figure~\ref{fig:log_evidence_behavior} compares the exact solution with the approximations and the TrueSkill prediction. }%
-\es{En la figura \ref{fig:log_evidence_behavior} podemos la diferencia de predicción entre la solución exacta respecto de sus aproximaciones y de TrueSkill. }%
-%
-\en{The exact solution is always greater than TrueSkill and $\widehat{P}(D|M)$, and even though the solution {\small$\widehat{\text{LOOCV}}$} briefly surpasses it, is the one that best approximates it. }%
-\es{Es interesante notar que la solución exacta siempre es mayor a TrueSkill y a $\widehat{P}(D|M)$, y a pesar de que la solución {\small$\widehat{\text{LOOCV}}$} la supera levemente en un momento, es al mismo tiempo la que mejor la aproxima. }%
-%
-\en{This example illustrates that the expressions~\eqref{eq:log_evidence_default} and \eqref{eq:log_evidence_online} do not use information from the future to improve their predictions artificially. }%
-\es{Este ejemplo ilustra que las expresiones \ref{eq:log_evidence_default} y \ref{eq:log_evidence_online} no usan la información del futuro de manera indirecta para artificialmente mejorar sus predicciones. }%
-%
-\en{In both cases, they avoid overfitting and penalize unnecessarily complex models. }%
-\es{Ambas evitan el sobreajuste y penalizan suficientemente los modelos innecesariamente complejos. }%
-%
-\en{The original TrueSkill Through Time work does not include this clarification. }%
-\es{Es importante esta aclaración, que no está tratada en el papar original de TrueSkill Through Time. }%
-
+% \en{where $P(\text{Model})$ is the prior of the models, which we define, and $P(\text{Data}|\text{Model})$ is the evidence computed using equation~\eqref{eq:evidence}. }%
+% \es{donde $P(\text{Modelo})$ es el prior de los modelos, el cual definimos nosotros, y $P(\text{Datos}|\text{Modelo})$ es la evidencia, que en nuestro caso se computa con la ecuación \ref{eq:evidence}. }%
+% %
+% \en{If both expressions can be evaluated for the entire model space, then we can also compute $P(\text{Data})$. }%
+% \es{Si ambas expresiones podemos evaluarlas para todo el espacio de modelos, entonces también podemos calcular el denominador $P(\text{Datos})$. }%
+% %
+% \begin{equation}
+%  P(\text{Dat\en{a}\es{os}}) = \sum_j P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_j)P(\text{Model\es{o}}_j)
+% \end{equation}
+% %
+% \en{where we perform the summation of the alternative models. }%
+% \es{donde sumamos las expresiones arriba mencionadas para todos los modelos alternativos. }%
+% %
+% \en{When we do not have access to all models, we cannot compute the probability $P(\text{Model}|\text{Data})$, but we can compare models. }%
+% \es{Cuando no tenemos acceso a todos los modelos, no podremos calcular la probabilidad $P(\text{Modelo}|\text{Datos})$, pero sí podremos comparar modelos. }%
+% %
+% \begin{equation}
+%  \frac{P(\text{Model\es{o}}_i|\text{Dat\en{a}\es{os}})}{P(\text{Model\es{o}}_j|\text{Dat\en{a}\es{os}})} = \frac{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_i)P(\text{Model\es{o}}_i)}{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_j)P(\text{Model\es{o}}_j)}
+% \end{equation}
+% %
+% \en{This expression is known as the \emph{Bayes factor} and can be obtained if we can compute the prior prediction (or evidence) of both models. }%
+% \es{Esta expresión se conoce como \emph{Bayes factor}, y se puede computar siempre que podamos calcular la predicción a priori (o evidencia) de ambos modelos. }%
+% %
+% \en{In the special case where we have no prior preference over any model, we need only compare the prior predictions of the models. }%
+% \es{En el caso especial en el que no tenemos preferencia a priori sobre ningún modelo, sólo debemos comparar las predicciones a priori de los modelos. }%
+% %
+% \begin{equation}
+%  \frac{P(\text{Model\es{o}}_i|\text{Dat\en{a}\es{os}})}{P(\text{Model\es{o}}_j|\text{Dat\en{a}\es{os}})} = \frac{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_i)}{P(\text{Dat\en{a}\es{os}}|\text{Model\es{o}}_j)}
+% \end{equation}
+% %
+% \en{In other words, we prefer the model with the best prior prediction. }%
+% \es{Es decir, preferimos el modelo que tenga mejor predicción a priori. }%
+% %
+% \en{By the product rule, we know that we can always decompose the joint probability as the product of one-dimensional conditional probabilities. }%
+% \es{Por la regla del producto, sabemos que siempre podemos descomponer la probabilidad conjunta como el producto de probabilidades condicionales unidimensionales. }%
+% %
+% \begin{equation}\label{eq:evidencia_conjunta}
+%  P(\text{D}|\text{M}) = P(d_1|\text{M})P(d_2|d_1,\text{M}) \dots P(d_n|d_{n-1}, \dots, d_1, \text{M})
+% \end{equation}
+% %
+% \en{where D represents the data set, M the model, and $d_i$ the individual data points. }%
+% \es{donde D representa el conjunto de los datos, M el modelo, y $d_i$ los datos individuales. }%
+% %
+% \en{In our case, the individual data are the results of the games, and the probabilities that are being multiplied in the equation~\eqref{eq:evidencia_conjunta} are the prior predictions of the observed result using estimates that were obtained with past information. }%
+% \es{En nuestro caso, los datos individuales son los resultados de las partidas, y las probabilidades que se están multiplicando en la ecuación~\eqref{eq:evidencia_conjunta} son las predicciones a priori del resultado observado usando estimaciones que se obtuvieron con la información pasada. }%
+% %
+% \en{In a large database, the joint probability of the data (equation~\eqref{eq:evidencia_conjunta}) is always close to $0$ because it is the product of probabilities ranging from $0$ to $1$. }%
+% \es{En base de datos grandes, la probabilidad conjunta de los datos (ecuación~\eqref{eq:evidencia_conjunta}) es siempre cercana a $0$ debido que es el producto de probabilidades que van entre $0$ y $1$. }%
+% %
+% \en{It is convenient to use a logarithmic scale to analyze $P(\text{D}|\text{M})$:}%
+% \es{Para evaluar esta expresión conviene trabajar en escala logarítmica. }%
+% %
+% \begin{equation}\label{eq:log_evidencia_conjunta}
+%  \log P(\text{D}|\text{M}) = \log P(d_1|\text{M}) + \dots + \log P(d_n|d_{n-1}, \dots, d_1, \text{M})
+% \end{equation}
+% %
+% \en{In TrueSkill, this expression is the sum of all the logarithmic prior predictions, using the last posterior of each agent as the prior for the new game. }%
+% \es{En TrueSkill, esta expresión es la suma del todos los predicción a priori logaritmica, usando el último posterior de los agentes como prior de la nueva partida. }%
+% %
+% \en{In TrueSkill Through Time, however, evaluating this expression is computationally complex. }%
+% \es{En TrueSkill Through Time, en cambio, evaluar esta exresión resulta computacionalmente complejo. }%
+% %
+% \en{In section \ref{sec:throughTime} we have shown that in the temporal model the prior of the events (the message \emph{whitinPrior}) contains all the historical information except the one coming from that event. }%
+% \es{En la sección \ref{sec:throughTime} hemos mostrado que en el modelo temporal el prior de los eventos (el mensaje \emph{whitinPrior}) contiene toda la información histórica salvo la que proviene de ese evento. }%
+% %
+% \en{Then, the predictions evaluated with those messages have the rest of the data in the conditional, $p(d_i| d_1, \dots, d_{i-1}, d_{i+1}, \dots, d_n , M)$. }%
+% \es{Entonces, las predicciones evaluadas con esos mensajes tienen el resto de los datos en el condicional, $p(d_i| d_1, \dots, d_{i-1}, d_{i+1}, \dots, d_n , M)$. }%
+% %, por lo que su multiplicación no se corresponde con la probabilidad conjunta de los datos
+% % \begin{equation} \label{eq:loocv}
+% %  \prod_i p(d_i|\wedge_{j\neq i} d_j , M) = \text{LOOCV}
+% % \end{equation}
+% % %
+% %
+% \en{This expression matches a technique known as \emph{leave-one-out cross-validation} (LOOCV). }%
+% \es{Esta expresión coincide con una técnica de validación cruzada conocida como \emph{leave-one-out croos-validation} (LOOCV). }%
+% %
+% \en{The \texttt{log\_evidence()} method of the \texttt{History} class returns the product of all these elements using a logarithmic scale. }%
+% \es{El método \texttt{log\_evidence()} de la clase \texttt{History} devuelve por defecto el producto de todos estos elementos en escala logarítmica. }%
+% %
+% \begin{equation} \label{eq:log_evidence_default}
+% \sum_i \log p(d_i|\wedge_{j\neq i} d_j , \text{M})
+% \end{equation}
+% %
+% \en{where we use the symbol $\wedge_{j\neq i}$ to incorporate in the conditional all the data $d_j$ except the $i$-th. }%
+% \es{donde el símbolo $\wedge_{j\neq i}$ lo usamos para incorporar en el condicional todos los datos $d_j$ salvo el $i$-ésimo. }%
+% %
+% \en{To compute the prior prediction using only the past information, it is necessary to send only the \emph{forwardPrior} as a message to the events. }%
+% \es{Para computar la predicción a priori usando sólo la información pasada, es necesario enviar como mensaje a los eventos unicamente el \emph{forwardPrior}. }%
+% %
+% \en{When the parameter \texttt{online} of the method \texttt{log\_evidence()} is \texttt{true}, this function returns the product of the predictions made with past information using a logarithmic scale. }%
+% \es{La variable \texttt{online} del método \texttt{log\_evidence()}, cuando se le asigna un valor verdadero, devuelve el en escala logarítmica el producto de las predicciones hechas con información del pasada. }%
+% %
+% \begin{equation} \label{eq:log_evidence_online}
+% \log \widehat{P}(\text{D}|\text{M}) = \sum_i \log p(d_i|\wedge_{j < i} d_j , \text{M})
+% \end{equation}
+% %
+% \en{We say that it approximates the probability $P(\text{D}|\text{M})$ because although the messages sent to the events as prior contain only past estimates, they arise from the convergence that uses all the historical information. }%
+% \es{Decimos que aproxima a la probabilidad $P(\text{D}|\text{M})$ porque si bien los mensajes enviados hacia los eventos como prior contienen sólo las estimaciones pasadas, ellas surgen de la convergencia que usa toda la información histórica. }%
+% %
+% \en{Something similar happens with the expression \ref{eq:log_evidence_default}, so it would also be convenient to write it as an approximation, {\small$\widehat{\text{LOOCV}}$}. }%
+% \es{Algo similar ocurre con la expresión \ref{eq:log_evidence_default}, por lo que convendría también escribirla como una aproximación, {\small$\widehat{\text{LOOCV}}$}. }%
+% %
+% \en{We do not implement the exact solution because its computational complexity is quadratic: it would be necessary to upload the data one by one and perform a convergence at each step. }%
+% \es{No implementamos la solución exacta debido a que su complejidad computacional es cuadrática: sería necesario subir los datos de a uno y realizar una convergencia en cada paso. }%
+% %
+% \en{Someone might suspect that the expressions \ref{eq:log_evidence_default} and \ref{eq:log_evidence_online} are unreliable because they might indirectly use information from the future to predict the result of current events. }%
+% \es{Alguien podría sospechar que las expresiones \ref{eq:log_evidence_default} y \ref{eq:log_evidence_online} no son confiables porque podrían usar indirectamente información del futuro para predecir correctamente el resultado de los eventos. }%
+% %
+% \en{Conversely, in the example presented in the introduction (Fig.~\ref{fig:smooth_example}), these expressions return more pessimistic values than the exact solution. }%
+% \es{Por el contrario, en el ejemplo presentado en la introducción (figura \ref{fig:smooth_example}) estas expresiones devuelven valores más pesimistas que la solución exacta. }%
+% %
+% \begin{table}[ht!]\centering
+% \begin{tabular}{l|l|l|l|l|}
+% \multicolumn{1}{c}{} & \multicolumn{2}{|c|}{Event\es{o} 1}                        & \multicolumn{2}{c|}{Event\es{o} 2}                        \\ 
+% \multicolumn{1}{c}{} & \multicolumn{1}{|c|}{\en{Message}\es{Mensaje}} & \multicolumn{1}{c|}{Evidenc\en{e}\es{ia}} & \multicolumn{1}{c|}{\en{Message}\es{Mensaje}} & \multicolumn{1}{c|}{Evidenc\en{e}\es{ia}} \\ \hline
+%  $P(\text{D}|\text{M})$ & Prior & $0.5$ & Prior $\cdot$ likelihood$_1^1$ & $0.177 $\\ \hline
+%  $\widehat{P}(\text{D}|\text{M})$ &  Prior & $0.5$ & Prior $\cdot$ likelihood$_1^k$ & $0.002$ \\ \hline
+%  {\small$\widehat{\text{LOOCV}}$} & Prior $\cdot$ likelihood$_2^k$ & $0.002$ & Prior $\cdot$ likelihood$_1^k$ & $0.002$ \\ \hline               
+% \end{tabular}
+% \caption{
+% \en{Three types of prior predictions evaluated on the example presented in the introduction. }%
+% \es{Evaluación de tres tipos de predicciones a priori sobre el ejemplo presentado en la introducción. }%
+% %
+% \en{The $P(\text{D}|\text{M})$ is the exact solution. }%
+% \es{La $P(\text{D}|\text{M})$ es la solución exacta. }%
+% %
+% \en{The approximations do not use information from the future to artificially improve their predictions. }%
+% \es{Las aproximaciones no usan la información del futuro para mejorar artificialmente sus predicciones. }%
+% %
+% \en{The subscript indicates the event, the superscript the convergence number. }%
+% \es{El subíndice indica la partida, el supraíndice el número de convergencia. }%
+% }
+% \label{tab:evidence}
+% \end{table}
+% %
+% \en{Table~\ref{tab:evidence} shows that the exact solution $P(\text{D}|\text{M})$ uses messages which ignore the estimates from the future. The likelihood$_1^1$ is obtained from the first event of the first iteration before the information from the second event is incorporated. }%
+% \es{En la tabla \ref{tab:evidence} podemos ver que la solución exacta $P(\text{D}|\text{M})$ usa como prior de los eventos mensajes que contienen estimaciones totalmente ignorantes del futuro: el likelihood$_1^1$ se obtiene del primer evento en la primera iteración de la convergencia, antes de que se haya incorporado la información del segundo evento. }%
+% %
+% \en{In this extreme case the exact joint evidence of TrueSkill Through Time and TrueSkill is the same, so there is no preference for any model. }%
+% \es{En este caso extremo la evidencia conjunta exacta de TrueSkill Through Time y de TrueSkill son iguales, por lo que no hay preferencia por ninguno de los modelos. }%
+% %
+% \en{The $\widehat{P}(\text{D}|\text{M})$ and {\small$\widehat{\text{LOOCV}}$} approximations use as prior of the events messages with estimates containing information of the future: the likelihood$_1^k$ is obtained from the first event in the last convergence iteration, which uses information from the second event. }%
+% \es{Las aproximaciones $\widehat{P}(\text{D}|\text{M})$ y {\small$\widehat{\text{LOOCV}}$} usan como prior de los eventos mensajes con estimaciones que contienen información del futuro: el likelihood$_1^k$ es obtiene del primer evento en la última iteración de convergencia, usando información del segundo evento. }%
+% %
+% \en{In this extreme case, if we use some of them to approximate the prior predictions we would believe that the TrueSkill model is better, even though TrueSkill Through Time recovers the correct posteriors. }%
+% \es{En este caso extremo si usamos algunas de ellas para aproximar las predicciones a priori creeríamos que conviene el modelo TrueSkill, a pesar de que TrueSkill Through Time recupera los posteriors correctos. }%
+% %
+% \en{It is interesting to note why this occurs. }%
+% \es{Es interesante notar por qué ocurre eso. }%
+% %
+% \en{The situation turns around quickly when adding one game at a time, alternating the wins between the two players. The exact solution and its approximations provide better predictions than TrueSkill. }%
+% \es{Si extendemos el ejemplo, agregando partidas de a una, alternando las victorias entre los dos jugadores, la situación rápidamente se invierte: tanto la solcución exacta como sus aproximaciones proveen mejores predicciones a priori que TrueSkill. }%
+% %
+% \begin{figure}[ht!]
+%     \centering
+%     \includegraphics[page={1},width=.6\linewidth]{figures/prior_predictions}
+%     \caption{
+%     \en{Difference between the exact solution $ P (D | M) $ with respect to TrueSkill and the approximate solutions, ({\small$\widehat{\text{LOOCV}}$}) and $ \widehat{P}(D | M) $, as we add more events to the Figure~\ref{fig:smooth_example}. }%
+%     \es{Diferencia de predicción entre la solución exacta $P(D|M)$ respecto de TrueSkill y las solcuiones aproximadas, {\small$\widehat{\text{LOOCV}}$} y $\widehat{P}(D|M)$, a medida que agregamos más eventos en la figura~\ref{fig:smooth_example}. }%
+%     }
+%     \label{fig:log_evidence_behavior}
+% \end{figure}
+% %
+% \en{Figure~\ref{fig:log_evidence_behavior} compares the exact solution with the approximations and the TrueSkill prediction. }%
+% \es{En la figura \ref{fig:log_evidence_behavior} podemos la diferencia de predicción entre la solución exacta respecto de sus aproximaciones y de TrueSkill. }%
+% %
+% \en{The exact solution is always greater than TrueSkill and $\widehat{P}(D|M)$, and even though the solution {\small$\widehat{\text{LOOCV}}$} briefly surpasses it, is the one that best approximates it. }%
+% \es{Es interesante notar que la solución exacta siempre es mayor a TrueSkill y a $\widehat{P}(D|M)$, y a pesar de que la solución {\small$\widehat{\text{LOOCV}}$} la supera levemente en un momento, es al mismo tiempo la que mejor la aproxima. }%
+% %
+% \en{This example illustrates that the expressions~\eqref{eq:log_evidence_default} and \eqref{eq:log_evidence_online} do not use information from the future to improve their predictions artificially. }%
+% \es{Este ejemplo ilustra que las expresiones \ref{eq:log_evidence_default} y \ref{eq:log_evidence_online} no usan la información del futuro de manera indirecta para artificialmente mejorar sus predicciones. }%
+% %
+% \en{In both cases, they avoid overfitting and penalize unnecessarily complex models. }%
+% \es{Ambas evitan el sobreajuste y penalizan suficientemente los modelos innecesariamente complejos. }%
+% %
+% \en{The original TrueSkill Through Time work does not include this clarification. }%
+% \es{Es importante esta aclaración, que no está tratada en el papar original de TrueSkill Through Time. }%
+% 
 
 
 
@@ -3414,40 +3574,34 @@ lhood_tc = lhood_lose_tc
 \es{Con este artículo promovemos su uso poniendo a disposición los primeros paquetes para \proglang{Julia}, \proglang{Python} y \proglang{R}, junto con la documentación científica completa. }%
 
 % Parrafo
-% 
-%  \en{The strict application of probability theory is essential to reach the agreements required in scientific activity. }%
-% \es{La aplicación estricta de la teoría de la probabilidad esencial para alcanzar los acuerdos que se requieren en la actividad científica. }%
-% %
-% \en{Unlike the vast number of algorithms that select a single point of the hypothesis space through ad-hoc optimizations, Bayesian inference guarantees to compute honest belief distributions given data and models. }%
-% \es{A diferencia de la gran cantidad de algoritmos que seleccionan un único punto del espacio de hipótesis mediante optimizaciones ad-hoc, la inferencia bayesiana garantiza computar distribución de creencias honestas dados los datos y modelos. }%
-% %
-% \en{However, this guarantee depends on the truth of the information on which the inference is conditioned (data and causal models). }%
-% \es{Sin embargo esta garantía depende de que sea verdadera la información sobre la que se condiciona la inferencia (datos y modelos causales). }%
-% 
-% %
-% 
-% \en{Bayesian skill estimators, such as TrueSkill, Glicko and Item-Response Theory, are based on an incomplete causal model that causes information to propagate in only one direction through the system, from the past to the future. }%
-% \es{Los estimadores de habilidad bayesianos como TrueSkill, Glicko e Item-Response Theory, están basados en un modelo causal incompleto que hace que la información propage sólo en una dirección a través del sistema, del pasado al futuro. }%
-% %
-% \en{This is a source of error that can be very serious when estimating learning curves, hindering their use in sensitive activities. }%
-% \es{Esta es un fuente de error que puede ser muy grave a la hora de estimar curvas de aprendizaje, impidiendo su uso en actividades sensibles. }%
-% %
-% \en{The most obvious problem is that the beginning of any estimation sequence always has high uncertainty, which prevents estimating the actual progress made by individuals. }%
-% \es{El problema más obvio es que el inicio de toda secuencia de estimaciones siempre tiene alta incertidumbre, lo que impide estimar el progreso real realizado por los individuos. }%
-% %
-% \en{But it also suffers from temporal and spatial decouplings that prevent comparability between loosely connected contemporary groups and between cohorts separated in time. }%
-% \es{Pero también sufre de desacoplamientos' temporales y espaciales que impiden la comparabilidad entre grupos contemporaneos poco conectados y entre cohortes separadas en el tiempo. }%
-
-% Parrafo
 
 \en{The advantage of TrueSkill Through Time lies in its temporal causal model, which links all historical activities in the same Bayesian network, allowing the information to propagate correctly throughout the system guaranteeing good initial estimates and the temporal and spatial comparability of the estimates. }%
 \es{La ventaja TrueSkill Through Time radica en su modelo causal temporal, que vincula todas las actividades históricas en una misma red bayesiana, permitiendo que la información propage correctamente por todo el sistema, lo que garantiza tanto buenas estimaciones iniciales como la comparabilidad temporal y espacial de las estimaciones. }%
 %
-% \en{One of the historical bottlenecks to the strict application of probability theory was the technical difficulty in solving the integrals that compute marginal probabilities: the posterior and the prior prediction. }%
-% \es{Uno de los cuello de botella hist\'orico para la aplicación estricta de la teoría de la probabilidad fue la dificultad técnica para resolver las integrales que computan las probabilidades marginales: el posterior y la predicción a priori. }%
+\en{With no more than 3 intuitive hyperparameters, the TTT model achieves similar or even better results than KickScore~\citep{Maystre2019} more efficiently, because the latter must optimize on a much larger hyperparameter space, which includes the definition of a Kernel (a statistical trick not always intuitive). }%
+\es{Con no más de 3 hiperparámetros intuitivos, el modelo TTT logra resultados similares y hasta mejores que KickScore~\citep{Maystre2019} de forma más eficiente, debido a que el último debe optimizar en un espacio de parámetros mucho más grande, que incluye la definción de un Kernel (un truco estadísitico no siempre intuitivo). }%
+
+% Parrafo
+
+\en{In such a sensitive problem as the estimation of people's ability, it is imperative to offer an explanation that is both intuitive and complete. }%
+\es{En un problema tan sensible para las personas, como es la estimación de su habilidad es imperativo ofrecer una explicación que sea al mismo tiempo intuitiva y completa. }%
 %
-\en{This model requires the implementation of an iterative message-passing algorithm to efficiently solve the inference process. }%
-\es{Este modelo requiere la implementación de un algoritmo iterativo de pasaje de mensajes que permite resolver de forma eficiente el proceso de inferencia. }%
+\en{There is a very large population, both in the video game industry and in the educational systems, that needs to know how the algorithm that measures their skills works. }%
+\es{Hay una población muy grande, tanto en la industria del video juego como en los sistemas educativos, que necesita conocer cómo funciona el algoritmo que mide su habilidad. }%
+%
+\en{This paper aims to provide a technical report, with all the theoretical and technical details, in the most accessible way possible for the general public. }%
+\es{El objetivo de este trabajo es ofrecer una reporte técnico con todos los detalles téoricos y técnicos de la forma más accesible posible al público en general. }%
+%
+\en{The comprehensive documentation helps to understand the implemented code and assists scientists in understanding the epistemological and technical aspects necessary to make the estimates sufficiently reliable, secure, and robust. }%
+\es{La exhaustiva documentación ofrecida ayuda no sólo a comprender el código implementado, asiste también a los científicos a comprender los aspectos epistemológicos, metodológicos y técnicos necesarios para que las estimaciones sean suficientemente confiables, seguras y robustas. }%
+
+%
+
+\en{Bias correction and computational efficiency are critical for estimates to increase the adoption in sensitive areas of industry and academia. }%
+\es{La corrección de los sesgos y la eficiencia computacional son fundamentales para que las estimaciones sean usadas en áreas sensibles de la industria y la academia. }%
+%
+\en{The TTT model implements an iterative message-passing algorithm that efficiently solve the inference process. }%
+\es{El modelo TTT implementa un algoritmo iterativo de pasaje de mensajes que resuelve de forma eficiente el proceso de inferencia. }%
 %
 \en{Our \proglang{Python} package solves individual events ten times faster than the original \pkg{trueskill}~$0.4.5$ \citep{lee-trueskill} package. }%
 \es{Nuestro paquete de \proglang{Python} resuelve los eventos individuales diez veces más rápido que el paquete original \pkg{trueskill}~$0.4.5$ \citep{lee-trueskill}. }%
@@ -3463,23 +3617,6 @@ lhood_tc = lhood_lose_tc
 
 % Parrafo
 
-\en{Bias correction and computational efficiency are critical for estimates to increase the adoption in sensitive areas of industry and academia. }%
-\es{La corrección de los sesgos y la eficiencia computacional son fundamentales para que las estimaciones sean usadas en áreas sensibles de la industria y la academia. }%
-%
-\en{The fact that it has not been implemented before seems to be a consequence of the scarcely available documentation. }%
-\es{Que no se haya implementado antes parece ser consecuencia de la escacés de documentación disponible previamente. }%
-%
-\en{While the TrueSkill and TrueSkill Through Time papers present the update functions, they were not accompanied with all the mathematical arguments needed to make sense of them. }%
-\es{Si bien los papers de TrueSkill y TrueSkill Through Time publican las funciones de actualización, ellos no estuvieron acompañados con todos los argumentos matemáticos que se necesitan para darles sentido. }%
-%
-\en{The official TrueSkill website refers to an informal text that promises ``the math behind TrueSkill'' but did not contain all the necessary elements. }%
-\es{La página web oficial de trueskill hacía referencia a un texto informal que a pesar de prometer ``la matemática detrtás de TrueSkill'' no contenía tampoco los elementos mínimos necesarios. }%
-%
-\en{The comprehensive documentation helps to understand the implemented code and assists scientists in understanding the epistemological and technical aspects necessary to make the estimates sufficiently reliable, secure, and robust. }%
-\es{La exhaustiva documentación ofrecida ayuda no sólo a comprender el código implementado, asiste también a los científicos a comprender los aspectos epistemológicos, metodológicos y técnicos necesarios para que las estimaciones sean suficientemente confiables, seguras y robustas. }%
-
-% Parrafo
-
 \en{The implementations presented in this work open the possibility of incorporating the extensions developed over the years for the TrueSkill and Item-Response Theory models. }%
 \es{Las implementaciones hechas en este trabajo abre la posibilidad de incorporar las extensiones que con los años se fueron desarrollando para los modelos TrueSkill e Item-Response Theory. }%
 %
@@ -3490,12 +3627,11 @@ lhood_tc = lhood_lose_tc
 \es{También se podría tener en cuenta factores socio-cultural que afectan las habilidades individuales~\citep{VanDerLinden2016}. }%
 %
 \en{Finally, our tool has potential for the educational system. 
-The observable data used to feed the model can come directly from the teachers’ evaluationsm and the model will consider the variable performance of students and teachers. }%
+The observable data used to feed the model can come directly from the teachers’ evaluations and the model will consider the variable performance of students and teachers. }%
 \es{Por último, es bueno notar la potencialidad del modelo como herramienta para el sistema educativo: los datos observables pueden provenir directamente de las evaluaciones de los propios docentes, y el modelo causal tendrá en cuenta no solo la variabilidad de los desempeños de los estudiante, pero también la variabilidad de los docente al evaluarlos. }%
 
 % Parrafo
 
-%
 \en{By offering the packages in three of the widest-used scientific programming languages together with the complete mathematical documentation, we are strongly supporting the collaboration and unification of the scientific area of skill estimation, still scattered using different models, some of them already obsolete. }%
 \es{Al ofrecer los paquetes en tres de los principales lenguajes de programación científica junto con su documentación matemática completa, estamos apoyando fuertemente la colaboración y la unificación del área científica de estimación de habilidad, todavía desperdigada en el uso de diferentes modelos, algunos ya obsoletos. }%
 
@@ -3738,6 +3874,7 @@ The observable data used to feed the model can come directly from the teachers�
 %% - DOIs should be included where available.
 
 \bibliography{journalsAbbr,gaming}
+
 % All references should be made with \verb|\cite|, \verb|\citet|, \verb|\citep|,
 % \verb|\citealp|
 % \begin{itemize}
