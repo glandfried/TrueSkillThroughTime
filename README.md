@@ -34,8 +34,8 @@ You must decide where to do it according to the type of question, if it is parti
 
 You can find the full scientific documentation of TrueSkill Through Time packages at:
 
-0.  English. [Last version](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc/landfried-learning.pdf) 2021-07-26
-0.  Español. [Última versión](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc/landfried-aprendizaje.pdf) 2021-07-26 
+0.  English. [Last version](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc/landfried-learning.pdf) 2022-10-31
+0.  Español. [Última versión](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc/landfried-aprendizaje.pdf) 2022-10-31
 
 Our paper explains all the theoretical details involved in the original [TrueSkill](https://www.microsoft.com/en-us/research/wp-content/uploads/2007/01/NIPS2006_0688.pdf) and [TrueSkill Through Time](https://www.microsoft.com/en-us/research/wp-content/uploads/2008/01/NIPS2007_0931.pdf) papers.
 
@@ -44,8 +44,8 @@ Special thanks to its authors: [Ralf Herbrich](https://herbrich.me/), [Tom Minka
 ### The History of the ATP
 
 Humans develop complex skills through time.
-Most estimators implemented for the video game industry cannot obtain reliable initial estimates nor guarantee comparability between distant estimates.
-TrueSkill Through Time solves all these problems by modeling the entire history of activities using a single Bayesian network.
+The most commonly used skill estimators in industry and academia cannot obtain reliable initial estimates or guarantee comparability between estimates distant in time and space.
+The model TrueSkill Through Time (TTT) propagates all historical information throughout a single causal network, providing estimates with low uncertainty at any given time, enabling reliable initial skill estimates, and ensuring historical comparability.
 
 The following figure presents **the learning curves of some famous players in ATP history**.
 A one-point difference between skills is equivalent to 76% probability of winning.
