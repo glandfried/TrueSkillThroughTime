@@ -1,3 +1,7 @@
+\AtEveryBibitem{%
+  \clearfield{note}%
+}
+
 ###################################################################################################################
 ## ESTE ARCHIVO RESPETA UN DETERMINADO FORMATO Y ORDEN, HAY DOS OPCIONES PARA MODIFIARLO                         ##
 ##                                                                                                               ##
@@ -10,6 +14,7 @@
 ## 3. SE AGREGA EN ORDEN ALFABETICO                                                                              ##
 ## 4. VERIFICAR EL USO DE KEYWORDS PARA EXPANDIR A JOURNALS/CONFERENCIAS CORTOS/LARGOS                           ##
 ## 5. LAS CLAVES COMIENZAN CON MAY'USCULAS, CORRESPONDEN CON PRIMER AUTOR Y A~NO DE PUBLICACION                  ##
+## 6. SE USA UN TAB DE CUATRO ESPACIOS DENTRO DE CADA CITA                                                       ##
 ###################################################################################################################
 
 @INPROCEEDINGS{Abbeel2004, 
@@ -28,7 +33,7 @@
   booktitle={Proceedings of the Ninth ACM International Conference on Web Search and Data Mining},
   pages={473--482},
   year={2016},
-  organization={ACM}
+  organization=ACM,
 }
 
 @article{adamou2016-dynamicsOfInequality,
@@ -233,6 +238,18 @@
   year={2013},
 }
 
+
+@article{barOn2018-biomass,
+  title={The biomass distribution on Earth},
+  author={Bar-On, Yinon M and Phillips, Rob and Milo, Ron},
+  journal={Proceedings of the National Academy of Sciences},
+  volume={115},
+  number={25},
+  pages={6506--6511},
+  year={2018},
+  publisher={National Acad Sciences}
+}
+
 @INPROCEEDINGS{bakshy2010-economicActivityInVirtualWorld,
     author = {Eytan Bakshy and Matthew Simmons and David Huffaker and Chun-Yuen Cheng and Lada Adamic},
     boooktitle = {Proceedings of the Fourth International AAAI Conference on Weblogs and Social Media},
@@ -377,7 +394,7 @@
 
  
 @ARTICLE{Baum2004,
-    title = {Cultural evolution in laboratory microsocieties including traditions of rule giving and rule following},
+    title = {Cultural Evolution in Laboratory Microsocieties including Traditions of Rule Giving and Rule Following},
     author = {Baum, William M and Richerson, Peter J and Efferson, Charles M and Paciotti, Brian M},
     journal= EvolHumBehav,
     volume = 25,
@@ -432,16 +449,19 @@
   number={4},
   pages={1001--1009},
   year={2012},
-  publisher={Springer}
+  publisher = Springer
 }
 
 @BOOK{Bishop2006,
     title = {Pattern Recognition and Machine Learning},
+    series = "Information Science and Statistics",
     author = {Bishop, Christopher M},
     year = 2006,
     isbn = "978-0-387-31073-2",
-    publisher = Springer,
-    address = {Berlin, Heidelberg},
+    publisher = SpringerVerlag,
+    address = "New York, NY",
+    numpages = 738,
+    edition  = 1,
 }
 
 @book{bishop2006-PRMLsolutions,
@@ -503,6 +523,17 @@
   pages={265--296},
   year={1978},
   publisher={Wiley Online Library}
+}
+
+@article{boldi2014,
+  title={Axioms for centrality},
+  author={Boldi, Paolo and Vigna, Sebastiano},
+  journal={Internet Mathematics},
+  volume={10},
+  number={3-4},
+  pages={222--262},
+  year={2014},
+  publisher={Taylor \& Francis}
 }
 
 @article{bor2007-cognitiveTrainingExpertSkills,
@@ -694,7 +725,7 @@ number="1"
 }
 
 @ARTICLE{Bradley1952,
-    title = {Rank analysis of incomplete block designs: I. The method of paired comparisons},
+    title = {Rank Analysis of Incomplete Block Designs: I. The Method of Paired Comparisons},
     author = {Bradley, Ralph Allan and Terry, Milton E},
     journal = {Biometrika},
     issn = {0006-3444},
@@ -704,7 +735,7 @@ number="1"
     year = 1952,
     month = Dec,
     doi = "10.2307/2334029",
-    publisher = {Oxford University Press},
+    publisher = {[Oxford University Press, Biometrika Trust]},
 }
 
 @INPROCEEDINGS{Brandes2005,
@@ -781,6 +812,18 @@ number="1"
   year={1965},
   publisher={Cambridge, Mass., Schenkman Pub. Co.},
 }
+
+@article{Campbell2002,
+  title={Deep blue},
+  author={Campbell, Murray and Hoane Jr, A Joseph and Hsu, Feng-hsiung},
+  journal={Artificial intelligence},
+  volume={134},
+  number={1-2},
+  pages={57--83},
+  year={2002},
+  publisher={Elsevier}
+}
+
 
 @article{campbell2010-opinionOfOthers,
   title={How the opinion of others affects our valuation of objects},
@@ -1026,13 +1069,14 @@ number="1"
 }
 
 @INPROCEEDINGS{Coulom2008,
-    title = {Whole-history rating: A Bayesian rating system for players of time-varying strength},
+    title = {Whole-History Rating: A Bayesian Rating System for Players of Time-Varying Strength},
+    editor = "van den Herik, H. Jaap and Xu, Xinhe and Ma, Zongmin and Winands, Mark H. M.",
     author = {Coulom, R\'emi},
     booktitle = Proc # "of the 6th " # Int # Conf # "on Computers and Games",
     pages = {113--124},
     year = 2008,
-    isbn = {9783540876076},
-    publisher = {Springer-Verlag},
+    isbn = {978-3-540-87607-6},
+    publisher = Springer,
     address = {Berlin, Heidelberg},
     doi = {10.1007/978-3-540-87608-3_11},
     location = {Beijing, China},
@@ -1106,14 +1150,26 @@ number="1"
   eprint = {https://royalsocietypublishing.org/doi/pdf/10.1098/rsif.2017.0171}
 }
 
+@article{czegel2019-bayesianEvolution,
+  title={Multilevel selection as Bayesian inference, major transitions in individuality as structure learning},
+  author={Cz{\'e}gel, D{\'a}niel and Zachar, Istv{\'a}n and Szathm{\'a}ry, E{\"o}rs},
+  journal={Royal Society open science},
+  volume={6},
+  number={8},
+  pages={190202},
+  year={2019},
+  publisher={The Royal Society}
+}
+
 @INPROCEEDINGS{Dangauthier2007,
-  title = {Trueskill through time: Revisiting the history of chess},
-  author = {Dangauthier, Pierre and Herbrich, Ralf and Minka, Tom and Graepel, Thore},
-  editor = {John C. Platt and Daphne Koller and Yoram Singer and Sam T. Roweis},
-  booktitle = Proc # "of the Twenty-First Annual " # Conf # "on Neural Information Processing Systems",
-  pages = {337--344},
-  year = 2007, 
-  publisher = {Curran Associates, Inc.},
+    title = {TrueSkill Through Time: Revisiting the History of Chess},
+    author = {Dangauthier, Pierre and Herbrich, Ralf and Minka, Tom and Graepel, Thore},
+    editor = {Platt, John C. and Koller, Daphne and Singer, Yoram  and Roweis, Sam T.},
+    booktitle = Proc # "of the Twenty-First Annual " # Conf # "on Neural Information Processing Systems",
+    url = {https://proceedings.neurips.cc/paper/2007/file/9f53d83ec0691550f7d2507d57f4f5a2-Paper.pdf},
+    pages = {337--344},
+    year = 2007, 
+    publisher = {Curran Associates, Inc.},
 }
 
 @book{davidson2018-bayesianForHackers,
@@ -1234,6 +1290,28 @@ pages={519-531},
   publisher={Retrieved from the University of Minnesota Digital Conservancy}
 }
 
+
+@inproceedings{dempster1955-geometricMean,
+  title={Maintenance of genetic heterogeneity},
+  author={Dempster, Everett R},
+  booktitle={Cold Spring Harbor Symposia on Quantitative Biology},
+  volume={20},
+  pages={25--32},
+  year={1955}
+}
+
+
+@article{denBoer1968-spreadingRisk,
+  title={Spreading of risk and stabilization of animal numbers},
+  author={Den Boer, Pieter J},
+  journal={Acta biotheoretica},
+  volume={18},
+  number={1},
+  pages={165--194},
+  year={1968},
+  publisher={Kluwer Academic Publishers}
+}
+
 @article{derex2013-experiment,
   title={Experimental evidence for the influence of group size on cultural complexity},
   author={Derex, Maxime and Beugin, Marie-Pauline and Godelle, Bernard and Raymond, Michel},
@@ -1301,6 +1379,18 @@ pages={519-531},
   issn = "1364-6613",
 }
 
+@article{derex2022-exploitation,
+  title={Human cumulative culture and the exploitation of natural phenomena},
+  author={Derex, Maxime},
+  journal={Philosophical Transactions of the Royal Society B},
+  volume={377},
+  number={1843},
+  pages={20200311},
+  year={2022},
+  publisher={The Royal Society}
+}
+
+
 @article{dindo2008-socialDiffusionForagingCebusApella,
   title={Social diffusion of novel foraging methods in brown capuchin monkeys (Cebus apella)},
   author={Dindo, Marietta and Thierry, Bernard and Whiten, Andrew},
@@ -1361,6 +1451,23 @@ pages={519-531},
     isbn      = "987-1150-16-4", 
     publisher = "Libertado",
     address   = "Argentina"
+}
+
+
+@inproceedings{dussel2004-sistemaMundo,
+  title={Sistema mundo y transmodernidad},
+  author={Dussel, Enrique},
+  booktitle={Modernidades coloniales},
+  pages={201--226},
+  year={2004},
+  publisher={El Colegio de M{\'e}xico M{\'e}xico DF}
+}
+
+@book{dussel2007,
+  title={Pol\'itica de la liberaci\'on: historia mundial y cr\'itica},
+  author={Dussel, Enrique},
+  year={2007},
+  publisher={Trotta}
 }
 
 @misc{dyatlov2010-basicMatrixOperations,
@@ -1441,8 +1548,10 @@ pages={519-531},
   author = {Elo, Arpad E},
   publisher = {Ishi Press}, 
   month = May,
-  year = {[1978] 2008},
-  ISBN = {978-0923891275},
+  year = {2008},
+  ISBN = {978-0-923891-27-7},
+  note = "Originally published in 1978",
+  numpages = 220,
 }
 
 @misc{elo_fide,
@@ -1805,6 +1914,13 @@ pages={189-194},
   publisher={Wiley Online Library}
 }
 
+@thesis{gerlach2005-wuwei,
+  title={Wu-Wei in Europe. A study of Eurasian economic thought},
+  author={Gerlach, Christian},
+  year={2005},
+  publisher={Department of Economic History, London School of Economics and Political Science}
+}
+
 @article{gershman2012-tutorialBayesianNonparametric,
   title={A tutorial on Bayesian nonparametric models},
   author={Gershman, Samuel J and Blei, David M},
@@ -1925,7 +2041,7 @@ pages = {59--102}
 
 @MISC{Glikman2013,
   author = {Glickman, Mark},
-  title = {Example of the Glicko-2 system},
+  title = {Example of the Glicko-2 System},
   year = 2013,
   month = 11,
   howpublished = {\url{http://www.glicko.net/glicko/glicko2.pdf}},
@@ -2197,13 +2313,26 @@ year = "2000",
 author = "Sudipto Guha and Rajeev Rastogi and Kyuseok Shim",
 }
 
+@Inbook{Gull1988,
+    author="Gull, Stephen F.",
+    title="Bayesian Inductive Inference and Maximum Entropy",
+    bookTitle="Maximum-Entropy and Bayesian Methods in Science and Engineering: Foundations",
+    year="1988",
+    publisher="Springer Netherlands",
+    pages="53--74",
+    isbn="978-94-009-3049-0",
+    doi="10.1007/978-94-009-3049-0_4",
+    url="https://doi.org/10.1007/978-94-009-3049-0_4"
+}
+
 @INPROCEEDINGS{Guo2012,
-    title = {Score-based bayesian skill learning},
+    title = {Score-Based Bayesian Skill Learning},
     author = {Guo, Shengbo and Sanner, Scott and Graepel, Thore and Buntine, Wray},
     booktitle = Proc # "of the Joint European " # Conf # " on Machine Learning and Knowledge Discovery in Databases (ECML PKDD)",
+    editor = "Flach, Peter A. and De Bie, Tijl and Cristianini, Nello",
     pages = {106--121},
     year = 2012,
-    publisher = "Springer Berlin Heidelberg",
+    publisher = Springer,
     address = "Berlin, Heidelberg",
     isbn = "978-3-642-33460-3",
     doi = "10.1007/978-3-642-33460-3_12",
@@ -2229,6 +2358,13 @@ author = "Sudipto Guha and Rajeev Rastogi and Kyuseok Shim",
   publisher = {Curran Associates, Inc.},
 }
 
+@article{hagberg2020-networkx,
+  title={NetworkX: Network Analysis with Python},
+  author={Hagberg, Aric and Conway, Drew},
+  journal={URL: https://networkx.github.io},
+  year={2020}
+}
+
 @article{halpern1999-counterExampleCoxTheorem,
   title={A counter example to theorems of Cox and Fine},
   author={Halpern, Joseph Y},
@@ -2246,6 +2382,16 @@ author = "Sudipto Guha and Rajeev Rastogi and Kyuseok Shim",
   pages={429--435},
   year={1999},
 }
+
+
+@book{halpern2017-RAU2,
+  title={Reasoning about uncertainty},
+  author={Halpern, Joseph Y},
+  year={2017},
+  edition={2nd},
+  publisher={MIT press}
+}
+
 
 @book{hambleton1991-fundamentalsOfIRT,
    title =     {Fundamentals of Item Response Theory (Measurement Methods for the Social Science)},
@@ -2301,6 +2447,25 @@ author = "Sudipto Guha and Rajeev Rastogi and Kyuseok Shim",
 	month = apr,
 	year = {1997},
 	pages = {79--87},
+}
+
+
+@article{hardin1971-collectiveAsPrisionerDilema,
+  title={Collective action as an agreeable n-prisoners' dilemma},
+  author={Hardin, Russell},
+  journal={Behavioral science},
+  volume={16},
+  number={5},
+  pages={472--481},
+  year={1971},
+  publisher={Wiley Online Library}
+}
+
+@article{harper2009-replicatorAsInference,
+  title={The replicator equation as an inference dynamic},
+  author={Harper, Marc},
+  journal={arXiv preprint arXiv:0911.1763},
+  year={2009}
 }
 
 @book{hastie,
@@ -2430,6 +2595,13 @@ author = "Sudipto Guha and Rajeev Rastogi and Kyuseok Shim",
   publisher={The Royal Society}
 }
 
+@book{henrich2020-weirdest,
+  title={The WEIRDest people in the world: How the West became psychologically peculiar and particularly prosperous},
+  author={Henrich, Joseph},
+  year={2020},
+  publisher={Penguin UK}
+}
+
 @TechReport{Herbrich2005,
   title = {On Gaussian expectation propagation},
   author = {Herbrich, Ralf},
@@ -2439,13 +2611,15 @@ author = "Sudipto Guha and Rajeev Rastogi and Kyuseok Shim",
 }
 
 @INPROCEEDINGS{Herbrich2007,
-  publisher = {MIT Press},
   author = {Herbrich, Ralf and Minka, Ralf and Graepel, Thore},
+  editor = {Sch\"{o}lkopf, B. and Platt, J. and Hoffman, T.},
   booktitle = Proc # "of the " # Conf # "in Advances in Neural Information Processing Systems",
-  title = {TrueSkill: A Bayesian Skill Rating System},
+  title = {TrueSkill\texttrademark: A Bayesian Skill Rating System},
   year = 2006,
+  publisher = {MIT Press},
   address = {Cambridge, MA},
   pages = {569--576},
+  url = {https://proceedings.neurips.cc/paper/2006/file/f44ee263952e65b3610b8ba51229d1f9-Paper.pdf},
   isbn = "978-0262256919",
 } 
 
@@ -2585,6 +2759,13 @@ author = "Sudipto Guha and Rajeev Rastogi and Kyuseok Shim",
   publisher = {Curran Associates, Inc.},
 }
 
+@book{hobson2006-origenesOrientales,
+  title={Los or\'igenes orientales de la civilizaci{\'o}n de Occidente},
+  author={Hobson, John M},
+  year={2006},
+  publisher={Cr\'itica}
+}
+
 @book{hoppitt2013-socialLearningAnIntroductionBook,
   title={Social learning: an introduction to mechanisms, methods, and models},
   author={Hoppitt, William and Laland, Kevin N},
@@ -2670,6 +2851,17 @@ volume={4},
 pages={122-127}
 }
 
+@article{ioannidis2020-polynesiaAmerica,
+  title={Native American gene flow into Polynesia predating Easter Island settlement},
+  author={Ioannidis, Alexander G and Blanco-Portillo, Javier and Sandoval, Karla and Hagelberg, Erika and Miquel-Poblete, Juan Francisco and Moreno-Mayar, J V{\'\i}ctor and Rodr{\'\i}guez-Rodr{\'\i}guez, Juan Esteban and Quinto-Cort{\'e}s, Consuelo D and Auckland, Kathryn and Parks, Tom and others},
+  journal={Nature},
+  volume={583},
+  number={7817},
+  pages={572--577},
+  year={2020},
+  publisher={Nature Publishing Group}
+}
+
 @article{jacobs1961-perpetuationArbitraryTradition,
   title={The perpetuation of an arbitrary tradition through several generations of a laboratory microculture.},
   author={Jacobs, Robert C and Campbell, Donald T},
@@ -2737,12 +2929,21 @@ pages={122-127}
 }
 
 @BOOK{Jaynes2003,
-    title = {Probability theory: The logic of science},
+    title = {Probability Theory: The Logic of Science},
+    editor = {Bretthorst, G.Larry},
     author = {Jaynes, Edwin T},
     year = 2003,
     month = Apr,
     publisher = {Cambridge University Press},
-    isbn = "978-0521592710",
+    isbn = "978-0-521-59271-0",
+    numpages = 753,
+}
+
+@book{Jeffreys1939,
+  title={Theory of Probability},
+  author={Jeffreys, H.},
+  year={1939},
+  publisher = "Oxford University Press"
 }
 
 @article{jeong2011-gameAddiction,
@@ -3053,6 +3254,24 @@ author = "Zhi-Qiang Jiang and Fei Ren and Gao-Feng Gu and Qun-Zhao Tan and Wei-X
   address = {Berlin, Heidelberg},
 }
 
+@book{klimovsky1994-desventuras,
+  title={Las desventuras del conocimiento cient\'ifico},
+  author={Klimovsky, Gregorio},
+  journal={AZ editora, Buenos Aires},
+  year={1994}
+}
+
+@article{kline2010-populationSize,
+  title={Population size predicts technological complexity in Oceania},
+  author={Kline, Michelle A and Boyd, Robert},
+  journal={Proceedings of the Royal Society B: Biological Sciences},
+  volume={277},
+  number={1693},
+  pages={2559--2564},
+  year={2010},
+  publisher={The Royal Society}
+}
+
 @article{klopfer1961-birdsObservationalLearning,
   title={Observational learning in birds: the establishment of behavioral modes},
   author={Klopfer, Peter H},
@@ -3086,6 +3305,16 @@ author = "Zhi-Qiang Jiang and Fei Ren and Gao-Feng Gu and Qun-Zhao Tan and Wei-X
   publisher={SAGE Publications Sage UK: London, England},
 }
 
+@article{koch2019-europeanArrival,
+  title={Earth system impacts of the European arrival and Great Dying in the Americas after 1492},
+  author={Koch, Alexander and Brierley, Chris and Maslin, Mark M and Lewis, Simon L},
+  journal={Quaternary Science Reviews},
+  volume={207},
+  pages={13--36},
+  year={2019},
+  publisher={Elsevier}
+}
+
 @book{koller2009-PGM,
   title={Probabilistic graphical models: principles and techniques},
   author={Koller, Daphne and Friedman, Nir},
@@ -3107,7 +3336,7 @@ author = "Zhi-Qiang Jiang and Fei Ren and Gao-Feng Gu and Qun-Zhao Tan and Wei-X
 }
 
 @article{Koster2020,
-  title = {The life history of human foraging: Cross-cultural and individual variation},
+  title = {The Life History of Human Foraging: Cross-Cultural and Individual Variation},
   author = "Koster, Jeremy and McElreath, Richard and Hill, Kim and Yu, Douglas and Shepard, Glenn and Van Vliet, Nathalie and Gurven, Michael and Trumble, Benjamin and Bird, Rebecca Bliege and Bird, Douglas and Codding, Brian and Coad, Lauren and Pacheco-Cobos, Luis and Winterhalder, Bruce and Lupo, Karen and Schmitt, Dave and Sillitoe, Paul and Franzen, Margaret and Alvard, Michael and Venkataraman, Vivek and Kraft, Thomas and Endicott, Kirk and Beckerman, Stephen and Marks, Stuart and Headland, Thomas and Pangau-Adam, Margaretha and Siren, Andres and Kramer, Karen and Greaves, Russell and Reyes-Garc\'i, Victoria and Gu\`eze, Maximilien and Duda, Romain and Fern\'andez-Llamazares, \'Alvaro and Gallois, Sandrine and Napitupulu, Lucentezza and Ellen, Roy and Ziker, John and Nielsen, Martin and Ready, Elspeth and Healey, Christopher and Ross, Cody",
   journal = {Science Advances},
   volume = 6,
@@ -3179,14 +3408,16 @@ author = "Zhi-Qiang Jiang and Fei Ren and Gao-Feng Gu and Qun-Zhao Tan and Wei-X
 }
 
 @ARTICLE{Kschischang2001,
-  title = {Factor graphs and the sum-product algorithm},
+  title = {Factor Graphs and the Sum-Product Algorithm},
   author = {Kschischang, Frank R and Frey, Brendan J and Loeliger, H-A},
   journal = IEEETransInformTheory,
   volume = 47,
   number = 2,
   pages = {498--519},
   year = 2001,
+  month = Feb,
   publisher = IEEE,
+  issn = "0018-9448", 
   doi = {10.1109/18.910572}
 }
 
@@ -3392,6 +3623,25 @@ publisher={Public Library of Science}
   howpublished={Work in progress}
 }
 
+@misc{Landfried2021-TTT,
+  author = {Landfried, Gustavo and Mocskos, Esteban},
+  title = {TrueSkill Through Time: reliable initial skill estimates and historical comparability with Julia, Python and R.},
+  year = 2021,
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc/landfried-learning.pdf}}
+}
+
+@misc{landfried2022-transitions,
+  author = {Landfried, Gustavo},
+  title = {The multiplicative nature of evolutionary and probabilistic selection processes as the general driver for the irreversibility emergence of cooperation and specialization. },
+  year = {2022},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/glandfried/transitions/releases/download/doc/landfried-transitions.pdf}}
+}
+
+
 @misc{landfried2020-irt,
   title={TrueSkill Through Time as a Bayesian whole history two-parameter Item-Response Theory},
   author={Landfried, Gustavo},
@@ -3521,14 +3771,21 @@ year={2019},
 publisher={Emerald Publishing Limited}
 }
 
-@misc{lee-trueskill,
-  author = {Lee,  Heungsub},
-  title = {TrueSkill. The video game rating system.},
-  year = {2012},
-  publisher = {GitHub},
-  howpublished = {\url{https://github.com/sublee/trueskill/}}
+@MISC{Lee2012,
+  author = {Lee, Heungsub},
+  title = {TrueSkill. The Video Game Rating System.},
+  year = 2012,
+  url = {https://github.com/sublee/trueskill/},
+  note = {Last checked on \today},
 }
 
+
+@book{leibniz1714-monadologie,
+   title =     {La Monadologie},
+   author =    {Leibniz, Gottfried Wilhelm},
+   year =      {1714},
+   publisher = {Original}
+}
 
 @inproceedings{leibo2017-marlInSequentialSocialDilemmas,
 title={Multi-agent reinforcement learning in sequential social dilemmas},
@@ -3627,6 +3884,17 @@ number={3},
 pages={382--403},
 year={1961},
 publisher={Elsevier}
+}
+
+@article{lewontin1969-randomlyVaryingEnvironment,
+  title={On population growth in a randomly varying environment},
+  author={Lewontin, Richard C and Cohen, Daniel},
+  journal={Proceedings of the National Academy of sciences},
+  volume={62},
+  number={4},
+  pages={1056--1060},
+  year={1969},
+  publisher={National Acad Sciences}
 }
 
 @article{li2011-pathologicalOnlineGaming,
@@ -3992,6 +4260,15 @@ publisher={The Rand Corporation}
   year={2013}
 }
 
+@MANUAL{MicrobenchmarkR,
+  title  = {\pkg{microbenchmark}: Accurate Timing Functions},
+  author = {Mersmann, Olaf and Beleites, Claudia and Hurling, Rainer and Friedman, Ari and Ulrich, Joshua M.},
+  year   = 2011,
+  month = 11,
+  note   = {\proglang{R}~package version~1.4.9},
+  url    = {https://cran.r-project.org/package=microbenchmark},
+}
+
 @article{migliano2017-hunterGathererNetwork,
 title={Characterization of hunter-gatherer networks and implications for cumulative culture},
 author={Migliano, AB and Page, AE and G{\'o}mez-Garde{\~n}es, J and Salali, GD and Viguier, S and Dyble, M and Thompson, J and Chaudhary, Nikhill and Smith, D and Strods, J and others},
@@ -4043,7 +4320,7 @@ year={2003}
 }
 
 @TECHREPORT{Minka2005,
-    title = {Divergence measures and message passing},
+    title = {Divergence Measures and Message Passing},
     author = {Minka, Tom},
     year = 2005,
     month = Jan,
@@ -4092,6 +4369,17 @@ number={04},
 pages={329--347},
 year={2006},
 publisher={Cambridge Univ Press}
+}
+
+@article{mesoudi2008-experiments,
+  title={The multiple roles of cultural transmission experiments in understanding human cultural evolution},
+  author={Mesoudi, Alex and Whiten, Andrew},
+  journal={Philosophical Transactions of the Royal Society B: Biological Sciences},
+  volume={363},
+  number={1509},
+  pages={3489--3501},
+  year={2008},
+  publisher={The Royal Society London}
 }
 
 @article{mesoudi2011-experimentalPayoffBiasedSocialLearningUnderused,
@@ -4161,15 +4449,16 @@ journal={arXiv preprint arXiv:1606.05778},
 year={2016},
 }
 
-@misc{Mosser2011,
-  title={The math behind TrueSkill},
-  author={Mosser, Jeff},
-  year={2011},
-  howpublished={\url{www.moserware.com}}
+@TECHREPORT{Mosser2011,
+  title = {The Math Behind TrueSkill},
+  author = {Mosser, Jeff},
+  year = 2011,
+  url ={http://www.moserware.com/assets/computing-your-skill/The%20Math%20Behind%20TrueSkill.pdf},
+  note = {Last checked on \today},
 }
 
 @ARTICLE{Mosteller1951a,
-  title = {Remarks on the method of paired comparisons: I. The least squares solution assuming equal standard deviations and equal correlations},
+  title = {Remarks on the Method of Paired Comparisons: I. The Least Squares Solution assuming Equal Standard Deviations and Equal Correlations},
   author = {Mosteller, Frederick},
   journal = {Psychometrika},
   volume = 16,
@@ -4183,7 +4472,7 @@ year={2016},
 }
 
 @ARTICLE{Mosteller1951b,
-  title = {Remarks on the method of paired comparisons: II. The effect of an aberrant standard deviation when equal standard deviations and equal correlations are assumed},
+  title = {Remarks on the method of paired comparisons: II. The Effect of an Aberrant Standard Deviation when Equal Standard Deviations and Equal Correlations are assumed},
   author = {Mosteller, Frederick},
   journal = {Psychometrika},
   volume = 16,
@@ -4197,7 +4486,7 @@ year={2016},
 }
 
 @ARTICLE{Mosteller1951c,
-  title = {Remarks on the method of paired comparisons: III. A test of significance for paired comparisons when equal standard deviations and equal correlations are assumed},
+  title = {Remarks on the Method of Paired Comparisons: III. A Test of Significance for Paired Comparisons when Equal Standard Deviations and Equal Correlations are assumed},
   author = {Mosteller, Frederick},
   journal = {Psychometrika},
   volume = 16,
@@ -4324,6 +4613,13 @@ year={1951},
 publisher={JSTOR}
 }
 
+@book{needham2004-generalConclusionsAndReflections,
+  title={Science and Civilization in China. Vol 7 Pt 2. General Conclusions and Reflections.},
+  author={Needham, Joseph and Girdwood Robinson, Kenneth and Huang, Ray and Elvin, Mark},
+  year={2004},
+  publisher={University Press}
+}
+
 @book{newell1972-humanProblemSolving,
 title={Human problem solving},
 author={Newell, Allen and Simon, Herbert Alexander},
@@ -4352,6 +4648,17 @@ publisher={ACM}
   year = 1981,
   month = May,
   isbn = {9780898590937},
+}
+
+@article{newman2005-currentFlow,
+  title={A measure of betweenness centrality based on random walks},
+  author={Newman, Mark EJ},
+  journal={Social networks},
+  volume={27},
+  number={1},
+  pages={39--54},
+  year={2005},
+  publisher={Elsevier}
 }
 
 @article{Newman2006,
@@ -4490,6 +4797,17 @@ publisher = "Cambridge University Press",
 address   = "Cambridge"
 }
 
+@article{ostrom2010,
+  title={Beyond markets and states: polycentric governance of complex economic systems},
+  author={Ostrom, Elinor},
+  journal={American economic review},
+  volume={100},
+  number={3},
+  pages={641--72},
+  year={2010}
+}
+
+
 @inproceedings{orkin2009-socialBehaviorFromCollectiveHumanGameplay,
 author = {Orkin, Jeff and Roy, Deb},
 title = {Automatic Learning and Generation of Social Behavior from Collective Human Gameplay},
@@ -4513,6 +4831,16 @@ year={2010},
 publisher={Nature Research}
 }
 
+@article{padilla2022-interconnectivity,
+  title={Population interconnectivity over the past 120,000 years explains distribution and diversity of Central African hunter-gatherers},
+  author={Padilla-Iglesias, Cecilia and Atmore, Lane M and Olivero, Jes{\'u}s and Lupo, Karen and Manica, Andrea and Arango Isaza, Epifan{\'\i}a and Vinicius, Lucio and Migliano, Andrea Bamberg},
+  journal={Proceedings of the National Academy of Sciences},
+  volume={119},
+  number={21},
+  pages={e2113936119},
+  year={2022},
+  publisher={National Acad Sciences}
+}
 
 @article{panger2002-foragingBehaviorCapuchins,
 title={Cross-site differences in foraging behavior of white-faced capuchins (Cebus capucinus)},
@@ -4554,6 +4882,14 @@ title={Probabilistic reasoning in intelligent systems: networks of plausible inf
 author={Pearl, Judea},
 year={1988},
 publisher={Morgan Kaufmann}
+}
+
+
+@book{pearl2009-causality,
+  title={Causality},
+  author={Pearl, Judea},
+  year={2009},
+  publisher={Cambridge university press}
 }
 
 @book{pearl2016-causalInference,
@@ -4654,6 +4990,15 @@ journal={London Mathematical Laboratory},
 year={2018},
 }
 
+
+@article{peters-cooperation2019.03.04,
+title={An evolutionary advantage of cooperation},
+author={Peters, Ole and Adamou, Alexander},
+journal={Reserchers One},
+year={2019}
+}
+
+
 @book{pilling1960-ethnography,
   title={The Tiwi of North Australia},
   author={Pilling, Arnold R and Hart, CWM},
@@ -4687,6 +5032,22 @@ pages={55--62},
 year={2013},
 organization={IEEE}
 }
+
+@book{pomeranz2000-divergence,
+  title={The Great Divergence: China, Europe, and the Making of the Modern World Economy.},
+  author={Pomeranz, Kenneth},
+  year={2000},
+  publisher={Princeton University Press}
+}
+
+
+@book{pomeranz2018-tradeCreated,
+  title={The World That Trade Created: Society, Culture, and the World Economy, 1400 to the Present (4th edition)},
+  author={Pomeranz, Kenneth and Topik, Steven},
+  year={2018},
+  publisher={Routledge}
+}
+
 
 @inbook{pomerleau1989,
   title = {Alvinn: An autonomous land vehicle in a neural network},
@@ -4765,6 +5126,18 @@ year = {2007},
 month = {Sep},
 publisher = {American Physical Society}
 }
+
+@article{rankin2007-tragedyCommonsBiology,
+  title={The tragedy of the commons in evolutionary biology},
+  author={Rankin, Daniel J and Bargum, Katja and Kokko, Hanna},
+  journal={Trends in ecology \& evolution},
+  volume={22},
+  number={12},
+  pages={643--651},
+  year={2007},
+  publisher={Elsevier}
+}
+
 
 @article{rankin,
 author =       "Daniel J. Rankin and Michael Taborsky",
@@ -4867,7 +5240,7 @@ publisher={Chicago: University of Chicago Press}
 }
 
 @ARTICLE{Richerson2020,
-  title = {The human life history is adapted to exploit the adaptive advantages of culture},
+  title = {The Human Life History is adapted to exploit the Adaptive Advantages of Culture},
   author = {Richerson, Peter J and Boyd, Robert},
   journal = PhilosTRSocB,
   volume = 375,
@@ -4878,6 +5251,16 @@ publisher={Chicago: University of Chicago Press}
   publisher = {The Royal Society},
   doi = "10.1098/rstb.2019.0498",
   issn = "0962-8436",
+}
+
+@inproceedings{riedmiller1993-RPROP,
+  title={A direct adaptive method for faster backpropagation learning: The RPROP algorithm},
+  author={Riedmiller, Martin and Braun, Heinrich},
+  booktitle={IEEE international conference on neural networks},
+  pages={586--591},
+  year={1993},
+  organization={IEEE},
+  note={Método usado para optimizar los paramentros en minka2018-trueskill2}
 }
 
 @article{rigoli2017-bayesianAccountOfContextualEffectsInChoice,
@@ -4910,6 +5293,12 @@ year={2017},
 publisher={Cold Spring Harbor Laboratory}
 }
 
+@techreport{rochat2009,
+  title={Closeness centrality extended to unconnected graphs: The harmonic centrality index},
+  author={Rochat, Yannick},
+  booktitle={Application of Social Network Analysys},
+  year={2009}
+}
 
 @article{rogers1988-doesBiologyConstrainCulture,
 title={Does biology constrain culture?},
@@ -4920,6 +5309,13 @@ number={4},
 pages={819--831},
 year={1988},
 publisher={Wiley Online Library}
+}
+
+@book{romero1967-revolucionBurguesa,
+  title={La revoluci{\'o}n burguesa en el mundo feudal},
+  author={Romero, Jos{\'e} Luis},
+  publisher={Sudamericana},
+  year={1967}
 }
 
 @article{roring2007-expertiseInChessAcrossLifeSpan,
@@ -5016,6 +5412,13 @@ year=2016,
 organization={IEEE},
 }
 
+@book{salcedo2014-agriculturafamiliar,
+  title={Agricultura familiar en Am{\'e}rica Latina y el Caribe: recomendaciones de pol{\'\i}tica},
+  author={Salcedo, Salom{\'o}n and Guzm{\'a}n, Lya and others},
+  publisher={Santiago: fAO},
+  year={2014}
+}
+
 @article{salimans2017-evolutionStrategiesAsScalableAlternativeToReinforcementLearning,
 title={Evolution strategies as a scalable alternative to reinforcement learning},
 author={Salimans, Tim and Ho, Jonathan and Chen, Xi and Sutskever, Ilya},
@@ -5031,7 +5434,6 @@ year={1999},
 publisher={EUDEBA}
 }
 
-
 @article{santos,
 author =       "Francisco C. Santos and Marta D. Santos and Jorge M. Pacheco",
 title =        "Social diversity promotes the emergence of cooperation in public goods games",
@@ -5041,6 +5443,7 @@ number =       "7201",
 pages =        "213-216",
 year =         "2008"
 }
+
 
 @article{schaeffer2007-checkersSolved,
 title={Checkers is solved},
@@ -5086,8 +5489,15 @@ publisher = {ACM},
 address = {New York, NY, USA},
 } 
 
+@book{segato2003-estructuras,
+  title={Las estructuras elementales de la violencia},
+  author={Segato, Rita},
+  journal={Bernal: Universidad Nacional de Quilmes},
+  year={2003}
+}
+
 @book{segato2013-colonialidad,
-  title={La cr{\'\i}tica de la colonialidad en ocho ensayos: y una antropolog{\'\i}a por demanda},
+  title={La cr{\'\i}tica de la colonialidad en ocho ensayos.},
   author={Segato, Rita Laura},
   year={2013},
   publisher={Prometeo libros}
@@ -5099,6 +5509,14 @@ author={Segato, Rita Laura},
 year={2016},
 publisher={Traficantes de sue{\~n}os Espa{\~n}a}
 }
+
+@book{segato2018-contraPedagogia,
+  title={Contra-pedagog{\'\i}as de la crueldad},
+  author={Segato, Rita},
+  year={2018},
+  publisher={Editorial Prometeo}
+}
+
 
 @incollection{selye1975-homeostasisHeterostasis,
 title={Homeostasis and heterostasis},
@@ -5120,6 +5538,17 @@ year={2016},
 publisher={IEEE}
 }
 
+
+@article{shalizi2009-replicatorAsInference,
+  title={Dynamics of Bayesian updating with dependent data and misspecified models},
+  author={Shalizi, Cosma Rohilla},
+  journal={Electronic Journal of Statistics},
+  volume={3},
+  pages={1039--1074},
+  year={2009},
+  publisher={Institute of Mathematical Statistics and Bernoulli Society}
+}
+
 @article{shannon1948-theoryOfCommunication,
 title={A mathematical theory of communication},
 author={Shannon, Claude Elwood},
@@ -5139,6 +5568,7 @@ year = {1998},
 pages = {428--439}
 }
 
+
 @article{shennan2001-demographyAndCulture,
   title={Demography and cultural innovation: a model and its implications for the emergence of modern human culture},
   author={Shennan, Stephen},
@@ -5148,6 +5578,17 @@ pages = {428--439}
   pages={5--16},
   year={2001},
   publisher={Cambridge University Press}
+}
+
+@article{shepherd2021-statisticalPractice,
+  title={Bringing physical reasoning into statistical practice in climate-change science},
+  author={Shepherd, Theodore G},
+  journal={Climatic Change},
+  volume={169},
+  number={1},
+  pages={1--19},
+  year={2021},
+  publisher={Springer}
 }
 
 @inproceedings{shim2010-teamPerformancePrediction,
@@ -5230,7 +5671,7 @@ YEAR={2010}
   publisher={Nature Publishing Group}
 }
 
-@article{silver2017-masteringTheGameOfGoWithoutHumanKnowledge,
+@article{Silver2017,
   title={Mastering the game of go without human knowledge},
   author={Silver, David and Schrittwieser, Julian and Simonyan, Karen and Antonoglou, Ioannis and Huang, Aja and Guez, Arthur and Hubert, Thomas and Baker, Lucas and Lai, Matthew and Bolton, Adrian and others},
   journal={Nature},
@@ -5249,7 +5690,7 @@ YEAR={2010}
   year={2017}
 }
 
-@article{silver2016-masteringGoWithDeepNeuralNetworksAndTreeSearch,
+@article{Silver2016,
   title={Mastering the game of Go with deep neural networks and tree search},
   author={Silver, David and Huang, Aja and Maddison, Chris J and Guez, Arthur and Sifre, Laurent and Van Den Driessche, George and Schrittwieser, Julian and Antonoglou, Ioannis and Panneershelvam, Veda and Lanctot, Marc and others},
   journal={Nature},
@@ -5389,7 +5830,7 @@ YEAR={2010}
   publisher={Cambridge University Press},
 }
 
-@article{smaldino2016-naturalSelectionOfBadScience,
+@article{smaldino2016-badScience,
   title={The natural selection of bad science},
   author={Smaldino, Paul E and McElreath, Richard},
   journal={Royal Society Open Science},
@@ -5497,6 +5938,17 @@ YEAR={2010}
   year = {1996}
 }
 
+@article{stephenson1989-informationCentrality,
+  title={Rethinking centrality: Methods and examples},
+  author={Stephenson, Karen and Zelen, Marvin},
+  journal={Social networks},
+  volume={11},
+  number={1},
+  pages={1--37},
+  year={1989},
+  publisher={Elsevier}
+}
+
 @article{stern1992-skillModelsEmpiricallyEquivalent,
   title={Are all linear paired comparison models empirically equivalent?},
   author={Stern, Hal},
@@ -5523,6 +5975,17 @@ YEAR={2010}
   booktitle={Proceedings of the 18th international conference on World wide web},
   pages={111--120},
   year={2009},
+}
+
+@article{stirling2010-keepItComplex,
+  title={Keep it complex},
+  author={Stirling, Andy},
+  journal={Nature},
+  volume={468},
+  number={7327},
+  pages={1029--1031},
+  year={2010},
+  publisher={Nature Publishing Group}
 }
 
 @article{strausss2014-teachingNaturally,
@@ -5563,6 +6026,27 @@ year = "2014"
 }
 
 
+@article{szathmary1995-evolutionaryTransitions,
+  title={The major evolutionary transitions},
+  author={Szathm{\'a}ry, E{\"o}rs and Maynard Smith, John},
+  journal={Nature},
+  volume={374},
+  number={6519},
+  pages={227--232},
+  year={1995},
+  publisher={Nature Publishing Group}
+}
+
+@article{szathmary2015-evolutionaryTransitions,
+  title={Toward major evolutionary transitions theory 2.0},
+  author={Szathm{\'a}ry, E{\"o}rs},
+  journal={Proceedings of the National Academy of Sciences},
+  volume={112},
+  number={33},
+  pages={10104--10111},
+  year={2015},
+  publisher={National Acad Sciences}
+}
 
 
 @article{szell2010-socialDynamicsOnlineGame,
@@ -5604,6 +6088,17 @@ year = {2012}
   journal={Alcan, Felix},
   pages={450},
   year={1890}
+}
+
+@article{taylor1978-replicatorDynamic,
+  title={Evolutionary stable strategies and game dynamics},
+  author={Taylor, Peter D and Jonker, Leo B},
+  journal={Mathematical biosciences},
+  volume={40},
+  number={1-2},
+  pages={145--156},
+  year={1978},
+  publisher={Elsevier}
 }
 
 @article{taylor2015-selectiveInference,
@@ -5663,6 +6158,17 @@ year = {2012}
   publisher={Amsterdam: North‐Holland},
 }
 
+@article{thorsby2016-polynesiaAmerica,
+  title={Genetic evidence for a contribution of native Americans to the early settlement of Rapa Nui (Easter Island)},
+  author={Thorsby, Erik},
+  journal={Frontiers in Ecology and Evolution},
+  volume={4},
+  pages={118},
+  year={2016},
+  publisher={Frontiers}
+}
+
+
 @article{thurner2012-emergenceOfLawInOnlineGame,
   author =       "Stefan Thurner and Michael Szell and Roberta Sinatra",
   title =        "Emergence of Good Conduct, Scaling and Zipf Laws in Human Behavioral Sequences in an Online World",
@@ -5674,7 +6180,7 @@ year = {2012}
 }
 
 @ARTICLE{Thurstone1927,
-  title = {Psychophysical analysis},
+  title = {Psychophysical Analysis},
   author = {Thurstone, Louis L},
   journal = AmJPsychol,
   volume = 38,
@@ -5683,7 +6189,7 @@ year = {2012}
   year = 1927,
   publisher = {The University of Illinois Press},
   doi = "10.2307/1415006",
-  issn = {00029556},
+  issn = {0002-9556},
 }
 
 
@@ -5908,7 +6414,7 @@ year = {2012}
 }
 
 @ARTICLE{VanHorn2003,
-  title = {Constructing a logic of plausible inference: a guide to cox’s theorem},
+  title = {Constructing a Logic of Plausible Inference: a Guide to Cox’s Theorem},
   author = {Van Horn, Kevin S},
   journal = IntJApproxReason,
   volume = 34,
@@ -5930,6 +6436,13 @@ year = {2012}
   pages={15337--15342},
   year={2005},
   publisher={National Acad Sciences}
+}
+
+@book{vigil2019-agriculturafamiliar,
+  title={Agricultura familiar campesina e ind\'igena en la Argentina, 2004-2017},
+  author={Vigil, Carlos},
+  publisher={Montevideo: Coprofam},
+  year={2019}
 }
 
 @article{vinyals2017-starcraft2NewChallengeForReinforcementLearning,
@@ -5969,6 +6482,20 @@ year = {2012}
   publisher={Now Publishers, Inc.}
 }
 
+@article{waldseemuller1507-universalisCosmographia,
+  title={Universalis cosmographia secundum Ptholomaei traditionem et Americi Vespucii Aliorumque Iustrationes [Material cartogr{\'a}fico]: Mapa Universal de 1507/Martinus Waldseem{\"u}ller; reproducci{\'o}n reducida y comentarios por Carlos Sanz},
+  author={Waldseem{\"u}ller, Martin and Sanz, Carlos},
+  year={1959 [1507]},
+  publisher={Madrid: Yag{\"u}es}
+}
+
+@article{waldron2010-agaRatingsSystem,
+  title={The AGA Ratings System},
+  author={Waldron, Philip},
+  year={2010},
+  url={http://usgo.org/ratings/downloads/AGARatings-Math.pdf}
+}
+
 @article{wang2013-variationalInferenceInNonconjugateModels,
   title={Variational inference in nonconjugate models},
   author={Wang, Chong and Blei, David M},
@@ -5978,6 +6505,13 @@ year = {2012}
   pages={1005--1031},
   year={2013},
   note={menciona Bayesian IRT}
+}
+
+@book{weber1905-eticaProtestante,
+  title={La {\'e}tica protestante y el esp{\'\i}ritu del capitalismo},
+  author={Weber, Max},
+  year={2012 [1905]},
+  publisher={Fondo de cultura econ{\'o}mica}
 }
  
 @inproceedings{wei2010-diffusionOfGamesInOnlineNetworks,
@@ -6229,6 +6763,13 @@ year = {2012}
  address = {Cambridge, MA, USA},
 } 
 
+@book{zaffaroni2013-cuestionCriminal,
+  title={La cuesti{\'o}n criminal},
+  author={Zaffaroni, Eugenio Ra{\'u}l and Rep, Miguel},
+  year={2013},
+  publisher={Planeta}
+}
+
 @book{zeigler,
     author    = "Bernard P Zeigler and Herbert Praehofer and Tag Gon Kim.",
     title     = "Theory of modeling and simulation: integrating discrete event and continuous complex dynamic systems ",
@@ -6237,16 +6778,20 @@ year = {2012}
     address   = ""
 }
 
-@incollection{Zermelo1929,
-  title = {The calculation of the results of a tournament as a maximum problem in the calculus of probability (translation of 1929 paper)},
+@InBook{Zermelo1929,
+  Chapter = {The Calculation of the Results of a Tournament as a Maximum Problem in the Calculus of Probability},
   author = {Zermelo, Ernst},
   editor = {Ebbinghaus, Heinz-Dieter and Kanamori, Akihiro},
-  booktitle = {Ernst Zermelo - Collected Works Volume II},
-  year = {[1929] 2013},
+  title = {Ernst Zermelo - Collected Works Volume II},
+  pages = {616--671},
+  year = {2013},
   doi = {10.1007/978-3-540-70856-8},
   isbn = {978-3-540-70856-8},
-  publisher = Springer,
-  series = "Schriftmath"
+  publisher = "Springer-Verlag",
+  address = "Berlin Heidelberg",
+  series = {Schriften der Mathematisch-naturwissenschaftlichen Klasse},
+  volume = 23,
+  note = {Translation of 1929 original paper},
 }
 
 @article{zermelo1929-maximumproblem,
