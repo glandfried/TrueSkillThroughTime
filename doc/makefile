@@ -1,17 +1,8 @@
 all: compile
 
-compile: clean pdfclean landfried-aprendizaje.pdf landfried-learning.pdf
-
-landfried-aprendizaje.pdf:
-	sed -i 's/\\entrue/\\estrue/g' article.tex
-	pdflatex article.tex
-	bibtex article.aux
-	pdflatex article.tex
-	pdflatex article.tex
-	mv article.pdf landfried-aprendizaje.pdf
+compile: clean pdfclean landfried-learning.pdf
 
 landfried-learning.pdf:
-	sed -i 's/\\estrue/\\entrue/g' article.tex
 	pdflatex article.tex
 	bibtex article.aux
 	pdflatex article.tex
