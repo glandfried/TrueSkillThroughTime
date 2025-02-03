@@ -34,8 +34,8 @@ You must decide where to do it according to the type of question, if it is parti
 
 You can find the full scientific documentation of TrueSkill Through Time packages at:
 
-0.  English. [Last version](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc/landfried-learning.pdf) 2022-10-31
-0.  Español. [Última versión](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc/landfried-aprendizaje.pdf) 2022-10-31
+0.  English. [Last version](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc/landfried-learning.pdf) 2024-11-01
+0.  Español. [Última versión](https://github.com/glandfried/TrueSkillThroughTime/releases/download/doc/landfried-aprendizaje.pdf) 2022-10-31 (Depecrated)
 
 Our paper explains all the theoretical details involved in the original [TrueSkill](https://www.microsoft.com/en-us/research/wp-content/uploads/2007/01/NIPS2006_0688.pdf) and [TrueSkill Through Time](https://www.microsoft.com/en-us/research/wp-content/uploads/2008/01/NIPS2007_0931.pdf) papers.
 
